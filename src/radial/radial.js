@@ -7,7 +7,6 @@ export class radial {
       innerRadius: 50,
       padAngle: 0,
       cornerRadius: 0,
-      padRadius: 0,
       x: 50,
       y: 50,
       colorDomain: d3.range(4),
@@ -31,7 +30,9 @@ export class radial {
     Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
-  radial(data, innerRadius, outerRadius) {
+  radial(args) {
+    const { data, pie } = args;
+    const { outerRadius, innerRadius, padAngle, cornerRadius, x, y } = this.localConfig;
     const xAxis = d3
       .scaleLinear()
       .domain([0, 100])
@@ -68,18 +69,18 @@ export class radial {
     };
     const path = d3
       .arc()
-      .cornerRadius(yAxis(this.localConfig.cornerRadius / 2))
+      .cornerRadius(yAxis(cornerRadius / 2))
       .outerRadius(yAxis(outerRadius / 2))
-      .innerRadius(yAxis(innerRadius / 2));
+      .innerRadius(yAxis(pie ? 0 : innerRadius / 2));
     const arcs = this.displayGroup.append('g');
     const arc = arcs
       .selectAll('.arc')
-      .data(bandData(data, this.localConfig.padAngle))
+      .data(bandData(data, padAngle))
       .enter()
       .append('g')
       .attr('class', 'arc')
       .attr('stroke', 'black')
-      .attr('transform', 'translate(' + xAxis(this.localConfig.x) + ',' + yAxis(this.localConfig.y) + ')');
+      .attr('transform', 'translate(' + xAxis(x) + ',' + yAxis(y) + ')');
     arc
       .append('path')
       .attr('d', path)
@@ -88,10 +89,12 @@ export class radial {
   }
 
   pie(data) {
-    return this.radial(data, 0, this.localConfig.outerRadius);
+    const args = { data, pie: true };
+    return this.radial(args);
   }
 
   doughnut(data) {
-    return this.radial(data, this.localConfig.innerRadius, this.localConfig.outerRadius);
+    const args = { data, pie: false };
+    return this.radial(args);
   }
 }

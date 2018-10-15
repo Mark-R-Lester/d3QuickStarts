@@ -18,20 +18,22 @@ export class linePlot {
     Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
-  line(coordinates, curve) {
+  line(coordinates) {
+    const { curve } = this.localConfig;
+    const { displayAreaWidth, displayAreaHeight } = this.config;
     const xScale = d3
       .scaleLinear()
       .domain([0, d3.max(coordinates, d => +d[0])])
-      .range([0, this.config.displayAreaWidth]);
+      .range([0, displayAreaWidth]);
     const yScale = d3
       .scaleLinear()
       .domain([0, d3.max(coordinates, d => +d[1])])
-      .range([this.config.displayAreaHeight, 0]);
+      .range([displayAreaHeight, 0]);
     let line = d3
       .line(coordinates)
       .x(d => xScale(d[0]))
       .y(d => yScale(d[1]))
-      .curve(this.localConfig.curve);
+      .curve(curve);
 
     let lineGroup = this.displayGroup.append('g');
     lineGroup

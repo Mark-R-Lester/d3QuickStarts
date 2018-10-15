@@ -22,10 +22,10 @@ export class radialArea {
     Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
-  radialArea(data) {
+  radialArea(dataOuter, dataInner) {
     const angleScale = d3
       .scaleLinear()
-      .domain([0, data.length])
+      .domain([0, dataOuter.length])
       .range([0, 2 * Math.PI]);
     const radialScale = d3
       .scaleLinear()
@@ -40,10 +40,16 @@ export class radialArea {
       .domain([0, 100])
       .range([0, this.config.displayAreaHeight]);
 
-    const cdata = data.slice();
-    cdata.push(data[0]);
-    const coordinates = cdata.map((item, i) => {
-      return [angleScale(i), radialScale(item[0]), radialScale(item[1] ? item[1] : 0)];
+    const dataO = dataOuter.slice();
+    dataO.push(dataOuter[0]);
+    let dataI;
+    if (dataInner) {
+      dataI = dataInner.slice();
+      dataI.push(dataInner[0]);
+    }
+
+    const coordinates = dataO.map((item, i) => {
+      return [angleScale(i), radialScale(item[0]), radialScale(dataI ? dataI[i][0] : 0)];
     });
     const radialArea = d3
       .radialArea()

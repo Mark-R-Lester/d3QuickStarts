@@ -92,6 +92,9 @@ const radialAxis1 = new qs.radialAxis(canvas1, {
   gap: 20,
   colour: 'steelBlue'
 });
+const radialSpokes1 = new qs.radialSpokes(canvas1, {
+  colour: 'steelBlue'
+});
 const radialArea1 = new qs.radialArea(canvas1, {
   curve: curves[0],
   x: 50,
@@ -99,11 +102,13 @@ const radialArea1 = new qs.radialArea(canvas1, {
   max: 33
 });
 
-radialArea1
-  .radialArea(vals1)
-  .area.attr('fill', 'red')
-  .attr('opacity', 0.3);
-
+const area1 = radialArea1.radialArea(vals1);
+area1.area
+  .attr('fill', 'red')
+  .attr('opacity', 0.3)
+  .on('click', e => {
+    area1.area.attr('fill', 'blue');
+  });
 radialLine1
   .radialLine(vals1)
   .line.attr('stroke', 'red')
@@ -113,7 +118,5 @@ radialPoints1
   .points.attr('r', 5)
   .attr('fill', 'red');
 radialText1.horizontal(vals2);
-
 radialAxis1.rings([[0], [0], [0], [0], [33]]); //.text.attr('fill', 'red');
-radialAxis1.updateConfig({ radius: 105 });
-radialAxis1.spokes(vals2); //.text.attr('fill', 'red');
+radialSpokes1.spokes(vals2); //.text.attr('fill', 'red');

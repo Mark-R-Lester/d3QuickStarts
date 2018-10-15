@@ -90,114 +90,114 @@ export const barMulti = (() => {
         .attr('height', d => constants.yGrouped(0) - constants.yGrouped(d[1] - d[0]));
     },
 
-    // stackedSwoosh: (displayGroup, data) => {
-    //   const constants = createConstants(data);
-    //   const bars = createBars(displayGroup, data, constants.stackedData);
-    //   bars.data(constants.stackedData);
-    //   const bar = bars
-    //     .selectAll('rect')
-    //     .data(d => d)
-    //     .attr('y', config.displayAreaHeight())
-    //     .attr('height', 0)
-    //     .attr('x', (d, i) => constants.xBandScale(i))
-    //     .attr('width', constants.xBandScale.bandwidth());
-    //   bar
-    //     .transition()
-    //     .delay((d, i) => i * 60)
-    //     .attr('y', d => constants.yStacked(d[1]))
-    //     .attr('height', d => constants.yStacked(d[0]) - constants.yStacked(d[1]));
-    //   return bars;
-    // },
+    stackedSwoosh: (displayGroup, data) => {
+      const constants = createConstants(data);
+      const bars = createBars(displayGroup, data, constants.stackedData);
+      bars.data(constants.stackedData);
+      const bar = bars
+        .selectAll('rect')
+        .data(d => d)
+        .attr('y', config.displayAreaHeight())
+        .attr('height', 0)
+        .attr('x', (d, i) => constants.xBandScale(i))
+        .attr('width', constants.xBandScale.bandwidth());
+      bar
+        .transition()
+        .delay((d, i) => i * 60)
+        .attr('y', d => constants.yStacked(d[1]))
+        .attr('height', d => constants.yStacked(d[0]) - constants.yStacked(d[1]));
+      return bars;
+    },
 
-    // groupedSwoosh: (displayGroup, data) => {
-    //   const constants = createConstants(data);
-    //   const bars = createBars(displayGroup, data, constants.stackedData);
-    //   bars.data(constants.stackedData);
-    //   const bar = bars
-    //     .selectAll('rect')
-    //     .data(d => d)
-    //     .attr('y', config.displayAreaHeight())
-    //     .attr('height', 0)
-    //     .attr('x', function(d, i) {
-    //       return (
-    //         constants.xBandScale(i) + (constants.xBandScale.bandwidth() / constants.n) * this.parentNode.__data__.key
-    //       );
-    //     })
-    //     .attr('width', constants.xBandScale.bandwidth() / constants.n);
-    //   bar
-    //     .transition()
-    //     .delay((d, i) => i * 60)
-    //     .attr('y', d => constants.yGrouped(d[1] - d[0]))
-    //     .attr('height', d => constants.yGrouped(0) - constants.yGrouped(d[1] - d[0]));
-    // },
+    groupedSwoosh: (displayGroup, data) => {
+      const constants = createConstants(data);
+      const bars = createBars(displayGroup, data, constants.stackedData);
+      bars.data(constants.stackedData);
+      const bar = bars
+        .selectAll('rect')
+        .data(d => d)
+        .attr('y', config.displayAreaHeight())
+        .attr('height', 0)
+        .attr('x', function(d, i) {
+          return (
+            constants.xBandScale(i) + (constants.xBandScale.bandwidth() / constants.n) * this.parentNode.__data__.key
+          );
+        })
+        .attr('width', constants.xBandScale.bandwidth() / constants.n);
+      bar
+        .transition()
+        .delay((d, i) => i * 60)
+        .attr('y', d => constants.yGrouped(d[1] - d[0]))
+        .attr('height', d => constants.yGrouped(0) - constants.yGrouped(d[1] - d[0]));
+    },
 
-    // groupedTransitionalSwoosh: function(displayGroup, data) {
-    //   let grouped = false;
-    //   const constants = createConstants(data);
-    //   const bars = this.stackedSwoosh(displayGroup, data);
-    //   bars.data(constants.stackedData);
+    groupedTransitionalSwoosh: function(displayGroup, data) {
+      let grouped = false;
+      const constants = createConstants(data);
+      const bars = this.stackedSwoosh(displayGroup, data);
+      bars.data(constants.stackedData);
 
-    //   const bar = bars.selectAll('rect').data(d => d);
-    //   const transition = displayGroup.append('g');
-    //   transition
-    //     .append('rect')
-    //     .attr('class', 'transRec')
-    //     .attr('x', 0)
-    //     .attr('y', -config.marginTop() * 0.5)
-    //     .attr('width', config.marginTop() * 0.3)
-    //     .attr('height', config.marginTop() * 0.3)
-    //     .attr('fill', 'steelblue')
-    //     .on('click', transitionGroupedStacked);
-    //   transition
-    //     .append('text')
-    //     .attr('class', 'transText')
-    //     .attr('x', config.marginTop() * 0.4)
-    //     .attr('y', -config.marginTop() * 0.35)
-    //     .attr('dy', '0.32em')
-    //     .attr('dy', '0.32em')
-    //     .text('Grouped')
-    //     .style('font-size', config.marginTop() * 0.3 + 'px');
+      const bar = bars.selectAll('rect').data(d => d);
+      const transition = displayGroup.append('g');
+      transition
+        .append('rect')
+        .attr('class', 'transRec')
+        .attr('x', 0)
+        .attr('y', -config.marginTop() * 0.5)
+        .attr('width', config.marginTop() * 0.3)
+        .attr('height', config.marginTop() * 0.3)
+        .attr('fill', 'steelblue')
+        .on('click', transitionGroupedStacked);
+      transition
+        .append('text')
+        .attr('class', 'transText')
+        .attr('x', config.marginTop() * 0.4)
+        .attr('y', -config.marginTop() * 0.35)
+        .attr('dy', '0.32em')
+        .attr('dy', '0.32em')
+        .text('Grouped')
+        .style('font-size', config.marginTop() * 0.3 + 'px');
 
-    //   function transitionGroupedStacked() {
-    //     if (grouped) {
-    //       transitionStacked();
-    //       transition.select('.transText').text('Grouped');
-    //       grouped = false;
-    //     } else {
-    //       transitionGrouped();
-    //       transition.select('.transText').text('Stacked');
-    //       grouped = true;
-    //     }
-    //   }
+      function transitionGroupedStacked() {
+        if (grouped) {
+          transitionStacked();
+          transition.select('.transText').text('Grouped');
+          grouped = false;
+        } else {
+          transitionGrouped();
+          transition.select('.transText').text('Stacked');
+          grouped = true;
+        }
+      }
 
-    //   function transitionGrouped() {
-    //     bar
-    //       .transition()
-    //       .duration(500)
-    //       .delay((d, i) => i * 10)
-    //       .attr('x', function(d, i) {
-    //         return (
-    //           constants.xBandScale(i) + (constants.xBandScale.bandwidth() / constants.n) * this.parentNode.__data__.key
-    //         );
-    //       })
-    //       .attr('width', constants.xBandScale.bandwidth() / constants.n)
-    //       .transition()
-    //       .attr('y', d => constants.yGrouped(d[1] - d[0]))
-    //       .attr('height', d => constants.yGrouped(0) - constants.yGrouped(d[1] - d[0]));
-    //   }
+      function transitionGrouped() {
+        bar
+          .transition()
+          .duration(500)
+          .delay((d, i) => i * 10)
+          .attr('x', function(d, i) {
+            return (
+              constants.xBandScale(i) + (constants.xBandScale.bandwidth() / constants.n) * this.parentNode.__data__.key
+            );
+          })
+          .attr('width', constants.xBandScale.bandwidth() / constants.n)
+          .transition()
+          .attr('y', d => constants.yGrouped(d[1] - d[0]))
+          .attr('height', d => constants.yGrouped(0) - constants.yGrouped(d[1] - d[0]));
+      }
 
-    //   function transitionStacked() {
-    //     bar
-    //       .transition()
-    //       .duration(500)
-    //       .delay((d, i) => i * 10)
-    //       .attr('y', d => constants.yStacked(d[1]))
-    //       .attr('height', d => constants.yStacked(d[0]) - constants.yStacked(d[1]))
-    //       .transition()
-    //       .attr('x', (d, i) => constants.xBandScale(i))
-    //       .attr('width', constants.xBandScale.bandwidth());
-    //   }
-    // },
+      function transitionStacked() {
+        bar
+          .transition()
+          .duration(500)
+          .delay((d, i) => i * 10)
+          .attr('y', d => constants.yStacked(d[1]))
+          .attr('height', d => constants.yStacked(d[0]) - constants.yStacked(d[1]))
+          .transition()
+          .attr('x', (d, i) => constants.xBandScale(i))
+          .attr('width', constants.xBandScale.bandwidth());
+      }
+    },
 
     addTextToCells: function(displayGroup, data, bars) {
       let bar = bars

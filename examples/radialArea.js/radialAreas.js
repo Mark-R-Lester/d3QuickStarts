@@ -28,64 +28,64 @@ var vals0 = [
 ];
 
 var vals1 = [
-  [16, 15],
-  [17, 15],
-  [18, 15],
-  [20, 17],
-  [17, 16],
-  [23, 21],
-  [23, 14],
-  [20, 15],
-  [17, 16],
-  [16, 12],
-  [16, 15],
-  [17, 15],
-  [18, 15],
-  [20, 17],
-  [17, 16],
-  [16, 15],
-  [17, 15],
-  [18, 15],
-  [20, 17],
-  [17, 16],
-  [23, 21],
-  [23, 14],
-  [20, 15],
-  [17, 16],
-  [16, 12],
-  [16, 15]
+  [16],
+  [17],
+  [18],
+  [20],
+  [17],
+  [23],
+  [23],
+  [20],
+  [17],
+  [16],
+  [16],
+  [17],
+  [18],
+  [20],
+  [17],
+  [16],
+  [17],
+  [18],
+  [20],
+  [17],
+  [23],
+  [23],
+  [20],
+  [17],
+  [16],
+  [16]
 ];
 
-var vals3 = [
-  [20, 16],
-  [21, 17],
-  [19, 18],
-  [22, 20],
-  [21, 17],
-  [24, 23],
-  [24, 23],
-  [22, 20],
-  [19, 17],
-  [18, 16],
-  [17, 16],
-  [19, 17],
-  [20, 18],
-  [25, 20],
-  [19, 17],
-  [20, 16],
-  [21, 17],
-  [19, 18],
-  [22, 20],
-  [21, 17],
-  [24, 23],
-  [24, 23],
-  [22, 20],
-  [19, 17],
-  [18, 16],
-  [17, 16]
+var vals2 = [
+  [20],
+  [21],
+  [19],
+  [22],
+  [21],
+  [24],
+  [24],
+  [22],
+  [19],
+  [18],
+  [17],
+  [19],
+  [20],
+  [25],
+  [19],
+  [20],
+  [21],
+  [19],
+  [22],
+  [21],
+  [24],
+  [24],
+  [22],
+  [19],
+  [18],
+  [17]
 ];
 
-var vals2 = [[1, 20], [1, 20], [1, 20], [1, 20], [1, 20], [1, 20], [1, 20]];
+var vals3 = [[1, 20], [1, 20], [1, 20], [1, 20], [1, 20], [1, 20], [1, 20]];
 
 const data1 = [
   [1, 'a'],
@@ -121,8 +121,8 @@ this.curves = [
   d3.curveStep,
   d3.curveStepBefore,
   d3.curveStepAfter,
-  d3.curveBasisClosed,
-  d3.curveCardinalClosed,
+  d3.curveBasis,
+  d3.curveCardinal,
   d3.curveMonotoneX,
   d3.curveCatmullRom
 ];
@@ -130,7 +130,7 @@ this.curves = [
 const qs = d3qs;
 const canvas1 = qs.canvas.createCanvas('#chart', { width: 800 });
 const radialArea1 = new qs.radialArea(canvas1, {
-  curve: curves[6],
+  curve: curves[0],
   x: 50,
   y: 50,
   max: 25
@@ -139,24 +139,25 @@ const radialArea1 = new qs.radialArea(canvas1, {
 const radialText1 = new qs.radialText(canvas1, { radius: 110, fontSize: 4 });
 const text1 = new qs.text(canvas1, { fontSize: 12 });
 const radialAxis1 = new qs.radialAxis(canvas1, {
-  axisAngle: 45,
+  axisAngle: 90,
   radius: 100,
   fontSize: 3,
   gap: 20,
-  colour: 'steelBlue'
+  colour: 'steelBlue',
+  innerSpokeRadius: 5
 });
 
 radialArea1
   .radialArea(vals0)
   .area.attr('fill', 'yellow')
   .attr('opacity', 0.5);
-radialArea1.radialArea(vals1).area.attr('opacity', 0.5);
+radialArea1.radialArea(vals1, vals0).area.attr('opacity', 0.5);
 radialArea1
-  .radialArea(vals3)
+  .radialArea(vals2, vals1)
   .area.attr('fill', 'blue')
   .attr('opacity', 0.5);
 radialAxis1.rings([[0], [0], [0], [0], [10]]); //.text.attr('fill', 'red');
 radialAxis1.updateConfig({ radius: 103 });
-radialAxis1.spokes(data1); //.text.attr('fill', 'red');
+radialAxis1.spokes(data1);
 radialText1.horizontal(data1);
 text1.text([[-5, -10, 'Radial Area ']]).text.style('text-anchor', 'start');

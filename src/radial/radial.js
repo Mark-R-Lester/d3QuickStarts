@@ -31,8 +31,9 @@ export class radial {
   }
 
   radial(args) {
-    const { data, pie } = args;
-    const { outerRadius, innerRadius, padAngle, cornerRadius, x, y } = this.localConfig;
+    const meta = [];
+    const { data, pie, minimised } = args;
+    const { outerRadius, innerRadius, padAngle, cornerRadius, x, y, min, max } = this.localConfig;
     const xAxis = d3
       .scaleLinear()
       .domain([0, 100])
@@ -41,7 +42,8 @@ export class radial {
       .scaleLinear()
       .domain([0, 100])
       .range([0, this.config.displayAreaHeight]);
-    const bandData = (data, padAngle) => {
+
+    const createMeta = (data, padAngle) => {
       let shares = 0;
       data.forEach(d => {
         shares = shares + d[0];
@@ -51,50 +53,99 @@ export class radial {
       }
       const angle = (Math.PI * 2) / shares;
       let startAngle = 0;
-      return data.map((d, i) => {
-        const data = d;
-        const index = i;
-        const value = d[1] ? d[1] : d[0];
+      data.forEach((d, i) => {
         const endAngle = startAngle + angle * d[0];
-        const res = {
-          data,
-          index,
-          value,
-          startAngle: startAngle + padAngle / 2,
-          endAngle: endAngle - padAngle / 2
-        };
+        meta.push({
+          arcId: 'arc' + i,
+          arcData: {
+            data: d,
+            index: i,
+            value: d[1] ? d[1] : d[0],
+            cornerRadius: yAxis(cornerRadius / 2),
+            outerRadius: yAxis(outerRadius / 2),
+            innerRadius: yAxis(pie ? 0 : innerRadius / 2),
+            startAngle: startAngle + padAngle / 2,
+            endAngle: endAngle - padAngle / 2
+          },
+          arcDataMin: {
+            data: d,
+            index: i,
+            value: d[1] ? d[1] : d[0],
+            cornerRadius: yAxis(cornerRadius / 2),
+            outerRadius: yAxis(outerRadius / 2),
+            innerRadius: yAxis(pie ? 0 : innerRadius / 2),
+            startAngle: startAngle + padAngle / 2,
+            endAngle: startAngle + padAngle / 2 + 0.00001
+          }
+        });
         startAngle = endAngle;
-        return res;
       });
     };
+    createMeta(data, padAngle);
+
     const path = d3
       .arc()
-      .cornerRadius(yAxis(cornerRadius / 2))
-      .outerRadius(yAxis(outerRadius / 2))
-      .innerRadius(yAxis(pie ? 0 : innerRadius / 2));
+      .cornerRadius(d => d.cornerRadius)
+      .outerRadius(d => d.outerRadius)
+      .innerRadius(d => d.innerRadius)
+      .startAngle(d => d.startAngle)
+      .endAngle(d => d.endAngle);
     const arcs = this.displayGroup.append('g');
-    const arc = arcs
+    arcs
       .selectAll('.arc')
-      .data(bandData(data, padAngle))
+      .data(meta)
       .enter()
-      .append('g')
-      .attr('class', 'arc')
-      .attr('stroke', 'black')
-      .attr('transform', 'translate(' + xAxis(x) + ',' + yAxis(y) + ')');
-    arc
       .append('path')
-      .attr('d', path)
-      .attr('fill', (d, i) => this.colors(d.data[1] ? d.data[1] : i));
-    return { slices: arcs.selectAll('.arc') };
+      .attr('class', 'arc')
+      .attr('id', d => d.arcId)
+      .attr('stroke', 'black')
+      .attr('transform', 'translate(' + xAxis(x) + ',' + yAxis(y) + ')')
+      .attr('d', d => (minimised ? path(d.arcDataMin) : path(d.arcData)))
+      .attr('fill', (d, i) =>
+        this.colors(
+          minimised ? (d.arcDataMin.data[1] ? d.arcDataMin.data[1] : i) : d.arcData.data[1] ? d.arcData.data[1] : i
+        )
+      );
+
+    return {
+      slices: arcs.selectAll('.arc'),
+      meta,
+      minimise: () => {
+        arcs
+          .selectAll('.arc')
+          .data(meta)
+          // .transition()
+          // .duration(10000)
+          .attr('d', d => path(d.arcDataMin));
+      },
+      maximise: () => {
+        arcs
+          .selectAll('.arc')
+          .data(meta)
+          // .transition()
+          // .duration(10000)
+          .attr('d', d => path(d.arcData));
+      }
+    };
   }
 
   pie(data) {
-    const args = { data, pie: true };
+    const args = { data, pie: true, minimised: false };
     return this.radial(args);
   }
 
   doughnut(data) {
-    const args = { data, pie: false };
+    const args = { data, pie: false, minimised: false };
+    return this.radial(args);
+  }
+
+  pieMinimised(data) {
+    const args = { data, pie: true, minimised: true };
+    return this.radial(args);
+  }
+
+  doughnutMinimised(data) {
+    const args = { data, pie: false, minimised: true };
     return this.radial(args);
   }
 }

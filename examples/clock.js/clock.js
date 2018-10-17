@@ -29,15 +29,15 @@ const radialSpokes1 = new qs.radialSpokes(canvas1, {
 radialText1.horizontal(numbers);
 text1.text([[-5, -10, 'Clock ']]).text.style('text-anchor', 'start');
 radialSpokes1.updateConfig({ innerSpokeRadius: 95 });
-const spokes1 = radialSpokes1.spokesShrunken(vals0);
+const spokes1 = radialSpokes1.spokesMinimised(vals0);
 spokes1.spokes.attr('stroke-width', 2);
 radialSpokes1.updateConfig({ innerSpokeRadius: 90 });
-const spokes2 = radialSpokes1.spokesShrunken(vals1);
+const spokes2 = radialSpokes1.spokesMinimised(vals1);
 spokes2.spokes.attr('stroke-width', 4).attr('stroke', 'blue');
 
 window.setTimeout(function() {
-  spokes1.grow();
-  spokes2.grow();
+  spokes1.maximise();
+  spokes2.maximise();
 }, 1000);
 
 // Pure D3

@@ -143,8 +143,16 @@ const radialAxis1 = new qs.radialAxis(canvas1, {
   radius: 100,
   fontSize: 3,
   gap: 20,
-  colour: 'steelBlue',
-  innerSpokeRadius: 5
+  colour: 'blue',
+  innerRadius: 5
+});
+const radialSpokes1 = new qs.radialSpokes(canvas1, {
+  axisAngle: 90,
+  radius: 103,
+  fontSize: 3,
+  gap: 20,
+  colour: 'blue',
+  innerRadius: 22
 });
 
 radialArea1
@@ -158,6 +166,6 @@ radialArea1
   .attr('opacity', 0.5);
 radialAxis1.rings([[0], [0], [0], [0], [10]]); //.text.attr('fill', 'red');
 radialAxis1.updateConfig({ radius: 103 });
-radialAxis1.spokes(data1);
+radialSpokes1.spokes(data1);
 radialText1.horizontal(data1);
 text1.text([[-5, -10, 'Radial Area ']]).text.style('text-anchor', 'start');

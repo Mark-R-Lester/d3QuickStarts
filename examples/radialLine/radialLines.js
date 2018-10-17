@@ -118,5 +118,11 @@ radialPoints1
   .points.attr('r', 5)
   .attr('fill', 'red');
 radialText1.horizontal(vals2);
-radialAxis1.rings([[0], [0], [0], [0], [33]]); //.text.attr('fill', 'red');
+
 radialSpokes1.spokes(vals2); //.text.attr('fill', 'red');
+
+const rings1 = radialAxis1.ringsMinimised([[0], [0], [0], [0], [33]]); //.text.attr('fill', 'red');
+
+window.setTimeout(function() {
+  rings1.maximise();
+}, 1000);

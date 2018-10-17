@@ -4,11 +4,11 @@ export class radialSpokes {
     this.displayGroup = canvas.displayGroup;
     this.defaultConfig = {
       radius: 100,
-      innerSpokeRadius: 0,
+      innerRadius: 0,
       x: 50,
       y: 50,
       colour: 'black',
-      strokeWidth: 0.3
+      strokeWidth: 0.4
     };
     this.localConfig = {};
     this.resetConfig();
@@ -25,7 +25,7 @@ export class radialSpokes {
   }
 
   spokes(data, shrunken) {
-    const { radius, innerSpokeRadius, x, y, colour, strokeWidth } = this.localConfig;
+    const { radius, innerRadius, x, y, colour, strokeWidth } = this.localConfig;
     const { displayAreaHeight, displayAreaWidth } = this.config;
     const xCenter = (displayAreaWidth / 100) * x;
     const yCenter = (displayAreaHeight / 100) * y;
@@ -34,7 +34,7 @@ export class radialSpokes {
     data.map((d, i) => {
       const angle = ((Math.PI * 2) / data.length) * i;
       const outerHypotenuse = ((displayAreaHeight / 2) * radius) / 100;
-      const innerHypotenuse = ((displayAreaHeight / 2) * innerSpokeRadius) / 100;
+      const innerHypotenuse = ((displayAreaHeight / 2) * innerRadius) / 100;
       const outerX = Math.sin(angle) * outerHypotenuse + xCenter;
       const outerY = Math.cos(angle) * outerHypotenuse + yCenter;
       const innerX = Math.sin(angle) * innerHypotenuse + xCenter;
@@ -66,24 +66,26 @@ export class radialSpokes {
     return {
       spokes: lineGroup.selectAll('.axisSpoke'),
       meta,
-      grow: () => {
+      maximise: () => {
         lineGroup
           .selectAll('.axisSpoke')
           .data(meta.map(d => d.lineData))
           .transition()
+          .duration(3000)
           .attr('d', line);
       },
-      shrink: () => {
+      minimise: () => {
         lineGroup
           .selectAll('.axisSpoke')
           .data(meta.map(d => d.lineDataMin))
           .transition()
+          .duration(3000)
           .attr('d', line);
       }
     };
   }
 
-  spokesShrunken(data) {
+  spokesMinimised(data) {
     return this.spokes(data, true);
   }
 }

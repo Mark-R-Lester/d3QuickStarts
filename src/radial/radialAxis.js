@@ -28,16 +28,18 @@ export class radialAxis {
 
   rings(data, minimised) {
     const { radius, fontSize, x, y, axisAngle, gap, colour, strokeWidth } = this.localConfig;
+    const { displayAreaHeight, displayAreaWidth, min, max } = this.config;
+
     const meta = [];
     const ordinal = data.some(d => typeof d[0] === 'string' || d[0] instanceof String);
     const xAxis = d3
       .scaleLinear()
       .domain([0, 100])
-      .range([0, this.config.displayAreaWidth]);
+      .range([0, displayAreaWidth]);
     const yAxis = d3
       .scaleLinear()
       .domain([0, 100])
-      .range([0, this.config.displayAreaHeight]);
+      .range([0, displayAreaHeight]);
     let scale;
     if (ordinal) {
       scale = d3
@@ -48,7 +50,7 @@ export class radialAxis {
       scale = d3
         .scaleLinear()
         .domain([1, data.length])
-        .range([d3.min(data.map(d => d[0])), d3.max(data.map(d => d[0]))]);
+        .range([min ? min : d3.min(data.map(d => d[0])), max ? max : d3.max(data.map(d => d[0]))]);
     }
 
     const nunberOfArcs = data.length;
@@ -59,10 +61,11 @@ export class radialAxis {
         const hypotenuse = bandWidth * i;
         const x = Math.sin(radians) * hypotenuse;
         const y = Math.cos(radians) * hypotenuse * -1;
-        return [x + this.config.displayAreaWidth / 2, y + this.config.displayAreaHeight / 2];
+        return [x + displayAreaWidth / 2, y + displayAreaHeight / 2];
       };
       const sin = gap / (bandWidth * (i + 1));
       const text = scale(ordinal ? d[0] : i + 1);
+      console.log(text);
       const distinct = Math.random().toString();
 
       meta.push({
@@ -73,7 +76,7 @@ export class radialAxis {
           outerRadius: 1,
           startAngle: radians + Math.asin(sin),
           endAngle: radians + Math.PI * 2 - Math.asin(sin),
-          textLocation: [this.config.displayAreaWidth / 2, this.config.displayAreaHeight / 2],
+          textLocation: [displayAreaWidth / 2, displayAreaHeight / 2],
           text: text instanceof String ? text : Math.round(text * 10) / 10
         },
         ringData: {

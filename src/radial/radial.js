@@ -33,7 +33,7 @@ export class radial {
   radial(args) {
     const meta = [];
     const { data, pie, minimised } = args;
-    const { outerRadius, innerRadius, padAngle, cornerRadius, x, y, min, max } = this.localConfig;
+    const { outerRadius, innerRadius, padAngle, cornerRadius, x, y } = this.localConfig;
     const xAxis = d3
       .scaleLinear()
       .domain([0, 100])

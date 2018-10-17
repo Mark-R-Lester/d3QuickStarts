@@ -5,8 +5,7 @@ export class radialArea {
     this.defaultConfig = {
       curve: d3.curveLinear,
       x: 50,
-      y: 50,
-      max: 50
+      y: 50
     };
     this.localConfig = {};
     this.resetConfig();
@@ -23,22 +22,24 @@ export class radialArea {
   }
 
   radialArea(dataOuter, dataInner) {
+    const { x, y, curve } = this.localConfig;
+    const { min, max, displayAreaHeight, displayAreaWidth } = this.config;
     const angleScale = d3
       .scaleLinear()
       .domain([0, dataOuter.length])
       .range([0, 2 * Math.PI]);
     const radialScale = d3
       .scaleLinear()
-      .domain([0, this.localConfig.max])
-      .range([0, this.config.displayAreaHeight / 2]);
+      .domain([min, max])
+      .range([0, displayAreaHeight / 2]);
     const xAxis = d3
       .scaleLinear()
       .domain([0, 100])
-      .range([0, this.config.displayAreaWidth]);
+      .range([0, displayAreaWidth]);
     const yAxis = d3
       .scaleLinear()
       .domain([0, 100])
-      .range([0, this.config.displayAreaHeight]);
+      .range([0, displayAreaHeight]);
 
     const dataO = dataOuter.slice();
     dataO.push(dataOuter[0]);
@@ -49,20 +50,21 @@ export class radialArea {
     }
 
     const coordinates = dataO.map((item, i) => {
-      return [angleScale(i), radialScale(item[0]), radialScale(dataI ? dataI[i][0] : 0)];
+      return [angleScale(i), radialScale(item[0]), radialScale(dataI ? dataI[i][0] : min)];
     });
+
     const radialArea = d3
       .radialArea()
       .angle(d => d[0])
       .outerRadius(d => d[2])
       .innerRadius(d => d[1])
-      .curve(this.localConfig.curve);
+      .curve(curve);
     const area = this.displayGroup.append('g');
     area
       .append('path')
       .attr('d', radialArea(coordinates))
       .attr('fill', 'red')
-      .attr('transform', 'translate(' + xAxis(this.localConfig.x) + ',' + yAxis(this.localConfig.y) + ')');
+      .attr('transform', 'translate(' + xAxis(x) + ',' + yAxis(y) + ')');
     return { area: area.selectAll('path') };
   }
 }

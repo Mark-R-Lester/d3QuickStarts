@@ -5,7 +5,7 @@ export class barFloating {
     this.defaultConfig = {
       padding: 8,
       colorDomain: d3.range(4),
-      colorRange: d3.schemePurples[4]
+      colorRange: ['purple']
     };
     this.localConfig = {};
     this.resetConfig();
@@ -25,71 +25,109 @@ export class barFloating {
     Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
-  horizontal(data) {
-    const { min, max } = this.config;
+  bars(args) {
+    const { min, max, displayAreaWidth, displayAreaHeight } = this.config;
+    const { padding } = this.localConfig;
+    const { data, vertical, minimised } = args;
+    const meta = [];
     const bandStepScale = d3
       .scaleBand()
       .domain(d3.range(data.length))
-      .range([0, this.config.displayAreaWidth]);
+      .range([0, vertical ? displayAreaHeight : displayAreaWidth]);
     const bandWidthScale = d3
       .scaleBand()
       .domain(d3.range(data.length))
-      .range([0, this.config.displayAreaWidth])
-      .padding(this.localConfig.padding / 100);
+      .range([0, vertical ? displayAreaHeight : displayAreaWidth])
+      .padding(padding / 100);
     const heightScale = d3
       .scaleLinear()
       .domain([min, max !== 0 ? max : d3.max(data, d => d[1])])
-      .range([0, this.config.displayAreaHeight]);
-    const bars = this.displayGroup
-      .append('g')
+      .range([0, vertical ? displayAreaWidth : displayAreaHeight]);
+
+    const barSpaceing = (d, i) => {
+      const adjustmentToCorrectD3 = (bandStepScale.step() - bandWidthScale.bandwidth()) / 2;
+      return bandStepScale(i) + adjustmentToCorrectD3;
+    };
+    const x = (d, i) => (vertical ? heightScale(d[0]) : barSpaceing(d, i));
+    const y = (d, i) => (vertical ? barSpaceing(d, i) : displayAreaHeight - heightScale(d[1]));
+    const height = d => (vertical ? bandWidthScale.bandwidth() : heightScale(d[1] - d[0]));
+    const width = d => (vertical ? heightScale(d[1] - d[0]) : bandWidthScale.bandwidth());
+    const color = (d, i) => this.colors(d[1] ? d[1] : i);
+
+    data.forEach((d, i) => {
+      const barData = {
+        x: x(d, i),
+        y: y(d, i),
+        height: height(d),
+        width: width(d),
+        color: color(d, i)
+      };
+      const barDataMin = {
+        x: x(d, i),
+        y: displayAreaHeight,
+        height: 0,
+        width: width(d),
+        color: color(d, i)
+      };
+      meta.push({
+        class: 'bar',
+        id: 'bar' + i,
+        barData,
+        barDataMin
+      });
+    });
+
+    const bars = this.displayGroup.append('g');
+    bars
       .selectAll('.bar')
-      .data(data)
+      .data(meta)
       .enter()
       .append('rect')
       .attr('class', 'bar')
-      .attr('x', (d, i) => {
-        const adjustmentToCorrectD3 = (bandStepScale.step() - bandWidthScale.bandwidth()) / 2;
-        let res = bandStepScale(i);
-        return res + adjustmentToCorrectD3;
-      })
-      .attr('width', bandWidthScale.bandwidth())
-      .attr('y', d => this.config.displayAreaHeight - heightScale(d[1]))
-      .attr('height', d => heightScale(d[1] - d[0]))
-      .attr('fill', (d, i) => this.colors(d[2] ? d[2] : i));
-    return { bars: bars.selectAll('.bar') };
+      .attr('id', d => d.id)
+      .attr('x', d => (minimised ? d.barDataMin.x : d.barData.x))
+      .attr('y', d => (minimised ? d.barDataMin.y : d.barData.y))
+      .attr('width', d => (minimised ? d.barDataMin.width : d.barData.width))
+      .attr('height', d => (minimised ? d.barDataMin.height : d.barData.height))
+      .attr('fill', d => (minimised ? d.barDataMin.color : d.barData.color));
+    return {
+      selectionGroup: bars,
+      bars: bars.selectAll('.bar'),
+      meta,
+      minimise: () => {
+        bars
+          .selectAll('.bar')
+          .data(meta)
+          .transition()
+          .duration(3000)
+          .attr('height', d => d.barDataMin.height)
+          .attr('y', d => d.barDataMin.y);
+      },
+      maximise: () => {
+        bars
+          .selectAll('.bar')
+          .data(meta)
+          .transition()
+          .duration(3000)
+          .attr('height', d => d.barData.height)
+          .attr('y', d => d.barData.y);
+      }
+    };
+  }
+
+  horizontal(data) {
+    return this.bars({ data, vertical: false, minimised: false });
   }
 
   vertical(data) {
-    const { min, max } = this.config;
-    const bandStepScale = d3
-      .scaleBand()
-      .domain(d3.range(data.length))
-      .range([0, this.config.displayAreaHeight]);
-    const bandWidthScale = d3
-      .scaleBand()
-      .domain(d3.range(data.length))
-      .range([0, this.config.displayAreaHeight])
-      .padding(this.localConfig.padding / 100);
-    const heightScale = d3
-      .scaleLinear()
-      .domain([min, max !== 0 ? max : d3.max(data, d => d[1])])
-      .range([0, this.config.displayAreaWidth]);
-    const bars = this.displayGroup
-      .append('g')
-      .selectAll('.bar')
-      .data(data)
-      .enter()
-      .append('rect')
-      .attr('class', 'bar')
-      .attr('y', (d, i) => {
-        const adjustmentToCorrectD3 = (bandStepScale.step() - bandWidthScale.bandwidth()) / 2;
-        let res = bandStepScale(i);
-        return res + adjustmentToCorrectD3;
-      })
-      .attr('height', bandWidthScale.bandwidth())
-      .attr('x', d => heightScale(d[0]))
-      .attr('width', d => heightScale(d[1] - d[0]))
-      .attr('fill', (d, i) => this.colors(d[1] ? d[1] : i));
-    return { bars: bars.selectAll('.bar') };
+    return this.bars({ data, vertical: true, minimised: false });
+  }
+
+  horizontalMinimised(data) {
+    return this.bars({ data, vertical: false, minimised: true });
+  }
+
+  verticalMinimised(data) {
+    return this.bars({ data, vertical: true, minimised: true });
   }
 }

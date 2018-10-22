@@ -17,21 +17,12 @@ const qs = d3qs;
 const canvas1 = qs.canvas.createCanvas('#chart', { width: 500 });
 const radialText1 = new qs.radialText(canvas1, { radius: 110, fontSize: 4 });
 const text1 = new qs.text(canvas1, { fontSize: 12 });
-const radialSpokes1 = new qs.radialSpokes(canvas1, {
-  axisAngle: 90,
-  radius: 100,
-  fontSize: 3,
-  gap: 20,
-  colour: 'black',
-  innerSpokeRadius: 5,
-  y: 50
-});
 radialText1.horizontal(numbers);
 text1.text([[-5, -10, 'Clock ']]).text.style('text-anchor', 'start');
-radialSpokes1.updateConfig({ innerSpokeRadius: 95 });
+const radialSpokes1 = new qs.radialSpokes(canvas1, { innerRadius: 95 });
 const spokes1 = radialSpokes1.spokesMinimised(vals0);
 spokes1.spokes.attr('stroke-width', 2);
-radialSpokes1.updateConfig({ innerSpokeRadius: 90 });
+radialSpokes1.updateConfig({ innerRadius: 90 });
 const spokes2 = radialSpokes1.spokesMinimised(vals1);
 spokes2.spokes.attr('stroke-width', 4).attr('stroke', 'blue');
 

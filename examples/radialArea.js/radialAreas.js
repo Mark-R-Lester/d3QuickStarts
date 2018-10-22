@@ -128,13 +128,7 @@ this.curves = [
 ];
 
 const qs = d3qs;
-const canvas1 = qs.canvas.createCanvas('#chart', { width: 800 });
-const radialArea1 = new qs.radialArea(canvas1, {
-  curve: curves[0],
-  x: 50,
-  y: 50,
-  max: 25
-});
+const canvas1 = qs.canvas.createCanvas('#chart', { width: 800, max: 25, min: 0 });
 
 const radialText1 = new qs.radialText(canvas1, { radius: 110, fontSize: 4 });
 const text1 = new qs.text(canvas1, { fontSize: 12 });
@@ -147,14 +141,16 @@ const radialAxis1 = new qs.radialAxis(canvas1, {
   innerRadius: 5
 });
 const radialSpokes1 = new qs.radialSpokes(canvas1, {
-  axisAngle: 90,
   radius: 103,
-  fontSize: 3,
-  gap: 20,
   colour: 'blue',
   innerRadius: 22
 });
 
+const radialArea1 = new qs.radialArea(canvas1, {
+  curve: curves[0],
+  x: 50,
+  y: 50
+});
 radialArea1
   .radialArea(vals0)
   .area.attr('fill', 'yellow')
@@ -164,8 +160,9 @@ radialArea1
   .radialArea(vals2, vals1)
   .area.attr('fill', 'blue')
   .attr('opacity', 0.5);
+
 radialAxis1.rings([[0], [0], [0], [0], [10]]); //.text.attr('fill', 'red');
 radialAxis1.updateConfig({ radius: 103 });
 radialSpokes1.spokes(data1);
 radialText1.horizontal(data1);
-text1.text([[-5, -10, 'Radial Area ']]).text.style('text-anchor', 'start');
+text1.text([[-5, -10, 'Radial Areas ']]).text.style('text-anchor', 'start');

@@ -27,7 +27,7 @@ bar1.horizontal(vals1);
 axis1.xAxis(letters);
 axis1.yAxis([10, 100]);
 point1.horizontal(vals1);
-line1.horizontal([230, 230]);
+line1.horizontal([[230], [230]]);
 line1.horizontal(vals1);
 point1
   .horizontal(vals2)

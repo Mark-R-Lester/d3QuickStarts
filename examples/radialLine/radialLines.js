@@ -58,7 +58,7 @@ const radialLine1 = new qs.radialLine(canvas1, {
 const radialText1 = new qs.radialText(canvas1, { radius: 110, fontSize: 4 });
 const radialPoints1 = new qs.radialPoints(canvas1, { radius: 100 });
 const radialAxis1 = new qs.radialAxis(canvas1, {
-  axisAngle: 45,
+  axisAngle: 48,
   radius: 100,
   fontSize: 3,
   gap: 20,
@@ -75,33 +75,58 @@ const radialArea1 = new qs.radialArea(canvas1, {
 });
 
 const colours = ['blue', 'red', 'purple'];
-colours.forEach((colour, i) => {
+const areas = colours.map((colour, i) => {
   const vals = getvals(i);
-  const area1 = radialArea1.radialArea(vals);
-  area1.area
+  return {
+    area: radialArea1.radialAreaMinimised(vals),
+    line: radialLine1.radialLineMinimised(vals),
+    point: radialPoints1.radialPointsMinimised(vals)
+  };
+});
+
+areas.forEach((area, i) => {
+  area.point.points.attr('opacity', 0.3).attr('fill', colours[i]);
+  area.line.line
+    .attr('stroke', colours[i])
+    .attr('opacity', 0.3)
+    .attr('stroke-width', 3);
+  area.area.area
     .attr('fill', colours[i])
     .attr('opacity', 0.1)
     .on('click', e => {
-      area1.area.attr('fill', 'blue');
+      area.area.area.attr('fill', 'blue');
     });
-  radialLine1
-    .radialLine(vals)
-    .line.attr('stroke', colours[i])
-    .attr('opacity', 0.3)
-    .attr('stroke-width', 3);
-  radialPoints1
-    .radialPoints(vals)
-    .points.attr('r', 5)
-    .attr('opacity', 0.3)
-    .attr('fill', colours[i]);
 });
 
-radialText1.horizontal(vals2);
+const radialText = radialText1.rotatedMinimised(vals2);
+//const radialText = radialText1.followMinimised(vals2);
 
-const spokes1 = radialSpokes1.spokesMinimised(vals2); //.text.attr('fill', 'red');
-const rings1 = radialAxis1.ringsMinimised([[0], [0], [0], [0], [0], [33]]); //.text.attr('fill', 'red');
+const spokes1 = radialSpokes1.spokesMinimised(vals2);
+const rings1 = radialAxis1.ringsMinimised([[0], [0], [0], [0], [0], [33]]);
 
 window.setTimeout(function() {
   rings1.maximise();
   spokes1.maximise();
 }, 1000);
+
+window.setTimeout(function() {
+  areas.forEach((area, i) => {
+    area.area.maximise();
+  });
+}, 2000);
+
+window.setTimeout(function() {
+  areas.forEach((area, i) => {
+    area.line.maximise();
+  });
+}, 3000);
+
+window.setTimeout(function() {
+  areas.forEach((area, i) => {
+    area.point.maximise();
+  });
+}, 4000);
+
+window.setTimeout(function() {
+  radialText.maximise();
+}, 6000);

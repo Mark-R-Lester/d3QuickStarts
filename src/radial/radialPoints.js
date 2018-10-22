@@ -5,7 +5,7 @@ export class radialPoints {
     this.defaultConfig = {
       x: 50,
       y: 50,
-      pointRadius: 3
+      pointRadius: 1.2
     };
     this.localConfig = {};
     this.resetConfig();
@@ -21,9 +21,10 @@ export class radialPoints {
     Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
-  radialPoints(data) {
+  radialPoints(data, minimised) {
     const { x, y, pointRadius } = this.localConfig;
     const { min, max, displayAreaHeight, displayAreaWidth } = this.config;
+    const meta = [];
     const angleScale = d3
       .scaleLinear()
       .domain([0, data.length])
@@ -32,34 +33,63 @@ export class radialPoints {
       .scaleLinear()
       .domain([min, max])
       .range([0, displayAreaHeight / 2]);
-    const xAxis = d3
+    const xScale = d3
       .scaleLinear()
       .domain([0, 100])
       .range([0, displayAreaWidth]);
-    const yAxis = d3
+    const yScale = d3
       .scaleLinear()
       .domain([0, 100])
       .range([0, displayAreaHeight]);
 
-    const coordinates = data.map((d, i) => {
+    data.forEach((d, i) => {
       const radians = angleScale(i);
       const hypotenuse = radialScale(d[0]);
       const x = Math.sin(radians) * hypotenuse;
       const y = Math.cos(radians) * hypotenuse * -1;
-      return [x, y];
+
+      meta.push({ id: 'radialPoint' + i, class: 'radialPoint', pointData: [x, y], pointDataMin: [0, 0] });
     });
 
     const dataPoints = this.displayGroup.append('g');
     dataPoints
       .selectAll('circle')
-      .data(coordinates)
+      .data(meta)
       .enter()
       .append('circle')
-      .attr('class', 'radialPoint')
-      .attr('cx', d => d[0])
-      .attr('cy', d => d[1])
-      .attr('r', d => pointRadius)
-      .attr('transform', 'translate(' + xAxis(x) + ',' + yAxis(y) + ')');
-    return { points: dataPoints.selectAll('circle') };
+      .attr('class', d => d.class)
+      .attr('id', d => d.id)
+      .attr('cx', d => (minimised ? d.pointDataMin[0] : d.pointData[0]))
+      .attr('cy', d => (minimised ? d.pointDataMin[1] : d.pointData[1]))
+      .attr('r', minimised ? 0 : yScale(pointRadius))
+      .attr('transform', 'translate(' + xScale(x) + ',' + yScale(y) + ')');
+    return {
+      points: dataPoints.selectAll('circle'),
+      meta,
+      maximise: () => {
+        dataPoints
+          .selectAll('.radialPoint')
+          .data(meta)
+          .transition()
+          .duration(3000)
+          .attr('cx', d => d.pointData[0])
+          .attr('cy', d => d.pointData[1])
+          .attr('r', yScale(pointRadius));
+      },
+      minimise: () => {
+        dataPoints
+          .selectAll('.radialPoint')
+          .data(meta)
+          .transition()
+          .duration(3000)
+          .attr('cx', d => d.pointDataMin[0])
+          .attr('cy', d => d.pointDataMin[1])
+          .attr('r', yScale(pointRadius));
+      }
+    };
+  }
+
+  radialPointsMinimised(data) {
+    return this.radialPoints(data, true);
   }
 }

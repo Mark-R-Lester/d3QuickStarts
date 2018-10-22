@@ -21,9 +21,10 @@ export class radialLine {
     Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
-  radialLine(data) {
+  radialLine(data, minimise) {
     const { x, y, curve } = this.localConfig;
     const { min, max, displayAreaHeight, displayAreaWidth } = this.config;
+    const meta = [];
     const angleScale = d3
       .scaleLinear()
       .domain([0, data.length])
@@ -41,17 +42,46 @@ export class radialLine {
       .domain([0, 100])
       .range([0, displayAreaHeight]);
 
-    const cdata = data.slice();
-    cdata.push(data[0]);
-    const coordinates = cdata.map((item, i) => [angleScale(i), radialScale(item[0])]);
+    const dataCopy = data.slice();
+    dataCopy.push(data[0]);
+
+    meta.push({
+      class: 'circularLine',
+      id: 'circularLine',
+      lineDataMin: dataCopy.map((d, i) => [angleScale(i), 0]),
+      lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d[0])])
+    });
 
     const radialLine = d3.radialLine().curve(curve);
     const line = this.displayGroup.append('g');
     line
       .append('path')
-      .attr('d', radialLine(coordinates))
+      .attr('class', meta[0].class)
+      .attr('id', meta[0].id)
+      .attr('d', radialLine(minimise ? meta[0].lineDataMin : meta[0].lineData))
       .attr('fill', 'none')
       .attr('transform', 'translate(' + xAxis(x) + ',' + yAxis(y) + ')');
-    return { line };
+    return {
+      line,
+      meta,
+      maximise: () => {
+        line
+          .selectAll('.circularLine')
+          .transition()
+          .duration(3000)
+          .attr('d', radialLine(meta[0].lineData));
+      },
+      minimise: () => {
+        line
+          .selectAll('.circularLine')
+          .transition()
+          .duration(3000)
+          .attr('d', radialLine(meta[0].lineDataMin));
+      }
+    };
+  }
+
+  radialLineMinimised(data) {
+    return this.radialLine(data, true);
   }
 }

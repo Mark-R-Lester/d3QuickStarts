@@ -17,10 +17,12 @@ const line1 = new qs.line(canvas1);
 const axis1 = new qs.axis(canvas1);
 axis1.xAxis(letters);
 axis1.yAxis([10, 100]);
-line1
-  .horizontal(vals2, 6)
-  .line.attr('stroke', 'red')
-  .attr('stroke-width', 4);
+const lines1 = line1.horizontalMinimised(vals2, 6);
+window.setTimeout(function() {
+  lines1.maximise();
+}, 1000);
+lines1.line.attr('stroke', 'red').attr('stroke-width', 4);
+
 line1
   .horizontal(vals1, 6)
   .line.attr('stroke-linejoin', 'round')

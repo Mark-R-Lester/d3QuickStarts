@@ -65,7 +65,6 @@ export class radialAxis {
       };
       const sin = gap / (bandWidth * (i + 1));
       const text = scale(ordinal ? d[0] : i + 1);
-      console.log(text);
       const distinct = Math.random().toString();
 
       meta.push({

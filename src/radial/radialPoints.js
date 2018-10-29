@@ -1,24 +1,14 @@
-export class radialPoints {
+import { Core } from '../core/core.js';
+export class radialPoints extends Core {
   constructor(canvas, config) {
-    this.config = canvas.config;
-    this.displayGroup = canvas.displayGroup;
+    super(canvas);
     this.defaultConfig = {
       x: 50,
       y: 50,
       pointRadius: 1.2
     };
-    this.localConfig = {};
     this.resetConfig();
     this.updateConfig(config);
-  }
-
-  resetConfig() {
-    Object.keys(this.defaultConfig).forEach(key => (this.localConfig[key] = this.defaultConfig[key]));
-  }
-
-  updateConfig(config) {
-    config = config ? config : {};
-    Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
   radialPoints(data, minimised) {

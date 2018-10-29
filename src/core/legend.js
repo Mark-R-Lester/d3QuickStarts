@@ -1,3 +1,5 @@
+import { Core } from './core.js';
+
 export class legend {
   constructor(canvas, config) {
     this.config = canvas.config;

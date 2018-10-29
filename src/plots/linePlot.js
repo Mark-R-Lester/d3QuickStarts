@@ -1,21 +1,12 @@
-export class linePlot {
+import { Core } from '../core/core.js';
+export class linePlot extends Core {
   constructor(canvas, config) {
-    this.config = canvas.config;
-    this.displayGroup = canvas.displayGroup;
+    super(canvas);
     this.defaultConfig = {
       curve: d3.curveLinear
     };
-    this.localConfig = {};
     this.resetConfig();
     this.updateConfig(config);
-  }
-
-  resetConfig() {
-    Object.keys(this.defaultConfig).forEach(key => (this.localConfig[key] = this.defaultConfig[key]));
-  }
-  updateConfig(config) {
-    config = config ? config : {};
-    Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
   line(coordinates) {

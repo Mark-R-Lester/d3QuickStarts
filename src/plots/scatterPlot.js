@@ -1,19 +1,10 @@
-export class scatterPlot {
+import { Core } from '../core/core.js';
+export class scatterPlot extends Core {
   constructor(canvas, config) {
-    this.config = canvas.config;
-    this.displayGroup = canvas.displayGroup;
+    super(canvas);
     this.defaultConfig = {};
-    this.localConfig = {};
     this.resetConfig();
     this.updateConfig(config);
-  }
-
-  resetConfig() {
-    Object.keys(this.defaultConfig).forEach(key => (this.localConfig[key] = this.defaultConfig[key]));
-  }
-  updateConfig(config) {
-    config = config ? config : {};
-    Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
   addDataPoints(data) {

@@ -1,7 +1,7 @@
-export class radial {
+import { Core } from '../core/core.js';
+export class radial extends Core {
   constructor(canvas, config) {
-    this.config = canvas.config;
-    this.displayGroup = canvas.displayGroup;
+    super(canvas);
     this.defaultConfig = {
       outerRadius: 100,
       innerRadius: 50,
@@ -12,22 +12,12 @@ export class radial {
       colorDomain: d3.range(4),
       colorRange: d3.schemePurples[4]
     };
-    this.localConfig = {};
     this.resetConfig();
     this.updateConfig(config);
     this.colors = d3
       .scaleOrdinal()
       .domain(this.localConfig.colorDomain)
       .range(this.localConfig.colorRange);
-  }
-
-  resetConfig() {
-    Object.keys(this.defaultConfig).forEach(key => (this.localConfig[key] = this.defaultConfig[key]));
-  }
-
-  updateConfig(config) {
-    config = config ? config : {};
-    Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
   radial(args) {

@@ -1,7 +1,7 @@
-export class axis {
+import { Core } from '../core/core.js';
+export class axis extends Core {
   constructor(canvas, config) {
-    this.config = canvas.config;
-    this.displayGroup = canvas.displayGroup;
+    super(canvas);
     this.defaultConfig = {
       tickSize: 6,
       tickSizeInner: 6,
@@ -17,18 +17,8 @@ export class axis {
       x: 0,
       y: 0
     };
-    this.localConfig = {};
     this.resetConfig();
     this.updateConfig(config);
-  }
-
-  resetConfig() {
-    Object.keys(this.defaultConfig).forEach(key => (this.localConfig[key] = this.defaultConfig[key]));
-  }
-
-  updateConfig(config) {
-    config = config ? config : {};
-    Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
   calculateDomain(data) {

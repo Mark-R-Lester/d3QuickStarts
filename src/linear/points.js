@@ -1,22 +1,12 @@
-export class points {
+import { Core } from '../core/core.js';
+export class points extends Core {
   constructor(canvas, config) {
-    this.config = canvas.config;
-    this.displayGroup = canvas.displayGroup;
+    super(canvas);
     this.defaultConfig = {
       radius: 3
     };
-    this.localConfig = {};
     this.resetConfig();
     this.updateConfig(config);
-  }
-
-  resetConfig() {
-    Object.keys(this.defaultConfig).forEach(key => (this.localConfig[key] = this.defaultConfig[key]));
-  }
-
-  updateConfig(config) {
-    config = config ? config : {};
-    Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
   drawPoints(args) {
@@ -56,32 +46,54 @@ export class points {
       return vertical ? space : dataScale(d[1]);
     };
 
-    coordinates.forEach();
+    coordinates.forEach((d, i) => {
+      meta.push({
+        class: 'linePoint',
+        id: 'linePoint' + i,
+        pointDataMin: [x(d), dataScale(0)],
+        pointData: [x(d), y(d)],
+        radiusMin: 0,
+        radius: radius
+      });
+    });
 
     const dataPoints = this.displayGroup.append('g');
     dataPoints
       .selectAll('circle')
-      .data(coordinates)
+      .data(meta)
       .enter()
       .append('circle')
       .attr('class', 'linePoint')
-      .attr('cy', d => y(d))
-      .attr('r', d => radius);
+      .attr('id', d => d.id)
+      .attr('cy', d => {
+        return minimised ? d.pointDataMin[1] : d.pointData[1];
+      })
+      .attr('cx', d => {
+        return minimised ? d.pointDataMin[0] : d.pointData[0];
+      })
+      .attr('r', minimised ? 0 : radius);
     return {
-      points: dataPoints.selectAll('circle'),
+      points: dataPoints.selectAll('.linePoint'),
       meta,
       maximise: () => {
         dataPoints
           .selectAll('.linePoint')
-          .attr('cy', d => y(d))
-          .attr('r', d => radius);
+          .data(meta)
+          .transition()
+          .duration(3000)
+          .attr('cy', d => {
+            return d.pointData[1];
+          })
+          .attr('r', radius);
       },
       minimise: () => {
         dataPoints
           .selectAll('.linePoint')
-          .attr('cx', d => x(d))
-          .attr('cy', d => y(d))
-          .attr('r', d => radius);
+          .data(meta)
+          .transition()
+          .duration(3000)
+          .attr('cy', d => d.pointDataMin[1])
+          .attr('r', 0);
       }
     };
   }
@@ -102,19 +114,19 @@ export class points {
     return this.drawPoints({ data, vertical: true, banded: true, minimised: false });
   }
 
-  // horizontalMinimised(data) {
-  //   return this.drawPoints({ data, vertical: false, banded: false, minimised: true });
-  // }
+  horizontalMinimised(data) {
+    return this.drawPoints({ data, vertical: false, banded: false, minimised: true });
+  }
 
-  // verticalMinimised(data) {
-  //   return this.drawPoints({ data, vertical: true, banded: false, minimised: true });
-  // }
+  verticalMinimised(data) {
+    return this.drawPoints({ data, vertical: true, banded: false, minimised: true });
+  }
 
-  // horizontalBandedMinimised(data) {
-  //   return this.drawPoints({ data, vertical: false, banded: true, minimised: true });
-  // }
+  horizontalBandedMinimised(data) {
+    return this.drawPoints({ data, vertical: false, banded: true, minimised: true });
+  }
 
-  // verticalBandedMinimised(data) {
-  //   return this.drawPoints({ data, vertical: true, banded: true, minimised: true });
-  // }
+  verticalBandedMinimised(data) {
+    return this.drawPoints({ data, vertical: true, banded: true, minimised: true });
+  }
 }

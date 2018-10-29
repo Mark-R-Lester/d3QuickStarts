@@ -1,31 +1,17 @@
-export class className {
+import { Core } from '../core/core.js';
+export class Template {
   constructor(canvas, config) {
-    this.config = canvas.config;
-    this.displayGroup = canvas.displayGroup;
-    this.defaultConfig = {
-      //config values
-    };
-    this.localConfig = {};
+    super(canvas);
+    this.defaultConfig = {};
     this.resetConfig();
     this.updateConfig(config);
-    this.colors = d3
-      .scaleOrdinal()
-      .domain(this.localConfig.colorDomain)
-      .range(this.localConfig.colorRange);
   }
 
-  resetConfig() {
-    Object.keys(this.defaultConfig).forEach(key => (this.localConfig[key] = this.defaultConfig[key]));
-  }
-
-  updateConfig(config) {
-    config = config ? config : {};
-    Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
-  }
-
-  functionName(data, minimise) {
-    const meta = {};
-    const { outerRadius, innerRadius, padAngle, cornerRadius, x, y, min, max } = this.localConfig;
+  draw(args) {
+    const meta = [];
+    const { data, minimise } = args;
+    const { min, max, displayAreaWidth, displayAreaHeight } = this.config;
+    const {} = this.localConfig;
 
     const groupName = this.displayGroup.append('g');
     groupName
@@ -35,9 +21,14 @@ export class className {
       .append('g');
 
     return {
+      groupName,
       meta,
       minimise: () => {},
       maximise: () => {}
     };
+  }
+
+  functionName(data) {
+    draw({ data, minimise: false });
   }
 }

@@ -1,7 +1,7 @@
-export class radialAxis {
+import { Core } from '../core/core.js';
+export class radialAxis extends Core {
   constructor(canvas, config) {
-    this.config = canvas.config;
-    this.displayGroup = canvas.displayGroup;
+    super(canvas);
     this.defaultConfig = {
       radius: 100,
       fontSize: 4,
@@ -12,18 +12,8 @@ export class radialAxis {
       colour: 'black',
       strokeWidth: 0.3
     };
-    this.localConfig = {};
     this.resetConfig();
     this.updateConfig(config);
-  }
-
-  resetConfig() {
-    Object.keys(this.defaultConfig).forEach(key => (this.localConfig[key] = this.defaultConfig[key]));
-  }
-
-  updateConfig(config) {
-    config = config ? config : {};
-    Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
   rings(data, minimised) {

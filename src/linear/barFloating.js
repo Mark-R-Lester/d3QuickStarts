@@ -1,28 +1,18 @@
-export class barFloating {
+import { Core } from '../core/core.js';
+export class barFloating extends Core {
   constructor(canvas, config) {
-    this.config = canvas.config;
-    this.displayGroup = canvas.displayGroup;
+    super(canvas);
     this.defaultConfig = {
       padding: 8,
       colorDomain: d3.range(4),
       colorRange: ['purple']
     };
-    this.localConfig = {};
     this.resetConfig();
     this.updateConfig(config);
     this.colors = d3
       .scaleOrdinal()
       .domain(this.localConfig.colorDomain)
       .range(this.localConfig.colorRange);
-  }
-
-  resetConfig() {
-    Object.keys(this.defaultConfig).forEach(key => (this.localConfig[key] = this.defaultConfig[key]));
-  }
-
-  updateConfig(config) {
-    config = config ? config : {};
-    Object.keys(config).forEach(key => (this.localConfig[key] = config[key]));
   }
 
   bars(args) {

@@ -1,5 +1,5 @@
-import { Core } from '../core/core.js';
-export class radial extends Core {
+import { Core } from '../core/Core.js';
+export class Radial extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {
@@ -20,18 +20,19 @@ export class radial extends Core {
       .range(this.localConfig.colorRange);
   }
 
-  radial(args) {
-    const meta = [];
+  draw(args) {
     const { data, pie, minimised } = args;
     const { outerRadius, innerRadius, padAngle, cornerRadius, x, y } = this.localConfig;
+    const { displayAreaHeight, displayAreaWidth } = this.config;
+    const meta = [];
     const xAxis = d3
       .scaleLinear()
       .domain([0, 100])
-      .range([0, this.config.displayAreaWidth]);
+      .range([0, displayAreaWidth]);
     const yAxis = d3
       .scaleLinear()
       .domain([0, 100])
-      .range([0, this.config.displayAreaHeight]);
+      .range([0, displayAreaHeight]);
 
     const createMeta = (data, padAngle) => {
       let shares = 0;
@@ -46,7 +47,8 @@ export class radial extends Core {
       data.forEach((d, i) => {
         const endAngle = startAngle + angle * d[0];
         meta.push({
-          arcId: 'arc' + i,
+          class: `arc`,
+          id: `arc${this.guid()}`,
           arcData: {
             data: d,
             index: i,
@@ -80,16 +82,28 @@ export class radial extends Core {
       .innerRadius(d => d.innerRadius)
       .startAngle(d => d.startAngle)
       .endAngle(d => d.endAngle);
-    const arcs = this.displayGroup.append('g');
-    arcs
+    const group = this.displayGroup.append('g');
+
+    const interpolate = (d, t, minimise) => {
+      t = minimise ? 1 - t : t;
+      const tweenedData = {};
+      tweenedData.cornerRadius = t * d.cornerRadius;
+      tweenedData.outerRadius = t * d.outerRadius;
+      tweenedData.innerRadius = t * d.innerRadius;
+      tweenedData.startAngle = d.startAngle;
+      tweenedData.endAngle = d.endAngle;
+      return path(tweenedData);
+    };
+
+    group
       .selectAll('.arc')
       .data(meta)
       .enter()
       .append('path')
-      .attr('class', 'arc')
-      .attr('id', d => d.arcId)
+      .attr('class', d => d.class)
+      .attr('id', d => d.id)
       .attr('stroke', 'black')
-      .attr('transform', 'translate(' + xAxis(x) + ',' + yAxis(y) + ')')
+      .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
       .attr('d', d => (minimised ? path(d.arcDataMin) : path(d.arcData)))
       .attr('fill', (d, i) =>
         this.colors(
@@ -98,44 +112,45 @@ export class radial extends Core {
       );
 
     return {
-      slices: arcs.selectAll('.arc'),
+      slices: group.selectAll('.arc'),
+      group,
       meta,
       minimise: () => {
-        arcs
-          .selectAll('.arc')
+        group
+          .selectAll(`.${meta[0].class}`)
           .data(meta)
-          // .transition()
-          // .duration(10000)
-          .attr('d', d => path(d.arcDataMin));
+          .transition()
+          .duration(3000)
+          .attrTween('d', d => t => interpolate(d.arcData, t, true));
       },
       maximise: () => {
-        arcs
-          .selectAll('.arc')
+        group
+          .selectAll(`.${meta[0].class}`)
           .data(meta)
-          // .transition()
-          // .duration(10000)
-          .attr('d', d => path(d.arcData));
+          .transition()
+          .duration(3000)
+          .attrTween('d', d => t => interpolate(d.arcData, t, false));
       }
     };
   }
 
   pie(data) {
     const args = { data, pie: true, minimised: false };
-    return this.radial(args);
+    return this.draw(args);
   }
 
   doughnut(data) {
     const args = { data, pie: false, minimised: false };
-    return this.radial(args);
+    return this.draw(args);
   }
 
   pieMinimised(data) {
     const args = { data, pie: true, minimised: true };
-    return this.radial(args);
+    return this.draw(args);
   }
 
   doughnutMinimised(data) {
     const args = { data, pie: false, minimised: true };
-    return this.radial(args);
+    return this.draw(args);
   }
 }

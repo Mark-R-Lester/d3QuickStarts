@@ -1,5 +1,5 @@
-import { Core } from '../core/core.js';
-export class radialPoints extends Core {
+import { Core } from '../core/Core.js';
+export class RadialPoints extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {
@@ -38,7 +38,12 @@ export class radialPoints extends Core {
       const x = Math.sin(radians) * hypotenuse;
       const y = Math.cos(radians) * hypotenuse * -1;
 
-      meta.push({ id: 'radialPoint' + i, class: 'radialPoint', pointData: [x, y], pointDataMin: [0, 0] });
+      meta.push({
+        id: `radialPoint${this.guid()}`,
+        class: 'radialPoint',
+        pointData: [x, y],
+        pointDataMin: [0, 0]
+      });
     });
 
     const dataPoints = this.displayGroup.append('g');
@@ -52,13 +57,13 @@ export class radialPoints extends Core {
       .attr('cx', d => (minimised ? d.pointDataMin[0] : d.pointData[0]))
       .attr('cy', d => (minimised ? d.pointDataMin[1] : d.pointData[1]))
       .attr('r', minimised ? 0 : yScale(pointRadius))
-      .attr('transform', 'translate(' + xScale(x) + ',' + yScale(y) + ')');
+      .attr('transform', `translate(${xScale(x)}, ${yScale(y)})`);
     return {
       points: dataPoints.selectAll('circle'),
       meta,
       maximise: () => {
         dataPoints
-          .selectAll('.radialPoint')
+          .selectAll(`.${meta[0].class}`)
           .data(meta)
           .transition()
           .duration(3000)
@@ -68,7 +73,7 @@ export class radialPoints extends Core {
       },
       minimise: () => {
         dataPoints
-          .selectAll('.radialPoint')
+          .selectAll(`.${meta[0].class}`)
           .data(meta)
           .transition()
           .duration(3000)

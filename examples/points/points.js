@@ -35,12 +35,12 @@ point1
   .attr('fill', 'red');
 line1.horizontal(vals2, 6).line.attr('stroke', 'red');
 
-const canvas2 = qs.canvas.createCanvas('#chart', { max: 190, min: 50 });
-const point2 = new qs.points(canvas2);
-const line2 = new qs.line(canvas2, { curve: d3.curveCardinal });
-const axis2 = new qs.axis(canvas2);
-const bar2 = new qs.bar(canvas2, { padding: 80, colors: ['red'] });
-const bar21 = new qs.bar(canvas2, { padding: 5, colors: ['blue'] });
+const canvas2 = qs.canvas.createCanvas('#chart', { max: 300, min: 100 });
+const point2 = new qs.Points(canvas2);
+const line2 = new qs.Line(canvas2, { curve: d3.curveCardinal });
+const axis2 = new qs.Axis(canvas2);
+const bar2 = new qs.Bar(canvas2, { padding: 80, colors: ['red'] });
+const bar21 = new qs.Bar(canvas2, { padding: 5, colors: ['blue'] });
 bar21.horizontal(vals2);
 bar2.horizontal(vals3);
 axis2.xAxisBanded(letters);
@@ -54,10 +54,10 @@ line2
   .attr('fill', 'red');
 
 const canvas3 = qs.canvas.createCanvas('#chart', { max: 190, min: 100 });
-const point3 = new qs.points(canvas3);
-const line3 = new qs.line(canvas3, { curve: d3.curveCardinal });
-const axis3 = new qs.axis(canvas3);
-const bar3 = new qs.bar(canvas3);
+const point3 = new qs.Points(canvas3);
+const line3 = new qs.Line(canvas3, { curve: d3.curveCardinal });
+const axis3 = new qs.Axis(canvas3);
+const bar3 = new qs.Bar(canvas3);
 bar3.vertical(vals1);
 axis3.yAxis(letters);
 axis3.xAxis([0, 100]);
@@ -70,10 +70,10 @@ line3
   .attr('fill', 'red');
 
 const canvas4 = qs.canvas.createCanvas('#chart', { max: 190, min: 0 });
-const point4 = new qs.points(canvas4);
-const line4 = new qs.line(canvas4);
-const axis4 = new qs.axis(canvas4);
-const bar4 = new qs.bar(canvas4);
+const point4 = new qs.Points(canvas4);
+const line4 = new qs.Line(canvas4);
+const axis4 = new qs.Axis(canvas4);
+const bar4 = new qs.Bar(canvas4);
 bar4.vertical(vals1);
 axis4.yAxisBanded(letters);
 axis4.xAxis([0, 100]);

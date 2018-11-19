@@ -1,5 +1,5 @@
-import { Core } from '../core/core.js';
-export class linePlot extends Core {
+import { Core } from '../core/Core.js';
+export class LinePlot extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {

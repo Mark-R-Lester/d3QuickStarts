@@ -1,8 +1,9 @@
-import { Core } from '../core/core.js';
-export class axis extends Core {
+import { Core } from '../core/Core.js';
+export class Axis extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {
+      alignmentBaseline: null,
       tickSize: 6,
       tickSizeInner: 6,
       tickSizeOuter: 0,
@@ -21,13 +22,8 @@ export class axis extends Core {
     this.updateConfig(config);
   }
 
-  calculateDomain(data) {
-    const min = this.config.min;
-    const max = this.config.max !== 0 ? this.config.max : d3.max(data);
-    return [min, max];
-  }
-
-  axis(data, topOrRight, banded, isX) {
+  draw(data, topOrRight, banded, isX) {
+    const { min, max, displayAreaWidth, displayAreaHeight } = this.config;
     const {
       x,
       y,
@@ -41,11 +37,13 @@ export class axis extends Core {
       fontSize,
       textAngle,
       textAnchor,
-      hideAxisDomain
+      hideAxisDomain,
+      alignmentBaseline
     } = this.localConfig;
+    const meta = [];
 
     let scale;
-    const range = isX ? [0, this.config.displayAreaWidth] : [this.config.displayAreaHeight, 0];
+    const range = isX ? [0, displayAreaWidth] : [displayAreaHeight, 0];
     if (banded) {
       scale = d3
         .scaleBand()
@@ -60,7 +58,7 @@ export class axis extends Core {
       } else {
         scale = d3
           .scaleLinear()
-          .domain(this.calculateDomain(data))
+          .domain([min, max !== 0 ? max : d3.max(data)])
           .range(range);
       }
     }
@@ -69,23 +67,23 @@ export class axis extends Core {
     let percentRange;
     if (isX) {
       axis = topOrRight ? d3.axisTop(scale) : d3.axisBottom(scale);
-      percentRange = topOrRight ? [this.config.displayAreaHeight, 0] : [0, this.config.displayAreaHeight];
+      percentRange = topOrRight ? [displayAreaHeight, 0] : [0, displayAreaHeight];
     } else {
       axis = topOrRight ? d3.axisRight(scale) : d3.axisLeft(scale);
-      percentRange = topOrRight ? [this.config.displayAreaWidth, 0] : [0, this.config.displayAreaWidth];
+      percentRange = topOrRight ? [displayAreaWidth, 0] : [0, displayAreaWidth];
     }
     const textPercentScale = d3
       .scaleLinear()
       .domain([0, 100])
-      .range([0, this.config.displayAreaHeight]);
+      .range([0, displayAreaHeight]);
     const percentScale = d3
       .scaleLinear()
       .domain([0, 100])
       .range(percentRange);
 
     const translation = isX
-      ? 'translate(0, ' + (this.config.displayAreaHeight - percentScale(y)) + ')'
-      : 'translate(' + percentScale(x) + ',0)';
+      ? `translate(0, ${displayAreaHeight - percentScale(y)})`
+      : `translate(${percentScale(x)}, 0)`;
     axis.tickSize(tickSize);
     axis.tickSizeInner(tickSizeInner);
     axis.tickSizeOuter(tickSizeOuter);
@@ -98,9 +96,10 @@ export class axis extends Core {
     const axisText = axisGroup.selectAll('text');
     axisText
       .attr('text-anchor', textAnchor)
-      .attr('transform', 'rotate(' + textAngle + ')')
+      .attr('transform', `rotate(${textAngle})`)
       .attr('font-size', textPercentScale(fontSize))
-      .attr('font', font);
+      .attr('font', font)
+      .style('alignment-baseline', alignmentBaseline);
     if (textY) {
       axisText.attr('dy', textY);
     }
@@ -116,50 +115,50 @@ export class axis extends Core {
   }
 
   xAxis(data) {
-    return this.axis(data, false, false, true);
+    return this.draw(data, false, false, true);
   }
 
   xAxisTop(data) {
-    return this.axis(data, true, false, true);
+    return this.draw(data, true, false, true);
   }
 
   xAxisBottom(data) {
-    return this.axis(data, false, false, true);
+    return this.draw(data, false, false, true);
   }
 
   xAxisBanded(data) {
-    return this.axis(data, false, true, true);
+    return this.draw(data, false, true, true);
   }
 
   xAxisBottomBanded(data) {
-    return this.axis(data, false, true, true);
+    return this.draw(data, false, true, true);
   }
 
   xAxisTopBanded(data) {
-    return this.axis(data, true, true, true);
+    return this.draw(data, true, true, true);
   }
 
   yAxis(data) {
-    return this.axis(data, false, false, false);
+    return this.draw(data, false, false, false);
   }
 
   yAxisLeft(data) {
-    return this.axis(data, false, false, false);
+    return this.draw(data, false, false, false);
   }
 
   yAxisRight(data) {
-    return this.axis(data, true, false, false);
+    return this.draw(data, true, false, false);
   }
 
   yAxisBanded(data) {
-    return this.axis(data, false, true, false);
+    return this.draw(data, false, true, false);
   }
 
   yAxisLeftBanded(data) {
-    return this.axis(data, false, true, false);
+    return this.draw(data, false, true, false);
   }
 
   yAxisRightBanded(data) {
-    return this.axis(data, true, true, false);
+    return this.draw(data, true, true, false);
   }
 }

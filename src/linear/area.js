@@ -1,6 +1,6 @@
-import { Core } from '../core/core.js';
+import { Core } from '../core/Core.js';
 
-export class area extends Core {
+export class Area extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {
@@ -11,7 +11,7 @@ export class area extends Core {
     this.updateConfig(config);
   }
 
-  drawArea(args) {
+  draw(args) {
     const { min, max, displayAreaWidth, displayAreaHeight } = this.config;
     const { curve, color } = this.localConfig;
     const { data1, data0, minimised } = args;
@@ -21,7 +21,7 @@ export class area extends Core {
       const xVals = d3.range(0, displayAreaWidth, displayAreaWidth / data1.length);
       meta.push({
         class: 'area',
-        id: 'area' + this.guid(),
+        id: `area-${this.guid()}`,
         areaData: data1.map((d, i) => [xVals[i], d[0], data0 ? data0[i][0] : 0]),
         areaDataMin: data1.map((d, i) => [xVals[i], 0, 0])
       });
@@ -45,26 +45,27 @@ export class area extends Core {
         .y0(d => yScale(d[2]))
         .curve(curve);
 
-    const areaGroup = this.displayGroup.append('g');
-    areaGroup
+    const group = this.displayGroup.append('g');
+    group
       .append('path')
       .attr('class', meta[0].class)
       .attr('id', meta[0].id)
       .attr('d', area()(minimised ? meta[0].areaDataMin : meta[0].areaData))
       .attr('fill', color);
     return {
-      area: areaGroup.select('.area'),
+      area: group.select(`.${meta[0].class}`),
+      group,
       meta,
       minimise: () => {
-        areaGroup
-          .selectAll('#' + meta[0].id)
+        group
+          .selectAll(`.${meta[0].class}`)
           .transition()
           .duration(3000)
           .attr('d', area()(meta[0].areaDataMin));
       },
       maximise: () => {
-        areaGroup
-          .selectAll('#' + meta[0].id)
+        group
+          .selectAll(`.${meta[0].class}`)
           .transition()
           .duration(3000)
           .attr('d', area()(meta[0].areaData));
@@ -73,10 +74,10 @@ export class area extends Core {
   }
 
   horizontal(data1, data0) {
-    return this.drawArea({ data1, data0, minimised: false });
+    return this.draw({ data1, data0, minimised: false });
   }
 
   horizontalMinimised(data1, data0) {
-    return this.drawArea({ data1, data0, minimised: true });
+    return this.draw({ data1, data0, minimised: true });
   }
 }

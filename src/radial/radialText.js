@@ -1,5 +1,5 @@
-import { Core } from '../core/core.js';
-export class radialText extends Core {
+import { Core } from '../core/Core.js';
+export class RadialText extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {
@@ -12,7 +12,7 @@ export class radialText extends Core {
     this.updateConfig(config);
   }
 
-  radial(args) {
+  draw(args) {
     const { data, banded, type, minimised } = args;
     const { radius, fontSize, x, y } = this.localConfig;
     const { displayAreaHeight, displayAreaWidth } = this.config;
@@ -61,6 +61,10 @@ export class radialText extends Core {
         const value = d[1] ? d[1] : d[0];
         const endAngle = startAngle + angle * d[0];
         const res = {
+          textId: `text${this.guid()}`,
+          textClass: `text`,
+          arcId: `arc${this.guid()}`,
+          arcClass: `arc`,
           data,
           index,
           value,
@@ -86,97 +90,100 @@ export class radialText extends Core {
       textArcData: banded ? bandData(data) : pointData(data),
       textArcDataMin: banded ? bandData(data, minimised) : pointData(data, minimised)
     });
-
     const arc = d3.arc();
-    const distinct = Math.random().toString();
-    const arcs = this.displayGroup.append('g');
-    const text = this.displayGroup.append('g');
+    const group = this.displayGroup.append('g');
+    const arcs = group.append('g');
+    const text = group.append('g');
 
     if (type !== 'follow') {
       text
-        .selectAll('.arcText')
+        .selectAll(`.${meta[0].textClass}`)
         .data(minimised ? meta[0].textArcDataMin : meta[0].textArcData)
         .enter()
         .append('g')
-        .attr('transform', 'translate(' + xAxis(x) + ',' + yAxis(y) + ')')
+        .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
         .append('text')
-        .attr('class', 'arcText')
+        .attr('class', d => d.textClass)
+        .attr('id', d => d.textId)
         .attr('font-size', minimised ? 0 + 'px' : yAxis(fontSize) + 'px')
         .style('text-anchor', 'middle')
-        .attr('transform', d => 'translate(' + arc.centroid(d) + ')rotate(' + rotate(d) + ')')
+        .attr('transform', d => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`)
         .attr('dy', '0.35em')
         .text(d => (d.data[1] ? d.data[1] : d.data[0]));
     } else {
       arcs
-        .selectAll('.textArc')
+        .selectAll(`.${meta[0].arcClass}`)
         .data(minimised ? meta[0].textArcDataMin : meta[0].textArcData)
         .enter()
         .append('path')
-        .attr('class', 'textArc')
-        .attr('id', (d, i) => 'textArc_' + distinct + i)
+        .attr('class', d => d.arcClass)
+        .attr('id', d => d.arcId)
         .attr('d', arc)
         .attr('stroke-width', 0)
         .attr('fill', 'none')
-        .attr('transform', 'translate(' + xAxis(x) + ',' + yAxis(y) + ')');
+        .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`);
       text
-        .selectAll('.arcText')
+        .selectAll(`.${meta[0].textClass}`)
         .data(minimised ? meta[0].textArcDataMin : meta[0].textArcData)
         .enter()
         .append('text')
-        .attr('font-size', minimised ? 0 + 'px' : yAxis(fontSize) + 'px')
-        .attr('class', 'arcText')
+        .attr('font-size', minimised ? `${0}px` : `${yAxis(fontSize)}px`)
+        .attr('class', d => d.textClass)
+        .attr('id', d => d.textId)
         .append('textPath')
         .attr('startOffset', '25%')
         .style('text-anchor', 'middle')
-        .attr('xlink:href', (d, i) => '#textArc_' + distinct + i)
+        .attr('xlink:href', d => `#${d.arcId}`)
         .text(d => (d.data[1] ? d.data[1] : d.data[0]));
     }
     return {
       text: text.selectAll('.arcText'),
+      textArcs: arcs.selectAll('.textArc'),
+      group,
       meta,
       minimise: () => {
         if (type !== 'follow') {
           text;
           text
-            .selectAll('.arcText')
+            .selectAll('.text')
             .data(meta[0].textArcDataMin)
             .transition()
             .duration(3000)
             .attr('font-size', yAxis(fontSize) + 'px')
-            .attr('transform', d => 'translate(' + arc.centroid(d) + ')rotate(' + rotate(d) + ')');
+            .attr('transform', d => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`);
         } else {
           arcs
-            .selectAll('.textArc')
+            .selectAll('.arc')
             .data(meta[0].textArcDataMin)
             .transition()
             .duration(3000)
             .attr('d', arc);
           text
-            .selectAll('.arcText')
+            .selectAll('.text')
             .data(meta[0].textArcDataMin)
             .transition()
             .duration(3000)
-            .attr('font-size', yAxis(fontSize) + 'px');
+            .attr('font-size', `${yAxis(fontSize)}px`);
         }
       },
       maximise: () => {
         if (type !== 'follow') {
           text
-            .selectAll('.arcText')
+            .selectAll('.text')
             .data(meta[0].textArcData)
             .transition()
             .duration(3000)
             .attr('font-size', yAxis(fontSize) + 'px')
-            .attr('transform', d => 'translate(' + arc.centroid(d) + ')rotate(' + rotate(d) + ')');
+            .attr('transform', d => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`);
         } else {
           arcs
-            .selectAll('.textArc')
+            .selectAll('.arc')
             .data(meta[0].textArcData)
             .transition()
             .duration(3000)
             .attr('d', arc);
           text
-            .selectAll('.arcText')
+            .selectAll('.text')
             .data(meta[0].textArcData)
             .transition()
             .duration(3000)
@@ -187,66 +194,66 @@ export class radialText extends Core {
   }
 
   spokeMinimised(data) {
-    return this.radial({ data, banded: false, type: 'spoke', minimised: true });
+    return this.draw({ data, banded: false, type: 'spoke', minimised: true });
   }
 
   horizontalMinimised(data) {
-    return this.radial({ data, banded: false, type: 'horizontal', minimised: true });
+    return this.draw({ data, banded: false, type: 'horizontal', minimised: true });
   }
 
   rotatedMinimised(data) {
-    return this.radial({ data, banded: false, type: 'rotated', minimised: true });
+    return this.draw({ data, banded: false, type: 'rotated', minimised: true });
   }
 
   followMinimised(data) {
-    return this.radial({ data, banded: false, type: 'follow', minimised: true });
+    return this.draw({ data, banded: false, type: 'follow', minimised: true });
   }
 
   spokeBandedMinimised(data) {
-    return this.radial({ data, banded: true, type: 'spoke', minimised: true });
+    return this.draw({ data, banded: true, type: 'spoke', minimised: true });
   }
 
   horizontalBandedMinimised(data) {
-    return this.radial({ data, banded: true, type: 'horizontal', minimised: true });
+    return this.draw({ data, banded: true, type: 'horizontal', minimised: true });
   }
 
   rotatedBandedMinimised(data) {
-    return this.radial({ data, banded: true, type: 'rotated', minimised: true });
+    return this.draw({ data, banded: true, type: 'rotated', minimised: true });
   }
 
   followBandedMinimised(data) {
-    return this.radial({ data, banded: true, type: 'follow', minimised: true });
+    return this.draw({ data, banded: true, type: 'follow', minimised: true });
   }
 
   spoke(data) {
-    return this.radial({ data, banded: false, type: 'spoke', minimised: false });
+    return this.draw({ data, banded: false, type: 'spoke', minimised: false });
   }
 
   horizontal(data) {
-    return this.radial({ data, banded: false, type: 'horizontal', minimised: false });
+    return this.draw({ data, banded: false, type: 'horizontal', minimised: false });
   }
 
   rotated(data) {
-    return this.radial({ data, banded: false, type: 'rotated', minimised: false });
+    return this.draw({ data, banded: false, type: 'rotated', minimised: false });
   }
 
   follow(data) {
-    return this.radial({ data, banded: false, type: 'follow', minimised: false });
+    return this.draw({ data, banded: false, type: 'follow', minimised: false });
   }
 
   spokeBanded(data) {
-    return this.radial({ data, banded: true, type: 'spoke', minimised: false });
+    return this.draw({ data, banded: true, type: 'spoke', minimised: false });
   }
 
   horizontalBanded(data) {
-    return this.radial({ data, banded: true, type: 'horizontal', minimised: false });
+    return this.draw({ data, banded: true, type: 'horizontal', minimised: false });
   }
 
   rotatedBanded(data) {
-    return this.radial({ data, banded: true, type: 'rotated', minimised: false });
+    return this.draw({ data, banded: true, type: 'rotated', minimised: false });
   }
 
   followBanded(data) {
-    return this.radial({ data, banded: true, type: 'follow', minimised: false });
+    return this.draw({ data, banded: true, type: 'follow', minimised: false });
   }
 }

@@ -15,11 +15,11 @@ for (var i = 0; i < 12; i++) {
 
 const qs = d3qs;
 const canvas1 = qs.canvas.createCanvas('#chart', { width: 500 });
-const radialText1 = new qs.radialText(canvas1, { radius: 110, fontSize: 4 });
-const text1 = new qs.text(canvas1, { fontSize: 12 });
+const radialText1 = new qs.RadialText(canvas1, { radius: 110, fontSize: 4 });
+const text1 = new qs.Text(canvas1, { fontSize: 12 });
 radialText1.horizontal(numbers);
 text1.text([[-5, -10, 'Clock ']]).text.style('text-anchor', 'start');
-const radialSpokes1 = new qs.radialSpokes(canvas1, { innerRadius: 95 });
+const radialSpokes1 = new qs.RadialSpokes(canvas1, { innerRadius: 95 });
 const spokes1 = radialSpokes1.spokesMinimised(vals0);
 spokes1.spokes.attr('stroke-width', 2);
 radialSpokes1.updateConfig({ innerRadius: 90 });

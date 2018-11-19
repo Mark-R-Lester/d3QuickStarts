@@ -1,5 +1,5 @@
-import { Core } from '../core/core.js';
-export class line extends Core {
+import { Core } from '../core/Core.js';
+export class Line extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {
@@ -17,7 +17,7 @@ export class line extends Core {
     const yVals = d3.range(0, displayAreaHeight, displayAreaHeight / data.length);
     const coordinates = data.map((d, i) => (vertical ? [d[0], yVals[i]] : [xVals[i], d[0]]));
     const coordinatesMin = data.map((d, i) => (vertical ? [0, yVals[i]] : [xVals[i], 0]));
-    meta.push({ class: 'line', coordinates, coordinatesMin });
+    meta.push({ class: 'line', id: `line${this.guid()}`, coordinates, coordinatesMin });
 
     let spacingScale;
     if (banded) {
@@ -43,26 +43,28 @@ export class line extends Core {
       .y(d => (vertical ? spacingScale(d[1]) + bandingAdjustment : dataScale(d[1])))
       .curve(this.localConfig.curve);
 
-    const lineGroup = this.displayGroup.append('g');
-    lineGroup
+    const group = this.displayGroup.append('g');
+    group
       .append('path')
-      .attr('class', 'line')
+      .attr('class', meta[0].class)
+      .attr('id', meta[0].id)
       .attr('d', line(minimised ? coordinatesMin : coordinates))
       .attr('stroke', 'black')
       .attr('fill-opacity', '0');
     return {
-      line: lineGroup.select('.line'),
+      line: group.select(`.${meta[0].class}`),
+      group,
       meta,
       minimise: () => {
-        lineGroup
-          .selectAll('.line')
+        group
+          .selectAll(`.${meta[0].class}`)
           .transition()
           .duration(3000)
           .attr('d', line(coordinatesMin));
       },
       maximise: () => {
-        lineGroup
-          .selectAll('.line')
+        group
+          .selectAll(`.${meta[0].class}`)
           .transition()
           .duration(3000)
           .attr('d', line(coordinates));

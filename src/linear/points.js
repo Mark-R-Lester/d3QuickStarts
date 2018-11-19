@@ -1,5 +1,5 @@
-import { Core } from '../core/core.js';
-export class points extends Core {
+import { Core } from '../core/Core.js';
+export class Points extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {
@@ -48,8 +48,8 @@ export class points extends Core {
 
     coordinates.forEach((d, i) => {
       meta.push({
-        class: 'linePoint',
-        id: 'linePoint' + i,
+        class: 'point',
+        id: `point${this.guid()}`,
         pointDataMin: [x(d), dataScale(0)],
         pointData: [x(d), y(d)],
         radiusMin: 0,
@@ -57,13 +57,13 @@ export class points extends Core {
       });
     });
 
-    const dataPoints = this.displayGroup.append('g');
-    dataPoints
+    const group = this.displayGroup.append('g');
+    group
       .selectAll('circle')
       .data(meta)
       .enter()
       .append('circle')
-      .attr('class', 'linePoint')
+      .attr('class', d => d.class)
       .attr('id', d => d.id)
       .attr('cy', d => {
         return minimised ? d.pointDataMin[1] : d.pointData[1];
@@ -73,11 +73,12 @@ export class points extends Core {
       })
       .attr('r', minimised ? 0 : radius);
     return {
-      points: dataPoints.selectAll('.linePoint'),
+      points: group.selectAll(`.${meta[0].class}`),
+      group,
       meta,
       maximise: () => {
-        dataPoints
-          .selectAll('.linePoint')
+        group
+          .selectAll(`.${meta[0].class}`)
           .data(meta)
           .transition()
           .duration(3000)
@@ -87,8 +88,8 @@ export class points extends Core {
           .attr('r', radius);
       },
       minimise: () => {
-        dataPoints
-          .selectAll('.linePoint')
+        group
+          .selectAll(`.${meta[0].class}`)
           .data(meta)
           .transition()
           .duration(3000)

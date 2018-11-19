@@ -1,5 +1,5 @@
-import { Core } from '../core/core.js';
-export class barGroup extends Core {
+import { Core } from '../core/Core.js';
+export class BarGroup extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {
@@ -14,7 +14,7 @@ export class barGroup extends Core {
       .range(this.localConfig.colorRange);
   }
 
-  drawBars(args) {
+  draw(args) {
     const { min, max, displayAreaWidth, displayAreaHeight } = this.config;
     const { padding } = this.localConfig;
     const { data, grouped, minimised } = args;
@@ -39,9 +39,11 @@ export class barGroup extends Core {
     const width = () => (grouped ? xBandScale.bandwidth() / data[0].length : xBandScale.bandwidth());
 
     stackedData.forEach((d, outer) => {
+      const barIds = d.map(() => `bar${this.guid()}`);
       const data = d.map((d, inner) => {
         return {
-          id: 'bar' + inner + outer + Math.random(),
+          id: barIds[inner],
+          class: 'bar',
           x: x(outer, inner),
           y: y(d),
           height: height(d),
@@ -50,7 +52,8 @@ export class barGroup extends Core {
       });
       const dataMin = d.map((d, inner) => {
         return {
-          id: 'bar' + inner + outer,
+          id: barIds[inner],
+          class: 'bar',
           x: x(outer, inner),
           y: yScale(0),
           height: 0,
@@ -58,24 +61,28 @@ export class barGroup extends Core {
         };
       });
       meta.push({
-        class: 'bar',
+        groupId: `group${outer}`,
+        groupClass: 'bargroup',
         barData: data,
         barDataMin: dataMin
       });
     });
-    const bars = this.displayGroup
+
+    const group = this.displayGroup.append('g');
+    const barGroups = group
       .selectAll('.bargroup')
       .data(meta)
       .enter()
       .append('g')
-      .attr('class', 'bargroup')
+      .attr('class', d => d.groupClass)
+      .attr('id', d => d.groupId)
       .attr('fill', (d, i) => this.colors(i));
-    bars
+    barGroups
       .selectAll('rect')
       .data(d => (minimised ? d.barDataMin : d.barData))
       .enter()
       .append('rect')
-      .attr('class', 'bar')
+      .attr('class', d => d.class)
       .attr('id', d => d.id)
       .attr('x', d => d.x)
       .attr('y', d => d.y)
@@ -83,7 +90,9 @@ export class barGroup extends Core {
       .attr('width', d => d.width);
 
     return {
-      bars: bars.selectAll('rect'),
+      bars: barGroups.selectAll('.bar'),
+      barGroups,
+      group,
       meta,
       minimise: () => {
         const bars = this.displayGroup.selectAll('.bargroup').data(meta);
@@ -113,18 +122,18 @@ export class barGroup extends Core {
   }
 
   grouped(data) {
-    return this.drawBars({ data, grouped: true, minimised: false });
+    return this.draw({ data, grouped: true, minimised: false });
   }
 
   stacked(data) {
-    return this.drawBars({ data, grouped: false, minimised: false });
+    return this.draw({ data, grouped: false, minimised: false });
   }
 
   groupedMinimised(data) {
-    return this.drawBars({ data, grouped: true, minimised: true });
+    return this.draw({ data, grouped: true, minimised: true });
   }
 
   stackedMinimised(data) {
-    return this.drawBars({ data, grouped: false, minimised: true });
+    return this.draw({ data, grouped: false, minimised: true });
   }
 }

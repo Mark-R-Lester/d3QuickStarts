@@ -18,7 +18,7 @@ this.curves = [
 const qs = d3qs;
 
 const canvas3 = qs.canvas.createCanvas('#chart', { min: 0, max: 250 });
-const area3 = new qs.area(canvas3, { curve: curves[6], color: 'black' });
+const area3 = new qs.Area(canvas3, { curve: curves[6], color: 'black' });
 const area = area3.horizontalMinimised(vals1);
 area.area.attr('fill', 'blue').attr('fill-opacity', '0.5');
 

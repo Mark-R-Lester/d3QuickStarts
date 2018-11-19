@@ -1,5 +1,5 @@
-import { Core } from '../core/core.js';
-export class radialLine extends Core {
+import { Core } from '../core/Core.js';
+export class RadialLine extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {
@@ -36,34 +36,35 @@ export class radialLine extends Core {
     dataCopy.push(data[0]);
 
     meta.push({
-      class: 'circularLine',
-      id: 'circularLine',
+      class: 'radialLine',
+      id: 'radialLine',
       lineDataMin: dataCopy.map((d, i) => [angleScale(i), 0]),
       lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d[0])])
     });
 
     const radialLine = d3.radialLine().curve(curve);
-    const line = this.displayGroup.append('g');
-    line
+    const group = this.displayGroup.append('g');
+    group
       .append('path')
       .attr('class', meta[0].class)
       .attr('id', meta[0].id)
       .attr('d', radialLine(minimise ? meta[0].lineDataMin : meta[0].lineData))
       .attr('fill', 'none')
-      .attr('transform', 'translate(' + xAxis(x) + ',' + yAxis(y) + ')');
+      .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`);
     return {
-      line,
+      line: group.selectAll(`.${meta[0].class}`),
+      group,
       meta,
       maximise: () => {
-        line
-          .selectAll('.circularLine')
+        group
+          .selectAll(`.${meta[0].class}`)
           .transition()
           .duration(3000)
           .attr('d', radialLine(meta[0].lineData));
       },
       minimise: () => {
-        line
-          .selectAll('.circularLine')
+        group
+          .selectAll(`.${meta[0].class}`)
           .transition()
           .duration(3000)
           .attr('d', radialLine(meta[0].lineDataMin));

@@ -130,9 +130,9 @@ this.curves = [
 const qs = d3qs;
 const canvas1 = qs.canvas.createCanvas('#chart', { width: 800, max: 25, min: 0 });
 
-const radialText1 = new qs.radialText(canvas1, { radius: 110, fontSize: 4 });
-const text1 = new qs.text(canvas1, { fontSize: 12 });
-const radialAxis1 = new qs.radialAxis(canvas1, {
+const radialText1 = new qs.RadialText(canvas1, { radius: 110, fontSize: 4 });
+const text1 = new qs.Text(canvas1, { fontSize: 12 });
+const radialAxis1 = new qs.RadialAxis(canvas1, {
   axisAngle: 90,
   radius: 100,
   fontSize: 3,
@@ -140,13 +140,13 @@ const radialAxis1 = new qs.radialAxis(canvas1, {
   colour: 'blue',
   innerRadius: 5
 });
-const radialSpokes1 = new qs.radialSpokes(canvas1, {
+const radialSpokes1 = new qs.RadialSpokes(canvas1, {
   radius: 103,
   colour: 'blue',
   innerRadius: 22
 });
 
-const radialArea1 = new qs.radialArea(canvas1, {
+const radialArea1 = new qs.RadialArea(canvas1, {
   curve: curves[0],
   x: 50,
   y: 50

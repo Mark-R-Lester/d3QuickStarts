@@ -131,11 +131,11 @@ this.curves = [
 
 const qs = d3qs;
 const canvas1 = qs.canvas.createCanvas('#chart');
-plotter1 = new qs.scatterPlot(canvas1);
+plotter1 = new qs.ScatterPlot(canvas1);
 plotter1.addDataPoints(coordinates3).points.attr('fill', 'steelblue');
 
 const canvas2 = qs.canvas.createCanvas('#chart');
-plotter2 = new qs.scatterPlot(canvas2);
+plotter2 = new qs.ScatterPlot(canvas2);
 plotter2
   .addDataPoints(coordinates2)
   .points.attr('fill', 'orange')
@@ -157,14 +157,14 @@ plotter2
 plotter2.addDataPoints(coordinates1);
 
 const canvas5 = qs.canvas.createCanvas('#chart');
-plotter5 = new qs.linePlot(canvas5, { curve: d3.curveCardinal });
+plotter5 = new qs.LinePlot(canvas5, { curve: d3.curveCardinal });
 plotter5.line(coordinates5, 0);
 
 const canvas6 = qs.canvas.createCanvas('#chart');
-plotter6 = new qs.linePlot(canvas6);
+plotter6 = new qs.LinePlot(canvas6);
 plotter6.line(coordinates6, 7);
 
 const canvas7 = qs.canvas.createCanvas('#chart');
-plotter7 = new qs.linePlot(canvas7);
+plotter7 = new qs.LinePlot(canvas7);
 plotter7.line(coordinates5, 6);
 plotter7.line(coordinates7).line.attr('stroke', 'red');

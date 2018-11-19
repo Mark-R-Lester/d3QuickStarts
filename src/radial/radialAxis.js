@@ -1,5 +1,5 @@
-import { Core } from '../core/core.js';
-export class radialAxis extends Core {
+import { Core } from '../core/Core.js';
+export class RadialAxis extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {
@@ -55,11 +55,12 @@ export class radialAxis extends Core {
       };
       const sin = gap / (bandWidth * (i + 1));
       const text = scale(ordinal ? d[0] : i + 1);
-      const distinct = Math.random().toString();
 
       meta.push({
-        ringId: 'ring' + distinct + i,
-        textId: 'ringText' + distinct + i,
+        ringId: `ring${this.guid()}`,
+        textId: `ringText${this.guid()}`,
+        ringClass: `ring`,
+        textClass: `ringText`,
         ringDataMin: {
           innerRadius: 1,
           outerRadius: 1,
@@ -85,73 +86,74 @@ export class radialAxis extends Core {
       .outerRadius(d => d.outerRadius)
       .startAngle(d => d.startAngle)
       .endAngle(d => d.endAngle);
-    const axis = this.displayGroup.append('g');
-    axis
-      .selectAll('.ring')
+    const group = this.displayGroup.append('g');
+    group
+      .selectAll(`.${meta[0].ringClass}`)
       .data(meta)
       .enter()
       .append('path')
-      .attr('class', 'ring')
+      .attr('class', d => d.ringClass)
       .attr('id', d => d.ringId)
       .attr('d', d => arc(minimised ? d.ringDataMin : d.ringData))
       .attr('stroke', colour)
       .attr('stroke-width', minimised ? 0 : strokeWidth)
-      .attr('transform', 'translate(' + xAxis(x) + ',' + yAxis(y) + ')');
-    axis
+      .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`);
+    group
       .selectAll('text')
       .data(meta)
       .enter()
       .append('text')
-      .attr('class', 'ringText')
-      .attr('id', d => d.ringTextId)
+      .attr('class', d => d.textClass)
+      .attr('id', d => d.textId)
       .attr('fill', colour)
-      .attr('font-size', yAxis(minimised ? 0 : fontSize) + 'px')
+      .attr('font-size', `${yAxis(minimised ? 0 : fontSize)}px`)
       .style('text-anchor', 'middle')
       .style('alignment-baseline', 'middle')
-      .attr('transform', d => {
-        const location = minimised ? d.ringDataMin.textLocation : d.ringData.textLocation;
-        return 'translate(' + location + ')rotate(' + 0 + ')';
-      })
+      .attr(
+        'transform',
+        d => `translate(${minimised ? d.ringDataMin.textLocation : d.ringData.textLocation})rotate(${0})`
+      )
       .text(d => d.ringData.text);
 
     return {
-      text: axis.selectAll('text'),
-      rings: axis.selectAll('ring'),
+      text: group.selectAll('text'),
+      rings: group.selectAll('ring'),
+      group,
+      meta,
       minimise: () => {
-        axis
-          .selectAll('.ring')
+        group
+          .selectAll(`.${meta[0].ringClass}`)
           .data(meta)
           .transition()
           .attr('stroke-width', 0)
           .attr('d', d => arc(d.ringDataMin));
-        axis
-          .selectAll('.ringText')
+        group
+          .selectAll(`.${meta[0].textClass}`)
           .data(meta)
           .transition()
-          .attr('font-size', 0 + 'px')
+          .attr('font-size', `${0}px`)
           .attr('transform', d => {
-            return 'translate(' + d.ringDataMin.textLocation + ')';
+            return `translate(${d.ringDataMin.textLocation})`;
           });
       },
       maximise: () => {
-        axis
-          .selectAll('.ring')
+        group
+          .selectAll(`.${meta[0].ringClass}`)
           .data(meta)
           .transition()
           .duration(3000)
           .attr('stroke-width', strokeWidth)
           .attr('d', d => arc(d.ringData));
-        axis
-          .selectAll('.ringText')
+        group
+          .selectAll(`.${meta[0].textClass}`)
           .data(meta)
           .transition()
           .duration(3000)
-          .attr('font-size', yAxis(fontSize) + 'px')
+          .attr('font-size', `${yAxis(fontSize)}px`)
           .attr('transform', d => {
-            return 'translate(' + d.ringData.textLocation + ')';
+            return `translate(${d.ringData.textLocation})`;
           });
-      },
-      meta
+      }
     };
   }
 

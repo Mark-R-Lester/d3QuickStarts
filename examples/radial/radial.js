@@ -3,8 +3,8 @@ var vals2 = [[40], [25], [25], [30], [20], [7]];
 
 const qs = d3qs;
 const canvas1 = qs.canvas.createCanvas('#chart', { width: 500 });
-const circular1 = new qs.radial(canvas1, {});
-const radialText1 = new qs.radialText(canvas1, { radius: 70 });
+const circular1 = new qs.Radial(canvas1, {});
+const radialText1 = new qs.RadialText(canvas1, { radius: 70 });
 const pie1 = circular1.pieMinimised(vals1);
 pie1.slices.attr('stroke', 'none');
 
@@ -15,8 +15,8 @@ window.setTimeout(function() {
 radialText1.horizontalBanded(vals1);
 
 const canvas2 = qs.canvas.createCanvas('#chart', { width: 500 });
-const circular2 = new qs.radial(canvas2, { colorRange: ['yellow', 'orange'] });
-const radialText2 = new qs.radialText(canvas2, { radius: 70 });
+const circular2 = new qs.Radial(canvas2, { colorRange: ['yellow', 'orange'] });
+const radialText2 = new qs.RadialText(canvas2, { radius: 70 });
 circular2.doughnut(vals2);
 radialText2.followBanded(vals2).text.attr('fill', 'black');
 
@@ -72,7 +72,7 @@ const canvas4 = qs.canvas.createCanvas('#chart', {
   marginBottom: 5
 });
 
-const circular4 = new qs.radial(canvas4, {
+const circular4 = new qs.Radial(canvas4, {
   outerRadius: 90,
   innerRadius: 50,
   padAngle: 0.03,
@@ -109,7 +109,13 @@ window.setTimeout(function() {
   doughnut3.maximise();
 }, 1000);
 
-const radialText4 = new qs.radialText(canvas4, {
+window.setTimeout(function() {
+  doughnut1.minimise();
+  doughnut2.minimise();
+  doughnut3.minimise();
+}, 5000);
+
+const radialText4 = new qs.RadialText(canvas4, {
   radius: 70,
   fontSize: 4
 });

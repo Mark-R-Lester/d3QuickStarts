@@ -23,23 +23,23 @@ const vals3 = [
 const qs = d3qs;
 
 const canvas1 = qs.canvas.createCanvas('#chart');
-const bar1 = new qs.bar(canvas1);
+const bar1 = new qs.Bar(canvas1);
 const bars1 = bar1.horizontalMinimised(vals2);
 window.setTimeout(function() {
   bars1.maximise();
 }, 1000);
 
-const line1 = new qs.line(canvas1);
+const line1 = new qs.Line(canvas1);
 const line = line1.horizontalBandedMinimised(vals2);
-const points1 = new qs.points(canvas1, { radius: 7 });
+const points1 = new qs.Points(canvas1, { radius: 7 });
 const points = points1.horizontalBandedMinimised(vals2);
 points.points.attr('fill', 'green');
-const axis1 = new qs.axis(canvas1);
+const axis1 = new qs.Axis(canvas1);
 axis1.xAxisBanded([['a'], ['b'], ['c'], ['d'], ['e'], ['f'], ['g'], ['h']]);
 axis1.yAxis(vals2);
 
 const canvas2 = qs.canvas.createCanvas('#chart');
-const bar2 = new qs.bar(canvas2);
+const bar2 = new qs.Bar(canvas2);
 const bars2 = bar2.verticalMinimised(vals);
 window.setTimeout(function() {
   line.maximise();
@@ -47,12 +47,12 @@ window.setTimeout(function() {
   bars2.maximise();
 }, 1000);
 
-const axis2 = new qs.axis(canvas2);
+const axis2 = new qs.Axis(canvas2);
 axis2.yAxisBanded([['a'], ['b'], ['c'], ['d'], ['e']]);
 axis2.xAxis(vals);
 
 const canvas3 = qs.canvas.createCanvas('#chart');
-const bar3 = new qs.barGroup(canvas3);
+const bar3 = new qs.BarGroup(canvas3);
 const grouped = bar3.grouped(vals3);
 const stacked = bar3.stackedMinimised(vals3);
 
@@ -63,22 +63,19 @@ window.setTimeout(function() {
   stacked.maximise();
 }, 4000);
 
-const axis3 = new qs.axis(canvas3);
+const axis3 = new qs.Axis(canvas3);
 axis3.yAxis(vals);
 axis3.xAxisBanded([['a'], ['b'], ['c'], ['d'], ['e'], ['f'], ['g'], ['h'], ['i'], ['j'], ['k'], ['l'], ['m'], ['n']]);
 
-// const canvas4 = qs.canvas.createCanvas('#chart');
-// const bar4 = new qs.barGroup(canvas4);
-// const groups = bar4.groupedMinimised(vals3);
-// window.setTimeout(function() {
-//   groups.maximise();
-// }, 1000);
-// const axis4 = new qs.axis(canvas4);
-// axis4.yAxis(vals);
-// axis4.xAxisBanded([['a'], ['b'], ['c'], ['d'], ['e'], ['f'], ['g'], ['h'], ['i'], ['j'], ['k'], ['l'], ['m'], ['n']]);
+const canvas4 = qs.canvas.createCanvas('#chart');
+const bar4 = new qs.BarGroup(canvas4);
+const groups = bar4.grouped(vals3);
+const axis4 = new qs.Axis(canvas4);
+axis4.yAxis(vals);
+axis4.xAxisBanded([['a'], ['b'], ['c'], ['d'], ['e'], ['f'], ['g'], ['h'], ['i'], ['j'], ['k'], ['l'], ['m'], ['n']]);
 
 const canvas5 = qs.canvas.createCanvas('#chart');
-const bar5 = new qs.barFloating(canvas5);
+const bar5 = new qs.BarFloating(canvas5);
 const bars5 = bar5.horizontalMinimised(vals4);
 window.setTimeout(function() {
   bars5.maximise();
@@ -88,11 +85,11 @@ axis5.yAxis([0, 70]);
 axis5.xAxisBanded([['a'], ['b'], ['c'], ['d'], ['e']]);
 
 const canvas6 = qs.canvas.createCanvas('#chart');
-const bar6 = new qs.barFloating(canvas6);
+const bar6 = new qs.BarFloating(canvas6);
 const bars6 = bar6.verticalMinimised(vals4);
 window.setTimeout(function() {
   bars6.maximise();
 }, 1000);
-const axis6 = new qs.axis(canvas6);
+const axis6 = new qs.Axis(canvas6);
 axis6.yAxisBanded([['a'], ['b'], ['c'], ['d'], ['e']]);
 axis6.xAxis([0, 70]);

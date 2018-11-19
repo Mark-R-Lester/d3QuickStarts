@@ -1,5 +1,5 @@
-import { Core } from '../core/core.js';
-export class barFloating extends Core {
+import { Core } from '../core/Core.js';
+export class BarFloating extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {
@@ -15,7 +15,7 @@ export class barFloating extends Core {
       .range(this.localConfig.colorRange);
   }
 
-  bars(args) {
+  draw(args) {
     const { min, max, displayAreaWidth, displayAreaHeight } = this.config;
     const { padding } = this.localConfig;
     const { data, vertical, minimised } = args;
@@ -61,19 +61,18 @@ export class barFloating extends Core {
       };
       meta.push({
         class: 'bar',
-        id: 'bar' + i,
+        id: `bar-${this.guid()}`,
         barData,
         barDataMin
       });
     });
-
-    const bars = this.displayGroup.append('g');
-    bars
+    const group = this.displayGroup.append('g');
+    group
       .selectAll('.bar')
       .data(meta)
       .enter()
       .append('rect')
-      .attr('class', 'bar')
+      .attr('class', d => d.class)
       .attr('id', d => d.id)
       .attr('x', d => (minimised ? d.barDataMin.x : d.barData.x))
       .attr('y', d => (minimised ? d.barDataMin.y : d.barData.y))
@@ -81,12 +80,12 @@ export class barFloating extends Core {
       .attr('height', d => (minimised ? d.barDataMin.height : d.barData.height))
       .attr('fill', d => (minimised ? d.barDataMin.color : d.barData.color));
     return {
-      selectionGroup: bars,
-      bars: bars.selectAll('.bar'),
+      bars: group.selectAll(`.${meta[0].class}`),
+      group,
       meta,
       minimise: () => {
-        bars
-          .selectAll('.bar')
+        group
+          .selectAll(`.${meta[0].class}`)
           .data(meta)
           .transition()
           .duration(3000)
@@ -94,8 +93,8 @@ export class barFloating extends Core {
           .attr('y', d => d.barDataMin.y);
       },
       maximise: () => {
-        bars
-          .selectAll('.bar')
+        group
+          .selectAll(`.${meta[0].class}`)
           .data(meta)
           .transition()
           .duration(3000)
@@ -106,18 +105,18 @@ export class barFloating extends Core {
   }
 
   horizontal(data) {
-    return this.bars({ data, vertical: false, minimised: false });
+    return this.draw({ data, vertical: false, minimised: false });
   }
 
   vertical(data) {
-    return this.bars({ data, vertical: true, minimised: false });
+    return this.draw({ data, vertical: true, minimised: false });
   }
 
   horizontalMinimised(data) {
-    return this.bars({ data, vertical: false, minimised: true });
+    return this.draw({ data, vertical: false, minimised: true });
   }
 
   verticalMinimised(data) {
-    return this.bars({ data, vertical: true, minimised: true });
+    return this.draw({ data, vertical: true, minimised: true });
   }
 }

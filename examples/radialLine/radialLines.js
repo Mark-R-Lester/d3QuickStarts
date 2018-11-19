@@ -47,28 +47,35 @@ this.curves = [
   d3.curveMonotoneX,
   d3.curveCatmullRomClosed
 ];
-
 const qs = d3qs;
 const canvas1 = qs.canvas.createCanvas('#chart', { width: 800, max: 30, min: 0 });
-const radialLine1 = new qs.radialLine(canvas1, {
+
+const legendData = [['blue', 'good'], ['red', 'bad'], ['purple', 'ugly']];
+const legendRef = new qs.Legend(canvas1, {
+  x: 0,
+  y: 0
+});
+const legend = legendRef.legend(legendData);
+
+const radialLine1 = new qs.RadialLine(canvas1, {
   curve: curves[0],
   x: 50,
   y: 50
 });
-const radialText1 = new qs.radialText(canvas1, { radius: 110, fontSize: 4 });
-const radialPoints1 = new qs.radialPoints(canvas1, { radius: 100 });
-const radialAxis1 = new qs.radialAxis(canvas1, {
+const radialText1 = new qs.RadialText(canvas1, { radius: 110, fontSize: 4 });
+const radialPoints1 = new qs.RadialPoints(canvas1, { radius: 100 });
+const radialAxis1 = new qs.RadialAxis(canvas1, {
   axisAngle: 48,
   radius: 100,
   fontSize: 3,
   gap: 20,
   colour: 'steelBlue'
 });
-const radialSpokes1 = new qs.radialSpokes(canvas1, {
+const radialSpokes1 = new qs.RadialSpokes(canvas1, {
   colour: 'steelBlue',
   radius: 103
 });
-const radialArea1 = new qs.radialArea(canvas1, {
+const radialArea1 = new qs.RadialArea(canvas1, {
   curve: curves[0],
   x: 50,
   y: 50

@@ -1,5 +1,5 @@
 import { Core } from '../core/core.js';
-export class Template {
+export class Template extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {};
@@ -13,15 +13,16 @@ export class Template {
     const { min, max, displayAreaWidth, displayAreaHeight } = this.config;
     const {} = this.localConfig;
 
-    const groupName = this.displayGroup.append('g');
-    groupName
+    const group = this.displayGroup.append('g');
+    group
       .selectAll('.element')
       .data(data)
       .enter()
-      .append('g');
+      .append('.element');
 
     return {
-      groupName,
+      element: group.selectAll('.element'),
+      group,
       meta,
       minimise: () => {},
       maximise: () => {}
@@ -30,5 +31,9 @@ export class Template {
 
   functionName(data) {
     draw({ data, minimise: false });
+  }
+
+  functionNameMinimised(data) {
+    draw({ data, minimise: true });
   }
 }

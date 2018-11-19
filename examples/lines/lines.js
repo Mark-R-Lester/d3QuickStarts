@@ -13,8 +13,8 @@ const max = d3.max([
 
 const qs = d3qs;
 const canvas1 = qs.canvas.createCanvas('#chart', { width: 800, max: max, min: 0 });
-const line1 = new qs.line(canvas1);
-const axis1 = new qs.axis(canvas1);
+const line1 = new qs.Line(canvas1);
+const axis1 = new qs.Axis(canvas1);
 axis1.xAxis(letters);
 axis1.yAxis([10, 100]);
 const lines1 = line1.horizontalMinimised(vals2, 6);
@@ -43,13 +43,13 @@ line1
 line1.horizontal(vals5).line.attr('stroke-width', 2);
 
 const canvas2 = qs.canvas.createCanvas('#chart', { max: max, min: 0 });
-const line2 = new qs.line(canvas2, 0);
+const line2 = new qs.Line(canvas2, 0);
 line2.vertical(vals1);
 
 const canvas3 = qs.canvas.createCanvas('#chart', { max: max, min: 0 });
-const line3 = new qs.line(canvas3, 6);
+const line3 = new qs.Line(canvas3, 6);
 line3.horizontalBanded(vals1);
 
 const canvas4 = qs.canvas.createCanvas('#chart', { max: max, min: 0 });
-const line4 = new qs.line(canvas4, 6);
+const line4 = new qs.Line(canvas4, 6);
 line4.verticalBanded(vals1);

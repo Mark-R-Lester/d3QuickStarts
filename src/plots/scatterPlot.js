@@ -1,5 +1,5 @@
-import { Core } from '../core/core.js';
-export class scatterPlot extends Core {
+import { Core } from '../core/Core.js';
+export class ScatterPlot extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {};

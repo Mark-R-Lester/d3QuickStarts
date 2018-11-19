@@ -1,5 +1,5 @@
-import { Core } from '../core/core.js';
-export class radialSpokes extends Core {
+import { Core } from '../core/Core.js';
+export class RadialSpokes extends Core {
   constructor(canvas, config) {
     super(canvas);
     this.defaultConfig = {
@@ -30,6 +30,8 @@ export class radialSpokes extends Core {
       const innerX = Math.sin(angle) * innerHypotenuse + xCenter;
       const innerY = Math.cos(angle) * innerHypotenuse + yCenter;
       meta[i] = {
+        class: 'axisSpoke',
+        id: `axisSpoke${this.guid()}`,
         lineData: [[innerX, innerY], [outerX, outerY]],
         lineDataMin: [[innerX, innerY], [innerX, innerY]]
       };
@@ -40,33 +42,34 @@ export class radialSpokes extends Core {
       .x(d => d[0])
       .y(d => d[1]);
 
-    const lineGroup = this.displayGroup.append('g');
-    meta.forEach((d, i) => {
-      d.id = 'axisSpoke' + i;
-      lineGroup
-        .append('path')
-        .attr('class', 'axisSpoke')
-        .attr('id', d.id)
-        .attr('d', line(shrunken ? d.lineDataMin : d.lineData))
-        .attr('stroke', colour)
-        .attr('fill-opacity', '0')
-        .attr('stroke-width', strokeWidth);
-    });
+    const group = this.displayGroup.append('g');
+    group
+      .selectAll('path')
+      .data(meta)
+      .enter()
+      .append('path')
+      .attr('class', d => d.class)
+      .attr('id', d => d.id)
+      .attr('d', d => line(shrunken ? d.lineDataMin : d.lineData))
+      .attr('stroke', colour)
+      .attr('fill-opacity', '0')
+      .attr('stroke-width', strokeWidth);
 
     return {
-      spokes: lineGroup.selectAll('.axisSpoke'),
+      spokes: group.selectAll(`.${meta[0].class}`),
+      group,
       meta,
       maximise: () => {
-        lineGroup
-          .selectAll('.axisSpoke')
+        group
+          .selectAll(`.${meta[0].class}`)
           .data(meta.map(d => d.lineData))
           .transition()
           .duration(3000)
           .attr('d', line);
       },
       minimise: () => {
-        lineGroup
-          .selectAll('.axisSpoke')
+        group
+          .selectAll(`.${meta[0].class}`)
           .data(meta.map(d => d.lineDataMin))
           .transition()
           .duration(3000)

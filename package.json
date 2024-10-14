@@ -9,10 +9,9 @@
   },
   "scripts": {
     "format": "prettier --single-quote ",
-    "buildProd": "webpack --config webpack.config.js --mode production",
-    "buildDev": "webpack --config webpack.config.js --mode development",
-    "test": "node node_modules/mocha/bin/_mocha -R xunit-file > results.xml",
-    "mocha": "node node_modules/mocha/bin/_mocha",
+    "buildProd": "tsc",
+    "buildDev": "tsc",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest",
     "watch": "npm-watch"
   },
   "repository": {
@@ -20,23 +19,22 @@
     "url": ""
   },
   "keywords": [
-    "mocha",
     "test"
   ],
   "author": "mark lester",
   "license": "ISC",
   "dependencies": {
-    "d3": "^5.7.0"
+    "d3": "^7.9.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "mocha": "^3.4.2",
-    "npm-watch": "^0.3.0",
-    "prettier": "^1.14.2",
-    "webpack": "^4.17.1",
-    "webpack-cli": "^3.0.8"
+    "@types/d3": "^7.4.3",
+    "@types/jest": "^29.5.13",
+    "@types/uuid": "^10.0.0",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
   }
 }

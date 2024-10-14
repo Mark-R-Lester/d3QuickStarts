@@ -1,4 +1,4 @@
-function getvals(ind) {
+function getvals(ind){
   const vals = [];
   for (let i = 0; i < 26; i++) {
     let num = ((Math.random() * 10) / 10) * (10 * (ind + 1));
@@ -109,7 +109,7 @@ const radialText = radialText1.rotatedMinimised(vals2);
 //const radialText = radialText1.followMinimised(vals2);
 
 const spokes1 = radialSpokes1.spokesMinimised(vals2);
-const rings1 = radialAxis1.ringsMinimised([[0], [0], [0], [0], [0], [33]]);
+const rings1 = radialAxis1.ringsMinimised([0, 0, 0, 0, 0, 33]);
 
 window.setTimeout(function() {
   rings1.maximise();

@@ -1,0 +1,202 @@
+import d3, { scaleLinear, scaleBand, scaleOrdinal, range, schemePurples} from 'd3'
+import { Canvas, CanvasConfigStrict } from '../d3QuickStart'
+import { Selection } from 'd3-selection'
+import { v4 as uuidv4 } from 'uuid'
+import { toStrings } from '../core/conversion'
+import { findMax, findMaxSum } from '../core/max'
+
+export interface BarGroupConfig {
+  [key: string]: number | Iterable<String> | undefined
+  padding?: number
+  colorRange?: Iterable<String>
+}
+
+export interface StrictBarGroupConfig {
+  [key: string]: number | Iterable<String> | undefined
+  padding: number
+  colorRange: Iterable<String>
+}
+
+export interface BarGroupArgs {
+  data: number[][]
+  grouped: boolean
+  minimised: boolean
+}
+
+export interface BarData {
+  id: string,
+  class: string
+  x: number
+  y: number
+  height: number
+  width: number
+}
+
+export interface BarMeta {
+  groupId: string,
+  groupClass: string
+  barData: BarData[]
+  barDataMin: BarData[]
+}
+
+let n: ArrayLike<ArrayLike<number>> = [[1], [2]]
+const m: number[][] = [[1], [2]]
+n = m
+
+
+export class BarGroup {
+  canvasConfig: CanvasConfigStrict
+  canvasDisplayGroup: Selection<SVGSVGElement, unknown, HTMLElement, any>
+  config: StrictBarGroupConfig
+  colors: any
+
+  updateConfig(customConfig: BarGroupConfig) {
+    if(customConfig)
+      Object.keys(customConfig).forEach(key => (this.config[key] = customConfig[key]))
+  }
+
+  constructor(canvas: Canvas, customConfig: BarGroupConfig) {
+    this.canvasConfig = canvas.config
+    this.canvasDisplayGroup = canvas.displayGroup
+
+    this.config = {
+      colorRange: schemePurples[4],
+      padding: 8
+    }
+    this.updateConfig(customConfig)
+    this.colors = scaleOrdinal()
+      .domain(toStrings(range([...this.config.colorRange].length)))
+      .range(this.config.colorRange)
+  }
+
+  draw(args: BarGroupArgs) {
+    const { min, max, displayAreaWidth, displayAreaHeight } = this.canvasConfig
+    const { padding } = this.config
+    const { data, grouped, minimised } = args
+    const stackedData = d3.stack()
+      .keys(data[0].map((d, i) => i.toString()))
+    (d3.transpose<number>(data)).map((data, i) => data.map(([y0, y1]) => [y0, y1, i]))
+
+    const meta: BarMeta[] = []
+
+    const yScale = scaleLinear()
+      .domain([min, max !== 0 ? max :  grouped? findMax(data) : findMaxSum(data)])
+      .range([displayAreaHeight, 0])
+
+    const xBandScale = scaleBand()
+      .domain(toStrings(range(data.length)))
+      .range([0, displayAreaWidth])
+      .paddingInner(padding / 200)
+      .paddingOuter(padding / 200)
+
+    const y = (d: number[]): number => (grouped ? yScale(d[1] - d[0]) : yScale(d[1]))
+    const x = (outer: number, inner: string): number => {
+      //TODO requires error handling
+      const bandVal = xBandScale(inner) 
+      if (bandVal)
+        return grouped ? bandVal + (xBandScale.bandwidth() / data[0].length) * outer : bandVal
+      return 0
+    }
+    
+    const height = (d: number[]) => (grouped ? yScale(0) - yScale(d[1] - d[0]) : yScale(d[0]) - yScale(d[1]))
+    const width = () => (grouped ? xBandScale.bandwidth() / data[0].length : xBandScale.bandwidth())
+
+    stackedData.forEach((d, outer) => {
+      const barIds = d.map(() => `bar${uuidv4()}`)
+      const data: BarData[] = d.map((d, inner):BarData => {
+        return {
+          id: barIds[inner],
+          class: 'bar',
+          x: x(outer, inner.toString()),
+          y: y(d),
+          height: height(d),
+          width: width()
+        }
+      })
+      const dataMin: BarData[] = d.map((d, inner):BarData => {
+        return {
+          id: barIds[inner],
+          class: 'bar',
+          x: x(outer, inner.toString()),
+          y: yScale(0),
+          height: 0,
+          width: width()
+        }
+      })
+      meta.push({
+        groupId: `group${outer}`,
+        groupClass: 'bargroup',
+        barData: data,
+        barDataMin: dataMin
+      })
+    })
+
+    const group = this.canvasDisplayGroup.append('g')
+    const barGroups = group
+      .selectAll('.bargroup')
+      .data(meta)
+      .enter()
+      .append('g')
+      .attr('class', d => d.groupClass)
+      .attr('id', d => d.groupId)
+      .attr('fill', (d, i) => this.colors(i))
+    barGroups
+      .selectAll('rect')
+      .data(d => (minimised ? d.barDataMin : d.barData))
+      .enter()
+      .append('rect')
+      .attr('class', d => d.class)
+      .attr('id', d => d.id)
+      .attr('x', d => d.x)
+      .attr('y', d => d.y)
+      .attr('height', d => d.height)
+      .attr('width', d => d.width)
+
+    return {
+      bars: barGroups.selectAll('.bar'),
+      barGroups,
+      group,
+      meta,
+      minimise: () => {
+        const bars = this.canvasDisplayGroup.selectAll('.bargroup').data(meta)
+        bars
+          .selectAll('.bar')
+          .data(d => d.barDataMin)
+          .attr('x', d => d.x)
+          .attr('width', d => d.width)
+          .transition()
+          .duration(3000)
+          .attr('y', d => d.y)
+          .attr('height', d => d.height)
+      },
+      maximise: () => {
+        const bars = this.canvasDisplayGroup.selectAll('.bargroup').data(meta)
+        bars
+          .selectAll('.bar')
+          .data(d => d.barData)
+          .attr('x', d => d.x)
+          .attr('width', d => d.width)
+          .transition()
+          .duration(3000)
+          .attr('y', d => d.y)
+          .attr('height', d => d.height)
+      }
+    }
+  }
+
+  grouped(data: number[][]) {
+    return this.draw({ data, grouped: true, minimised: false })
+  }
+
+  stacked(data: number[][]) {
+    return this.draw({ data, grouped: false, minimised: false })
+  }
+
+  groupedMinimised(data: number[][]) {
+    return this.draw({ data, grouped: true, minimised: true })
+  }
+
+  stackedMinimised(data: number[][]) {
+    return this.draw({ data, grouped: false, minimised: true })
+  }
+}

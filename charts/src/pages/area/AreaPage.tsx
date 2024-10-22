@@ -1,6 +1,6 @@
-import { Box, Typography } from '@mui/material'
-import { Axiss, Canvas, createCanvas } from 'd3qs/d3QuickStart'
 import { useCallback, useEffect } from 'react'
+import { Axiss, Canvas, createCanvas } from 'd3qs/d3QuickStart'
+import { Box, Typography } from '@mui/material'
 
 export default function AxisPage() {
   const createChart = useCallback(() => {
@@ -33,7 +33,7 @@ export default function AxisPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Some Bars
+        Area
       </Typography>
       <Box sx={{ maxWidth: { xs: 320, sm: 480 }, bgcolor: 'white' }}>
         <div id="chart"></div>

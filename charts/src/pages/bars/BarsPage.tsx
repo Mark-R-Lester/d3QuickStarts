@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material'
 import { Axiss, Canvas, createCanvas } from 'd3qs/d3QuickStart'
 import { useCallback, useEffect } from 'react'
 
-export default function AxisPage() {
+export default function BarsPage() {
   const createChart = useCallback(() => {
     const data1: number[] = [0, 20, 20, 30, 20, 35, 0, 20, 15, 30, 10, 50]
     const data2: string[] = [
@@ -33,7 +33,7 @@ export default function AxisPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Some Bars
+        Bars
       </Typography>
       <Box sx={{ maxWidth: { xs: 320, sm: 480 }, bgcolor: 'white' }}>
         <div id="chart"></div>

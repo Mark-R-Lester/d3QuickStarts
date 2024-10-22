@@ -18,7 +18,7 @@ export const DropdownMenu: FunctionComponent<DropdownMenuProps> = ({
   routes,
 }) => {
   const navigate = useNavigate()
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const handleClick = () => {
     setOpen(!open)
   }
@@ -28,8 +28,8 @@ export const DropdownMenu: FunctionComponent<DropdownMenuProps> = ({
   }
   return (
     <>
-      <ListItemButton onClick={handleClick}>
-        <ListItemText primary={title} />
+      <ListItemButton onClick={handleClick} sx={{ backgroundColor: '#99e6ff' }}>
+        <ListItemText primary={title} sx={{ color: 'black' }} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
 

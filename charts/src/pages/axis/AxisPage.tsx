@@ -33,7 +33,7 @@ export default function AxisPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Axes
+        Axis
       </Typography>
       <Box sx={{ maxWidth: { xs: 320, sm: 480 }, bgcolor: 'white' }}>
         <div id="chart"></div>

@@ -17,14 +17,14 @@ export interface RadialConfig {
 }
 
 export interface StrictRadialConfig {
-  [key: string]: number | Iterable<unknown> | Iterable<string>  | undefined
+  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   outerRadius: number
   innerRadius: number
   padAngle: number
   cornerRadius: number
   x: number
   y: number
-  colorDomain: number[] 
+  colorDomain: number[]
   colorRange: Iterable<unknown>
 }
 
@@ -59,8 +59,10 @@ export class Radial {
   colors: ScaleOrdinal<string, unknown, never>
 
   updateConfig(customConfig: RadialConfig) {
-    if(customConfig)
-      Object.keys(customConfig).forEach(key => (this.config[key] = customConfig[key]))
+    if (customConfig)
+      Object.keys(customConfig).forEach(
+        (key) => (this.config[key] = customConfig[key])
+      )
   }
 
   constructor(canvas: Canvas, config: RadialConfig) {
@@ -75,7 +77,7 @@ export class Radial {
       x: 50,
       y: 50,
       colorDomain: range(4),
-      colorRange: schemePurples[4]
+      colorRange: schemePurples[4],
     }
     this.updateConfig(config)
     this.colors = scaleOrdinal()
@@ -85,19 +87,16 @@ export class Radial {
 
   draw(args: RadialArgs) {
     const { data, pie, minimised } = args
-    const { outerRadius, innerRadius, padAngle, cornerRadius, x, y } = this.config
+    const { outerRadius, innerRadius, padAngle, cornerRadius, x, y } =
+      this.config
     const { displayAreaHeight, displayAreaWidth } = this.canvasConfig
     const meta: RadialMeta[] = []
-    const xAxis = scaleLinear()
-      .domain([0, 100])
-      .range([0, displayAreaWidth])
-    const yAxis = scaleLinear()
-      .domain([0, 100])
-      .range([0, displayAreaHeight])
+    const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
+    const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
 
     const createMeta = (data: number[][], padAngle: number) => {
       let shares = 0
-      data.forEach(d => {
+      data.forEach((d) => {
         shares = shares + d[0]
       })
       if (data.length < 2) {
@@ -118,7 +117,7 @@ export class Radial {
             outerRadius: yAxis(outerRadius / 2),
             innerRadius: yAxis(pie ? 0 : innerRadius / 2),
             startAngle: startAngle + padAngle / 2,
-            endAngle: endAngle - padAngle / 2
+            endAngle: endAngle - padAngle / 2,
           },
           arcDataMin: {
             data: d,
@@ -128,8 +127,8 @@ export class Radial {
             outerRadius: yAxis(outerRadius / 2),
             innerRadius: yAxis(pie ? 0 : innerRadius / 2),
             startAngle: startAngle + padAngle / 2,
-            endAngle: startAngle + padAngle / 2 + 0.00001
-          }
+            endAngle: startAngle + padAngle / 2 + 0.00001,
+          },
         })
         startAngle = endAngle
       })
@@ -137,23 +136,23 @@ export class Radial {
     createMeta(data, padAngle)
 
     const path = arc<ArcData>()
-      .cornerRadius(d => d.cornerRadius)
-      .outerRadius(d => d.outerRadius)
-      .innerRadius (d => d.innerRadius)
-      .startAngle(d => d.startAngle)
-      .endAngle(d => d.endAngle)
+      .cornerRadius((d) => d.cornerRadius)
+      .outerRadius((d) => d.outerRadius)
+      .innerRadius((d) => d.innerRadius)
+      .startAngle((d) => d.startAngle)
+      .endAngle((d) => d.endAngle)
     const group = this.canvasDisplayGroup.append('g')
 
-  
-    const interpolate = (d: ArcData , t: number, minimise: boolean) => {
+    const interpolate = (d: ArcData, t: number, minimise: boolean) => {
       t = minimise ? 1 - t : t
       const tweenedData: ArcData = {
-      data: d.data,
-      cornerRadius: t * d.cornerRadius,
-      outerRadius: t * d.outerRadius,
-      innerRadius: t * d.innerRadius,
-      startAngle: d.startAngle,
-      endAngle: d.endAngle }
+        data: d.data,
+        cornerRadius: t * d.cornerRadius,
+        outerRadius: t * d.outerRadius,
+        innerRadius: t * d.innerRadius,
+        startAngle: d.startAngle,
+        endAngle: d.endAngle,
+      }
       return path(tweenedData)
     }
 
@@ -162,17 +161,24 @@ export class Radial {
       .data(meta)
       .enter()
       .append('path')
-      .attr('class', d => d.class)
-      .attr('id', d => d.id)
+      .attr('class', (d) => d.class)
+      .attr('id', (d) => d.id)
       .attr('stroke', 'black')
       .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
-      .attr('d', d => (minimised ? path(d.arcDataMin) : path(d.arcData)))
+      .attr('d', (d) => (minimised ? path(d.arcDataMin) : path(d.arcData)))
       .attr('fill', (d, i) => {
-        const res = this.colors((minimised ? (d.arcDataMin.data[1] ? d.arcDataMin.data[1] : i) : d.arcData.data[1] ? d.arcData.data[1] : i).toString())
-        if(typeof res ==='number')
-          return res
-        else
-          return i
+        const res = this.colors(
+          (minimised
+            ? d.arcDataMin.data[1]
+              ? d.arcDataMin.data[1]
+              : i
+            : d.arcData.data[1]
+              ? d.arcData.data[1]
+              : i
+          ).toString()
+        )
+        if (typeof res === 'number') return res
+        else return i
       })
 
     return {
@@ -185,7 +191,7 @@ export class Radial {
           .data(meta)
           .transition()
           .duration(3000)
-          .tween('d', d => t => interpolate(d.arcData, t, true))
+          .tween('d', (d) => (t) => interpolate(d.arcData, t, true))
       },
       maximise: () => {
         group
@@ -193,8 +199,8 @@ export class Radial {
           .data(meta)
           .transition()
           .duration(3000)
-          .tween('d', d => t => interpolate(d.arcData, t, false))
-      }
+          .tween('d', (d) => (t) => interpolate(d.arcData, t, false))
+      },
     }
   }
 

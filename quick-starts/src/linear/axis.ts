@@ -29,7 +29,7 @@ export interface AxisConfig {
   y?: number
 }
 
-export interface StrictAxisConfig {
+interface StrictAxisConfig {
   [key: string]: number | boolean | string | undefined
   alignmentBaseline: string
   tickSize: number

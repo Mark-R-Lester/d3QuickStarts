@@ -34,10 +34,12 @@ export class Text {
   canvasConfig: CanvasConfigStrict
   canvasDisplayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
   config: StrictTextConfig
- 
+
   updateConfig(customConfig: TextConfig) {
-    if(customConfig)
-      Object.keys(customConfig).forEach(key => (this.config[key] = customConfig[key]))
+    if (customConfig)
+      Object.keys(customConfig).forEach(
+        (key) => (this.config[key] = customConfig[key])
+      )
   }
   constructor(canvas: Canvas, customeConfig: TextConfig) {
     this.canvasConfig = canvas.config
@@ -49,20 +51,17 @@ export class Text {
       stroke: '',
       alignmentBaseline: 'middle',
       textAnchor: 'middle',
-      angle: 0
+      angle: 0,
     }
     this.updateConfig(customeConfig)
   }
 
   text(data: TextArgs[]) {
-    const { font, fontSize, stroke, fill, alignmentBaseline, textAnchor } = this.config
+    const { font, fontSize, stroke, fill, alignmentBaseline, textAnchor } =
+      this.config
     const { displayAreaWidth, displayAreaHeight } = this.canvasConfig
-    const xScale = scaleLinear()
-      .domain([0, 100])
-      .range([0, displayAreaWidth])
-    const yScale = scaleLinear()
-      .domain([0, 100])
-      .range([0, displayAreaHeight])
+    const xScale = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
+    const yScale = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
 
     const text = this.canvasDisplayGroup.append('g')
     text
@@ -74,12 +73,12 @@ export class Text {
       .attr('fill', fill)
       .attr('stroke', stroke)
       .attr('font-size', `${yScale(fontSize)}px`)
-      .attr('transform', d => {
+      .attr('transform', (d) => {
         return `translate(${xScale(d.x)}, ${yScale(d.y)})rotate(${0})`
       })
       .style('text-anchor', textAnchor)
       .style('alignment-baseline', alignmentBaseline)
-      .text(d => d.text)
+      .text((d) => d.text)
     return { text: text.selectAll('text') }
   }
 }

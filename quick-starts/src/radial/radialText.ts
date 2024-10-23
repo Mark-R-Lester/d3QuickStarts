@@ -1,6 +1,6 @@
 import { Canvas, CanvasConfigStrict } from '../canvas/canvas'
 import { Selection } from 'd3-selection'
-import { scaleLinear, arc as d3arc} from 'd3'
+import { scaleLinear, arc as d3arc } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 
 export interface RadialTextConfig {
@@ -12,7 +12,7 @@ export interface RadialTextConfig {
 }
 
 export interface StrictRadialTextConfig {
-  [key: string]: number | Iterable<unknown> | Iterable<string>  | undefined
+  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   radius: number
   fontSize: number
   x: number
@@ -34,17 +34,16 @@ export interface RadialTextArgs {
 interface BandData {
   textId: string
   textClass: string
-  arcId: string,
-  arcClass: string,
+  arcId: string
+  arcClass: string
   data: ValuedText
   index: number
   value: string | number
   startAngle: number
   endAngle: number
   outerRadius: number
-  innerRadius:number
+  innerRadius: number
 }
-
 
 interface RadialTextMeta {
   arcClass: string
@@ -59,8 +58,10 @@ export class RadialText {
   config: StrictRadialTextConfig
 
   updateConfig(customConfig: RadialTextConfig) {
-    if(customConfig)
-      Object.keys(customConfig).forEach(key => (this.config[key] = customConfig[key]))
+    if (customConfig)
+      Object.keys(customConfig).forEach(
+        (key) => (this.config[key] = customConfig[key])
+      )
   }
 
   constructor(canvas: Canvas, customConfig: RadialTextConfig) {
@@ -71,7 +72,7 @@ export class RadialText {
       radius: 100,
       fontSize: 8,
       x: 50,
-      y: 50
+      y: 50,
     }
     this.updateConfig(customConfig)
   }
@@ -80,11 +81,11 @@ export class RadialText {
     const { data, banded, type, minimised } = args
     const { radius, fontSize, x, y } = this.config
     const { displayAreaHeight, displayAreaWidth } = this.canvasConfig
-    let meta: RadialTextMeta 
-    let rotate: (angles: {startAngle: number; endAngle: number}) => number 
+    let meta: RadialTextMeta
+    let rotate: (angles: { startAngle: number; endAngle: number }) => number
 
     if (type === 'spoke') {
-      rotate = d => {
+      rotate = (d) => {
         let angle: number = d.startAngle + (d.endAngle - d.startAngle) / 2
         angle = angle * (180 / Math.PI)
         return angle - 90
@@ -92,28 +93,24 @@ export class RadialText {
     }
 
     if (type === 'horizontal') {
-      rotate = d => {
+      rotate = (d) => {
         return 0
       }
     }
 
     if (type === 'rotated') {
-      rotate = d => {
+      rotate = (d) => {
         let angle = d.startAngle + (d.endAngle - d.startAngle) / 2
         return (angle = angle * (180 / Math.PI))
       }
     }
 
-    const xAxis = scaleLinear()
-      .domain([0, 100])
-      .range([0, displayAreaWidth])
-    const yAxis = scaleLinear()
-      .domain([0, 100])
-      .range([0, displayAreaHeight])
+    const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
+    const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
 
     const bandData = (data: ValuedText[], min?: boolean): BandData[] => {
       let shares = 0
-      data.forEach(d => {
+      data.forEach((d) => {
         shares = shares + d.value
       })
       const angle = (Math.PI * 2) / shares
@@ -134,7 +131,7 @@ export class RadialText {
           startAngle,
           endAngle,
           outerRadius: min ? 0 : yAxis(radius / 2),
-          innerRadius: min ? 0 : yAxis(radius / 2)
+          innerRadius: min ? 0 : yAxis(radius / 2),
         }
         startAngle = endAngle
         return res
@@ -142,7 +139,7 @@ export class RadialText {
     }
 
     const pointData = (data: ValuedText[], min?: boolean): BandData[] =>
-      bandData(data, min).map(d => {
+      bandData(data, min).map((d) => {
         const offSet = (d.endAngle - d.startAngle) / 2
         d.startAngle = d.startAngle - offSet
         d.endAngle = d.endAngle - offSet
@@ -153,7 +150,9 @@ export class RadialText {
       arcClass: 'arc',
       textClass: 'text',
       textArcData: banded ? bandData(data) : pointData(data),
-      textArcDataMin: banded ? bandData(data, minimised) : pointData(data, minimised)
+      textArcDataMin: banded
+        ? bandData(data, minimised)
+        : pointData(data, minimised),
     }
     const arc: any = d3arc()
     const group = this.canvasDisplayGroup.append('g')
@@ -168,21 +167,24 @@ export class RadialText {
         .append('g')
         .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
         .append('text')
-        .attr('class', d => d.textClass)
-        .attr('id', d => d.textId)
+        .attr('class', (d) => d.textClass)
+        .attr('id', (d) => d.textId)
         .attr('font-size', minimised ? 0 + 'px' : yAxis(fontSize) + 'px')
         .style('text-anchor', 'middle')
-        .attr('transform', d => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`)
+        .attr(
+          'transform',
+          (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
+        )
         .attr('dy', '0.35em')
-        .text(d => (d.data.text? d.data.text : d.data.value))
+        .text((d) => (d.data.text ? d.data.text : d.data.value))
     } else {
       arcs
         .selectAll(`.${meta.arcClass}`)
         .data(minimised ? meta.textArcDataMin : meta.textArcData)
         .enter()
         .append('path')
-        .attr('class', d => d.arcClass)
-        .attr('id', d => d.arcId)
+        .attr('class', (d) => d.arcClass)
+        .attr('id', (d) => d.arcId)
         .attr('d', arc)
         .attr('stroke-width', 0)
         .attr('fill', 'none')
@@ -193,13 +195,13 @@ export class RadialText {
         .enter()
         .append('text')
         .attr('font-size', minimised ? `${0}px` : `${yAxis(fontSize)}px`)
-        .attr('class', d => d.textClass)
-        .attr('id', d => d.textId)
+        .attr('class', (d) => d.textClass)
+        .attr('id', (d) => d.textId)
         .append('textPath')
         .attr('startOffset', '25%')
         .style('text-anchor', 'middle')
-        .attr('xlink:href', d => `#${d.arcId}`)
-        .text(d => (d.data.text? d.data.text : d.data.value))
+        .attr('xlink:href', (d) => `#${d.arcId}`)
+        .text((d) => (d.data.text ? d.data.text : d.data.value))
     }
     return {
       text: text.selectAll('.arcText'),
@@ -215,7 +217,10 @@ export class RadialText {
             .transition()
             .duration(3000)
             .attr('font-size', yAxis(fontSize) + 'px')
-            .attr('transform', d => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`)
+            .attr(
+              'transform',
+              (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
+            )
         } else {
           arcs
             .selectAll('.arc')
@@ -239,7 +244,10 @@ export class RadialText {
             .transition()
             .duration(3000)
             .attr('font-size', yAxis(fontSize) + 'px')
-            .attr('transform', d => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`)
+            .attr(
+              'transform',
+              (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
+            )
         } else {
           arcs
             .selectAll('.arc')
@@ -254,18 +262,21 @@ export class RadialText {
             .duration(3000)
             .attr('font-size', yAxis(fontSize) + 'px')
         }
-      }
+      },
     }
   }
-
-
 
   spokeMinimised(data: ValuedText[]) {
     return this.draw({ data, banded: false, type: 'spoke', minimised: true })
   }
 
   horizontalMinimised(data: ValuedText[]) {
-    return this.draw({ data, banded: false, type: 'horizontal', minimised: true })
+    return this.draw({
+      data,
+      banded: false,
+      type: 'horizontal',
+      minimised: true,
+    })
   }
 
   rotatedMinimised(data: ValuedText[]) {
@@ -281,7 +292,12 @@ export class RadialText {
   }
 
   horizontalBandedMinimised(data: ValuedText[]) {
-    return this.draw({ data, banded: true, type: 'horizontal', minimised: true })
+    return this.draw({
+      data,
+      banded: true,
+      type: 'horizontal',
+      minimised: true,
+    })
   }
 
   rotatedBandedMinimised(data: ValuedText[]) {
@@ -297,7 +313,12 @@ export class RadialText {
   }
 
   horizontal(data: ValuedText[]) {
-    return this.draw({ data, banded: false, type: 'horizontal', minimised: false })
+    return this.draw({
+      data,
+      banded: false,
+      type: 'horizontal',
+      minimised: false,
+    })
   }
 
   rotated(data: ValuedText[]) {
@@ -313,7 +334,12 @@ export class RadialText {
   }
 
   horizontalBanded(data: ValuedText[]) {
-    return this.draw({ data, banded: true, type: 'horizontal', minimised: false })
+    return this.draw({
+      data,
+      banded: true,
+      type: 'horizontal',
+      minimised: false,
+    })
   }
 
   rotatedBanded(data: ValuedText[]) {

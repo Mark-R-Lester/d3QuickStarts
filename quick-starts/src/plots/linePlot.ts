@@ -1,8 +1,8 @@
-import { Canvas, CanvasConfigStrict } from "../canvas/canvas"
+import { Canvas, CanvasConfigStrict } from '../canvas/canvas'
 import { scaleLinear, curveLinear, CurveFactory, line as d3line } from 'd3'
 import { Selection } from 'd3-selection'
-import { Coordinate } from "../core/types"
-import { findMaxCoordinateX, findMaxCoordinateY } from "../core/max"
+import { Coordinate } from '../core/types'
+import { findMaxCoordinateX, findMaxCoordinateY } from '../core/max'
 
 export interface LinePlotConfig {
   [key: string]: CurveFactory | undefined
@@ -24,14 +24,16 @@ export class LinePlot {
     this.canvasDisplayGroup = canvas.displayGroup
 
     this.config = {
-      curve: curveLinear
+      curve: curveLinear,
     }
     this.updateConfig(customConfig)
   }
 
   updateConfig(customConfig: LinePlotConfig) {
-    if(customConfig)
-      Object.keys(customConfig).forEach(key => (this.config[key] = customConfig[key]))
+    if (customConfig)
+      Object.keys(customConfig).forEach(
+        (key) => (this.config[key] = customConfig[key])
+      )
   }
 
   line(coordinates: Coordinate[]) {
@@ -44,15 +46,18 @@ export class LinePlot {
       .domain([0, findMaxCoordinateY(coordinates)])
       .range([displayAreaHeight, 0])
     let line = d3line()
-      .x(d => xScale(d[0]))
-      .y(d => yScale(d[1]))
+      .x((d) => xScale(d[0]))
+      .y((d) => yScale(d[1]))
       .curve(curve)
 
     let lineGroup = this.canvasDisplayGroup.append('g')
     lineGroup
       .append('path')
       .attr('class', 'line')
-      .attr('d', line(coordinates.map(coordinate => [coordinate.x, coordinate.y])))
+      .attr(
+        'd',
+        line(coordinates.map((coordinate) => [coordinate.x, coordinate.y]))
+      )
       .attr('stroke', 'black')
       .attr('stroke-linejoin', 'round')
       .attr('stroke-linecap', 'round')

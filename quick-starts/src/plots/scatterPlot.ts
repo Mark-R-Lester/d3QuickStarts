@@ -1,8 +1,8 @@
-import { Canvas, CanvasConfigStrict } from "../canvas/canvas"
+import { Canvas, CanvasConfigStrict } from '../canvas/canvas'
 import { scaleLinear } from 'd3'
 import { Selection } from 'd3-selection'
-import { CoordinateEnhanced } from "../core/types"
-import { findMaxCoordinateX, findMaxCoordinateY } from "../core/max"
+import { CoordinateEnhanced } from '../core/types'
+import { findMaxCoordinateX, findMaxCoordinateY } from '../core/max'
 
 export interface ScatterPlotConfig {
   [key: string]: string | undefined
@@ -26,12 +26,14 @@ export class ScatterPlot {
   }
 
   updateConfig(customConfig: ScatterPlotConfig) {
-    if(customConfig)
-      Object.keys(customConfig).forEach(key => (this.config[key] = customConfig[key]))
+    if (customConfig)
+      Object.keys(customConfig).forEach(
+        (key) => (this.config[key] = customConfig[key])
+      )
   }
 
   addDataPoints(data: CoordinateEnhanced[]) {
-    const { displayAreaHeight, displayAreaWidth } = this.canvasConfig;
+    const { displayAreaHeight, displayAreaWidth } = this.canvasConfig
     const xScale = scaleLinear()
       .domain([0, findMaxCoordinateX(data)])
       .range([0, displayAreaWidth])
@@ -45,10 +47,10 @@ export class ScatterPlot {
       .enter()
       .append('circle')
       .attr('class', 'linePoint')
-      .attr('cx', d => xScale(d.x))
-      .attr('cy', d => yScale(d.y))
-      .attr('r', d => (d.radius ? d.radius : '3'))
-      .attr('opacity', d => (d.opacity ? d.opacity / 100 : '1'))
+      .attr('cx', (d) => xScale(d.x))
+      .attr('cy', (d) => yScale(d.y))
+      .attr('r', (d) => (d.radius ? d.radius : '3'))
+      .attr('opacity', (d) => (d.opacity ? d.opacity / 100 : '1'))
     return { points: dataPoints }
   }
 }

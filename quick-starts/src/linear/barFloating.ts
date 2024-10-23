@@ -1,10 +1,9 @@
-import { scaleLinear, scaleBand, scaleOrdinal, NumberValue} from 'd3-scale'
+import { scaleLinear, scaleBand, scaleOrdinal, NumberValue } from 'd3-scale'
 import { Canvas, CanvasConfigStrict } from '../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { range, Selection } from 'd3'
 import { toStrings } from '../core/conversion'
 import { findMax } from '../core/max'
-
 
 export interface BarFloatingConfig {
   [key: string]: number | Iterable<unknown> | number[] | undefined
@@ -13,13 +12,12 @@ export interface BarFloatingConfig {
   colorRange?: Iterable<unknown>
 }
 
-export interface StrictBarFloatingConfig {
-  [key: string]: number | Iterable<unknown> | number[]  | undefined
+interface StrictBarFloatingConfig {
+  [key: string]: number | Iterable<unknown> | number[] | undefined
   padding: number
-  colorDomain: number[] 
+  colorDomain: number[]
   colorRange: Iterable<unknown>
 }
-
 
 export interface BarFloatingArgs {
   data: number[][]
@@ -34,8 +32,10 @@ export class BarFloating {
   colors: any
 
   updateConfig(customConfig: BarFloatingConfig) {
-    if(customConfig)
-      Object.keys(customConfig).forEach(key => (this.config[key] = customConfig[key]))
+    if (customConfig)
+      Object.keys(customConfig).forEach(
+        (key) => (this.config[key] = customConfig[key])
+      )
   }
 
   constructor(canvas: Canvas, customConfig: BarFloatingConfig) {
@@ -45,7 +45,7 @@ export class BarFloating {
     this.config = {
       padding: 8,
       colorDomain: range(4),
-      colorRange: ['purple']
+      colorRange: ['purple'],
     }
     this.updateConfig(customConfig)
     this.colors = scaleOrdinal()
@@ -70,17 +70,21 @@ export class BarFloating {
       .range([0, vertical ? displayAreaWidth : displayAreaHeight])
 
     const barSpaceing = (d: NumberValue[], i: number) => {
-      const adjustmentToCorrectD3 = (bandStepScale.step() - bandWidthScale.bandwidth()) / 2
+      const adjustmentToCorrectD3 =
+        (bandStepScale.step() - bandWidthScale.bandwidth()) / 2
       //TODO requires error handling
       const bandStep = bandStepScale(i.toString())
-      if (bandStep)
-        return bandStep + adjustmentToCorrectD3
+      if (bandStep) return bandStep + adjustmentToCorrectD3
       return 0
     }
-    const x = (d: NumberValue[], i: number) => (vertical ? heightScale(d[0]) : barSpaceing(d, i))
-    const y = (d: NumberValue[], i: number) => (vertical ? barSpaceing(d, i) : displayAreaHeight - heightScale(d[1]))
-    const height = (d: number[]) => (vertical ? bandWidthScale.bandwidth() : heightScale(d[1] - d[0]))
-    const width = (d: number[]) => (vertical ? heightScale(d[1] - d[0]) : bandWidthScale.bandwidth())
+    const x = (d: NumberValue[], i: number) =>
+      vertical ? heightScale(d[0]) : barSpaceing(d, i)
+    const y = (d: NumberValue[], i: number) =>
+      vertical ? barSpaceing(d, i) : displayAreaHeight - heightScale(d[1])
+    const height = (d: number[]) =>
+      vertical ? bandWidthScale.bandwidth() : heightScale(d[1] - d[0])
+    const width = (d: number[]) =>
+      vertical ? heightScale(d[1] - d[0]) : bandWidthScale.bandwidth()
     const color = (d: any[], i: number) => this.colors(d[1] ? d[1] : i)
 
     data.forEach((d, i) => {
@@ -89,20 +93,20 @@ export class BarFloating {
         y: y(d, i),
         height: height(d),
         width: width(d),
-        color: color(d, i)
+        color: color(d, i),
       }
       const barDataMin = {
         x: x(d, i),
         y: displayAreaHeight,
         height: 0,
         width: width(d),
-        color: color(d, i)
+        color: color(d, i),
       }
       meta.push({
         class: 'bar',
         id: `bar-${uuidv4()}`,
         barData,
-        barDataMin
+        barDataMin,
       })
     })
     const group = this.canvasDisplayGroup.append('g')
@@ -111,13 +115,15 @@ export class BarFloating {
       .data(meta)
       .enter()
       .append('rect')
-      .attr('class', d => d.class)
-      .attr('id', d => d.id)
-      .attr('x', d => (minimised ? d.barDataMin.x : d.barData.x))
-      .attr('y', d => (minimised ? d.barDataMin.y : d.barData.y))
-      .attr('width', d => (minimised ? d.barDataMin.width : d.barData.width))
-      .attr('height', d => (minimised ? d.barDataMin.height : d.barData.height))
-      .attr('fill', d => (minimised ? d.barDataMin.color : d.barData.color))
+      .attr('class', (d) => d.class)
+      .attr('id', (d) => d.id)
+      .attr('x', (d) => (minimised ? d.barDataMin.x : d.barData.x))
+      .attr('y', (d) => (minimised ? d.barDataMin.y : d.barData.y))
+      .attr('width', (d) => (minimised ? d.barDataMin.width : d.barData.width))
+      .attr('height', (d) =>
+        minimised ? d.barDataMin.height : d.barData.height
+      )
+      .attr('fill', (d) => (minimised ? d.barDataMin.color : d.barData.color))
     return {
       bars: group.selectAll(`.${meta[0].class}`),
       group,
@@ -128,8 +134,8 @@ export class BarFloating {
           .data(meta)
           .transition()
           .duration(3000)
-          .attr('height', d => d.barDataMin.height)
-          .attr('y', d => d.barDataMin.y)
+          .attr('height', (d) => d.barDataMin.height)
+          .attr('y', (d) => d.barDataMin.y)
       },
       maximise: () => {
         group
@@ -137,9 +143,9 @@ export class BarFloating {
           .data(meta)
           .transition()
           .duration(3000)
-          .attr('height', d => d.barData.height)
-          .attr('y', d => d.barData.y)
-      }
+          .attr('height', (d) => d.barData.height)
+          .attr('y', (d) => d.barData.y)
+      },
     }
   }
 

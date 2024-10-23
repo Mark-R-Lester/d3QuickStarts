@@ -1,21 +1,20 @@
 import { Canvas, CanvasConfigStrict } from '../canvas/canvas'
 import { Selection } from 'd3-selection'
-import { scaleLinear, curveLinear, CurveFactory, lineRadial} from 'd3'
+import { scaleLinear, curveLinear, CurveFactory, lineRadial } from 'd3'
 
 export interface RadialLineConfig {
   [key: string]: number | CurveFactory | undefined
   x?: number
-  y?: number 
+  y?: number
   curve?: CurveFactory
 }
 
 export interface StrictRadialLineConfig {
-  [key: string]: number | CurveFactory  | undefined
+  [key: string]: number | CurveFactory | undefined
   x: number
-  y: number 
+  y: number
   curve: CurveFactory
 }
-
 
 export interface RadialLineArgs {
   data: number[][]
@@ -23,17 +22,17 @@ export interface RadialLineArgs {
   minimised: boolean
 }
 
-
 export class RadialLine {
   canvasConfig: CanvasConfigStrict
   canvasDisplayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
   config: StrictRadialLineConfig
- 
-  updateConfig(customConfig: RadialLineConfig) {
-    if(customConfig)
-      Object.keys(customConfig).forEach(key => (this.config[key] = customConfig[key]))
-  }
 
+  updateConfig(customConfig: RadialLineConfig) {
+    if (customConfig)
+      Object.keys(customConfig).forEach(
+        (key) => (this.config[key] = customConfig[key])
+      )
+  }
 
   constructor(canvas: Canvas, customConfig: RadialLineConfig) {
     this.canvasConfig = canvas.config
@@ -41,7 +40,7 @@ export class RadialLine {
     this.config = {
       curve: curveLinear,
       x: 50,
-      y: 50
+      y: 50,
     }
     this.updateConfig(customConfig)
   }
@@ -56,12 +55,8 @@ export class RadialLine {
     const radialScale = scaleLinear()
       .domain([min, max])
       .range([0, displayAreaHeight / 2])
-    const xAxis = scaleLinear()
-      .domain([0, 100])
-      .range([0, displayAreaWidth])
-    const yAxis = scaleLinear()
-      .domain([0, 100])
-      .range([0, displayAreaHeight])
+    const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
+    const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
 
     const dataCopy = data.slice()
     dataCopy.push(data[0])
@@ -70,7 +65,7 @@ export class RadialLine {
       class: 'radialLine',
       id: 'radialLine',
       lineDataMin: dataCopy.map((d, i) => [angleScale(i), 0]),
-      lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d[0])])
+      lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d[0])]),
     })
 
     const radialLine = lineRadial().curve(curve)
@@ -99,7 +94,7 @@ export class RadialLine {
           .transition()
           .duration(3000)
           .attr('d', radialLine(meta[0].lineDataMin))
-      }
+      },
     }
   }
 

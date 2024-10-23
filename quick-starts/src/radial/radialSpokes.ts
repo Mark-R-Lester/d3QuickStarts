@@ -1,6 +1,6 @@
 import { Canvas, CanvasConfigStrict } from '../canvas/canvas'
 import { Selection } from 'd3-selection'
-import { line} from 'd3'
+import { line } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 
 export interface RadialSpokesConfig {
@@ -14,7 +14,7 @@ export interface RadialSpokesConfig {
 }
 
 export interface StrictRadialSpokesConfig {
-  [key: string]: number | Iterable<unknown> | Iterable<string>  | undefined
+  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   radius: number
   innerRadius: number
   x: number
@@ -23,15 +23,16 @@ export interface StrictRadialSpokesConfig {
   strokeWidth: number
 }
 
-
 export class RadialSpokes {
   canvasConfig: CanvasConfigStrict
   canvasDisplayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
   config: StrictRadialSpokesConfig
-  
+
   updateConfig(customConfig: RadialSpokesConfig) {
-    if(customConfig)
-      Object.keys(customConfig).forEach(key => (this.config[key] = customConfig[key]))
+    if (customConfig)
+      Object.keys(customConfig).forEach(
+        (key) => (this.config[key] = customConfig[key])
+      )
   }
   constructor(canvas: Canvas, customConfig: RadialSpokesConfig) {
     this.canvasConfig = canvas.config
@@ -42,7 +43,7 @@ export class RadialSpokes {
       x: 50,
       y: 50,
       colour: 'black',
-      strokeWidth: 0.4
+      strokeWidth: 0.4,
     }
     this.updateConfig(customConfig)
   }
@@ -65,14 +66,20 @@ export class RadialSpokes {
       meta[i] = {
         class: 'axisSpoke',
         id: `axisSpoke${uuidv4()}`,
-        lineData: [[innerX, innerY], [outerX, outerY]],
-        lineDataMin: [[innerX, innerY], [innerX, innerY]]
+        lineData: [
+          [innerX, innerY],
+          [outerX, outerY],
+        ],
+        lineDataMin: [
+          [innerX, innerY],
+          [innerX, innerY],
+        ],
       }
     })
 
     const radialLine = line()
-      .x(d => d[0])
-      .y(d => d[1])
+      .x((d) => d[0])
+      .y((d) => d[1])
 
     const group = this.canvasDisplayGroup.append('g')
     group
@@ -80,9 +87,9 @@ export class RadialSpokes {
       .data(meta)
       .enter()
       .append('path')
-      .attr('class', d => d.class)
-      .attr('id', d => d.id)
-      .attr('d', d => radialLine(shrunken ? d.lineDataMin : d.lineData))
+      .attr('class', (d) => d.class)
+      .attr('id', (d) => d.id)
+      .attr('d', (d) => radialLine(shrunken ? d.lineDataMin : d.lineData))
       .attr('stroke', colour)
       .attr('fill-opacity', '0')
       .attr('stroke-width', strokeWidth)
@@ -94,7 +101,7 @@ export class RadialSpokes {
       maximise: () => {
         group
           .selectAll(`.${meta[0].class}`)
-          .data(meta.map(d => d.lineData))
+          .data(meta.map((d) => d.lineData))
           .transition()
           .duration(3000)
           .attr('d', radialLine)
@@ -102,11 +109,11 @@ export class RadialSpokes {
       minimise: () => {
         group
           .selectAll(`.${meta[0].class}`)
-          .data(meta.map(d => d.lineDataMin))
+          .data(meta.map((d) => d.lineDataMin))
           .transition()
           .duration(3000)
           .attr('d', radialLine)
-      }
+      },
     }
   }
 

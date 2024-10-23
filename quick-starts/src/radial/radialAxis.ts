@@ -1,6 +1,12 @@
 import { Canvas, CanvasConfigStrict } from '../canvas/canvas'
 import { Selection } from 'd3-selection'
-import { scaleLinear, scaleOrdinal, arc as d3arc, ScaleOrdinal, ScaleLinear} from 'd3'
+import {
+  scaleLinear,
+  scaleOrdinal,
+  arc as d3arc,
+  ScaleOrdinal,
+  ScaleLinear,
+} from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../core/conversion'
 
@@ -17,7 +23,7 @@ export interface RadialAxisConfig {
 }
 
 export interface StrictRadialAxisConfig {
-  [key: string]: number | Iterable<unknown> | Iterable<string>  | undefined
+  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   radius: number
   fontSize: number
   x: number
@@ -47,15 +53,16 @@ interface RadialAxisMeta {
   ringData: RingData
 }
 
-
 export class RadialAxis {
   canvasConfig: CanvasConfigStrict
   canvasDisplayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
   config: StrictRadialAxisConfig
- 
+
   updateConfig(customConfig: RadialAxisConfig) {
-    if(customConfig)
-      Object.keys(customConfig).forEach(key => (this.config[key] = customConfig[key]))
+    if (customConfig)
+      Object.keys(customConfig).forEach(
+        (key) => (this.config[key] = customConfig[key])
+      )
   }
   constructor(canvas: Canvas, customConfig: RadialAxisConfig) {
     this.canvasConfig = canvas.config
@@ -68,29 +75,24 @@ export class RadialAxis {
       axisAngle: 0,
       gap: 15,
       colour: 'black',
-      strokeWidth: 0.3
+      strokeWidth: 0.3,
     }
     this.updateConfig(customConfig)
   }
 
   rings(data: number[], minimised: boolean) {
-    const { radius, fontSize, x, y, axisAngle, gap, colour, strokeWidth } = this.config
+    const { radius, fontSize, x, y, axisAngle, gap, colour, strokeWidth } =
+      this.config
     const { displayAreaHeight, displayAreaWidth, min, max } = this.canvasConfig
 
     const meta: RadialAxisMeta[] = []
-    const ordinal = data.some(d => typeof d === 'string')
-    const xAxis = scaleLinear()
-      .domain([0, 100])
-      .range([0, displayAreaWidth])
-    const yAxis = scaleLinear()
-      .domain([0, 100])
-      .range([0, displayAreaHeight])
+    const ordinal = data.some((d) => typeof d === 'string')
+    const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
+    const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
     let ordialScale: ScaleOrdinal<string, unknown, never>
     let linearScale: ScaleLinear<number, number, never>
     if (ordinal) {
-      ordialScale = scaleOrdinal()
-        .domain(toStrings(data))
-        .range(data)
+      ordialScale = scaleOrdinal().domain(toStrings(data)).range(data)
     } else {
       linearScale = scaleLinear()
         .domain([1, data.length])
@@ -109,18 +111,14 @@ export class RadialAxis {
       }
       const sin: number = gap / (bandWidth * (i + 1))
       let text: unknown
-      if (ordinal)
-        text = ordialScale(d.toString())
-      else
-        text = linearScale(i + 1)
+      if (ordinal) text = ordialScale(d.toString())
+      else text = linearScale(i + 1)
 
-      const handleText = (text: unknown): string  => {
-        if (typeof text === 'string')
-          return text 
+      const handleText = (text: unknown): string => {
+        if (typeof text === 'string') return text
         else if (typeof text === 'number')
           return (Math.round(text * 10) / 10).toString()
-        else
-          return ''
+        else return ''
       }
 
       meta.push({
@@ -134,7 +132,7 @@ export class RadialAxis {
           startAngle: radians + Math.asin(sin),
           endAngle: radians + Math.PI * 2 - Math.asin(sin),
           textLocation: [displayAreaWidth / 2, displayAreaHeight / 2],
-          text: handleText(text)
+          text: handleText(text),
         },
         ringData: {
           innerRadius: bandWidth * i,
@@ -142,25 +140,25 @@ export class RadialAxis {
           startAngle: radians + Math.asin(sin),
           endAngle: radians + Math.PI * 2 - Math.asin(sin),
           textLocation: calculateTextPosition(),
-          text: handleText(text)
-        }
+          text: handleText(text),
+        },
       })
     })
 
     const arc = d3arc()
-      .innerRadius(d => d.innerRadius)
-      .outerRadius(d => d.outerRadius)
-      .startAngle(d => d.startAngle)
-      .endAngle(d => d.endAngle)
+      .innerRadius((d) => d.innerRadius)
+      .outerRadius((d) => d.outerRadius)
+      .startAngle((d) => d.startAngle)
+      .endAngle((d) => d.endAngle)
     const group = this.canvasDisplayGroup.append('g')
     group
       .selectAll(`.${meta[0].ringClass}`)
       .data(meta)
       .enter()
       .append('path')
-      .attr('class', d => d.ringClass)
-      .attr('id', d => d.ringId)
-      .attr('d', d => arc(minimised ? d.ringDataMin : d.ringData))
+      .attr('class', (d) => d.ringClass)
+      .attr('id', (d) => d.ringId)
+      .attr('d', (d) => arc(minimised ? d.ringDataMin : d.ringData))
       .attr('stroke', colour)
       .attr('stroke-width', minimised ? 0 : strokeWidth)
       .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
@@ -169,17 +167,18 @@ export class RadialAxis {
       .data(meta)
       .enter()
       .append('text')
-      .attr('class', d => d.textClass)
-      .attr('id', d => d.textId)
+      .attr('class', (d) => d.textClass)
+      .attr('id', (d) => d.textId)
       .attr('fill', colour)
       .attr('font-size', `${yAxis(minimised ? 0 : fontSize)}px`)
       .style('text-anchor', 'middle')
       .style('alignment-baseline', 'middle')
       .attr(
         'transform',
-        d => `translate(${minimised ? d.ringDataMin.textLocation : d.ringData.textLocation})rotate(${0})`
+        (d) =>
+          `translate(${minimised ? d.ringDataMin.textLocation : d.ringData.textLocation})rotate(${0})`
       )
-      .text(d => d.ringData.text)
+      .text((d) => d.ringData.text)
 
     return {
       text: group.selectAll('text'),
@@ -192,13 +191,13 @@ export class RadialAxis {
           .data(meta)
           .transition()
           .attr('stroke-width', 0)
-          .attr('d', d => arc(d.ringDataMin))
+          .attr('d', (d) => arc(d.ringDataMin))
         group
           .selectAll(`.${meta[0].textClass}`)
           .data(meta)
           .transition()
           .attr('font-size', `${0}px`)
-          .attr('transform', d => {
+          .attr('transform', (d) => {
             return `translate(${d.ringDataMin.textLocation})`
           })
       },
@@ -209,17 +208,17 @@ export class RadialAxis {
           .transition()
           .duration(3000)
           .attr('stroke-width', strokeWidth)
-          .attr('d', d => arc(d.ringData))
+          .attr('d', (d) => arc(d.ringData))
         group
           .selectAll(`.${meta[0].textClass}`)
           .data(meta)
           .transition()
           .duration(3000)
           .attr('font-size', `${yAxis(fontSize)}px`)
-          .attr('transform', d => {
+          .attr('transform', (d) => {
             return `translate(${d.ringData.textLocation})`
           })
-      }
+      },
     }
   }
 

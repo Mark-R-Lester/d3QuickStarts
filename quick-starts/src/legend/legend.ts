@@ -1,7 +1,6 @@
 import { Canvas, CanvasConfigStrict } from '../canvas/canvas'
 import { Selection } from 'd3-selection'
-import { scaleLinear} from 'd3-scale'
-
+import { scaleLinear } from 'd3-scale'
 
 export interface LegendConfig {
   [key: string]: number | string | undefined
@@ -58,8 +57,10 @@ export class Legend {
   config: StrictLegendConfig
 
   updateConfig(customConfig: LegendConfig) {
-    if(customConfig)
-      Object.keys(customConfig).forEach(key => (this.config[key] = customConfig[key]))
+    if (customConfig)
+      Object.keys(customConfig).forEach(
+        (key) => (this.config[key] = customConfig[key])
+      )
   }
 
   constructor(canvas: Canvas, customConfig: LegendConfig) {
@@ -76,7 +77,7 @@ export class Legend {
       stroke: '',
       alignmentBaseline: 'middle',
       textAnchor: 'start',
-      angle: 0
+      angle: 0,
     }
     this.updateConfig(customConfig)
   }
@@ -85,14 +86,20 @@ export class Legend {
     const meta: LegendMeta[] = []
     const { data, minimised } = args
     const { min, max, displayAreaWidth, displayAreaHeight } = this.canvasConfig
-    const { size, space, x, y, textFill, textStroke, alignmentBaseline, textAnchor, font } = this.config
+    const {
+      size,
+      space,
+      x,
+      y,
+      textFill,
+      textStroke,
+      alignmentBaseline,
+      textAnchor,
+      font,
+    } = this.config
 
-    const xScale = scaleLinear()
-      .domain([0, 100])
-      .range([0, displayAreaWidth])
-    const yScale = scaleLinear()
-      .domain([0, 100])
-      .range([displayAreaHeight, 0])
+    const xScale = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
+    const yScale = scaleLinear().domain([0, 100]).range([displayAreaHeight, 0])
     const percentScale = scaleLinear()
       .domain([0, 100])
       .range([0, displayAreaHeight])
@@ -107,7 +114,7 @@ export class Legend {
           width: xScale(size),
           height: xScale(size),
           colour: d[0],
-          value: d[1]
+          value: d[1],
         }
       }),
       data: data.map((d, i) => {
@@ -119,9 +126,9 @@ export class Legend {
           width: xScale(size),
           height: xScale(size),
           colour: d[0],
-          value: d[1]
+          value: d[1],
         }
-      })
+      }),
     })
 
     const group = this.canvasDisplayGroup.append('g')
@@ -131,11 +138,11 @@ export class Legend {
       .enter()
       .append('rect')
       .attr('class', 'legend')
-      .attr('x', d => d.x)
-      .attr('y', d => d.y)
-      .attr('width', d => d.width)
-      .attr('height', d => d.height)
-      .attr('fill', d => d.colour)
+      .attr('x', (d) => d.x)
+      .attr('y', (d) => d.y)
+      .attr('width', (d) => d.width)
+      .attr('height', (d) => d.height)
+      .attr('fill', (d) => d.colour)
 
     group
       .selectAll('text')
@@ -143,22 +150,22 @@ export class Legend {
       .enter()
       .append('text')
       .attr('font', font)
-      .attr('fill', textFill? textFill: null)
-      .attr('stroke', textStroke? textStroke: null)
+      .attr('fill', textFill ? textFill : null)
+      .attr('stroke', textStroke ? textStroke : null)
       .attr('fontsize', `${percentScale(size)}px`)
-      .attr('transform', d => {
+      .attr('transform', (d) => {
         return `translate(${d.tx}, ${d.ty})rotate(${0})`
       })
       .style('textanchor', textAnchor)
       .style('alignmentbaseline', alignmentBaseline)
-      .text(d => d.value)
+      .text((d) => d.value)
 
     return {
       element: group.selectAll('.element'),
       group,
       meta,
       minimised: () => {},
-      maximised: () => {}
+      maximised: () => {},
     }
   }
 
@@ -170,8 +177,3 @@ export class Legend {
     return this.draw({ data, minimised: true })
   }
 }
-
-
-
-
-

@@ -1,17 +1,22 @@
-
-import { range, scaleLinear, curveLinear, CurveFactory, area as d3area} from 'd3'
+import {
+  range,
+  scaleLinear,
+  curveLinear,
+  CurveFactory,
+  area as d3area,
+} from 'd3'
 import { Canvas } from '../canvas/canvas'
 import { v4 as uuidv4 } from 'uuid'
 
 export interface AreaConfig {
-  [key: string]:  CurveFactory | string | undefined
-  curve?: CurveFactory,
+  [key: string]: CurveFactory | string | undefined
+  curve?: CurveFactory
   color?: string
 }
 
 interface AreaConfigStrict {
-  [key: string]:  CurveFactory | string | undefined
-  curve: CurveFactory,
+  [key: string]: CurveFactory | string | undefined
+  curve: CurveFactory
   color: string
 }
 
@@ -22,23 +27,33 @@ interface AreaMeta {
   areaDataMin: number[][]
 }
 
-
-function create (data1: number[][], data0: number[][], minimised: boolean, canvas: Canvas, newConfig: AreaConfig) {
-
+function create(
+  data1: number[][],
+  data0: number[][],
+  minimised: boolean,
+  canvas: Canvas,
+  newConfig: AreaConfig
+) {
   const configDefault: AreaConfigStrict = {
     curve: curveLinear,
-    color: 'red'
+    color: 'red',
   }
-  
+
   function updateConfig() {
-    Object.keys(newConfig).forEach(key => (configDefault[key] = newConfig[key]))
+    Object.keys(newConfig).forEach(
+      (key) => (configDefault[key] = newConfig[key])
+    )
     return newConfig as AreaConfigStrict
   }
-  
+
   const configStrict = updateConfig()
 
-  function draw(args: { data0: number[][], data1: number[][], minimised: boolean }) {
-    const { min, max, displayAreaHeight, displayAreaWidth} = canvas.config
+  function draw(args: {
+    data0: number[][]
+    data1: number[][]
+    minimised: boolean
+  }) {
+    const { min, max, displayAreaHeight, displayAreaWidth } = canvas.config
     const { curve, color } = configStrict
     const { data1, data0, minimised } = args
     const meta: AreaMeta[] = []
@@ -48,23 +63,30 @@ function create (data1: number[][], data0: number[][], minimised: boolean, canva
       meta.push({
         class: 'area',
         id: `area-${uuidv4()}`,
-        areaData: data1.map((d, i) => [xVals[i], d[0], data0 ? data0[i][0] : 0]),
-        areaDataMin: data1.map((d, i) => [xVals[i], 0, 0])
+        areaData: data1.map((d, i) => [
+          xVals[i],
+          d[0],
+          data0 ? data0[i][0] : 0,
+        ]),
+        areaDataMin: data1.map((d, i) => [xVals[i], 0, 0]),
       })
     }
     populateMeta(data1, data0)
 
     const xScale = scaleLinear()
-      .domain([0, Math.max(...meta[0].areaData.map(d => d[0]))])
+      .domain([0, Math.max(...meta[0].areaData.map((d) => d[0]))])
       .range([0, displayAreaWidth])
     const yScale = scaleLinear()
-      .domain([min, max !== 0 ? max : Math.max(...meta[0].areaData.map(d => d[1]))])
+      .domain([
+        min,
+        max !== 0 ? max : Math.max(...meta[0].areaData.map((d) => d[1])),
+      ])
       .range([displayAreaHeight, 0])
 
     const area = d3area<number[]>()
-      .x(d => xScale(d[0]))
-      .y1(d => yScale(d[1]))
-      .y0(d => yScale(d[2]))
+      .x((d) => xScale(d[0]))
+      .y1((d) => yScale(d[1]))
+      .y0((d) => yScale(d[2]))
       .curve(curve)
 
     const group = canvas.displayGroup.append('g')
@@ -91,19 +113,26 @@ function create (data1: number[][], data0: number[][], minimised: boolean, canva
           .transition()
           .duration(3000)
           .attr('d', area(meta[0].areaData))
-      }
+      },
     }
   }
   draw({ data0, data1, minimised })
-
 }
 
-export function createHorizontalArea(data1: number[][], data0: number[][], canvas: Canvas, config: AreaConfigStrict) {
-  return create(data0, data1, false, canvas, config )
+export function createHorizontalArea(
+  data1: number[][],
+  data0: number[][],
+  canvas: Canvas,
+  config: AreaConfigStrict
+) {
+  return create(data0, data1, false, canvas, config)
 }
 
-export function createhorizontalAreaMinimised(data1: number[][], data0: number[][], canvas: Canvas, config: AreaConfigStrict) {
-  return create(data0, data1, true, canvas, config )
+export function createhorizontalAreaMinimised(
+  data1: number[][],
+  data0: number[][],
+  canvas: Canvas,
+  config: AreaConfigStrict
+) {
+  return create(data0, data1, true, canvas, config)
 }
-
-

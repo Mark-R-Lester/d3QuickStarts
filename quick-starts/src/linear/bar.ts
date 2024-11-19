@@ -10,15 +10,14 @@ export interface BarConfig {
   colorDomain?: number[]
   colorRange?: Iterable<unknown>
 }
-
-export interface StrictBarConfig {
+interface StrictBarConfig {
   [key: string]: number | Iterable<unknown> | number[] | undefined
   padding: number
   colorDomain: number[]
   colorRange: Iterable<unknown>
 }
 
-export interface BarArgs {
+interface BarArgs {
   data: number[]
   horizontal: boolean
   minimised: boolean

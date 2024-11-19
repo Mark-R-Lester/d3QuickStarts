@@ -111,6 +111,5 @@ export function createCanvas(
     return draw(chartName, config)
   }
 
-  console.log('Empty canvas')
   return undefined
 }

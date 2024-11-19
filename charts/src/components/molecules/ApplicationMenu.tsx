@@ -32,11 +32,11 @@ export const ApplicationMenu: FunctionComponent = () => {
   const homeRoute: MenuRoute = { displayName: 'Home', route: '/' }
 
   const linearRoutes: MenuRoute[] = [
-    { displayName: 'Axis', route: '/axis' },
-    { displayName: 'Bars', route: '/bars' },
-    { displayName: 'Area', route: '/area' },
-    { displayName: 'Line', route: '/line' },
-    { displayName: 'Point', route: '/points' },
+    { displayName: 'Axis', route: '/linear/axis' },
+    { displayName: 'Bars', route: '/linear/bars' },
+    { displayName: 'Area', route: '/linear/area' },
+    { displayName: 'Line', route: '/linear/line' },
+    { displayName: 'Point', route: '/linear/points' },
   ]
 
   const plotRoutes: MenuRoute[] = [

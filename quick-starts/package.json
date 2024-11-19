@@ -17,9 +17,10 @@
     "buildProd": "tsc && webpack --config webpack.config.js --mode production",
     "buildDev": "webpack --config webpack.config.js --mode development && tsc",
     "buildTSC": "tsc",
-    "build": "npm run buildProd && npm run buildDev && tsc",
+    "build": "npm run addDirectory && npm run buildProd && npm run buildDev && tsc",
     "test": "node --experimental-vm-modules node_modules/.bin/jest",
-    "watch": "tsc --watch && webpack --watch --config webpack.config.js --mode production"
+    "watch": "npm run addDirectory && tsc --watch",
+    "addDirectory": "if not exist ..\\charts\\node_modules\\d3qs (mkdir ..\\charts\\node_modules\\d3qs)"
   },
   "repository": {
     "type": "git",

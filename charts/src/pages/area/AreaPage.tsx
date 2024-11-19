@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from 'react'
-import { Axiss, Canvas, createCanvas } from 'd3qs/d3QuickStart'
+import { Canvas, createCanvas, axisGenerator } from 'd3qs/d3QuickStart'
 import { Box, Typography } from '@mui/material'
 
 export default function AxisPage() {
@@ -18,11 +18,11 @@ export default function AxisPage() {
       'j',
       'k',
     ]
-    const canvas: Canvas | undefined = createCanvas('#chart', { width: 800 })
+    const canvas: Canvas | undefined = createCanvas('#chart', { width: 1000 })
+
     if (canvas) {
-      const axis1: Axiss = new Axiss(canvas)
-      axis1.xAxisBottomBanded(data2)
-      axis1.yAxisLeftBanded(data1)
+      axisGenerator.xAxisBottomBanded(canvas, data2)
+      axisGenerator.yAxisLeftBanded(canvas, data1)
     }
   }, [])
 
@@ -33,7 +33,7 @@ export default function AxisPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Area
+        Axis
       </Typography>
       <Box sx={{ maxWidth: { xs: 320, sm: 480 }, bgcolor: 'white' }}>
         <div id="chart"></div>

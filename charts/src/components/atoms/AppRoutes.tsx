@@ -10,11 +10,11 @@ export const AppRoutes: FunctionComponent = () => {
     <Routes>
       <Route path="/" Component={HomePage} />
 
-      <Route path="/axis" Component={AxisPage} />
-      <Route path="/bars" Component={BarsPage} />
-      <Route path="/area" Component={AreaPage} />
-      <Route path="/line" Component={AreaPage} />
-      <Route path="/points" Component={AreaPage} />
+      <Route path="/linear/axis" Component={AxisPage} />
+      <Route path="/linear/bars" Component={BarsPage} />
+      <Route path="/linear/area" Component={AreaPage} />
+      <Route path="/linear/line" Component={AreaPage} />
+      <Route path="/linear/points" Component={AreaPage} />
 
       <Route path="/plot/line" Component={AreaPage} />
       <Route path="/plot/scatter" Component={AreaPage} />

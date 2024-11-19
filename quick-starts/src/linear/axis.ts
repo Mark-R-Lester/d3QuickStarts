@@ -1,5 +1,5 @@
 import { scaleLinear, scalePoint, scaleBand } from 'd3-scale'
-import { Canvas, CanvasConfigStrict } from '../d3QuickStart'
+import { Canvas } from '../d3QuickStart'
 import { BaseType, Selection } from 'd3-selection'
 import {
   axisBottom,
@@ -29,6 +29,17 @@ export interface AxisConfig {
   y?: number
 }
 
+export interface AxisArgs {
+  data: string[] | number[]
+  topOrRight: boolean
+  banded: boolean
+  isX: boolean
+}
+
+export interface AxisSelection {
+  selection: Selection<BaseType, unknown, SVGGElement, unknown>
+}
+
 interface StrictAxisConfig {
   [key: string]: number | boolean | string | undefined
   alignmentBaseline: string
@@ -47,217 +58,237 @@ interface StrictAxisConfig {
   y: number
 }
 
-export interface AxisArgs {
-  data: string[] | number[]
-  topOrRight: boolean
-  banded: boolean
-  sX: boolean
+const configuration: StrictAxisConfig = {
+  alignmentBaseline: '',
+  tickSize: 6,
+  tickSizeInner: 6,
+  tickSizeOuter: 0,
+  tickPadding: 3,
+  fontSize: 5,
+  font: 'sans-serif',
+  textAngle: 0,
+  textAnchor: '',
+  textX: '',
+  textY: '',
+  hideAxisDomain: false,
+  x: 0,
+  y: 0,
 }
 
-export interface AxisSelection {
-  selection: Selection<BaseType, unknown, SVGGElement, unknown>
+const updateConfig = (customConfig?: AxisConfig) => {
+  if (customConfig)
+    Object.keys(customConfig).forEach(
+      (key) => (configuration[key] = customConfig[key])
+    )
 }
 
-export class Axiss {
-  canvasConfig: CanvasConfigStrict
-  canvasDisplayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
+const xAxisTop = (
+  canvas: Canvas,
+  data: string[] | number[],
+  config?: AxisConfig
+) => {
+  updateConfig(config)
+  const args: AxisArgs = { data, topOrRight: true, banded: false, isX: true }
+  return draw(canvas, args, configuration)
+}
+
+const xAxisBottom = (
+  canvas: Canvas,
+  data: string[] | number[],
+  config?: AxisConfig
+) => {
+  updateConfig(config)
+  const args: AxisArgs = { data, topOrRight: false, banded: false, isX: true }
+  return draw(canvas, args, configuration)
+}
+
+const xAxisBottomBanded = (
+  canvas: Canvas,
+  data: string[] | number[],
+  config?: AxisConfig
+) => {
+  updateConfig(config)
+  const args: AxisArgs = { data, topOrRight: false, banded: true, isX: true }
+  return draw(canvas, args, configuration)
+}
+
+const xAxisTopBanded = (
+  canvas: Canvas,
+  data: string[] | number[],
+  config?: AxisConfig
+) => {
+  updateConfig(config)
+  const args: AxisArgs = { data, topOrRight: true, banded: true, isX: true }
+  return draw(canvas, args, configuration)
+}
+
+const yAxisLeft = (
+  canvas: Canvas,
+  data: string[] | number[],
+  config?: AxisConfig
+) => {
+  updateConfig(config)
+  const args: AxisArgs = { data, topOrRight: false, banded: false, isX: false }
+  return draw(canvas, args, configuration)
+}
+
+const yAxisRight = (
+  canvas: Canvas,
+  data: string[] | number[],
+  config?: AxisConfig
+) => {
+  updateConfig(config)
+  const args: AxisArgs = { data, topOrRight: true, banded: false, isX: false }
+  return draw(canvas, args, configuration)
+}
+
+const yAxisLeftBanded = (
+  canvas: Canvas,
+  data: string[] | number[],
+  config?: AxisConfig
+) => {
+  updateConfig(config)
+  const args: AxisArgs = { data, topOrRight: false, banded: true, isX: false }
+  return draw(canvas, args, configuration)
+}
+
+const yAxisRightBanded = (
+  canvas: Canvas,
+  data: string[] | number[],
+  config?: AxisConfig
+) => {
+  updateConfig(config)
+  const args: AxisArgs = { data, topOrRight: true, banded: true, isX: false }
+  return draw(canvas, args, configuration)
+}
+
+export const axisGenerator = {
+  xAxisTop,
+  xAxisBottom,
+  xAxisBottomBanded,
+  xAxisTopBanded,
+  yAxisLeft,
+  yAxisRight,
+  yAxisLeftBanded,
+  yAxisRightBanded,
+}
+
+const draw = (
+  canvas: Canvas,
+  args: AxisArgs,
   config: StrictAxisConfig
-  colors: any
+): AxisSelection => {
+  const { config: canvasConfig, displayGroup: canvasDisplayGroup } = canvas
+  const { min, max, displayAreaWidth, displayAreaHeight } = canvasConfig
+  const {
+    x,
+    y,
+    textX,
+    textY,
+    tickSize,
+    tickSizeInner,
+    tickSizeOuter,
+    tickPadding,
+    font,
+    fontSize,
+    textAngle,
+    textAnchor,
+    hideAxisDomain,
+    alignmentBaseline,
+  } = config
+  const { data, topOrRight, banded, isX } = args
 
-  constructor(canvas: Canvas, customConfig?: AxisConfig) {
-    this.canvasConfig = canvas.config
-    this.canvasDisplayGroup = canvas.displayGroup
+  let numbers: number[]
+  let strings: string[]
+  let scale: AxisScale<string>
+  let axis: Axis<string>
+  let percentRange: number[]
 
-    this.config = {
-      alignmentBaseline: '',
-      tickSize: 6,
-      tickSizeInner: 6,
-      tickSizeOuter: 0,
-      tickPadding: 3,
-      fontSize: 5,
-      font: 'sans-serif',
-      textAngle: 0,
-      textAnchor: '',
-      textX: '',
-      textY: '',
-      hideAxisDomain: false,
-      x: 0,
-      y: 0,
-    }
-    if (customConfig) this.updateConfig(customConfig)
-  }
-
-  updateConfig(customConfig: AxisConfig) {
-    if (customConfig)
-      Object.keys(customConfig).forEach(
-        (key) => (this.config[key] = customConfig[key])
-      )
-  }
-
-  draw(
-    data: string[] | number[],
-    topOrRight: boolean,
-    banded: boolean,
-    isX: boolean
-  ): AxisSelection {
-    const { min, max, displayAreaWidth, displayAreaHeight } = this.canvasConfig
-    const {
-      x,
-      y,
-      textX,
-      textY,
-      tickSize,
-      tickSizeInner,
-      tickSizeOuter,
-      tickPadding,
-      font,
-      fontSize,
-      textAngle,
-      textAnchor,
-      hideAxisDomain,
-      alignmentBaseline,
-    } = this.config
-
-    let numbers: number[]
-    let strings: string[]
-    let scale: AxisScale<string>
-    let axis: Axis<string>
-    let percentRange: number[]
-
-    const applyScaleToAxis = (
-      scale: AxisScale<string>
-    ): { axis: Axis<string>; percentRange: number[] } => {
-      if (isX) {
-        return {
-          axis: topOrRight ? axisTop(scale) : axisBottom(scale),
-          percentRange: topOrRight
-            ? [displayAreaHeight, 0]
-            : [0, displayAreaHeight],
-        }
-      } else {
-        return {
-          axis: topOrRight ? axisRight(scale) : axisLeft(scale),
-          percentRange: topOrRight
-            ? [displayAreaWidth, 0]
-            : [0, displayAreaWidth],
-        }
+  const applyScaleToAxis = (
+    scale: AxisScale<string>
+  ): { axis: Axis<string>; percentRange: number[] } => {
+    if (isX) {
+      return {
+        axis: topOrRight ? axisTop(scale) : axisBottom(scale),
+        percentRange: topOrRight
+          ? [displayAreaHeight, 0]
+          : [0, displayAreaHeight],
+      }
+    } else {
+      return {
+        axis: topOrRight ? axisRight(scale) : axisLeft(scale),
+        percentRange: topOrRight
+          ? [displayAreaWidth, 0]
+          : [0, displayAreaWidth],
       }
     }
+  }
 
-    const range: Iterable<number> = isX
-      ? [0, displayAreaWidth]
-      : [displayAreaHeight, 0]
-    if (banded) {
+  const range: Iterable<number> = isX
+    ? [0, displayAreaWidth]
+    : [displayAreaHeight, 0]
+  if (banded) {
+    strings = toStrings(data)
+    scale = scaleBand().domain(strings).range(range)
+    const result = applyScaleToAxis(scale)
+    axis = result.axis
+    percentRange = result.percentRange
+  } else {
+    if (data.some((d) => typeof d === 'string')) {
       strings = toStrings(data)
-      scale = scaleBand().domain(strings).range(range)
+      scale = scalePoint().domain(strings).range(range)
       const result = applyScaleToAxis(scale)
       axis = result.axis
       percentRange = result.percentRange
     } else {
-      if (data.some((d) => typeof d === 'string')) {
-        strings = toStrings(data)
-        scale = scalePoint().domain(strings).range(range)
-        const result = applyScaleToAxis(scale)
-        axis = result.axis
-        percentRange = result.percentRange
-      } else {
-        numbers = data.map((d) => Number(d))
-        const linerScale = scaleLinear()
-          .domain([min, max !== 0 ? max : Math.max(...numbers)])
-          .range(range)
-        scale = scalePoint().domain(toStrings(linerScale.domain())).range(range)
-        const result = applyScaleToAxis(scale)
-        axis = result.axis
-        percentRange = result.percentRange
-      }
+      numbers = data.map((d) => Number(d))
+      const linerScale = scaleLinear()
+        .domain([min, max !== 0 ? max : Math.max(...numbers)])
+        .range(range)
+      scale = scalePoint().domain(toStrings(linerScale.domain())).range(range)
+      const result = applyScaleToAxis(scale)
+      axis = result.axis
+      percentRange = result.percentRange
     }
-
-    const textPercentScale = scaleLinear()
-      .domain([0, 100])
-      .range([0, displayAreaHeight])
-    const percentScale = scaleLinear().domain([0, 100]).range(percentRange)
-
-    const translation = isX
-      ? `translate(0, ${displayAreaHeight - percentScale(y)})`
-      : `translate(${percentScale(x)}, 0)`
-    axis.tickSize(tickSize)
-    axis.tickSizeInner(tickSizeInner)
-    axis.tickSizeOuter(tickSizeOuter)
-    axis.tickPadding(tickPadding)
-
-    const axisGroup = this.canvasDisplayGroup
-      .append('g')
-      .attr('id', 'xAxis')
-      .attr('transform', translation)
-      .call(axis)
-
-    const axisText = axisGroup.selectAll('text')
-
-    axisText
-      .attr('text-anchor', textAnchor)
-      .attr('transform', `rotate(${textAngle})`)
-      .attr('font-size', textPercentScale(fontSize))
-      .attr('font', font)
-      .style('alignment-baseline', alignmentBaseline)
-    if (textY) {
-      axisText.attr('dy', textY)
-    }
-    if (textX) {
-      axisText.attr('dx', textX)
-    }
-    const axisDomain = axisGroup.select('.domain')
-    if (hideAxisDomain) {
-      axisDomain.remove()
-    }
-
-    return { selection: axisText }
   }
 
-  xAxis(data: string[] | number[]) {
-    return this.draw(data, false, false, true)
+  const textPercentScale = scaleLinear()
+    .domain([0, 100])
+    .range([0, displayAreaHeight])
+  const percentScale = scaleLinear().domain([0, 100]).range(percentRange)
+
+  const translation = isX
+    ? `translate(0, ${displayAreaHeight - percentScale(y)})`
+    : `translate(${percentScale(x)}, 0)`
+  axis.tickSize(tickSize)
+  axis.tickSizeInner(tickSizeInner)
+  axis.tickSizeOuter(tickSizeOuter)
+  axis.tickPadding(tickPadding)
+
+  const axisGroup = canvasDisplayGroup
+    .append('g')
+    .attr('id', 'xAxis')
+    .attr('transform', translation)
+    .call(axis)
+
+  const axisText = axisGroup.selectAll('text')
+
+  axisText
+    .attr('text-anchor', textAnchor)
+    .attr('transform', `rotate(${textAngle})`)
+    .attr('font-size', textPercentScale(fontSize))
+    .attr('font', font)
+    .style('alignment-baseline', alignmentBaseline)
+  if (textY) {
+    axisText.attr('dy', textY)
+  }
+  if (textX) {
+    axisText.attr('dx', textX)
+  }
+  const axisDomain = axisGroup.select('.domain')
+  if (hideAxisDomain) {
+    axisDomain.remove()
   }
 
-  xAxisTop(data: string[] | number[]) {
-    return this.draw(data, true, false, true)
-  }
-
-  xAxisBottom(data: string[] | number[]) {
-    return this.draw(data, false, false, true)
-  }
-
-  xAxisBanded(data: string[] | number[]) {
-    return this.draw(data, false, true, true)
-  }
-
-  xAxisBottomBanded(data: string[] | number[]) {
-    return this.draw(data, false, true, true)
-  }
-
-  xAxisTopBanded(data: string[] | number[]) {
-    return this.draw(data, true, true, true)
-  }
-
-  yAxis(data: string[] | number[]) {
-    return this.draw(data, false, false, false)
-  }
-
-  yAxisLeft(data: string[] | number[]) {
-    return this.draw(data, false, false, false)
-  }
-
-  yAxisRight(data: string[] | number[]) {
-    return this.draw(data, true, false, false)
-  }
-
-  yAxisBanded(data: string[] | number[]) {
-    return this.draw(data, false, true, false)
-  }
-
-  yAxisLeftBanded(data: string[] | number[]) {
-    return this.draw(data, false, true, false)
-  }
-
-  yAxisRightBanded(data: string[] | number[]) {
-    return this.draw(data, true, true, false)
-  }
+  return { selection: axisText }
 }

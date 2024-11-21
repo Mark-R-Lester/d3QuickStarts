@@ -9,20 +9,16 @@ import { useCallback, useEffect } from 'react'
 
 export default function BarsPage() {
   const createChart = useCallback(() => {
-    const data1 = [25, 10, 35, 25, 35, 5, 25, 15]
-    const canvasV: Canvas | undefined = createCanvas('#verticalBars', {
+    const data1 = [25, 10, 35, 25, 35, 5, 25, 25]
+    const canvasV: Canvas = createCanvas('verticalBars', {
       width: 600,
     })
-    if (canvasV) {
-      barGenerator.vertical(canvasV, data1)
-    }
+    barGenerator.vertical(canvasV, data1)
 
-    const canvasH: Canvas | undefined = createCanvas('#horizontalBars', {
+    const canvasH: Canvas = createCanvas('horizontalBars', {
       width: 600,
     })
-    if (canvasH) {
-      barGenerator.horizontal(canvasH, data1)
-    }
+    barGenerator.horizontal(canvasH, data1)
 
     const data2 = [
       [10, 30],
@@ -31,15 +27,11 @@ export default function BarsPage() {
       [40, 60],
       [50, 70],
     ]
-    const canvasFV: Canvas | undefined = createCanvas(
-      '#horizontalFloatingBars',
-      {
-        width: 600,
-      }
-    )
-    if (canvasFV) {
-      barFloatingGenerator.horizontal(canvasFV, data2)
-    }
+    const canvasFV: Canvas = createCanvas('horizontalFloatingBars', {
+      width: 600,
+    })
+
+    barFloatingGenerator.horizontal(canvasFV, data2)
   }, [])
 
   useEffect(() => {

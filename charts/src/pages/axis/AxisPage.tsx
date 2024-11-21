@@ -18,12 +18,9 @@ export default function AxisPage() {
       'j',
       'k',
     ]
-    const canvas: Canvas | undefined = createCanvas('#chart', { width: 1000 })
-
-    if (canvas) {
-      axisGenerator.xAxisBottomBanded(canvas, data2)
-      axisGenerator.yAxisLeftBanded(canvas, data1)
-    }
+    const canvas: Canvas = createCanvas('chart', { width: 1000 })
+    axisGenerator.xAxisBottomBanded(canvas, data2)
+    axisGenerator.yAxisLeftBanded(canvas, data1)
   }, [])
 
   useEffect(() => {

@@ -33,7 +33,7 @@ export interface Canvas {
   config: CanvasConfigStrict
 }
 
-function draw(chartName: string, config: CanvasConfigStrict): Canvas {
+const draw = (chartName: string, config: CanvasConfigStrict): Canvas => {
   const scaleValues = (config: CanvasConfigStrict): void => {
     config.height = (config.width * config.height) / 100
     config.marginRight = (config.width * config.marginRight) / 100
@@ -85,7 +85,7 @@ function draw(chartName: string, config: CanvasConfigStrict): Canvas {
 export function createCanvas(
   chartName: string,
   newConfig?: CanvasConfig
-): Canvas | undefined {
+): Canvas {
   const config: CanvasConfigStrict = {
     width: 500,
     height: 70,
@@ -102,14 +102,9 @@ export function createCanvas(
   if (newConfig) {
     Object.keys(newConfig).forEach((key) => (config[key] = newConfig[key]))
   }
-  const children: Selection<BaseType, unknown, BaseType, unknown> = select(
-    chartName
-  )
-    .selection()
-    .selectChildren()
-  if (children.size() === 0) {
-    return draw(chartName, config)
-  }
 
-  return undefined
+  const element = document.getElementById(chartName)
+  if (element) element.innerHTML = ''
+
+  return draw(`#${chartName}`, config)
 }

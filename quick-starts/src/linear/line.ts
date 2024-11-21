@@ -149,7 +149,7 @@ const verticalBandedMinimised = (
   return drawLine(canvas, args, configuration)
 }
 
-export const areaGenerator = {
+export const linearLineGenerator = {
   horizontal,
   vertical,
   horizontalBanded,

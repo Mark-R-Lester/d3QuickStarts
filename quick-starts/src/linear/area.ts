@@ -74,7 +74,7 @@ const horizontalMinimised = (
   return draw(canvas, args, configuration)
 }
 
-export const areaGenerator = {
+export const linearAreaGenerator = {
   horizontal,
   horizontalMinimised,
 }

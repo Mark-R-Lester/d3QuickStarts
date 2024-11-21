@@ -68,7 +68,7 @@ const horizontalMinimised = (
   return draw(canvas, args, configuration)
 }
 
-export const barGenerator = {
+export const linearBarGenerator = {
   horizontal,
   vertical,
   horizontalMinimised,

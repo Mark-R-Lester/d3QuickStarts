@@ -1,5 +1,4 @@
-import { Canvas, CanvasConfigStrict } from '../canvas/canvas'
-import { Selection } from 'd3-selection'
+import { Canvas } from '../canvas/canvas'
 import { scaleLinear, curveLinear, CurveFactory, lineRadial } from 'd3'
 
 export interface RadialLineConfig {
@@ -9,96 +8,107 @@ export interface RadialLineConfig {
   curve?: CurveFactory
 }
 
-export interface StrictRadialLineConfig {
+interface RadialLineConfigStrict {
   [key: string]: number | CurveFactory | undefined
   x: number
   y: number
   curve: CurveFactory
 }
 
-export interface RadialLineArgs {
+interface DrawArgs {
   data: number[][]
-  vertical: boolean
   minimised: boolean
 }
 
-export class RadialLine {
-  canvasConfig: CanvasConfigStrict
-  canvasDisplayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
-  config: StrictRadialLineConfig
+const configuration: RadialLineConfigStrict = {
+  curve: curveLinear,
+  x: 50,
+  y: 50,
+}
 
-  updateConfig(customConfig: RadialLineConfig) {
-    if (customConfig)
-      Object.keys(customConfig).forEach(
-        (key) => (this.config[key] = customConfig[key])
-      )
-  }
+const updateConfig = (customConfig?: RadialLineConfig) => {
+  if (customConfig)
+    Object.keys(customConfig).forEach(
+      (key) => (configuration[key] = customConfig[key])
+    )
+}
 
-  constructor(canvas: Canvas, customConfig: RadialLineConfig) {
-    this.canvasConfig = canvas.config
-    this.canvasDisplayGroup = canvas.displayGroup
-    this.config = {
-      curve: curveLinear,
-      x: 50,
-      y: 50,
-    }
-    this.updateConfig(customConfig)
-  }
+const line = (canvas: Canvas, data: number[][], config: RadialLineConfig) => {
+  updateConfig(config)
+  const args: DrawArgs = { data, minimised: false }
+  return draw(canvas, args, configuration)
+}
 
-  radialLine(data: number[][], minimise: boolean) {
-    const { x, y, curve } = this.config
-    const { min, max, displayAreaHeight, displayAreaWidth } = this.canvasConfig
-    const meta: any[] = []
-    const angleScale = scaleLinear()
-      .domain([0, data.length])
-      .range([0, 2 * Math.PI])
-    const radialScale = scaleLinear()
-      .domain([min, max])
-      .range([0, displayAreaHeight / 2])
-    const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
-    const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
+const lineMinimised = (
+  canvas: Canvas,
+  data: number[][],
+  config: RadialLineConfig
+) => {
+  updateConfig(config)
+  const args: DrawArgs = { data, minimised: true }
+  return draw(canvas, args, configuration)
+}
 
-    const dataCopy = data.slice()
-    dataCopy.push(data[0])
+export const radialLineGenerator = {
+  line,
+  lineMinimised,
+}
 
-    meta.push({
-      class: 'radialLine',
-      id: 'radialLine',
-      lineDataMin: dataCopy.map((d, i) => [angleScale(i), 0]),
-      lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d[0])]),
-    })
+const draw = (
+  canvas: Canvas,
+  args: DrawArgs,
+  config: RadialLineConfigStrict
+) => {
+  const { x, y, curve } = config
+  const { min, max, displayAreaHeight, displayAreaWidth } = canvas.config
+  const { data, minimised } = args
 
-    const radialLine = lineRadial().curve(curve)
-    const group = this.canvasDisplayGroup.append('g')
-    group
-      .append('path')
-      .attr('class', meta[0].class)
-      .attr('id', meta[0].id)
-      .attr('d', radialLine(minimise ? meta[0].lineDataMin : meta[0].lineData))
-      .attr('fill', 'none')
-      .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
-    return {
-      line: group.selectAll(`.${meta[0].class}`),
-      group,
-      meta,
-      maximise: () => {
-        group
-          .selectAll(`.${meta[0].class}`)
-          .transition()
-          .duration(3000)
-          .attr('d', radialLine(meta[0].lineData))
-      },
-      minimise: () => {
-        group
-          .selectAll(`.${meta[0].class}`)
-          .transition()
-          .duration(3000)
-          .attr('d', radialLine(meta[0].lineDataMin))
-      },
-    }
-  }
+  const meta: any[] = []
+  const angleScale = scaleLinear()
+    .domain([0, data.length])
+    .range([0, 2 * Math.PI])
+  const radialScale = scaleLinear()
+    .domain([min, max])
+    .range([0, displayAreaHeight / 2])
+  const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
+  const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
 
-  radialLineMinimised(data: number[][]) {
-    return this.radialLine(data, true)
+  const dataCopy = data.slice()
+  dataCopy.push(data[0])
+
+  meta.push({
+    class: 'radialLine',
+    id: 'radialLine',
+    lineDataMin: dataCopy.map((d, i) => [angleScale(i), 0]),
+    lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d[0])]),
+  })
+
+  const radialLine = lineRadial().curve(curve)
+  const group = canvas.displayGroup.append('g')
+  group
+    .append('path')
+    .attr('class', meta[0].class)
+    .attr('id', meta[0].id)
+    .attr('d', radialLine(minimised ? meta[0].lineDataMin : meta[0].lineData))
+    .attr('fill', 'none')
+    .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
+  return {
+    line: group.selectAll(`.${meta[0].class}`),
+    group,
+    meta,
+    maximise: () => {
+      group
+        .selectAll(`.${meta[0].class}`)
+        .transition()
+        .duration(3000)
+        .attr('d', radialLine(meta[0].lineData))
+    },
+    minimise: () => {
+      group
+        .selectAll(`.${meta[0].class}`)
+        .transition()
+        .duration(3000)
+        .attr('d', radialLine(meta[0].lineDataMin))
+    },
   }
 }

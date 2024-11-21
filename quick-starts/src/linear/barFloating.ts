@@ -78,7 +78,7 @@ const verticalMinimised = (
   return draw(canvas, args, configuration)
 }
 
-export const barFloatingGenerator = {
+export const linearBarFloatingGenerator = {
   horizontal,
   vertical,
   horizontalMinimised,

@@ -32,25 +32,18 @@ export const ApplicationMenu: FunctionComponent = () => {
   const homeRoute: MenuRoute = { displayName: 'Home', route: '/' }
 
   const linearRoutes: MenuRoute[] = [
-    { displayName: 'Axis', route: '/linear/axis' },
-    { displayName: 'Bars', route: '/linear/bars' },
-    { displayName: 'Area', route: '/linear/area' },
-    { displayName: 'Line', route: '/linear/line' },
-    { displayName: 'Point', route: '/linear/points' },
+    { displayName: 'Elements', route: '/linear/elements' },
+    { displayName: 'Charts', route: '/linear/charts' },
   ]
 
   const plotRoutes: MenuRoute[] = [
-    { displayName: 'Line', route: '/plot/line' },
-    { displayName: 'Scatter', route: '/plot/scatter' },
+    { displayName: 'Elements', route: '/plotted/elements' },
+    { displayName: 'Charts', route: '/plotted/charts' },
   ]
 
   const radialRoutes: MenuRoute[] = [
-    { displayName: 'Axis', route: '/radial/axis' },
-    { displayName: 'Area', route: '/radial/area' },
-    { displayName: 'Line', route: '/radial/line' },
-    { displayName: 'Point', route: '/radial/points' },
-    { displayName: 'Spokes', route: '/radial/spokes' },
-    { displayName: 'Text', route: '/radial/text' },
+    { displayName: 'Elements', route: '/radial/elements' },
+    { displayName: 'Charts', route: '/radial/charts' },
   ]
 
   const handleNavigate = (route: string) => {
@@ -89,7 +82,7 @@ export const ApplicationMenu: FunctionComponent = () => {
         <Divider />
         <DropdownMenu title="Linear" routes={linearRoutes} />
         <Divider />
-        <DropdownMenu title="Plot" routes={plotRoutes} />
+        <DropdownMenu title="Plotted" routes={plotRoutes} />
         <Divider />
         <DropdownMenu title="Radial" routes={radialRoutes} />
       </List>

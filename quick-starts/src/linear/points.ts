@@ -30,7 +30,7 @@ const updateConfig = (customConfig?: PointsConfig) => {
     )
 }
 
-const horizontal = (canvas: Canvas, data: number[], config: PointsConfig) => {
+const horizontal = (canvas: Canvas, data: number[], config?: PointsConfig) => {
   updateConfig(config)
   const args: DrawArgs = {
     data,
@@ -41,7 +41,7 @@ const horizontal = (canvas: Canvas, data: number[], config: PointsConfig) => {
   return draw(canvas, args, configuration)
 }
 
-const vertical = (canvas: Canvas, data: number[], config: PointsConfig) => {
+const vertical = (canvas: Canvas, data: number[], config?: PointsConfig) => {
   updateConfig(config)
   const args: DrawArgs = {
     data,
@@ -55,7 +55,7 @@ const vertical = (canvas: Canvas, data: number[], config: PointsConfig) => {
 const horizontalBanded = (
   canvas: Canvas,
   data: number[],
-  config: PointsConfig
+  config?: PointsConfig
 ) => {
   updateConfig(config)
   const args: DrawArgs = {
@@ -70,7 +70,7 @@ const horizontalBanded = (
 const verticalBanded = (
   canvas: Canvas,
   data: number[],
-  config: PointsConfig
+  config?: PointsConfig
 ) => {
   updateConfig(config)
   const args: DrawArgs = {
@@ -85,7 +85,7 @@ const verticalBanded = (
 const horizontalMinimised = (
   canvas: Canvas,
   data: number[],
-  config: PointsConfig
+  config?: PointsConfig
 ) => {
   updateConfig(config)
   const args: DrawArgs = {
@@ -100,7 +100,7 @@ const horizontalMinimised = (
 const verticalMinimised = (
   canvas: Canvas,
   data: number[],
-  config: PointsConfig
+  config?: PointsConfig
 ) => {
   updateConfig(config)
   const args: DrawArgs = {
@@ -115,7 +115,7 @@ const verticalMinimised = (
 const horizontalBandedMinimised = (
   canvas: Canvas,
   data: number[],
-  config: PointsConfig
+  config?: PointsConfig
 ) => {
   updateConfig(config)
   const args: DrawArgs = {
@@ -130,7 +130,7 @@ const horizontalBandedMinimised = (
 const verticalBandedMinimised = (
   canvas: Canvas,
   data: number[],
-  config: PointsConfig
+  config?: PointsConfig
 ) => {
   updateConfig(config)
   const args: DrawArgs = {

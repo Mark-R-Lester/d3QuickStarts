@@ -1,5 +1,9 @@
 import { FunctionComponent, useEffect } from 'react'
-import { Canvas, createCanvas, barFloatingGenerator } from 'd3qs/d3QuickStart'
+import {
+  Canvas,
+  createCanvas,
+  linearBarFloatingGenerator,
+} from 'd3qs/d3QuickStart'
 import { chartProps } from '../../../../common/types/chartProps'
 
 export const LinearFloatingBarsElement: FunctionComponent<chartProps> = ({
@@ -17,7 +21,7 @@ export const LinearFloatingBarsElement: FunctionComponent<chartProps> = ({
       width: 600,
     })
 
-    barFloatingGenerator.horizontal(canvasFV, data2)
+    linearBarFloatingGenerator.horizontal(canvasFV, data2)
   }
 
   useEffect(() => {

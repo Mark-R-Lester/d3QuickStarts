@@ -23,7 +23,7 @@ interface TextConfigStrict {
   angle: number
 }
 
-interface TextArgs {
+export interface TextArgs {
   x: number
   y: number
   text: string

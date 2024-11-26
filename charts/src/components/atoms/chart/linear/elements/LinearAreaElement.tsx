@@ -6,8 +6,8 @@ export const LinearAreaElement: FunctionComponent<chartProps> = ({
   targetId,
 }) => {
   const createChart = () => {
-    var data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
-    var data2 = [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 205, 240]
+    const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
+    const data2 = [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 205, 240]
 
     const canvas: Canvas = createCanvas(targetId, {
       width: 600,

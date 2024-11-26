@@ -15,8 +15,15 @@ interface RadialLineConfigStrict {
   curve: CurveFactory
 }
 
+interface Meta {
+  class: string
+  id: string
+  lineDataMin: Iterable<[number, number]>
+  lineData: Iterable<[number, number]>
+}
+
 interface DrawArgs {
-  data: number[][]
+  data: number[]
   minimised: boolean
 }
 
@@ -33,7 +40,7 @@ const updateConfig = (customConfig?: RadialLineConfig) => {
     )
 }
 
-const line = (canvas: Canvas, data: number[][], config: RadialLineConfig) => {
+const line = (canvas: Canvas, data: number[], config?: RadialLineConfig) => {
   updateConfig(config)
   const args: DrawArgs = { data, minimised: false }
   return draw(canvas, args, configuration)
@@ -41,8 +48,8 @@ const line = (canvas: Canvas, data: number[][], config: RadialLineConfig) => {
 
 const lineMinimised = (
   canvas: Canvas,
-  data: number[][],
-  config: RadialLineConfig
+  data: number[],
+  config?: RadialLineConfig
 ) => {
   updateConfig(config)
   const args: DrawArgs = { data, minimised: true }
@@ -63,7 +70,6 @@ const draw = (
   const { min, max, displayAreaHeight, displayAreaWidth } = canvas.config
   const { data, minimised } = args
 
-  const meta: any[] = []
   const angleScale = scaleLinear()
     .domain([0, data.length])
     .range([0, 2 * Math.PI])
@@ -76,39 +82,42 @@ const draw = (
   const dataCopy = data.slice()
   dataCopy.push(data[0])
 
-  meta.push({
+  const meta: Meta = {
     class: 'radialLine',
     id: 'radialLine',
     lineDataMin: dataCopy.map((d, i) => [angleScale(i), 0]),
-    lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d[0])]),
-  })
+    lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d)]),
+  }
+
+  console.log(meta)
 
   const radialLine = lineRadial().curve(curve)
   const group = canvas.displayGroup.append('g')
   group
     .append('path')
-    .attr('class', meta[0].class)
-    .attr('id', meta[0].id)
-    .attr('d', radialLine(minimised ? meta[0].lineDataMin : meta[0].lineData))
+    .attr('class', meta.class)
+    .attr('id', meta.id)
+    .attr('d', radialLine(minimised ? meta.lineDataMin : meta.lineData))
+    .attr('stroke', 'black')
     .attr('fill', 'none')
     .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
   return {
-    line: group.selectAll(`.${meta[0].class}`),
+    line: group.selectAll(`.${meta.class}`),
     group,
     meta,
     maximise: () => {
       group
-        .selectAll(`.${meta[0].class}`)
+        .selectAll(`.${meta.class}`)
         .transition()
         .duration(3000)
-        .attr('d', radialLine(meta[0].lineData))
+        .attr('d', radialLine(meta.lineData))
     },
     minimise: () => {
       group
-        .selectAll(`.${meta[0].class}`)
+        .selectAll(`.${meta.class}`)
         .transition()
         .duration(3000)
-        .attr('d', radialLine(meta[0].lineDataMin))
+        .attr('d', radialLine(meta.lineDataMin))
     },
   }
 }

@@ -1,9 +1,15 @@
 import { Typography } from '@mui/material'
-import { LinearAreaElement } from '../../components/atoms/chart/linear/elements/LinearAreaElement'
 import { ElementGrid } from '../../components/atoms/ElementGrid'
+import { PlottedPointsElement } from '../../components/atoms/chart/plotted/elements/PlottedPointsElement'
+import { PlottedPointsEnhancedElement } from '../../components/atoms/chart/plotted/elements/PlottedPointsEnhancedElement'
+import { PlottedLineElement } from '../../components/atoms/chart/plotted/elements/PlottedLineElement'
 
 export default function LinearChartsPage() {
-  const elements: JSX.Element[] = [<LinearAreaElement targetId="linearArea" />]
+  const elements: JSX.Element[] = [
+    <PlottedLineElement targetId="plottedLine" />,
+    <PlottedPointsElement targetId="plottedPoints" />,
+    <PlottedPointsEnhancedElement targetId="PlottedPontsEnhanced" />,
+  ]
 
   return (
     <>

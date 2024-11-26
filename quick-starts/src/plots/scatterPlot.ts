@@ -27,7 +27,7 @@ const updateConfig = (customConfig?: ScatterPlotConfig) => {
 const points = (
   canvas: Canvas,
   data: CoordinateEnhanced[],
-  config: ScatterPlotConfig
+  config?: ScatterPlotConfig
 ) => {
   updateConfig(config)
   const args: DrawArgs = { data }

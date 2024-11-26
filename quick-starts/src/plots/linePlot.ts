@@ -28,7 +28,7 @@ const updateConfig = (customConfig?: LinePlotConfig) => {
     )
 }
 
-const line = (canvas: Canvas, data: Coordinate[], config: LinePlotConfig) => {
+const line = (canvas: Canvas, data: Coordinate[], config?: LinePlotConfig) => {
   updateConfig(config)
   const args: DrawArgs = { data }
   return draw(canvas, args, configuration)

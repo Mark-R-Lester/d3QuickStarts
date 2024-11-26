@@ -1,5 +1,4 @@
-import { Canvas, CanvasConfigStrict } from '../canvas/canvas'
-import { Selection } from 'd3-selection'
+import { Canvas } from '../canvas/canvas'
 import { line } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -24,7 +23,7 @@ interface RadialSpokesConfigStrict {
 }
 
 interface RadialSpokeArgs {
-  data: number[][]
+  data: number
   minimised: boolean
 }
 
@@ -44,11 +43,7 @@ const updateConfig = (customConfig?: RadialSpokesConfig) => {
     )
 }
 
-const spokes = (
-  canvas: Canvas,
-  data: number[][],
-  config?: RadialSpokesConfig
-) => {
+const spokes = (canvas: Canvas, data: number, config?: RadialSpokesConfig) => {
   updateConfig(config)
   const args: RadialSpokeArgs = { data, minimised: false }
   return draw(canvas, args, configuration)
@@ -56,7 +51,7 @@ const spokes = (
 
 const spokesMinimised = (
   canvas: Canvas,
-  data: number[][],
+  data: number,
   config?: RadialSpokesConfig
 ) => {
   updateConfig(config)
@@ -81,8 +76,8 @@ const draw = (
   const yCenter = (displayAreaHeight / 100) * y
   const meta: any[] = []
 
-  data.map((d, i) => {
-    const angle = ((Math.PI * 2) / data.length) * i
+  for (let i = 0; i < data; i++) {
+    const angle = ((Math.PI * 2) / data) * i
     const outerHypotenuse = ((displayAreaHeight / 2) * radius) / 100
     const innerHypotenuse = ((displayAreaHeight / 2) * innerRadius) / 100
     const outerX = Math.sin(angle) * outerHypotenuse + xCenter
@@ -101,7 +96,7 @@ const draw = (
         [innerX, innerY],
       ],
     }
-  })
+  }
 
   const radialLine = line()
     .x((d) => d[0])

@@ -75,7 +75,7 @@ const updateConfig = (customConfig?: RadialAxisConfig) => {
     )
 }
 
-const rings = (canvas: Canvas, data: number[], config: RadialAxisConfig) => {
+const rings = (canvas: Canvas, data: number[], config?: RadialAxisConfig) => {
   updateConfig(config)
   const args: DrawArgs = { data, minimised: false }
   return draw(canvas, args, configuration)
@@ -84,7 +84,7 @@ const rings = (canvas: Canvas, data: number[], config: RadialAxisConfig) => {
 const ringsMinimised = (
   canvas: Canvas,
   data: number[],
-  config: RadialAxisConfig
+  config?: RadialAxisConfig
 ) => {
   updateConfig(config)
   const args: DrawArgs = { data, minimised: true }

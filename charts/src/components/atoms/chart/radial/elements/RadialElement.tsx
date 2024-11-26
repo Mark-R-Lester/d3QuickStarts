@@ -2,28 +2,26 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   Canvas,
   createCanvas,
-  linearTextGenerator,
-  TextArgs,
+  radialGenerator,
+  RadialArgs,
 } from 'd3qs/d3QuickStart'
 import { chartProps } from '../../../../common/types/chartProps'
 
-export const LinearTextElement: FunctionComponent<chartProps> = ({
-  targetId,
-}) => {
+export const RadialElement: FunctionComponent<chartProps> = ({ targetId }) => {
   const createChart = () => {
-    const data1: TextArgs[] = [
-      { x: 0, y: 0, text: 'Some Text' },
-      { x: 50, y: 50, text: 'Some Text' },
-      { x: 100, y: 100, text: 'Some Text' },
-    ]
+    // const data1: RadialArgs[] = [
+    //   { value: 15, color: 'blue' },
+    //   { value: 45, color: 'red' },
+    //   { value: 60, color: 'yellow' },
+    // ]
+
+    const data1: RadialArgs[] = [{ value: 15 }, { value: 45 }, { value: 60 }]
 
     const canvas: Canvas = createCanvas(targetId, {
       width: 600,
-      min: 0,
-      max: 250,
     })
 
-    linearTextGenerator.text(canvas, data1, { color: 'black' })
+    radialGenerator.pie(canvas, data1)
   }
 
   useEffect(() => {

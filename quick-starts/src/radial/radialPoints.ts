@@ -17,7 +17,7 @@ interface RadialPointsConfigStrict {
 }
 
 interface DrawArgs {
-  data: number[][]
+  data: number[]
   minimised: boolean
 }
 
@@ -36,8 +36,8 @@ const updateConfig = (customConfig?: RadialPointsConfig) => {
 
 const points = (
   canvas: Canvas,
-  data: number[][],
-  config: RadialPointsConfig
+  data: number[],
+  config?: RadialPointsConfig
 ) => {
   updateConfig(config)
   const args: DrawArgs = { data, minimised: false }
@@ -46,8 +46,8 @@ const points = (
 
 const pointsMinimised = (
   canvas: Canvas,
-  data: number[][],
-  config: RadialPointsConfig
+  data: number[],
+  config?: RadialPointsConfig
 ) => {
   updateConfig(config)
   const args: DrawArgs = { data, minimised: true }
@@ -80,7 +80,7 @@ const draw = (
 
   data.forEach((d, i) => {
     const radians = angleScale(i)
-    const hypotenuse = radialScale(d[0])
+    const hypotenuse = radialScale(d)
     const x = Math.sin(radians) * hypotenuse
     const y = Math.cos(radians) * hypotenuse * -1
 

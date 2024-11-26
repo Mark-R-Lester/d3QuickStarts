@@ -20,7 +20,7 @@ export interface RadialTextConfigStrict {
 
 export interface ValuedText {
   value: number
-  text: string
+  text?: string
 }
 
 interface RadialTextArgs {
@@ -68,8 +68,9 @@ const updateConfig = (customConfig?: RadialTextConfig) => {
 const spokeMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
+  updateConfig(config)
   const args: RadialTextArgs = {
     data,
     banded: false,
@@ -82,7 +83,7 @@ const spokeMinimised = (
 const horizontalMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -97,7 +98,7 @@ const horizontalMinimised = (
 const rotatedMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -112,7 +113,7 @@ const rotatedMinimised = (
 const followMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -127,7 +128,7 @@ const followMinimised = (
 const spokeBandedMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -142,7 +143,7 @@ const spokeBandedMinimised = (
 const horizontalBandedMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -157,7 +158,7 @@ const horizontalBandedMinimised = (
 const rotatedBandedMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -172,7 +173,7 @@ const rotatedBandedMinimised = (
 const followBandedMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -187,7 +188,7 @@ const followBandedMinimised = (
 const spoke = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -202,7 +203,7 @@ const spoke = (
 const horizontal = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -217,7 +218,7 @@ const horizontal = (
 const rotated = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -232,7 +233,7 @@ const rotated = (
 const follow = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -247,7 +248,7 @@ const follow = (
 const spokeBanded = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -262,7 +263,7 @@ const spokeBanded = (
 const horizontalBanded = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -277,7 +278,7 @@ const horizontalBanded = (
 const rotatedBanded = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {
@@ -292,7 +293,7 @@ const rotatedBanded = (
 const followBanded = (
   canvas: Canvas,
   data: ValuedText[],
-  config: RadialTextConfig
+  config?: RadialTextConfig
 ) => {
   updateConfig(config)
   const args: RadialTextArgs = {

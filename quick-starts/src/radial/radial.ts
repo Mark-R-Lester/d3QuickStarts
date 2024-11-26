@@ -28,14 +28,20 @@ interface RadialConfigStrict {
   colorRange: Iterable<unknown>
 }
 
-interface RadialArgs {
-  data: number[][]
+interface DrawArgs {
+  data: RadialArgs[]
   pie: boolean
   minimised: boolean
 }
 
+export interface RadialArgs {
+  value: number
+  color?: string
+}
+
 interface ArcData {
-  data: number[]
+  data: number
+  color?: string
   index?: number
   value?: number
   cornerRadius: number
@@ -70,46 +76,50 @@ const updateConfig = (customConfig?: RadialConfig) => {
     )
 }
 
-const pie = (canvas: Canvas, data: number[][], config?: RadialConfig) => {
+const pie = (canvas: Canvas, data: RadialArgs[], config?: RadialConfig) => {
   updateConfig(config)
-  const args = { data, pie: true, minimised: false }
+  const args: DrawArgs = { data, pie: true, minimised: false }
   return draw(canvas, args, configuration)
 }
 
-const doughnut = (canvas: Canvas, data: number[][], config?: RadialConfig) => {
+const doughnut = (
+  canvas: Canvas,
+  data: RadialArgs[],
+  config?: RadialConfig
+) => {
   updateConfig(config)
-  const args = { data, pie: false, minimised: false }
+  const args: DrawArgs = { data, pie: false, minimised: false }
   return draw(canvas, args, configuration)
 }
 
 const pieMinimised = (
   canvas: Canvas,
-  data: number[][],
+  data: RadialArgs[],
   config?: RadialConfig
 ) => {
   updateConfig(config)
-  const args = { data, pie: true, minimised: true }
+  const args: DrawArgs = { data, pie: true, minimised: true }
   return draw(canvas, args, configuration)
 }
 
 const doughnutMinimised = (
   canvas: Canvas,
-  data: number[][],
+  data: RadialArgs[],
   config?: RadialConfig
 ) => {
   updateConfig(config)
-  const args = { data, pie: false, minimised: true }
+  const args: DrawArgs = { data, pie: false, minimised: true }
   return draw(canvas, args, configuration)
 }
 
-export const areaGenerator = {
+export const radialGenerator = {
   pie,
   doughnut,
   pieMinimised,
   doughnutMinimised,
 }
 
-const draw = (canvas: Canvas, args: RadialArgs, config: RadialConfigStrict) => {
+const draw = (canvas: Canvas, args: DrawArgs, config: RadialConfigStrict) => {
   const { data, pie, minimised } = args
   const {
     outerRadius,
@@ -127,10 +137,10 @@ const draw = (canvas: Canvas, args: RadialArgs, config: RadialConfigStrict) => {
   const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
   const colors = scaleOrdinal().domain(toStrings(colorDomain)).range(colorRange)
 
-  const createMeta = (data: number[][], padAngle: number) => {
+  const createMeta = (data: RadialArgs[], padAngle: number) => {
     let shares = 0
     data.forEach((d) => {
-      shares = shares + d[0]
+      shares = shares + d.value
     })
     if (data.length < 2) {
       padAngle = 0
@@ -138,14 +148,15 @@ const draw = (canvas: Canvas, args: RadialArgs, config: RadialConfigStrict) => {
     const angle = (Math.PI * 2) / shares
     let startAngle = 0
     data.forEach((d, i) => {
-      const endAngle = startAngle + angle * d[0]
+      const endAngle = startAngle + angle * d.value
       meta.push({
         class: `arc`,
         id: `arc${uuidv4()}`,
         arcData: {
-          data: d,
+          data: d.value,
+          color: d.color,
           index: i,
-          value: d[1] ? d[1] : d[0],
+          value: d.value,
           cornerRadius: yAxis(cornerRadius / 2),
           outerRadius: yAxis(outerRadius / 2),
           innerRadius: yAxis(pie ? 0 : innerRadius / 2),
@@ -153,9 +164,10 @@ const draw = (canvas: Canvas, args: RadialArgs, config: RadialConfigStrict) => {
           endAngle: endAngle - padAngle / 2,
         },
         arcDataMin: {
-          data: d,
+          data: d.value,
+          color: d.color,
           index: i,
-          value: d[1] ? d[1] : d[0],
+          value: d.value,
           cornerRadius: yAxis(cornerRadius / 2),
           outerRadius: yAxis(outerRadius / 2),
           innerRadius: yAxis(pie ? 0 : innerRadius / 2),
@@ -202,11 +214,11 @@ const draw = (canvas: Canvas, args: RadialArgs, config: RadialConfigStrict) => {
     .attr('fill', (d, i) => {
       const res = colors(
         (minimised
-          ? d.arcDataMin.data[1]
-            ? d.arcDataMin.data[1]
+          ? d.arcDataMin.color
+            ? d.arcDataMin.color
             : i
-          : d.arcData.data[1]
-            ? d.arcData.data[1]
+          : d.arcData.color
+            ? d.arcData.color
             : i
         ).toString()
       )
@@ -232,7 +244,7 @@ const draw = (canvas: Canvas, args: RadialArgs, config: RadialConfigStrict) => {
         .data(meta)
         .transition()
         .duration(3000)
-        .tween('d', (d) => (t) => interpolate(d.arcData, t, false))
+        .tween('d', (d) => (t) => interpolate(d.arcDataMin, t, false))
     },
   }
 }

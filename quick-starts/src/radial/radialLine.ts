@@ -89,8 +89,6 @@ const draw = (
     lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d)]),
   }
 
-  console.log(meta)
-
   const radialLine = lineRadial().curve(curve)
   const group = canvas.displayGroup.append('g')
   group

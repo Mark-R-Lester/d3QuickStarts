@@ -52,43 +52,50 @@ interface RadialAxisMeta {
   ringData: RingData
 }
 
-const configuration: RadialAxisConfigStrict = {
-  radius: 100,
-  fontSize: 4,
-  x: 50,
-  y: 50,
-  axisAngle: 0,
-  gap: 15,
-  colour: 'black',
-  strokeWidth: 0.3,
-}
-
 interface DrawArgs {
   data: number[]
   minimised: boolean
 }
 
-const updateConfig = (customConfig?: RadialAxisConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
+const updateConfig = (
+  customConfig?: RadialAxisConfig
+): RadialAxisConfigStrict => {
+  const defaults: RadialAxisConfigStrict = {
+    radius: 100,
+    fontSize: 4,
+    x: 50,
+    y: 50,
+    axisAngle: 0,
+    gap: 15,
+    colour: 'black',
+    strokeWidth: 0.3,
+  }
+  if (!customConfig) return defaults
+
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
 }
 
-const rings = (canvas: Canvas, data: number[], config?: RadialAxisConfig) => {
-  updateConfig(config)
+const rings = (
+  canvas: Canvas,
+  data: number[],
+  customConfig?: RadialAxisConfig
+) => {
+  const config: RadialAxisConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, minimised: false }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const ringsMinimised = (
   canvas: Canvas,
   data: number[],
-  config?: RadialAxisConfig
+  customConfig?: RadialAxisConfig
 ) => {
-  updateConfig(config)
+  const config: RadialAxisConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, minimised: true }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 export const radialAxisGenerator = {

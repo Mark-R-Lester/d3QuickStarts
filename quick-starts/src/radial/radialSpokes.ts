@@ -27,36 +27,43 @@ interface RadialSpokeArgs {
   minimised: boolean
 }
 
-const configuration: RadialSpokesConfigStrict = {
-  radius: 100,
-  innerRadius: 0,
-  x: 50,
-  y: 50,
-  colour: 'black',
-  strokeWidth: 0.4,
+const updateConfig = (
+  customConfig?: RadialSpokesConfig
+): RadialSpokesConfigStrict => {
+  const defaults: RadialSpokesConfigStrict = {
+    radius: 100,
+    innerRadius: 0,
+    x: 50,
+    y: 50,
+    colour: 'black',
+    strokeWidth: 0.4,
+  }
+  if (!customConfig) return defaults
+
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
 }
 
-const updateConfig = (customConfig?: RadialSpokesConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
-}
-
-const spokes = (canvas: Canvas, data: number, config?: RadialSpokesConfig) => {
-  updateConfig(config)
+const spokes = (
+  canvas: Canvas,
+  data: number,
+  customConfig?: RadialSpokesConfig
+) => {
+  const config: RadialSpokesConfigStrict = updateConfig(customConfig)
   const args: RadialSpokeArgs = { data, minimised: false }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const spokesMinimised = (
   canvas: Canvas,
   data: number,
-  config?: RadialSpokesConfig
+  customConfig?: RadialSpokesConfig
 ) => {
-  updateConfig(config)
+  const config: RadialSpokesConfigStrict = updateConfig(customConfig)
   const args: RadialSpokeArgs = { data, minimised: true }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 export const radialSpokesGenerator = {

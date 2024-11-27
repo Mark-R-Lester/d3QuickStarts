@@ -19,127 +19,136 @@ export interface DrawArgs {
   minimised: boolean
 }
 
-const configuration: PointsConfigStrict = {
-  radius: 3,
+const updateConfig = (customConfig?: PointsConfig): PointsConfigStrict => {
+  const defaults: PointsConfigStrict = {
+    radius: 3,
+  }
+  if (!customConfig) return defaults
+
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
 }
 
-const updateConfig = (customConfig?: PointsConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
-}
-
-const horizontal = (canvas: Canvas, data: number[], config?: PointsConfig) => {
-  updateConfig(config)
+const horizontal = (
+  canvas: Canvas,
+  data: number[],
+  customConfig?: PointsConfig
+) => {
   const args: DrawArgs = {
     data,
     vertical: false,
     banded: false,
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  const config: PointsConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
-const vertical = (canvas: Canvas, data: number[], config?: PointsConfig) => {
-  updateConfig(config)
+const vertical = (
+  canvas: Canvas,
+  data: number[],
+  customConfig?: PointsConfig
+) => {
   const args: DrawArgs = {
     data,
     vertical: true,
     banded: false,
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  const config: PointsConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 const horizontalBanded = (
   canvas: Canvas,
   data: number[],
-  config?: PointsConfig
+  customConfig?: PointsConfig
 ) => {
-  updateConfig(config)
   const args: DrawArgs = {
     data,
     vertical: false,
     banded: true,
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  const config: PointsConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 const verticalBanded = (
   canvas: Canvas,
   data: number[],
-  config?: PointsConfig
+  customConfig?: PointsConfig
 ) => {
-  updateConfig(config)
   const args: DrawArgs = {
     data,
     vertical: true,
     banded: true,
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  const config: PointsConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 const horizontalMinimised = (
   canvas: Canvas,
   data: number[],
-  config?: PointsConfig
+  customConfig?: PointsConfig
 ) => {
-  updateConfig(config)
   const args: DrawArgs = {
     data,
     vertical: false,
     banded: false,
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  const config: PointsConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 const verticalMinimised = (
   canvas: Canvas,
   data: number[],
-  config?: PointsConfig
+  customConfig?: PointsConfig
 ) => {
-  updateConfig(config)
   const args: DrawArgs = {
     data,
     vertical: true,
     banded: false,
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  const config: PointsConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 const horizontalBandedMinimised = (
   canvas: Canvas,
   data: number[],
-  config?: PointsConfig
+  customConfig?: PointsConfig
 ) => {
-  updateConfig(config)
   const args: DrawArgs = {
     data,
     vertical: false,
     banded: true,
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  const config: PointsConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 const verticalBandedMinimised = (
   canvas: Canvas,
   data: number[],
-  config?: PointsConfig
+  customConfig?: PointsConfig
 ) => {
-  updateConfig(config)
   const args: DrawArgs = {
     data,
     vertical: true,
     banded: true,
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  const config: PointsConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 export const linearPointGenerator = {

@@ -26,127 +26,135 @@ interface LineArgs {
   minimised: boolean
 }
 
-const configuration: LineConfigStrict = {
-  curve: curveLinear,
+const updateConfig = (customConfig?: LineConfig): LineConfigStrict => {
+  const defauls: LineConfigStrict = {
+    curve: curveLinear,
+  }
+
+  if (!customConfig) return defauls
+
+  Object.keys(customConfig).forEach((key) => (defauls[key] = customConfig[key]))
+  return defauls
 }
 
-const updateConfig = (customConfig?: LineConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
-}
-
-const horizontal = (canvas: Canvas, data: number[], config?: LineConfig) => {
-  updateConfig(config)
+const horizontal = (
+  canvas: Canvas,
+  data: number[],
+  customConfig?: LineConfig
+) => {
   const args: LineArgs = {
     data,
     vertical: false,
     banded: false,
     minimised: false,
   }
-  return drawLine(canvas, args, configuration)
+  const config: LineConfigStrict = updateConfig(customConfig)
+  return drawLine(canvas, args, config)
 }
 
-const vertical = (canvas: Canvas, data: number[], config?: LineConfig) => {
-  updateConfig(config)
+const vertical = (
+  canvas: Canvas,
+  data: number[],
+  customConfig?: LineConfig
+) => {
   const args: LineArgs = {
     data,
     vertical: true,
     banded: false,
     minimised: false,
   }
-  return drawLine(canvas, args, configuration)
+  const config: LineConfigStrict = updateConfig(customConfig)
+  return drawLine(canvas, args, config)
 }
 
 const horizontalBanded = (
   canvas: Canvas,
   data: number[],
-  config?: LineConfig
+  customConfig?: LineConfig
 ) => {
-  updateConfig(config)
   const args: LineArgs = {
     data,
     vertical: false,
     banded: true,
     minimised: false,
   }
-  return drawLine(canvas, args, configuration)
+  const config: LineConfigStrict = updateConfig(customConfig)
+  return drawLine(canvas, args, config)
 }
 
 const verticalBanded = (
   canvas: Canvas,
   data: number[],
-  config?: LineConfig
+  customConfig?: LineConfig
 ) => {
-  updateConfig(config)
   const args: LineArgs = {
     data,
     vertical: true,
     banded: true,
     minimised: false,
   }
-  return drawLine(canvas, args, configuration)
+  const config: LineConfigStrict = updateConfig(customConfig)
+  return drawLine(canvas, args, config)
 }
 
 const horizontalMinimised = (
   canvas: Canvas,
   data: number[],
-  config?: LineConfig
+  customConfig?: LineConfig
 ) => {
-  updateConfig(config)
   const args: LineArgs = {
     data,
     vertical: false,
     banded: false,
     minimised: true,
   }
-  return drawLine(canvas, args, configuration)
+  const config: LineConfigStrict = updateConfig(customConfig)
+  return drawLine(canvas, args, config)
 }
 
 const verticalMinimised = (
   canvas: Canvas,
   data: number[],
-  config?: LineConfig
+  customConfig?: LineConfig
 ) => {
-  updateConfig(config)
   const args: LineArgs = {
     data,
     vertical: true,
     banded: false,
     minimised: true,
   }
-  return drawLine(canvas, args, configuration)
+  const config: LineConfigStrict = updateConfig(customConfig)
+  return drawLine(canvas, args, config)
 }
 
 const horizontalBandedMinimised = (
   canvas: Canvas,
   data: number[],
-  config?: LineConfig
+  customConfig?: LineConfig
 ) => {
-  updateConfig(config)
   const args: LineArgs = {
     data,
     vertical: false,
     banded: true,
     minimised: true,
   }
-  return drawLine(canvas, args, configuration)
+  const config: LineConfigStrict = updateConfig(customConfig)
+  return drawLine(canvas, args, config)
 }
 
 const verticalBandedMinimised = (
   canvas: Canvas,
   data: number[],
-  config?: LineConfig
+  customConfig?: LineConfig
 ) => {
-  updateConfig(config)
   const args: LineArgs = {
     data,
     vertical: true,
     banded: true,
     minimised: true,
   }
-  return drawLine(canvas, args, configuration)
+  const config: LineConfigStrict = updateConfig(customConfig)
+  return drawLine(canvas, args, config)
 }
 
 export const linearLineGenerator = {

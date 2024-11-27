@@ -33,16 +33,17 @@ interface AreaArgs {
   minimised: boolean
 }
 
-const configuration: AreaConfigStrict = {
-  curve: curveLinear,
-  color: 'red',
-}
+const updateConfig = (customConfig?: AreaConfig): AreaConfigStrict => {
+  const defaults: AreaConfigStrict = {
+    curve: curveLinear,
+    color: 'red',
+  }
+  if (!customConfig) return defaults
 
-const updateConfig = (customConfig?: AreaConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
 }
 
 export interface AreaData {
@@ -50,28 +51,32 @@ export interface AreaData {
   higherData: number[]
 }
 
-const horizontal = (canvas: Canvas, data: AreaData, config?: AreaConfig) => {
-  updateConfig(config)
+const horizontal = (
+  canvas: Canvas,
+  data: AreaData,
+  customConfig?: AreaConfig
+) => {
   const args: AreaArgs = {
     lowerData: data.lowerData,
     higherData: data.higherData,
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  const config: AreaConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 const horizontalMinimised = (
   canvas: Canvas,
   data: AreaData,
-  config?: AreaConfig
+  customConfig?: AreaConfig
 ) => {
-  updateConfig(config)
   const args: AreaArgs = {
     lowerData: data.lowerData,
     higherData: data.higherData,
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  const config: AreaConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 export const linearAreaGenerator = {

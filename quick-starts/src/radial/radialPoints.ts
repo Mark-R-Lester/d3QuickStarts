@@ -21,37 +21,40 @@ interface DrawArgs {
   minimised: boolean
 }
 
-const configuration: RadialPointsConfigStrict = {
-  x: 50,
-  y: 50,
-  pointRadius: 1.2,
-}
+const updateConfig = (
+  customConfig?: RadialPointsConfig
+): RadialPointsConfigStrict => {
+  const defaults: RadialPointsConfigStrict = {
+    x: 50,
+    y: 50,
+    pointRadius: 1.2,
+  }
+  if (!customConfig) return defaults
 
-const updateConfig = (customConfig?: RadialPointsConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
 }
 
 const points = (
   canvas: Canvas,
   data: number[],
-  config?: RadialPointsConfig
+  customConfig?: RadialPointsConfig
 ) => {
-  updateConfig(config)
+  const config: RadialPointsConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, minimised: false }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const pointsMinimised = (
   canvas: Canvas,
   data: number[],
-  config?: RadialPointsConfig
+  customConfig?: RadialPointsConfig
 ) => {
-  updateConfig(config)
+  const config: RadialPointsConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, minimised: true }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 export const radialPointGenerator = {

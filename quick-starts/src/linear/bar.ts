@@ -10,7 +10,7 @@ export interface BarConfig {
   colorDomain?: number[]
   colorRange?: Iterable<unknown>
 }
-interface StrictBarConfig {
+interface BarConfigStrict {
   [key: string]: number | Iterable<unknown> | number[] | undefined
   padding: number
   colorDomain: number[]
@@ -23,49 +23,53 @@ interface BarArgs {
   minimised: boolean
 }
 
-const configuration: StrictBarConfig = {
-  padding: 8,
-  colorDomain: range(4),
-  colorRange: ['purple'],
-}
+const updateConfig = (customConfig?: BarConfig): BarConfigStrict => {
+  const defaults: BarConfigStrict = {
+    padding: 8,
+    colorDomain: range(4),
+    colorRange: ['purple'],
+  }
+  if (!customConfig) return defaults
 
-const updateConfig = (customConfig?: BarConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
 }
-
-const vertical = (canvas: Canvas, data: number[], config?: BarConfig) => {
-  updateConfig(config)
+const vertical = (canvas: Canvas, data: number[], customConfig?: BarConfig) => {
   const args: BarArgs = { data, horizontal: false, minimised: false }
-  return draw(canvas, args, configuration)
+  const config: BarConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
-const horizontal = (canvas: Canvas, data: number[], config?: BarConfig) => {
-  updateConfig(config)
+const horizontal = (
+  canvas: Canvas,
+  data: number[],
+  customConfig?: BarConfig
+) => {
   const args: BarArgs = { data, horizontal: true, minimised: false }
-  return draw(canvas, args, configuration)
+  const config: BarConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 const verticalMinimised = (
   canvas: Canvas,
   data: number[],
-  config?: BarConfig
+  customConfig?: BarConfig
 ) => {
-  updateConfig(config)
   const args: BarArgs = { data, horizontal: false, minimised: true }
-  return draw(canvas, args, configuration)
+  const config: BarConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 const horizontalMinimised = (
   canvas: Canvas,
   data: number[],
-  config?: BarConfig
+  customConfig?: BarConfig
 ) => {
-  updateConfig(config)
   const args: BarArgs = { data, horizontal: true, minimised: true }
-  return draw(canvas, args, configuration)
+  const config: BarConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 export const linearBarGenerator = {
@@ -75,7 +79,7 @@ export const linearBarGenerator = {
   verticalMinimised,
 }
 
-const draw = (canvas: Canvas, args: BarArgs, config: StrictBarConfig) => {
+const draw = (canvas: Canvas, args: BarArgs, config: BarConfigStrict) => {
   const { min, max, displayAreaWidth, displayAreaHeight } = canvas.config
   const { padding, colorDomain, colorRange } = config
   const { data, horizontal, minimised } = args

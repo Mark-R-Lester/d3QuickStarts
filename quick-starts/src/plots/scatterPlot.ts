@@ -17,11 +17,15 @@ interface DrawArgs {
 
 const configuration: ScatterPlotConfigStrict = {}
 
-const updateConfig = (customConfig?: ScatterPlotConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
+const updateConfig = (
+  defaults: ScatterPlotConfigStrict,
+  customConfig?: ScatterPlotConfig
+): ScatterPlotConfigStrict => {
+  const result: ScatterPlotConfigStrict = structuredClone(defaults)
+  if (!customConfig) return result
+
+  Object.keys(customConfig).forEach((key) => (result[key] = customConfig[key]))
+  return result
 }
 
 const points = (
@@ -29,7 +33,6 @@ const points = (
   data: CoordinateEnhanced[],
   config?: ScatterPlotConfig
 ) => {
-  updateConfig(config)
   const args: DrawArgs = { data }
   return draw(canvas, args, configuration)
 }

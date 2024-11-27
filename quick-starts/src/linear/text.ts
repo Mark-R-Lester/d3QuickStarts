@@ -29,31 +29,32 @@ export interface TextArgs {
   text: string
 }
 
-const configuration: TextConfigStrict = {
-  font: 'sans-serif',
-  fontSize: 4,
-  fill: 'black',
-  stroke: '',
-  alignmentBaseline: 'middle',
-  textAnchor: 'middle',
-  angle: 0,
-}
-
 interface DrawArgs {
   data: TextArgs[]
 }
 
-const updateConfig = (customConfig?: TextConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
+const updateConfig = (customConfig?: TextConfig): TextConfigStrict => {
+  const defaults: TextConfigStrict = {
+    font: 'sans-serif',
+    fontSize: 4,
+    fill: 'black',
+    stroke: '',
+    alignmentBaseline: 'middle',
+    textAnchor: 'middle',
+    angle: 0,
+  }
+  if (!customConfig) return defaults
+
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
 }
 
-const text = (canvas: Canvas, data: TextArgs[], config: TextConfig) => {
-  updateConfig(config)
+const text = (canvas: Canvas, data: TextArgs[], customConfig: TextConfig) => {
   const args: DrawArgs = { data }
-  return draw(canvas, args, configuration)
+  const config: TextConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 export const linearTextGenerator = {

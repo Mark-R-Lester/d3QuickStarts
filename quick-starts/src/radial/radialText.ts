@@ -51,258 +51,261 @@ interface RadialTextMeta {
   textArcDataMin: BandData[]
 }
 
-const configuration: RadialTextConfigStrict = {
-  radius: 100,
-  fontSize: 8,
-  x: 50,
-  y: 50,
-}
+const updateConfig = (
+  customConfig?: RadialTextConfig
+): RadialTextConfigStrict => {
+  const defaults: RadialTextConfigStrict = {
+    radius: 100,
+    fontSize: 8,
+    x: 50,
+    y: 50,
+  }
+  if (!customConfig) return defaults
 
-const updateConfig = (customConfig?: RadialTextConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
 }
 
 const spokeMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: false,
     type: 'spoke',
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const horizontalMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: false,
     type: 'horizontal',
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const rotatedMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: false,
     type: 'rotated',
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const followMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: false,
     type: 'follow',
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const spokeBandedMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: true,
     type: 'spoke',
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const horizontalBandedMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: true,
     type: 'horizontal',
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const rotatedBandedMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: true,
     type: 'rotated',
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const followBandedMinimised = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: true,
     type: 'follow',
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const spoke = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: false,
     type: 'spoke',
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const horizontal = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: false,
     type: 'horizontal',
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const rotated = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: false,
     type: 'rotated',
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const follow = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: false,
     type: 'follow',
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const spokeBanded = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: true,
     type: 'spoke',
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const horizontalBanded = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: true,
     type: 'horizontal',
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const rotatedBanded = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: true,
     type: 'rotated',
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const followBanded = (
   canvas: Canvas,
   data: ValuedText[],
-  config?: RadialTextConfig
+  customConfig?: RadialTextConfig
 ) => {
-  updateConfig(config)
+  const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: RadialTextArgs = {
     data,
     banded: true,
     type: 'follow',
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 export const radialTextGenerator = {

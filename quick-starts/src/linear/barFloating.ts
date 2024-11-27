@@ -12,7 +12,7 @@ export interface BarFloatingConfig {
   colorRange?: Iterable<unknown>
 }
 
-interface StrictBarFloatingConfig {
+interface BarFloatingConfigStrict {
   [key: string]: number | Iterable<unknown> | number[] | undefined
   padding: number
   colorDomain: number[]
@@ -25,57 +25,57 @@ interface BarFloatingArgs {
   minimised: boolean
 }
 
-const configuration: StrictBarFloatingConfig = {
-  padding: 8,
-  colorDomain: range(4),
-  colorRange: ['purple'],
-}
+const updateConfig = (
+  customConfig?: BarFloatingConfig
+): BarFloatingConfigStrict => {
+  const defauls: BarFloatingConfigStrict = {
+    padding: 8,
+    colorDomain: range(4),
+    colorRange: ['purple'],
+  }
+  if (!customConfig) return defauls
 
-const updateConfig = (customConfig?: BarFloatingConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
+  Object.keys(customConfig).forEach((key) => (defauls[key] = customConfig[key]))
+  return defauls
 }
-
 const horizontal = (
   canvas: Canvas,
   data: number[][],
-  config?: BarFloatingConfig
+  customConfig?: BarFloatingConfig
 ) => {
-  updateConfig(config)
   const args: BarFloatingArgs = { data, vertical: false, minimised: false }
-  return draw(canvas, args, configuration)
+  const config: BarFloatingConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 const vertical = (
   canvas: Canvas,
   data: number[][],
-  config?: BarFloatingConfig
+  customConfig?: BarFloatingConfig
 ) => {
-  updateConfig(config)
   const args: BarFloatingArgs = { data, vertical: true, minimised: false }
-  return draw(canvas, args, configuration)
+  const config: BarFloatingConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 const horizontalMinimised = (
   canvas: Canvas,
   data: number[][],
-  config?: BarFloatingConfig
+  customConfig?: BarFloatingConfig
 ) => {
-  updateConfig(config)
   const args: BarFloatingArgs = { data, vertical: false, minimised: true }
-  return draw(canvas, args, configuration)
+  const config: BarFloatingConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 const verticalMinimised = (
   canvas: Canvas,
   data: number[][],
-  config?: BarFloatingConfig
+  customConfig?: BarFloatingConfig
 ) => {
-  updateConfig(config)
   const args: BarFloatingArgs = { data, vertical: true, minimised: true }
-  return draw(canvas, args, configuration)
+  const config: BarFloatingConfigStrict = updateConfig(customConfig)
+  return draw(canvas, args, config)
 }
 
 export const linearBarFloatingGenerator = {
@@ -88,7 +88,7 @@ export const linearBarFloatingGenerator = {
 const draw = (
   canvas: Canvas,
   args: BarFloatingArgs,
-  config: StrictBarFloatingConfig
+  config: BarFloatingConfigStrict
 ) => {
   const { min, max, displayAreaWidth, displayAreaHeight } = canvas.config
   const { padding, colorDomain, colorRange } = config

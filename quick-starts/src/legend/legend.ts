@@ -16,7 +16,7 @@ export interface LegendConfig {
   angle?: number
 }
 
-interface StrictLegendConfig {
+interface LegendConfigStrict {
   [key: string]: number | string | undefined
   size: number
   space: number
@@ -54,7 +54,7 @@ interface LegendMeta {
 export class Legend {
   canvasConfig: CanvasConfigStrict
   canvasDisplayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
-  config: StrictLegendConfig
+  config: LegendConfigStrict
 
   updateConfig(customConfig: LegendConfig) {
     if (customConfig)
@@ -62,6 +62,17 @@ export class Legend {
         (key) => (this.config[key] = customConfig[key])
       )
   }
+
+  // const updateConfig = (
+  //   defaults: LegendConfigStrict,
+  //   customConfig?: LegendConfig
+  // ): LegendConfigStrict => {
+  //   const result: LegendConfigStrict = structuredClone(defaults)
+  //   if (!customConfig) return result
+
+  //   Object.keys(customConfig).forEach((key) => (result[key] = customConfig[key]))
+  //   return result
+  // }
 
   constructor(canvas: Canvas, customConfig: LegendConfig) {
     this.canvasConfig = canvas.config

@@ -17,21 +17,26 @@ interface DrawArgs {
   data: Coordinate[]
 }
 
-const configuration: LinePlotConfigStrict = {
-  curve: curveLinear,
+const updateConfig = (customConfig?: LinePlotConfig): LinePlotConfigStrict => {
+  const defaults: LinePlotConfigStrict = {
+    curve: curveLinear,
+  }
+  if (!customConfig) return defaults
+
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
 }
 
-const updateConfig = (customConfig?: LinePlotConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
-}
-
-const line = (canvas: Canvas, data: Coordinate[], config?: LinePlotConfig) => {
-  updateConfig(config)
+const line = (
+  canvas: Canvas,
+  data: Coordinate[],
+  customConfig?: LinePlotConfig
+) => {
+  const config: LinePlotConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 export const plottedLineGenerator = {

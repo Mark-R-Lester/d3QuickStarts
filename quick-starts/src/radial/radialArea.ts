@@ -41,45 +41,49 @@ interface RadialAreaMeta {
   areaData: RadialAreaData[]
 }
 
-const configuration: RadialAreaConfigStrict = {
-  curve: curveLinear,
-  x: 50,
-  y: 50,
-}
+const updateConfig = (
+  customConfig?: RadialAreaConfig
+): RadialAreaConfigStrict => {
+  const defaults: RadialAreaConfigStrict = {
+    curve: curveLinear,
+    x: 50,
+    y: 50,
+  }
 
-const updateConfig = (customConfig?: RadialAreaConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
+  if (!customConfig) return defaults
+
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
 }
 
 const area = (
   canvas: Canvas,
   data: RadialAreaArgs,
-  config?: RadialAreaConfig
+  customConfig?: RadialAreaConfig
 ) => {
-  updateConfig(config)
+  const config: RadialAreaConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     dataOuter: data.dataOuter,
     dataInner: data.dataInner,
     minimised: false,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const areaMinimised = (
   canvas: Canvas,
   data: RadialAreaArgs,
-  config?: RadialAreaConfig
+  customConfig?: RadialAreaConfig
 ) => {
-  updateConfig(config)
+  const config: RadialAreaConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     dataOuter: data.dataOuter,
     dataInner: data.dataInner,
     minimised: true,
   }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 export const radialAreaGenerator = {

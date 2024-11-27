@@ -27,33 +27,41 @@ interface DrawArgs {
   minimised: boolean
 }
 
-const configuration: RadialLineConfigStrict = {
-  curve: curveLinear,
-  x: 50,
-  y: 50,
+const updateConfig = (
+  customConfig?: RadialLineConfig
+): RadialLineConfigStrict => {
+  const defaults: RadialLineConfigStrict = {
+    curve: curveLinear,
+    x: 50,
+    y: 50,
+  }
+
+  if (!customConfig) return defaults
+
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
 }
 
-const updateConfig = (customConfig?: RadialLineConfig) => {
-  if (customConfig)
-    Object.keys(customConfig).forEach(
-      (key) => (configuration[key] = customConfig[key])
-    )
-}
-
-const line = (canvas: Canvas, data: number[], config?: RadialLineConfig) => {
-  updateConfig(config)
+const line = (
+  canvas: Canvas,
+  data: number[],
+  customConfig?: RadialLineConfig
+) => {
+  const config: RadialLineConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, minimised: false }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 const lineMinimised = (
   canvas: Canvas,
   data: number[],
-  config?: RadialLineConfig
+  customConfig?: RadialLineConfig
 ) => {
-  updateConfig(config)
+  const config: RadialLineConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, minimised: true }
-  return draw(canvas, args, configuration)
+  return draw(canvas, args, config)
 }
 
 export const radialLineGenerator = {

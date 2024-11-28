@@ -21,6 +21,13 @@ interface DrawArgs {
   minimised: boolean
 }
 
+interface Meta {
+  id: string
+  class: string
+  pointData: number[]
+  pointDataMin: number[]
+}
+
 const updateConfig = (
   customConfig?: RadialPointsConfig
 ): RadialPointsConfigStrict => {
@@ -71,7 +78,7 @@ const draw = (
   const { min, max, displayAreaHeight, displayAreaWidth } = canvas.config
   const { data, minimised } = args
 
-  const meta: any[] = []
+  const meta: Meta[] = []
   const angleScale = scaleLinear()
     .domain([0, data.length])
     .range([0, 2 * Math.PI])

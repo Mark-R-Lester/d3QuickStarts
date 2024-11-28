@@ -19,11 +19,18 @@ interface LineConfigStrict {
   curve: CurveFactory
 }
 
-interface LineArgs {
+interface DrawArgs {
   data: number[]
   vertical: boolean
   banded: boolean
   minimised: boolean
+}
+
+interface Meta {
+  class: string
+  id: string
+  coordinates: [number, number][]
+  coordinatesMin: [number, number][]
 }
 
 const updateConfig = (customConfig?: LineConfig): LineConfigStrict => {
@@ -42,7 +49,7 @@ const horizontal = (
   data: number[],
   customConfig?: LineConfig
 ) => {
-  const args: LineArgs = {
+  const args: DrawArgs = {
     data,
     vertical: false,
     banded: false,
@@ -57,7 +64,7 @@ const vertical = (
   data: number[],
   customConfig?: LineConfig
 ) => {
-  const args: LineArgs = {
+  const args: DrawArgs = {
     data,
     vertical: true,
     banded: false,
@@ -72,7 +79,7 @@ const horizontalBanded = (
   data: number[],
   customConfig?: LineConfig
 ) => {
-  const args: LineArgs = {
+  const args: DrawArgs = {
     data,
     vertical: false,
     banded: true,
@@ -87,7 +94,7 @@ const verticalBanded = (
   data: number[],
   customConfig?: LineConfig
 ) => {
-  const args: LineArgs = {
+  const args: DrawArgs = {
     data,
     vertical: true,
     banded: true,
@@ -102,7 +109,7 @@ const horizontalMinimised = (
   data: number[],
   customConfig?: LineConfig
 ) => {
-  const args: LineArgs = {
+  const args: DrawArgs = {
     data,
     vertical: false,
     banded: false,
@@ -117,7 +124,7 @@ const verticalMinimised = (
   data: number[],
   customConfig?: LineConfig
 ) => {
-  const args: LineArgs = {
+  const args: DrawArgs = {
     data,
     vertical: true,
     banded: false,
@@ -132,7 +139,7 @@ const horizontalBandedMinimised = (
   data: number[],
   customConfig?: LineConfig
 ) => {
-  const args: LineArgs = {
+  const args: DrawArgs = {
     data,
     vertical: false,
     banded: true,
@@ -147,7 +154,7 @@ const verticalBandedMinimised = (
   data: number[],
   customConfig?: LineConfig
 ) => {
-  const args: LineArgs = {
+  const args: DrawArgs = {
     data,
     vertical: true,
     banded: true,
@@ -168,10 +175,10 @@ export const linearLineGenerator = {
   verticalBandedMinimised,
 }
 
-const drawLine = (canvas: Canvas, args: LineArgs, config: LineConfigStrict) => {
+const drawLine = (canvas: Canvas, args: DrawArgs, config: LineConfigStrict) => {
   const { displayAreaHeight, displayAreaWidth, min, max } = canvas.config
   const { data, vertical, banded, minimised } = args
-  const meta: any[] = []
+  const meta: Meta[] = []
   const xVals: number[] = range(
     0,
     displayAreaWidth,

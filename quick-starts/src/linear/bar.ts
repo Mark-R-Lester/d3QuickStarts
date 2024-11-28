@@ -1,6 +1,6 @@
 import { Canvas } from '../canvas/canvas'
 import { range } from 'd3'
-import { scaleLinear, scaleBand, scaleOrdinal } from 'd3-scale'
+import { scaleLinear, scaleBand, scaleOrdinal, ScaleOrdinal } from 'd3-scale'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../core/conversion'
 
@@ -17,10 +17,23 @@ interface BarConfigStrict {
   colorRange: Iterable<unknown>
 }
 
-interface BarArgs {
+interface DrawArgs {
   data: number[]
   horizontal: boolean
   minimised: boolean
+}
+interface BarData {
+  x: number
+  y: number
+  height: number
+  width: number
+  color: string
+}
+interface Meta {
+  class: string
+  id: string
+  barData: BarData
+  barDataMin: BarData
 }
 
 const updateConfig = (customConfig?: BarConfig): BarConfigStrict => {
@@ -37,7 +50,7 @@ const updateConfig = (customConfig?: BarConfig): BarConfigStrict => {
   return defaults
 }
 const vertical = (canvas: Canvas, data: number[], customConfig?: BarConfig) => {
-  const args: BarArgs = { data, horizontal: false, minimised: false }
+  const args: DrawArgs = { data, horizontal: false, minimised: false }
   const config: BarConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
@@ -47,7 +60,7 @@ const horizontal = (
   data: number[],
   customConfig?: BarConfig
 ) => {
-  const args: BarArgs = { data, horizontal: true, minimised: false }
+  const args: DrawArgs = { data, horizontal: true, minimised: false }
   const config: BarConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
@@ -57,7 +70,7 @@ const verticalMinimised = (
   data: number[],
   customConfig?: BarConfig
 ) => {
-  const args: BarArgs = { data, horizontal: false, minimised: true }
+  const args: DrawArgs = { data, horizontal: false, minimised: true }
   const config: BarConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
@@ -67,7 +80,7 @@ const horizontalMinimised = (
   data: number[],
   customConfig?: BarConfig
 ) => {
-  const args: BarArgs = { data, horizontal: true, minimised: true }
+  const args: DrawArgs = { data, horizontal: true, minimised: true }
   const config: BarConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
@@ -79,13 +92,15 @@ export const linearBarGenerator = {
   verticalMinimised,
 }
 
-const draw = (canvas: Canvas, args: BarArgs, config: BarConfigStrict) => {
+const draw = (canvas: Canvas, args: DrawArgs, config: BarConfigStrict) => {
   const { min, max, displayAreaWidth, displayAreaHeight } = canvas.config
   const { padding, colorDomain, colorRange } = config
   const { data, horizontal, minimised } = args
-  const colors = scaleOrdinal().domain(toStrings(colorDomain)).range(colorRange)
+  const colors: ScaleOrdinal<string, unknown, never> = scaleOrdinal()
+    .domain(toStrings(colorDomain))
+    .range(colorRange)
 
-  const meta: any[] = []
+  const meta: Meta[] = []
   const bandStepScale = scaleBand()
     .domain(toStrings(range(data.length)))
     .range([0, horizontal ? displayAreaHeight : displayAreaWidth])
@@ -112,23 +127,29 @@ const draw = (canvas: Canvas, args: BarArgs, config: BarConfigStrict) => {
     horizontal ? bandWidthScale.bandwidth() : heightScale(d)
   const width = (d: number) =>
     horizontal ? heightScale(d) : bandWidthScale.bandwidth()
-  const color = (d: number, i: number) =>
-    colors(d.toString() ? d.toString() : i.toString())
+  const getColor = (
+    i: number,
+    colorScale: ScaleOrdinal<string, unknown, never>
+  ): string => {
+    let c: string | unknown = colorScale(i.toString())
+    //TODO if c is not a string throw.
+    return typeof c == 'string' ? c : '#cbc9e2'
+  }
 
   data.forEach((d, i) => {
-    const barData = {
+    const barData: BarData = {
       x: x(d, i),
       y: y(d, i),
       height: height(d),
       width: width(d),
-      color: color(d, i),
+      color: getColor(i, colors),
     }
-    const barDataMin = {
+    const barDataMin: BarData = {
       x: x(d, i),
       y: displayAreaHeight,
       height: 0,
       width: width(d),
-      color: color(d, i),
+      color: getColor(i, colors),
     }
     meta.push({
       class: 'bar',

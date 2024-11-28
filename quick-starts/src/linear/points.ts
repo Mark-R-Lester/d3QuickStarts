@@ -12,11 +12,20 @@ interface PointsConfigStrict {
   radius: number
 }
 
-export interface DrawArgs {
+interface DrawArgs {
   data: number[]
   vertical: boolean
   banded: boolean
   minimised: boolean
+}
+
+interface Meta {
+  class: string
+  id: string
+  pointDataMin: any[]
+  pointData: any[]
+  radiusMin: number
+  radius: number
 }
 
 const updateConfig = (customConfig?: PointsConfig): PointsConfigStrict => {
@@ -167,7 +176,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: PointsConfigStrict) => {
   const { radius } = config
   const { data, vertical, banded, minimised } = args
 
-  const meta: any[] = []
+  const meta: Meta[] = []
   const pointSpacing = range(
     0,
     displayAreaWidth,

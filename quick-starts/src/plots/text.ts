@@ -57,7 +57,7 @@ const text = (canvas: Canvas, data: TextArgs[], customConfig: TextConfig) => {
   return draw(canvas, args, config)
 }
 
-export const linearTextGenerator = {
+export const plottedTextGenerator = {
   text,
 }
 

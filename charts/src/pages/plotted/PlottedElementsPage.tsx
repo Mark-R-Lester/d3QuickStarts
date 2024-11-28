@@ -3,12 +3,14 @@ import { ElementGrid } from '../../components/atoms/ElementGrid'
 import { PlottedPointsElement } from '../../components/atoms/chart/plotted/elements/PlottedPointsElement'
 import { PlottedPointsEnhancedElement } from '../../components/atoms/chart/plotted/elements/PlottedPointsEnhancedElement'
 import { PlottedLineElement } from '../../components/atoms/chart/plotted/elements/PlottedLineElement'
+import { PlottedTextElement } from '../../components/atoms/chart/plotted/elements/PlottedTextElement'
 
 export default function LinearChartsPage() {
   const elements: JSX.Element[] = [
     <PlottedLineElement targetId="plottedLine" />,
     <PlottedPointsElement targetId="plottedPoints" />,
     <PlottedPointsEnhancedElement targetId="PlottedPontsEnhanced" />,
+    <PlottedTextElement targetId="linearText" />,
   ]
 
   return (

@@ -29,13 +29,6 @@ export interface AxisConfig {
   y?: number
 }
 
-export interface AxisArgs {
-  data: string[] | number[]
-  topOrRight: boolean
-  banded: boolean
-  isX: boolean
-}
-
 export interface AxisSelection {
   selection: Selection<BaseType, unknown, SVGGElement, unknown>
 }
@@ -56,6 +49,13 @@ interface AxisConfigStrict {
   hideAxisDomain: boolean
   x: number
   y: number
+}
+
+export interface DrawArgs {
+  data: string[] | number[]
+  topOrRight: boolean
+  banded: boolean
+  isX: boolean
 }
 
 const updateConfig = (customConfig?: AxisConfig): AxisConfigStrict => {
@@ -88,7 +88,7 @@ const xAxisTop = (
   customConfig?: AxisConfig
 ) => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: AxisArgs = { data, topOrRight: true, banded: false, isX: true }
+  const args: DrawArgs = { data, topOrRight: true, banded: false, isX: true }
   return draw(canvas, args, config)
 }
 
@@ -98,7 +98,7 @@ const xAxisBottom = (
   customConfig?: AxisConfig
 ) => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: AxisArgs = { data, topOrRight: false, banded: false, isX: true }
+  const args: DrawArgs = { data, topOrRight: false, banded: false, isX: true }
   return draw(canvas, args, config)
 }
 
@@ -108,7 +108,7 @@ const xAxisBottomBanded = (
   customConfig?: AxisConfig
 ) => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: AxisArgs = { data, topOrRight: false, banded: true, isX: true }
+  const args: DrawArgs = { data, topOrRight: false, banded: true, isX: true }
   return draw(canvas, args, config)
 }
 
@@ -118,7 +118,7 @@ const xAxisTopBanded = (
   customConfig?: AxisConfig
 ) => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: AxisArgs = { data, topOrRight: true, banded: true, isX: true }
+  const args: DrawArgs = { data, topOrRight: true, banded: true, isX: true }
   return draw(canvas, args, config)
 }
 
@@ -128,7 +128,7 @@ const yAxisLeft = (
   customConfig?: AxisConfig
 ) => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: AxisArgs = { data, topOrRight: false, banded: false, isX: false }
+  const args: DrawArgs = { data, topOrRight: false, banded: false, isX: false }
   return draw(canvas, args, config)
 }
 
@@ -138,7 +138,7 @@ const yAxisRight = (
   customConfig?: AxisConfig
 ) => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: AxisArgs = { data, topOrRight: true, banded: false, isX: false }
+  const args: DrawArgs = { data, topOrRight: true, banded: false, isX: false }
   return draw(canvas, args, config)
 }
 
@@ -148,7 +148,7 @@ const yAxisLeftBanded = (
   customConfig?: AxisConfig
 ) => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: AxisArgs = { data, topOrRight: false, banded: true, isX: false }
+  const args: DrawArgs = { data, topOrRight: false, banded: true, isX: false }
   return draw(canvas, args, config)
 }
 
@@ -158,7 +158,7 @@ const yAxisRightBanded = (
   customConfig?: AxisConfig
 ) => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: AxisArgs = { data, topOrRight: true, banded: true, isX: false }
+  const args: DrawArgs = { data, topOrRight: true, banded: true, isX: false }
   return draw(canvas, args, config)
 }
 
@@ -175,7 +175,7 @@ export const linearAxisGenerator = {
 
 const draw = (
   canvas: Canvas,
-  args: AxisArgs,
+  args: DrawArgs,
   config: AxisConfigStrict
 ): AxisSelection => {
   const { config: canvasConfig, displayGroup: canvasDisplayGroup } = canvas

@@ -2,12 +2,12 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   Canvas,
   createCanvas,
-  linearTextGenerator,
+  plottedTextGenerator,
   TextArgs,
 } from 'd3qs/d3QuickStart'
 import { chartProps } from '../../../../common/types/chartProps'
 
-export const LinearTextElement: FunctionComponent<chartProps> = ({
+export const PlottedTextElement: FunctionComponent<chartProps> = ({
   targetId,
 }) => {
   const createChart = () => {
@@ -23,7 +23,7 @@ export const LinearTextElement: FunctionComponent<chartProps> = ({
       max: 250,
     })
 
-    linearTextGenerator.text(canvas, data1, { color: 'black' })
+    plottedTextGenerator.text(canvas, data1, { color: 'black' })
   }
 
   useEffect(() => {

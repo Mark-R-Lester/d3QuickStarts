@@ -42,7 +42,7 @@ interface RingData {
   text: number | string
 }
 
-interface RadialAxisMeta {
+interface Meta {
   [key: string]: string | RingData
   ringId: string
   textId: string
@@ -112,7 +112,7 @@ const draw = (
   const { displayAreaHeight, displayAreaWidth, min, max } = canvas.config
   const { data, minimised } = args
 
-  const meta: RadialAxisMeta[] = []
+  const meta: Meta[] = []
   const ordinal = data.some((d) => typeof d === 'string')
   const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
   const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])

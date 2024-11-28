@@ -22,9 +22,16 @@ interface RadialSpokesConfigStrict {
   strokeWidth: number
 }
 
-interface RadialSpokeArgs {
+interface DrawArgs {
   data: number
   minimised: boolean
+}
+
+interface Meta {
+  class: string
+  id: string
+  lineData: [number, number][]
+  lineDataMin: [number, number][]
 }
 
 const updateConfig = (
@@ -52,7 +59,7 @@ const spokes = (
   customConfig?: RadialSpokesConfig
 ) => {
   const config: RadialSpokesConfigStrict = updateConfig(customConfig)
-  const args: RadialSpokeArgs = { data, minimised: false }
+  const args: DrawArgs = { data, minimised: false }
   return draw(canvas, args, config)
 }
 
@@ -62,7 +69,7 @@ const spokesMinimised = (
   customConfig?: RadialSpokesConfig
 ) => {
   const config: RadialSpokesConfigStrict = updateConfig(customConfig)
-  const args: RadialSpokeArgs = { data, minimised: true }
+  const args: DrawArgs = { data, minimised: true }
   return draw(canvas, args, config)
 }
 
@@ -73,7 +80,7 @@ export const radialSpokesGenerator = {
 
 const draw = (
   canvas: Canvas,
-  args: RadialSpokeArgs,
+  args: DrawArgs,
   config: RadialSpokesConfigStrict
 ) => {
   const { radius, innerRadius, x, y, colour, strokeWidth } = config
@@ -81,7 +88,7 @@ const draw = (
   const { data, minimised } = args
   const xCenter = (displayAreaWidth / 100) * x
   const yCenter = (displayAreaHeight / 100) * y
-  const meta: any[] = []
+  const meta: Meta[] = []
 
   for (let i = 0; i < data; i++) {
     const angle = ((Math.PI * 2) / data) * i

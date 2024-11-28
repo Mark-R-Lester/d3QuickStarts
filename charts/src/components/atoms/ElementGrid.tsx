@@ -10,8 +10,8 @@ export const ElementGrid: FunctionComponent<ElementGridProps> = ({
 }) => {
   return (
     <Grid container spacing={2} columnSpacing={2} size={12}>
-      {elements.map((element) => (
-        <Grid>{element}</Grid>
+      {elements.map((element, i) => (
+        <Grid key={i}>{element}</Grid>
       ))}
     </Grid>
   )

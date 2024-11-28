@@ -37,6 +37,7 @@ export const DropdownMenu: FunctionComponent<DropdownMenuProps> = ({
         <List component="div" disablePadding>
           {routes.map((route) => (
             <ListItemButton
+              key={route.displayName}
               sx={{ pl: 4, pt: 0, pb: 0 }}
               onClick={() => {
                 handleNavigate(route.route)

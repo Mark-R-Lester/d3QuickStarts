@@ -36,11 +36,6 @@ interface RadialConfigStrict {
   colorRange: Iterable<unknown>
 }
 
-interface DrawArgs {
-  data: RadialArgs[]
-  pie: boolean
-}
-
 export interface RadialArgs {
   value: number
   color?: ColorName | DomainName
@@ -61,7 +56,12 @@ interface ArcData extends TweenedArcData {
   value?: number
 }
 
-interface RadialMeta {
+interface DrawArgs {
+  data: RadialArgs[]
+  pie: boolean
+}
+
+interface Meta {
   class: string
   id: string
   arcData: ArcData
@@ -124,7 +124,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: RadialConfigStrict) => {
     colorRange,
   } = config
   const { displayAreaHeight, displayAreaWidth } = canvas.config
-  const meta: RadialMeta[] = []
+  const meta: Meta[] = []
   const xAxis: ScaleLinear<number, number, never> = scaleLinear()
     .domain([0, 100])
     .range([0, displayAreaWidth])

@@ -34,7 +34,7 @@ interface RadialAreaData {
   outer: number
 }
 
-interface RadialAreaMeta {
+interface Meta {
   class: string
   id: string
   areaDataMin: RadialAreaData[]
@@ -99,7 +99,7 @@ const draw = (
   const { dataOuter, dataInner, minimised } = args
   const { x, y, curve } = config
   const { min, max, displayAreaHeight, displayAreaWidth } = canvas.config
-  let meta: RadialAreaMeta
+  let meta: Meta
   const angleScale = scaleLinear()
     .domain([0, dataOuter.length])
     .range([0, 2 * Math.PI])

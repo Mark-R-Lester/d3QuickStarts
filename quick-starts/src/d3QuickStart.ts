@@ -2,9 +2,8 @@ export * from './canvas/canvas'
 export * from './legend/legend'
 
 export * from './linear/axis'
-export * from './linear/text'
 export * from './linear/bar'
-// export * from './linear/barGroup'
+export * from './linear/barGroup'
 export * from './linear/barFloating'
 export * from './linear/line'
 export * from './linear/area'
@@ -20,7 +19,4 @@ export * from './radial/radialText'
 
 export * from './plots/linePlot'
 export * from './plots/scatterPlot'
-
-
-
-
+export * from './plots/text'

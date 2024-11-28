@@ -6,7 +6,7 @@ import {
 } from 'd3qs/d3QuickStart'
 import { chartProps } from '../../../../common/types/chartProps'
 
-export const LinearBarsGroupedElement: FunctionComponent<chartProps> = ({
+export const LinearBarsStackedElement: FunctionComponent<chartProps> = ({
   targetId,
 }) => {
   const createChart = () => {
@@ -24,7 +24,7 @@ export const LinearBarsGroupedElement: FunctionComponent<chartProps> = ({
     const canvas: Canvas = createCanvas(targetId, {
       width: 600,
     })
-    linearBarGroupGenerator.grouped(canvas, data)
+    linearBarGroupGenerator.stacked(canvas, data)
   }
 
   useEffect(() => {

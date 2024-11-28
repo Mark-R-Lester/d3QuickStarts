@@ -10,10 +10,12 @@ import { LinearAxisElement } from '../../components/atoms/chart/linear/elements/
 import { LinearPointsVerticalElement } from '../../components/atoms/chart/linear/elements/LinearPointsVerticalElement'
 import { LinearPointsHorizontalElement } from '../../components/atoms/chart/linear/elements/LinearPointsHorizontalElement'
 import { LinearBarsGroupedElement } from '../../components/atoms/chart/linear/elements/LinearBarsGroupedElement'
+import { LinearBarsStackedElement } from '../../components/atoms/chart/linear/elements/LinearBarsStackedElement'
 
 export default function LinearChartsPage() {
   const elements: JSX.Element[] = [
     <LinearBarsGroupedElement targetId="linearBarsGroupedVertical" />,
+    <LinearBarsStackedElement targetId="linearBarsStackedVertical" />,
     <LinearAreaElement targetId="linearArea" />,
     <LinearBarsVerticalElement targetId="linearVerticalBars" />,
     <LinearBarsHorizontalElement targetId="linearHorizontalBars" />,

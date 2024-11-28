@@ -4,9 +4,9 @@ import {
   scaleOrdinal,
   range,
   schemePurples,
-  transpose,
   stack,
   ScaleOrdinal,
+  Series,
 } from 'd3'
 import { Canvas } from '../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
@@ -50,7 +50,7 @@ interface Meta {
 const updateConfig = (customConfig?: BarGroupConfig): BarGroupConfigStrict => {
   const defaults: BarGroupConfigStrict = {
     colorRange: schemePurples[4],
-    padding: 8,
+    padding: 20,
   }
   if (!customConfig) return defaults
 
@@ -102,18 +102,9 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarGroupConfigStrict) => {
     return typeof c == 'string' ? c : '#cbc9e2'
   }
 
-  // const transposed: number[][] = transpose<number>(data)
-  // const stackedData = stack()
-  //   .keys(data[0].map((d, i) => i.toString()))(transposed)
-  //
-
-  const stackedData: [number, number, number][][] = stack()
-    .keys(data[0].map((d, i) => i.toString()))(
-      transpose<number>(data) as Iterable<{ [key: string]: number }>
-    )
-    .map((data, i) => data.map(([y0, y1]) => [y0, y1, i]))
-
-  console.log('stacked', stackedData)
+  const stackedData: Series<{ [key: string]: number }, string>[] = stack().keys(
+    data.map((d, i) => i.toString())
+  )(data as Iterable<{ [key: string]: number }>)
 
   const meta: Meta[] = []
 

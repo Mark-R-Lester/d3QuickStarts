@@ -18,14 +18,12 @@ interface RadialPointsConfigStrict {
 
 interface DrawArgs {
   data: number[]
-  minimised: boolean
 }
 
 interface Meta {
   id: string
   class: string
   pointData: number[]
-  pointDataMin: number[]
 }
 
 const updateConfig = (
@@ -50,23 +48,12 @@ const points = (
   customConfig?: RadialPointsConfig
 ) => {
   const config: RadialPointsConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, minimised: false }
-  return draw(canvas, args, config)
-}
-
-const pointsMinimised = (
-  canvas: Canvas,
-  data: number[],
-  customConfig?: RadialPointsConfig
-) => {
-  const config: RadialPointsConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, minimised: true }
+  const args: DrawArgs = { data }
   return draw(canvas, args, config)
 }
 
 export const radialPointGenerator = {
   points,
-  pointsMinimised,
 }
 
 const draw = (
@@ -81,9 +68,8 @@ const draw = (
     displayAreaHeight,
     displayAreaWidth,
   } = canvas.config
-  const { data, minimised } = args
+  const { data } = args
 
-  const meta: Meta[] = []
   const angleScale = scaleLinear()
     .domain([0, data.length])
     .range([0, 2 * Math.PI])
@@ -93,19 +79,24 @@ const draw = (
   const xScale = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
   const yScale = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
 
-  data.forEach((d, i) => {
-    const radians = angleScale(i)
-    const hypotenuse = radialScale(d)
-    const x = Math.sin(radians) * hypotenuse
-    const y = Math.cos(radians) * hypotenuse * -1
+  const getMeta = (data: number[]): Meta[] => {
+    const meta: Meta[] = []
+    data.forEach((d, i) => {
+      const radians = angleScale(i)
+      const hypotenuse = radialScale(d)
+      const x = Math.sin(radians) * hypotenuse
+      const y = Math.cos(radians) * hypotenuse * -1
 
-    meta.push({
-      id: `radialPoint${uuidv4()}`,
-      class: 'radialPoint',
-      pointData: [x, y],
-      pointDataMin: [0, 0],
+      meta.push({
+        id: `radialPoint${uuidv4()}`,
+        class: 'radialPoint',
+        pointData: [x, y],
+      })
     })
-  })
+    return meta
+  }
+
+  const meta: Meta[] = getMeta(data)
 
   const dataPoints = canvas.displayGroup.append('g')
   dataPoints
@@ -115,14 +106,15 @@ const draw = (
     .append('circle')
     .attr('class', (d) => d.class)
     .attr('id', (d) => d.id)
-    .attr('cx', (d) => (minimised ? d.pointDataMin[0] : d.pointData[0]))
-    .attr('cy', (d) => (minimised ? d.pointDataMin[1] : d.pointData[1]))
-    .attr('r', minimised ? 0 : yScale(pointRadius))
+    .attr('cx', (d) => d.pointData[0])
+    .attr('cy', (d) => d.pointData[1])
+    .attr('r', yScale(pointRadius))
     .attr('transform', `translate(${xScale(x)}, ${yScale(y)})`)
   return {
     points: dataPoints.selectAll('circle'),
     meta,
-    maximise: () => {
+    transition: (data: number[]) => {
+      const meta: Meta[] = getMeta(data)
       dataPoints
         .selectAll(`.${meta[0].class}`)
         .data(meta)
@@ -130,16 +122,6 @@ const draw = (
         .duration(3000)
         .attr('cx', (d) => d.pointData[0])
         .attr('cy', (d) => d.pointData[1])
-        .attr('r', yScale(pointRadius))
-    },
-    minimise: () => {
-      dataPoints
-        .selectAll(`.${meta[0].class}`)
-        .data(meta)
-        .transition()
-        .duration(3000)
-        .attr('cx', (d) => d.pointDataMin[0])
-        .attr('cy', (d) => d.pointDataMin[1])
         .attr('r', yScale(pointRadius))
     },
   }

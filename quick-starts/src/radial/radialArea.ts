@@ -25,7 +25,6 @@ interface RadialAreaConfigStrict {
 interface DrawArgs {
   dataOuter: number[]
   dataInner?: number[]
-  minimised: boolean
 }
 
 interface RadialAreaData {
@@ -37,7 +36,6 @@ interface RadialAreaData {
 interface Meta {
   class: string
   id: string
-  areaDataMin: RadialAreaData[]
   areaData: RadialAreaData[]
 }
 
@@ -67,28 +65,12 @@ const area = (
   const args: DrawArgs = {
     dataOuter: data.dataOuter,
     dataInner: data.dataInner,
-    minimised: false,
-  }
-  return draw(canvas, args, config)
-}
-
-const areaMinimised = (
-  canvas: Canvas,
-  data: RadialAreaArgs,
-  customConfig?: RadialAreaConfig
-) => {
-  const config: RadialAreaConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = {
-    dataOuter: data.dataOuter,
-    dataInner: data.dataInner,
-    minimised: true,
   }
   return draw(canvas, args, config)
 }
 
 export const radialAreaGenerator = {
   area,
-  areaMinimised,
 }
 
 const draw = (
@@ -96,7 +78,7 @@ const draw = (
   args: DrawArgs,
   config: RadialAreaConfigStrict
 ) => {
-  const { dataOuter, dataInner, minimised } = args
+  const { dataOuter, dataInner } = args
   const { x, y, curve } = config
   const {
     lowestViewableValue,
@@ -104,7 +86,6 @@ const draw = (
     displayAreaHeight,
     displayAreaWidth,
   } = canvas.config
-  let meta: Meta
   const angleScale = scaleLinear()
     .domain([0, dataOuter.length])
     .range([0, 2 * Math.PI])
@@ -116,32 +97,29 @@ const draw = (
 
   const dataOuterCopy: number[] = dataOuter.slice()
   dataOuterCopy.push(dataOuter[0])
-  let dataInnerCopy: number[]
-  if (dataInner) {
-    dataInnerCopy = dataInner.slice()
-    dataInnerCopy.push(dataInner[0])
+
+  const getMeta = (dataInner?: number[]) => {
+    let dataInnerCopy: number[]
+    if (dataInner) {
+      dataInnerCopy = dataInner.slice()
+      dataInnerCopy.push(dataInner[0])
+    }
+    return {
+      class: 'radialArea',
+      id: `radialArea${uuidv4()}`,
+      areaData: dataOuterCopy.map((d, i) => {
+        return {
+          angle: angleScale(i),
+          outer: radialScale(d),
+          inner: radialScale(
+            dataInnerCopy ? dataInnerCopy[i] : lowestViewableValue
+          ),
+        }
+      }),
+    }
   }
 
-  meta = {
-    class: 'radialArea',
-    id: `radialArea${uuidv4()}`,
-    areaDataMin: dataOuterCopy.map((d, i) => {
-      return {
-        angle: angleScale(i),
-        outer: radialScale(lowestViewableValue),
-        inner: radialScale(lowestViewableValue),
-      }
-    }),
-    areaData: dataOuterCopy.map((d, i) => {
-      return {
-        angle: angleScale(i),
-        outer: radialScale(d),
-        inner: radialScale(
-          dataInnerCopy ? dataInnerCopy[i] : lowestViewableValue
-        ),
-      }
-    }),
-  }
+  const meta: Meta = getMeta(dataInner)
 
   const radialArea = areaRadial<RadialAreaData>()
     .angle((d) => d.angle)
@@ -154,26 +132,20 @@ const draw = (
     .append('path')
     .attr('class', meta.class)
     .attr('id', meta.id)
-    .attr('d', radialArea(minimised ? meta.areaDataMin : meta.areaData))
+    .attr('d', radialArea(meta.areaData))
     .attr('fill', 'red')
     .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
   return {
     area: group.selectAll('path'),
     group,
     meta,
-    maximise: () => {
+    transition: (args: RadialAreaArgs) => {
+      const meta = getMeta(args.dataInner)
       group
         .selectAll(`.${meta.class}`)
         .transition()
         .duration(3000)
         .attr('d', radialArea(meta.areaData))
-    },
-    minimise: () => {
-      group
-        .selectAll(`.${meta.class}`)
-        .transition()
-        .duration(3000)
-        .attr('d', radialArea(meta.areaDataMin))
     },
   }
 }

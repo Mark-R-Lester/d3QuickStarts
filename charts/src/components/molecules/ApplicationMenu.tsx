@@ -37,7 +37,11 @@ export const ApplicationMenu: FunctionComponent = () => {
     { displayName: 'Radial', route: '/radial/elements' },
   ]
 
-  const transitionRoutes: MenuRoute[] = []
+  const transitionRoutes: MenuRoute[] = [
+    { displayName: 'Linear', route: '/linear/transitions' },
+    { displayName: 'Plotted', route: '/plotted/transitions' },
+    { displayName: 'Radial', route: '/radial/transitions' },
+  ]
 
   const chartRoutes: MenuRoute[] = [
     { displayName: 'Linear', route: '/linear/charts' },

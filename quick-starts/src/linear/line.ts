@@ -23,14 +23,12 @@ interface DrawArgs {
   data: number[]
   vertical: boolean
   banded: boolean
-  minimised: boolean
 }
 
 interface Meta {
   class: string
   id: string
   coordinates: [number, number][]
-  coordinatesMin: [number, number][]
 }
 
 const updateConfig = (customConfig?: LineConfig): LineConfigStrict => {
@@ -53,7 +51,6 @@ const horizontal = (
     data,
     vertical: false,
     banded: false,
-    minimised: false,
   }
   const config: LineConfigStrict = updateConfig(customConfig)
   return drawLine(canvas, args, config)
@@ -68,7 +65,6 @@ const vertical = (
     data,
     vertical: true,
     banded: false,
-    minimised: false,
   }
   const config: LineConfigStrict = updateConfig(customConfig)
   return drawLine(canvas, args, config)
@@ -83,7 +79,6 @@ const horizontalBanded = (
     data,
     vertical: false,
     banded: true,
-    minimised: false,
   }
   const config: LineConfigStrict = updateConfig(customConfig)
   return drawLine(canvas, args, config)
@@ -98,67 +93,6 @@ const verticalBanded = (
     data,
     vertical: true,
     banded: true,
-    minimised: false,
-  }
-  const config: LineConfigStrict = updateConfig(customConfig)
-  return drawLine(canvas, args, config)
-}
-
-const horizontalMinimised = (
-  canvas: Canvas,
-  data: number[],
-  customConfig?: LineConfig
-) => {
-  const args: DrawArgs = {
-    data,
-    vertical: false,
-    banded: false,
-    minimised: true,
-  }
-  const config: LineConfigStrict = updateConfig(customConfig)
-  return drawLine(canvas, args, config)
-}
-
-const verticalMinimised = (
-  canvas: Canvas,
-  data: number[],
-  customConfig?: LineConfig
-) => {
-  const args: DrawArgs = {
-    data,
-    vertical: true,
-    banded: false,
-    minimised: true,
-  }
-  const config: LineConfigStrict = updateConfig(customConfig)
-  return drawLine(canvas, args, config)
-}
-
-const horizontalBandedMinimised = (
-  canvas: Canvas,
-  data: number[],
-  customConfig?: LineConfig
-) => {
-  const args: DrawArgs = {
-    data,
-    vertical: false,
-    banded: true,
-    minimised: true,
-  }
-  const config: LineConfigStrict = updateConfig(customConfig)
-  return drawLine(canvas, args, config)
-}
-
-const verticalBandedMinimised = (
-  canvas: Canvas,
-  data: number[],
-  customConfig?: LineConfig
-) => {
-  const args: DrawArgs = {
-    data,
-    vertical: true,
-    banded: true,
-    minimised: true,
   }
   const config: LineConfigStrict = updateConfig(customConfig)
   return drawLine(canvas, args, config)
@@ -169,10 +103,6 @@ export const linearLineGenerator = {
   vertical,
   horizontalBanded,
   verticalBanded,
-  horizontalMinimised,
-  verticalMinimised,
-  horizontalBandedMinimised,
-  verticalBandedMinimised,
 }
 
 const drawLine = (canvas: Canvas, args: DrawArgs, config: LineConfigStrict) => {
@@ -182,8 +112,7 @@ const drawLine = (canvas: Canvas, args: DrawArgs, config: LineConfigStrict) => {
     lowestViewableValue,
     highestViewableValue,
   } = canvas.config
-  const { data, vertical, banded, minimised } = args
-  const meta: Meta[] = []
+  const { data, vertical, banded } = args
   const xVals: number[] = range(
     0,
     displayAreaWidth,
@@ -200,12 +129,15 @@ const drawLine = (canvas: Canvas, args: DrawArgs, config: LineConfigStrict) => {
   const coordinatesMin: [number, number][] = data.map((d, i) =>
     vertical ? [0, yVals[i]] : [xVals[i], 0]
   )
-  meta.push({
-    class: 'line',
-    id: `line${uuidv4()}`,
-    coordinates,
-    coordinatesMin,
-  })
+  const getMeta = (coordinates: [number, number][]): Meta => {
+    return {
+      class: 'line',
+      id: `line${uuidv4()}`,
+      coordinates,
+    }
+  }
+
+  const meta: Meta = getMeta(coordinates)
 
   let spacingScale: any
   let bandingAdjustment: number
@@ -248,28 +180,22 @@ const drawLine = (canvas: Canvas, args: DrawArgs, config: LineConfigStrict) => {
   const group = canvas.displayGroup.append('g')
   group
     .append('path')
-    .attr('class', meta[0].class)
-    .attr('id', meta[0].id)
-    .attr('d', line(minimised ? coordinatesMin : coordinates))
+    .attr('class', meta.class)
+    .attr('id', meta.id)
+    .attr('d', line(coordinates))
     .attr('stroke', 'black')
     .attr('fill-opacity', '0')
   return {
-    line: group.select(`.${meta[0].class}`),
+    line: group.select(`.${meta.class}`),
     group,
     meta,
-    minimise: () => {
+    transition: (data: [number, number][]) => {
+      const meta: Meta = getMeta(data)
       group
-        .selectAll(`.${meta[0].class}`)
+        .selectAll(`.${meta.class}`)
         .transition()
         .duration(3000)
-        .attr('d', line(coordinatesMin))
-    },
-    maximise: () => {
-      group
-        .selectAll(`.${meta[0].class}`)
-        .transition()
-        .duration(3000)
-        .attr('d', line(coordinates))
+        .attr('d', line(meta.coordinates))
     },
   }
 }

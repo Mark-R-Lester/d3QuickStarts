@@ -33,7 +33,6 @@ interface Meta {
   class: string
   id: string
   barData: BarData
-  barDataMin: BarData
 }
 
 const updateConfig = (customConfig?: BarConfig): BarConfigStrict => {
@@ -65,31 +64,9 @@ const horizontal = (
   return draw(canvas, args, config)
 }
 
-const verticalMinimised = (
-  canvas: Canvas,
-  data: number[],
-  customConfig?: BarConfig
-) => {
-  const args: DrawArgs = { data, horizontal: false, minimised: true }
-  const config: BarConfigStrict = updateConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
-const horizontalMinimised = (
-  canvas: Canvas,
-  data: number[],
-  customConfig?: BarConfig
-) => {
-  const args: DrawArgs = { data, horizontal: true, minimised: true }
-  const config: BarConfigStrict = updateConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
 export const linearBarGenerator = {
   horizontal,
   vertical,
-  horizontalMinimised,
-  verticalMinimised,
 }
 
 const draw = (canvas: Canvas, args: DrawArgs, config: BarConfigStrict) => {
@@ -105,7 +82,6 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfigStrict) => {
     .domain(toStrings(colorDomain))
     .range(colorRange)
 
-  const meta: Meta[] = []
   const bandStepScale = scaleBand()
     .domain(toStrings(range(data.length)))
     .range([0, horizontal ? displayAreaHeight : displayAreaWidth])
@@ -144,28 +120,26 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfigStrict) => {
     return typeof c == 'string' ? c : '#cbc9e2'
   }
 
-  data.forEach((d, i) => {
-    const barData: BarData = {
-      x: x(d, i),
-      y: y(d, i),
-      height: height(d),
-      width: width(d),
-      color: getColor(i, colors),
-    }
-    const barDataMin: BarData = {
-      x: x(d, i),
-      y: displayAreaHeight,
-      height: 0,
-      width: width(d),
-      color: getColor(i, colors),
-    }
-    meta.push({
-      class: 'bar',
-      id: `bar-${uuidv4()}`,
-      barData,
-      barDataMin,
+  const getMeta = (data: number[]): Meta[] => {
+    const meta: Meta[] = []
+    data.forEach((d, i) => {
+      const barData: BarData = {
+        x: x(d, i),
+        y: y(d, i),
+        height: height(d),
+        width: width(d),
+        color: getColor(i, colors),
+      }
+      meta.push({
+        class: 'bar',
+        id: `bar-${uuidv4()}`,
+        barData,
+      })
     })
-  })
+    return meta
+  }
+
+  const meta: Meta[] = getMeta(data)
 
   const group = canvas.displayGroup.append('g')
   group
@@ -175,32 +149,26 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfigStrict) => {
     .append('rect')
     .attr('class', (d) => d.class)
     .attr('id', (d) => d.id)
-    .attr('x', (d) => (minimised ? d.barDataMin.x : d.barData.x))
-    .attr('y', (d) => (minimised ? d.barDataMin.y : d.barData.y))
-    .attr('width', (d) => (minimised ? d.barDataMin.width : d.barData.width))
-    .attr('height', (d) => (minimised ? d.barDataMin.height : d.barData.height))
-    .attr('fill', (d) => (minimised ? d.barDataMin.color : d.barData.color))
+    .attr('x', (d) => d.barData.x)
+    .attr('y', (d) => d.barData.y)
+    .attr('width', (d) => d.barData.width)
+    .attr('height', (d) => d.barData.height)
+    .attr('fill', (d) => d.barData.color)
+
   return {
     bars: group.selectAll(`.${meta[0].class}`),
     group,
-    meta,
-    minimise: () => {
+    verticalTransition: (data: number[]) => {
+      const meta: Meta[] = getMeta(data)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
-        .duration(3000)
-        .attr('height', (d) => d.barDataMin.height)
-        .attr('y', (d) => d.barDataMin.y)
-    },
-    maximise: () => {
-      group
-        .selectAll(`.${meta[0].class}`)
-        .data(meta)
-        .transition()
-        .duration(3000)
+        .duration(1000)
         .attr('height', (d) => d.barData.height)
         .attr('y', (d) => d.barData.y)
+        .attr('width', (d) => d.barData.width)
+        .attr('x', (d) => d.barData.x)
     },
   }
 }

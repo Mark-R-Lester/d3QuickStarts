@@ -1,4 +1,10 @@
-import { scaleLinear, scaleBand, scaleOrdinal, NumberValue } from 'd3-scale'
+import {
+  scaleLinear,
+  scaleBand,
+  scaleOrdinal,
+  NumberValue,
+  ScaleOrdinal,
+} from 'd3-scale'
 import { Canvas } from '../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { range } from 'd3'
@@ -22,7 +28,19 @@ interface BarFloatingConfigStrict {
 interface DrawArgs {
   data: number[][]
   vertical: boolean
-  minimised: boolean
+}
+
+interface BarData {
+  x: number
+  y: number
+  height: number
+  width: number
+  color: string
+}
+interface Meta {
+  class: string
+  id: string
+  barData: BarData
 }
 
 const updateConfig = (
@@ -43,7 +61,7 @@ const horizontal = (
   data: number[][],
   customConfig?: BarFloatingConfig
 ) => {
-  const args: DrawArgs = { data, vertical: false, minimised: false }
+  const args: DrawArgs = { data, vertical: false }
   const config: BarFloatingConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
@@ -53,27 +71,7 @@ const vertical = (
   data: number[][],
   customConfig?: BarFloatingConfig
 ) => {
-  const args: DrawArgs = { data, vertical: true, minimised: false }
-  const config: BarFloatingConfigStrict = updateConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
-const horizontalMinimised = (
-  canvas: Canvas,
-  data: number[][],
-  customConfig?: BarFloatingConfig
-) => {
-  const args: DrawArgs = { data, vertical: false, minimised: true }
-  const config: BarFloatingConfigStrict = updateConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
-const verticalMinimised = (
-  canvas: Canvas,
-  data: number[][],
-  customConfig?: BarFloatingConfig
-) => {
-  const args: DrawArgs = { data, vertical: true, minimised: true }
+  const args: DrawArgs = { data, vertical: true }
   const config: BarFloatingConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
@@ -81,8 +79,6 @@ const verticalMinimised = (
 export const linearBarFloatingGenerator = {
   horizontal,
   vertical,
-  horizontalMinimised,
-  verticalMinimised,
 }
 
 const draw = (
@@ -97,10 +93,9 @@ const draw = (
     displayAreaHeight,
   } = canvas.config
   const { padding, colorDomain, colorRange } = config
-  const { data, vertical, minimised } = args
+  const { data, vertical } = args
   const colors = scaleOrdinal().domain(toStrings(colorDomain)).range(colorRange)
 
-  const meta: any[] = []
   const bandStepScale = scaleBand()
     .domain(toStrings(range(data.length)))
     .range([0, vertical ? displayAreaHeight : displayAreaWidth])
@@ -131,30 +126,36 @@ const draw = (
     vertical ? bandWidthScale.bandwidth() : heightScale(d[1] - d[0])
   const width = (d: number[]) =>
     vertical ? heightScale(d[1] - d[0]) : bandWidthScale.bandwidth()
-  const color = (d: any[], i: number) => colors(d[1] ? d[1] : i)
 
-  data.forEach((d, i) => {
-    const barData = {
-      x: x(d, i),
-      y: y(d, i),
-      height: height(d),
-      width: width(d),
-      color: color(d, i),
-    }
-    const barDataMin = {
-      x: x(d, i),
-      y: displayAreaHeight,
-      height: 0,
-      width: width(d),
-      color: color(d, i),
-    }
-    meta.push({
-      class: 'bar',
-      id: `bar-${uuidv4()}`,
-      barData,
-      barDataMin,
+  const getColor = (
+    i: number,
+    colorScale: ScaleOrdinal<string, unknown, never>
+  ): string => {
+    let c: string | unknown = colorScale(i.toString())
+    //TODO if c is not a string throw.
+    return typeof c == 'string' ? c : '#cbc9e2'
+  }
+
+  const getMeta = (data: number[][]): Meta[] => {
+    const meta: Meta[] = []
+    data.forEach((d, i) => {
+      const barData: BarData = {
+        x: x(d, i),
+        y: y(d, i),
+        height: height(d),
+        width: width(d),
+        color: getColor(i, colors),
+      }
+      meta.push({
+        class: 'bar',
+        id: `bar-${uuidv4()}`,
+        barData,
+      })
     })
-  })
+    return meta
+  }
+  const meta: Meta[] = getMeta(data)
+
   const group = canvas.displayGroup.append('g')
   group
     .selectAll('.bar')
@@ -163,25 +164,16 @@ const draw = (
     .append('rect')
     .attr('class', (d) => d.class)
     .attr('id', (d) => d.id)
-    .attr('x', (d) => (minimised ? d.barDataMin.x : d.barData.x))
-    .attr('y', (d) => (minimised ? d.barDataMin.y : d.barData.y))
-    .attr('width', (d) => (minimised ? d.barDataMin.width : d.barData.width))
-    .attr('height', (d) => (minimised ? d.barDataMin.height : d.barData.height))
-    .attr('fill', (d) => (minimised ? d.barDataMin.color : d.barData.color))
+    .attr('x', (d) => d.barData.x)
+    .attr('y', (d) => d.barData.y)
+    .attr('width', (d) => d.barData.width)
+    .attr('height', (d) => d.barData.height)
+    .attr('fill', (d) => d.barData.color)
   return {
     bars: group.selectAll(`.${meta[0].class}`),
     group,
-    meta,
-    minimise: () => {
-      group
-        .selectAll(`.${meta[0].class}`)
-        .data(meta)
-        .transition()
-        .duration(3000)
-        .attr('height', (d) => d.barDataMin.height)
-        .attr('y', (d) => d.barDataMin.y)
-    },
-    maximise: () => {
+    transition: (data: number[][]) => {
+      const meta: Meta[] = getMeta(data)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)

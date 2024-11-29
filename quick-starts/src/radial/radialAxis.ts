@@ -48,13 +48,11 @@ interface Meta {
   textId: string
   ringClass: string
   textClass: string
-  ringDataMin: RingData
   ringData: RingData
 }
 
 interface DrawArgs {
   data: number[]
-  minimised: boolean
 }
 
 const updateConfig = (
@@ -84,23 +82,12 @@ const rings = (
   customConfig?: RadialAxisConfig
 ) => {
   const config: RadialAxisConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, minimised: false }
-  return draw(canvas, args, config)
-}
-
-const ringsMinimised = (
-  canvas: Canvas,
-  data: number[],
-  customConfig?: RadialAxisConfig
-) => {
-  const config: RadialAxisConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, minimised: true }
+  const args: DrawArgs = { data }
   return draw(canvas, args, config)
 }
 
 export const radialAxisGenerator = {
   rings,
-  ringsMinimised,
 }
 
 const draw = (
@@ -115,9 +102,8 @@ const draw = (
     lowestViewableValue,
     highestViewableValue,
   } = canvas.config
-  const { data, minimised } = args
+  const { data } = args
 
-  const meta: Meta[] = []
   const ordinal = data.some((d) => typeof d === 'string')
   const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
   const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
@@ -136,49 +122,49 @@ const draw = (
 
   const nunberOfArcs = data.length
   const bandWidth = yAxis(radius / 2 / (nunberOfArcs - 1))
-  data.forEach((d, i) => {
-    const radians = axisAngle * (Math.PI / 180)
-    const calculateTextPosition = () => {
-      const hypotenuse: number = bandWidth * i
-      const x: number = Math.sin(radians) * hypotenuse
-      const y: number = Math.cos(radians) * hypotenuse * -1
-      return [x + displayAreaWidth / 2, y + displayAreaHeight / 2]
-    }
-    const sin: number = gap / (bandWidth * (i + 1))
-    let text: unknown
-    if (ordinal) text = ordialScale(d.toString())
-    else text = linearScale(i + 1)
 
-    const handleText = (text: unknown): string => {
-      if (typeof text === 'string') return text
-      else if (typeof text === 'number')
-        return (Math.round(text * 10) / 10).toString()
-      else return ''
-    }
+  const getMeta = (data: number[]): Meta[] => {
+    const meta: Meta[] = []
+    data.forEach((d, i) => {
+      const radians = axisAngle * (Math.PI / 180)
+      const calculateTextPosition = () => {
+        const hypotenuse: number = bandWidth * i
+        const x: number = Math.sin(radians) * hypotenuse
+        const y: number = Math.cos(radians) * hypotenuse * -1
+        return [x + displayAreaWidth / 2, y + displayAreaHeight / 2]
+      }
+      const sin: number = gap / (bandWidth * (i + 1))
+      let text: unknown
+      if (ordinal) text = ordialScale(d.toString())
+      else text = linearScale(i + 1)
 
-    meta.push({
-      ringId: `ring${uuidv4()}`,
-      textId: `ringText${uuidv4()}`,
-      ringClass: `ring`,
-      textClass: `ringText`,
-      ringDataMin: {
-        innerRadius: 1,
-        outerRadius: 1,
-        startAngle: radians + Math.asin(sin),
-        endAngle: radians + Math.PI * 2 - Math.asin(sin),
-        textLocation: [displayAreaWidth / 2, displayAreaHeight / 2],
-        text: handleText(text),
-      },
-      ringData: {
-        innerRadius: bandWidth * i,
-        outerRadius: bandWidth * i,
-        startAngle: radians + Math.asin(sin),
-        endAngle: radians + Math.PI * 2 - Math.asin(sin),
-        textLocation: calculateTextPosition(),
-        text: handleText(text),
-      },
+      const handleText = (text: unknown): string => {
+        if (typeof text === 'string') return text
+        else if (typeof text === 'number')
+          return (Math.round(text * 10) / 10).toString()
+        else return ''
+      }
+
+      meta.push({
+        ringId: `ring${uuidv4()}`,
+        textId: `ringText${uuidv4()}`,
+        ringClass: `ring`,
+        textClass: `ringText`,
+
+        ringData: {
+          innerRadius: bandWidth * i,
+          outerRadius: bandWidth * i,
+          startAngle: radians + Math.asin(sin),
+          endAngle: radians + Math.PI * 2 - Math.asin(sin),
+          textLocation: calculateTextPosition(),
+          text: handleText(text),
+        },
+      })
     })
-  })
+    return meta
+  }
+
+  const meta: Meta[] = getMeta(data)
 
   const arc = d3arc()
     .innerRadius((d) => d.innerRadius)
@@ -193,9 +179,9 @@ const draw = (
     .append('path')
     .attr('class', (d) => d.ringClass)
     .attr('id', (d) => d.ringId)
-    .attr('d', (d) => arc(minimised ? d.ringDataMin : d.ringData))
+    .attr('d', (d) => arc(d.ringData))
     .attr('stroke', colour)
-    .attr('stroke-width', minimised ? 0 : strokeWidth)
+    .attr('stroke-width', strokeWidth)
     .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
   group
     .selectAll('text')
@@ -205,13 +191,12 @@ const draw = (
     .attr('class', (d) => d.textClass)
     .attr('id', (d) => d.textId)
     .attr('fill', colour)
-    .attr('font-size', `${yAxis(minimised ? 0 : fontSize)}px`)
+    .attr('font-size', `${yAxis(fontSize)}px`)
     .style('text-anchor', 'middle')
     .style('alignment-baseline', 'middle')
     .attr(
       'transform',
-      (d) =>
-        `translate(${minimised ? d.ringDataMin.textLocation : d.ringData.textLocation})rotate(${0})`
+      (d) => `translate(${d.ringData.textLocation})rotate(${0})`
     )
     .text((d) => d.ringData.text)
 
@@ -219,24 +204,8 @@ const draw = (
     text: group.selectAll('text'),
     rings: group.selectAll('ring'),
     group,
-    meta,
-    minimise: () => {
-      group
-        .selectAll(`.${meta[0].ringClass}`)
-        .data(meta)
-        .transition()
-        .attr('stroke-width', 0)
-        .attr('d', (d) => arc(d.ringDataMin))
-      group
-        .selectAll(`.${meta[0].textClass}`)
-        .data(meta)
-        .transition()
-        .attr('font-size', `${0}px`)
-        .attr('transform', (d) => {
-          return `translate(${d.ringDataMin.textLocation})`
-        })
-    },
-    maximise: () => {
+    transition: (data: number[]) => {
+      const meta: Meta[] = getMeta(data)
       group
         .selectAll(`.${meta[0].ringClass}`)
         .data(meta)

@@ -8,7 +8,7 @@ export default function PlottedTransitionPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Plotted Charts
+        Plotted Transitions
       </Typography>
       <ElementGrid elements={elements}></ElementGrid>
     </>

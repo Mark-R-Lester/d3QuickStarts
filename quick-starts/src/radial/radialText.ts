@@ -10,7 +10,7 @@ export interface RadialTextConfig {
   y?: number
 }
 
-export interface RadialTextConfigStrict {
+interface RadialTextConfigStrict {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   radius: number
   fontSize: number
@@ -41,14 +41,12 @@ interface Meta {
   arcClass: string
   textClass: string
   textArcData: BandData[]
-  textArcDataMin: BandData[]
 }
 
 interface DrawArgs {
   data: ValuedText[]
   banded: boolean
   type: string
-  minimised: boolean
 }
 
 const updateConfig = (
@@ -68,126 +66,6 @@ const updateConfig = (
   return defaults
 }
 
-const spokeMinimised = (
-  canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    banded: false,
-    type: 'spoke',
-    minimised: true,
-  }
-  return draw(canvas, args, config)
-}
-
-const horizontalMinimised = (
-  canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    banded: false,
-    type: 'horizontal',
-    minimised: true,
-  }
-  return draw(canvas, args, config)
-}
-
-const rotatedMinimised = (
-  canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    banded: false,
-    type: 'rotated',
-    minimised: true,
-  }
-  return draw(canvas, args, config)
-}
-
-const followMinimised = (
-  canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    banded: false,
-    type: 'follow',
-    minimised: true,
-  }
-  return draw(canvas, args, config)
-}
-
-const spokeBandedMinimised = (
-  canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    banded: true,
-    type: 'spoke',
-    minimised: true,
-  }
-  return draw(canvas, args, config)
-}
-
-const horizontalBandedMinimised = (
-  canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    banded: true,
-    type: 'horizontal',
-    minimised: true,
-  }
-  return draw(canvas, args, config)
-}
-
-const rotatedBandedMinimised = (
-  canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    banded: true,
-    type: 'rotated',
-    minimised: true,
-  }
-  return draw(canvas, args, config)
-}
-
-const followBandedMinimised = (
-  canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    banded: true,
-    type: 'follow',
-    minimised: true,
-  }
-  return draw(canvas, args, config)
-}
-
 const spoke = (
   canvas: Canvas,
   data: ValuedText[],
@@ -198,7 +76,6 @@ const spoke = (
     data,
     banded: false,
     type: 'spoke',
-    minimised: false,
   }
   return draw(canvas, args, config)
 }
@@ -213,7 +90,6 @@ const horizontal = (
     data,
     banded: false,
     type: 'horizontal',
-    minimised: false,
   }
   return draw(canvas, args, config)
 }
@@ -228,7 +104,6 @@ const rotated = (
     data,
     banded: false,
     type: 'rotated',
-    minimised: false,
   }
   return draw(canvas, args, config)
 }
@@ -243,7 +118,6 @@ const follow = (
     data,
     banded: false,
     type: 'follow',
-    minimised: false,
   }
   return draw(canvas, args, config)
 }
@@ -258,7 +132,6 @@ const spokeBanded = (
     data,
     banded: true,
     type: 'spoke',
-    minimised: false,
   }
   return draw(canvas, args, config)
 }
@@ -273,7 +146,6 @@ const horizontalBanded = (
     data,
     banded: true,
     type: 'horizontal',
-    minimised: false,
   }
   return draw(canvas, args, config)
 }
@@ -288,7 +160,6 @@ const rotatedBanded = (
     data,
     banded: true,
     type: 'rotated',
-    minimised: false,
   }
   return draw(canvas, args, config)
 }
@@ -303,20 +174,11 @@ const followBanded = (
     data,
     banded: true,
     type: 'follow',
-    minimised: false,
   }
   return draw(canvas, args, config)
 }
 
 export const radialTextGenerator = {
-  spokeMinimised,
-  horizontalMinimised,
-  rotatedMinimised,
-  followMinimised,
-  spokeBandedMinimised,
-  horizontalBandedMinimised,
-  rotatedBandedMinimised,
-  followBandedMinimised,
   spoke,
   horizontal,
   rotated,
@@ -332,10 +194,9 @@ const draw = (
   args: DrawArgs,
   config: RadialTextConfigStrict
 ) => {
-  const { data, banded, type, minimised } = args
+  const { data, banded, type } = args
   const { radius, fontSize, x, y } = config
   const { displayAreaHeight, displayAreaWidth } = canvas.config
-  let meta: Meta
   let rotate: (angles: { startAngle: number; endAngle: number }) => number
 
   if (type === 'spoke') {
@@ -400,14 +261,15 @@ const draw = (
       return d
     })
 
-  meta = {
-    arcClass: 'arc',
-    textClass: 'text',
-    textArcData: banded ? bandData(data) : pointData(data),
-    textArcDataMin: banded
-      ? bandData(data, minimised)
-      : pointData(data, minimised),
+  const getMeta = (data: ValuedText[]) => {
+    return {
+      arcClass: 'arc',
+      textClass: 'text',
+      textArcData: banded ? bandData(data) : pointData(data),
+    }
   }
+  const meta: Meta = getMeta(data)
+
   const arc: any = d3arc()
   const group = canvas.displayGroup.append('g')
   const arcs = group.append('g')
@@ -416,14 +278,14 @@ const draw = (
   if (type !== 'follow') {
     text
       .selectAll(`.${meta.textClass}`)
-      .data(minimised ? meta.textArcDataMin : meta.textArcData)
+      .data(meta.textArcData)
       .enter()
       .append('g')
       .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
       .append('text')
       .attr('class', (d) => d.textClass)
       .attr('id', (d) => d.textId)
-      .attr('font-size', minimised ? 0 + 'px' : yAxis(fontSize) + 'px')
+      .attr('font-size', `${yAxis(fontSize)}px`)
       .style('text-anchor', 'middle')
       .attr(
         'transform',
@@ -434,7 +296,7 @@ const draw = (
   } else {
     arcs
       .selectAll(`.${meta.arcClass}`)
-      .data(minimised ? meta.textArcDataMin : meta.textArcData)
+      .data(meta.textArcData)
       .enter()
       .append('path')
       .attr('class', (d) => d.arcClass)
@@ -445,10 +307,10 @@ const draw = (
       .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
     text
       .selectAll(`.${meta.textClass}`)
-      .data(minimised ? meta.textArcDataMin : meta.textArcData)
+      .data(meta.textArcData)
       .enter()
       .append('text')
-      .attr('font-size', minimised ? `${0}px` : `${yAxis(fontSize)}px`)
+      .attr('font-size', `${yAxis(fontSize)}px`)
       .attr('class', (d) => d.textClass)
       .attr('id', (d) => d.textId)
       .append('textPath')
@@ -462,42 +324,15 @@ const draw = (
     textArcs: arcs.selectAll('.textArc'),
     group,
     meta,
-    minimise: () => {
+    transition: (data: ValuedText[]) => {
+      const meta: Meta = getMeta(data)
       if (type !== 'follow') {
         text
-        text
           .selectAll('.text')
-          .data(meta.textArcDataMin)
-          .transition()
-          .duration(3000)
-          .attr('font-size', yAxis(fontSize) + 'px')
-          .attr(
-            'transform',
-            (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
-          )
-      } else {
-        arcs
-          .selectAll('.arc')
-          .data(meta.textArcDataMin)
-          .transition()
-          .duration(3000)
-          .attr('d', arc)
-        text
-          .selectAll('.text')
-          .data(meta.textArcDataMin)
+          .data(meta.textArcData)
           .transition()
           .duration(3000)
           .attr('font-size', `${yAxis(fontSize)}px`)
-      }
-    },
-    maximise: () => {
-      if (type !== 'follow') {
-        text
-          .selectAll('.text')
-          .data(meta.textArcData)
-          .transition()
-          .duration(3000)
-          .attr('font-size', yAxis(fontSize) + 'px')
           .attr(
             'transform',
             (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
@@ -514,7 +349,7 @@ const draw = (
           .data(meta.textArcData)
           .transition()
           .duration(3000)
-          .attr('font-size', yAxis(fontSize) + 'px')
+          .attr('font-size', `${yAxis(fontSize)}px`)
       }
     },
   }

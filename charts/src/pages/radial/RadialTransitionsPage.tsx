@@ -8,7 +8,7 @@ export default function RadialTransitionsPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Radial Charts
+        Radial Transitions
       </Typography>
       <ElementGrid elements={elements}></ElementGrid>
     </>

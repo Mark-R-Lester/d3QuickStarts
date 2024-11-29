@@ -28,7 +28,6 @@ interface BarGroupConfigStrict {
 interface DrawArgs {
   data: number[][]
   grouped: boolean
-  minimised: boolean
 }
 
 interface BarData {
@@ -44,7 +43,6 @@ interface Meta {
   groupId: string
   groupClass: string
   barData: BarData[]
-  barDataMin: BarData[]
 }
 
 const updateConfig = (customConfig?: BarGroupConfig): BarGroupConfigStrict => {
@@ -66,7 +64,7 @@ const grouped = (
   customConfig?: BarGroupConfig
 ) => {
   const config: BarGroupConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, grouped: true, minimised: false }
+  const args: DrawArgs = { data, grouped: true }
   return draw(canvas, args, config)
 }
 
@@ -76,7 +74,7 @@ const stacked = (
   customConfig?: BarGroupConfig
 ) => {
   const config: BarGroupConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, grouped: false, minimised: false }
+  const args: DrawArgs = { data, grouped: false }
   return draw(canvas, args, config)
 }
 
@@ -93,7 +91,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarGroupConfigStrict) => {
     displayAreaHeight,
   } = canvas.config
   const { padding } = config
-  const { data, grouped, minimised } = args
+  const { data, grouped } = args
   const colors = scaleOrdinal()
     .domain(toStrings(range([...config.colorRange].length)))
     .range(config.colorRange)
@@ -106,12 +104,6 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarGroupConfigStrict) => {
     //TODO if c is not a string throw.
     return typeof c == 'string' ? c : '#cbc9e2'
   }
-
-  const stackedData: Series<{ [key: string]: number }, string>[] = stack().keys(
-    data.map((d, i) => i.toString())
-  )(data as Iterable<{ [key: string]: number }>)
-
-  const meta: Meta[] = []
 
   const yScale = scaleLinear()
     .domain([
@@ -147,35 +139,35 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarGroupConfigStrict) => {
   const width = () =>
     grouped ? xBandScale.bandwidth() / data[0].length : xBandScale.bandwidth()
 
-  stackedData.forEach((d, outer) => {
-    const barIds = d.map(() => `bar${uuidv4()}`)
-    const data: BarData[] = d.map((d, inner): BarData => {
-      return {
-        id: barIds[inner],
-        class: 'bar',
-        x: x(outer, inner.toString()),
-        y: y(d),
-        height: height(d),
-        width: width(),
-      }
+  const getMeta = (data: number[][]): Meta[] => {
+    const meta: Meta[] = []
+    const stackedData: Series<{ [key: string]: number }, string>[] =
+      stack().keys(data.map((d, i) => i.toString()))(
+        data as Iterable<{ [key: string]: number }>
+      )
+
+    stackedData.forEach((d, outer) => {
+      const barIds = d.map(() => `bar${uuidv4()}`)
+      const data: BarData[] = d.map((d, inner): BarData => {
+        return {
+          id: barIds[inner],
+          class: 'bar',
+          x: x(outer, inner.toString()),
+          y: y(d),
+          height: height(d),
+          width: width(),
+        }
+      })
+      meta.push({
+        groupId: `group${outer}`,
+        groupClass: 'bargroup',
+        barData: data,
+      })
     })
-    const dataMin: BarData[] = d.map((d, inner): BarData => {
-      return {
-        id: barIds[inner],
-        class: 'bar',
-        x: x(outer, inner.toString()),
-        y: yScale(0),
-        height: 0,
-        width: width(),
-      }
-    })
-    meta.push({
-      groupId: `group${outer}`,
-      groupClass: 'bargroup',
-      barData: data,
-      barDataMin: dataMin,
-    })
-  })
+    return meta
+  }
+
+  const meta: Meta[] = getMeta(data)
 
   const group = canvas.displayGroup.append('g')
   const barGroups = group
@@ -188,7 +180,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarGroupConfigStrict) => {
     .attr('fill', (d, i) => getColor(i, colors))
   barGroups
     .selectAll('rect')
-    .data((d) => (minimised ? d.barDataMin : d.barData))
+    .data((d) => d.barData)
     .enter()
     .append('rect')
     .attr('class', (d) => d.class)
@@ -202,12 +194,12 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarGroupConfigStrict) => {
     bars: barGroups.selectAll('.bar'),
     barGroups,
     group,
-    meta,
-    minimise: () => {
+    transition: (data: number[][]) => {
+      const meta: Meta[] = getMeta(data)
       const bars = canvas.displayGroup.selectAll('.bargroup').data(meta)
       bars
         .selectAll('.bar')
-        .data((d) => d.barDataMin)
+        .data((d) => d.barData)
         .attr('x', (d) => d.x)
         .attr('width', (d) => d.width)
         .transition()

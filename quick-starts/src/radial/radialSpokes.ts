@@ -24,14 +24,12 @@ interface RadialSpokesConfigStrict {
 
 interface DrawArgs {
   data: number
-  minimised: boolean
 }
 
 interface Meta {
   class: string
   id: string
   lineData: [number, number][]
-  lineDataMin: [number, number][]
 }
 
 const updateConfig = (
@@ -59,7 +57,7 @@ const spokes = (
   customConfig?: RadialSpokesConfig
 ) => {
   const config: RadialSpokesConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, minimised: false }
+  const args: DrawArgs = { data }
   return draw(canvas, args, config)
 }
 
@@ -69,7 +67,7 @@ const spokesMinimised = (
   customConfig?: RadialSpokesConfig
 ) => {
   const config: RadialSpokesConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, minimised: true }
+  const args: DrawArgs = { data }
   return draw(canvas, args, config)
 }
 
@@ -85,32 +83,33 @@ const draw = (
 ) => {
   const { radius, innerRadius, x, y, colour, strokeWidth } = config
   const { displayAreaHeight, displayAreaWidth } = canvas.config
-  const { data, minimised } = args
+  const { data } = args
   const xCenter = (displayAreaWidth / 100) * x
   const yCenter = (displayAreaHeight / 100) * y
-  const meta: Meta[] = []
 
-  for (let i = 0; i < data; i++) {
-    const angle = ((Math.PI * 2) / data) * i
-    const outerHypotenuse = ((displayAreaHeight / 2) * radius) / 100
-    const innerHypotenuse = ((displayAreaHeight / 2) * innerRadius) / 100
-    const outerX = Math.sin(angle) * outerHypotenuse + xCenter
-    const outerY = Math.cos(angle) * outerHypotenuse + yCenter
-    const innerX = Math.sin(angle) * innerHypotenuse + xCenter
-    const innerY = Math.cos(angle) * innerHypotenuse + yCenter
-    meta[i] = {
-      class: 'axisSpoke',
-      id: `axisSpoke${uuidv4()}`,
-      lineData: [
-        [innerX, innerY],
-        [outerX, outerY],
-      ],
-      lineDataMin: [
-        [innerX, innerY],
-        [innerX, innerY],
-      ],
+  const getMeta = (data: number) => {
+    const meta: Meta[] = []
+    for (let i = 0; i < data; i++) {
+      const angle = ((Math.PI * 2) / data) * i
+      const outerHypotenuse = ((displayAreaHeight / 2) * radius) / 100
+      const innerHypotenuse = ((displayAreaHeight / 2) * innerRadius) / 100
+      const outerX = Math.sin(angle) * outerHypotenuse + xCenter
+      const outerY = Math.cos(angle) * outerHypotenuse + yCenter
+      const innerX = Math.sin(angle) * innerHypotenuse + xCenter
+      const innerY = Math.cos(angle) * innerHypotenuse + yCenter
+      meta[i] = {
+        class: 'axisSpoke',
+        id: `axisSpoke${uuidv4()}`,
+        lineData: [
+          [innerX, innerY],
+          [outerX, outerY],
+        ],
+      }
     }
+    return meta
   }
+
+  const meta: Meta[] = getMeta(data)
 
   const radialLine = line()
     .x((d) => d[0])
@@ -124,7 +123,7 @@ const draw = (
     .append('path')
     .attr('class', (d) => d.class)
     .attr('id', (d) => d.id)
-    .attr('d', (d) => radialLine(minimised ? d.lineDataMin : d.lineData))
+    .attr('d', (d) => radialLine(d.lineData))
     .attr('stroke', colour)
     .attr('fill-opacity', '0')
     .attr('stroke-width', strokeWidth)
@@ -133,18 +132,11 @@ const draw = (
     spokes: group.selectAll(`.${meta[0].class}`),
     group,
     meta,
-    maximise: () => {
+    transition: (data: number) => {
+      const meta: Meta[] = getMeta(data)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta.map((d) => d.lineData))
-        .transition()
-        .duration(3000)
-        .attr('d', radialLine)
-    },
-    minimise: () => {
-      group
-        .selectAll(`.${meta[0].class}`)
-        .data(meta.map((d) => d.lineDataMin))
         .transition()
         .duration(3000)
         .attr('d', radialLine)

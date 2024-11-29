@@ -149,7 +149,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: RadialConfigStrict) => {
     return typeof c == 'string' ? c : '#cbc9e2'
   }
 
-  const createMeta = (data: RadialArgs[], padAngle: number) => {
+  const getMeta = (data: RadialArgs[], padAngle: number) => {
     let shares = 0
     data.forEach((d) => {
       shares = shares + d.value
@@ -179,7 +179,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: RadialConfigStrict) => {
       startAngle = endAngle
     })
   }
-  createMeta(data, padAngle)
+  getMeta(data, padAngle)
 
   const path = arc<TweenedArcData>()
     .cornerRadius((d) => d.cornerRadius)
@@ -218,7 +218,8 @@ const draw = (canvas: Canvas, args: DrawArgs, config: RadialConfigStrict) => {
     slices: group.selectAll('.arc'),
     group,
     meta,
-    minimise: () => {
+    transition: (data: RadialArgs[]) => {
+      getMeta(data, padAngle)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)

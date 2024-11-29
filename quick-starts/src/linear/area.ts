@@ -20,14 +20,19 @@ interface AreaConfigStrict {
   color: string
 }
 
-interface AreaMeta {
+export interface AreaData {
+  lowerData?: number[]
+  higherData: number[]
+}
+
+interface Meta {
   class: string
   id: string
   areaData: number[][]
   areaDataMin: number[][]
 }
 
-interface AreaArgs {
+interface DrawArgs {
   lowerData?: number[]
   higherData: number[]
   minimised: boolean
@@ -46,17 +51,12 @@ const updateConfig = (customConfig?: AreaConfig): AreaConfigStrict => {
   return defaults
 }
 
-export interface AreaData {
-  lowerData?: number[]
-  higherData: number[]
-}
-
 const horizontal = (
   canvas: Canvas,
   data: AreaData,
   customConfig?: AreaConfig
 ) => {
-  const args: AreaArgs = {
+  const args: DrawArgs = {
     lowerData: data.lowerData,
     higherData: data.higherData,
     minimised: false,
@@ -70,7 +70,7 @@ const horizontalMinimised = (
   data: AreaData,
   customConfig?: AreaConfig
 ) => {
-  const args: AreaArgs = {
+  const args: DrawArgs = {
     lowerData: data.lowerData,
     higherData: data.higherData,
     minimised: true,
@@ -84,7 +84,7 @@ export const linearAreaGenerator = {
   horizontalMinimised,
 }
 
-function draw(canvas: Canvas, args: AreaArgs, config: AreaConfigStrict) {
+function draw(canvas: Canvas, args: DrawArgs, config: AreaConfigStrict) {
   const {
     lowestViewableValue,
     highestViewableValue,
@@ -93,7 +93,7 @@ function draw(canvas: Canvas, args: AreaArgs, config: AreaConfigStrict) {
   } = canvas.config
   const { curve, color } = config
   const { higherData, lowerData, minimised } = args
-  const meta: AreaMeta[] = []
+  const meta: Meta[] = []
 
   const populateMeta = (higherData: number[], lowerData?: number[]) => {
     const xVals = range(

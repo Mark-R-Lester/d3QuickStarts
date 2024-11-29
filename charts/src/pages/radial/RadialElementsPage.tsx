@@ -9,7 +9,7 @@ import { RadialPointsElement } from '../../components/atoms/chart/radial/element
 import { RadialTextElement } from '../../components/atoms/chart/radial/elements/RadialTextElement'
 import { RadialDoughnutElement } from '../../components/atoms/chart/radial/elements/RadialDoughnutElement'
 
-export default function LinearChartsPage() {
+export default function RadialElementsPage() {
   const elements: JSX.Element[] = [
     <RadialDoughnutElement targetId="radialDoughnut" />,
     <RadialPieElement targetId="radialPie" />,

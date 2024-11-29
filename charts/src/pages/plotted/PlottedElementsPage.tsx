@@ -5,7 +5,7 @@ import { PlottedPointsEnhancedElement } from '../../components/atoms/chart/plott
 import { PlottedLineElement } from '../../components/atoms/chart/plotted/elements/PlottedLineElement'
 import { PlottedTextElement } from '../../components/atoms/chart/plotted/elements/PlottedTextElement'
 
-export default function LinearChartsPage() {
+export default function PlottedElementsPage() {
   const elements: JSX.Element[] = [
     <PlottedLineElement targetId="plottedLine" />,
     <PlottedPointsElement targetId="plottedPoints" />,

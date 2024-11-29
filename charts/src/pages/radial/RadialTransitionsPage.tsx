@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import { LinearAreaElement } from '../../components/atoms/chart/linear/elements/LinearAreaElement'
 import { ElementGrid } from '../../components/atoms/ElementGrid'
 
-export default function RadialChartsPage() {
+export default function RadialTransitionsPage() {
   const elements: JSX.Element[] = [<LinearAreaElement targetId="linearArea" />]
 
   return (

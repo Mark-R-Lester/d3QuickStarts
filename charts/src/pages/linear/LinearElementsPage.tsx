@@ -12,7 +12,7 @@ import { LinearPointsHorizontalElement } from '../../components/atoms/chart/line
 import { LinearBarsGroupedElement } from '../../components/atoms/chart/linear/elements/LinearBarsGroupedElement'
 import { LinearBarsStackedElement } from '../../components/atoms/chart/linear/elements/LinearBarsStackedElement'
 
-export default function LinearChartsPage() {
+export default function LinearElementsPage() {
   const elements: JSX.Element[] = [
     <LinearBarsGroupedElement targetId="linearBarsGroupedVertical" />,
     <LinearBarsStackedElement targetId="linearBarsStackedVertical" />,

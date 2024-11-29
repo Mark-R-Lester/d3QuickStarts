@@ -85,7 +85,12 @@ export const linearAreaGenerator = {
 }
 
 function draw(canvas: Canvas, args: AreaArgs, config: AreaConfigStrict) {
-  const { min, max, displayAreaHeight, displayAreaWidth } = canvas.config
+  const {
+    lowestViewableValue,
+    highestViewableValue,
+    displayAreaHeight,
+    displayAreaWidth,
+  } = canvas.config
   const { curve, color } = config
   const { higherData, lowerData, minimised } = args
   const meta: AreaMeta[] = []
@@ -114,8 +119,10 @@ function draw(canvas: Canvas, args: AreaArgs, config: AreaConfigStrict) {
     .range([0, displayAreaWidth])
   const yScale = scaleLinear()
     .domain([
-      min,
-      max !== 0 ? max : Math.max(...meta[0].areaData.map((d) => d[1])),
+      lowestViewableValue,
+      highestViewableValue !== 0
+        ? highestViewableValue
+        : Math.max(...meta[0].areaData.map((d) => d[1])),
     ])
     .range([displayAreaHeight, 0])
 

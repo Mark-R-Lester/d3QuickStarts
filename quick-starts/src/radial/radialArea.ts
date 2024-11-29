@@ -98,13 +98,18 @@ const draw = (
 ) => {
   const { dataOuter, dataInner, minimised } = args
   const { x, y, curve } = config
-  const { min, max, displayAreaHeight, displayAreaWidth } = canvas.config
+  const {
+    lowestViewableValue,
+    highestViewableValue,
+    displayAreaHeight,
+    displayAreaWidth,
+  } = canvas.config
   let meta: Meta
   const angleScale = scaleLinear()
     .domain([0, dataOuter.length])
     .range([0, 2 * Math.PI])
   const radialScale = scaleLinear()
-    .domain([min, max])
+    .domain([lowestViewableValue, highestViewableValue])
     .range([0, displayAreaHeight / 2])
   const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
   const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
@@ -123,15 +128,17 @@ const draw = (
     areaDataMin: dataOuterCopy.map((d, i) => {
       return {
         angle: angleScale(i),
-        outer: radialScale(min),
-        inner: radialScale(min),
+        outer: radialScale(lowestViewableValue),
+        inner: radialScale(lowestViewableValue),
       }
     }),
     areaData: dataOuterCopy.map((d, i) => {
       return {
         angle: angleScale(i),
         outer: radialScale(d),
-        inner: radialScale(dataInnerCopy ? dataInnerCopy[i] : min),
+        inner: radialScale(
+          dataInnerCopy ? dataInnerCopy[i] : lowestViewableValue
+        ),
       }
     }),
   }

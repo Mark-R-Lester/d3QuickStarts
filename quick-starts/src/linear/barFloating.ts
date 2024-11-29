@@ -90,7 +90,12 @@ const draw = (
   args: DrawArgs,
   config: BarFloatingConfigStrict
 ) => {
-  const { min, max, displayAreaWidth, displayAreaHeight } = canvas.config
+  const {
+    lowestViewableValue,
+    highestViewableValue,
+    displayAreaWidth,
+    displayAreaHeight,
+  } = canvas.config
   const { padding, colorDomain, colorRange } = config
   const { data, vertical, minimised } = args
   const colors = scaleOrdinal().domain(toStrings(colorDomain)).range(colorRange)
@@ -104,7 +109,10 @@ const draw = (
     .range([0, vertical ? displayAreaHeight : displayAreaWidth])
     .padding(padding / 100)
   const heightScale = scaleLinear()
-    .domain([min, max !== 0 ? max : findMax(data)])
+    .domain([
+      lowestViewableValue,
+      highestViewableValue !== 0 ? highestViewableValue : findMax(data),
+    ])
     .range([0, vertical ? displayAreaWidth : displayAreaHeight])
 
   const barSpaceing = (d: NumberValue[], i: number) => {

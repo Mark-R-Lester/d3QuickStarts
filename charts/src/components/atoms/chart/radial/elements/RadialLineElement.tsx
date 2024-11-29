@@ -13,8 +13,8 @@ export const RadialLineElement: FunctionComponent<chartProps> = ({
 
     const canvas: Canvas = createCanvas(targetId, {
       width: 600,
-      min: 0,
-      max: 23,
+      lowestViewableValue: 0,
+      highestViewableValue: 23,
     })
 
     radialLineGenerator.line(canvas, data)

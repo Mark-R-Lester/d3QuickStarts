@@ -93,7 +93,12 @@ export const linearBarGenerator = {
 }
 
 const draw = (canvas: Canvas, args: DrawArgs, config: BarConfigStrict) => {
-  const { min, max, displayAreaWidth, displayAreaHeight } = canvas.config
+  const {
+    lowestViewableValue,
+    highestViewableValue,
+    displayAreaWidth,
+    displayAreaHeight,
+  } = canvas.config
   const { padding, colorDomain, colorRange } = config
   const { data, horizontal, minimised } = args
   const colors: ScaleOrdinal<string, unknown, never> = scaleOrdinal()
@@ -109,7 +114,10 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfigStrict) => {
     .range([0, horizontal ? displayAreaHeight : displayAreaWidth])
     .padding(padding / 100)
   const heightScale = scaleLinear()
-    .domain([min, max !== 0 ? max : Math.max(...data)])
+    .domain([
+      lowestViewableValue,
+      highestViewableValue !== 0 ? highestViewableValue : Math.max(...data),
+    ])
     .range([0, horizontal ? displayAreaWidth : displayAreaHeight])
 
   const barSpaceing = (d: number, i: number) => {

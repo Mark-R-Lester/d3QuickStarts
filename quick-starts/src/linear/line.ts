@@ -176,7 +176,12 @@ export const linearLineGenerator = {
 }
 
 const drawLine = (canvas: Canvas, args: DrawArgs, config: LineConfigStrict) => {
-  const { displayAreaHeight, displayAreaWidth, min, max } = canvas.config
+  const {
+    displayAreaHeight,
+    displayAreaWidth,
+    lowestViewableValue,
+    highestViewableValue,
+  } = canvas.config
   const { data, vertical, banded, minimised } = args
   const meta: Meta[] = []
   const xVals: number[] = range(
@@ -224,9 +229,9 @@ const drawLine = (canvas: Canvas, args: DrawArgs, config: LineConfigStrict) => {
   }
   const dataScale = scaleLinear()
     .domain([
-      min,
-      max !== 0
-        ? max
+      lowestViewableValue,
+      highestViewableValue !== 0
+        ? highestViewableValue
         : Math.max(...coordinates.map((d) => (vertical ? d[0] : d[1]))),
     ])
     .range(vertical ? [0, displayAreaWidth] : [displayAreaHeight, 0])

@@ -88,7 +88,7 @@ export const legendGenerator = {
 const draw = (canvas: Canvas, args: LegendArgs, config: LegendConfigStrict) => {
   const meta: LegendMeta[] = []
   const { data, minimised } = args
-  const { min, max, displayAreaWidth, displayAreaHeight } = canvas.config
+  const { displayAreaWidth, displayAreaHeight } = canvas.config
   const {
     size,
     space,

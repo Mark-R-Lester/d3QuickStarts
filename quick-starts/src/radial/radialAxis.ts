@@ -109,7 +109,12 @@ const draw = (
   config: RadialAxisConfigStrict
 ) => {
   const { radius, fontSize, x, y, axisAngle, gap, colour, strokeWidth } = config
-  const { displayAreaHeight, displayAreaWidth, min, max } = canvas.config
+  const {
+    displayAreaHeight,
+    displayAreaWidth,
+    lowestViewableValue,
+    highestViewableValue,
+  } = canvas.config
   const { data, minimised } = args
 
   const meta: Meta[] = []
@@ -123,7 +128,10 @@ const draw = (
   } else {
     linearScale = scaleLinear()
       .domain([1, data.length])
-      .range([min ? min : Math.min(...data), max ? max : Math.max(...data)])
+      .range([
+        lowestViewableValue ? lowestViewableValue : Math.min(...data),
+        highestViewableValue ? highestViewableValue : Math.max(...data),
+      ])
   }
 
   const nunberOfArcs = data.length

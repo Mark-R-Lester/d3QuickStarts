@@ -172,7 +172,12 @@ export const linearPointGenerator = {
 }
 
 const draw = (canvas: Canvas, args: DrawArgs, config: PointsConfigStrict) => {
-  const { displayAreaHeight, displayAreaWidth, min, max } = canvas.config
+  const {
+    displayAreaHeight,
+    displayAreaWidth,
+    lowestViewableValue,
+    highestViewableValue,
+  } = canvas.config
   const { radius } = config
   const { data, vertical, banded, minimised } = args
 
@@ -188,8 +193,18 @@ const draw = (canvas: Canvas, args: DrawArgs, config: PointsConfigStrict) => {
   const dataScale = scaleLinear()
     .domain(
       vertical
-        ? [min, max !== 0 ? max : Math.max(...coordinates.map((d) => +d[0]))]
-        : [min, max !== 0 ? max : Math.max(...coordinates.map((d) => +d[1]))]
+        ? [
+            lowestViewableValue,
+            highestViewableValue !== 0
+              ? highestViewableValue
+              : Math.max(...coordinates.map((d) => +d[0])),
+          ]
+        : [
+            lowestViewableValue,
+            highestViewableValue !== 0
+              ? highestViewableValue
+              : Math.max(...coordinates.map((d) => +d[1])),
+          ]
     )
     .range(vertical ? [0, displayAreaWidth] : [displayAreaHeight, 0])
 

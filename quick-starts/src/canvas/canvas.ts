@@ -8,8 +8,8 @@ export interface CanvasConfig {
   marginLeft?: number
   marginTop?: number
   marginBottom?: number
-  max?: number
-  min?: number
+  highestViewableValue?: number
+  lowestViewableValue?: number
   borderColour?: string
 }
 
@@ -21,8 +21,8 @@ export interface CanvasConfigStrict {
   marginLeft: number
   marginTop: number
   marginBottom: number
-  max: number
-  min: number
+  highestViewableValue: number
+  lowestViewableValue: number
   borderColour: string
   displayAreaHeight: number
   displayAreaWidth: number
@@ -31,6 +31,33 @@ export interface CanvasConfigStrict {
 export interface Canvas {
   displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
   config: CanvasConfigStrict
+}
+
+export function createCanvas(
+  chartName: string,
+  newConfig?: CanvasConfig
+): Canvas {
+  const config: CanvasConfigStrict = {
+    width: 500,
+    height: 70,
+    marginRight: 7,
+    marginLeft: 7,
+    marginTop: 15,
+    marginBottom: 15,
+    highestViewableValue: 0,
+    lowestViewableValue: 0,
+    borderColour: 'lightgray',
+    displayAreaHeight: 0,
+    displayAreaWidth: 0,
+  }
+  if (newConfig) {
+    Object.keys(newConfig).forEach((key) => (config[key] = newConfig[key]))
+  }
+
+  const element = document.getElementById(chartName)
+  if (element) element.innerHTML = ''
+
+  return draw(`#${chartName}`, config)
 }
 
 const draw = (chartName: string, config: CanvasConfigStrict): Canvas => {
@@ -80,31 +107,4 @@ const draw = (chartName: string, config: CanvasConfigStrict): Canvas => {
 
   const displayGroup = createDisplayGroup(createSVG(chartName))
   return { displayGroup, config }
-}
-
-export function createCanvas(
-  chartName: string,
-  newConfig?: CanvasConfig
-): Canvas {
-  const config: CanvasConfigStrict = {
-    width: 500,
-    height: 70,
-    marginRight: 7,
-    marginLeft: 7,
-    marginTop: 15,
-    marginBottom: 15,
-    max: 0,
-    min: 0,
-    borderColour: 'lightgray',
-    displayAreaHeight: 0,
-    displayAreaWidth: 0,
-  }
-  if (newConfig) {
-    Object.keys(newConfig).forEach((key) => (config[key] = newConfig[key]))
-  }
-
-  const element = document.getElementById(chartName)
-  if (element) element.innerHTML = ''
-
-  return draw(`#${chartName}`, config)
 }

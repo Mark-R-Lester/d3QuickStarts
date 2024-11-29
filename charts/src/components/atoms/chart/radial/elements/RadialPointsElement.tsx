@@ -6,12 +6,14 @@ export const RadialPointsElement: FunctionComponent<chartProps> = ({
   targetId,
 }) => {
   const createChart = () => {
-    const data: number[] = [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
+    const data: number[] = [
+      1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,
+    ]
 
     const canvas: Canvas = createCanvas(targetId, {
       width: 600,
-      min: 0,
-      max: 3,
+      lowestViewableValue: 0,
+      highestViewableValue: 3,
     })
 
     radialPointGenerator.points(canvas, data)

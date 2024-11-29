@@ -11,8 +11,8 @@ export const LinearAreaElement: FunctionComponent<chartProps> = ({
 
     const canvas: Canvas = createCanvas(targetId, {
       width: 600,
-      min: 0,
-      max: 250,
+      lowestViewableValue: 0,
+      highestViewableValue: 250,
     })
 
     linearAreaGenerator

@@ -75,7 +75,12 @@ const draw = (
   config: RadialPointsConfigStrict
 ) => {
   const { x, y, pointRadius } = config
-  const { min, max, displayAreaHeight, displayAreaWidth } = canvas.config
+  const {
+    lowestViewableValue,
+    highestViewableValue,
+    displayAreaHeight,
+    displayAreaWidth,
+  } = canvas.config
   const { data, minimised } = args
 
   const meta: Meta[] = []
@@ -83,7 +88,7 @@ const draw = (
     .domain([0, data.length])
     .range([0, 2 * Math.PI])
   const radialScale = scaleLinear()
-    .domain([min, max])
+    .domain([lowestViewableValue, highestViewableValue])
     .range([0, displayAreaHeight / 2])
   const xScale = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
   const yScale = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])

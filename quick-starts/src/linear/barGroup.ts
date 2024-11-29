@@ -86,7 +86,12 @@ export const linearBarGroupGenerator = {
 }
 
 const draw = (canvas: Canvas, args: DrawArgs, config: BarGroupConfigStrict) => {
-  const { min, max, displayAreaWidth, displayAreaHeight } = canvas.config
+  const {
+    lowestViewableValue,
+    highestViewableValue,
+    displayAreaWidth,
+    displayAreaHeight,
+  } = canvas.config
   const { padding } = config
   const { data, grouped, minimised } = args
   const colors = scaleOrdinal()
@@ -109,7 +114,14 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarGroupConfigStrict) => {
   const meta: Meta[] = []
 
   const yScale = scaleLinear()
-    .domain([min, max !== 0 ? max : grouped ? findMax(data) : findMaxSum(data)])
+    .domain([
+      lowestViewableValue,
+      highestViewableValue !== 0
+        ? highestViewableValue
+        : grouped
+          ? findMax(data)
+          : findMaxSum(data),
+    ])
     .range([displayAreaHeight, 0])
 
   const xBandScale = scaleBand()

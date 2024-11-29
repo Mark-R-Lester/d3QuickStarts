@@ -179,7 +179,12 @@ const draw = (
   config: AxisConfigStrict
 ): AxisSelection => {
   const { config: canvasConfig, displayGroup: canvasDisplayGroup } = canvas
-  const { min, max, displayAreaWidth, displayAreaHeight } = canvasConfig
+  const {
+    lowestViewableValue,
+    highestViewableValue,
+    displayAreaWidth,
+    displayAreaHeight,
+  } = canvasConfig
   const {
     x,
     y,
@@ -243,7 +248,12 @@ const draw = (
     } else {
       numbers = data.map((d) => Number(d))
       const linerScale = scaleLinear()
-        .domain([min, max !== 0 ? max : Math.max(...numbers)])
+        .domain([
+          lowestViewableValue,
+          highestViewableValue !== 0
+            ? highestViewableValue
+            : Math.max(...numbers),
+        ])
         .range(range)
       scale = scalePoint().domain(toStrings(linerScale.domain())).range(range)
       const result = applyScaleToAxis(scale)

@@ -75,14 +75,19 @@ const draw = (
   config: RadialLineConfigStrict
 ) => {
   const { x, y, curve } = config
-  const { min, max, displayAreaHeight, displayAreaWidth } = canvas.config
+  const {
+    lowestViewableValue,
+    highestViewableValue,
+    displayAreaHeight,
+    displayAreaWidth,
+  } = canvas.config
   const { data, minimised } = args
 
   const angleScale = scaleLinear()
     .domain([0, data.length])
     .range([0, 2 * Math.PI])
   const radialScale = scaleLinear()
-    .domain([min, max])
+    .domain([lowestViewableValue, highestViewableValue])
     .range([0, displayAreaHeight / 2])
   const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
   const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])

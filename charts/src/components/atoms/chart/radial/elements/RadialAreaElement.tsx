@@ -24,8 +24,8 @@ export const RadialAreaElement: FunctionComponent<chartProps> = ({
 
     const canvas: Canvas = createCanvas(targetId, {
       width: 600,
-      min: 0,
-      max: 25,
+      lowestViewableValue: 0,
+      highestViewableValue: 25,
     })
 
     radialAreaGenerator.area(canvas, data1)

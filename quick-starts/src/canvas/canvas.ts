@@ -13,7 +13,7 @@ export interface CanvasConfig {
   borderColour?: string
 }
 
-export interface CanvasConfigStrict {
+interface CanvasConfigStrict {
   [key: string]: string | number | undefined
   width: number
   height: number

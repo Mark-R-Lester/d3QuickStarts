@@ -1,5 +1,5 @@
 import { Canvas } from '../canvas/canvas'
-import { range } from 'd3'
+import { range, Selection } from 'd3'
 import { scaleLinear, scaleBand, scaleOrdinal, ScaleOrdinal } from 'd3-scale'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../core/conversion'
@@ -9,6 +9,14 @@ export interface BarConfig {
   padding?: number
   colorDomain?: number[]
   colorRange?: Iterable<unknown>
+}
+
+export interface QsBars {
+  bars:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  group: Selection<SVGGElement, unknown, HTMLElement, any>
+  transition: (data: number[]) => void
 }
 interface BarConfigStrict {
   [key: string]: number | Iterable<unknown> | number[] | undefined
@@ -69,7 +77,11 @@ export const linearBarGenerator = {
   vertical,
 }
 
-const draw = (canvas: Canvas, args: DrawArgs, config: BarConfigStrict) => {
+const draw = (
+  canvas: Canvas,
+  args: DrawArgs,
+  config: BarConfigStrict
+): QsBars => {
   const {
     lowestViewableValue,
     highestViewableValue,
@@ -158,7 +170,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfigStrict) => {
   return {
     bars: group.selectAll(`.${meta[0].class}`),
     group,
-    verticalTransition: (data: number[]) => {
+    transition: (data: number[]) => {
       const meta: Meta[] = getMeta(data)
       group
         .selectAll(`.${meta[0].class}`)

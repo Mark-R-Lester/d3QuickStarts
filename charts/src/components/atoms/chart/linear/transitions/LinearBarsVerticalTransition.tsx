@@ -1,12 +1,17 @@
 import { FunctionComponent, useEffect, useState } from 'react'
-import { Canvas, createCanvas, linearBarGenerator } from 'd3qs/d3QuickStart'
+import {
+  Canvas,
+  createCanvas,
+  linearBarGenerator,
+  QsBars,
+} from 'd3qs/d3QuickStart'
 import { chartProps } from '../../../../common/types/chartProps'
 
 export const LinearBarsVerticalTransition: FunctionComponent<chartProps> = ({
   targetId,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
-  const [bars, setBars] = useState<any>()
+  const [bars, setBars] = useState<QsBars>()
 
   const createChart = () => {
     const data = [25, 10, 35, 25, 35, 5, 25, 25]
@@ -15,7 +20,6 @@ export const LinearBarsVerticalTransition: FunctionComponent<chartProps> = ({
       highestViewableValue: 50,
     })
     const newBars = linearBarGenerator.vertical(canvas, data)
-    console.log('Setting bars1: ', newBars)
     setBars(newBars)
   }
 
@@ -34,8 +38,8 @@ export const LinearBarsVerticalTransition: FunctionComponent<chartProps> = ({
     }
 
     const transitionData = getVals()
-    if (bars) bars.verticalTransition(transitionData)
-    setTimeout(() => setChanged(!changed), 1000)
+    if (bars) bars.transition(transitionData)
+    setTimeout(() => setChanged(!changed), 5000)
   }, [bars, changed])
 
   return (

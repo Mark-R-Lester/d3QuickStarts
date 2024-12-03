@@ -2,24 +2,30 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import {
   Canvas,
   createCanvas,
-  linearBarGenerator,
-  QsBars,
+  linearBarFloatingGenerator,
+  QsBarsFloating,
 } from 'd3qs/d3QuickStart'
 import { chartProps } from '../../../../common/types/chartProps'
 
-export const LinearBarsHorizontalTransition: FunctionComponent<chartProps> = ({
-  targetId,
-}) => {
+export const LinearBarsFloatingHorizontalTransition: FunctionComponent<
+  chartProps
+> = ({ targetId }) => {
   const [changed, setChanged] = useState<boolean>(false)
-  const [bars, setBars] = useState<QsBars>()
+  const [bars, setBars] = useState<QsBarsFloating>()
 
   const createChart = () => {
-    const data = [25, 10, 35, 25, 35, 5, 25, 25]
+    const data = [
+      [10, 30],
+      [20, 40],
+      [30, 50],
+      [40, 60],
+      [50, 70],
+    ]
     const canvas: Canvas = createCanvas(targetId, {
       width: 600,
       highestViewableValue: 50,
     })
-    const newBars = linearBarGenerator.horizontal(canvas, data)
+    const newBars = linearBarFloatingGenerator.horizontal(canvas, data)
     setBars(newBars)
   }
 
@@ -29,11 +35,12 @@ export const LinearBarsHorizontalTransition: FunctionComponent<chartProps> = ({
 
   useEffect(
     function transitionData() {
-      const getVals = (): number[] => {
-        const vals = []
+      const getVals = (): number[][] => {
+        const vals: number[][] = []
         for (let i = 0; i < 8; i++) {
-          let num = (Math.random() * 100) / 2
-          vals.push(num)
+          let val1 = (Math.random() * 100) / 2
+          let val2 = (Math.random() * 100) / 2
+          vals.push([val1 < val2 ? val1 : val2, val1 > val2 ? val1 : val2])
         }
         return vals
       }

@@ -4,10 +4,11 @@ import {
   scaleOrdinal,
   NumberValue,
   ScaleOrdinal,
-} from 'd3-scale'
+  Selection,
+  range,
+} from 'd3'
 import { Canvas } from '../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
-import { range } from 'd3'
 import { toStrings } from '../core/conversion'
 import { findMax } from '../core/max'
 
@@ -16,6 +17,14 @@ export interface BarFloatingConfig {
   padding?: number
   colorDomain?: number[]
   colorRange?: Iterable<unknown>
+}
+
+export interface QsBarsFloating {
+  bars:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  group: Selection<SVGGElement, unknown, HTMLElement, any>
+  transition: (data: number[][]) => void
 }
 
 interface BarFloatingConfigStrict {
@@ -85,7 +94,7 @@ const draw = (
   canvas: Canvas,
   args: DrawArgs,
   config: BarFloatingConfigStrict
-) => {
+): QsBarsFloating => {
   const {
     lowestViewableValue,
     highestViewableValue,
@@ -156,7 +165,8 @@ const draw = (
   }
   const meta: Meta[] = getMeta(data)
 
-  const group = canvas.displayGroup.append('g')
+  const group: Selection<SVGGElement, unknown, HTMLElement, any> =
+    canvas.displayGroup.append('g')
   group
     .selectAll('.bar')
     .data(meta)

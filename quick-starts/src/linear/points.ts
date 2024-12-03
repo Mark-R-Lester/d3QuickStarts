@@ -116,12 +116,10 @@ const draw = (canvas: Canvas, args: DrawArgs, config: PointsConfigStrict) => {
     displayAreaWidth / data.length
   )
 
-  console.log('')
   const getCoordinates = (data: number[]): number[][] =>
     data.map((d, i) => (vertical ? [d, pointSpacing[i]] : [pointSpacing[i], d]))
 
   const coordinates: number[][] = getCoordinates(data)
-  console.log('')
 
   const dataScale = scaleLinear()
     .domain(

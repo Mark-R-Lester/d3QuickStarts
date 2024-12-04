@@ -6,6 +6,7 @@ import {
   schemePurples,
   ScaleOrdinal,
   ScaleLinear,
+  Selection,
 } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { arc } from 'd3'
@@ -22,6 +23,13 @@ export interface RadialConfig {
   y?: number
   colorDomain?: string[] | number[]
   colorRange?: Iterable<unknown>
+}
+
+export interface QsRadial {
+  element:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  transition: (data: RadialArgs[]) => void
 }
 
 interface RadialConfigStrict {
@@ -90,7 +98,7 @@ const pie = (
   canvas: Canvas,
   data: RadialArgs[],
   customConfig?: RadialConfig
-) => {
+): QsRadial => {
   const args: DrawArgs = { data, pie: true }
   const config: RadialConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
@@ -100,7 +108,7 @@ const doughnut = (
   canvas: Canvas,
   data: RadialArgs[],
   customConfig?: RadialConfig
-) => {
+): QsRadial => {
   const args: DrawArgs = { data, pie: false }
   const config: RadialConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
@@ -111,7 +119,11 @@ export const radialGenerator = {
   doughnut,
 }
 
-const draw = (canvas: Canvas, args: DrawArgs, config: RadialConfigStrict) => {
+const draw = (
+  canvas: Canvas,
+  args: DrawArgs,
+  config: RadialConfigStrict
+): QsRadial => {
   const { data, pie } = args
   const {
     outerRadius,
@@ -215,9 +227,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: RadialConfigStrict) => {
     .attr('fill', (d) => d.arcData.color)
 
   return {
-    slices: group.selectAll('.arc'),
-    group,
-    meta,
+    element: group.selectAll('.arc'),
     transition: (data: RadialArgs[]) => {
       getMeta(data, padAngle)
       group

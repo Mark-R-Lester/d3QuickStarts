@@ -1,8 +1,8 @@
 import { Canvas } from '../canvas/canvas'
-import { line } from 'd3'
+import { line, Selection } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 
-export interface RadialSpokesConfig {
+export interface QsRadialSpokesConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   radius?: number
   innerRadius?: number
@@ -10,6 +10,13 @@ export interface RadialSpokesConfig {
   y?: number
   colour?: string
   strokeWidth?: number
+}
+
+export interface QsRadialSpokes {
+  element:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  transition: (data: number) => void
 }
 
 interface RadialSpokesConfigStrict {
@@ -33,7 +40,7 @@ interface Meta {
 }
 
 const updateConfig = (
-  customConfig?: RadialSpokesConfig
+  customConfig?: QsRadialSpokesConfig
 ): RadialSpokesConfigStrict => {
   const defaults: RadialSpokesConfigStrict = {
     radius: 100,
@@ -54,8 +61,8 @@ const updateConfig = (
 const spokes = (
   canvas: Canvas,
   data: number,
-  customConfig?: RadialSpokesConfig
-) => {
+  customConfig?: QsRadialSpokesConfig
+): QsRadialSpokes => {
   const config: RadialSpokesConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data }
   return draw(canvas, args, config)
@@ -64,8 +71,8 @@ const spokes = (
 const spokesMinimised = (
   canvas: Canvas,
   data: number,
-  customConfig?: RadialSpokesConfig
-) => {
+  customConfig?: QsRadialSpokesConfig
+): QsRadialSpokes => {
   const config: RadialSpokesConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data }
   return draw(canvas, args, config)
@@ -80,7 +87,7 @@ const draw = (
   canvas: Canvas,
   args: DrawArgs,
   config: RadialSpokesConfigStrict
-) => {
+): QsRadialSpokes => {
   const { radius, innerRadius, x, y, colour, strokeWidth } = config
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { data } = args
@@ -129,9 +136,7 @@ const draw = (
     .attr('stroke-width', strokeWidth)
 
   return {
-    spokes: group.selectAll(`.${meta[0].class}`),
-    group,
-    meta,
+    element: group.selectAll(`.${meta[0].class}`),
     transition: (data: number) => {
       const meta: Meta[] = getMeta(data)
       group

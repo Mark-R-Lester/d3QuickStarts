@@ -5,11 +5,12 @@ import {
   arc as d3arc,
   ScaleOrdinal,
   ScaleLinear,
+  Selection,
 } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../core/conversion'
 
-export interface RadialAxisConfig {
+export interface QsRadialAxisConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   radius?: number
   fontSize?: number
@@ -19,6 +20,16 @@ export interface RadialAxisConfig {
   gap?: number
   colour?: string
   strokeWidth?: number
+}
+
+export interface QsRadialAxis {
+  textElement:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  ringsElement:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  transition: (data: number[]) => void
 }
 
 interface RadialAxisConfigStrict {
@@ -56,7 +67,7 @@ interface DrawArgs {
 }
 
 const updateConfig = (
-  customConfig?: RadialAxisConfig
+  customConfig?: QsRadialAxisConfig
 ): RadialAxisConfigStrict => {
   const defaults: RadialAxisConfigStrict = {
     radius: 100,
@@ -79,8 +90,8 @@ const updateConfig = (
 const rings = (
   canvas: Canvas,
   data: number[],
-  customConfig?: RadialAxisConfig
-) => {
+  customConfig?: QsRadialAxisConfig
+): QsRadialAxis => {
   const config: RadialAxisConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data }
   return draw(canvas, args, config)
@@ -94,7 +105,7 @@ const draw = (
   canvas: Canvas,
   args: DrawArgs,
   config: RadialAxisConfigStrict
-) => {
+): QsRadialAxis => {
   const { radius, fontSize, x, y, axisAngle, gap, colour, strokeWidth } = config
   const {
     displayAreaHeight,
@@ -201,9 +212,8 @@ const draw = (
     .text((d) => d.ringData.text)
 
   return {
-    text: group.selectAll('text'),
-    rings: group.selectAll('ring'),
-    group,
+    textElement: group.selectAll('text'),
+    ringsElement: group.selectAll('ring'),
     transition: (data: number[]) => {
       const meta: Meta[] = getMeta(data)
       group

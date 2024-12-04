@@ -1,11 +1,24 @@
 import { Canvas } from '../canvas/canvas'
-import { scaleLinear, curveLinear, CurveFactory, lineRadial } from 'd3'
+import {
+  scaleLinear,
+  curveLinear,
+  CurveFactory,
+  lineRadial,
+  Selection,
+} from 'd3'
 
-export interface RadialLineConfig {
+export interface QsRadialLineConfig {
   [key: string]: number | CurveFactory | undefined
   x?: number
   y?: number
   curve?: CurveFactory
+}
+
+export interface QsRadialLine {
+  element:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  transition: (data: number[]) => void
 }
 
 interface RadialLineConfigStrict {
@@ -26,7 +39,7 @@ interface DrawArgs {
 }
 
 const updateConfig = (
-  customConfig?: RadialLineConfig
+  customConfig?: QsRadialLineConfig
 ): RadialLineConfigStrict => {
   const defaults: RadialLineConfigStrict = {
     curve: curveLinear,
@@ -45,8 +58,8 @@ const updateConfig = (
 const line = (
   canvas: Canvas,
   data: number[],
-  customConfig?: RadialLineConfig
-) => {
+  customConfig?: QsRadialLineConfig
+): QsRadialLine => {
   const config: RadialLineConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data }
   return draw(canvas, args, config)
@@ -60,7 +73,7 @@ const draw = (
   canvas: Canvas,
   args: DrawArgs,
   config: RadialLineConfigStrict
-) => {
+): QsRadialLine => {
   const { x, y, curve } = config
   const {
     lowestViewableValue,
@@ -102,9 +115,7 @@ const draw = (
     .attr('fill', 'none')
     .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
   return {
-    line: group.selectAll(`.${meta.class}`),
-    group,
-    meta,
+    element: group.selectAll(`.${meta.class}`),
     transition: (data: number[]) => {
       const meta: Meta = getMeta(data)
       group

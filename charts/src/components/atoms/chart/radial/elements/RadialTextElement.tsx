@@ -3,7 +3,7 @@ import {
   Canvas,
   createCanvas,
   radialTextGenerator,
-  ValuedText,
+  QsValuedText,
 } from 'd3qs/d3QuickStart'
 import { chartProps } from '../../../../common/types/chartProps'
 
@@ -11,7 +11,7 @@ export const RadialTextElement: FunctionComponent<chartProps> = ({
   targetId,
 }) => {
   const createChart = () => {
-    const data1: ValuedText[] = [
+    const data1: QsValuedText[] = [
       {
         value: 10,
         text: 'Ten',

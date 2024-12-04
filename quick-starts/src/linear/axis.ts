@@ -11,7 +11,7 @@ import {
 } from 'd3-axis'
 import { toStrings } from '../core/conversion'
 
-export interface AxisConfig {
+export interface QsAxisConfig {
   [key: string]: number | boolean | string | undefined
   alignmentBaseline?: string
   tickSize?: number
@@ -29,8 +29,8 @@ export interface AxisConfig {
   y?: number
 }
 
-export interface AxisSelection {
-  selection: Selection<BaseType, unknown, SVGGElement, unknown>
+export interface QsAxis {
+  element: Selection<BaseType, unknown, SVGGElement, unknown>
 }
 
 interface AxisConfigStrict {
@@ -58,7 +58,7 @@ export interface DrawArgs {
   isX: boolean
 }
 
-const updateConfig = (customConfig?: AxisConfig): AxisConfigStrict => {
+const updateConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
   const defaults: AxisConfigStrict = {
     alignmentBaseline: '',
     tickSize: 6,
@@ -85,8 +85,8 @@ const updateConfig = (customConfig?: AxisConfig): AxisConfigStrict => {
 const xAxisTop = (
   canvas: Canvas,
   data: string[] | number[],
-  customConfig?: AxisConfig
-) => {
+  customConfig?: QsAxisConfig
+): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, topOrRight: true, banded: false, isX: true }
   return draw(canvas, args, config)
@@ -95,8 +95,8 @@ const xAxisTop = (
 const xAxisBottom = (
   canvas: Canvas,
   data: string[] | number[],
-  customConfig?: AxisConfig
-) => {
+  customConfig?: QsAxisConfig
+): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, topOrRight: false, banded: false, isX: true }
   return draw(canvas, args, config)
@@ -105,8 +105,8 @@ const xAxisBottom = (
 const xAxisBottomBanded = (
   canvas: Canvas,
   data: string[] | number[],
-  customConfig?: AxisConfig
-) => {
+  customConfig?: QsAxisConfig
+): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, topOrRight: false, banded: true, isX: true }
   return draw(canvas, args, config)
@@ -115,8 +115,8 @@ const xAxisBottomBanded = (
 const xAxisTopBanded = (
   canvas: Canvas,
   data: string[] | number[],
-  customConfig?: AxisConfig
-) => {
+  customConfig?: QsAxisConfig
+): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, topOrRight: true, banded: true, isX: true }
   return draw(canvas, args, config)
@@ -125,8 +125,8 @@ const xAxisTopBanded = (
 const yAxisLeft = (
   canvas: Canvas,
   data: string[] | number[],
-  customConfig?: AxisConfig
-) => {
+  customConfig?: QsAxisConfig
+): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, topOrRight: false, banded: false, isX: false }
   return draw(canvas, args, config)
@@ -135,8 +135,8 @@ const yAxisLeft = (
 const yAxisRight = (
   canvas: Canvas,
   data: string[] | number[],
-  customConfig?: AxisConfig
-) => {
+  customConfig?: QsAxisConfig
+): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, topOrRight: true, banded: false, isX: false }
   return draw(canvas, args, config)
@@ -145,8 +145,8 @@ const yAxisRight = (
 const yAxisLeftBanded = (
   canvas: Canvas,
   data: string[] | number[],
-  customConfig?: AxisConfig
-) => {
+  customConfig?: QsAxisConfig
+): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, topOrRight: false, banded: true, isX: false }
   return draw(canvas, args, config)
@@ -155,8 +155,8 @@ const yAxisLeftBanded = (
 const yAxisRightBanded = (
   canvas: Canvas,
   data: string[] | number[],
-  customConfig?: AxisConfig
-) => {
+  customConfig?: QsAxisConfig
+): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, topOrRight: true, banded: true, isX: false }
   return draw(canvas, args, config)
@@ -177,7 +177,7 @@ const draw = (
   canvas: Canvas,
   args: DrawArgs,
   config: AxisConfigStrict
-): AxisSelection => {
+): QsAxis => {
   const { config: canvasConfig, displayGroup: canvasDisplayGroup } = canvas
   const {
     lowestViewableValue,
@@ -300,5 +300,5 @@ const draw = (
     axisDomain.remove()
   }
 
-  return { selection: axisText }
+  return { element: axisText }
 }

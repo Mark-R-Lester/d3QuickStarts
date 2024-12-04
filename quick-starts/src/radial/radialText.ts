@@ -1,13 +1,28 @@
 import { Canvas } from '../canvas/canvas'
-import { scaleLinear, arc as d3arc } from 'd3'
+import { scaleLinear, arc as d3arc, Selection } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 
-export interface RadialTextConfig {
+export interface QsRadialTextConfig {
   [key: string]: number | undefined
   radius?: number
   fontSize?: number
   x?: number
   y?: number
+}
+
+export interface QsRadialText {
+  elementText:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  elementArcs:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  transition: (data: QsValuedText[]) => void
+}
+
+export interface QsValuedText {
+  value: number
+  text?: string
 }
 
 interface RadialTextConfigStrict {
@@ -18,17 +33,12 @@ interface RadialTextConfigStrict {
   y: number
 }
 
-export interface ValuedText {
-  value: number
-  text?: string
-}
-
 interface BandData {
   textId: string
   textClass: string
   arcId: string
   arcClass: string
-  data: ValuedText
+  data: QsValuedText
   index: number
   value: string | number
   startAngle: number
@@ -44,13 +54,13 @@ interface Meta {
 }
 
 interface DrawArgs {
-  data: ValuedText[]
+  data: QsValuedText[]
   banded: boolean
   type: string
 }
 
 const updateConfig = (
-  customConfig?: RadialTextConfig
+  customConfig?: QsRadialTextConfig
 ): RadialTextConfigStrict => {
   const defaults: RadialTextConfigStrict = {
     radius: 100,
@@ -68,9 +78,9 @@ const updateConfig = (
 
 const spoke = (
   canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
+  data: QsValuedText[],
+  customConfig?: QsRadialTextConfig
+): QsRadialText => {
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
@@ -82,9 +92,9 @@ const spoke = (
 
 const horizontal = (
   canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
+  data: QsValuedText[],
+  customConfig?: QsRadialTextConfig
+): QsRadialText => {
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
@@ -96,9 +106,9 @@ const horizontal = (
 
 const rotated = (
   canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
+  data: QsValuedText[],
+  customConfig?: QsRadialTextConfig
+): QsRadialText => {
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
@@ -110,9 +120,9 @@ const rotated = (
 
 const follow = (
   canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
+  data: QsValuedText[],
+  customConfig?: QsRadialTextConfig
+): QsRadialText => {
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
@@ -124,9 +134,9 @@ const follow = (
 
 const spokeBanded = (
   canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
+  data: QsValuedText[],
+  customConfig?: QsRadialTextConfig
+): QsRadialText => {
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
@@ -138,9 +148,9 @@ const spokeBanded = (
 
 const horizontalBanded = (
   canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
+  data: QsValuedText[],
+  customConfig?: QsRadialTextConfig
+): QsRadialText => {
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
@@ -152,9 +162,9 @@ const horizontalBanded = (
 
 const rotatedBanded = (
   canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
+  data: QsValuedText[],
+  customConfig?: QsRadialTextConfig
+): QsRadialText => {
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
@@ -166,9 +176,9 @@ const rotatedBanded = (
 
 const followBanded = (
   canvas: Canvas,
-  data: ValuedText[],
-  customConfig?: RadialTextConfig
-) => {
+  data: QsValuedText[],
+  customConfig?: QsRadialTextConfig
+): QsRadialText => {
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
@@ -193,7 +203,7 @@ const draw = (
   canvas: Canvas,
   args: DrawArgs,
   config: RadialTextConfigStrict
-) => {
+): QsRadialText => {
   const { data, banded, type } = args
   const { radius, fontSize, x, y } = config
   const { displayAreaHeight, displayAreaWidth } = canvas.config
@@ -223,7 +233,7 @@ const draw = (
   const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
   const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
 
-  const bandData = (data: ValuedText[], min?: boolean): BandData[] => {
+  const bandData = (data: QsValuedText[], min?: boolean): BandData[] => {
     let shares = 0
     data.forEach((d) => {
       shares = shares + d.value
@@ -253,7 +263,7 @@ const draw = (
     })
   }
 
-  const pointData = (data: ValuedText[], min?: boolean): BandData[] =>
+  const pointData = (data: QsValuedText[], min?: boolean): BandData[] =>
     bandData(data, min).map((d) => {
       const offSet = (d.endAngle - d.startAngle) / 2
       d.startAngle = d.startAngle - offSet
@@ -261,7 +271,7 @@ const draw = (
       return d
     })
 
-  const getMeta = (data: ValuedText[]) => {
+  const getMeta = (data: QsValuedText[]) => {
     return {
       arcClass: 'arc',
       textClass: 'text',
@@ -320,11 +330,9 @@ const draw = (
       .text((d) => (d.data.text ? d.data.text : d.data.value))
   }
   return {
-    text: text.selectAll('.arcText'),
-    textArcs: arcs.selectAll('.textArc'),
-    group,
-    meta,
-    transition: (data: ValuedText[]) => {
+    elementText: text.selectAll('.arcText'),
+    elementArcs: arcs.selectAll('.textArc'),
+    transition: (data: QsValuedText[]) => {
       const meta: Meta = getMeta(data)
       if (type !== 'follow') {
         text

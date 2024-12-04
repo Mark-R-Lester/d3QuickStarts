@@ -1,12 +1,20 @@
 import { Canvas } from '../canvas/canvas'
+import { Selection } from 'd3-selection'
 import { scaleLinear } from 'd3-scale'
 import { v4 as uuidv4 } from 'uuid'
 
-export interface RadialPointsConfig {
+export interface QsRadialPointsConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   x?: number
   y?: number
   pointRadius?: number
+}
+
+export interface QsRadialPoints {
+  element:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  transition: (data: number[]) => void
 }
 
 interface RadialPointsConfigStrict {
@@ -27,7 +35,7 @@ interface Meta {
 }
 
 const updateConfig = (
-  customConfig?: RadialPointsConfig
+  customConfig?: QsRadialPointsConfig
 ): RadialPointsConfigStrict => {
   const defaults: RadialPointsConfigStrict = {
     x: 50,
@@ -45,8 +53,8 @@ const updateConfig = (
 const points = (
   canvas: Canvas,
   data: number[],
-  customConfig?: RadialPointsConfig
-) => {
+  customConfig?: QsRadialPointsConfig
+): QsRadialPoints => {
   const config: RadialPointsConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data }
   return draw(canvas, args, config)
@@ -60,7 +68,7 @@ const draw = (
   canvas: Canvas,
   args: DrawArgs,
   config: RadialPointsConfigStrict
-) => {
+): QsRadialPoints => {
   const { x, y, pointRadius } = config
   const {
     lowestViewableValue,
@@ -111,8 +119,7 @@ const draw = (
     .attr('r', yScale(pointRadius))
     .attr('transform', `translate(${xScale(x)}, ${yScale(y)})`)
   return {
-    points: dataPoints.selectAll('circle'),
-    meta,
+    element: dataPoints.selectAll('circle'),
     transition: (data: number[]) => {
       const meta: Meta[] = getMeta(data)
       dataPoints

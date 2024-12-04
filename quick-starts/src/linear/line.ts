@@ -5,13 +5,21 @@ import {
   range,
   CurveFactory,
   line as d3line,
+  Selection,
 } from 'd3'
 import { Canvas } from '../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 
-export interface LineConfig {
+export interface QsLineConfig {
   [key: string]: CurveFactory | undefined
   curve?: CurveFactory
+}
+
+export interface QsLine {
+  element:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  transition: (data: [number, number][]) => void
 }
 
 interface LineConfigStrict {
@@ -31,7 +39,7 @@ interface Meta {
   coordinates: [number, number][]
 }
 
-const updateConfig = (customConfig?: LineConfig): LineConfigStrict => {
+const updateConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
   const defauls: LineConfigStrict = {
     curve: curveLinear,
   }
@@ -45,8 +53,8 @@ const updateConfig = (customConfig?: LineConfig): LineConfigStrict => {
 const horizontal = (
   canvas: Canvas,
   data: number[],
-  customConfig?: LineConfig
-) => {
+  customConfig?: QsLineConfig
+): QsLine => {
   const args: DrawArgs = {
     data,
     vertical: false,
@@ -59,8 +67,8 @@ const horizontal = (
 const vertical = (
   canvas: Canvas,
   data: number[],
-  customConfig?: LineConfig
-) => {
+  customConfig?: QsLineConfig
+): QsLine => {
   const args: DrawArgs = {
     data,
     vertical: true,
@@ -73,8 +81,8 @@ const vertical = (
 const horizontalBanded = (
   canvas: Canvas,
   data: number[],
-  customConfig?: LineConfig
-) => {
+  customConfig?: QsLineConfig
+): QsLine => {
   const args: DrawArgs = {
     data,
     vertical: false,
@@ -87,8 +95,8 @@ const horizontalBanded = (
 const verticalBanded = (
   canvas: Canvas,
   data: number[],
-  customConfig?: LineConfig
-) => {
+  customConfig?: QsLineConfig
+): QsLine => {
   const args: DrawArgs = {
     data,
     vertical: true,
@@ -105,7 +113,11 @@ export const linearLineGenerator = {
   verticalBanded,
 }
 
-const drawLine = (canvas: Canvas, args: DrawArgs, config: LineConfigStrict) => {
+const drawLine = (
+  canvas: Canvas,
+  args: DrawArgs,
+  config: LineConfigStrict
+): QsLine => {
   const {
     displayAreaHeight,
     displayAreaWidth,
@@ -125,9 +137,6 @@ const drawLine = (canvas: Canvas, args: DrawArgs, config: LineConfigStrict) => {
   )
   const coordinates: [number, number][] = data.map((d, i) =>
     vertical ? [d, yVals[i]] : [xVals[i], d]
-  )
-  const coordinatesMin: [number, number][] = data.map((d, i) =>
-    vertical ? [0, yVals[i]] : [xVals[i], 0]
   )
   const getMeta = (coordinates: [number, number][]): Meta => {
     return {
@@ -186,9 +195,7 @@ const drawLine = (canvas: Canvas, args: DrawArgs, config: LineConfigStrict) => {
     .attr('stroke', 'black')
     .attr('fill-opacity', '0')
   return {
-    line: group.select(`.${meta.class}`),
-    group,
-    meta,
+    element: group.select(`.${meta.class}`),
     transition: (data: [number, number][]) => {
       const meta: Meta = getMeta(data)
       group

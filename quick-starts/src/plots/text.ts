@@ -1,7 +1,7 @@
-import { scaleLinear } from 'd3'
+import { scaleLinear, Selection } from 'd3'
 import { Canvas } from '../d3QuickStart'
 
-export interface TextConfig {
+export interface QsTextConfig {
   [key: string]: number | string | undefined
   font?: string
   fontSize?: number
@@ -10,6 +10,18 @@ export interface TextConfig {
   alignmentBaseline?: string
   textAnchor?: string
   angle?: number
+}
+
+export interface QsText {
+  element:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+}
+
+export interface TextArgs {
+  x: number
+  y: number
+  text: string
 }
 
 interface TextConfigStrict {
@@ -23,17 +35,11 @@ interface TextConfigStrict {
   angle: number
 }
 
-export interface TextArgs {
-  x: number
-  y: number
-  text: string
-}
-
 interface DrawArgs {
   data: TextArgs[]
 }
 
-const updateConfig = (customConfig?: TextConfig): TextConfigStrict => {
+const updateConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
   const defaults: TextConfigStrict = {
     font: 'sans-serif',
     fontSize: 4,
@@ -51,7 +57,11 @@ const updateConfig = (customConfig?: TextConfig): TextConfigStrict => {
   return defaults
 }
 
-const text = (canvas: Canvas, data: TextArgs[], customConfig: TextConfig) => {
+const text = (
+  canvas: Canvas,
+  data: TextArgs[],
+  customConfig: QsTextConfig
+): QsText => {
   const args: DrawArgs = { data }
   const config: TextConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
@@ -61,7 +71,11 @@ export const plottedTextGenerator = {
   text,
 }
 
-const draw = (canvas: Canvas, args: DrawArgs, config: TextConfigStrict) => {
+const draw = (
+  canvas: Canvas,
+  args: DrawArgs,
+  config: TextConfigStrict
+): QsText => {
   const { font, fontSize, stroke, fill, alignmentBaseline, textAnchor } = config
   const { displayAreaWidth, displayAreaHeight } = canvas.config
   const { data } = args
@@ -85,5 +99,5 @@ const draw = (canvas: Canvas, args: DrawArgs, config: TextConfigStrict) => {
     .style('text-anchor', textAnchor)
     .style('alignment-baseline', alignmentBaseline)
     .text((d) => d.text)
-  return { text: text.selectAll('text') }
+  return { element: text.selectAll('text') }
 }

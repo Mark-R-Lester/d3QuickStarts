@@ -1,10 +1,16 @@
 import { Canvas } from '../canvas/canvas'
-import { scaleLinear } from 'd3'
+import { scaleLinear, Selection } from 'd3'
 import { CoordinateEnhanced } from '../core/types'
 import { findMaxCoordinateX, findMaxCoordinateY } from '../core/max'
 
-export interface ScatterPlotConfig {
+export interface QsScatterPlotConfig {
   [key: string]: string | undefined
+}
+
+export interface QsScatterPlot {
+  element:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
 }
 
 interface ScatterPlotConfigStrict {
@@ -19,7 +25,7 @@ const configuration: ScatterPlotConfigStrict = {}
 
 const updateConfig = (
   defaults: ScatterPlotConfigStrict,
-  customConfig?: ScatterPlotConfig
+  customConfig?: QsScatterPlotConfig
 ): ScatterPlotConfigStrict => {
   const result: ScatterPlotConfigStrict = structuredClone(defaults)
   if (!customConfig) return result
@@ -31,8 +37,8 @@ const updateConfig = (
 const points = (
   canvas: Canvas,
   data: CoordinateEnhanced[],
-  config?: ScatterPlotConfig
-) => {
+  config?: QsScatterPlotConfig
+): QsScatterPlot => {
   const args: DrawArgs = { data }
   return draw(canvas, args, configuration)
 }
@@ -45,7 +51,7 @@ const draw = (
   canvas: Canvas,
   args: DrawArgs,
   config: ScatterPlotConfigStrict
-) => {
+): QsScatterPlot => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { data } = args
 
@@ -66,5 +72,5 @@ const draw = (
     .attr('cy', (d) => yScale(d.y))
     .attr('r', (d) => (d.radius ? d.radius : '3'))
     .attr('opacity', (d) => (d.opacity ? d.opacity / 100 : '1'))
-  return { points: dataPoints }
+  return { element: dataPoints }
 }

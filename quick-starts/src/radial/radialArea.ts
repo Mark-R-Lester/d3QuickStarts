@@ -1,15 +1,28 @@
 import { Canvas } from '../canvas/canvas'
-import { scaleLinear, CurveFactory, curveLinear, areaRadial } from 'd3'
+import {
+  scaleLinear,
+  CurveFactory,
+  curveLinear,
+  areaRadial,
+  Selection,
+} from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 
-export interface RadialAreaConfig {
+export interface QsRadialAreaConfig {
   [key: string]: CurveFactory | number | undefined
   curve?: CurveFactory
   x?: number
   y?: number
 }
 
-export interface RadialAreaArgs {
+export interface QsRadialArea {
+  element:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  transition: (data: QsRadialAreaArgs) => void
+}
+
+export interface QsRadialAreaArgs {
   [key: string]: number[] | undefined
   dataOuter: number[]
   dataInner?: number[]
@@ -40,7 +53,7 @@ interface Meta {
 }
 
 const updateConfig = (
-  customConfig?: RadialAreaConfig
+  customConfig?: QsRadialAreaConfig
 ): RadialAreaConfigStrict => {
   const defaults: RadialAreaConfigStrict = {
     curve: curveLinear,
@@ -58,9 +71,9 @@ const updateConfig = (
 
 const area = (
   canvas: Canvas,
-  data: RadialAreaArgs,
-  customConfig?: RadialAreaConfig
-) => {
+  data: QsRadialAreaArgs,
+  customConfig?: QsRadialAreaConfig
+): QsRadialArea => {
   const config: RadialAreaConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     dataOuter: data.dataOuter,
@@ -77,7 +90,7 @@ const draw = (
   canvas: Canvas,
   args: DrawArgs,
   config: RadialAreaConfigStrict
-) => {
+): QsRadialArea => {
   const { dataOuter, dataInner } = args
   const { x, y, curve } = config
   const {
@@ -136,10 +149,8 @@ const draw = (
     .attr('fill', 'red')
     .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
   return {
-    area: group.selectAll('path'),
-    group,
-    meta,
-    transition: (args: RadialAreaArgs) => {
+    element: group.selectAll('path'),
+    transition: (args: QsRadialAreaArgs) => {
       const meta = getMeta(args.dataInner)
       group
         .selectAll(`.${meta.class}`)

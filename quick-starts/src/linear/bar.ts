@@ -4,7 +4,7 @@ import { scaleLinear, scaleBand, scaleOrdinal, ScaleOrdinal } from 'd3-scale'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../core/conversion'
 
-export interface BarConfig {
+export interface QsBarConfig {
   [key: string]: number | Iterable<unknown> | number[] | undefined
   padding?: number
   colorDomain?: number[]
@@ -12,13 +12,12 @@ export interface BarConfig {
 }
 
 export interface QsBars {
-  bars:
+  element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  group: Selection<SVGGElement, unknown, HTMLElement, any>
   transition: (data: number[]) => void
 }
-interface BarConfigStrict {
+interface QsBarConfigStrict {
   [key: string]: number | Iterable<unknown> | number[] | undefined
   padding: number
   colorDomain: number[]
@@ -43,8 +42,8 @@ interface Meta {
   barData: BarData
 }
 
-const updateConfig = (customConfig?: BarConfig): BarConfigStrict => {
-  const defaults: BarConfigStrict = {
+const updateConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
+  const defaults: QsBarConfigStrict = {
     padding: 8,
     colorDomain: range(4),
     colorRange: ['purple'],
@@ -56,19 +55,23 @@ const updateConfig = (customConfig?: BarConfig): BarConfigStrict => {
   )
   return defaults
 }
-const vertical = (canvas: Canvas, data: number[], customConfig?: BarConfig) => {
+const vertical = (
+  canvas: Canvas,
+  data: number[],
+  customConfig?: QsBarConfig
+): QsBars => {
   const args: DrawArgs = { data, horizontal: false, minimised: false }
-  const config: BarConfigStrict = updateConfig(customConfig)
+  const config: QsBarConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
 
 const horizontal = (
   canvas: Canvas,
   data: number[],
-  customConfig?: BarConfig
-) => {
+  customConfig?: QsBarConfig
+): QsBars => {
   const args: DrawArgs = { data, horizontal: true, minimised: false }
-  const config: BarConfigStrict = updateConfig(customConfig)
+  const config: QsBarConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
 
@@ -80,7 +83,7 @@ export const linearBarGenerator = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: BarConfigStrict
+  config: QsBarConfigStrict
 ): QsBars => {
   const {
     lowestViewableValue,
@@ -168,8 +171,7 @@ const draw = (
     .attr('fill', (d) => d.barData.color)
 
   return {
-    bars: group.selectAll(`.${meta[0].class}`),
-    group,
+    element: group.selectAll(`.${meta[0].class}`),
     transition: (data: number[]) => {
       const meta: Meta[] = getMeta(data)
       group

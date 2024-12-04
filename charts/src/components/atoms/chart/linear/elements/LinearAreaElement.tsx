@@ -17,11 +17,11 @@ export const LinearAreaElement: FunctionComponent<chartProps> = ({
 
     linearAreaGenerator
       .horizontal(canvas, { higherData: data1 }, { color: 'black' })
-      .area.attr('fill', 'blue')
+      .element.attr('fill', 'blue')
       .attr('fill-opacity', '0.5')
     linearAreaGenerator
       .horizontal(canvas, { higherData: data2, lowerData: data1 })
-      .area.attr('fill', 'red')
+      .element.attr('fill', 'red')
       .attr('fill-opacity', '0.5')
   }
 

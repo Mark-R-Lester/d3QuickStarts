@@ -11,7 +11,7 @@ export const PlottedTextElement: FunctionComponent<chartProps> = ({
   targetId,
 }) => {
   const createChart = () => {
-    const data1: TextArgs[] = [
+    const data: TextArgs[] = [
       { x: 0, y: 0, text: 'Some Text' },
       { x: 50, y: 50, text: 'Some Text' },
       { x: 100, y: 100, text: 'Some Text' },
@@ -23,7 +23,7 @@ export const PlottedTextElement: FunctionComponent<chartProps> = ({
       max: 250,
     })
 
-    plottedTextGenerator.text(canvas, data1, { color: 'black' })
+    plottedTextGenerator.text(canvas, data, { color: 'black' })
   }
 
   useEffect(() => {

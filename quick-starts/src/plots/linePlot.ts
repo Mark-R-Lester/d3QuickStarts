@@ -1,11 +1,23 @@
-import { scaleLinear, curveLinear, CurveFactory, line as d3line } from 'd3'
+import {
+  scaleLinear,
+  curveLinear,
+  CurveFactory,
+  Selection,
+  line as d3line,
+} from 'd3'
 import { Coordinate } from '../core/types'
 import { findMaxCoordinateX, findMaxCoordinateY } from '../core/max'
 import { Canvas } from '../d3QuickStart'
 
-export interface LinePlotConfig {
+export interface QsLinePlotConfig {
   [key: string]: CurveFactory | undefined
   curve?: CurveFactory
+}
+
+export interface QsLinePlot {
+  element:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
 }
 
 interface LinePlotConfigStrict {
@@ -17,7 +29,9 @@ interface DrawArgs {
   data: Coordinate[]
 }
 
-const updateConfig = (customConfig?: LinePlotConfig): LinePlotConfigStrict => {
+const updateConfig = (
+  customConfig?: QsLinePlotConfig
+): LinePlotConfigStrict => {
   const defaults: LinePlotConfigStrict = {
     curve: curveLinear,
   }
@@ -32,8 +46,8 @@ const updateConfig = (customConfig?: LinePlotConfig): LinePlotConfigStrict => {
 const line = (
   canvas: Canvas,
   data: Coordinate[],
-  customConfig?: LinePlotConfig
-) => {
+  customConfig?: QsLinePlotConfig
+): QsLinePlot => {
   const config: LinePlotConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data }
   return draw(canvas, args, config)
@@ -43,7 +57,11 @@ export const plottedLineGenerator = {
   line,
 }
 
-const draw = (canvas: Canvas, args: DrawArgs, config: LinePlotConfigStrict) => {
+const draw = (
+  canvas: Canvas,
+  args: DrawArgs,
+  config: LinePlotConfigStrict
+): QsLinePlot => {
   const { curve } = config
   const { displayAreaWidth, displayAreaHeight } = canvas.config
   const { data } = args
@@ -69,5 +87,5 @@ const draw = (canvas: Canvas, args: DrawArgs, config: LinePlotConfigStrict) => {
     .attr('stroke-linecap', 'round')
     .attr('fill-opacity', '0')
     .attr('stroke-width', 1.5)
-  return { line: lineGroup.select('.line') }
+  return { element: lineGroup.select('.line') }
 }

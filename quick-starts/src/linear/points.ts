@@ -1,10 +1,17 @@
-import { scaleLinear, scaleBand, NumberValue, range } from 'd3'
+import { scaleLinear, scaleBand, NumberValue, range, Selection } from 'd3'
 import { Canvas } from '../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 
-export interface PointsConfig {
+export interface QsPointsConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   radius?: number
+}
+
+export interface QsPoints {
+  element:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  transition: (data: number[]) => void
 }
 
 interface PointsConfigStrict {
@@ -26,7 +33,7 @@ interface Meta {
   radius: number
 }
 
-const updateConfig = (customConfig?: PointsConfig): PointsConfigStrict => {
+const updateConfig = (customConfig?: QsPointsConfig): PointsConfigStrict => {
   const defaults: PointsConfigStrict = {
     radius: 3,
   }
@@ -41,8 +48,8 @@ const updateConfig = (customConfig?: PointsConfig): PointsConfigStrict => {
 const horizontal = (
   canvas: Canvas,
   data: number[],
-  customConfig?: PointsConfig
-) => {
+  customConfig?: QsPointsConfig
+): QsPoints => {
   const args: DrawArgs = {
     data,
     vertical: false,
@@ -55,8 +62,8 @@ const horizontal = (
 const vertical = (
   canvas: Canvas,
   data: number[],
-  customConfig?: PointsConfig
-) => {
+  customConfig?: QsPointsConfig
+): QsPoints => {
   const args: DrawArgs = {
     data,
     vertical: true,
@@ -69,8 +76,8 @@ const vertical = (
 const horizontalBanded = (
   canvas: Canvas,
   data: number[],
-  customConfig?: PointsConfig
-) => {
+  customConfig?: QsPointsConfig
+): QsPoints => {
   const args: DrawArgs = {
     data,
     vertical: false,
@@ -83,8 +90,8 @@ const horizontalBanded = (
 const verticalBanded = (
   canvas: Canvas,
   data: number[],
-  customConfig?: PointsConfig
-) => {
+  customConfig?: QsPointsConfig
+): QsPoints => {
   const args: DrawArgs = {
     data,
     vertical: true,
@@ -101,7 +108,11 @@ export const linearPointGenerator = {
   verticalBanded,
 }
 
-const draw = (canvas: Canvas, args: DrawArgs, config: PointsConfigStrict) => {
+const draw = (
+  canvas: Canvas,
+  args: DrawArgs,
+  config: PointsConfigStrict
+): QsPoints => {
   const {
     displayAreaHeight,
     displayAreaWidth,
@@ -202,10 +213,8 @@ const draw = (canvas: Canvas, args: DrawArgs, config: PointsConfigStrict) => {
     })
     .attr('r', radius)
   return {
-    points: group.selectAll(`.${meta[0].class}`),
-    group,
-    meta,
-    maximise: (data: number[]) => {
+    element: group.selectAll(`.${meta[0].class}`),
+    transition: (data: number[]) => {
       const meta = getMeta(data)
       group
         .selectAll(`.${meta[0].class}`)

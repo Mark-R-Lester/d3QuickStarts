@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../core/conversion'
 import { findMax } from '../core/max'
 
-export interface BarFloatingConfig {
+export interface QsBarFloatingConfig {
   [key: string]: number | Iterable<unknown> | number[] | undefined
   padding?: number
   colorDomain?: number[]
@@ -20,14 +20,13 @@ export interface BarFloatingConfig {
 }
 
 export interface QsBarsFloating {
-  bars:
+  element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  group: Selection<SVGGElement, unknown, HTMLElement, any>
   transition: (data: number[][]) => void
 }
 
-interface BarFloatingConfigStrict {
+interface QsBarFloatingConfigStrict {
   [key: string]: number | Iterable<unknown> | number[] | undefined
   padding: number
   colorDomain: number[]
@@ -53,9 +52,9 @@ interface Meta {
 }
 
 const updateConfig = (
-  customConfig?: BarFloatingConfig
-): BarFloatingConfigStrict => {
-  const defauls: BarFloatingConfigStrict = {
+  customConfig?: QsBarFloatingConfig
+): QsBarFloatingConfigStrict => {
+  const defauls: QsBarFloatingConfigStrict = {
     padding: 8,
     colorDomain: range(4),
     colorRange: ['purple'],
@@ -68,20 +67,20 @@ const updateConfig = (
 const horizontal = (
   canvas: Canvas,
   data: number[][],
-  customConfig?: BarFloatingConfig
-) => {
+  customConfig?: QsBarFloatingConfig
+): QsBarsFloating => {
   const args: DrawArgs = { data, vertical: false }
-  const config: BarFloatingConfigStrict = updateConfig(customConfig)
+  const config: QsBarFloatingConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
 
 const vertical = (
   canvas: Canvas,
   data: number[][],
-  customConfig?: BarFloatingConfig
-) => {
+  customConfig?: QsBarFloatingConfig
+): QsBarsFloating => {
   const args: DrawArgs = { data, vertical: true }
-  const config: BarFloatingConfigStrict = updateConfig(customConfig)
+  const config: QsBarFloatingConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
 
@@ -93,7 +92,7 @@ export const linearBarFloatingGenerator = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: BarFloatingConfigStrict
+  config: QsBarFloatingConfigStrict
 ): QsBarsFloating => {
   const {
     lowestViewableValue,
@@ -180,8 +179,7 @@ const draw = (
     .attr('height', (d) => d.barData.height)
     .attr('fill', (d) => d.barData.color)
   return {
-    bars: group.selectAll(`.${meta[0].class}`),
-    group,
+    element: group.selectAll(`.${meta[0].class}`),
     transition: (data: number[][]) => {
       const meta: Meta[] = getMeta(data)
       group

@@ -7,16 +7,24 @@ import {
   stack,
   ScaleOrdinal,
   Series,
+  Selection,
 } from 'd3'
 import { Canvas } from '../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../core/conversion'
 import { findMax, findMaxSum } from '../core/max'
 
-export interface BarGroupConfig {
+export interface QsBarGroupsConfig {
   [key: string]: number | Iterable<String> | undefined
   padding?: number
   colorRange?: Iterable<String>
+}
+
+export interface QsBarGroups {
+  element:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  transition: (data: number[][]) => void
 }
 
 interface BarGroupConfigStrict {
@@ -45,7 +53,9 @@ interface Meta {
   barData: BarData[]
 }
 
-const updateConfig = (customConfig?: BarGroupConfig): BarGroupConfigStrict => {
+const updateConfig = (
+  customConfig?: QsBarGroupsConfig
+): BarGroupConfigStrict => {
   const defaults: BarGroupConfigStrict = {
     colorRange: schemePurples[4],
     padding: 20,
@@ -61,8 +71,8 @@ const updateConfig = (customConfig?: BarGroupConfig): BarGroupConfigStrict => {
 const grouped = (
   canvas: Canvas,
   data: number[][],
-  customConfig?: BarGroupConfig
-) => {
+  customConfig?: QsBarGroupsConfig
+): QsBarGroups => {
   const config: BarGroupConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, grouped: true }
   return draw(canvas, args, config)
@@ -71,8 +81,8 @@ const grouped = (
 const stacked = (
   canvas: Canvas,
   data: number[][],
-  customConfig?: BarGroupConfig
-) => {
+  customConfig?: QsBarGroupsConfig
+): QsBarGroups => {
   const config: BarGroupConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = { data, grouped: false }
   return draw(canvas, args, config)
@@ -83,7 +93,11 @@ export const linearBarGroupGenerator = {
   stacked,
 }
 
-const draw = (canvas: Canvas, args: DrawArgs, config: BarGroupConfigStrict) => {
+const draw = (
+  canvas: Canvas,
+  args: DrawArgs,
+  config: BarGroupConfigStrict
+): QsBarGroups => {
   const {
     lowestViewableValue,
     highestViewableValue,
@@ -191,9 +205,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarGroupConfigStrict) => {
     .attr('width', (d) => d.width)
 
   return {
-    bars: barGroups.selectAll('.bar'),
-    barGroups,
-    group,
+    element: barGroups.selectAll('.bar'),
     transition: (data: number[][]) => {
       const meta: Meta[] = getMeta(data)
       const bars = canvas.displayGroup.selectAll('.bargroup').data(meta)

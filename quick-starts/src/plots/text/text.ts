@@ -1,5 +1,5 @@
 import { scaleLinear, Selection } from 'd3'
-import { Canvas } from '../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 
 export interface QsTextConfig {
   [key: string]: number | string | undefined

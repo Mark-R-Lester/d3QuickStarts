@@ -5,9 +5,9 @@ import {
   Selection,
   line as d3line,
 } from 'd3'
-import { Coordinate } from '../core/types'
-import { findMaxCoordinateX, findMaxCoordinateY } from '../core/max'
-import { Canvas } from '../d3QuickStart'
+import { Coordinate } from '../../core/types'
+import { findMaxCoordinateX, findMaxCoordinateY } from '../../core/max'
+import { Canvas } from '../../d3QuickStart'
 
 export interface QsLinePlotConfig {
   [key: string]: CurveFactory | undefined

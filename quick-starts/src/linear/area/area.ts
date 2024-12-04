@@ -6,7 +6,7 @@ import {
   area as d3area,
   Selection,
 } from 'd3'
-import { Canvas } from '../canvas/canvas'
+import { Canvas } from '../../canvas/canvas'
 import { v4 as uuidv4 } from 'uuid'
 
 export interface QsAreaConfig {

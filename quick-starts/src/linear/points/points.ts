@@ -1,5 +1,5 @@
 import { scaleLinear, scaleBand, NumberValue, range, Selection } from 'd3'
-import { Canvas } from '../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 
 export interface QsPointsConfig {

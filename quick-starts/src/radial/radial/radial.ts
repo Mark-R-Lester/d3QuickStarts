@@ -1,4 +1,4 @@
-import { Canvas } from '../canvas/canvas'
+import { Canvas } from '../../canvas/canvas'
 import {
   scaleLinear,
   scaleOrdinal,
@@ -10,8 +10,8 @@ import {
 } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { arc } from 'd3'
-import { toStrings } from '../core/conversion'
-import { ColorName, DomainName } from '../core/types'
+import { toStrings } from '../../core/conversion'
+import { ColorName, DomainName } from '../../core/types'
 
 export interface RadialConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined

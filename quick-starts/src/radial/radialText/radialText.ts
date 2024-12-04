@@ -1,4 +1,4 @@
-import { Canvas } from '../canvas/canvas'
+import { Canvas } from '../../canvas/canvas'
 import { scaleLinear, arc as d3arc, Selection } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 

@@ -1,4 +1,4 @@
-import { Canvas } from '../canvas/canvas'
+import { Canvas } from '../../canvas/canvas'
 import { line, Selection } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 

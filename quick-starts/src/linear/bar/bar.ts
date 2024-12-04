@@ -1,8 +1,8 @@
-import { Canvas } from '../canvas/canvas'
+import { Canvas } from '../../canvas/canvas'
 import { range, Selection } from 'd3'
 import { scaleLinear, scaleBand, scaleOrdinal, ScaleOrdinal } from 'd3-scale'
 import { v4 as uuidv4 } from 'uuid'
-import { toStrings } from '../core/conversion'
+import { toStrings } from '../../core/conversion'
 
 export interface QsBarConfig {
   [key: string]: number | Iterable<unknown> | number[] | undefined

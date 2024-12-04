@@ -46,7 +46,7 @@ export const LinearBarsFloatingHorizontalTransition: FunctionComponent<
       }
 
       const transitionData = getVals()
-      if (bars) bars.transition(transitionData)
+      if (bars) bars.transitionVertical(transitionData)
       setTimeout(() => setChanged(!changed), 3000)
     },
     [bars, changed]

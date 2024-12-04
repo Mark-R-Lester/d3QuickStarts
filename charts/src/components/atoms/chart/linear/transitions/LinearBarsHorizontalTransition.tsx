@@ -39,7 +39,7 @@ export const LinearBarsHorizontalTransition: FunctionComponent<chartProps> = ({
       }
 
       const transitionData = getVals()
-      if (bars) bars.transition(transitionData)
+      if (bars) bars.transitionHorizontal(transitionData)
       setTimeout(() => setChanged(!changed), 3000)
     },
     [bars, changed]

@@ -1,7 +1,7 @@
 import { Canvas } from '../../canvas/canvas'
+import { getMeta, Meta } from './getMeta'
 import { Selection } from 'd3-selection'
 import { scaleLinear } from 'd3-scale'
-import { v4 as uuidv4 } from 'uuid'
 
 export interface QsRadialPointsConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
@@ -26,12 +26,6 @@ interface RadialPointsConfigStrict {
 
 interface DrawArgs {
   data: number[]
-}
-
-interface Meta {
-  id: string
-  class: string
-  pointData: number[]
 }
 
 const updateConfig = (
@@ -70,41 +64,12 @@ const draw = (
   config: RadialPointsConfigStrict
 ): QsRadialPoints => {
   const { x, y, pointRadius } = config
-  const {
-    lowestViewableValue,
-    highestViewableValue,
-    displayAreaHeight,
-    displayAreaWidth,
-  } = canvas.config
+  const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { data } = args
+  const meta: Meta[] = getMeta(canvas, data)
 
-  const angleScale = scaleLinear()
-    .domain([0, data.length])
-    .range([0, 2 * Math.PI])
-  const radialScale = scaleLinear()
-    .domain([lowestViewableValue, highestViewableValue])
-    .range([0, displayAreaHeight / 2])
   const xScale = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
   const yScale = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
-
-  const getMeta = (data: number[]): Meta[] => {
-    const meta: Meta[] = []
-    data.forEach((d, i) => {
-      const radians = angleScale(i)
-      const hypotenuse = radialScale(d)
-      const x = Math.sin(radians) * hypotenuse
-      const y = Math.cos(radians) * hypotenuse * -1
-
-      meta.push({
-        id: `radialPoint${uuidv4()}`,
-        class: 'radialPoint',
-        pointData: [x, y],
-      })
-    })
-    return meta
-  }
-
-  const meta: Meta[] = getMeta(data)
 
   const dataPoints = canvas.displayGroup.append('g')
   dataPoints
@@ -121,7 +86,7 @@ const draw = (
   return {
     element: dataPoints.selectAll('circle'),
     transition: (data: number[]) => {
-      const meta: Meta[] = getMeta(data)
+      const meta: Meta[] = getMeta(canvas, data)
       dataPoints
         .selectAll(`.${meta[0].class}`)
         .data(meta)

@@ -99,9 +99,7 @@ const draw = (
         .attr('x', (d) => d.barData.y)
     },
     transitionVertical: (data: number[][]) => {
-      console.log('tdatav', data)
       const meta: Meta[] = getMeta(canvas, data, config, false)
-      console.log('meta', meta)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)

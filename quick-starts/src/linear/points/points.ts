@@ -1,6 +1,6 @@
 import { scaleLinear, scaleBand, NumberValue, range, Selection } from 'd3'
 import { Canvas } from '../../d3QuickStart'
-import { v4 as uuidv4 } from 'uuid'
+import { Meta, getMeta } from './getMeta'
 
 export interface QsPointsConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
@@ -23,14 +23,6 @@ interface DrawArgs {
   data: number[]
   vertical: boolean
   banded: boolean
-}
-
-interface Meta {
-  class: string
-  id: string
-  pointData: any[]
-  radiusMin: number
-  radius: number
 }
 
 const updateConfig = (customConfig?: QsPointsConfig): PointsConfigStrict => {
@@ -113,91 +105,12 @@ const draw = (
   args: DrawArgs,
   config: PointsConfigStrict
 ): QsPoints => {
-  const {
-    displayAreaHeight,
-    displayAreaWidth,
-    lowestViewableValue,
-    highestViewableValue,
-  } = canvas.config
   const { radius } = config
   const { data, vertical, banded } = args
-  const pointSpacing = range(
-    0,
-    displayAreaWidth,
-    displayAreaWidth / data.length
-  )
 
-  const getCoordinates = (data: number[]): number[][] =>
-    data.map((d, i) => (vertical ? [d, pointSpacing[i]] : [pointSpacing[i], d]))
-
-  const coordinates: number[][] = getCoordinates(data)
-
-  const dataScale = scaleLinear()
-    .domain(
-      vertical
-        ? [
-            lowestViewableValue,
-            highestViewableValue !== 0
-              ? highestViewableValue
-              : Math.max(...coordinates.map((d) => +d[0])),
-          ]
-        : [
-            lowestViewableValue,
-            highestViewableValue !== 0
-              ? highestViewableValue
-              : Math.max(...coordinates.map((d) => +d[1])),
-          ]
-    )
-    .range(vertical ? [0, displayAreaWidth] : [displayAreaHeight, 0])
-
-  let spacingScale: any
-  if (banded) {
-    spacingScale = scaleBand()
-      .domain(
-        vertical
-          ? coordinates.map((d) => d[1].toString())
-          : coordinates.map((d) => d[0].toString())
-      )
-      .range(vertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
-  } else {
-    spacingScale = scaleLinear()
-      .domain(
-        vertical
-          ? [0, Math.max(...coordinates.map((d) => d[1]))]
-          : [0, Math.max(...coordinates.map((d) => d[0]))]
-      )
-      .range(vertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
-  }
-  const x = (d: NumberValue[]) => {
-    const space = banded
-      ? spacingScale(d[0]) + spacingScale.bandwidth() / 2
-      : spacingScale(d[0])
-    return vertical ? dataScale(d[0]) : space
-  }
-  const y = (d: NumberValue[]) => {
-    const space = banded
-      ? spacingScale(d[1]) + spacingScale.bandwidth() / 2
-      : spacingScale(d[1])
-    return vertical ? space : dataScale(d[1])
-  }
-
-  const getMeta = (data: number[]): Meta[] => {
-    const coordinates = getCoordinates(data)
-    const meta: Meta[] = coordinates.map((d, i) => {
-      return {
-        class: 'point',
-        id: `point${uuidv4()}`,
-        pointData: [x(d), y(d)],
-        radiusMin: 0,
-        radius: radius,
-      }
-    })
-    return meta
-  }
-
-  const meta: Meta[] = getMeta(data)
-
+  const meta: Meta[] = getMeta(canvas, data, vertical, banded, radius)
   const group = canvas.displayGroup.append('g')
+
   group
     .selectAll('circle')
     .data(meta)
@@ -205,26 +118,20 @@ const draw = (
     .append('circle')
     .attr('class', (d) => d.class)
     .attr('id', (d) => d.id)
-    .attr('cy', (d) => {
-      return d.pointData[1]
-    })
-    .attr('cx', (d) => {
-      return d.pointData[0]
-    })
-    .attr('r', radius)
+    .attr('cy', (d) => d.pointData[1])
+    .attr('cx', (d) => d.pointData[0])
+    .attr('r', (d) => d.radius)
   return {
     element: group.selectAll(`.${meta[0].class}`),
     transition: (data: number[]) => {
-      const meta = getMeta(data)
+      const meta: Meta[] = getMeta(canvas, data, vertical, banded, radius)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
         .duration(3000)
-        .attr('cy', (d) => {
-          return d.pointData[1]
-        })
-        .attr('r', radius)
+        .attr('cy', (d) => d.pointData[1])
+        .attr('r', (d) => d.radius)
     },
   }
 }

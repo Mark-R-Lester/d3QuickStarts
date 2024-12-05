@@ -8,7 +8,8 @@ import {
   Selection,
 } from 'd3'
 import { Canvas } from '../../d3QuickStart'
-import { v4 as uuidv4 } from 'uuid'
+import { DrawArgs } from './types'
+import { Meta, getMeta } from './getMeta'
 
 export interface QsLineConfig {
   [key: string]: CurveFactory | undefined
@@ -19,24 +20,12 @@ export interface QsLine {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: [number, number][]) => void
+  transition: (data: number[]) => void
 }
 
 interface LineConfigStrict {
   [key: string]: CurveFactory | undefined
   curve: CurveFactory
-}
-
-interface DrawArgs {
-  data: number[]
-  vertical: boolean
-  banded: boolean
-}
-
-interface Meta {
-  class: string
-  id: string
-  coordinates: [number, number][]
 }
 
 const updateConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
@@ -118,64 +107,10 @@ const drawLine = (
   args: DrawArgs,
   config: LineConfigStrict
 ): QsLine => {
-  const {
-    displayAreaHeight,
-    displayAreaWidth,
-    lowestViewableValue,
-    highestViewableValue,
-  } = canvas.config
-  const { data, vertical, banded } = args
-  const xVals: number[] = range(
-    0,
-    displayAreaWidth,
-    displayAreaWidth / data.length
-  )
-  const yVals: number[] = range(
-    0,
-    displayAreaHeight,
-    displayAreaHeight / data.length
-  )
-  const coordinates: [number, number][] = data.map((d, i) =>
-    vertical ? [d, yVals[i]] : [xVals[i], d]
-  )
-  const getMeta = (coordinates: [number, number][]): Meta => {
-    return {
-      class: 'line',
-      id: `line${uuidv4()}`,
-      coordinates,
-    }
-  }
-
-  const meta: Meta = getMeta(coordinates)
-
-  let spacingScale: any
-  let bandingAdjustment: number
-  if (banded) {
-    spacingScale = scaleBand()
-      .domain(
-        coordinates.map((coordinate) =>
-          vertical ? coordinate[1].toString() : coordinate[0].toString()
-        )
-      )
-      .range(vertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
-    bandingAdjustment = spacingScale.bandwidth() / 2
-  } else {
-    spacingScale = scaleLinear()
-      .domain([
-        0,
-        Math.max(...coordinates.map((d) => (vertical ? d[1] : d[0]))),
-      ])
-      .range(vertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
-    bandingAdjustment = 0
-  }
-  const dataScale = scaleLinear()
-    .domain([
-      lowestViewableValue,
-      highestViewableValue !== 0
-        ? highestViewableValue
-        : Math.max(...coordinates.map((d) => (vertical ? d[0] : d[1]))),
-    ])
-    .range(vertical ? [0, displayAreaWidth] : [displayAreaHeight, 0])
+  const { vertical } = args
+  const { curve } = config
+  const meta: Meta = getMeta(canvas, args, config)
+  const { dataScale, spacingScale, bandingAdjustment, coordinates } = meta
 
   const line = d3line()
     .x((d) =>
@@ -184,7 +119,7 @@ const drawLine = (
     .y((d) =>
       vertical ? spacingScale(d[1]) + bandingAdjustment : dataScale(d[1])
     )
-    .curve(config.curve)
+    .curve(curve)
 
   const group = canvas.displayGroup.append('g')
   group
@@ -196,8 +131,13 @@ const drawLine = (
     .attr('fill-opacity', '0')
   return {
     element: group.select(`.${meta.class}`),
-    transition: (data: [number, number][]) => {
-      const meta: Meta = getMeta(data)
+    transition: (data: number[]) => {
+      const args: DrawArgs = {
+        data,
+        vertical: false,
+        banded: false,
+      }
+      const meta: Meta = getMeta(canvas, args, config)
       group
         .selectAll(`.${meta.class}`)
         .transition()

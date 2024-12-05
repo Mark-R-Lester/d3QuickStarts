@@ -1,12 +1,7 @@
 import { Canvas } from '../../canvas/canvas'
-import {
-  scaleLinear,
-  CurveFactory,
-  curveLinear,
-  areaRadial,
-  Selection,
-} from 'd3'
-import { v4 as uuidv4 } from 'uuid'
+import { CurveFactory, curveLinear, areaRadial, Selection } from 'd3'
+import { RadialAreaData } from './types'
+import { Meta, getMeta } from './getMeta'
 
 export interface QsRadialAreaConfig {
   [key: string]: CurveFactory | number | undefined
@@ -38,18 +33,6 @@ interface RadialAreaConfigStrict {
 interface DrawArgs {
   dataOuter: number[]
   dataInner?: number[]
-}
-
-interface RadialAreaData {
-  angle: number
-  inner: number
-  outer: number
-}
-
-interface Meta {
-  class: string
-  id: string
-  areaData: RadialAreaData[]
 }
 
 const updateConfig = (
@@ -93,46 +76,7 @@ const draw = (
 ): QsRadialArea => {
   const { dataOuter, dataInner } = args
   const { x, y, curve } = config
-  const {
-    lowestViewableValue,
-    highestViewableValue,
-    displayAreaHeight,
-    displayAreaWidth,
-  } = canvas.config
-  const angleScale = scaleLinear()
-    .domain([0, dataOuter.length])
-    .range([0, 2 * Math.PI])
-  const radialScale = scaleLinear()
-    .domain([lowestViewableValue, highestViewableValue])
-    .range([0, displayAreaHeight / 2])
-  const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
-  const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
-
-  const dataOuterCopy: number[] = dataOuter.slice()
-  dataOuterCopy.push(dataOuter[0])
-
-  const getMeta = (dataInner?: number[]) => {
-    let dataInnerCopy: number[]
-    if (dataInner) {
-      dataInnerCopy = dataInner.slice()
-      dataInnerCopy.push(dataInner[0])
-    }
-    return {
-      class: 'radialArea',
-      id: `radialArea${uuidv4()}`,
-      areaData: dataOuterCopy.map((d, i) => {
-        return {
-          angle: angleScale(i),
-          outer: radialScale(d),
-          inner: radialScale(
-            dataInnerCopy ? dataInnerCopy[i] : lowestViewableValue
-          ),
-        }
-      }),
-    }
-  }
-
-  const meta: Meta = getMeta(dataInner)
+  const meta: Meta = getMeta(canvas, dataOuter, dataInner)
 
   const radialArea = areaRadial<RadialAreaData>()
     .angle((d) => d.angle)
@@ -147,11 +91,12 @@ const draw = (
     .attr('id', meta.id)
     .attr('d', radialArea(meta.areaData))
     .attr('fill', 'red')
-    .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
+    .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
   return {
     element: group.selectAll('path'),
     transition: (args: QsRadialAreaArgs) => {
-      const meta = getMeta(args.dataInner)
+      const { dataInner, dataOuter } = args
+      const meta = getMeta(canvas, dataOuter, dataInner)
       group
         .selectAll(`.${meta.class}`)
         .transition()

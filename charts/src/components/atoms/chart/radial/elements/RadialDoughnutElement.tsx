@@ -3,7 +3,7 @@ import {
   Canvas,
   createCanvas,
   radialGenerator,
-  RadialArgs,
+  QsRadialArgs,
   RadialConfig,
 } from 'd3qs/d3QuickStart'
 import { chartProps } from '../../../../common/types/chartProps'
@@ -12,7 +12,7 @@ export const RadialDoughnutElement: FunctionComponent<chartProps> = ({
   targetId,
 }) => {
   const createChart = () => {
-    const data: RadialArgs[] = [
+    const data: QsRadialArgs[] = [
       { value: 1, color: { domainName: 'European' } },
       { value: 1, color: { domainName: 'European' } },
       { value: 1, color: { domainName: 'Citrus' } },

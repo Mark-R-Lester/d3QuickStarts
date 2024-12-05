@@ -1,6 +1,7 @@
 import { Canvas } from '../../canvas/canvas'
 import { line, Selection } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
+import { Meta, getMeta, QsRadialSpokesTransitionArgs } from './getMeta'
 
 export interface QsRadialSpokesConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
@@ -31,12 +32,6 @@ interface RadialSpokesConfigStrict {
 
 interface DrawArgs {
   data: number
-}
-
-interface Meta {
-  class: string
-  id: string
-  lineData: [number, number][]
 }
 
 const updateConfig = (
@@ -89,34 +84,16 @@ const draw = (
   config: RadialSpokesConfigStrict
 ): QsRadialSpokes => {
   const { radius, innerRadius, x, y, colour, strokeWidth } = config
-  const { displayAreaHeight, displayAreaWidth } = canvas.config
-  const { data } = args
-  const xCenter = (displayAreaWidth / 100) * x
-  const yCenter = (displayAreaHeight / 100) * y
 
-  const getMeta = (data: number) => {
-    const meta: Meta[] = []
-    for (let i = 0; i < data; i++) {
-      const angle = ((Math.PI * 2) / data) * i
-      const outerHypotenuse = ((displayAreaHeight / 2) * radius) / 100
-      const innerHypotenuse = ((displayAreaHeight / 2) * innerRadius) / 100
-      const outerX = Math.sin(angle) * outerHypotenuse + xCenter
-      const outerY = Math.cos(angle) * outerHypotenuse + yCenter
-      const innerX = Math.sin(angle) * innerHypotenuse + xCenter
-      const innerY = Math.cos(angle) * innerHypotenuse + yCenter
-      meta[i] = {
-        class: 'axisSpoke',
-        id: `axisSpoke${uuidv4()}`,
-        lineData: [
-          [innerX, innerY],
-          [outerX, outerY],
-        ],
-      }
-    }
-    return meta
+  const { data } = args
+  const transitionArgs: QsRadialSpokesTransitionArgs = {
+    radius,
+    innerRadius,
+    x,
+    y,
   }
 
-  const meta: Meta[] = getMeta(data)
+  const meta: Meta[] = getMeta(canvas, data, transitionArgs)
 
   const radialLine = line()
     .x((d) => d[0])
@@ -138,7 +115,7 @@ const draw = (
   return {
     element: group.selectAll(`.${meta[0].class}`),
     transition: (data: number) => {
-      const meta: Meta[] = getMeta(data)
+      const meta: Meta[] = getMeta(canvas, data, transitionArgs)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta.map((d) => d.lineData))

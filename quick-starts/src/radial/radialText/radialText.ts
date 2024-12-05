@@ -1,6 +1,9 @@
 import { Canvas } from '../../canvas/canvas'
-import { scaleLinear, arc as d3arc, Selection } from 'd3'
-import { v4 as uuidv4 } from 'uuid'
+import { arc as d3arc, Selection } from 'd3'
+import { QsValuedText } from './types'
+import { Meta, getMeta, QsRadialTextTransitionArgs } from './getMeta'
+
+export { QsValuedText } from './types'
 
 export interface QsRadialTextConfig {
   [key: string]: number | undefined
@@ -17,12 +20,7 @@ export interface QsRadialText {
   elementArcs:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsValuedText[]) => void
-}
-
-export interface QsValuedText {
-  value: number
-  text?: string
+  transition: (data: QsValuedText[], args: QsRadialTextTransitionArgs) => void
 }
 
 interface RadialTextConfigStrict {
@@ -31,26 +29,6 @@ interface RadialTextConfigStrict {
   fontSize: number
   x: number
   y: number
-}
-
-interface BandData {
-  textId: string
-  textClass: string
-  arcId: string
-  arcClass: string
-  data: QsValuedText
-  index: number
-  value: string | number
-  startAngle: number
-  endAngle: number
-  outerRadius: number
-  innerRadius: number
-}
-
-interface Meta {
-  arcClass: string
-  textClass: string
-  textArcData: BandData[]
 }
 
 interface DrawArgs {
@@ -206,7 +184,7 @@ const draw = (
 ): QsRadialText => {
   const { data, banded, type } = args
   const { radius, fontSize, x, y } = config
-  const { displayAreaHeight, displayAreaWidth } = canvas.config
+
   let rotate: (angles: { startAngle: number; endAngle: number }) => number
 
   if (type === 'spoke') {
@@ -229,57 +207,8 @@ const draw = (
       return (angle = angle * (180 / Math.PI))
     }
   }
-
-  const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
-  const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
-
-  const bandData = (data: QsValuedText[], min?: boolean): BandData[] => {
-    let shares = 0
-    data.forEach((d) => {
-      shares = shares + d.value
-    })
-    const angle = (Math.PI * 2) / shares
-    let startAngle = 0
-    return data.map((d, i) => {
-      const data = d
-      const index = i
-      const value = d.text ? d.text : d.value
-      const endAngle = startAngle + angle * d.value
-      const res = {
-        textId: `text${uuidv4()}`,
-        textClass: `text`,
-        arcId: `arc${uuidv4()}`,
-        arcClass: `arc`,
-        data,
-        index,
-        value,
-        startAngle,
-        endAngle,
-        outerRadius: min ? 0 : yAxis(radius / 2),
-        innerRadius: min ? 0 : yAxis(radius / 2),
-      }
-      startAngle = endAngle
-      return res
-    })
-  }
-
-  const pointData = (data: QsValuedText[], min?: boolean): BandData[] =>
-    bandData(data, min).map((d) => {
-      const offSet = (d.endAngle - d.startAngle) / 2
-      d.startAngle = d.startAngle - offSet
-      d.endAngle = d.endAngle - offSet
-      return d
-    })
-
-  const getMeta = (data: QsValuedText[]) => {
-    return {
-      arcClass: 'arc',
-      textClass: 'text',
-      textArcData: banded ? bandData(data) : pointData(data),
-    }
-  }
-  const meta: Meta = getMeta(data)
-
+  const transitionArgs: QsRadialTextTransitionArgs = { radius, banded }
+  const meta: Meta = getMeta(canvas, data, transitionArgs)
   const arc: any = d3arc()
   const group = canvas.displayGroup.append('g')
   const arcs = group.append('g')
@@ -291,11 +220,11 @@ const draw = (
       .data(meta.textArcData)
       .enter()
       .append('g')
-      .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
+      .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
       .append('text')
       .attr('class', (d) => d.textClass)
       .attr('id', (d) => d.textId)
-      .attr('font-size', `${yAxis(fontSize)}px`)
+      .attr('font-size', `${meta.yAxis(fontSize)}px`)
       .style('text-anchor', 'middle')
       .attr(
         'transform',
@@ -314,13 +243,13 @@ const draw = (
       .attr('d', arc)
       .attr('stroke-width', 0)
       .attr('fill', 'none')
-      .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
+      .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
     text
       .selectAll(`.${meta.textClass}`)
       .data(meta.textArcData)
       .enter()
       .append('text')
-      .attr('font-size', `${yAxis(fontSize)}px`)
+      .attr('font-size', `${meta.yAxis(fontSize)}px`)
       .attr('class', (d) => d.textClass)
       .attr('id', (d) => d.textId)
       .append('textPath')
@@ -332,15 +261,15 @@ const draw = (
   return {
     elementText: text.selectAll('.arcText'),
     elementArcs: arcs.selectAll('.textArc'),
-    transition: (data: QsValuedText[]) => {
-      const meta: Meta = getMeta(data)
+    transition: (data: QsValuedText[], args: QsRadialTextTransitionArgs) => {
+      const meta: Meta = getMeta(canvas, data, args)
       if (type !== 'follow') {
         text
           .selectAll('.text')
           .data(meta.textArcData)
           .transition()
           .duration(3000)
-          .attr('font-size', `${yAxis(fontSize)}px`)
+          .attr('font-size', `${meta.yAxis(fontSize)}px`)
           .attr(
             'transform',
             (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
@@ -357,7 +286,7 @@ const draw = (
           .data(meta.textArcData)
           .transition()
           .duration(3000)
-          .attr('font-size', `${yAxis(fontSize)}px`)
+          .attr('font-size', `${meta.yAxis(fontSize)}px`)
       }
     },
   }

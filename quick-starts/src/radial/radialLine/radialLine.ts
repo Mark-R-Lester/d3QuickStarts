@@ -1,11 +1,6 @@
 import { Canvas } from '../../canvas/canvas'
-import {
-  scaleLinear,
-  curveLinear,
-  CurveFactory,
-  lineRadial,
-  Selection,
-} from 'd3'
+import { curveLinear, CurveFactory, lineRadial, Selection } from 'd3'
+import { Meta, getMeta } from './getMeta'
 
 export interface QsRadialLineConfig {
   [key: string]: number | CurveFactory | undefined
@@ -26,12 +21,6 @@ interface RadialLineConfigStrict {
   x: number
   y: number
   curve: CurveFactory
-}
-
-interface Meta {
-  class: string
-  id: string
-  lineData: Iterable<[number, number]>
 }
 
 interface DrawArgs {
@@ -75,34 +64,9 @@ const draw = (
   config: RadialLineConfigStrict
 ): QsRadialLine => {
   const { x, y, curve } = config
-  const {
-    lowestViewableValue,
-    highestViewableValue,
-    displayAreaHeight,
-    displayAreaWidth,
-  } = canvas.config
   const { data } = args
 
-  const angleScale = scaleLinear()
-    .domain([0, data.length])
-    .range([0, 2 * Math.PI])
-  const radialScale = scaleLinear()
-    .domain([lowestViewableValue, highestViewableValue])
-    .range([0, displayAreaHeight / 2])
-  const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
-  const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
-
-  const getMeta = (data: number[]): Meta => {
-    const dataCopy = data.slice()
-    dataCopy.push(data[0])
-    return {
-      class: 'radialLine',
-      id: 'radialLine',
-      lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d)]),
-    }
-  }
-
-  const meta: Meta = getMeta(data)
+  const meta: Meta = getMeta(canvas, data)
 
   const radialLine = lineRadial().curve(curve)
   const group = canvas.displayGroup.append('g')
@@ -113,11 +77,11 @@ const draw = (
     .attr('d', radialLine(meta.lineData))
     .attr('stroke', 'black')
     .attr('fill', 'none')
-    .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
+    .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
   return {
     element: group.selectAll(`.${meta.class}`),
     transition: (data: number[]) => {
-      const meta: Meta = getMeta(data)
+      const meta: Meta = getMeta(canvas, data)
       group
         .selectAll(`.${meta.class}`)
         .transition()

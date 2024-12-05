@@ -1,4 +1,4 @@
-import { Orientation, Grouping } from '../../../common/enums'
+import { Grouping, Orientation } from './enums'
 
 export interface ChartProps {
   targetId: string

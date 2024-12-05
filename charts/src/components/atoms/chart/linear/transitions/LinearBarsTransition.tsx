@@ -5,8 +5,8 @@ import {
   linearBarGenerator,
   QsBars,
 } from 'd3qs/d3QuickStart'
-import { OrienetedChartProps } from '../../../../common/types/chartProps'
 import { Orientation } from '../../../../../common/enums'
+import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
   targetId,

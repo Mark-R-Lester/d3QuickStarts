@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import { Canvas, createCanvas, radialLineGenerator } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../common/types/chartProps'
+import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialLineElement: FunctionComponent<ChartProps> = ({
   targetId,

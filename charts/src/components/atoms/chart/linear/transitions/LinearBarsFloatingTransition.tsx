@@ -5,11 +5,12 @@ import {
   linearBarFloatingGenerator,
   QsBarsFloating,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../common/types/chartProps'
+import { Orientation } from '../../../../../common/enums'
+import { OrienetedChartProps } from '../../../../../common/chartProps'
 
-export const LinearBarsFloatingHorizontalTransition: FunctionComponent<
-  ChartProps
-> = ({ targetId }) => {
+export const LinearBarsFloatingTransition: FunctionComponent<
+  OrienetedChartProps
+> = ({ targetId, orientation }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [bars, setBars] = useState<QsBarsFloating>()
 
@@ -23,9 +24,15 @@ export const LinearBarsFloatingHorizontalTransition: FunctionComponent<
     ]
     const canvas: Canvas = createCanvas(targetId, {
       width: 600,
-      highestViewableValue: 50,
+      highestViewableValue: 70,
     })
-    const newBars = linearBarFloatingGenerator.horizontal(canvas, data)
+
+    let newBars
+    if (orientation === Orientation.VERTICAL) {
+      newBars = linearBarFloatingGenerator.vertical(canvas, data)
+    } else {
+      newBars = linearBarFloatingGenerator.horizontal(canvas, data)
+    }
     setBars(newBars)
   }
 
@@ -46,7 +53,12 @@ export const LinearBarsFloatingHorizontalTransition: FunctionComponent<
       }
 
       const transitionData = getVals()
-      if (bars) bars.transitionVertical(transitionData)
+      if (orientation === Orientation.VERTICAL) {
+        if (bars) bars.transitionHorizontal(transitionData)
+      } else {
+        if (bars) bars.transitionVertical(transitionData)
+      }
+
       setTimeout(() => setChanged(!changed), 3000)
     },
     [bars, changed]

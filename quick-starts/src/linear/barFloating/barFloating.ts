@@ -89,14 +89,13 @@ const draw = (
     element: group.selectAll(`.${meta[0].class}`),
     transitionHorizontal: (data: number[][]) => {
       const meta: Meta[] = getMeta(canvas, data, config, true)
-
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
         .duration(3000)
-        .attr('width', (d) => d.barData.height)
-        .attr('x', (d) => d.barData.y)
+        .attr('width', (d) => d.barData.width)
+        .attr('x', (d) => d.barData.x)
     },
     transitionVertical: (data: number[][]) => {
       const meta: Meta[] = getMeta(canvas, data, config, false)

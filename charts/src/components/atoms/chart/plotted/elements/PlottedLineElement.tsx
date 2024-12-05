@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import { Canvas, createCanvas, plottedLineGenerator } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../common/types/chartProps'
 import { Coordinate } from 'd3qs/core/types'
+import { ChartProps } from '../../../../../common/chartProps'
 
 export const PlottedLineElement: FunctionComponent<ChartProps> = ({
   targetId,

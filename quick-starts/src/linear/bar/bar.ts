@@ -20,7 +20,7 @@ export interface QsBars {
 
 interface DrawArgs {
   data: number[]
-  horizontal: boolean
+  vertical: boolean
 }
 
 const updateConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
@@ -41,7 +41,7 @@ const vertical = (
   data: number[],
   customConfig?: QsBarConfig
 ): QsBars => {
-  const args: DrawArgs = { data, horizontal: false }
+  const args: DrawArgs = { data, vertical: true }
   const config: QsBarConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
@@ -51,7 +51,7 @@ const horizontal = (
   data: number[],
   customConfig?: QsBarConfig
 ): QsBars => {
-  const args: DrawArgs = { data, horizontal: true }
+  const args: DrawArgs = { data, vertical: false }
   const config: QsBarConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
@@ -66,7 +66,7 @@ const draw = (
   args: DrawArgs,
   config: QsBarConfigStrict
 ): QsBars => {
-  const { data, horizontal } = args
+  const { data, vertical: horizontal } = args
 
   const meta: Meta[] = getMeta(canvas, data, config, horizontal)
 
@@ -86,7 +86,7 @@ const draw = (
 
   return {
     element: group.selectAll(`.${meta[0].class}`),
-    transitionHorizontal: (data: number[]) => {
+    transitionVertical: (data: number[]) => {
       const meta: Meta[] = getMeta(canvas, data, config, true)
       group
         .selectAll(`.${meta[0].class}`)
@@ -96,7 +96,7 @@ const draw = (
         .attr('width', (d) => d.barData.width)
         .attr('x', (d) => d.barData.x)
     },
-    transitionVertical: (data: number[]) => {
+    transitionHorizontal: (data: number[]) => {
       const meta: Meta[] = getMeta(canvas, data, config, false)
       group
         .selectAll(`.${meta[0].class}`)

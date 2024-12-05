@@ -4,7 +4,7 @@ import {
   createCanvas,
   linearBarGroupGenerator,
 } from 'd3qs/d3QuickStart'
-import { GroupedChartProps } from '../../../../common/types/chartProps'
+import { GroupedChartProps } from '../../../../../common/chartProps'
 import { Grouping } from '../../../../../common/enums'
 
 export const LinearBarsGroupedElement: FunctionComponent<GroupedChartProps> = ({

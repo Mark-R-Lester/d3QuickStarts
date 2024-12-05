@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import { Canvas, createCanvas, radialSpokesGenerator } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../common/types/chartProps'
+import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialSpokesElement: FunctionComponent<ChartProps> = ({
   targetId,

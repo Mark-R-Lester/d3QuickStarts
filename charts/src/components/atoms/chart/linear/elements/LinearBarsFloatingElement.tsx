@@ -4,11 +4,12 @@ import {
   createCanvas,
   linearBarFloatingGenerator,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../common/types/chartProps'
+import { Orientation } from '../../../../../common/enums'
+import { OrienetedChartProps } from '../../../../../common/chartProps'
 
-export const LinearFloatingBarsElement: FunctionComponent<ChartProps> = ({
-  targetId,
-}) => {
+export const LinearFloatingBarsElement: FunctionComponent<
+  OrienetedChartProps
+> = ({ targetId, orientation }) => {
   const createChart = () => {
     const data2 = [
       [10, 30],
@@ -17,11 +18,15 @@ export const LinearFloatingBarsElement: FunctionComponent<ChartProps> = ({
       [40, 60],
       [50, 70],
     ]
-    const canvasFV: Canvas = createCanvas(targetId, {
+    const canvas: Canvas = createCanvas(targetId, {
       width: 600,
     })
 
-    linearBarFloatingGenerator.horizontal(canvasFV, data2)
+    if (orientation === Orientation.VERTICAL) {
+      linearBarFloatingGenerator.vertical(canvas, data2)
+    } else {
+      linearBarFloatingGenerator.horizontal(canvas, data2)
+    }
   }
 
   useEffect(() => {

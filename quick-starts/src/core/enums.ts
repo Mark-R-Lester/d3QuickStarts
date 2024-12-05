@@ -1,9 +1,9 @@
 export enum Orientation {
-  veritical,
-  horizontal,
+  VERTICAL = 'vertical',
+  HORIZONTAL = 'horizontal',
 }
 
 export enum Grouping {
-  grouped,
-  stacked,
+  GROUPED = 'grouped',
+  STACKED = 'stacked',
 }

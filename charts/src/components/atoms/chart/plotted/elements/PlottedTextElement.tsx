@@ -5,7 +5,7 @@ import {
   plottedTextGenerator,
   TextArgs,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../common/types/chartProps'
+import { ChartProps } from '../../../../../common/chartProps'
 
 export const PlottedTextElement: FunctionComponent<ChartProps> = ({
   targetId,

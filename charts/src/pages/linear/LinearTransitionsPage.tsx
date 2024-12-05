@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material'
 import { ElementGrid } from '../../components/atoms/ElementGrid'
-import { LinearBarsFloatingHorizontalTransition } from '../../components/atoms/chart/linear/transitions/LinearBarsFloatingHorizontalTransition'
+import { LinearBarsFloatingTransition } from '../../components/atoms/chart/linear/transitions/LinearBarsFloatingTransition'
 import { LinearBarsTransition } from '../../components/atoms/chart/linear/transitions/LinearBarsTransition'
 import { Orientation } from '../../common/enums'
 
@@ -14,8 +14,14 @@ export default function LinearTransitionsPage() {
       targetId="horizontalBarTransition"
       orientation={Orientation.HORIZONTAL}
     />,
-
-    <LinearBarsFloatingHorizontalTransition targetId="horizontalBarFloatingTransition" />,
+    <LinearBarsFloatingTransition
+      targetId="verticalBarFloatingTransition"
+      orientation={Orientation.VERTICAL}
+    />,
+    <LinearBarsFloatingTransition
+      targetId="horizontalBarFloatingTransition"
+      orientation={Orientation.HORIZONTAL}
+    />,
   ]
 
   return (

@@ -11,6 +11,40 @@ import { Grouping, Orientation } from '../../common/enums'
 
 export default function LinearElementsPage() {
   const elements: JSX.Element[] = [
+    <LinearBarsElement
+      targetId="linearHorizontalBars"
+      orientation={Orientation.HORIZONTAL}
+    />,
+    <LinearFloatingBarsElement
+      targetId="linearHorizontalBarsFloating"
+      orientation={Orientation.HORIZONTAL}
+    />,
+    <LinearLineElement
+      targetId="linearLineHorizontal"
+      orientation={Orientation.HORIZONTAL}
+    />,
+    <LinearPointsElement
+      targetId="linearPointsHorizontal"
+      orientation={Orientation.HORIZONTAL}
+    />,
+    <LinearBarsElement
+      targetId="linearVerticalBars"
+      orientation={Orientation.VERTICAL}
+    />,
+    <LinearFloatingBarsElement
+      targetId="linearVerticalBarsFloating"
+      orientation={Orientation.VERTICAL}
+    />,
+
+    <LinearLineElement
+      targetId="linearLineVertical"
+      orientation={Orientation.VERTICAL}
+    />,
+
+    <LinearPointsElement
+      targetId="linearPointsVertical"
+      orientation={Orientation.VERTICAL}
+    />,
     <LinearBarsGroupedElement
       targetId="linearBarsGroupedVertical"
       grouping={Grouping.GROUPED}
@@ -20,32 +54,7 @@ export default function LinearElementsPage() {
       grouping={Grouping.STACKED}
     />,
     <LinearAreaElement targetId="linearArea" />,
-    <LinearBarsElement
-      targetId="linearHorizontalBars"
-      orientation={Orientation.HORIZONTAL}
-    />,
-    <LinearBarsElement
-      targetId="linearVerticalBars"
-      orientation={Orientation.VERTICAL}
-    />,
-    <LinearFloatingBarsElement targetId="linearBarsFloating" />,
-    <LinearLineElement
-      targetId="linearLineVertical"
-      orientation={Orientation.VERTICAL}
-    />,
-    <LinearLineElement
-      targetId="linearLineHorizontal"
-      orientation={Orientation.HORIZONTAL}
-    />,
     <LinearAxisElement targetId="linearAxis" />,
-    <LinearPointsElement
-      targetId="linearPointsHorizontal"
-      orientation={Orientation.HORIZONTAL}
-    />,
-    <LinearPointsElement
-      targetId="linearPointsVertical"
-      orientation={Orientation.VERTICAL}
-    />,
   ]
 
   return (

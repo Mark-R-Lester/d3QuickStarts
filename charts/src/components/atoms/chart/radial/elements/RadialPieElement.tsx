@@ -5,7 +5,7 @@ import {
   radialGenerator,
   QsRadialArgs,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../common/types/chartProps'
+import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialPieElement: FunctionComponent<ChartProps> = ({
   targetId,

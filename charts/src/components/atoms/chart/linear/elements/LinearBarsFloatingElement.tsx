@@ -4,9 +4,9 @@ import {
   createCanvas,
   linearBarFloatingGenerator,
 } from 'd3qs/d3QuickStart'
-import { chartProps } from '../../../../common/types/chartProps'
+import { ChartProps } from '../../../../common/types/chartProps'
 
-export const LinearFloatingBarsElement: FunctionComponent<chartProps> = ({
+export const LinearFloatingBarsElement: FunctionComponent<ChartProps> = ({
   targetId,
 }) => {
   const createChart = () => {

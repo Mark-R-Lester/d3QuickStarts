@@ -4,10 +4,12 @@ import {
   createCanvas,
   linearBarGroupGenerator,
 } from 'd3qs/d3QuickStart'
-import { chartProps } from '../../../../common/types/chartProps'
+import { GroupedChartProps } from '../../../../common/types/chartProps'
+import { Grouping } from '../../../../../common/enums'
 
-export const LinearBarsGroupedElement: FunctionComponent<chartProps> = ({
+export const LinearBarsGroupedElement: FunctionComponent<GroupedChartProps> = ({
   targetId,
+  grouping,
 }) => {
   const createChart = () => {
     const data = [
@@ -24,7 +26,11 @@ export const LinearBarsGroupedElement: FunctionComponent<chartProps> = ({
     const canvas: Canvas = createCanvas(targetId, {
       width: 600,
     })
-    linearBarGroupGenerator.grouped(canvas, data)
+    if (grouping === Grouping.GROUPED) {
+      linearBarGroupGenerator.grouped(canvas, data)
+    } else {
+      linearBarGroupGenerator.stacked(canvas, data)
+    }
   }
 
   useEffect(() => {

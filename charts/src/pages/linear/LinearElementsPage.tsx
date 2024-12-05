@@ -1,30 +1,51 @@
 import { Typography } from '@mui/material'
 import { LinearAreaElement } from '../../components/atoms/chart/linear/elements/LinearAreaElement'
-import { LinearBarsVerticalElement } from '../../components/atoms/chart/linear/elements/LinearBarsVerticalElement'
-import { LinearBarsHorizontalElement } from '../../components/atoms/chart/linear/elements/LinearBarsHorizontalElement'
+import { LinearBarsElement } from '../../components/atoms/chart/linear/elements/LinearBarsElement'
 import { LinearFloatingBarsElement } from '../../components/atoms/chart/linear/elements/LinearBarsFloatingElement'
-import { LinearLineHorizontalElement } from '../../components/atoms/chart/linear/elements/LinearLineHorizontalElement'
 import { ElementGrid } from '../../components/atoms/ElementGrid'
-import { LinearLineVerticalElement } from '../../components/atoms/chart/linear/elements/LinearLineVerticalElement'
+import { LinearLineElement } from '../../components/atoms/chart/linear/elements/LinearLineElement'
 import { LinearAxisElement } from '../../components/atoms/chart/linear/elements/LinearAxisElement'
-import { LinearPointsVerticalElement } from '../../components/atoms/chart/linear/elements/LinearPointsVerticalElement'
-import { LinearPointsHorizontalElement } from '../../components/atoms/chart/linear/elements/LinearPointsHorizontalElement'
+import { LinearPointsElement } from '../../components/atoms/chart/linear/elements/LinearPointsElement'
 import { LinearBarsGroupedElement } from '../../components/atoms/chart/linear/elements/LinearBarsGroupedElement'
-import { LinearBarsStackedElement } from '../../components/atoms/chart/linear/elements/LinearBarsStackedElement'
+import { Grouping, Orientation } from '../../common/enums'
 
 export default function LinearElementsPage() {
   const elements: JSX.Element[] = [
-    <LinearBarsGroupedElement targetId="linearBarsGroupedVertical" />,
-    <LinearBarsStackedElement targetId="linearBarsStackedVertical" />,
+    <LinearBarsGroupedElement
+      targetId="linearBarsGroupedVertical"
+      grouping={Grouping.GROUPED}
+    />,
+    <LinearBarsGroupedElement
+      targetId="linearBarsStackedVertical"
+      grouping={Grouping.STACKED}
+    />,
     <LinearAreaElement targetId="linearArea" />,
-    <LinearBarsVerticalElement targetId="linearVerticalBars" />,
-    <LinearBarsHorizontalElement targetId="linearHorizontalBars" />,
+    <LinearBarsElement
+      targetId="linearHorizontalBars"
+      orientation={Orientation.HORIZONTAL}
+    />,
+    <LinearBarsElement
+      targetId="linearVerticalBars"
+      orientation={Orientation.VERTICAL}
+    />,
     <LinearFloatingBarsElement targetId="linearBarsFloating" />,
-    <LinearLineHorizontalElement targetId="linearLineHorizontal" />,
-    <LinearLineVerticalElement targetId="linearLineVertical" />,
+    <LinearLineElement
+      targetId="linearLineVertical"
+      orientation={Orientation.VERTICAL}
+    />,
+    <LinearLineElement
+      targetId="linearLineHorizontal"
+      orientation={Orientation.HORIZONTAL}
+    />,
     <LinearAxisElement targetId="linearAxis" />,
-    <LinearPointsHorizontalElement targetId="linearPointsHorizontal" />,
-    <LinearPointsVerticalElement targetId="linearPointsVertical" />,
+    <LinearPointsElement
+      targetId="linearPointsHorizontal"
+      orientation={Orientation.HORIZONTAL}
+    />,
+    <LinearPointsElement
+      targetId="linearPointsVertical"
+      orientation={Orientation.VERTICAL}
+    />,
   ]
 
   return (

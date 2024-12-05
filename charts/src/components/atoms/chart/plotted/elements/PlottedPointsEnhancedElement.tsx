@@ -1,9 +1,9 @@
 import { FunctionComponent, useEffect } from 'react'
 import { Canvas, createCanvas, plottedPointGenerator } from 'd3qs/d3QuickStart'
-import { chartProps } from '../../../../common/types/chartProps'
+import { ChartProps } from '../../../../common/types/chartProps'
 import { CoordinateEnhanced } from 'd3qs/core/types'
 
-export const PlottedPointsEnhancedElement: FunctionComponent<chartProps> = ({
+export const PlottedPointsEnhancedElement: FunctionComponent<ChartProps> = ({
   targetId,
 }) => {
   const createChart = () => {

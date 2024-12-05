@@ -1,9 +1,11 @@
 import { FunctionComponent, useEffect } from 'react'
 import { Canvas, createCanvas, linearPointGenerator } from 'd3qs/d3QuickStart'
-import { chartProps } from '../../../../common/types/chartProps'
+import { OrienetedChartProps } from '../../../../common/types/chartProps'
+import { Orientation } from '../../../../../common/enums'
 
-export const LinearPointsVerticalElement: FunctionComponent<chartProps> = ({
+export const LinearPointsElement: FunctionComponent<OrienetedChartProps> = ({
   targetId,
+  orientation,
 }) => {
   const createChart = () => {
     const data1 = [25, 10, 35, 25, 35, 5, 25, 25]
@@ -11,6 +13,12 @@ export const LinearPointsVerticalElement: FunctionComponent<chartProps> = ({
       width: 600,
     })
     linearPointGenerator.vertical(canvas, data1)
+
+    if (orientation === Orientation.VERTICAL) {
+      linearPointGenerator.vertical(canvas, data1)
+    } else {
+      linearPointGenerator.horizontal(canvas, data1)
+    }
   }
 
   useEffect(() => {

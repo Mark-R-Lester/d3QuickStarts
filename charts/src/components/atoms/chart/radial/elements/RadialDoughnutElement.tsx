@@ -6,9 +6,9 @@ import {
   QsRadialArgs,
   RadialConfig,
 } from 'd3qs/d3QuickStart'
-import { chartProps } from '../../../../common/types/chartProps'
+import { ChartProps } from '../../../../common/types/chartProps'
 
-export const RadialDoughnutElement: FunctionComponent<chartProps> = ({
+export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
   targetId,
 }) => {
   const createChart = () => {

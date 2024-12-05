@@ -5,10 +5,10 @@ import {
   linearBarFloatingGenerator,
   QsBarsFloating,
 } from 'd3qs/d3QuickStart'
-import { chartProps } from '../../../../common/types/chartProps'
+import { ChartProps } from '../../../../common/types/chartProps'
 
 export const LinearBarsFloatingHorizontalTransition: FunctionComponent<
-  chartProps
+  ChartProps
 > = ({ targetId }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [bars, setBars] = useState<QsBarsFloating>()

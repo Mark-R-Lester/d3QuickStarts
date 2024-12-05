@@ -1,16 +1,22 @@
 import { FunctionComponent, useEffect } from 'react'
 import { Canvas, createCanvas, linearBarGenerator } from 'd3qs/d3QuickStart'
-import { chartProps } from '../../../../common/types/chartProps'
+import { OrienetedChartProps } from '../../../../common/types/chartProps'
+import { Orientation } from '../../../../../common/enums'
 
-export const LinearBarsVerticalElement: FunctionComponent<chartProps> = ({
+export const LinearBarsElement: FunctionComponent<OrienetedChartProps> = ({
   targetId,
+  orientation,
 }) => {
   const createChart = () => {
     const data1 = [25, 10, 35, 25, 35, 5, 25, 25]
     const canvas: Canvas = createCanvas(targetId, {
       width: 600,
     })
-    linearBarGenerator.vertical(canvas, data1)
+    if (orientation === Orientation.VERTICAL) {
+      linearBarGenerator.vertical(canvas, data1)
+    } else {
+      linearBarGenerator.horizontal(canvas, data1)
+    }
   }
 
   useEffect(() => {

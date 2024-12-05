@@ -1,13 +1,20 @@
 import { Typography } from '@mui/material'
 import { ElementGrid } from '../../components/atoms/ElementGrid'
-import { LinearBarsVerticalTransition } from '../../components/atoms/chart/linear/transitions/LinearBarsVerticalTransition'
-import { LinearBarsHorizontalTransition } from '../../components/atoms/chart/linear/transitions/LinearBarsHorizontalTransition'
 import { LinearBarsFloatingHorizontalTransition } from '../../components/atoms/chart/linear/transitions/LinearBarsFloatingHorizontalTransition'
+import { LinearBarsTransition } from '../../components/atoms/chart/linear/transitions/LinearBarsTransition'
+import { Orientation } from '../../common/enums'
 
 export default function LinearTransitionsPage() {
   const elements: JSX.Element[] = [
-    <LinearBarsVerticalTransition targetId="verticalBarTransition" />,
-    <LinearBarsHorizontalTransition targetId="horizontalBarTransition" />,
+    <LinearBarsTransition
+      targetId="verticalBarTransition"
+      orientation={Orientation.VERTICAL}
+    />,
+    <LinearBarsTransition
+      targetId="horizontalBarTransition"
+      orientation={Orientation.HORIZONTAL}
+    />,
+
     <LinearBarsFloatingHorizontalTransition targetId="horizontalBarFloatingTransition" />,
   ]
 

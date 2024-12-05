@@ -1,14 +1,8 @@
 import { Canvas } from '../../canvas/canvas'
-import {
-  scaleLinear,
-  scaleOrdinal,
-  arc as d3arc,
-  ScaleOrdinal,
-  ScaleLinear,
-  Selection,
-} from 'd3'
-import { v4 as uuidv4 } from 'uuid'
-import { toStrings } from '../../core/conversion'
+import { arc as d3arc, Selection } from 'd3'
+import { Meta, QsRadialAxisTransitionArgs, getMeta } from './getMeta'
+
+export { QsRadialAxisTransitionArgs } from './getMeta'
 
 export interface QsRadialAxisConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
@@ -29,7 +23,10 @@ export interface QsRadialAxis {
   ringsElement:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: number[]) => void
+  transition: (
+    data: number[],
+    radialAxisTransitionArgs: QsRadialAxisTransitionArgs
+  ) => void
 }
 
 interface RadialAxisConfigStrict {
@@ -42,24 +39,6 @@ interface RadialAxisConfigStrict {
   gap: number
   colour: string
   strokeWidth: number
-}
-
-interface RingData {
-  innerRadius: number
-  outerRadius: number
-  startAngle: number
-  endAngle: number
-  textLocation: number[]
-  text: number | string
-}
-
-interface Meta {
-  [key: string]: string | RingData
-  ringId: string
-  textId: string
-  ringClass: string
-  textClass: string
-  ringData: RingData
 }
 
 interface DrawArgs {
@@ -107,75 +86,15 @@ const draw = (
   config: RadialAxisConfigStrict
 ): QsRadialAxis => {
   const { radius, fontSize, x, y, axisAngle, gap, colour, strokeWidth } = config
-  const {
-    displayAreaHeight,
-    displayAreaWidth,
-    lowestViewableValue,
-    highestViewableValue,
-  } = canvas.config
   const { data } = args
 
-  const ordinal = data.some((d) => typeof d === 'string')
-  const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
-  const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
-  let ordialScale: ScaleOrdinal<string, unknown, never>
-  let linearScale: ScaleLinear<number, number, never>
-  if (ordinal) {
-    ordialScale = scaleOrdinal().domain(toStrings(data)).range(data)
-  } else {
-    linearScale = scaleLinear()
-      .domain([1, data.length])
-      .range([
-        lowestViewableValue ? lowestViewableValue : Math.min(...data),
-        highestViewableValue ? highestViewableValue : Math.max(...data),
-      ])
+  const radialAxisTransitionArgs: QsRadialAxisTransitionArgs = {
+    radius,
+    axisAngle,
+    gap,
   }
 
-  const nunberOfArcs = data.length
-  const bandWidth = yAxis(radius / 2 / (nunberOfArcs - 1))
-
-  const getMeta = (data: number[]): Meta[] => {
-    const meta: Meta[] = []
-    data.forEach((d, i) => {
-      const radians = axisAngle * (Math.PI / 180)
-      const calculateTextPosition = () => {
-        const hypotenuse: number = bandWidth * i
-        const x: number = Math.sin(radians) * hypotenuse
-        const y: number = Math.cos(radians) * hypotenuse * -1
-        return [x + displayAreaWidth / 2, y + displayAreaHeight / 2]
-      }
-      const sin: number = gap / (bandWidth * (i + 1))
-      let text: unknown
-      if (ordinal) text = ordialScale(d.toString())
-      else text = linearScale(i + 1)
-
-      const handleText = (text: unknown): string => {
-        if (typeof text === 'string') return text
-        else if (typeof text === 'number')
-          return (Math.round(text * 10) / 10).toString()
-        else return ''
-      }
-
-      meta.push({
-        ringId: `ring${uuidv4()}`,
-        textId: `ringText${uuidv4()}`,
-        ringClass: `ring`,
-        textClass: `ringText`,
-
-        ringData: {
-          innerRadius: bandWidth * i,
-          outerRadius: bandWidth * i,
-          startAngle: radians + Math.asin(sin),
-          endAngle: radians + Math.PI * 2 - Math.asin(sin),
-          textLocation: calculateTextPosition(),
-          text: handleText(text),
-        },
-      })
-    })
-    return meta
-  }
-
-  const meta: Meta[] = getMeta(data)
+  const meta: Meta[] = getMeta(canvas, data, radialAxisTransitionArgs)
 
   const arc = d3arc()
     .innerRadius((d) => d.innerRadius)
@@ -193,7 +112,7 @@ const draw = (
     .attr('d', (d) => arc(d.ringData))
     .attr('stroke', colour)
     .attr('stroke-width', strokeWidth)
-    .attr('transform', `translate(${xAxis(x)}, ${yAxis(y)})`)
+    .attr('transform', (d) => `translate(${d.xAxis(x)}, ${d.yAxis(y)})`)
   group
     .selectAll('text')
     .data(meta)
@@ -202,7 +121,7 @@ const draw = (
     .attr('class', (d) => d.textClass)
     .attr('id', (d) => d.textId)
     .attr('fill', colour)
-    .attr('font-size', `${yAxis(fontSize)}px`)
+    .attr('font-size', (d) => `${d.yAxis(fontSize)}px`)
     .style('text-anchor', 'middle')
     .style('alignment-baseline', 'middle')
     .attr(
@@ -214,8 +133,11 @@ const draw = (
   return {
     textElement: group.selectAll('text'),
     ringsElement: group.selectAll('ring'),
-    transition: (data: number[]) => {
-      const meta: Meta[] = getMeta(data)
+    transition: (
+      data: number[],
+      radialAxisTransitionArgs: QsRadialAxisTransitionArgs
+    ) => {
+      const meta: Meta[] = getMeta(canvas, data, radialAxisTransitionArgs)
       group
         .selectAll(`.${meta[0].ringClass}`)
         .data(meta)
@@ -228,7 +150,7 @@ const draw = (
         .data(meta)
         .transition()
         .duration(3000)
-        .attr('font-size', `${yAxis(fontSize)}px`)
+        .attr('font-size', (d) => `${d.yAxis(fontSize)}px`)
         .attr('transform', (d) => {
           return `translate(${d.ringData.textLocation})`
         })

@@ -1,9 +1,10 @@
 import { CurveFactory } from 'd3'
+import { Orientation, ScaleType } from '../../core/enums'
 
 export interface DrawArgs {
   data: number[]
-  vertical: boolean
-  banded: boolean
+  orientation: Orientation
+  scaleType: ScaleType
 }
 
 export interface LineConfigStrict {

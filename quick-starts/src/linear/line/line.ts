@@ -1,15 +1,8 @@
-import {
-  scaleLinear,
-  scaleBand,
-  curveLinear,
-  range,
-  CurveFactory,
-  line as d3line,
-  Selection,
-} from 'd3'
+import { curveLinear, CurveFactory, line as d3line, Selection } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { DrawArgs } from './types'
 import { Meta, getMeta } from './getMeta'
+import { Orientation, ScaleType } from '../../core/enums'
 
 export interface QsLineConfig {
   [key: string]: CurveFactory | undefined
@@ -46,8 +39,8 @@ const horizontal = (
 ): QsLine => {
   const args: DrawArgs = {
     data,
-    vertical: false,
-    banded: false,
+    orientation: Orientation.HORIZONTAL,
+    scaleType: ScaleType.LINEAR,
   }
   const config: LineConfigStrict = updateConfig(customConfig)
   return drawLine(canvas, args, config)
@@ -60,8 +53,8 @@ const vertical = (
 ): QsLine => {
   const args: DrawArgs = {
     data,
-    vertical: true,
-    banded: false,
+    orientation: Orientation.VERTICAL,
+    scaleType: ScaleType.LINEAR,
   }
   const config: LineConfigStrict = updateConfig(customConfig)
   return drawLine(canvas, args, config)
@@ -74,8 +67,8 @@ const horizontalBanded = (
 ): QsLine => {
   const args: DrawArgs = {
     data,
-    vertical: false,
-    banded: true,
+    orientation: Orientation.HORIZONTAL,
+    scaleType: ScaleType.BANDED,
   }
   const config: LineConfigStrict = updateConfig(customConfig)
   return drawLine(canvas, args, config)
@@ -88,8 +81,8 @@ const verticalBanded = (
 ): QsLine => {
   const args: DrawArgs = {
     data,
-    vertical: true,
-    banded: true,
+    orientation: Orientation.VERTICAL,
+    scaleType: ScaleType.BANDED,
   }
   const config: LineConfigStrict = updateConfig(customConfig)
   return drawLine(canvas, args, config)
@@ -107,17 +100,21 @@ const drawLine = (
   args: DrawArgs,
   config: LineConfigStrict
 ): QsLine => {
-  const { vertical } = args
+  const { orientation, scaleType } = args
   const { curve } = config
   const meta: Meta = getMeta(canvas, args, config)
   const { dataScale, spacingScale, bandingAdjustment, coordinates } = meta
 
   const line = d3line()
     .x((d) =>
-      vertical ? dataScale(d[0]) : spacingScale(d[0]) + bandingAdjustment
+      orientation === Orientation.VERTICAL
+        ? dataScale(d[0])
+        : spacingScale(d[0]) + bandingAdjustment
     )
     .y((d) =>
-      vertical ? spacingScale(d[1]) + bandingAdjustment : dataScale(d[1])
+      orientation === Orientation.VERTICAL
+        ? spacingScale(d[1]) + bandingAdjustment
+        : dataScale(d[1])
     )
     .curve(curve)
 
@@ -129,20 +126,26 @@ const drawLine = (
     .attr('d', line(coordinates))
     .attr('stroke', 'black')
     .attr('fill-opacity', '0')
+
+  const transition = (
+    data: number[],
+    orientation: Orientation,
+    scaleType: ScaleType
+  ) => {
+    const args: DrawArgs = {
+      data,
+      orientation: orientation,
+      scaleType: scaleType,
+    }
+    const meta: Meta = getMeta(canvas, args, config)
+    group
+      .selectAll(`.${meta.class}`)
+      .transition()
+      .duration(3000)
+      .attr('d', line(meta.coordinates))
+  }
   return {
     element: group.select(`.${meta.class}`),
-    transition: (data: number[]) => {
-      const args: DrawArgs = {
-        data,
-        vertical: false,
-        banded: false,
-      }
-      const meta: Meta = getMeta(canvas, args, config)
-      group
-        .selectAll(`.${meta.class}`)
-        .transition()
-        .duration(3000)
-        .attr('d', line(meta.coordinates))
-    },
+    transition: (data: number[]) => transition(data, orientation, scaleType),
   }
 }

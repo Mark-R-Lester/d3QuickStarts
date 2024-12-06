@@ -2,6 +2,7 @@ import { scaleLinear, scaleBand, range, ScaleBand, ScaleLinear } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { DrawArgs, LineConfigStrict } from './types'
+import { Orientation, ScaleType } from '../../core/enums'
 
 export interface Meta {
   class: string
@@ -24,7 +25,7 @@ export const getMeta = (
     lowestViewableValue,
     highestViewableValue,
   } = canvas.config
-  const { data, vertical, banded } = args
+  const { data, orientation, scaleType } = args
 
   const xVals: number[] = range(
     0,
@@ -37,28 +38,30 @@ export const getMeta = (
     displayAreaHeight / data.length
   )
 
+  const isVertical = orientation === Orientation.VERTICAL
+
   const coordinates: [number, number][] = data.map((d, i) =>
-    vertical ? [d, yVals[i]] : [xVals[i], d]
+    isVertical ? [d, yVals[i]] : [xVals[i], d]
   )
 
   let spacingScale
   let bandingAdjustment: number
-  if (banded) {
+  if (scaleType === ScaleType.BANDED) {
     spacingScale = scaleBand()
       .domain(
         coordinates.map((coordinate) =>
-          vertical ? coordinate[1].toString() : coordinate[0].toString()
+          isVertical ? coordinate[1].toString() : coordinate[0].toString()
         )
       )
-      .range(vertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
+      .range(isVertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
     bandingAdjustment = spacingScale.bandwidth() / 2
   } else {
     spacingScale = scaleLinear()
       .domain([
         0,
-        Math.max(...coordinates.map((d) => (vertical ? d[1] : d[0]))),
+        Math.max(...coordinates.map((d) => (isVertical ? d[1] : d[0]))),
       ])
-      .range(vertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
+      .range(isVertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
     bandingAdjustment = 0
   }
 
@@ -67,9 +70,9 @@ export const getMeta = (
       lowestViewableValue,
       highestViewableValue !== 0
         ? highestViewableValue
-        : Math.max(...coordinates.map((d) => (vertical ? d[0] : d[1]))),
+        : Math.max(...coordinates.map((d) => (isVertical ? d[0] : d[1]))),
     ])
-    .range(vertical ? [0, displayAreaWidth] : [displayAreaHeight, 0])
+    .range(isVertical ? [0, displayAreaWidth] : [displayAreaHeight, 0])
 
   return {
     class: 'line',

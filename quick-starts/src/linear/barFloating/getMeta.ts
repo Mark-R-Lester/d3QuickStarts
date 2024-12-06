@@ -10,7 +10,8 @@ import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
 import { findMax } from '../../core/max'
-import { BarData, QsBarFloatingConfigStrict } from './types'
+import { BarData, DrawArgs, QsBarFloatingConfigStrict } from './types'
+import { Orientation } from '../../core/enums'
 
 export interface Meta {
   class: string
@@ -29,11 +30,13 @@ const getColor = (
 
 export const getMeta = (
   canvas: Canvas,
-  data: number[][],
-  config: QsBarFloatingConfigStrict,
-  vertical: boolean
+  args: DrawArgs,
+  config: QsBarFloatingConfigStrict
 ): Meta[] => {
   const { padding, colorDomain, colorRange } = config
+  const { data, orientation } = args
+  const isVertical = orientation === Orientation.VERTICAL
+
   const {
     lowestViewableValue,
     highestViewableValue,
@@ -45,28 +48,28 @@ export const getMeta = (
 
   const bandStepScale = scaleBand()
     .domain(toStrings(range(data.length)))
-    .range([0, vertical ? displayAreaHeight : displayAreaWidth])
+    .range([0, isVertical ? displayAreaHeight : displayAreaWidth])
   const bandWidthScale = scaleBand()
     .domain(toStrings(range(data.length)))
-    .range([0, vertical ? displayAreaHeight : displayAreaWidth])
+    .range([0, isVertical ? displayAreaHeight : displayAreaWidth])
     .padding(padding / 100)
   const heightScale = scaleLinear()
     .domain([
       lowestViewableValue,
       highestViewableValue !== 0 ? highestViewableValue : findMax(data),
     ])
-    .range([0, vertical ? displayAreaWidth : displayAreaHeight])
+    .range([0, isVertical ? displayAreaWidth : displayAreaHeight])
 
   const colors = scaleOrdinal().domain(toStrings(colorDomain)).range(colorRange)
   const height = (d: number[]) =>
-    vertical ? bandWidthScale.bandwidth() : heightScale(d[1] - d[0])
+    isVertical ? bandWidthScale.bandwidth() : heightScale(d[1] - d[0])
   const width = (d: number[]) =>
-    vertical ? heightScale(d[1] - d[0]) : bandWidthScale.bandwidth()
+    isVertical ? heightScale(d[1] - d[0]) : bandWidthScale.bandwidth()
 
   const x = (d: NumberValue[], i: number) =>
-    vertical ? heightScale(d[0]) : barSpaceing(d, i)
+    isVertical ? heightScale(d[0]) : barSpaceing(d, i)
   const y = (d: NumberValue[], i: number) =>
-    vertical ? barSpaceing(d, i) : displayAreaHeight - heightScale(d[1])
+    isVertical ? barSpaceing(d, i) : displayAreaHeight - heightScale(d[1])
 
   const barSpaceing = (d: NumberValue[], i: number) => {
     const adjustmentToCorrectD3 =

@@ -3,13 +3,13 @@ import { range } from 'd3'
 import { scaleLinear, scaleBand, ScaleOrdinal, scaleOrdinal } from 'd3-scale'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import { BarData, Meta, QsBarConfigStrict } from './types'
+import { BarData, DrawArgs, Meta, QsBarConfigStrict } from './types'
+import { Orientation } from '../../core/enums'
 
 export const getMeta = (
   canvas: Canvas,
-  data: number[],
-  config: QsBarConfigStrict,
-  horizontal: boolean
+  args: DrawArgs,
+  config: QsBarConfigStrict
 ): Meta[] => {
   const {
     lowestViewableValue,
@@ -18,6 +18,9 @@ export const getMeta = (
     displayAreaHeight,
   } = canvas.config
   const { padding, colorDomain, colorRange } = config
+  const { data, orientation } = args
+  const isVertical = orientation === Orientation.VERTICAL
+
   const meta: Meta[] = []
 
   const colors: ScaleOrdinal<string, unknown, never> = scaleOrdinal()
@@ -26,17 +29,17 @@ export const getMeta = (
 
   const bandStepScale = scaleBand()
     .domain(toStrings(range(data.length)))
-    .range([0, horizontal ? displayAreaHeight : displayAreaWidth])
+    .range([0, isVertical ? displayAreaHeight : displayAreaWidth])
   const bandWidthScale = scaleBand()
     .domain(toStrings(range(data.length)))
-    .range([0, horizontal ? displayAreaHeight : displayAreaWidth])
+    .range([0, isVertical ? displayAreaHeight : displayAreaWidth])
     .padding(padding / 100)
   const heightScale = scaleLinear()
     .domain([
       lowestViewableValue,
       highestViewableValue !== 0 ? highestViewableValue : Math.max(...data),
     ])
-    .range([0, horizontal ? displayAreaWidth : displayAreaHeight])
+    .range([0, isVertical ? displayAreaWidth : displayAreaHeight])
 
   const barSpaceing = (d: number, i: number) => {
     const adjustmentToCorrectD3 =
@@ -47,14 +50,14 @@ export const getMeta = (
     return 0
   }
 
-  const x = (d: number, i: number) => (horizontal ? 0 : barSpaceing(d, i))
+  const x = (d: number, i: number) => (isVertical ? 0 : barSpaceing(d, i))
   const y = (d: number, i: number) =>
-    horizontal ? barSpaceing(d, i) : displayAreaHeight - heightScale(d)
+    isVertical ? barSpaceing(d, i) : displayAreaHeight - heightScale(d)
 
   const height = (d: number) =>
-    horizontal ? bandWidthScale.bandwidth() : heightScale(d)
+    isVertical ? bandWidthScale.bandwidth() : heightScale(d)
   const width = (d: number) =>
-    horizontal ? heightScale(d) : bandWidthScale.bandwidth()
+    isVertical ? heightScale(d) : bandWidthScale.bandwidth()
   const getColor = (
     i: number,
     colorScale: ScaleOrdinal<string, unknown, never>

@@ -1,6 +1,8 @@
-import { scaleLinear, scaleBand, NumberValue, range, Selection } from 'd3'
+import { Selection } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { Meta, getMeta } from './getMeta'
+import { DrawArgs } from './types'
+import { Orientation, ScaleType } from '../../core/enums'
 
 export interface QsPointsConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
@@ -17,12 +19,6 @@ export interface QsPoints {
 interface PointsConfigStrict {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   radius: number
-}
-
-interface DrawArgs {
-  data: number[]
-  vertical: boolean
-  banded: boolean
 }
 
 const updateConfig = (customConfig?: QsPointsConfig): PointsConfigStrict => {
@@ -44,8 +40,8 @@ const horizontal = (
 ): QsPoints => {
   const args: DrawArgs = {
     data,
-    vertical: false,
-    banded: false,
+    orientation: Orientation.HORIZONTAL,
+    scaleType: ScaleType.LINEAR,
   }
   const config: PointsConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
@@ -58,8 +54,8 @@ const vertical = (
 ): QsPoints => {
   const args: DrawArgs = {
     data,
-    vertical: true,
-    banded: false,
+    orientation: Orientation.VERTICAL,
+    scaleType: ScaleType.LINEAR,
   }
   const config: PointsConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
@@ -72,8 +68,8 @@ const horizontalBanded = (
 ): QsPoints => {
   const args: DrawArgs = {
     data,
-    vertical: false,
-    banded: true,
+    orientation: Orientation.HORIZONTAL,
+    scaleType: ScaleType.BANDED,
   }
   const config: PointsConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
@@ -86,8 +82,8 @@ const verticalBanded = (
 ): QsPoints => {
   const args: DrawArgs = {
     data,
-    vertical: true,
-    banded: true,
+    orientation: Orientation.VERTICAL,
+    scaleType: ScaleType.BANDED,
   }
   const config: PointsConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
@@ -106,9 +102,9 @@ const draw = (
   config: PointsConfigStrict
 ): QsPoints => {
   const { radius } = config
-  const { data, vertical, banded } = args
+  const { orientation, scaleType } = args
 
-  const meta: Meta[] = getMeta(canvas, data, vertical, banded, radius)
+  const meta: Meta[] = getMeta(canvas, args, radius)
   const group = canvas.displayGroup.append('g')
 
   group
@@ -124,7 +120,8 @@ const draw = (
   return {
     element: group.selectAll(`.${meta[0].class}`),
     transition: (data: number[]) => {
-      const meta: Meta[] = getMeta(canvas, data, vertical, banded, radius)
+      const args: DrawArgs = { data, orientation, scaleType }
+      const meta: Meta[] = getMeta(canvas, args, radius)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)

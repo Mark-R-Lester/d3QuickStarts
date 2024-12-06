@@ -2,7 +2,8 @@ import { Selection, range } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 
 import { getMeta, Meta } from './getMeta'
-import { QsBarFloatingConfigStrict } from './types'
+import { DrawArgs, QsBarFloatingConfigStrict } from './types'
+import { Orientation } from '../../core/enums'
 
 export interface QsBarFloatingConfig {
   [key: string]: number | Iterable<unknown> | number[] | undefined
@@ -15,13 +16,7 @@ export interface QsBarsFloating {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transitionVertical: (data: number[][]) => void
-  transitionHorizontal: (data: number[][]) => void
-}
-
-interface DrawArgs {
-  data: number[][]
-  vertical: boolean
+  transition: (data: number[][]) => void
 }
 
 const updateConfig = (
@@ -42,7 +37,7 @@ const horizontal = (
   data: number[][],
   customConfig?: QsBarFloatingConfig
 ): QsBarsFloating => {
-  const args: DrawArgs = { data, vertical: false }
+  const args: DrawArgs = { data, orientation: Orientation.HORIZONTAL }
   const config: QsBarFloatingConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
@@ -52,7 +47,7 @@ const vertical = (
   data: number[][],
   customConfig?: QsBarFloatingConfig
 ): QsBarsFloating => {
-  const args: DrawArgs = { data, vertical: true }
+  const args: DrawArgs = { data, orientation: Orientation.VERTICAL }
   const config: QsBarFloatingConfigStrict = updateConfig(customConfig)
   return draw(canvas, args, config)
 }
@@ -67,9 +62,8 @@ const draw = (
   args: DrawArgs,
   config: QsBarFloatingConfigStrict
 ): QsBarsFloating => {
-  const { data, vertical } = args
-
-  const meta: Meta[] = getMeta(canvas, data, config, vertical)
+  const { orientation } = args
+  const meta: Meta[] = getMeta(canvas, args, config)
 
   const group: Selection<SVGGElement, unknown, HTMLElement, any> =
     canvas.displayGroup.append('g')
@@ -85,10 +79,11 @@ const draw = (
     .attr('width', (d) => d.barData.width)
     .attr('height', (d) => d.barData.height)
     .attr('fill', (d) => d.barData.color)
-  return {
-    element: group.selectAll(`.${meta[0].class}`),
-    transitionHorizontal: (data: number[][]) => {
-      const meta: Meta[] = getMeta(canvas, data, config, true)
+
+  const transition = (data: number[][]) => {
+    const args: DrawArgs = { data, orientation }
+    const meta: Meta[] = getMeta(canvas, args, config)
+    if (orientation === Orientation.VERTICAL)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)
@@ -96,9 +91,7 @@ const draw = (
         .duration(3000)
         .attr('width', (d) => d.barData.width)
         .attr('x', (d) => d.barData.x)
-    },
-    transitionVertical: (data: number[][]) => {
-      const meta: Meta[] = getMeta(canvas, data, config, false)
+    else
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)
@@ -106,6 +99,9 @@ const draw = (
         .duration(3000)
         .attr('height', (d) => d.barData.height)
         .attr('y', (d) => d.barData.y)
-    },
+  }
+  return {
+    element: group.selectAll(`.${meta[0].class}`),
+    transition: (data: number[][]) => transition(data),
   }
 }

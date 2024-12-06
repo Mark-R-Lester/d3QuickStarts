@@ -1,3 +1,5 @@
+import { Orientation } from '../../core/enums'
+
 export interface BarData {
   x: number
   y: number
@@ -17,4 +19,9 @@ export interface QsBarConfigStrict {
   padding: number
   colorDomain: number[]
   colorRange: Iterable<unknown>
+}
+
+export interface DrawArgs {
+  data: number[]
+  orientation: Orientation
 }

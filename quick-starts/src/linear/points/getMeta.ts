@@ -1,6 +1,8 @@
 import { scaleLinear, scaleBand, NumberValue, range, Selection } from 'd3'
 import { Canvas } from '../../d3QuickStart'
+import { DrawArgs } from './types'
 import { v4 as uuidv4 } from 'uuid'
+import { Orientation, ScaleType } from '../../core/enums'
 
 export interface Meta {
   class: string
@@ -12,9 +14,7 @@ export interface Meta {
 
 export const getMeta = (
   canvas: Canvas,
-  data: number[],
-  vertical: boolean,
-  banded: boolean,
+  args: DrawArgs,
   radius: number
 ): Meta[] => {
   const {
@@ -23,6 +23,9 @@ export const getMeta = (
     lowestViewableValue,
     highestViewableValue,
   } = canvas.config
+  const { data, orientation, scaleType } = args
+  const isVertical = orientation === Orientation.VERTICAL
+  const isBanded = scaleType === ScaleType.BANDED
 
   const pointSpacing = range(
     0,
@@ -31,13 +34,15 @@ export const getMeta = (
   )
 
   const getCoordinates = (data: number[]): number[][] =>
-    data.map((d, i) => (vertical ? [d, pointSpacing[i]] : [pointSpacing[i], d]))
+    data.map((d, i) =>
+      isVertical ? [d, pointSpacing[i]] : [pointSpacing[i], d]
+    )
 
   const coordinates: number[][] = getCoordinates(data)
 
   const dataScale = scaleLinear()
     .domain(
-      vertical
+      isVertical
         ? [
             lowestViewableValue,
             highestViewableValue !== 0
@@ -51,38 +56,38 @@ export const getMeta = (
               : Math.max(...coordinates.map((d) => +d[1])),
           ]
     )
-    .range(vertical ? [0, displayAreaWidth] : [displayAreaHeight, 0])
+    .range(isVertical ? [0, displayAreaWidth] : [displayAreaHeight, 0])
 
   let spacingScale: any
-  if (banded) {
+  if (isBanded) {
     spacingScale = scaleBand()
       .domain(
-        vertical
+        isVertical
           ? coordinates.map((d) => d[1].toString())
           : coordinates.map((d) => d[0].toString())
       )
-      .range(vertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
+      .range(isVertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
   } else {
     spacingScale = scaleLinear()
       .domain(
-        vertical
+        isVertical
           ? [0, Math.max(...coordinates.map((d) => d[1]))]
           : [0, Math.max(...coordinates.map((d) => d[0]))]
       )
-      .range(vertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
+      .range(isVertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
   }
 
   const x = (d: NumberValue[]) => {
-    const space = banded
+    const space = isBanded
       ? spacingScale(d[0]) + spacingScale.bandwidth() / 2
       : spacingScale(d[0])
-    return vertical ? dataScale(d[0]) : space
+    return isVertical ? dataScale(d[0]) : space
   }
   const y = (d: NumberValue[]) => {
-    const space = banded
+    const space = isBanded
       ? spacingScale(d[1]) + spacingScale.bandwidth() / 2
       : spacingScale(d[1])
-    return vertical ? space : dataScale(d[1])
+    return isVertical ? space : dataScale(d[1])
   }
 
   const meta: Meta[] = coordinates.map((d, i) => {

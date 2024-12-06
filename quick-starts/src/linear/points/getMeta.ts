@@ -3,11 +3,12 @@ import { Canvas } from '../../d3QuickStart'
 import { DrawArgs } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation, ScaleType } from '../../core/enums'
+import { Coordinate } from '../../core/types'
 
 export interface Meta {
   class: string
   id: string
-  pointData: number[]
+  pointData: Coordinate
   radiusMin: number
   radius: number
 }
@@ -94,7 +95,7 @@ export const getMeta = (
     return {
       class: 'point',
       id: `point${uuidv4()}`,
-      pointData: [x(d), y(d)],
+      pointData: { x: x(d), y: y(d) },
       radiusMin: 0,
       radius: radius,
     }

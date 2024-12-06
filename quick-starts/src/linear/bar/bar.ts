@@ -84,9 +84,6 @@ const draw = (
     const meta: Meta[] = getMeta(canvas, args, config)
     group.selectAll(`.${meta[0].class}`).data(meta).transition().duration(1000)
     if (orientation === Orientation.VERTICAL) {
-      console.log('----------------------------')
-      console.log('bar transition horizontal', data, orientation)
-      console.log('bar transition horizontal', meta)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)
@@ -95,9 +92,6 @@ const draw = (
         .attr('width', (d) => d.barData.width)
         .attr('x', (d) => d.barData.x)
     } else {
-      console.log('----------------------------')
-      console.log('bar transition vertical', data, orientation)
-      console.log('bar transition vertical', meta)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)

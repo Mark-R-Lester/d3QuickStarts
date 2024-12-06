@@ -4,6 +4,7 @@ import { LinearBarsFloatingTransition } from '../../components/atoms/chart/linea
 import { LinearBarsTransition } from '../../components/atoms/chart/linear/transitions/LinearBarsTransition'
 import { Orientation } from '../../common/enums'
 import { LinearLineTransition } from '../../components/atoms/chart/linear/transitions/LinearLineTransition'
+import { LinearPointsTransition } from '../../components/atoms/chart/linear/transitions/LinearPointsTransition'
 
 export default function LinearTransitionsPage() {
   const elements: JSX.Element[] = [
@@ -19,6 +20,10 @@ export default function LinearTransitionsPage() {
       targetId="verticalLineTransition"
       orientation={Orientation.VERTICAL}
     />,
+    <LinearPointsTransition
+      targetId="verticalPointsTransition"
+      orientation={Orientation.VERTICAL}
+    />,
     <LinearBarsTransition
       targetId="horizontalBarTransition"
       orientation={Orientation.HORIZONTAL}
@@ -30,6 +35,10 @@ export default function LinearTransitionsPage() {
 
     <LinearLineTransition
       targetId="horizontalLineTransition"
+      orientation={Orientation.HORIZONTAL}
+    />,
+    <LinearPointsTransition
+      targetId="horizontalPointsTransition"
       orientation={Orientation.HORIZONTAL}
     />,
   ]

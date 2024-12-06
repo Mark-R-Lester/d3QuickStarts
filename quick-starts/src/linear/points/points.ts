@@ -116,21 +116,32 @@ const draw = (
     .append('circle')
     .attr('class', (d) => d.class)
     .attr('id', (d) => d.id)
-    .attr('cy', (d) => d.pointData[1])
-    .attr('cx', (d) => d.pointData[0])
+    .attr('cy', (d) => d.pointData.y)
+    .attr('cx', (d) => d.pointData.x)
     .attr('r', (d) => d.radius)
-  return {
-    element: group.selectAll(`.${meta[0].class}`),
-    transition: (data: number[]) => {
-      const args: DrawArgs = { data, orientation, scaleType }
-      const meta: Meta[] = getMeta(canvas, args, radius)
+
+  const transition = (data: number[]) => {
+    const args: DrawArgs = { data, orientation, scaleType }
+    const meta: Meta[] = getMeta(canvas, args, radius)
+    if (orientation === Orientation.VERTICAL)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
         .duration(3000)
-        .attr('cy', (d) => d.pointData[1])
+        .attr('cx', (d) => d.pointData.x)
         .attr('r', (d) => d.radius)
-    },
+    else
+      group
+        .selectAll(`.${meta[0].class}`)
+        .data(meta)
+        .transition()
+        .duration(3000)
+        .attr('cy', (d) => d.pointData.y)
+        .attr('r', (d) => d.radius)
+  }
+  return {
+    element: group.selectAll(`.${meta[0].class}`),
+    transition: (data: number[]) => transition(data),
   }
 }

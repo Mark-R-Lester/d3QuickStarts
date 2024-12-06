@@ -29,12 +29,16 @@ interface LegendConfigStrict {
   angle: number
 }
 
-export interface LegendArgs {
-  data: string[][]
-  minimised: boolean
+export interface QsValuedColor {
+  value: string
+  color: string
 }
 
-interface LegendData {
+interface DrawArgs {
+  data: QsValuedColor[]
+}
+
+interface Meta {
   x: number
   y: number
   tx: number
@@ -43,11 +47,6 @@ interface LegendData {
   height: number
   colour: string
   value: string
-}
-
-interface LegendMeta {
-  dataMin: LegendData[]
-  data: LegendData[]
 }
 
 const updateConfig = (customConfig?: LegendConfig): LegendConfigStrict => {
@@ -73,11 +72,11 @@ const updateConfig = (customConfig?: LegendConfig): LegendConfigStrict => {
 
 const legend = (
   canvas: Canvas,
-  data: string[][],
+  data: QsValuedColor[],
   customConfig: LegendConfig
 ) => {
   const config: LegendConfigStrict = updateConfig(customConfig)
-  const args: LegendArgs = { data, minimised: false }
+  const args: DrawArgs = { data }
   return draw(canvas, args, config)
 }
 
@@ -85,9 +84,8 @@ export const legendGenerator = {
   legend,
 }
 
-const draw = (canvas: Canvas, args: LegendArgs, config: LegendConfigStrict) => {
-  const meta: LegendMeta[] = []
-  const { data, minimised } = args
+const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfigStrict) => {
+  const { data } = args
   const { displayAreaWidth, displayAreaHeight } = canvas.config
   const {
     size,
@@ -107,37 +105,32 @@ const draw = (canvas: Canvas, args: LegendArgs, config: LegendConfigStrict) => {
     .domain([0, 100])
     .range([0, displayAreaHeight])
 
-  meta.push({
-    dataMin: data.map((d, i) => {
+  const getMeta = (): Meta[] => {
+    const invertIndex = (array: any[], index: number) =>
+      data.length - (index + 1)
+
+    const meta: Meta[] = data.map((d, i) => {
       return {
         x: xScale(x),
-        y: yScale(y + size + space * i),
-        tx: xScale(x + size + space),
-        ty: yScale(y + size * 0.5 + space * i),
-        width: xScale(size),
-        height: xScale(size),
-        colour: d[0],
-        value: d[1],
-      }
-    }),
-    data: data.map((d, i) => {
-      return {
-        x: xScale(x),
-        y: yScale(y + size + space * i),
+        y: yScale(y + size + space * invertIndex(data, i)),
         tx: xScale(x + size * 1.3),
-        ty: yScale(y + space * i),
+        ty: yScale(y + space * invertIndex(data, i)),
         width: xScale(size),
         height: xScale(size),
-        colour: d[0],
-        value: d[1],
+        colour: d.color,
+        value: d.color,
       }
-    }),
-  })
+    })
+
+    return meta
+  }
+
+  const meta: Meta[] = getMeta()
 
   const group = canvas.displayGroup.append('g')
   group
     .selectAll('.legend')
-    .data(minimised ? meta[0].dataMin : meta[0].data)
+    .data(meta)
     .enter()
     .append('rect')
     .attr('class', 'legend')
@@ -149,7 +142,7 @@ const draw = (canvas: Canvas, args: LegendArgs, config: LegendConfigStrict) => {
 
   group
     .selectAll('text')
-    .data(minimised ? meta[0].dataMin : meta[0].data)
+    .data(meta)
     .enter()
     .append('text')
     .attr('font', font)
@@ -165,9 +158,6 @@ const draw = (canvas: Canvas, args: LegendArgs, config: LegendConfigStrict) => {
 
   return {
     element: group.selectAll('.element'),
-    group,
-    meta,
-    minimised: () => {},
-    maximised: () => {},
+    transition: () => {},
   }
 }

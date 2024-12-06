@@ -52,7 +52,7 @@ interface AxisConfigStrict {
   y: number
 }
 
-export interface DrawArgs {
+interface DrawArgs {
   data: string[] | number[]
   topOrRight: boolean
   scaleType: ScaleType

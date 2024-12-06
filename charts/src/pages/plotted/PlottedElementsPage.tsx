@@ -4,13 +4,15 @@ import { PlottedPointsElement } from '../../components/atoms/chart/plotted/eleme
 import { PlottedPointsEnhancedElement } from '../../components/atoms/chart/plotted/elements/PlottedPointsEnhancedElement'
 import { PlottedLineElement } from '../../components/atoms/chart/plotted/elements/PlottedLineElement'
 import { PlottedTextElement } from '../../components/atoms/chart/plotted/elements/PlottedTextElement'
+import { PlottedLegendElement } from '../../components/atoms/chart/plotted/elements/PlottedLegendElement'
 
 export default function PlottedElementsPage() {
   const elements: JSX.Element[] = [
     <PlottedLineElement targetId="plottedLine" />,
     <PlottedPointsElement targetId="plottedPoints" />,
     <PlottedPointsEnhancedElement targetId="PlottedPontsEnhanced" />,
-    <PlottedTextElement targetId="linearText" />,
+    <PlottedTextElement targetId="textElement" />,
+    <PlottedLegendElement targetId="legendElement" />,
   ]
 
   return (

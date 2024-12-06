@@ -2,6 +2,7 @@ import { Canvas } from '../../canvas/canvas'
 import { scaleLinear, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { QsValuedText } from './types'
+import { ScaleType } from '../../core/enums'
 
 export interface Meta {
   arcClass: string
@@ -27,7 +28,7 @@ export interface BandData {
 
 export interface QsRadialTextTransitionArgs {
   radius: number
-  banded: boolean
+  scaleType: ScaleType
 }
 
 export const getMeta = (
@@ -36,7 +37,7 @@ export const getMeta = (
   args: QsRadialTextTransitionArgs
 ): Meta => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
-  const { radius, banded } = args
+  const { radius, scaleType } = args
 
   const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
   const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
@@ -81,7 +82,8 @@ export const getMeta = (
   return {
     arcClass: 'arc',
     textClass: 'text',
-    textArcData: banded ? bandData(data) : pointData(data),
+    textArcData:
+      scaleType === ScaleType.BANDED ? bandData(data) : pointData(data),
     xAxis,
     yAxis,
   }

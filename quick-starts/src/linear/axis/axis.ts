@@ -10,6 +10,7 @@ import {
   Axis,
 } from 'd3-axis'
 import { toStrings } from '../../core/conversion'
+import { ScaleType } from '../../core/enums'
 
 export interface QsAxisConfig {
   [key: string]: number | boolean | string | undefined
@@ -54,7 +55,7 @@ interface AxisConfigStrict {
 export interface DrawArgs {
   data: string[] | number[]
   topOrRight: boolean
-  banded: boolean
+  scaleType: ScaleType
   isX: boolean
 }
 
@@ -88,7 +89,12 @@ const xAxisTop = (
   customConfig?: QsAxisConfig
 ): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, topOrRight: true, banded: false, isX: true }
+  const args: DrawArgs = {
+    data,
+    topOrRight: true,
+    scaleType: ScaleType.LINEAR,
+    isX: true,
+  }
   return draw(canvas, args, config)
 }
 
@@ -98,7 +104,12 @@ const xAxisBottom = (
   customConfig?: QsAxisConfig
 ): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, topOrRight: false, banded: false, isX: true }
+  const args: DrawArgs = {
+    data,
+    topOrRight: false,
+    scaleType: ScaleType.LINEAR,
+    isX: true,
+  }
   return draw(canvas, args, config)
 }
 
@@ -108,7 +119,12 @@ const xAxisBottomBanded = (
   customConfig?: QsAxisConfig
 ): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, topOrRight: false, banded: true, isX: true }
+  const args: DrawArgs = {
+    data,
+    topOrRight: false,
+    scaleType: ScaleType.BANDED,
+    isX: true,
+  }
   return draw(canvas, args, config)
 }
 
@@ -118,7 +134,12 @@ const xAxisTopBanded = (
   customConfig?: QsAxisConfig
 ): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, topOrRight: true, banded: true, isX: true }
+  const args: DrawArgs = {
+    data,
+    topOrRight: true,
+    scaleType: ScaleType.BANDED,
+    isX: true,
+  }
   return draw(canvas, args, config)
 }
 
@@ -128,7 +149,12 @@ const yAxisLeft = (
   customConfig?: QsAxisConfig
 ): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, topOrRight: false, banded: false, isX: false }
+  const args: DrawArgs = {
+    data,
+    topOrRight: false,
+    scaleType: ScaleType.LINEAR,
+    isX: false,
+  }
   return draw(canvas, args, config)
 }
 
@@ -138,7 +164,12 @@ const yAxisRight = (
   customConfig?: QsAxisConfig
 ): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, topOrRight: true, banded: false, isX: false }
+  const args: DrawArgs = {
+    data,
+    topOrRight: true,
+    scaleType: ScaleType.LINEAR,
+    isX: false,
+  }
   return draw(canvas, args, config)
 }
 
@@ -148,7 +179,12 @@ const yAxisLeftBanded = (
   customConfig?: QsAxisConfig
 ): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, topOrRight: false, banded: true, isX: false }
+  const args: DrawArgs = {
+    data,
+    topOrRight: false,
+    scaleType: ScaleType.BANDED,
+    isX: false,
+  }
   return draw(canvas, args, config)
 }
 
@@ -158,7 +194,12 @@ const yAxisRightBanded = (
   customConfig?: QsAxisConfig
 ): QsAxis => {
   const config: AxisConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, topOrRight: true, banded: true, isX: false }
+  const args: DrawArgs = {
+    data,
+    topOrRight: true,
+    scaleType: ScaleType.BANDED,
+    isX: false,
+  }
   return draw(canvas, args, config)
 }
 
@@ -201,7 +242,7 @@ const draw = (
     hideAxisDomain,
     alignmentBaseline,
   } = config
-  const { data, topOrRight, banded, isX } = args
+  const { data, topOrRight, scaleType, isX } = args
 
   let numbers: number[]
   let strings: string[]
@@ -232,7 +273,7 @@ const draw = (
   const range: Iterable<number> = isX
     ? [0, displayAreaWidth]
     : [displayAreaHeight, 0]
-  if (banded) {
+  if (scaleType === ScaleType.BANDED) {
     strings = toStrings(data)
     scale = scaleBand().domain(strings).range(range)
     const result = applyScaleToAxis(scale)

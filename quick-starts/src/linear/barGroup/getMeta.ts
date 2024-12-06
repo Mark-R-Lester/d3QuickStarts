@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
 import { findMax, findMaxSum } from '../../core/max'
 import { BarData, BarGroupConfigStrict } from './types'
+import { Grouping } from '../../core/enums'
 
 export interface Meta {
   groupId: string
@@ -23,7 +24,7 @@ export const getMeta = (
   canvas: Canvas,
   data: number[][],
   config: BarGroupConfigStrict,
-  grouped: boolean
+  grouping: Grouping
 ): Meta[] => {
   const {
     lowestViewableValue,
@@ -32,6 +33,8 @@ export const getMeta = (
     displayAreaHeight,
   } = canvas.config
   const { padding } = config
+  const isGrouped = grouping === Grouping.GROUPED
+
   const meta: Meta[] = []
 
   const colors = scaleOrdinal()
@@ -43,7 +46,7 @@ export const getMeta = (
       lowestViewableValue,
       highestViewableValue !== 0
         ? highestViewableValue
-        : grouped
+        : isGrouped
           ? findMax(data)
           : findMaxSum(data),
     ])
@@ -56,21 +59,21 @@ export const getMeta = (
     .paddingOuter(padding / 200)
 
   const y = (d: number[]): number =>
-    grouped ? yScale(d[1] - d[0]) : yScale(d[1])
+    isGrouped ? yScale(d[1] - d[0]) : yScale(d[1])
   const x = (outer: number, inner: string): number => {
     //TODO requires error handling
     const bandVal = xBandScale(inner)
     if (bandVal)
-      return grouped
+      return isGrouped
         ? bandVal + (xBandScale.bandwidth() / data[0].length) * outer
         : bandVal
     return 0
   }
 
   const height = (d: number[]) =>
-    grouped ? yScale(0) - yScale(d[1] - d[0]) : yScale(d[0]) - yScale(d[1])
+    isGrouped ? yScale(0) - yScale(d[1] - d[0]) : yScale(d[0]) - yScale(d[1])
   const width = () =>
-    grouped ? xBandScale.bandwidth() / data[0].length : xBandScale.bandwidth()
+    isGrouped ? xBandScale.bandwidth() / data[0].length : xBandScale.bandwidth()
 
   const getColor = (
     i: number,

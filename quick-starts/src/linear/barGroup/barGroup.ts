@@ -2,6 +2,7 @@ import { schemePurples, Selection } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { BarData, BarGroupConfigStrict } from './types'
 import { getMeta } from './getMeta'
+import { Grouping } from '../../core/enums'
 
 export interface QsBarGroupsConfig {
   [key: string]: number | Iterable<String> | undefined
@@ -18,7 +19,7 @@ export interface QsBarGroups {
 
 interface DrawArgs {
   data: number[][]
-  grouped: boolean
+  grouping: Grouping
 }
 
 interface Meta {
@@ -48,7 +49,7 @@ const grouped = (
   customConfig?: QsBarGroupsConfig
 ): QsBarGroups => {
   const config: BarGroupConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, grouped: true }
+  const args: DrawArgs = { data, grouping: Grouping.GROUPED }
   return draw(canvas, args, config)
 }
 
@@ -58,7 +59,7 @@ const stacked = (
   customConfig?: QsBarGroupsConfig
 ): QsBarGroups => {
   const config: BarGroupConfigStrict = updateConfig(customConfig)
-  const args: DrawArgs = { data, grouped: false }
+  const args: DrawArgs = { data, grouping: Grouping.STACKED }
   return draw(canvas, args, config)
 }
 
@@ -72,9 +73,9 @@ const draw = (
   args: DrawArgs,
   config: BarGroupConfigStrict
 ): QsBarGroups => {
-  const { data, grouped } = args
+  const { data, grouping } = args
 
-  const meta: Meta[] = getMeta(canvas, data, config, grouped)
+  const meta: Meta[] = getMeta(canvas, data, config, grouping)
 
   const group = canvas.displayGroup.append('g')
   const barGroups = group
@@ -100,7 +101,7 @@ const draw = (
   return {
     element: barGroups.selectAll('.bar'),
     transition: (data: number[][]) => {
-      const meta: Meta[] = getMeta(canvas, data, config, true)
+      const meta: Meta[] = getMeta(canvas, data, config, grouping)
       const bars = canvas.displayGroup.selectAll('.bargroup').data(meta)
       bars
         .selectAll('.bar')

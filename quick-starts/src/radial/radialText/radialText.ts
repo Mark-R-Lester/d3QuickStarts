@@ -2,6 +2,7 @@ import { Canvas } from '../../canvas/canvas'
 import { arc as d3arc, Selection } from 'd3'
 import { QsValuedText } from './types'
 import { Meta, getMeta, QsRadialTextTransitionArgs } from './getMeta'
+import { ScaleType } from '../../core/enums'
 
 export { QsValuedText } from './types'
 
@@ -33,7 +34,7 @@ interface RadialTextConfigStrict {
 
 interface DrawArgs {
   data: QsValuedText[]
-  banded: boolean
+  scaleType: ScaleType
   type: string
 }
 
@@ -62,7 +63,7 @@ const spoke = (
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
-    banded: false,
+    scaleType: ScaleType.LINEAR,
     type: 'spoke',
   }
   return draw(canvas, args, config)
@@ -76,7 +77,7 @@ const horizontal = (
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
-    banded: false,
+    scaleType: ScaleType.LINEAR,
     type: 'horizontal',
   }
   return draw(canvas, args, config)
@@ -90,7 +91,7 @@ const rotated = (
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
-    banded: false,
+    scaleType: ScaleType.LINEAR,
     type: 'rotated',
   }
   return draw(canvas, args, config)
@@ -104,7 +105,7 @@ const follow = (
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
-    banded: false,
+    scaleType: ScaleType.LINEAR,
     type: 'follow',
   }
   return draw(canvas, args, config)
@@ -118,7 +119,7 @@ const spokeBanded = (
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
-    banded: true,
+    scaleType: ScaleType.BANDED,
     type: 'spoke',
   }
   return draw(canvas, args, config)
@@ -132,7 +133,7 @@ const horizontalBanded = (
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
-    banded: true,
+    scaleType: ScaleType.BANDED,
     type: 'horizontal',
   }
   return draw(canvas, args, config)
@@ -146,7 +147,7 @@ const rotatedBanded = (
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
-    banded: true,
+    scaleType: ScaleType.BANDED,
     type: 'rotated',
   }
   return draw(canvas, args, config)
@@ -160,7 +161,7 @@ const followBanded = (
   const config: RadialTextConfigStrict = updateConfig(customConfig)
   const args: DrawArgs = {
     data,
-    banded: true,
+    scaleType: ScaleType.BANDED,
     type: 'follow',
   }
   return draw(canvas, args, config)
@@ -182,7 +183,7 @@ const draw = (
   args: DrawArgs,
   config: RadialTextConfigStrict
 ): QsRadialText => {
-  const { data, banded, type } = args
+  const { data, scaleType, type } = args
   const { radius, fontSize, x, y } = config
 
   let rotate: (angles: { startAngle: number; endAngle: number }) => number
@@ -207,7 +208,7 @@ const draw = (
       return (angle = angle * (180 / Math.PI))
     }
   }
-  const transitionArgs: QsRadialTextTransitionArgs = { radius, banded }
+  const transitionArgs: QsRadialTextTransitionArgs = { radius, scaleType }
   const meta: Meta = getMeta(canvas, data, transitionArgs)
   const arc: any = d3arc()
   const group = canvas.displayGroup.append('g')

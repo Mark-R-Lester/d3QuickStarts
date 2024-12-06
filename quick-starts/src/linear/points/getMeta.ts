@@ -34,12 +34,12 @@ export const getMeta = (
     displayAreaWidth / data.length
   )
 
-  const getCoordinates = (data: number[]): number[][] =>
+  const getCoordinates = (data: number[]): Coordinate[] =>
     data.map((d, i) =>
-      isVertical ? [d, pointSpacing[i]] : [pointSpacing[i], d]
+      isVertical ? { x: d, y: pointSpacing[i] } : { x: pointSpacing[i], y: d }
     )
 
-  const coordinates: number[][] = getCoordinates(data)
+  const coordinates: Coordinate[] = getCoordinates(data)
 
   const dataScale = scaleLinear()
     .domain(
@@ -48,13 +48,13 @@ export const getMeta = (
             lowestViewableValue,
             highestViewableValue !== 0
               ? highestViewableValue
-              : Math.max(...coordinates.map((d) => +d[0])),
+              : Math.max(...coordinates.map((d) => +d.x)),
           ]
         : [
             lowestViewableValue,
             highestViewableValue !== 0
               ? highestViewableValue
-              : Math.max(...coordinates.map((d) => +d[1])),
+              : Math.max(...coordinates.map((d) => +d.y)),
           ]
     )
     .range(isVertical ? [0, displayAreaWidth] : [displayAreaHeight, 0])
@@ -64,31 +64,31 @@ export const getMeta = (
     spacingScale = scaleBand()
       .domain(
         isVertical
-          ? coordinates.map((d) => d[1].toString())
-          : coordinates.map((d) => d[0].toString())
+          ? coordinates.map((d) => d.y.toString())
+          : coordinates.map((d) => d.x.toString())
       )
       .range(isVertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
   } else {
     spacingScale = scaleLinear()
       .domain(
         isVertical
-          ? [0, Math.max(...coordinates.map((d) => d[1]))]
-          : [0, Math.max(...coordinates.map((d) => d[0]))]
+          ? [0, Math.max(...coordinates.map((d) => d.y))]
+          : [0, Math.max(...coordinates.map((d) => d.x))]
       )
       .range(isVertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
   }
 
-  const x = (d: NumberValue[]) => {
+  const x = (d: Coordinate) => {
     const space = isBanded
-      ? spacingScale(d[0]) + spacingScale.bandwidth() / 2
-      : spacingScale(d[0])
-    return isVertical ? dataScale(d[0]) : space
+      ? spacingScale(d.x) + spacingScale.bandwidth() / 2
+      : spacingScale(d.x)
+    return isVertical ? dataScale(d.x) : space
   }
-  const y = (d: NumberValue[]) => {
+  const y = (d: Coordinate) => {
     const space = isBanded
-      ? spacingScale(d[1]) + spacingScale.bandwidth() / 2
-      : spacingScale(d[1])
-    return isVertical ? space : dataScale(d[1])
+      ? spacingScale(d.y) + spacingScale.bandwidth() / 2
+      : spacingScale(d.y)
+    return isVertical ? space : dataScale(d.y)
   }
 
   const meta: Meta[] = coordinates.map((d, i) => {

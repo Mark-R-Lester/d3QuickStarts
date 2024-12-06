@@ -35,7 +35,7 @@ interface DrawArgs {
   dataInner?: number[]
 }
 
-const updateConfig = (
+const addDefaultsToConfig = (
   customConfig?: QsRadialAreaConfig
 ): RadialAreaConfigStrict => {
   const defaults: RadialAreaConfigStrict = {
@@ -57,7 +57,7 @@ const area = (
   data: QsRadialAreaArgs,
   customConfig?: QsRadialAreaConfig
 ): QsRadialArea => {
-  const config: RadialAreaConfigStrict = updateConfig(customConfig)
+  const config: RadialAreaConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     dataOuter: data.dataOuter,
     dataInner: data.dataInner,

@@ -59,7 +59,7 @@ interface DrawArgs {
   isX: boolean
 }
 
-const updateConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
+const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
   const defaults: AxisConfigStrict = {
     alignmentBaseline: '',
     tickSize: 6,
@@ -88,7 +88,7 @@ const xAxisTop = (
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
-  const config: AxisConfigStrict = updateConfig(customConfig)
+  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     topOrRight: true,
@@ -103,7 +103,7 @@ const xAxisBottom = (
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
-  const config: AxisConfigStrict = updateConfig(customConfig)
+  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     topOrRight: false,
@@ -118,7 +118,7 @@ const xAxisBottomBanded = (
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
-  const config: AxisConfigStrict = updateConfig(customConfig)
+  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     topOrRight: false,
@@ -133,7 +133,7 @@ const xAxisTopBanded = (
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
-  const config: AxisConfigStrict = updateConfig(customConfig)
+  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     topOrRight: true,
@@ -148,7 +148,7 @@ const yAxisLeft = (
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
-  const config: AxisConfigStrict = updateConfig(customConfig)
+  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     topOrRight: false,
@@ -163,7 +163,7 @@ const yAxisRight = (
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
-  const config: AxisConfigStrict = updateConfig(customConfig)
+  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     topOrRight: true,
@@ -178,7 +178,7 @@ const yAxisLeftBanded = (
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
-  const config: AxisConfigStrict = updateConfig(customConfig)
+  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     topOrRight: false,
@@ -193,7 +193,7 @@ const yAxisRightBanded = (
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
-  const config: AxisConfigStrict = updateConfig(customConfig)
+  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     topOrRight: true,

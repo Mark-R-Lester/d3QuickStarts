@@ -18,7 +18,7 @@ export interface QsBars {
   transition: (data: number[]) => void
 }
 
-const updateConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
+const addDefaultsToConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
   const defaults: QsBarConfigStrict = {
     padding: 8,
     colorDomain: range(4),
@@ -37,7 +37,7 @@ const vertical = (
   customConfig?: QsBarConfig
 ): QsBars => {
   const args: DrawArgs = { data, orientation: Orientation.VERTICAL }
-  const config: QsBarConfigStrict = updateConfig(customConfig)
+  const config: QsBarConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 
@@ -47,7 +47,7 @@ const horizontal = (
   customConfig?: QsBarConfig
 ): QsBars => {
   const args: DrawArgs = { data, orientation: Orientation.HORIZONTAL }
-  const config: QsBarConfigStrict = updateConfig(customConfig)
+  const config: QsBarConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 

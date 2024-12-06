@@ -34,7 +34,7 @@ interface DrawArgs {
   data: number
 }
 
-const updateConfig = (
+const addDefaultsToConfig = (
   customConfig?: QsRadialSpokesConfig
 ): RadialSpokesConfigStrict => {
   const defaults: RadialSpokesConfigStrict = {
@@ -58,7 +58,7 @@ const spokes = (
   data: number,
   customConfig?: QsRadialSpokesConfig
 ): QsRadialSpokes => {
-  const config: RadialSpokesConfigStrict = updateConfig(customConfig)
+  const config: RadialSpokesConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = { data }
   return draw(canvas, args, config)
 }
@@ -68,7 +68,7 @@ const spokesMinimised = (
   data: number,
   customConfig?: QsRadialSpokesConfig
 ): QsRadialSpokes => {
-  const config: RadialSpokesConfigStrict = updateConfig(customConfig)
+  const config: RadialSpokesConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = { data }
   return draw(canvas, args, config)
 }

@@ -47,7 +47,9 @@ interface DrawArgs {
   pie: boolean
 }
 
-const updateConfig = (customConfig?: RadialConfig): RadialConfigStrict => {
+const addDefaultsToConfig = (
+  customConfig?: RadialConfig
+): RadialConfigStrict => {
   const defaults: RadialConfigStrict = {
     outerRadius: 100,
     innerRadius: 50,
@@ -72,7 +74,7 @@ const pie = (
   customConfig?: RadialConfig
 ): QsRadial => {
   const args: DrawArgs = { data, pie: true }
-  const config: RadialConfigStrict = updateConfig(customConfig)
+  const config: RadialConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 
@@ -82,7 +84,7 @@ const doughnut = (
   customConfig?: RadialConfig
 ): QsRadial => {
   const args: DrawArgs = { data, pie: false }
-  const config: RadialConfigStrict = updateConfig(customConfig)
+  const config: RadialConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 

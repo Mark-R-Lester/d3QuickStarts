@@ -21,7 +21,9 @@ interface PointsConfigStrict {
   radius: number
 }
 
-const updateConfig = (customConfig?: QsPointsConfig): PointsConfigStrict => {
+const addDefaultsToConfig = (
+  customConfig?: QsPointsConfig
+): PointsConfigStrict => {
   const defaults: PointsConfigStrict = {
     radius: 3,
   }
@@ -43,7 +45,7 @@ const horizontal = (
     orientation: Orientation.HORIZONTAL,
     scaleType: ScaleType.LINEAR,
   }
-  const config: PointsConfigStrict = updateConfig(customConfig)
+  const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 
@@ -57,7 +59,7 @@ const vertical = (
     orientation: Orientation.VERTICAL,
     scaleType: ScaleType.LINEAR,
   }
-  const config: PointsConfigStrict = updateConfig(customConfig)
+  const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 
@@ -71,7 +73,7 @@ const horizontalBanded = (
     orientation: Orientation.HORIZONTAL,
     scaleType: ScaleType.BANDED,
   }
-  const config: PointsConfigStrict = updateConfig(customConfig)
+  const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 
@@ -85,7 +87,7 @@ const verticalBanded = (
     orientation: Orientation.VERTICAL,
     scaleType: ScaleType.BANDED,
   }
-  const config: PointsConfigStrict = updateConfig(customConfig)
+  const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 

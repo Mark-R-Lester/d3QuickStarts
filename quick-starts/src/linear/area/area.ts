@@ -33,7 +33,7 @@ interface DrawArgs {
   data: AreaData
 }
 
-const updateConfig = (customConfig?: QsAreaConfig): AreaConfigStrict => {
+const addDefaultsToConfig = (customConfig?: QsAreaConfig): AreaConfigStrict => {
   const defaults: AreaConfigStrict = {
     curve: curveLinear,
     color: 'red',
@@ -54,7 +54,7 @@ const horizontal = (
   const args: DrawArgs = {
     data: { lowerData: data.lowerData, higherData: data.higherData },
   }
-  const config: AreaConfigStrict = updateConfig(customConfig)
+  const config: AreaConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 

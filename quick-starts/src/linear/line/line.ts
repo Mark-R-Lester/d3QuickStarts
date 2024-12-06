@@ -21,7 +21,7 @@ interface LineConfigStrict {
   curve: CurveFactory
 }
 
-const updateConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
+const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
   const defauls: LineConfigStrict = {
     curve: curveLinear,
   }
@@ -42,7 +42,7 @@ const horizontal = (
     orientation: Orientation.HORIZONTAL,
     scaleType: ScaleType.LINEAR,
   }
-  const config: LineConfigStrict = updateConfig(customConfig)
+  const config: LineConfigStrict = addDefaultsToConfig(customConfig)
   return drawLine(canvas, args, config)
 }
 
@@ -56,7 +56,7 @@ const vertical = (
     orientation: Orientation.VERTICAL,
     scaleType: ScaleType.LINEAR,
   }
-  const config: LineConfigStrict = updateConfig(customConfig)
+  const config: LineConfigStrict = addDefaultsToConfig(customConfig)
   return drawLine(canvas, args, config)
 }
 
@@ -70,7 +70,7 @@ const horizontalBanded = (
     orientation: Orientation.HORIZONTAL,
     scaleType: ScaleType.BANDED,
   }
-  const config: LineConfigStrict = updateConfig(customConfig)
+  const config: LineConfigStrict = addDefaultsToConfig(customConfig)
   return drawLine(canvas, args, config)
 }
 
@@ -84,7 +84,7 @@ const verticalBanded = (
     orientation: Orientation.VERTICAL,
     scaleType: ScaleType.BANDED,
   }
-  const config: LineConfigStrict = updateConfig(customConfig)
+  const config: LineConfigStrict = addDefaultsToConfig(customConfig)
   return drawLine(canvas, args, config)
 }
 

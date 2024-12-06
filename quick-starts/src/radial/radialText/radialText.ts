@@ -38,7 +38,7 @@ interface DrawArgs {
   type: string
 }
 
-const updateConfig = (
+const addDefaultsToConfig = (
   customConfig?: QsRadialTextConfig
 ): RadialTextConfigStrict => {
   const defaults: RadialTextConfigStrict = {
@@ -60,7 +60,7 @@ const spoke = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.LINEAR,
@@ -74,7 +74,7 @@ const horizontal = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.LINEAR,
@@ -88,7 +88,7 @@ const rotated = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.LINEAR,
@@ -102,7 +102,7 @@ const follow = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.LINEAR,
@@ -116,7 +116,7 @@ const spokeBanded = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.BANDED,
@@ -130,7 +130,7 @@ const horizontalBanded = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.BANDED,
@@ -144,7 +144,7 @@ const rotatedBanded = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.BANDED,
@@ -158,7 +158,7 @@ const followBanded = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = updateConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.BANDED,

@@ -23,7 +23,7 @@ interface DrawArgs {
 
 const configuration: ScatterPlotConfigStrict = {}
 
-const updateConfig = (
+const addDefaultsToConfig = (
   defaults: ScatterPlotConfigStrict,
   customConfig?: QsScatterPlotConfig
 ): ScatterPlotConfigStrict => {

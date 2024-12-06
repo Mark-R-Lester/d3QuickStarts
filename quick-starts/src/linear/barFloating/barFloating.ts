@@ -19,7 +19,7 @@ export interface QsBarsFloating {
   transition: (data: number[][]) => void
 }
 
-const updateConfig = (
+const addDefaultsToConfig = (
   customConfig?: QsBarFloatingConfig
 ): QsBarFloatingConfigStrict => {
   const defauls: QsBarFloatingConfigStrict = {
@@ -38,7 +38,7 @@ const horizontal = (
   customConfig?: QsBarFloatingConfig
 ): QsBarsFloating => {
   const args: DrawArgs = { data, orientation: Orientation.HORIZONTAL }
-  const config: QsBarFloatingConfigStrict = updateConfig(customConfig)
+  const config: QsBarFloatingConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 
@@ -48,7 +48,7 @@ const vertical = (
   customConfig?: QsBarFloatingConfig
 ): QsBarsFloating => {
   const args: DrawArgs = { data, orientation: Orientation.VERTICAL }
-  const config: QsBarFloatingConfigStrict = updateConfig(customConfig)
+  const config: QsBarFloatingConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 

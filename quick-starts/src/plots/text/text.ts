@@ -39,7 +39,7 @@ interface DrawArgs {
   data: TextArgs[]
 }
 
-const updateConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
+const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
   const defaults: TextConfigStrict = {
     font: 'sans-serif',
     fontSize: 4,
@@ -63,7 +63,7 @@ const text = (
   customConfig: QsTextConfig
 ): QsText => {
   const args: DrawArgs = { data }
-  const config: TextConfigStrict = updateConfig(customConfig)
+  const config: TextConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 

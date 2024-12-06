@@ -28,7 +28,7 @@ interface DrawArgs {
   data: number[]
 }
 
-const updateConfig = (
+const addDefaultsToConfig = (
   customConfig?: QsRadialPointsConfig
 ): RadialPointsConfigStrict => {
   const defaults: RadialPointsConfigStrict = {
@@ -49,7 +49,7 @@ const points = (
   data: number[],
   customConfig?: QsRadialPointsConfig
 ): QsRadialPoints => {
-  const config: RadialPointsConfigStrict = updateConfig(customConfig)
+  const config: RadialPointsConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = { data }
   return draw(canvas, args, config)
 }

@@ -28,7 +28,7 @@ interface Meta {
   barData: BarData[]
 }
 
-const updateConfig = (
+const addDefaultsToConfig = (
   customConfig?: QsBarGroupsConfig
 ): BarGroupConfigStrict => {
   const defaults: BarGroupConfigStrict = {
@@ -48,7 +48,7 @@ const grouped = (
   data: number[][],
   customConfig?: QsBarGroupsConfig
 ): QsBarGroups => {
-  const config: BarGroupConfigStrict = updateConfig(customConfig)
+  const config: BarGroupConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = { data, grouping: Grouping.GROUPED }
   return draw(canvas, args, config)
 }
@@ -58,7 +58,7 @@ const stacked = (
   data: number[][],
   customConfig?: QsBarGroupsConfig
 ): QsBarGroups => {
-  const config: BarGroupConfigStrict = updateConfig(customConfig)
+  const config: BarGroupConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = { data, grouping: Grouping.STACKED }
   return draw(canvas, args, config)
 }

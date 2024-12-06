@@ -29,7 +29,7 @@ interface DrawArgs {
   data: Coordinate[]
 }
 
-const updateConfig = (
+const addDefaultsToConfig = (
   customConfig?: QsLinePlotConfig
 ): LinePlotConfigStrict => {
   const defaults: LinePlotConfigStrict = {
@@ -48,7 +48,7 @@ const line = (
   data: Coordinate[],
   customConfig?: QsLinePlotConfig
 ): QsLinePlot => {
-  const config: LinePlotConfigStrict = updateConfig(customConfig)
+  const config: LinePlotConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = { data }
   return draw(canvas, args, config)
 }

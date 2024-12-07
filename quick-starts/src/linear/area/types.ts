@@ -1,4 +1,4 @@
-export interface AreaData {
+export interface QsAreaData {
   lowerData?: number[]
   higherData: number[]
 }

@@ -89,11 +89,15 @@ export const getMeta = (
   )(data as Iterable<{ [key: string]: number }>)
 
   stackedData.forEach((d, outer) => {
-    const barIds = d.map(() => `bar${uuidv4()}`)
+    // const barIds = d.map(() => `bar${uuidv4()}`)
+    const barIds = d.map(
+      () =>
+        `${grouping === Grouping.GROUPED ? `barGrouped${uuidv4()}` : `barStacked${uuidv4()}`}`
+    )
     const data: BarData[] = d.map((d, inner): BarData => {
       return {
         id: barIds[inner],
-        class: 'bar',
+        class: `${grouping === Grouping.GROUPED ? 'barGrouped' : 'barStacked'}`,
         x: x(outer, inner.toString()),
         y: y(d),
         height: height(d),
@@ -103,7 +107,7 @@ export const getMeta = (
     })
     meta.push({
       groupId: `group${outer}`,
-      groupClass: 'bargroup',
+      groupClass: `${grouping === Grouping.GROUPED ? 'barGroup' : 'barStack'}`,
       barData: data,
     })
   })

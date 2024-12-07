@@ -3,6 +3,8 @@ import { Canvas } from '../canvas/canvas'
 import { Meta, getMeta } from './getMeta'
 import { LegendConfigStrict, QsValuedColor } from './types'
 
+export { QsValuedColor } from './types'
+
 export interface LegendConfig {
   [key: string]: number | string | undefined
   size?: number

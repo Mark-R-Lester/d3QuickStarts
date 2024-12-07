@@ -1,7 +1,7 @@
 import { schemePurples, Selection } from 'd3'
 import { Canvas } from '../../d3QuickStart'
-import { BarData, BarGroupConfigStrict } from './types'
-import { getMeta } from './getMeta'
+import { BarGroupConfigStrict } from './types'
+import { Meta, getMeta } from './getMeta'
 import { Grouping } from '../../core/enums'
 
 export interface QsBarGroupsConfig {
@@ -20,12 +20,6 @@ export interface QsBarGroups {
 interface DrawArgs {
   data: number[][]
   grouping: Grouping
-}
-
-interface Meta {
-  groupId: string
-  groupClass: string
-  barData: BarData[]
 }
 
 const addDefaultsToConfig = (
@@ -79,7 +73,7 @@ const draw = (
 
   const group = canvas.displayGroup.append('g')
   const barGroups = group
-    .selectAll('.bargroup')
+    .selectAll(`${grouping === Grouping.GROUPED ? '.barGroup' : '.barStack'}`)
     .data(meta)
     .enter()
     .append('g')
@@ -99,12 +93,22 @@ const draw = (
     .attr('width', (d) => d.width)
 
   return {
-    element: barGroups.selectAll('.bar'),
+    element: barGroups.selectAll(
+      `${grouping === Grouping.GROUPED ? '.barGrouped' : '.barStacked'}`
+    ),
     transition: (data: number[][]) => {
+      console.log('trans', grouping)
+      console.log('trans')
       const meta: Meta[] = getMeta(canvas, data, config, grouping)
-      const bars = canvas.displayGroup.selectAll('.bargroup').data(meta)
+      const bars = canvas.displayGroup
+        .selectAll(
+          `${grouping === Grouping.GROUPED ? '.barGroup' : '.barStack'}`
+        )
+        .data(meta)
       bars
-        .selectAll('.bar')
+        .selectAll(
+          `${grouping === Grouping.GROUPED ? '.barGrouped' : '.barStacked'}`
+        )
         .data((d) => d.barData)
         .attr('x', (d) => d.x)
         .attr('width', (d) => d.width)

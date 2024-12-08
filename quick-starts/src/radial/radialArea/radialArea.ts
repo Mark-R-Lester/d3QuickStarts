@@ -4,35 +4,36 @@ import { RadialAreaData } from './types'
 import { Meta, getMeta } from './getMeta'
 
 export interface QsRadialAreaConfig {
-  [key: string]: CurveFactory | number | undefined
+  [key: string]: CurveFactory | number | undefined | string
   curve?: CurveFactory
   x?: number
   y?: number
+  color?: string
 }
 
 export interface QsRadialArea {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsRadialAreaArgs) => void
+  transition: (data: QsRadialAreaData) => void
 }
 
-export interface QsRadialAreaArgs {
+export interface QsRadialAreaData {
   [key: string]: number[] | undefined
-  dataOuter: number[]
-  dataInner?: number[]
+  outerData: number[]
+  innerData?: number[]
 }
 
 interface RadialAreaConfigStrict {
-  [key: string]: CurveFactory | number | undefined
+  [key: string]: CurveFactory | number | undefined | string
   curve: CurveFactory
   x: number
   y: number
+  color: string
 }
 
 interface DrawArgs {
-  dataOuter: number[]
-  dataInner?: number[]
+  data: QsRadialAreaData
 }
 
 const addDefaultsToConfig = (
@@ -42,6 +43,7 @@ const addDefaultsToConfig = (
     curve: curveLinear,
     x: 50,
     y: 50,
+    color: 'steelblue',
   }
 
   if (!customConfig) return defaults
@@ -54,13 +56,12 @@ const addDefaultsToConfig = (
 
 const area = (
   canvas: Canvas,
-  data: QsRadialAreaArgs,
+  data: QsRadialAreaData,
   customConfig?: QsRadialAreaConfig
 ): QsRadialArea => {
   const config: RadialAreaConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
-    dataOuter: data.dataOuter,
-    dataInner: data.dataInner,
+    data,
   }
   return draw(canvas, args, config)
 }
@@ -74,8 +75,8 @@ const draw = (
   args: DrawArgs,
   config: RadialAreaConfigStrict
 ): QsRadialArea => {
-  const { dataOuter, dataInner } = args
-  const { x, y, curve } = config
+  const { outerData: dataOuter, innerData: dataInner } = args.data
+  const { x, y, curve, color } = config
   const meta: Meta = getMeta(canvas, dataOuter, dataInner)
 
   const radialArea = areaRadial<RadialAreaData>()
@@ -90,12 +91,12 @@ const draw = (
     .attr('class', meta.class)
     .attr('id', meta.id)
     .attr('d', radialArea(meta.areaData))
-    .attr('fill', 'red')
+    .attr('fill', color)
     .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
   return {
     element: group.selectAll('path'),
-    transition: (args: QsRadialAreaArgs) => {
-      const { dataInner, dataOuter } = args
+    transition: (data: QsRadialAreaData) => {
+      const { innerData: dataInner, outerData: dataOuter } = data
       const meta = getMeta(canvas, dataOuter, dataInner)
       group
         .selectAll(`.${meta.class}`)

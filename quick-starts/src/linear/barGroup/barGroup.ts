@@ -97,8 +97,6 @@ const draw = (
       `${grouping === Grouping.GROUPED ? '.barGrouped' : '.barStacked'}`
     ),
     transition: (data: number[][]) => {
-      console.log('trans', grouping)
-      console.log('trans')
       const meta: Meta[] = getMeta(canvas, data, config, grouping)
       const bars = canvas.displayGroup
         .selectAll(

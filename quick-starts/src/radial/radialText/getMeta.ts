@@ -1,7 +1,7 @@
 import { Canvas } from '../../canvas/canvas'
 import { scaleLinear, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { QsValuedText } from './types'
+import { QsValuedText, RadialTextConfigStrict } from './types'
 import { ScaleType } from '../../core/enums'
 
 export interface Meta {
@@ -26,34 +26,46 @@ export interface BandData {
   innerRadius: number
 }
 
-export interface QsRadialTextTransitionArgs {
-  radius: number
-  scaleType: ScaleType
+export const updateMeta = (
+  canvas: Canvas,
+  data: QsValuedText[],
+  config: RadialTextConfigStrict,
+  scaleType: ScaleType,
+  meta: Meta
+): Meta => {
+  const newMeta: Meta = getMeta(canvas, data, config, scaleType)
+
+  for (let i = 0; i < meta.textArcData.length; i++) {
+    newMeta.textArcData[i].arcId = meta.textArcData[i].arcId
+    newMeta.textArcData[i].textId = meta.textArcData[i].textId
+  }
+  return newMeta
 }
 
 export const getMeta = (
   canvas: Canvas,
   data: QsValuedText[],
-  args: QsRadialTextTransitionArgs
+  config: RadialTextConfigStrict,
+  scaleType: ScaleType
 ): Meta => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
-  const { radius, scaleType } = args
+  const { radius } = config
 
   const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
   const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
 
   const bandData = (data: QsValuedText[], min?: boolean): BandData[] => {
-    let shares = 0
+    let totalValue = 0
     data.forEach((d) => {
-      shares = shares + d.value
+      totalValue = totalValue + d.value
     })
-    const angle = (Math.PI * 2) / shares
+    const radiansDividedByTotalValue = (Math.PI * 2) / totalValue
     let startAngle = 0
     return data.map((d, i) => {
       const data = d
       const index = i
       const value = d.text ? d.text : d.value
-      const endAngle = startAngle + angle * d.value
+      const endAngle = startAngle + radiansDividedByTotalValue * d.value
       const res = {
         textId: `text${uuidv4()}`,
         textClass: `text`,

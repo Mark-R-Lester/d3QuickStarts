@@ -1,8 +1,8 @@
 import { Canvas } from '../../canvas/canvas'
-import { arc as d3arc, Selection } from 'd3'
-import { QsValuedText } from './types'
-import { Meta, getMeta, QsRadialTextTransitionArgs } from './getMeta'
-import { ScaleType } from '../../core/enums'
+import { arc as d3arc, interpolate, Selection } from 'd3'
+import { QsValuedText, RadialTextConfigStrict } from './types'
+import { BandData, Meta, getMeta, updateMeta } from './getMeta'
+import { RadialTextType, ScaleType } from '../../core/enums'
 
 export { QsValuedText } from './types'
 
@@ -21,21 +21,13 @@ export interface QsRadialText {
   elementArcs:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsValuedText[], args: QsRadialTextTransitionArgs) => void
-}
-
-interface RadialTextConfigStrict {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
-  radius: number
-  fontSize: number
-  x: number
-  y: number
+  transition: (data: QsValuedText[], config?: QsRadialTextConfig) => void
 }
 
 interface DrawArgs {
   data: QsValuedText[]
   scaleType: ScaleType
-  type: string
+  type: RadialTextType
 }
 
 const addDefaultsToConfig = (
@@ -55,6 +47,16 @@ const addDefaultsToConfig = (
   return defaults
 }
 
+const updateCurrentConfig = (
+  currentConfig: RadialTextConfigStrict,
+  newConfig?: QsRadialTextConfig
+): RadialTextConfigStrict => {
+  if (!newConfig) return currentConfig
+
+  Object.keys(newConfig).forEach((key) => (currentConfig[key] = newConfig[key]))
+  return currentConfig
+}
+
 const spoke = (
   canvas: Canvas,
   data: QsValuedText[],
@@ -64,7 +66,7 @@ const spoke = (
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.LINEAR,
-    type: 'spoke',
+    type: RadialTextType.SPOKE,
   }
   return draw(canvas, args, config)
 }
@@ -78,7 +80,7 @@ const horizontal = (
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.LINEAR,
-    type: 'horizontal',
+    type: RadialTextType.HORIZONTAL,
   }
   return draw(canvas, args, config)
 }
@@ -92,7 +94,7 @@ const rotated = (
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.LINEAR,
-    type: 'rotated',
+    type: RadialTextType.ROTATED,
   }
   return draw(canvas, args, config)
 }
@@ -106,7 +108,7 @@ const follow = (
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.LINEAR,
-    type: 'follow',
+    type: RadialTextType.FOLLOW,
   }
   return draw(canvas, args, config)
 }
@@ -120,7 +122,7 @@ const spokeBanded = (
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.BANDED,
-    type: 'spoke',
+    type: RadialTextType.SPOKE,
   }
   return draw(canvas, args, config)
 }
@@ -134,7 +136,7 @@ const horizontalBanded = (
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.BANDED,
-    type: 'horizontal',
+    type: RadialTextType.HORIZONTAL,
   }
   return draw(canvas, args, config)
 }
@@ -148,7 +150,7 @@ const rotatedBanded = (
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.BANDED,
-    type: 'rotated',
+    type: RadialTextType.ROTATED,
   }
   return draw(canvas, args, config)
 }
@@ -162,7 +164,7 @@ const followBanded = (
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.BANDED,
-    type: 'follow',
+    type: RadialTextType.FOLLOW,
   }
   return draw(canvas, args, config)
 }
@@ -184,11 +186,11 @@ const draw = (
   config: RadialTextConfigStrict
 ): QsRadialText => {
   const { data, scaleType, type } = args
-  const { radius, fontSize, x, y } = config
+  const { fontSize, x, y } = config
 
   let rotate: (angles: { startAngle: number; endAngle: number }) => number
 
-  if (type === 'spoke') {
+  if (type === RadialTextType.SPOKE) {
     rotate = (d) => {
       let angle: number = d.startAngle + (d.endAngle - d.startAngle) / 2
       angle = angle * (180 / Math.PI)
@@ -196,26 +198,26 @@ const draw = (
     }
   }
 
-  if (type === 'horizontal') {
+  if (type === RadialTextType.HORIZONTAL) {
     rotate = (d) => {
       return 0
     }
   }
 
-  if (type === 'rotated') {
+  if (type === RadialTextType.ROTATED) {
     rotate = (d) => {
       let angle = d.startAngle + (d.endAngle - d.startAngle) / 2
       return (angle = angle * (180 / Math.PI))
     }
   }
-  const transitionArgs: QsRadialTextTransitionArgs = { radius, scaleType }
-  const meta: Meta = getMeta(canvas, data, transitionArgs)
+
+  const meta: Meta = getMeta(canvas, data, config, scaleType)
   const arc: any = d3arc()
   const group = canvas.displayGroup.append('g')
   const arcs = group.append('g')
   const text = group.append('g')
 
-  if (type !== 'follow') {
+  if (type !== RadialTextType.FOLLOW) {
     text
       .selectAll(`.${meta.textClass}`)
       .data(meta.textArcData)
@@ -260,34 +262,91 @@ const draw = (
       .text((d) => (d.data.text ? d.data.text : d.data.value))
   }
   return {
-    elementText: text.selectAll('.arcText'),
-    elementArcs: arcs.selectAll('.textArc'),
-    transition: (data: QsValuedText[], args: QsRadialTextTransitionArgs) => {
-      const meta: Meta = getMeta(canvas, data, args)
-      if (type !== 'follow') {
+    elementText: text.selectAll('.text'),
+    elementArcs: arcs.selectAll('.arc'),
+    transition: (data: QsValuedText[], newConfig?: QsRadialTextConfig) => {
+      const updatedConfig = updateCurrentConfig(config, newConfig)
+      const updatedMeta: Meta = updateMeta(
+        canvas,
+        data,
+        updatedConfig,
+        scaleType,
+        meta
+      )
+
+      if (type !== RadialTextType.FOLLOW) {
         text
           .selectAll('.text')
-          .data(meta.textArcData)
+          .data(updatedMeta.textArcData)
+          .attr('d', arc)
+          .attr('stroke-width', 0)
+          .attr('fill', 'none')
+          .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
           .transition()
           .duration(3000)
-          .attr('font-size', `${meta.yAxis(fontSize)}px`)
+          .attr('font-size', `${updatedMeta.yAxis(fontSize)}px`)
           .attr(
             'transform',
             (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
           )
       } else {
+        interface OldAndNew {
+          old: BandData
+          new: BandData
+        }
+
+        const createOldAndNew = (
+          metaOld: Meta,
+          metaUpdated: Meta
+        ): OldAndNew[] => {
+          const arr: OldAndNew[] = []
+
+          for (let i = 0; i < meta.textArcData.length; i++) {
+            arr.push({
+              new: metaUpdated.textArcData[i],
+              old: metaOld.textArcData[i],
+            })
+          }
+          return arr
+        }
+
+        const oldAndNew: OldAndNew[] = createOldAndNew(meta, updatedMeta)
+
         arcs
           .selectAll('.arc')
-          .data(meta.textArcData)
+          .data(oldAndNew)
+          .attr('d', (d) => arc(d.new))
           .transition()
+          .delay(1000)
           .duration(3000)
-          .attr('d', arc)
-        text
-          .selectAll('.text')
-          .data(meta.textArcData)
-          .transition()
-          .duration(3000)
-          .attr('font-size', `${meta.yAxis(fontSize)}px`)
+          .attrTween('d', (d) => {
+            const originalStartAngle = d.old.startAngle
+            const originalEndAngle = d.old.endAngle
+            const tweenStart = interpolate(originalStartAngle, d.new.startAngle)
+            const tweenEnd = interpolate(originalEndAngle, d.new.endAngle)
+
+            return function (t: number) {
+              d.old.startAngle = tweenStart(t)
+              d.old.endAngle = tweenEnd(t)
+
+              return arc(d.old)
+            }
+          })
+
+        //   text
+        //     .selectAll(`.${meta.textClass}`)
+        //     .data(meta.textArcData)
+        //     .enter()
+        //     .append('text')
+        //     .attr('font-size', `${meta.yAxis(fontSize)}px`)
+        //     .attr('class', (d) => d.textClass)
+        //     .attr('id', (d) => d.textId)
+        //     .append('textPath')
+        //     .attr('startOffset', '25%')
+        //     .style('text-anchor', 'middle')
+        //     .attr('xlink:href', (d) => `#${d.arcId}`)
+        //     .text((d) => (d.data.text ? d.data.text : d.data.value))
+        // }
       }
     },
   }

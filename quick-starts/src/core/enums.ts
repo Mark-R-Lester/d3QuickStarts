@@ -12,3 +12,10 @@ export enum ScaleType {
   BANDED = 'banded',
   LINEAR = 'linear',
 }
+
+export enum RadialTextType {
+  FOLLOW = 'follow',
+  HORIZONTAL = 'horizontal',
+  SPOKE = 'spoke',
+  ROTATED = 'rotated',
+}

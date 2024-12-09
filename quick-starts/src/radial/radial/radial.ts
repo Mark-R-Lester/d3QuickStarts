@@ -1,14 +1,11 @@
 import { Canvas } from '../../canvas/canvas'
-import { range, schemePurples, Selection } from 'd3'
-
-import { arc } from 'd3'
-import { TweenedArcData, QsRadialArgs } from './types'
-import { Meta, getMeta, QsRadialTransitionArgs } from './getMeta'
+import { interpolate, range, schemePurples, Selection, arc as d3arc } from 'd3'
+import { QsRadialArgs, RadialConfigStrict, ArcData } from './types'
+import { Meta, getMeta, updateMeta } from './getMeta'
 
 export { QsRadialArgs } from './types'
-export { QsRadialTransitionArgs } from './getMeta'
 
-export interface RadialConfig {
+export interface QsRadialConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   outerRadius?: number
   innerRadius?: number
@@ -24,22 +21,7 @@ export interface QsRadial {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (
-    data: QsRadialArgs[],
-    transitionArgs: QsRadialTransitionArgs
-  ) => void
-}
-
-interface RadialConfigStrict {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
-  outerRadius: number
-  innerRadius: number
-  padAngle: number
-  cornerRadius: number
-  x: number
-  y: number
-  colorDomain: string[] | number[]
-  colorRange: Iterable<unknown>
+  transition: (data: QsRadialArgs[], config?: QsRadialConfig) => void
 }
 
 interface DrawArgs {
@@ -47,8 +29,18 @@ interface DrawArgs {
   pie: boolean
 }
 
+const updateCurrentConfig = (
+  currentConfig: RadialConfigStrict,
+  newConfig?: QsRadialConfig
+): RadialConfigStrict => {
+  if (!newConfig) return currentConfig
+
+  Object.keys(newConfig).forEach((key) => (currentConfig[key] = newConfig[key]))
+  return currentConfig
+}
+
 const addDefaultsToConfig = (
-  customConfig?: RadialConfig
+  customConfig?: QsRadialConfig
 ): RadialConfigStrict => {
   const defaults: RadialConfigStrict = {
     outerRadius: 100,
@@ -71,7 +63,7 @@ const addDefaultsToConfig = (
 const pie = (
   canvas: Canvas,
   data: QsRadialArgs[],
-  customConfig?: RadialConfig
+  customConfig?: QsRadialConfig
 ): QsRadial => {
   const args: DrawArgs = { data, pie: true }
   const config: RadialConfigStrict = addDefaultsToConfig(customConfig)
@@ -81,7 +73,7 @@ const pie = (
 const doughnut = (
   canvas: Canvas,
   data: QsRadialArgs[],
-  customConfig?: RadialConfig
+  customConfig?: QsRadialConfig
 ): QsRadial => {
   const args: DrawArgs = { data, pie: false }
   const config: RadialConfigStrict = addDefaultsToConfig(customConfig)
@@ -110,44 +102,21 @@ const draw = (
     colorRange,
   } = config
 
-  const transitionArgs: QsRadialTransitionArgs = {
+  const transitionArgs: RadialConfigStrict = {
     colorDomain,
     colorRange,
     outerRadius,
     innerRadius,
     cornerRadius,
     padAngle,
-    isPieDiagram: pie,
     x,
     y,
   }
 
   const meta: Meta[] = getMeta(canvas, data, transitionArgs)
 
-  const path = arc<TweenedArcData>()
-    .cornerRadius((d) => d.cornerRadius)
-    .outerRadius((d) => d.outerRadius)
-    .innerRadius((d) => d.innerRadius)
-    .startAngle((d) => d.startAngle)
-    .endAngle((d) => d.endAngle)
+  const arc: any = d3arc()
   const group = canvas.displayGroup.append('g')
-
-  const interpolate = (
-    d: TweenedArcData,
-    t: number,
-    minimise: boolean
-  ): string | null => {
-    t = minimise ? 1 - t : t
-    const tweenedData: TweenedArcData = {
-      data: d.data,
-      cornerRadius: t * d.cornerRadius,
-      outerRadius: t * d.outerRadius,
-      innerRadius: t * d.innerRadius,
-      startAngle: d.startAngle,
-      endAngle: d.endAngle,
-    }
-    return path(tweenedData)
-  }
 
   group
     .selectAll('.arc')
@@ -158,22 +127,57 @@ const draw = (
     .attr('id', (d) => d.id)
     .attr('stroke', 'none')
     .attr('transform', (d) => `translate(${d.xAxis(x)}, ${d.yAxis(y)})`)
-    .attr('d', (d) => path(d.arcData))
+    .attr('d', (d) => arc(d.arcData))
     .attr('fill', (d) => d.arcData.color)
 
   return {
     element: group.selectAll('.arc'),
-    transition: (
-      data: QsRadialArgs[],
-      transitionArgs: QsRadialTransitionArgs
-    ) => {
-      const meta: Meta[] = getMeta(canvas, data, transitionArgs)
+    transition: (data: QsRadialArgs[], newConfig?: QsRadialConfig) => {
+      const updatedConfig = updateCurrentConfig(config, newConfig)
+      const updatedMeta: Meta[] = updateMeta(canvas, data, updatedConfig, meta)
+      interface OldAndNew {
+        old: ArcData
+        new: ArcData
+      }
+
+      const createOldAndNew = (
+        metaOld: Meta[],
+        metaUpdated: Meta[]
+      ): OldAndNew[] => {
+        const arr: OldAndNew[] = []
+
+        for (let i = 0; i < meta.length; i++) {
+          arr.push({
+            new: metaUpdated[i].arcData,
+            old: metaOld[i].arcData,
+          })
+        }
+        return arr
+      }
+
+      const oldAndNew: OldAndNew[] = createOldAndNew(meta, updatedMeta)
+      const radialTween = (d: OldAndNew, arcGen: (arg0: ArcData) => any) => {
+        const originalStartAngle = d.old.startAngle
+        const originalEndAngle = d.old.endAngle
+        const tweenStart = interpolate(originalStartAngle, d.new.startAngle)
+        const tweenEnd = interpolate(originalEndAngle, d.new.endAngle)
+
+        return function (t: number) {
+          d.old.startAngle = tweenStart(t)
+          d.old.endAngle = tweenEnd(t)
+
+          return arcGen(d.old)
+        }
+      }
+
       group
         .selectAll(`.${meta[0].class}`)
-        .data(meta)
+        .data(oldAndNew)
+        .attr('d', (d) => arc(d.new))
         .transition()
+        .delay(1000)
         .duration(3000)
-        .tween('d', (d) => (t) => interpolate(d.arcData, t, true))
+        .attrTween('d', (d) => radialTween(d, arc))
     },
   }
 }

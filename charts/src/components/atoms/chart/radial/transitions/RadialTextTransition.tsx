@@ -2,6 +2,7 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import {
   Canvas,
   createCanvas,
+  QsRadial,
   QsRadialText,
   QsValuedText,
   radialGenerator,
@@ -13,7 +14,8 @@ export const RadialTextTransition: FunctionComponent<ChartProps> = ({
   targetId,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
-  const [element, setElement] = useState<QsRadialText>()
+  const [element1, setElement1] = useState<QsRadialText>()
+  const [element2, setElement2] = useState<QsRadial>()
 
   const createChart = () => {
     const data = [
@@ -26,11 +28,8 @@ export const RadialTextTransition: FunctionComponent<ChartProps> = ({
       highestViewableValue: 40,
     })
 
-    let newElement: QsRadialText
-    newElement = radialTextGenerator.followBanded(canvas, data)
-    radialGenerator.doughnut(canvas, data)
-
-    setElement(newElement)
+    setElement1(radialTextGenerator.followBanded(canvas, data))
+    setElement2(radialGenerator.doughnut(canvas, data))
   }
 
   useEffect(() => {
@@ -49,10 +48,11 @@ export const RadialTextTransition: FunctionComponent<ChartProps> = ({
       }
 
       const transitionData = getVals()
-      if (element) element.transition(transitionData)
+      if (element1) element1.transition(transitionData)
+      if (element2) element2.transition(transitionData)
       setTimeout(() => setChanged(!changed), 3000)
     },
-    [element, changed]
+    [element1, element2, changed]
   )
 
   return (

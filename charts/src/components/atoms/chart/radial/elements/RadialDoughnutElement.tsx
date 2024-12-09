@@ -4,7 +4,7 @@ import {
   createCanvas,
   radialGenerator,
   QsRadialArgs,
-  RadialConfig,
+  QsRadialConfig,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
@@ -34,7 +34,7 @@ export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
       { value: 1, color: { domainName: 'European' } },
     ]
 
-    const config: RadialConfig = {
+    const config: QsRadialConfig = {
       outerRadius: 90,
       innerRadius: 50,
       padAngle: 0.03,

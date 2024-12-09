@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { toStrings } from '../../core/conversion'
 import { ColorName, DomainName } from '../../core/types'
-import { ArcData, QsRadialArgs } from './types'
+import { ArcData, QsRadialArgs, RadialConfigStrict } from './types'
 
 export interface Meta {
   class: string
@@ -12,18 +12,6 @@ export interface Meta {
   arcData: ArcData
   xAxis: ScaleLinear<number, number, never>
   yAxis: ScaleLinear<number, number, never>
-}
-
-export interface QsRadialTransitionArgs {
-  outerRadius: number
-  innerRadius: number
-  padAngle: number
-  cornerRadius: number
-  x: number
-  y: number
-  colorDomain: string[] | number[]
-  colorRange: Iterable<unknown>
-  isPieDiagram: boolean
 }
 
 const getColor = (
@@ -40,10 +28,24 @@ const getColor = (
   return typeof c == 'string' ? c : '#cbc9e2'
 }
 
+export const updateMeta = (
+  canvas: Canvas,
+  data: QsRadialArgs[],
+  config: RadialConfigStrict,
+  meta: Meta[]
+): Meta[] => {
+  const newMeta: Meta[] = getMeta(canvas, data, config)
+
+  for (let i = 0; i < meta.length; i++) {
+    newMeta[i].id = meta[i].id
+  }
+  return newMeta
+}
+
 export const getMeta = (
   canvas: Canvas,
   data: QsRadialArgs[],
-  transitionArgs: QsRadialTransitionArgs
+  config: RadialConfigStrict
 ): Meta[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const {
@@ -53,8 +55,8 @@ export const getMeta = (
     innerRadius,
     cornerRadius,
     isPieDiagram,
-  } = transitionArgs
-  let { padAngle } = transitionArgs
+  } = config
+  let { padAngle } = config
 
   const meta: Meta[] = []
 

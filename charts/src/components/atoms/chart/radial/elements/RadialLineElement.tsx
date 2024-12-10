@@ -1,9 +1,9 @@
 import { FunctionComponent, useEffect } from 'react'
-import { Canvas, createCanvas, radialLineGenerator } from 'd3qs/d3QuickStart'
+import { QsCanvas, createCanvas, radialLineGenerator } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialLineElement: FunctionComponent<ChartProps> = ({
-  targetId,
+  chartName,
 }) => {
   const createChart = () => {
     const data: number[] = [
@@ -11,7 +11,8 @@ export const RadialLineElement: FunctionComponent<ChartProps> = ({
       20, 17, 23, 23, 20, 17, 16, 16,
     ]
 
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
       lowestViewableValue: 0,
       highestViewableValue: 23,
@@ -26,7 +27,7 @@ export const RadialLineElement: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

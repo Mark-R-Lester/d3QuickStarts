@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
-  Canvas,
+  QsCanvas,
   createCanvas,
   linearBarFloatingGenerator,
   QsBarsFloating,
@@ -10,7 +10,7 @@ import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearBarsFloatingTransition: FunctionComponent<
   OrienetedChartProps
-> = ({ targetId, orientation }) => {
+> = ({ chartName, orientation }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [bars, setBars] = useState<QsBarsFloating>()
 
@@ -22,8 +22,10 @@ export const LinearBarsFloatingTransition: FunctionComponent<
       [40, 60],
       [50, 70],
     ]
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
+      lowestViewableValue: 0,
       highestViewableValue: 70,
     })
 
@@ -66,7 +68,7 @@ export const LinearBarsFloatingTransition: FunctionComponent<
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

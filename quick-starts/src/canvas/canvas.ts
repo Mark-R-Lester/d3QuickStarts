@@ -1,20 +1,22 @@
-import { BaseType, Selection, select } from 'd3-selection'
+import { Selection, select } from 'd3-selection'
 
 export interface CanvasConfig {
   [key: string]: string | number | undefined
+  chartName: string
   width?: number
   height?: number
   marginRight?: number
   marginLeft?: number
   marginTop?: number
   marginBottom?: number
-  highestViewableValue?: number
+  highestViewableValue: number
   lowestViewableValue?: number
   borderColour?: string
 }
 
 interface CanvasConfigStrict {
   [key: string]: string | number | undefined
+  chartName: string
   width: number
   height: number
   marginRight: number
@@ -28,16 +30,14 @@ interface CanvasConfigStrict {
   displayAreaWidth: number
 }
 
-export interface Canvas {
+export interface QsCanvas {
   displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
   config: CanvasConfigStrict
 }
 
-export function createCanvas(
-  chartName: string,
-  newConfig?: CanvasConfig
-): Canvas {
+export function createCanvas(newConfig?: CanvasConfig): QsCanvas {
   const config: CanvasConfigStrict = {
+    chartName: '',
     width: 500,
     height: 70,
     marginRight: 7,
@@ -54,13 +54,13 @@ export function createCanvas(
     Object.keys(newConfig).forEach((key) => (config[key] = newConfig[key]))
   }
 
-  const element = document.getElementById(chartName)
+  const element = document.getElementById(config.chartName)
   if (element) element.innerHTML = ''
 
-  return draw(`#${chartName}`, config)
+  return draw(`#${config.chartName}`, config)
 }
 
-const draw = (chartName: string, config: CanvasConfigStrict): Canvas => {
+const draw = (chartName: string, config: CanvasConfigStrict): QsCanvas => {
   const scaleValues = (config: CanvasConfigStrict): void => {
     config.height = (config.width * config.height) / 100
     config.marginRight = (config.width * config.marginRight) / 100
@@ -76,7 +76,7 @@ const draw = (chartName: string, config: CanvasConfigStrict): Canvas => {
 
   const createSVG = (chartName: string) => {
     const svg = select(chartName).append('svg')
-    svg.attr('width', config?.width).attr('height', config.height)
+    svg.attr('width', config.width).attr('height', config.height)
     svg
       .append('rect')
       .attr('x', 0)

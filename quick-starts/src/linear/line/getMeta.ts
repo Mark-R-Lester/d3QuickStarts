@@ -1,5 +1,5 @@
 import { scaleLinear, scaleBand, range, ScaleBand, ScaleLinear } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { QsCanvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { DrawArgs, LineConfigStrict } from './types'
 import { Orientation, ScaleType } from '../../core/enums'
@@ -15,7 +15,7 @@ export interface Meta {
 }
 
 export const getMeta = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: LineConfigStrict
 ): Meta => {

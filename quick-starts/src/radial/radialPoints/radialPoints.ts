@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { getMeta, Meta } from './getMeta'
 import { Selection } from 'd3-selection'
 import { scaleLinear } from 'd3-scale'
@@ -45,7 +45,7 @@ const addDefaultsToConfig = (
 }
 
 const points = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   customConfig?: QsRadialPointsConfig
 ): QsRadialPoints => {
@@ -59,7 +59,7 @@ export const radialPointGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: RadialPointsConfigStrict
 ): QsRadialPoints => {

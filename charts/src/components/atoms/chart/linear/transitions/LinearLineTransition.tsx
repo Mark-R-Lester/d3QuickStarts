@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
-  Canvas,
+  QsCanvas,
   createCanvas,
   linearLineGenerator,
   QsLine,
@@ -9,7 +9,7 @@ import { Orientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearLineTransition: FunctionComponent<OrienetedChartProps> = ({
-  targetId,
+  chartName,
   orientation,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
@@ -17,9 +17,11 @@ export const LinearLineTransition: FunctionComponent<OrienetedChartProps> = ({
 
   const createChart = () => {
     const data = [25, 10, 35, 25, 35, 5, 25, 25]
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
-      highestViewableValue: 50,
+      lowestViewableValue: 0,
+      highestViewableValue: 35,
     })
     let newElement: QsLine
     if (orientation === Orientation.VERTICAL) {
@@ -59,7 +61,7 @@ export const LinearLineTransition: FunctionComponent<OrienetedChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

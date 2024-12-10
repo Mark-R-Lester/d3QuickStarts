@@ -1,7 +1,7 @@
 import { Grouping, Orientation } from './enums'
 
 export interface ChartProps {
-  targetId: string
+  chartName: string
 }
 
 export interface OrienetedChartProps extends ChartProps {

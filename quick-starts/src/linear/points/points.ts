@@ -1,5 +1,5 @@
 import { Selection } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { QsCanvas } from '../../d3QuickStart'
 import { Meta, getMeta } from './getMeta'
 import { DrawArgs } from './types'
 import { Orientation, ScaleType } from '../../core/enums'
@@ -36,7 +36,7 @@ const addDefaultsToConfig = (
 }
 
 const horizontal = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   customConfig?: QsPointsConfig
 ): QsPoints => {
@@ -50,7 +50,7 @@ const horizontal = (
 }
 
 const vertical = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   customConfig?: QsPointsConfig
 ): QsPoints => {
@@ -64,7 +64,7 @@ const vertical = (
 }
 
 const horizontalBanded = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   customConfig?: QsPointsConfig
 ): QsPoints => {
@@ -78,7 +78,7 @@ const horizontalBanded = (
 }
 
 const verticalBanded = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   customConfig?: QsPointsConfig
 ): QsPoints => {
@@ -99,7 +99,7 @@ export const linearPointGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: PointsConfigStrict
 ): QsPoints => {

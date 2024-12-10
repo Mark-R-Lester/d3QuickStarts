@@ -1,5 +1,5 @@
 import { scaleLinear, scalePoint, scaleBand } from 'd3-scale'
-import { Canvas } from '../../d3QuickStart'
+import { QsCanvas } from '../../d3QuickStart'
 import { BaseType, Selection } from 'd3-selection'
 import {
   axisBottom,
@@ -84,7 +84,7 @@ const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
   return defaults
 }
 const xAxisTop = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -99,7 +99,7 @@ const xAxisTop = (
 }
 
 const xAxisBottom = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -114,7 +114,7 @@ const xAxisBottom = (
 }
 
 const xAxisBottomBanded = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -129,7 +129,7 @@ const xAxisBottomBanded = (
 }
 
 const xAxisTopBanded = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -144,7 +144,7 @@ const xAxisTopBanded = (
 }
 
 const yAxisLeft = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -159,7 +159,7 @@ const yAxisLeft = (
 }
 
 const yAxisRight = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -174,7 +174,7 @@ const yAxisRight = (
 }
 
 const yAxisLeftBanded = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -189,7 +189,7 @@ const yAxisLeftBanded = (
 }
 
 const yAxisRightBanded = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -215,7 +215,7 @@ export const linearAxisGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: AxisConfigStrict
 ): QsAxis => {

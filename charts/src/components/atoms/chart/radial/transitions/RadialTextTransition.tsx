@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
-  Canvas,
+  QsCanvas,
   createCanvas,
   QsRadial,
   QsRadialText,
@@ -11,7 +11,7 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialTextTransition: FunctionComponent<ChartProps> = ({
-  targetId,
+  chartName,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element1, setElement1] = useState<QsRadialText>()
@@ -23,8 +23,10 @@ export const RadialTextTransition: FunctionComponent<ChartProps> = ({
       { value: 10, text: '10' },
       { value: 15, text: '15' },
     ]
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
+      lowestViewableValue: 0,
       highestViewableValue: 40,
     })
 
@@ -57,7 +59,7 @@ export const RadialTextTransition: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

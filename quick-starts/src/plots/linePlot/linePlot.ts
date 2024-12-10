@@ -7,7 +7,7 @@ import {
 } from 'd3'
 import { Coordinate } from '../../core/types'
 import { findMaxCoordinateX, findMaxCoordinateY } from '../../core/max'
-import { Canvas } from '../../d3QuickStart'
+import { QsCanvas } from '../../d3QuickStart'
 
 export interface QsLinePlotConfig {
   [key: string]: CurveFactory | undefined
@@ -44,7 +44,7 @@ const addDefaultsToConfig = (
 }
 
 const line = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: Coordinate[],
   customConfig?: QsLinePlotConfig
 ): QsLinePlot => {
@@ -58,7 +58,7 @@ export const plottedLineGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: LinePlotConfigStrict
 ): QsLinePlot => {

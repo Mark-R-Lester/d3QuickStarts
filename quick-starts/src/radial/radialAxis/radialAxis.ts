@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { arc as d3arc, Selection } from 'd3'
 import { Meta, QsRadialAxisTransitionArgs, getMeta } from './getMeta'
 
@@ -67,7 +67,7 @@ const addDefaultsToConfig = (
 }
 
 const rings = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   customConfig?: QsRadialAxisConfig
 ): QsRadialAxis => {
@@ -81,7 +81,7 @@ export const radialAxisGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: RadialAxisConfigStrict
 ): QsRadialAxis => {

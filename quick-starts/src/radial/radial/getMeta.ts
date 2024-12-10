@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { scaleLinear, scaleOrdinal, ScaleOrdinal, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -29,7 +29,7 @@ const getColor = (
 }
 
 export const updateMeta = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsRadialArgs[],
   config: RadialConfigStrict,
   meta: Meta[]
@@ -43,7 +43,7 @@ export const updateMeta = (
 }
 
 export const getMeta = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsRadialArgs[],
   config: RadialConfigStrict
 ): Meta[] => {

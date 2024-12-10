@@ -7,7 +7,7 @@ import {
   ScaleOrdinal,
   Series,
 } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { QsCanvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
 import { findMax, findMaxSum } from '../../core/max'
@@ -21,7 +21,7 @@ export interface Meta {
 }
 
 export const getMeta = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[][],
   config: BarGroupConfigStrict,
   grouping: Grouping

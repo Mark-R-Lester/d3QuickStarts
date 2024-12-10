@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { range, Selection } from 'd3'
 import { Meta, QsBarConfigStrict, DrawArgs } from './types'
 import { getMeta } from './getMeta'
@@ -32,7 +32,7 @@ const addDefaultsToConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
   return defaults
 }
 const vertical = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   customConfig?: QsBarConfig
 ): QsBars => {
@@ -42,7 +42,7 @@ const vertical = (
 }
 
 const horizontal = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   customConfig?: QsBarConfig
 ): QsBars => {
@@ -57,7 +57,7 @@ export const linearBarGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: QsBarConfigStrict
 ): QsBars => {

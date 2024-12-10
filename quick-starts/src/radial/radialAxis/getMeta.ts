@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { scaleLinear, scaleOrdinal, ScaleOrdinal, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
@@ -31,7 +31,7 @@ export interface QsRadialAxisTransitionArgs {
 }
 
 export const getMeta = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   radialAxisTransitionArgs: QsRadialAxisTransitionArgs
 ): Meta[] => {

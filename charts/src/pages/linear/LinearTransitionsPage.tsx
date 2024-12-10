@@ -11,41 +11,41 @@ import { LinearBarGroupTransition } from '../../components/atoms/chart/linear/tr
 export default function LinearTransitionsPage() {
   const elements: JSX.Element[] = [
     <LinearBarsTransition
-      targetId="verticalBarTransition"
+      chartName="verticalBarTransition"
       orientation={Orientation.VERTICAL}
     />,
     <LinearBarsFloatingTransition
-      targetId="verticalBarFloatingTransition"
+      chartName="verticalBarFloatingTransition"
       orientation={Orientation.VERTICAL}
     />,
     <LinearLineTransition
-      targetId="verticalLineTransition"
+      chartName="verticalLineTransition"
       orientation={Orientation.VERTICAL}
     />,
     <LinearPointsTransition
-      targetId="verticalPointsTransition"
+      chartName="verticalPointsTransition"
       orientation={Orientation.VERTICAL}
     />,
     <LinearBarsTransition
-      targetId="horizontalBarTransition"
+      chartName="horizontalBarTransition"
       orientation={Orientation.HORIZONTAL}
     />,
     <LinearBarsFloatingTransition
-      targetId="horizontalBarFloatingTransition"
+      chartName="horizontalBarFloatingTransition"
       orientation={Orientation.HORIZONTAL}
     />,
 
     <LinearLineTransition
-      targetId="horizontalLineTransition"
+      chartName="horizontalLineTransition"
       orientation={Orientation.HORIZONTAL}
     />,
     <LinearPointsTransition
-      targetId="horizontalPointsTransition"
+      chartName="horizontalPointsTransition"
       orientation={Orientation.HORIZONTAL}
     />,
 
-    <LinearAreaTransition targetId="AreaTransition" />,
-    <LinearBarGroupTransition targetId="BarGroupTransition" />,
+    <LinearAreaTransition chartName="AreaTransition" />,
+    <LinearBarGroupTransition chartName="BarGroupTransition" />,
   ]
 
   return (

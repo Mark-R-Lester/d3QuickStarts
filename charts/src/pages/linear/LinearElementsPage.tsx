@@ -12,49 +12,49 @@ import { Grouping, Orientation } from '../../common/enums'
 export default function LinearElementsPage() {
   const elements: JSX.Element[] = [
     <LinearBarsElement
-      targetId="linearHorizontalBars"
+      chartName="linearHorizontalBars"
       orientation={Orientation.HORIZONTAL}
     />,
     <LinearFloatingBarsElement
-      targetId="linearHorizontalBarsFloating"
+      chartName="linearHorizontalBarsFloating"
       orientation={Orientation.HORIZONTAL}
     />,
     <LinearLineElement
-      targetId="linearLineHorizontal"
+      chartName="linearLineHorizontal"
       orientation={Orientation.HORIZONTAL}
     />,
     <LinearPointsElement
-      targetId="linearPointsHorizontal"
+      chartName="linearPointsHorizontal"
       orientation={Orientation.HORIZONTAL}
     />,
     <LinearBarsElement
-      targetId="linearVerticalBars"
+      chartName="linearVerticalBars"
       orientation={Orientation.VERTICAL}
     />,
     <LinearFloatingBarsElement
-      targetId="linearVerticalBarsFloating"
+      chartName="linearVerticalBarsFloating"
       orientation={Orientation.VERTICAL}
     />,
 
     <LinearLineElement
-      targetId="linearLineVertical"
+      chartName="linearLineVertical"
       orientation={Orientation.VERTICAL}
     />,
 
     <LinearPointsElement
-      targetId="linearPointsVertical"
+      chartName="linearPointsVertical"
       orientation={Orientation.VERTICAL}
     />,
     <LinearBarsGroupedElement
-      targetId="linearBarsGroupedVertical"
+      chartName="linearBarsGroupedVertical"
       grouping={Grouping.GROUPED}
     />,
     <LinearBarsGroupedElement
-      targetId="linearBarsStackedVertical"
+      chartName="linearBarsStackedVertical"
       grouping={Grouping.STACKED}
     />,
-    <LinearAreaElement targetId="linearArea" />,
-    <LinearAxisElement targetId="linearAxis" />,
+    <LinearAreaElement chartName="linearArea" />,
+    <LinearAxisElement chartName="linearAxis" />,
   ]
 
   return (

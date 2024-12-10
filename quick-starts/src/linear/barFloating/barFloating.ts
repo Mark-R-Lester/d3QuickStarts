@@ -1,5 +1,5 @@
 import { Selection, range } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { QsCanvas } from '../../d3QuickStart'
 
 import { getMeta, Meta } from './getMeta'
 import { DrawArgs, QsBarFloatingConfigStrict } from './types'
@@ -33,7 +33,7 @@ const addDefaultsToConfig = (
   return defauls
 }
 const horizontal = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[][],
   customConfig?: QsBarFloatingConfig
 ): QsBarsFloating => {
@@ -43,7 +43,7 @@ const horizontal = (
 }
 
 const vertical = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[][],
   customConfig?: QsBarFloatingConfig
 ): QsBarsFloating => {
@@ -58,7 +58,7 @@ export const linearBarFloatingGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: QsBarFloatingConfigStrict
 ): QsBarsFloating => {

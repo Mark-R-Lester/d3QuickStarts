@@ -5,7 +5,7 @@ import {
   area as d3area,
   Selection,
 } from 'd3'
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { AreaData, getMeta, Meta } from './getMeta'
 import { QsAreaData } from './types'
 
@@ -47,7 +47,7 @@ const addDefaultsToConfig = (customConfig?: QsAreaConfig): AreaConfigStrict => {
 }
 
 const horizontal = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsAreaData,
   customConfig?: QsAreaConfig
 ): QsArea => {
@@ -63,7 +63,7 @@ export const linearAreaGenerator = {
 }
 
 function draw(
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: AreaConfigStrict
 ): QsArea {

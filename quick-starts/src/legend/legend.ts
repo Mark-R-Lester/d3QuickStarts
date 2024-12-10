@@ -1,5 +1,5 @@
 import { scaleLinear } from 'd3'
-import { Canvas } from '../canvas/canvas'
+import { QsCanvas } from '../canvas/canvas'
 import { Meta, getMeta } from './getMeta'
 import { LegendConfigStrict, QsValuedColor } from './types'
 
@@ -47,7 +47,7 @@ const addDefaultsToConfig = (
 }
 
 const legend = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsValuedColor[],
   customConfig: LegendConfig
 ) => {
@@ -60,7 +60,7 @@ export const legendGenerator = {
   legend,
 }
 
-const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfigStrict) => {
+const draw = (canvas: QsCanvas, args: DrawArgs, config: LegendConfigStrict) => {
   const { displayAreaHeight } = canvas.config
   const { data } = args
   const percentScale = scaleLinear()

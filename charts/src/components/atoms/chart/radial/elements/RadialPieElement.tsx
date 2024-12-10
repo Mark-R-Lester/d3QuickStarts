@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  Canvas,
+  QsCanvas,
   createCanvas,
   radialGenerator,
   QsRadialArgs,
@@ -8,7 +8,7 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialPieElement: FunctionComponent<ChartProps> = ({
-  targetId,
+  chartName,
 }) => {
   const createChart = () => {
     const data: QsRadialArgs[] = [
@@ -17,8 +17,11 @@ export const RadialPieElement: FunctionComponent<ChartProps> = ({
       { value: 60, color: { colorName: 'green' } },
     ]
 
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
+      lowestViewableValue: 0,
+      highestViewableValue: 60,
     })
 
     radialGenerator.pie(canvas, data)
@@ -30,7 +33,7 @@ export const RadialPieElement: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

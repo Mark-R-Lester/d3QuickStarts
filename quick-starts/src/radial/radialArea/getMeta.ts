@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { ScaleLinear, scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { RadialAreaData } from './types'
@@ -12,7 +12,7 @@ export interface Meta {
 }
 
 export const getMeta = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   dataOuter: number[],
   dataInner?: number[]
 ): Meta => {

@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
-  Canvas,
+  QsCanvas,
   createCanvas,
   linearBarGroupGenerator,
   QsBarGroups,
@@ -8,7 +8,7 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
-  targetId,
+  chartName,
 }) => {
   const [changedStack, setChangedStack] = useState<boolean>(false)
   const [changedGroup, setChangedGroup] = useState<boolean>(false)
@@ -49,7 +49,8 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
   ]
 
   const createChart = () => {
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
       lowestViewableValue: 0,
       highestViewableValue: 100,
@@ -92,7 +93,7 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

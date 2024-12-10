@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { arc as d3arc, interpolate, Selection } from 'd3'
 import { QsValuedText, RadialTextConfigStrict } from './types'
 import { BandData, Meta, getMeta, updateMeta } from './getMeta'
@@ -58,7 +58,7 @@ const updateCurrentConfig = (
 }
 
 const spoke = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -72,7 +72,7 @@ const spoke = (
 }
 
 const horizontal = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -86,7 +86,7 @@ const horizontal = (
 }
 
 const rotated = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -100,7 +100,7 @@ const rotated = (
 }
 
 const follow = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -114,7 +114,7 @@ const follow = (
 }
 
 const spokeBanded = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -128,7 +128,7 @@ const spokeBanded = (
 }
 
 const horizontalBanded = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -142,7 +142,7 @@ const horizontalBanded = (
 }
 
 const rotatedBanded = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -156,7 +156,7 @@ const rotatedBanded = (
 }
 
 const followBanded = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -181,7 +181,7 @@ export const radialTextGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: RadialTextConfigStrict
 ): QsRadialText => {

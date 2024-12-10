@@ -7,10 +7,10 @@ import { RadialTextTransition } from '../../components/atoms/chart/radial/transi
 
 export default function RadialTransitionsPage() {
   const elements: JSX.Element[] = [
-    <RadialAreaTransition targetId="radialAreaTransition" />,
-    <RadialLineTransition targetId="radialLineTransition" />,
-    <RadialPointTransition targetId="radialPointsTransition" />,
-    <RadialTextTransition targetId="radialTextTransition" />,
+    <RadialAreaTransition chartName="radialAreaTransition" />,
+    <RadialLineTransition chartName="radialLineTransition" />,
+    <RadialPointTransition chartName="radialPointsTransition" />,
+    <RadialTextTransition chartName="radialTextTransition" />,
   ]
 
   return (

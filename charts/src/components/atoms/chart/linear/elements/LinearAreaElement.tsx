@@ -1,15 +1,16 @@
 import { FunctionComponent, useEffect } from 'react'
-import { Canvas, createCanvas, linearAreaGenerator } from 'd3qs/d3QuickStart'
+import { QsCanvas, createCanvas, linearAreaGenerator } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const LinearAreaElement: FunctionComponent<ChartProps> = ({
-  targetId,
+  chartName,
 }) => {
   const createChart = () => {
     const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
     const data2 = [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 205, 240]
 
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
       lowestViewableValue: 0,
       highestViewableValue: 250,
@@ -31,7 +32,7 @@ export const LinearAreaElement: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

@@ -1,13 +1,20 @@
 import { FunctionComponent, useEffect } from 'react'
-import { Canvas, createCanvas, radialSpokesGenerator } from 'd3qs/d3QuickStart'
+import {
+  QsCanvas,
+  createCanvas,
+  radialSpokesGenerator,
+} from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialSpokesElement: FunctionComponent<ChartProps> = ({
-  targetId,
+  chartName,
 }) => {
   const createChart = () => {
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
+      lowestViewableValue: 0,
+      highestViewableValue: 250,
     })
 
     const numberOfSpokes = 6
@@ -20,7 +27,7 @@ export const RadialSpokesElement: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

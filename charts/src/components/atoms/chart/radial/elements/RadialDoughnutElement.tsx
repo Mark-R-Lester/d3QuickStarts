@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  Canvas,
+  QsCanvas,
   createCanvas,
   radialGenerator,
   QsRadialArgs,
@@ -9,7 +9,7 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
-  targetId,
+  chartName,
 }) => {
   const createChart = () => {
     const data: QsRadialArgs[] = [
@@ -58,8 +58,11 @@ export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
       ],
     }
 
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
+      lowestViewableValue: 0,
+      highestViewableValue: 250,
     })
 
     radialGenerator.doughnut(canvas, data, config)
@@ -71,7 +74,7 @@ export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

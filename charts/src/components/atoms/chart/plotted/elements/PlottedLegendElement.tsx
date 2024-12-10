@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  Canvas,
+  QsCanvas,
   createCanvas,
   legendGenerator,
   QsValuedColor,
@@ -8,7 +8,7 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
-  targetId,
+  chartName,
 }) => {
   const createChart = () => {
     const data: QsValuedColor[] = [
@@ -18,10 +18,11 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
       { value: 'Purple', color: 'purple' },
     ]
 
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
-      min: 0,
-      max: 250,
+      lowestViewableValue: 0,
+      highestViewableValue: 250,
     })
 
     legendGenerator.legend(canvas, data, { color: 'black' })
@@ -33,7 +34,7 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

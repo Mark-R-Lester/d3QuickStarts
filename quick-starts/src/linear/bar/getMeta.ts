@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { range } from 'd3'
 import { scaleLinear, scaleBand, ScaleOrdinal, scaleOrdinal } from 'd3-scale'
 import { v4 as uuidv4 } from 'uuid'
@@ -7,7 +7,7 @@ import { BarData, DrawArgs, Meta, QsBarConfigStrict } from './types'
 import { Orientation } from '../../core/enums'
 
 export const getMeta = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: QsBarConfigStrict
 ): Meta[] => {

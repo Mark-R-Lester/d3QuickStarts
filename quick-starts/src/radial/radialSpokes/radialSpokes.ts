@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { line, Selection } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { Meta, getMeta, QsRadialSpokesTransitionArgs } from './getMeta'
@@ -54,7 +54,7 @@ const addDefaultsToConfig = (
 }
 
 const spokes = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number,
   customConfig?: QsRadialSpokesConfig
 ): QsRadialSpokes => {
@@ -64,7 +64,7 @@ const spokes = (
 }
 
 const spokesMinimised = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number,
   customConfig?: QsRadialSpokesConfig
 ): QsRadialSpokes => {
@@ -79,7 +79,7 @@ export const radialSpokesGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: RadialSpokesConfigStrict
 ): QsRadialSpokes => {

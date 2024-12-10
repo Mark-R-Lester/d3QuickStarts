@@ -1,10 +1,10 @@
 import { FunctionComponent, useEffect } from 'react'
-import { Canvas, createCanvas, plottedLineGenerator } from 'd3qs/d3QuickStart'
+import { QsCanvas, createCanvas, plottedLineGenerator } from 'd3qs/d3QuickStart'
 import { Coordinate } from 'd3qs/core/types'
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const PlottedLineElement: FunctionComponent<ChartProps> = ({
-  targetId,
+  chartName,
 }) => {
   const createChart = () => {
     const data1: Coordinate[] = [
@@ -16,8 +16,11 @@ export const PlottedLineElement: FunctionComponent<ChartProps> = ({
       { x: 156, y: 140 },
     ]
 
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
+      lowestViewableValue: 0,
+      highestViewableValue: 156,
     })
 
     plottedLineGenerator.line(canvas, data1)
@@ -29,7 +32,7 @@ export const PlottedLineElement: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

@@ -1,4 +1,4 @@
-import { Canvas } from '../canvas/canvas'
+import { QsCanvas } from '../canvas/canvas'
 import { scaleLinear } from 'd3-scale'
 import { LegendConfigStrict, QsValuedColor } from './types'
 
@@ -14,7 +14,7 @@ export interface Meta {
 }
 
 export const getMeta = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsValuedColor[],
   config: LegendConfigStrict
 ): Meta[] => {

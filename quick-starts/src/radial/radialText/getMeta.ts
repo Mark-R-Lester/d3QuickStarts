@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { scaleLinear, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { QsValuedText, RadialTextConfigStrict } from './types'
@@ -27,7 +27,7 @@ export interface BandData {
 }
 
 export const updateMeta = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsValuedText[],
   config: RadialTextConfigStrict,
   scaleType: ScaleType,
@@ -43,7 +43,7 @@ export const updateMeta = (
 }
 
 export const getMeta = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsValuedText[],
   config: RadialTextConfigStrict,
   scaleType: ScaleType

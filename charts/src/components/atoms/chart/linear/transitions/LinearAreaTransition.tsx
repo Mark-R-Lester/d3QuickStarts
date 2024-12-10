@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
-  Canvas,
+  QsCanvas,
   createCanvas,
   linearAreaGenerator,
   QsArea,
@@ -9,7 +9,7 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
-  targetId,
+  chartName,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [topArea, setTopArea] = useState<QsArea>()
@@ -29,7 +29,8 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
       higherData: lowerData,
     }
 
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
       lowestViewableValue: 0,
       highestViewableValue: 100,
@@ -84,7 +85,7 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

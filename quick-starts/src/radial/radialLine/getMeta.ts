@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { scaleLinear, ScaleLinear } from 'd3'
 
 export interface Meta {
@@ -9,7 +9,7 @@ export interface Meta {
   yAxis: ScaleLinear<number, number, never>
 }
 
-export const getMeta = (canvas: Canvas, data: number[]): Meta => {
+export const getMeta = (canvas: QsCanvas, data: number[]): Meta => {
   const {
     lowestViewableValue,
     highestViewableValue,

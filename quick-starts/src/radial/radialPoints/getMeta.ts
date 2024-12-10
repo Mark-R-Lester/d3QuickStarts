@@ -1,6 +1,6 @@
 import { scaleLinear } from 'd3-scale'
 import { v4 as uuidv4 } from 'uuid'
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 
 export interface Meta {
   id: string
@@ -8,7 +8,7 @@ export interface Meta {
   pointData: number[]
 }
 
-export const getMeta = (canvas: Canvas, data: number[]): Meta[] => {
+export const getMeta = (canvas: QsCanvas, data: number[]): Meta[] => {
   const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
     canvas.config
 

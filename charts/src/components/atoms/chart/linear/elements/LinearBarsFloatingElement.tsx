@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  Canvas,
+  QsCanvas,
   createCanvas,
   linearBarFloatingGenerator,
 } from 'd3qs/d3QuickStart'
@@ -9,7 +9,7 @@ import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearFloatingBarsElement: FunctionComponent<
   OrienetedChartProps
-> = ({ targetId, orientation }) => {
+> = ({ chartName, orientation }) => {
   const createChart = () => {
     const data2 = [
       [10, 30],
@@ -18,8 +18,11 @@ export const LinearFloatingBarsElement: FunctionComponent<
       [40, 60],
       [50, 70],
     ]
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
+      lowestViewableValue: 0,
+      highestViewableValue: 70,
     })
 
     if (orientation === Orientation.VERTICAL) {
@@ -35,7 +38,7 @@ export const LinearFloatingBarsElement: FunctionComponent<
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

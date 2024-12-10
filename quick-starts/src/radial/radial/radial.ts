@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { interpolate, range, schemePurples, Selection, arc as d3arc } from 'd3'
 import { QsRadialArgs, RadialConfigStrict, ArcData } from './types'
 import { Meta, getMeta, updateMeta } from './getMeta'
@@ -61,7 +61,7 @@ const addDefaultsToConfig = (
 }
 
 const pie = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsRadialArgs[],
   customConfig?: QsRadialConfig
 ): QsRadial => {
@@ -71,7 +71,7 @@ const pie = (
 }
 
 const doughnut = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsRadialArgs[],
   customConfig?: QsRadialConfig
 ): QsRadial => {
@@ -86,7 +86,7 @@ export const radialGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: RadialConfigStrict
 ): QsRadial => {

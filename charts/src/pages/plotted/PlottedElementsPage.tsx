@@ -8,11 +8,11 @@ import { PlottedLegendElement } from '../../components/atoms/chart/plotted/eleme
 
 export default function PlottedElementsPage() {
   const elements: JSX.Element[] = [
-    <PlottedLineElement targetId="plottedLine" />,
-    <PlottedPointsElement targetId="plottedPoints" />,
-    <PlottedPointsEnhancedElement targetId="PlottedPontsEnhanced" />,
-    <PlottedTextElement targetId="textElement" />,
-    <PlottedLegendElement targetId="legendElement" />,
+    <PlottedLineElement chartName="plottedLine" />,
+    <PlottedPointsElement chartName="plottedPoints" />,
+    <PlottedPointsEnhancedElement chartName="PlottedPontsEnhanced" />,
+    <PlottedTextElement chartName="textElement" />,
+    <PlottedLegendElement chartName="legendElement" />,
   ]
 
   return (

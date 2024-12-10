@@ -11,14 +11,14 @@ import { RadialDoughnutElement } from '../../components/atoms/chart/radial/eleme
 
 export default function RadialElementsPage() {
   const elements: JSX.Element[] = [
-    <RadialDoughnutElement targetId="radialDoughnut" />,
-    <RadialPieElement targetId="radialPie" />,
-    <RadialAreaElement targetId="radialArea" />,
-    <RadialAxisElement targetId="radialAxis" />,
-    <RadialLineElement targetId="radialLine" />,
-    <RadialPointsElement targetId="radialPoints" />,
-    <RadialTextElement targetId="radialText" />,
-    <RadialSpokesElement targetId="radialSpokes" />,
+    <RadialDoughnutElement chartName="radialDoughnut" />,
+    <RadialPieElement chartName="radialPie" />,
+    <RadialAreaElement chartName="radialArea" />,
+    <RadialAxisElement chartName="radialAxis" />,
+    <RadialLineElement chartName="radialLine" />,
+    <RadialPointsElement chartName="radialPoints" />,
+    <RadialTextElement chartName="radialText" />,
+    <RadialSpokesElement chartName="radialSpokes" />,
   ]
 
   return (

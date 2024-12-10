@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
-  Canvas,
+  QsCanvas,
   createCanvas,
   QsRadialLine,
   radialLineGenerator,
@@ -8,16 +8,18 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialLineTransition: FunctionComponent<ChartProps> = ({
-  targetId,
+  chartName,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element, setElement] = useState<QsRadialLine>()
 
   const createChart = () => {
     const data = [25, 10, 35, 25, 35, 5, 25, 25]
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
-      highestViewableValue: 40,
+      lowestViewableValue: 0,
+      highestViewableValue: 35,
     })
 
     let newElement: QsRadialLine
@@ -52,7 +54,7 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

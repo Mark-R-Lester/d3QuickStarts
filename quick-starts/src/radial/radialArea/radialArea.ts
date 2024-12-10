@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { CurveFactory, curveLinear, areaRadial, Selection } from 'd3'
 import { RadialAreaData } from './types'
 import { Meta, getMeta } from './getMeta'
@@ -55,7 +55,7 @@ const addDefaultsToConfig = (
 }
 
 const area = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: QsRadialAreaData,
   customConfig?: QsRadialAreaConfig
 ): QsRadialArea => {
@@ -71,7 +71,7 @@ export const radialAreaGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: RadialAreaConfigStrict
 ): QsRadialArea => {

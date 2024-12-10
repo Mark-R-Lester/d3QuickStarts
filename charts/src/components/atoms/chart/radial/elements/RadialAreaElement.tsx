@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  Canvas,
+  QsCanvas,
   createCanvas,
   QsRadialAreaData,
   radialAreaGenerator,
@@ -8,7 +8,7 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialAreaElement: FunctionComponent<ChartProps> = ({
-  targetId,
+  chartName,
 }) => {
   const createChart = () => {
     const data1: QsRadialAreaData = {
@@ -22,7 +22,8 @@ export const RadialAreaElement: FunctionComponent<ChartProps> = ({
       ],
     }
 
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
       lowestViewableValue: 0,
       highestViewableValue: 25,
@@ -37,7 +38,7 @@ export const RadialAreaElement: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

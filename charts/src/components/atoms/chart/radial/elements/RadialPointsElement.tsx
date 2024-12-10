@@ -1,19 +1,20 @@
 import { FunctionComponent, useEffect } from 'react'
-import { Canvas, createCanvas, radialPointGenerator } from 'd3qs/d3QuickStart'
+import { QsCanvas, createCanvas, radialPointGenerator } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialPointsElement: FunctionComponent<ChartProps> = ({
-  targetId,
+  chartName,
 }) => {
   const createChart = () => {
     const data: number[] = [
       1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,
     ]
 
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
       lowestViewableValue: 0,
-      highestViewableValue: 3,
+      highestViewableValue: 250,
     })
 
     radialPointGenerator.points(canvas, data)
@@ -25,7 +26,7 @@ export const RadialPointsElement: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

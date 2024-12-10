@@ -3,7 +3,7 @@ import { LinearAreaElement } from '../../components/atoms/chart/linear/elements/
 import { ElementGrid } from '../../components/atoms/ElementGrid'
 
 export default function PlottedTransitionPage() {
-  const elements: JSX.Element[] = [<LinearAreaElement targetId="linearArea" />]
+  const elements: JSX.Element[] = [<LinearAreaElement chartName="linearArea" />]
 
   return (
     <>

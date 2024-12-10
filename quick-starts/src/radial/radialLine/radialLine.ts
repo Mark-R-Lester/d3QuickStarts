@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { curveLinear, CurveFactory, lineRadial, Selection } from 'd3'
 import { Meta, getMeta } from './getMeta'
 
@@ -45,7 +45,7 @@ const addDefaultsToConfig = (
 }
 
 const line = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   customConfig?: QsRadialLineConfig
 ): QsRadialLine => {
@@ -59,7 +59,7 @@ export const radialLineGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: RadialLineConfigStrict
 ): QsRadialLine => {

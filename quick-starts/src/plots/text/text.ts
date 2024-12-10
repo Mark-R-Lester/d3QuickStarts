@@ -1,5 +1,5 @@
 import { scaleLinear, Selection } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { QsCanvas } from '../../d3QuickStart'
 
 export interface QsTextConfig {
   [key: string]: number | string | undefined
@@ -58,7 +58,7 @@ const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
 }
 
 const text = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: TextArgs[],
   customConfig: QsTextConfig
 ): QsText => {
@@ -72,7 +72,7 @@ export const plottedTextGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: TextConfigStrict
 ): QsText => {

@@ -1,5 +1,5 @@
 import { scaleLinear, scaleBand, NumberValue, range, Selection } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { QsCanvas } from '../../d3QuickStart'
 import { DrawArgs } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation, ScaleType } from '../../core/enums'
@@ -14,7 +14,7 @@ export interface Meta {
 }
 
 export const getMeta = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   radius: number
 ): Meta[] => {

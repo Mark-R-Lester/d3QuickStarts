@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  Canvas,
+  QsCanvas,
   createCanvas,
   linearBarGroupGenerator,
 } from 'd3qs/d3QuickStart'
@@ -8,7 +8,7 @@ import { GroupedChartProps } from '../../../../../common/chartProps'
 import { Grouping } from '../../../../../common/enums'
 
 export const LinearBarsGroupedElement: FunctionComponent<GroupedChartProps> = ({
-  targetId,
+  chartName,
   grouping,
 }) => {
   const createChart = () => {
@@ -23,8 +23,11 @@ export const LinearBarsGroupedElement: FunctionComponent<GroupedChartProps> = ({
       [15, 16, 12, 16],
       [10, 4, 13, 32],
     ]
-    const canvas: Canvas = createCanvas(targetId, {
+    const canvas: QsCanvas = createCanvas({
+      chartName,
       width: 600,
+      lowestViewableValue: 0,
+      highestViewableValue: 32,
     })
     if (grouping === Grouping.GROUPED) {
       linearBarGroupGenerator.grouped(canvas, data)
@@ -39,7 +42,7 @@ export const LinearBarsGroupedElement: FunctionComponent<GroupedChartProps> = ({
 
   return (
     <>
-      <div id={targetId}></div>
+      <div id={chartName}></div>
     </>
   )
 }

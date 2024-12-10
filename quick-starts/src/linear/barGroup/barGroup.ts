@@ -1,5 +1,5 @@
 import { schemePurples, Selection } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { QsCanvas } from '../../d3QuickStart'
 import { BarGroupConfigStrict } from './types'
 import { Meta, getMeta } from './getMeta'
 import { Grouping } from '../../core/enums'
@@ -38,7 +38,7 @@ const addDefaultsToConfig = (
 }
 
 const grouped = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[][],
   customConfig?: QsBarGroupsConfig
 ): QsBarGroups => {
@@ -48,7 +48,7 @@ const grouped = (
 }
 
 const stacked = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[][],
   customConfig?: QsBarGroupsConfig
 ): QsBarGroups => {
@@ -63,7 +63,7 @@ export const linearBarGroupGenerator = {
 }
 
 const draw = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: BarGroupConfigStrict
 ): QsBarGroups => {

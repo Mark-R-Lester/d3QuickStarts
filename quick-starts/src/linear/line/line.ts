@@ -1,5 +1,5 @@
 import { curveLinear, CurveFactory, line as d3line, Selection } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { QsCanvas } from '../../d3QuickStart'
 import { DrawArgs } from './types'
 import { Meta, getMeta } from './getMeta'
 import { Orientation, ScaleType } from '../../core/enums'
@@ -33,7 +33,7 @@ const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
 }
 
 const horizontal = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   customConfig?: QsLineConfig
 ): QsLine => {
@@ -47,7 +47,7 @@ const horizontal = (
 }
 
 const vertical = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   customConfig?: QsLineConfig
 ): QsLine => {
@@ -61,7 +61,7 @@ const vertical = (
 }
 
 const horizontalBanded = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   customConfig?: QsLineConfig
 ): QsLine => {
@@ -75,7 +75,7 @@ const horizontalBanded = (
 }
 
 const verticalBanded = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number[],
   customConfig?: QsLineConfig
 ): QsLine => {
@@ -96,7 +96,7 @@ export const linearLineGenerator = {
 }
 
 const drawLine = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   args: DrawArgs,
   config: LineConfigStrict
 ): QsLine => {

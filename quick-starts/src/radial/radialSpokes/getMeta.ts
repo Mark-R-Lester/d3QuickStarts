@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { QsCanvas } from '../../canvas/canvas'
 import { v4 as uuidv4 } from 'uuid'
 
 export interface Meta {
@@ -15,7 +15,7 @@ export interface QsRadialSpokesTransitionArgs {
 }
 
 export const getMeta = (
-  canvas: Canvas,
+  canvas: QsCanvas,
   data: number,
   args: QsRadialSpokesTransitionArgs
 ) => {

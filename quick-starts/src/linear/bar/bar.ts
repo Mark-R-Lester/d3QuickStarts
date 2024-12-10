@@ -61,7 +61,7 @@ const draw = (
   args: DrawArgs,
   config: QsBarConfigStrict
 ): QsBars => {
-  const { data, orientation: orientation } = args
+  const { orientation } = args
 
   const meta: Meta[] = getMeta(canvas, args, config)
 

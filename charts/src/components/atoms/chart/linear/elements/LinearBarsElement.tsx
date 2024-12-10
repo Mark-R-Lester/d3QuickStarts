@@ -8,17 +8,20 @@ export const LinearBarsElement: FunctionComponent<OrienetedChartProps> = ({
   orientation,
 }) => {
   const createChart = () => {
-    const data1 = [25, 10, 35, 25, 35, 5, 25, 25]
+    const data = [25, 10, 35, 25, 35, 5, 25, 25]
+    const isVertical = orientation === Orientation.VERTICAL
+
     const canvas: QsCanvas = createCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,
-      highestViewableValue: 35,
+      highestViewableValue: Math.max(...data),
     })
-    if (orientation === Orientation.VERTICAL) {
-      linearBarGenerator.vertical(canvas, data1)
+
+    if (isVertical) {
+      linearBarGenerator.vertical(canvas, data)
     } else {
-      linearBarGenerator.horizontal(canvas, data1)
+      linearBarGenerator.horizontal(canvas, data)
     }
   }
 

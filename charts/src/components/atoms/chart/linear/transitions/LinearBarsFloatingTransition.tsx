@@ -19,14 +19,14 @@ export const LinearBarsFloatingTransition: FunctionComponent<
       [10, 30],
       [20, 40],
       [30, 50],
-      [40, 60],
-      [50, 70],
+      [10, 25],
+      [10, 12],
     ]
     const canvas: QsCanvas = createCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,
-      highestViewableValue: 70,
+      highestViewableValue: 50,
     })
 
     let newBars

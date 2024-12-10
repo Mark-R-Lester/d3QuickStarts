@@ -21,7 +21,7 @@ export const LinearLineTransition: FunctionComponent<OrienetedChartProps> = ({
       chartName,
       width: 600,
       lowestViewableValue: 0,
-      highestViewableValue: 35,
+      highestViewableValue: 50,
     })
     let newElement: QsLine
     if (orientation === Orientation.VERTICAL) {

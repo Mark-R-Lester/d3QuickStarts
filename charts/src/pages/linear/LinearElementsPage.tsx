@@ -7,7 +7,8 @@ import { LinearLineElement } from '../../components/atoms/chart/linear/elements/
 import { LinearAxisElement } from '../../components/atoms/chart/linear/elements/LinearAxisElement'
 import { LinearPointsElement } from '../../components/atoms/chart/linear/elements/LinearPointsElement'
 import { LinearBarsGroupedElement } from '../../components/atoms/chart/linear/elements/LinearBarsGroupedElement'
-import { Grouping, Orientation } from '../../common/enums'
+import { Orientation } from '../../common/enums'
+import { LinearBarStacksElement } from '../../components/atoms/chart/linear/elements/LinearBarStacksElement'
 
 export default function LinearElementsPage() {
   const elements: JSX.Element[] = [
@@ -45,14 +46,8 @@ export default function LinearElementsPage() {
       chartName="linearPointsVertical"
       orientation={Orientation.VERTICAL}
     />,
-    <LinearBarsGroupedElement
-      chartName="linearBarsGroupedVertical"
-      grouping={Grouping.GROUPED}
-    />,
-    <LinearBarsGroupedElement
-      chartName="linearBarsStackedVertical"
-      grouping={Grouping.STACKED}
-    />,
+    <LinearBarsGroupedElement chartName="linearBarsGroupedVertical" />,
+    <LinearBarStacksElement chartName="linearBarsStackedVertical" />,
     <LinearAreaElement chartName="linearArea" />,
     <LinearAxisElement chartName="linearAxis" />,
   ]

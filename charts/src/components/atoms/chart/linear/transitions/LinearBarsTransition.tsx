@@ -21,7 +21,7 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
       chartName,
       width: 600,
       lowestViewableValue: 0,
-      highestViewableValue: 250,
+      highestViewableValue: 50,
     })
     let newBars: QsBars
     if (orientation === Orientation.VERTICAL) {

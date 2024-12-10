@@ -2,12 +2,12 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   createCanvas,
-  linearBarGroupGenerator,
-  qsFindMax,
+  linearBarStackGenerator,
+  qsFindMaxSum,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
-export const LinearBarsGroupedElement: FunctionComponent<ChartProps> = ({
+export const LinearBarStacksElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
   const createChart = () => {
@@ -26,10 +26,10 @@ export const LinearBarsGroupedElement: FunctionComponent<ChartProps> = ({
       chartName,
       width: 600,
       lowestViewableValue: 0,
-      highestViewableValue: qsFindMax(data),
+      highestViewableValue: qsFindMaxSum(data),
     })
 
-    linearBarGroupGenerator.group(canvas, data)
+    linearBarStackGenerator.stack(canvas, data)
   }
 
   useEffect(() => {

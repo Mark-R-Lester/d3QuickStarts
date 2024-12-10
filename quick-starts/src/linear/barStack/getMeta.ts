@@ -10,19 +10,19 @@ import {
 import { QsCanvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import { qsFindMax, qsFindMaxSum } from '../../core/max'
-import { BarData, BarGroupConfigStrict } from './types'
+import { qsFindMaxSum } from '../../core/max'
+import { BarData, BarStackedConfigStrict } from './types'
 
 export interface Meta {
   groupId: string
-  groupClass: string
+  stackClass: string
   barData: BarData[]
 }
 
 export const getMeta = (
   canvas: QsCanvas,
   data: number[][],
-  config: BarGroupConfigStrict
+  config: BarStackedConfigStrict
 ): Meta[] => {
   const {
     lowestViewableValue,
@@ -31,6 +31,7 @@ export const getMeta = (
     displayAreaHeight,
   } = canvas.config
   const { padding } = config
+
   const meta: Meta[] = []
 
   const colors = scaleOrdinal()
@@ -40,7 +41,7 @@ export const getMeta = (
   const yScale = scaleLinear()
     .domain([
       lowestViewableValue,
-      highestViewableValue !== 0 ? highestViewableValue : qsFindMax(data),
+      highestViewableValue !== 0 ? highestViewableValue : qsFindMaxSum(data),
     ])
     .range([displayAreaHeight, 0])
 
@@ -50,18 +51,16 @@ export const getMeta = (
     .paddingInner(padding / 200)
     .paddingOuter(padding / 200)
 
-  const y = (d: number[]): number => yScale(d[1] - d[0])
-  const x = (outer: number, inner: string): number => {
+  const y = (d: number[]): number => yScale(d[1])
+  const x = (inner: string): number => {
     //TODO requires error handling
     const bandVal = xBandScale(inner)
-    if (bandVal)
-      return bandVal + (xBandScale.bandwidth() / data[0].length) * outer
-
+    if (bandVal) return bandVal
     return 0
   }
 
-  const height = (d: number[]) => yScale(0) - yScale(d[1] - d[0])
-  const width = () => xBandScale.bandwidth() / data[0].length
+  const height = (d: number[]) => yScale(d[0]) - yScale(d[1])
+  const width = () => xBandScale.bandwidth()
 
   const getColor = (
     i: number,
@@ -77,12 +76,12 @@ export const getMeta = (
   )(data as Iterable<{ [key: string]: number }>)
 
   stackedData.forEach((d, outer) => {
-    const barIds = d.map(() => `barGrouped${uuidv4()}`)
+    const barIds = d.map(() => `${`barStacked${uuidv4()}`}`)
     const data: BarData[] = d.map((d, inner): BarData => {
       return {
         id: barIds[inner],
-        class: 'barGrouped',
-        x: x(outer, inner.toString()),
+        class: `${'barStacked'}`,
+        x: x(inner.toString()),
         y: y(d),
         height: height(d),
         width: width(),
@@ -90,8 +89,8 @@ export const getMeta = (
       }
     })
     meta.push({
-      groupId: `group${outer}`,
-      groupClass: 'barGroup',
+      groupId: `stack${outer}`,
+      stackClass: `${'barStack'}`,
       barData: data,
     })
   })

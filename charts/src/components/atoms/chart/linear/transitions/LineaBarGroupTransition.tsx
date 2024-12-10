@@ -4,6 +4,9 @@ import {
   createCanvas,
   linearBarGroupGenerator,
   QsBarGroups,
+  linearBarStackGenerator,
+  qsFindMax,
+  qsFindMaxSum,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
@@ -53,11 +56,11 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
       chartName,
       width: 600,
       lowestViewableValue: 0,
-      highestViewableValue: 100,
+      highestViewableValue: qsFindMaxSum(dataMax),
     })
 
-    let grouped = linearBarGroupGenerator.grouped(canvas, dataMax)
-    let stacked = linearBarGroupGenerator.stacked(canvas, dataMin)
+    let grouped = linearBarGroupGenerator.group(canvas, dataMax)
+    let stacked = linearBarStackGenerator.stack(canvas, dataMin)
 
     setGrouped(grouped)
     setStacked(stacked)

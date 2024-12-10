@@ -35,10 +35,7 @@ export const getMeta = (
     .range([0, isVertical ? displayAreaHeight : displayAreaWidth])
     .padding(padding / 100)
   const heightScale = scaleLinear()
-    .domain([
-      lowestViewableValue,
-      highestViewableValue !== 0 ? highestViewableValue : Math.max(...data),
-    ])
+    .domain([lowestViewableValue, highestViewableValue])
     .range([0, isVertical ? displayAreaWidth : displayAreaHeight])
 
   const barSpaceing = (d: number, i: number) => {

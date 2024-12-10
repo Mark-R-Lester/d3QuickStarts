@@ -56,7 +56,7 @@ export const getMeta = (
   const heightScale = scaleLinear()
     .domain([
       lowestViewableValue,
-      highestViewableValue !== 0 ? highestViewableValue : findMax(data),
+      highestViewableValue !== 0 ? highestViewableValue : qsFindMax(data),
     ])
     .range([0, isVertical ? displayAreaWidth : displayAreaHeight])
 

@@ -1,7 +1,7 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { scaleLinear, Selection } from 'd3'
 import { CoordinateEnhanced } from '../../core/types'
-import { findMaxCoordinateX, findMaxCoordinateY } from '../../core/max'
+import { qsFindMaxCoordinateX, qsFindMaxCoordinateY } from '../../core/max'
 
 export interface QsScatterPlotConfig {
   [key: string]: string | undefined
@@ -56,10 +56,10 @@ const draw = (
   const { data } = args
 
   const xScale = scaleLinear()
-    .domain([0, findMaxCoordinateX(data)])
+    .domain([0, qsFindMaxCoordinateX(data)])
     .range([0, displayAreaWidth])
   const yScale = scaleLinear()
-    .domain([0, findMaxCoordinateY(data)])
+    .domain([0, qsFindMaxCoordinateY(data)])
     .range([displayAreaHeight, 0])
   const dataPoints = canvas.displayGroup.append('g')
   dataPoints

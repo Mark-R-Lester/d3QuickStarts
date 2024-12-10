@@ -6,7 +6,7 @@ import {
   line as d3line,
 } from 'd3'
 import { Coordinate } from '../../core/types'
-import { findMaxCoordinateX, findMaxCoordinateY } from '../../core/max'
+import { qsFindMaxCoordinateX, qsFindMaxCoordinateY } from '../../core/max'
 import { QsCanvas } from '../../d3QuickStart'
 
 export interface QsLinePlotConfig {
@@ -67,10 +67,10 @@ const draw = (
   const { data } = args
 
   const xScale = scaleLinear()
-    .domain([0, findMaxCoordinateX(data)])
+    .domain([0, qsFindMaxCoordinateX(data)])
     .range([0, displayAreaWidth])
   const yScale = scaleLinear()
-    .domain([0, findMaxCoordinateY(data)])
+    .domain([0, qsFindMaxCoordinateY(data)])
     .range([displayAreaHeight, 0])
   let line = d3line()
     .x((d) => xScale(d[0]))

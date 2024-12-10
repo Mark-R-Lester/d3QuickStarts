@@ -10,7 +10,7 @@ import {
 import { QsCanvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import { findMax, findMaxSum } from '../../core/max'
+import { qsFindMax, qsFindMaxSum } from '../../core/max'
 import { BarData, BarGroupConfigStrict } from './types'
 import { Grouping } from '../../core/enums'
 
@@ -47,8 +47,8 @@ export const getMeta = (
       highestViewableValue !== 0
         ? highestViewableValue
         : isGrouped
-          ? findMax(data)
-          : findMaxSum(data),
+          ? qsFindMax(data)
+          : qsFindMaxSum(data),
     ])
     .range([displayAreaHeight, 0])
 

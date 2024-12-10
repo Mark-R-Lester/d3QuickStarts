@@ -20,3 +20,5 @@ export * from './radial/radialText/radialText'
 export * from './plots/linePlot/linePlot'
 export * from './plots/scatterPlot/scatterPlot'
 export * from './plots/text/text'
+
+export * from './core/max'

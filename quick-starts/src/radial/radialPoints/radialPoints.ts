@@ -1,7 +1,8 @@
-import { QsCanvas } from '../../canvas/canvas'
 import { getMeta, Meta } from './meta'
 import { Selection } from 'd3-selection'
 import { scaleLinear } from 'd3-scale'
+import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
+import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
 
 export interface QsRadialPointsConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
@@ -10,11 +11,17 @@ export interface QsRadialPointsConfig {
   pointRadius?: number
 }
 
+export interface QsRadialPointsTransitionData {
+  data: number[]
+  config?: QsRadialPointsConfig
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsRadialPoints {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: number[]) => void
+  transition: (data: QsRadialPointsTransitionData) => void
 }
 
 interface RadialPointsConfigStrict {
@@ -85,13 +92,14 @@ const draw = (
     .attr('transform', `translate(${xScale(x)}, ${yScale(y)})`)
   return {
     element: dataPoints.selectAll('circle'),
-    transition: (data: number[]) => {
-      const meta: Meta[] = getMeta(canvas, data)
+    transition: (data: QsRadialPointsTransitionData) => {
+      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+      const meta: Meta[] = getMeta(canvas, data.data)
       dataPoints
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
-        .duration(3000)
+        .duration(args.durationInMiliSeconds)
         .attr('cx', (d) => d.pointData[0])
         .attr('cy', (d) => d.pointData[1])
         .attr('r', yScale(pointRadius))

@@ -1,6 +1,6 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { scaleLinear, Selection } from 'd3'
-import { CoordinateEnhanced } from '../../core/types'
+import { QsCoordinateEnhanced } from '../../core/qsTypes'
 import { qsFindMaxCoordinateX, qsFindMaxCoordinateY } from '../../core/max'
 
 export interface QsScatterPlotConfig {
@@ -18,7 +18,7 @@ interface ScatterPlotConfigStrict {
 }
 
 interface DrawArgs {
-  data: CoordinateEnhanced[]
+  data: QsCoordinateEnhanced[]
 }
 
 const configuration: ScatterPlotConfigStrict = {}
@@ -36,7 +36,7 @@ const addDefaultsToConfig = (
 
 const points = (
   canvas: QsCanvas,
-  data: CoordinateEnhanced[],
+  data: QsCoordinateEnhanced[],
   config?: QsScatterPlotConfig
 ): QsScatterPlot => {
   const args: DrawArgs = { data }

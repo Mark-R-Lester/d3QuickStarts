@@ -1,5 +1,4 @@
 import { scaleLinear, scalePoint, scaleBand } from 'd3-scale'
-import { QsCanvas } from '../../d3QuickStart'
 import { BaseType, Selection } from 'd3-selection'
 import {
   axisBottom,
@@ -11,6 +10,7 @@ import {
 } from 'd3-axis'
 import { toStrings } from '../../core/conversion'
 import { ScaleType } from '../../core/enums'
+import { QsCanvas } from '../../canvas/canvas'
 
 export interface QsAxisConfig {
   [key: string]: number | boolean | string | undefined

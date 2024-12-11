@@ -3,6 +3,8 @@ import { arc as d3arc, interpolate, Selection } from 'd3'
 import { QsValuedText, RadialTextConfigStrict } from './types'
 import { BandData, Meta, getMeta, updateMeta } from './meta'
 import { RadialTextType, ScaleType } from '../../core/enums'
+import { QsTransitionArgs } from '../../d3QuickStart'
+import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
 
 export { QsValuedText } from './types'
 
@@ -14,6 +16,12 @@ export interface QsRadialTextConfig {
   y?: number
 }
 
+export interface QsRadialTextTransitionData {
+  data: QsValuedText[]
+  config?: QsRadialTextConfig
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsRadialText {
   elementText:
     | Selection<SVGGElement, unknown, HTMLElement, any>
@@ -21,7 +29,7 @@ export interface QsRadialText {
   elementArcs:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsValuedText[], config?: QsRadialTextConfig) => void
+  transition: (data: QsRadialTextTransitionData) => void
 }
 
 interface DrawArgs {
@@ -264,11 +272,12 @@ const draw = (
   return {
     elementText: text.selectAll('.text'),
     elementArcs: arcs.selectAll('.arc'),
-    transition: (data: QsValuedText[], newConfig?: QsRadialTextConfig) => {
-      const updatedConfig = updateCurrentConfig(config, newConfig)
+    transition: (data: QsRadialTextTransitionData) => {
+      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+      const updatedConfig = updateCurrentConfig(config, data.config)
       const updatedMeta: Meta = updateMeta(
         canvas,
-        data,
+        data.data,
         updatedConfig,
         scaleType,
         meta
@@ -283,7 +292,7 @@ const draw = (
           .attr('fill', 'none')
           .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
           .transition()
-          .duration(3000)
+          .duration(args.durationInMiliSeconds)
           .attr('font-size', `${updatedMeta.yAxis(fontSize)}px`)
           .attr(
             'transform',
@@ -318,7 +327,7 @@ const draw = (
           .attr('d', (d) => arc(d.new))
           .transition()
           .delay(1000)
-          .duration(3000)
+          .duration(args.durationInMiliSeconds)
           .attrTween('d', (d) => {
             const originalStartAngle = d.old.startAngle
             const originalEndAngle = d.old.endAngle

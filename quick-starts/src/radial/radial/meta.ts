@@ -3,7 +3,7 @@ import { scaleLinear, scaleOrdinal, ScaleOrdinal, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 
 import { toStrings } from '../../core/conversion'
-import { ColorName, DomainName } from '../../core/types'
+import { QsColorName, QsDomainName } from '../../core/qsTypes'
 import { ArcData, QsRadialArgs, RadialConfigStrict } from './types'
 
 export interface Meta {
@@ -15,7 +15,7 @@ export interface Meta {
 }
 
 const getColor = (
-  color: ColorName | DomainName | undefined,
+  color: QsColorName | QsDomainName | undefined,
   i: number,
   colorScale: ScaleOrdinal<string, unknown, never>
 ): string => {

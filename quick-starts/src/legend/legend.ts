@@ -1,11 +1,16 @@
-import { scaleLinear } from 'd3'
+import { BaseType, scaleLinear, Selection } from 'd3'
 import { QsCanvas } from '../canvas/canvas'
 import { Meta, getMeta } from './getMeta'
 import { LegendConfigStrict, QsValuedColor } from './types'
+import { QsTransitionArgs } from '../core/qsTypes'
 
 export { QsValuedColor } from './types'
 
-export interface LegendConfig {
+export interface QsLegend {
+  element: Selection<BaseType, unknown, SVGGElement, unknown>
+  transition: (data: QsValuedColor[], transisionArgs?: QsTransitionArgs) => void
+}
+export interface QsLegendConfig {
   [key: string]: number | string | undefined
   size?: number
   space?: number
@@ -24,7 +29,7 @@ interface DrawArgs {
 }
 
 const addDefaultsToConfig = (
-  customConfig?: LegendConfig
+  customConfig?: QsLegendConfig
 ): LegendConfigStrict => {
   const defaults: LegendConfigStrict = {
     size: 3,
@@ -49,8 +54,8 @@ const addDefaultsToConfig = (
 const legend = (
   canvas: QsCanvas,
   data: QsValuedColor[],
-  customConfig: LegendConfig
-) => {
+  customConfig: QsLegendConfig
+): QsLegend => {
   const config: LegendConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = { data }
   return draw(canvas, args, config)
@@ -103,6 +108,9 @@ const draw = (canvas: QsCanvas, args: DrawArgs, config: LegendConfigStrict) => {
 
   return {
     element: group.selectAll('.element'),
-    transition: () => {},
+    transition: (
+      data: QsValuedColor[],
+      transisionArgs?: QsTransitionArgs
+    ) => {},
   }
 }

@@ -1,19 +1,26 @@
 import { Selection } from 'd3'
-import { QsCanvas } from '../../d3QuickStart'
+import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
 import { Meta, getMeta } from './meta'
 import { DrawArgs } from './types'
 import { Orientation, ScaleType } from '../../core/enums'
+import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
 
 export interface QsPointsConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   radius?: number
 }
 
+export interface QsPointsTransitionData {
+  data: number[]
+  config?: QsPointsConfig
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsPoints {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: number[]) => void
+  transition: (data: QsPointsTransitionData) => void
 }
 
 interface PointsConfigStrict {
@@ -120,15 +127,17 @@ const draw = (
     .attr('cx', (d) => d.pointData.x)
     .attr('r', (d) => d.radius)
 
-  const transition = (data: number[]) => {
-    const args: DrawArgs = { data, orientation, scaleType }
-    const meta: Meta[] = getMeta(canvas, args, radius)
+  const transition = (data: QsPointsTransitionData) => {
+    const args = addDefaultsToTransitionArgs(data.transitionArgs)
+    const drawArgs: DrawArgs = { data: data.data, orientation, scaleType }
+    const meta: Meta[] = getMeta(canvas, drawArgs, radius)
+
     if (orientation === Orientation.VERTICAL)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
-        .duration(3000)
+        .duration(args.durationInMiliSeconds)
         .attr('cx', (d) => d.pointData.x)
         .attr('r', (d) => d.radius)
     else
@@ -136,12 +145,12 @@ const draw = (
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
-        .duration(3000)
+        .duration(args.durationInMiliSeconds)
         .attr('cy', (d) => d.pointData.y)
         .attr('r', (d) => d.radius)
   }
   return {
     element: group.selectAll(`.${meta[0].class}`),
-    transition: (data: number[]) => transition(data),
+    transition: (data: QsPointsTransitionData) => transition(data),
   }
 }

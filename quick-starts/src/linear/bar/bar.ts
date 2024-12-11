@@ -3,6 +3,8 @@ import { range, Selection } from 'd3'
 import { Meta, QsBarConfigStrict, DrawArgs } from './types'
 import { getMeta } from './meta'
 import { Orientation } from '../../core/enums'
+import { QsTransitionArgs } from '../../core/qsTypes'
+import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
 
 export interface QsBarConfig {
   [key: string]: number | Iterable<unknown> | number[] | undefined
@@ -11,11 +13,17 @@ export interface QsBarConfig {
   colorRange?: Iterable<unknown>
 }
 
+export interface QsBarTransitionData {
+  data: number[]
+  config?: QsBarConfig
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsBars {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: number[]) => void
+  transition: (data: QsBarTransitionData) => void
 }
 
 const addDefaultsToConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
@@ -79,16 +87,18 @@ const draw = (
     .attr('height', (d) => d.barData.height)
     .attr('fill', (d) => d.barData.color)
 
-  const transition = (data: number[]) => {
-    const args: DrawArgs = { data, orientation }
-    const meta: Meta[] = getMeta(canvas, args, config)
+  const transition = (data: QsBarTransitionData) => {
+    const args = addDefaultsToTransitionArgs(data.transitionArgs)
+    const drawArgs: DrawArgs = { data: data.data, orientation }
+    const meta: Meta[] = getMeta(canvas, drawArgs, config)
+
     group.selectAll(`.${meta[0].class}`).data(meta).transition().duration(1000)
     if (orientation === Orientation.VERTICAL) {
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
-        .duration(1000)
+        .duration(args.durationInMiliSeconds)
         .attr('width', (d) => d.barData.width)
         .attr('x', (d) => d.barData.x)
     } else {
@@ -96,7 +106,7 @@ const draw = (
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
-        .duration(1000)
+        .duration(args.durationInMiliSeconds)
         .attr('height', (d) => d.barData.height)
         .attr('y', (d) => d.barData.y)
     }
@@ -104,6 +114,6 @@ const draw = (
 
   return {
     element: group.selectAll(`.${meta[0].class}`),
-    transition: (data: number[]) => transition(data),
+    transition: (data: QsBarTransitionData) => transition(data),
   }
 }

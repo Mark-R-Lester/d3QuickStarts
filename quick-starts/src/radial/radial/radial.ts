@@ -2,6 +2,8 @@ import { QsCanvas } from '../../canvas/canvas'
 import { interpolate, range, schemePurples, Selection, arc as d3arc } from 'd3'
 import { QsRadialArgs, RadialConfigStrict, ArcData } from './types'
 import { Meta, getMeta, updateMeta } from './meta'
+import { QsTransitionArgs } from '../../core/qsTypes'
+import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
 
 export { QsRadialArgs } from './types'
 
@@ -17,11 +19,17 @@ export interface QsRadialConfig {
   colorRange?: Iterable<unknown>
 }
 
+export interface QsRadialTransitionData {
+  data: QsRadialArgs[]
+  config?: QsRadialConfig
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsRadial {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsRadialArgs[], config?: QsRadialConfig) => void
+  transition: (data: QsRadialTransitionData) => void
 }
 
 interface DrawArgs {
@@ -132,9 +140,15 @@ const draw = (
 
   return {
     element: group.selectAll('.arc'),
-    transition: (data: QsRadialArgs[], newConfig?: QsRadialConfig) => {
-      const updatedConfig = updateCurrentConfig(config, newConfig)
-      const updatedMeta: Meta[] = updateMeta(canvas, data, updatedConfig, meta)
+    transition: (data: QsRadialTransitionData) => {
+      const updatedConfig = updateCurrentConfig(config, data.config)
+      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+      const updatedMeta: Meta[] = updateMeta(
+        canvas,
+        data.data,
+        updatedConfig,
+        meta
+      )
       interface OldAndNew {
         old: ArcData
         new: ArcData
@@ -176,7 +190,7 @@ const draw = (
         .attr('d', (d) => arc(d.new))
         .transition()
         .delay(1000)
-        .duration(3000)
+        .duration(args.durationInMiliSeconds)
         .attrTween('d', (d) => radialTween(d, arc))
     },
   }

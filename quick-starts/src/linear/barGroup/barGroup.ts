@@ -1,7 +1,9 @@
 import { schemePurples, Selection } from 'd3'
-import { QsCanvas } from '../../d3QuickStart'
 import { BarGroupConfigStrict } from './types'
 import { Meta, getMeta } from './meta'
+import { QsTransitionArgs } from '../../core/qsTypes'
+import { QsCanvas } from '../../canvas/canvas'
+import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
 
 export interface QsBarGroupConfig {
   [key: string]: number | Iterable<String> | undefined
@@ -9,11 +11,17 @@ export interface QsBarGroupConfig {
   colorRange?: Iterable<String>
 }
 
+export interface QsBarGroupTransitionData {
+  data: number[][]
+  config?: QsBarGroupConfig
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsBarGroups {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: number[][]) => void
+  transition: (data: QsBarGroupTransitionData) => void
 }
 
 interface DrawArgs {
@@ -81,8 +89,9 @@ const draw = (
 
   return {
     element: barGroups.selectAll('.barGrouped'),
-    transition: (data: number[][]) => {
-      const meta: Meta[] = getMeta(canvas, data, config)
+    transition: (data: QsBarGroupTransitionData) => {
+      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+      const meta: Meta[] = getMeta(canvas, data.data, config)
       const bars = canvas.displayGroup.selectAll('.barGroup').data(meta)
       bars
         .selectAll('.barGrouped')
@@ -90,7 +99,7 @@ const draw = (
         .attr('x', (d) => d.x)
         .attr('width', (d) => d.width)
         .transition()
-        .duration(3000)
+        .duration(args.durationInMiliSeconds)
         .attr('y', (d) => d.y)
         .attr('height', (d) => d.height)
     },

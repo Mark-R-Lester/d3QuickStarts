@@ -5,7 +5,7 @@ import {
   Selection,
   line as d3line,
 } from 'd3'
-import { Coordinate } from '../../core/types'
+import { QsCoordinate } from '../../core/qsTypes'
 import { qsFindMaxCoordinateX, qsFindMaxCoordinateY } from '../../core/max'
 import { QsCanvas } from '../../d3QuickStart'
 
@@ -26,7 +26,7 @@ interface LinePlotConfigStrict {
 }
 
 interface DrawArgs {
-  data: Coordinate[]
+  data: QsCoordinate[]
 }
 
 const addDefaultsToConfig = (
@@ -45,7 +45,7 @@ const addDefaultsToConfig = (
 
 const line = (
   canvas: QsCanvas,
-  data: Coordinate[],
+  data: QsCoordinate[],
   customConfig?: QsLinePlotConfig
 ): QsLinePlot => {
   const config: LinePlotConfigStrict = addDefaultsToConfig(customConfig)

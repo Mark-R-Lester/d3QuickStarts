@@ -1,7 +1,8 @@
 import { schemePurples, Selection } from 'd3'
-import { QsCanvas } from '../../d3QuickStart'
 import { BarStackedConfigStrict } from './types'
 import { Meta, getMeta } from './meta'
+import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
+import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
 
 export interface QsBarStackedConfig {
   [key: string]: number | Iterable<String> | undefined
@@ -9,11 +10,17 @@ export interface QsBarStackedConfig {
   colorRange?: Iterable<String>
 }
 
+export interface QsBarStackedTransitionData {
+  data: number[][]
+  config?: QsBarStackedConfig
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsBarStack {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: number[][]) => void
+  transition: (data: QsBarStackedTransitionData) => void
 }
 
 interface DrawArgs {
@@ -81,8 +88,10 @@ const draw = (
 
   return {
     element: barStacks.selectAll(`${'.barStacked'}`),
-    transition: (data: number[][]) => {
-      const meta: Meta[] = getMeta(canvas, data, config)
+    transition: (data: QsBarStackedTransitionData) => {
+      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+      const meta: Meta[] = getMeta(canvas, data.data, config)
+
       const bars = canvas.displayGroup.selectAll(`${'.barStack'}`).data(meta)
       bars
         .selectAll(`${'.barStacked'}`)
@@ -90,7 +99,7 @@ const draw = (
         .attr('x', (d) => d.x)
         .attr('width', (d) => d.width)
         .transition()
-        .duration(3000)
+        .duration(args.durationInMiliSeconds)
         .attr('y', (d) => d.y)
         .attr('height', (d) => d.height)
     },

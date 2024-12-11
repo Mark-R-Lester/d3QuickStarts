@@ -23,3 +23,4 @@ export * from './plots/scatterPlot/scatterPlot'
 export * from './plots/text/text'
 
 export * from './core/max'
+export * from './core/qsTypes'

@@ -72,9 +72,9 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
   useEffect(
     function transitionGrouped() {
       if (changedGroup) {
-        if (grouped) grouped.transition(dataMax)
+        if (grouped) grouped.transition({ data: dataMax })
       } else {
-        if (grouped) grouped.transition(dataMin)
+        if (grouped) grouped.transition({ data: dataMin })
       }
       setTimeout(() => setChangedGroup(!changedGroup), 3000)
     },
@@ -84,9 +84,9 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
   useEffect(
     function transitionStacked() {
       if (changedStack) {
-        if (stacked) stacked.transition(dataMin)
+        if (stacked) stacked.transition({ data: dataMin })
       } else {
-        if (stacked) stacked.transition(dataMax)
+        if (stacked) stacked.transition({ data: dataMax })
       }
       setTimeout(() => setChangedStack(!changedStack), 3000)
     },

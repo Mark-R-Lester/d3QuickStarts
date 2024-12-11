@@ -2,6 +2,8 @@ import { QsCanvas } from '../../canvas/canvas'
 import { CurveFactory, curveLinear, areaRadial, Selection } from 'd3'
 import { RadialAreaData } from './types'
 import { Meta, getMeta } from './meta'
+import { QsTransitionArgs } from '../../core/qsTypes'
+import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
 
 export interface QsRadialAreaConfig {
   [key: string]: CurveFactory | number | undefined | string
@@ -11,11 +13,17 @@ export interface QsRadialAreaConfig {
   color?: string
 }
 
+export interface QsRadialAreaTransitionData {
+  data: QsRadialAreaData
+  config?: QsRadialAreaConfig
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsRadialArea {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsRadialAreaData) => void
+  transition: (data: QsRadialAreaTransitionData) => void
 }
 
 export interface QsRadialAreaData {
@@ -95,13 +103,15 @@ const draw = (
     .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
   return {
     element: group.selectAll('path'),
-    transition: (data: QsRadialAreaData) => {
-      const { innerData: dataInner, outerData: dataOuter } = data
+    transition: (data: QsRadialAreaTransitionData) => {
+      const { innerData: dataInner, outerData: dataOuter } = data.data
       const meta = getMeta(canvas, dataOuter, dataInner)
+      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+
       group
         .selectAll(`.${meta.class}`)
         .transition()
-        .duration(3000)
+        .duration(args.durationInMiliSeconds)
         .attr('d', radialArea(meta.areaData))
     },
   }

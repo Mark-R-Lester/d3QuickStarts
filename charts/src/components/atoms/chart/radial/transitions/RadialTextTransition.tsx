@@ -50,8 +50,8 @@ export const RadialTextTransition: FunctionComponent<ChartProps> = ({
       }
 
       const transitionData = getVals()
-      if (element1) element1.transition(transitionData)
-      if (element2) element2.transition(transitionData)
+      if (element1) element1.transition({ data: transitionData })
+      if (element2) element2.transition({ data: transitionData })
       setTimeout(() => setChanged(!changed), 3000)
     },
     [element1, element2, changed]

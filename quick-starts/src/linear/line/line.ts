@@ -1,19 +1,26 @@
 import { curveLinear, CurveFactory, line as d3line, Selection } from 'd3'
-import { QsCanvas } from '../../d3QuickStart'
+import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
 import { DrawArgs } from './types'
 import { Meta, getMeta } from './meta'
 import { Orientation, ScaleType } from '../../core/enums'
+import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
 
 export interface QsLineConfig {
   [key: string]: CurveFactory | undefined
   curve?: CurveFactory
 }
 
+export interface QsLineTransitionData {
+  data: number[]
+  config?: QsLineConfig
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsLine {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: number[]) => void
+  transition: (data: QsLineTransitionData) => void
 }
 
 interface LineConfigStrict {
@@ -128,24 +135,26 @@ const draw = (
     .attr('fill-opacity', '0')
 
   const transition = (
-    data: number[],
+    data: QsLineTransitionData,
     orientation: Orientation,
     scaleType: ScaleType
   ) => {
-    const args: DrawArgs = {
-      data,
+    const args = addDefaultsToTransitionArgs(data.transitionArgs)
+    const drawArgs: DrawArgs = {
+      data: data.data,
       orientation: orientation,
       scaleType: scaleType,
     }
-    const meta: Meta = getMeta(canvas, args, config)
+    const meta: Meta = getMeta(canvas, drawArgs, config)
     group
       .selectAll(`.${meta.class}`)
       .transition()
-      .duration(3000)
+      .duration(args.durationInMiliSeconds)
       .attr('d', line(meta.lineData))
   }
   return {
     element: group.select(`.${meta.class}`),
-    transition: (data: number[]) => transition(data, orientation, scaleType),
+    transition: (data: QsLineTransitionData) =>
+      transition(data, orientation, scaleType),
   }
 }

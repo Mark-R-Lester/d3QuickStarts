@@ -45,7 +45,7 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
 
       const transitionData = getVals()
 
-      if (element) element.transition(transitionData)
+      if (element) element.transition({ data: transitionData })
 
       setTimeout(() => setChanged(!changed), 3000)
     },

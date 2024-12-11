@@ -8,6 +8,8 @@ import {
 import { QsCanvas } from '../../canvas/canvas'
 import { AreaData, getMeta, Meta } from './meta'
 import { QsAreaData } from './types'
+import { QsTransitionArgs } from '../../core/qsTypes'
+import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
 
 export { QsAreaData } from './types'
 export interface QsAreaConfig {
@@ -16,11 +18,17 @@ export interface QsAreaConfig {
   color?: string
 }
 
+export interface QsAreaTransitionData {
+  data: QsAreaData
+  config?: QsAreaConfig
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsArea {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsAreaData) => void
+  transition: (data: QsAreaTransitionData) => void
 }
 
 interface AreaConfigStrict {
@@ -98,12 +106,14 @@ function draw(
     .attr('fill', color)
   return {
     element: group.select(`.${meta.class}`),
-    transition: (data: QsAreaData) => {
-      const meta: Meta = getMeta(canvas, data)
+    transition: (data: QsAreaTransitionData) => {
+      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+      const meta: Meta = getMeta(canvas, data.data)
+
       group
         .selectAll(`.${meta.class}`)
         .transition()
-        .duration(3000)
+        .duration(args.durationInMiliSeconds)
         .attr('d', area(meta.areaData))
     },
   }

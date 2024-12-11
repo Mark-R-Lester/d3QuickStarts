@@ -3,12 +3,12 @@ import { QsCanvas } from '../../d3QuickStart'
 import { DrawArgs } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation, ScaleType } from '../../core/enums'
-import { Coordinate } from '../../core/types'
+import { QsCoordinate } from '../../core/qsTypes'
 
 export interface Meta {
   class: string
   id: string
-  pointData: Coordinate
+  pointData: QsCoordinate
   radiusMin: number
   radius: number
 }
@@ -34,12 +34,12 @@ export const getMeta = (
     displayAreaWidth / data.length
   )
 
-  const getCoordinates = (data: number[]): Coordinate[] =>
+  const getCoordinates = (data: number[]): QsCoordinate[] =>
     data.map((d, i) =>
       isVertical ? { x: d, y: pointSpacing[i] } : { x: pointSpacing[i], y: d }
     )
 
-  const coordinates: Coordinate[] = getCoordinates(data)
+  const coordinates: QsCoordinate[] = getCoordinates(data)
 
   const dataScale = scaleLinear()
     .domain(
@@ -78,13 +78,13 @@ export const getMeta = (
       .range(isVertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
   }
 
-  const x = (d: Coordinate) => {
+  const x = (d: QsCoordinate) => {
     const space = isBanded
       ? spacingScale(d.x) + spacingScale.bandwidth() / 2
       : spacingScale(d.x)
     return isVertical ? dataScale(d.x) : space
   }
-  const y = (d: Coordinate) => {
+  const y = (d: QsCoordinate) => {
     const space = isBanded
       ? spacingScale(d.y) + spacingScale.bandwidth() / 2
       : spacingScale(d.y)

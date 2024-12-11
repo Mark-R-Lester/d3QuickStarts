@@ -49,9 +49,9 @@ export const LinearLineTransition: FunctionComponent<OrienetedChartProps> = ({
 
       const transitionData = getVals()
       if (orientation === Orientation.VERTICAL) {
-        if (element) element.transition(transitionData)
+        if (element) element.transition({ data: transitionData })
       } else {
-        if (element) element.transition(transitionData)
+        if (element) element.transition({ data: transitionData })
       }
 
       setTimeout(() => setChanged(!changed), 3000)

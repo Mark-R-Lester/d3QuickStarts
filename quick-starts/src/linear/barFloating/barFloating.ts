@@ -1,9 +1,10 @@
 import { Selection, range } from 'd3'
-import { QsCanvas } from '../../d3QuickStart'
+import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
 
 import { getMeta, Meta } from './meta'
 import { DrawArgs, QsBarFloatingConfigStrict } from './types'
 import { Orientation } from '../../core/enums'
+import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
 
 export interface QsBarFloatingConfig {
   [key: string]: number | Iterable<unknown> | number[] | undefined
@@ -12,11 +13,17 @@ export interface QsBarFloatingConfig {
   colorRange?: Iterable<unknown>
 }
 
+export interface QsBarFloatingTransitionData {
+  data: number[][]
+  config?: QsBarFloatingConfig
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsBarsFloating {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: number[][]) => void
+  transition: (data: QsBarFloatingTransitionData) => void
 }
 
 const addDefaultsToConfig = (
@@ -80,15 +87,17 @@ const draw = (
     .attr('height', (d) => d.barData.height)
     .attr('fill', (d) => d.barData.color)
 
-  const transition = (data: number[][]) => {
-    const args: DrawArgs = { data, orientation }
-    const meta: Meta[] = getMeta(canvas, args, config)
+  const transition = (data: QsBarFloatingTransitionData) => {
+    const args = addDefaultsToTransitionArgs(data.transitionArgs)
+    const drawArgs: DrawArgs = { data: data.data, orientation }
+    const meta: Meta[] = getMeta(canvas, drawArgs, config)
+
     if (orientation === Orientation.VERTICAL)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
-        .duration(3000)
+        .duration(args.durationInMiliSeconds)
         .attr('width', (d) => d.barData.width)
         .attr('x', (d) => d.barData.x)
     else
@@ -96,12 +105,12 @@ const draw = (
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
-        .duration(3000)
+        .duration(args.durationInMiliSeconds)
         .attr('height', (d) => d.barData.height)
         .attr('y', (d) => d.barData.y)
   }
   return {
     element: group.selectAll(`.${meta[0].class}`),
-    transition: (data: number[][]) => transition(data),
+    transition: (data: QsBarFloatingTransitionData) => transition(data),
   }
 }

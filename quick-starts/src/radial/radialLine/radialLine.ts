@@ -1,6 +1,8 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { curveLinear, CurveFactory, lineRadial, Selection } from 'd3'
 import { Meta, getMeta } from './meta'
+import { QsTransitionArgs } from '../../d3QuickStart'
+import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
 
 export interface QsRadialLineConfig {
   [key: string]: number | CurveFactory | undefined
@@ -9,11 +11,17 @@ export interface QsRadialLineConfig {
   curve?: CurveFactory
 }
 
+export interface QsRadialLineTransitionData {
+  data: number[]
+  config?: QsRadialLineConfig
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsRadialLine {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: number[]) => void
+  transition: (data: QsRadialLineTransitionData) => void
 }
 
 interface RadialLineConfigStrict {
@@ -80,12 +88,13 @@ const draw = (
     .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
   return {
     element: group.selectAll(`.${meta.class}`),
-    transition: (data: number[]) => {
-      const meta: Meta = getMeta(canvas, data)
+    transition: (data: QsRadialLineTransitionData) => {
+      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+      const meta: Meta = getMeta(canvas, data.data)
       group
         .selectAll(`.${meta.class}`)
         .transition()
-        .duration(3000)
+        .duration(args.durationInMiliSeconds)
         .attr('d', radialLine(meta.lineData))
     },
   }

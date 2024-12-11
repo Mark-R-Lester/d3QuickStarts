@@ -3,7 +3,7 @@ import { QsCanvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { DrawArgs, LineConfigStrict } from './types'
 import { Orientation, ScaleType } from '../../core/enums'
-import { Coordinate } from '../../core/types'
+import { QsCoordinate } from '../../core/qsTypes'
 
 export interface Meta {
   class: string
@@ -39,7 +39,7 @@ export const getMeta = (
   )
 
   const isVertical = orientation === Orientation.VERTICAL
-  const coordinates: Coordinate[] = []
+  const coordinates: QsCoordinate[] = []
   const lineData: [number, number][] = []
 
   data.forEach((d, i) => {

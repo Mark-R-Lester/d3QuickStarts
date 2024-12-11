@@ -75,8 +75,8 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
 
       const data = getVals()
 
-      if (topArea) topArea.transition(data.upperAreaData)
-      if (bottomArea) bottomArea.transition(data.lowerAreaData)
+      if (topArea) topArea.transition({ data: data.upperAreaData })
+      if (bottomArea) bottomArea.transition({ data: data.lowerAreaData })
 
       setTimeout(() => setChanged(!changed), 3000)
     },

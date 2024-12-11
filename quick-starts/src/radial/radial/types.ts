@@ -1,4 +1,4 @@
-import { ColorName, DomainName } from '../../core/types'
+import { QsColorName, QsDomainName } from '../../core/qsTypes'
 
 export interface ArcData {
   data: number
@@ -14,7 +14,7 @@ export interface ArcData {
 
 export interface QsRadialArgs {
   value: number
-  color?: ColorName | DomainName
+  color?: QsColorName | QsDomainName
 }
 
 export interface RadialConfigStrict {

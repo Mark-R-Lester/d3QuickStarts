@@ -203,7 +203,7 @@ const yAxisRightBanded = (
   return draw(canvas, args, config)
 }
 
-export const linearAxisGenerator = {
+export const qsLinearAxisGenerator = {
   xAxisTop,
   xAxisBottom,
   xAxisBottomBanded,

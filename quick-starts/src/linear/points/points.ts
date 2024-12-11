@@ -91,7 +91,7 @@ const verticalBanded = (
   return draw(canvas, args, config)
 }
 
-export const linearPointGenerator = {
+export const qsLinearPointGenerator = {
   horizontal,
   horizontalBanded,
   vertical,

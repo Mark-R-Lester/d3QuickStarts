@@ -169,7 +169,7 @@ const followBanded = (
   return draw(canvas, args, config)
 }
 
-export const radialTextGenerator = {
+export const qsRadialTextGenerator = {
   spoke,
   horizontal,
   rotated,

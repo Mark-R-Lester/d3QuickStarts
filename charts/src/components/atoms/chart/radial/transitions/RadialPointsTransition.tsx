@@ -3,7 +3,7 @@ import {
   QsCanvas,
   createCanvas,
   QsRadialPoints,
-  radialPointGenerator,
+  qsRadialPointGenerator,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
@@ -23,7 +23,7 @@ export const RadialPointTransition: FunctionComponent<ChartProps> = ({
     })
 
     let newElement: QsRadialPoints
-    newElement = radialPointGenerator.points(canvas, data)
+    newElement = qsRadialPointGenerator.points(canvas, data)
 
     setElement(newElement)
   }

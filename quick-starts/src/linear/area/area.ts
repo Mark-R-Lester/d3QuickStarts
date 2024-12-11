@@ -58,7 +58,7 @@ const horizontal = (
   return draw(canvas, args, config)
 }
 
-export const linearAreaGenerator = {
+export const qsLinearAreaGenerator = {
   horizontal,
 }
 
@@ -80,12 +80,7 @@ function draw(
     .domain([0, Math.max(...meta.areaData.map((d) => d.x))])
     .range([0, displayAreaWidth])
   const yScale = scaleLinear()
-    .domain([
-      lowestViewableValue,
-      highestViewableValue !== 0
-        ? highestViewableValue
-        : Math.max(...meta.areaData.map((d) => d.y1)),
-    ])
+    .domain([lowestViewableValue, highestViewableValue])
     .range([displayAreaHeight, 0])
 
   const area = d3area<AreaData>()

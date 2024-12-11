@@ -4,7 +4,7 @@ import {
   createCanvas,
   QsRadialArea,
   QsRadialAreaData,
-  radialAreaGenerator,
+  qsRadialAreaGenerator,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
@@ -36,8 +36,8 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
       highestViewableValue: 100,
     })
 
-    let newTopArea = radialAreaGenerator.area(canvas, dataUpper)
-    let newBottomArea = radialAreaGenerator.area(canvas, dataLower, {
+    let newTopArea = qsRadialAreaGenerator.area(canvas, dataUpper)
+    let newBottomArea = qsRadialAreaGenerator.area(canvas, dataLower, {
       color: 'blue',
     })
 

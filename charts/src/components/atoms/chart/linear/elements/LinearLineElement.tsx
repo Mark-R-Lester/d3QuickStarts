@@ -1,5 +1,9 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, createCanvas, linearLineGenerator } from 'd3qs/d3QuickStart'
+import {
+  QsCanvas,
+  createCanvas,
+  qsLinearLineGenerator,
+} from 'd3qs/d3QuickStart'
 import { Orientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 
@@ -17,9 +21,9 @@ export const LinearLineElement: FunctionComponent<OrienetedChartProps> = ({
     })
 
     if (orientation === Orientation.VERTICAL) {
-      linearLineGenerator.vertical(canvas, data1)
+      qsLinearLineGenerator.vertical(canvas, data1)
     } else {
-      linearLineGenerator.horizontal(canvas, data1)
+      qsLinearLineGenerator.horizontal(canvas, data1)
     }
   }
 

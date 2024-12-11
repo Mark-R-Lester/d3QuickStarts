@@ -3,7 +3,7 @@ import {
   QsCanvas,
   createCanvas,
   QsRadialLine,
-  radialLineGenerator,
+  qsRadialLineGenerator,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
@@ -23,7 +23,7 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
     })
 
     let newElement: QsRadialLine
-    newElement = radialLineGenerator.line(canvas, data)
+    newElement = qsRadialLineGenerator.line(canvas, data)
 
     setElement(newElement)
   }

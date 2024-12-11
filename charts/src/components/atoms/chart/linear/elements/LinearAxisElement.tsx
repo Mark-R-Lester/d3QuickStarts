@@ -1,5 +1,9 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, createCanvas, linearAxisGenerator } from 'd3qs/d3QuickStart'
+import {
+  QsCanvas,
+  createCanvas,
+  qsLinearAxisGenerator,
+} from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const LinearAxisElement: FunctionComponent<ChartProps> = ({
@@ -14,8 +18,8 @@ export const LinearAxisElement: FunctionComponent<ChartProps> = ({
       lowestViewableValue: 0,
       highestViewableValue: 250,
     })
-    linearAxisGenerator.xAxisBottomBanded(canvas, data1)
-    linearAxisGenerator.yAxisLeft(canvas, data2)
+    qsLinearAxisGenerator.xAxisBottomBanded(canvas, data1)
+    qsLinearAxisGenerator.yAxisLeft(canvas, data2)
   }
 
   useEffect(() => {

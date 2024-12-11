@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvas,
   createCanvas,
-  linearAreaGenerator,
+  qsLinearAreaGenerator,
   QsArea,
   QsAreaData,
 } from 'd3qs/d3QuickStart'
@@ -36,8 +36,8 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
       highestViewableValue: 100,
     })
 
-    let newTopArea = linearAreaGenerator.horizontal(canvas, dataUpper)
-    let newBottomArea = linearAreaGenerator.horizontal(canvas, dataLower, {
+    let newTopArea = qsLinearAreaGenerator.horizontal(canvas, dataUpper)
+    let newBottomArea = qsLinearAreaGenerator.horizontal(canvas, dataLower, {
       color: 'blue',
     })
 

@@ -51,7 +51,7 @@ const horizontal = (
   return draw(canvas, args, config)
 }
 
-export const linearBarGenerator = {
+export const qsLinearBarGenerator = {
   horizontal,
   vertical,
 }

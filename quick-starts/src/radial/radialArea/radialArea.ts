@@ -66,7 +66,7 @@ const area = (
   return draw(canvas, args, config)
 }
 
-export const radialAreaGenerator = {
+export const qsRadialAreaGenerator = {
   area,
 }
 

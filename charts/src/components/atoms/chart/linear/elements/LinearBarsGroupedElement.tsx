@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   createCanvas,
-  linearBarGroupGenerator,
+  qsLinearBarGroupGenerator,
   qsFindMax,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
@@ -29,7 +29,7 @@ export const LinearBarsGroupedElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: qsFindMax(data),
     })
 
-    linearBarGroupGenerator.group(canvas, data)
+    qsLinearBarGroupGenerator.group(canvas, data)
   }
 
   useEffect(() => {

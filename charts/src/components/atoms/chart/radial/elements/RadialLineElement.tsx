@@ -1,5 +1,9 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, createCanvas, radialLineGenerator } from 'd3qs/d3QuickStart'
+import {
+  QsCanvas,
+  createCanvas,
+  qsRadialLineGenerator,
+} from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialLineElement: FunctionComponent<ChartProps> = ({
@@ -18,7 +22,7 @@ export const RadialLineElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 23,
     })
 
-    radialLineGenerator.line(canvas, data)
+    qsRadialLineGenerator.line(canvas, data)
   }
 
   useEffect(() => {

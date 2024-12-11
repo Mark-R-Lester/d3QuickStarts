@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   createCanvas,
-  linearBarStackGenerator,
+  qsLinearBarStackGenerator,
   qsFindMaxSum,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
@@ -29,7 +29,7 @@ export const LinearBarStacksElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: qsFindMaxSum(data),
     })
 
-    linearBarStackGenerator.stack(canvas, data)
+    qsLinearBarStackGenerator.stack(canvas, data)
   }
 
   useEffect(() => {

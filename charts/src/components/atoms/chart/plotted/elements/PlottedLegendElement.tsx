@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   createCanvas,
-  legendGenerator,
+  qsLegendGenerator,
   QsValuedColor,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
@@ -25,7 +25,7 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 250,
     })
 
-    legendGenerator.legend(canvas, data, { color: 'black' })
+    qsLegendGenerator.legend(canvas, data, { color: 'black' })
   }
 
   useEffect(() => {

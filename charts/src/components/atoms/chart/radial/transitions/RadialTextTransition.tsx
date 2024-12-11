@@ -5,8 +5,8 @@ import {
   QsRadial,
   QsRadialText,
   QsValuedText,
-  radialGenerator,
-  radialTextGenerator,
+  qsRadialGenerator,
+  qsRadialTextGenerator,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
@@ -30,8 +30,8 @@ export const RadialTextTransition: FunctionComponent<ChartProps> = ({
       highestViewableValue: 40,
     })
 
-    setElement1(radialTextGenerator.followBanded(canvas, data))
-    setElement2(radialGenerator.doughnut(canvas, data))
+    setElement1(qsRadialTextGenerator.followBanded(canvas, data))
+    setElement2(qsRadialGenerator.doughnut(canvas, data))
   }
 
   useEffect(() => {

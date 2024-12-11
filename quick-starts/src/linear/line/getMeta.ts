@@ -3,13 +3,13 @@ import { QsCanvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { DrawArgs, LineConfigStrict } from './types'
 import { Orientation, ScaleType } from '../../core/enums'
+import { Coordinate } from '../../core/types'
 
 export interface Meta {
   class: string
   id: string
-  coordinates: [number, number][]
-  // spacingScale: ScaleBand<string> | ScaleLinear<number, number, never> TODO get this typing to work
-  spacingScale: any
+  lineData: [number, number][]
+  spacingScale: any // due to and impossible to construt intersection type this has to remain as any
   dataScale: ScaleLinear<number, number, never>
   bandingAdjustment: number
 }
@@ -39,18 +39,26 @@ export const getMeta = (
   )
 
   const isVertical = orientation === Orientation.VERTICAL
+  const coordinates: Coordinate[] = []
+  const lineData: [number, number][] = []
 
-  const coordinates: [number, number][] = data.map((d, i) =>
-    isVertical ? [d, yVals[i]] : [xVals[i], d]
-  )
+  data.forEach((d, i) => {
+    coordinates.push(isVertical ? { x: d, y: yVals[i] } : { x: xVals[i], y: d })
+    lineData.push(isVertical ? [d, yVals[i]] : [xVals[i], d])
+  })
 
   let spacingScale
   let bandingAdjustment: number
+
+  const dataScale: ScaleLinear<number, number, never> = scaleLinear()
+    .domain([lowestViewableValue, highestViewableValue])
+    .range(isVertical ? [0, displayAreaWidth] : [displayAreaHeight, 0])
+
   if (scaleType === ScaleType.BANDED) {
     spacingScale = scaleBand()
       .domain(
         coordinates.map((coordinate) =>
-          isVertical ? coordinate[1].toString() : coordinate[0].toString()
+          isVertical ? coordinate.y.toString() : coordinate.x.toString()
         )
       )
       .range(isVertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
@@ -59,25 +67,16 @@ export const getMeta = (
     spacingScale = scaleLinear()
       .domain([
         0,
-        Math.max(...coordinates.map((d) => (isVertical ? d[1] : d[0]))),
+        Math.max(...coordinates.map((d) => (isVertical ? d.y : d.x))),
       ])
       .range(isVertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
     bandingAdjustment = 0
   }
 
-  const dataScale: ScaleLinear<number, number, never> = scaleLinear()
-    .domain([
-      lowestViewableValue,
-      highestViewableValue !== 0
-        ? highestViewableValue
-        : Math.max(...coordinates.map((d) => (isVertical ? d[0] : d[1]))),
-    ])
-    .range(isVertical ? [0, displayAreaWidth] : [displayAreaHeight, 0])
-
   return {
     class: 'line',
     id: `line${uuidv4()}`,
-    coordinates,
+    lineData,
     spacingScale,
     dataScale,
     bandingAdjustment,

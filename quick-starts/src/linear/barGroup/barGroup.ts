@@ -2,7 +2,6 @@ import { schemePurples, Selection } from 'd3'
 import { QsCanvas } from '../../d3QuickStart'
 import { BarGroupConfigStrict } from './types'
 import { Meta, getMeta } from './getMeta'
-import { Grouping } from '../../core/enums'
 
 export interface QsBarGroupConfig {
   [key: string]: number | Iterable<String> | undefined
@@ -46,7 +45,7 @@ const group = (
   return draw(canvas, args, config)
 }
 
-export const linearBarGroupGenerator = {
+export const qsLinearBarGroupGenerator = {
   group,
 }
 

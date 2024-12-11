@@ -43,7 +43,7 @@ const horizontal = (
     scaleType: ScaleType.LINEAR,
   }
   const config: LineConfigStrict = addDefaultsToConfig(customConfig)
-  return drawLine(canvas, args, config)
+  return draw(canvas, args, config)
 }
 
 const vertical = (
@@ -57,7 +57,7 @@ const vertical = (
     scaleType: ScaleType.LINEAR,
   }
   const config: LineConfigStrict = addDefaultsToConfig(customConfig)
-  return drawLine(canvas, args, config)
+  return draw(canvas, args, config)
 }
 
 const horizontalBanded = (
@@ -71,7 +71,7 @@ const horizontalBanded = (
     scaleType: ScaleType.BANDED,
   }
   const config: LineConfigStrict = addDefaultsToConfig(customConfig)
-  return drawLine(canvas, args, config)
+  return draw(canvas, args, config)
 }
 
 const verticalBanded = (
@@ -85,17 +85,17 @@ const verticalBanded = (
     scaleType: ScaleType.BANDED,
   }
   const config: LineConfigStrict = addDefaultsToConfig(customConfig)
-  return drawLine(canvas, args, config)
+  return draw(canvas, args, config)
 }
 
-export const linearLineGenerator = {
+export const qsLinearLineGenerator = {
   horizontal,
   vertical,
   horizontalBanded,
   verticalBanded,
 }
 
-const drawLine = (
+const draw = (
   canvas: QsCanvas,
   args: DrawArgs,
   config: LineConfigStrict
@@ -103,7 +103,7 @@ const drawLine = (
   const { orientation, scaleType } = args
   const { curve } = config
   const meta: Meta = getMeta(canvas, args, config)
-  const { dataScale, spacingScale, bandingAdjustment, coordinates } = meta
+  const { dataScale, spacingScale, bandingAdjustment, lineData } = meta
 
   const line = d3line()
     .x((d) =>
@@ -123,7 +123,7 @@ const drawLine = (
     .append('path')
     .attr('class', meta.class)
     .attr('id', meta.id)
-    .attr('d', line(coordinates))
+    .attr('d', line(lineData))
     .attr('stroke', 'black')
     .attr('fill-opacity', '0')
 
@@ -142,7 +142,7 @@ const drawLine = (
       .selectAll(`.${meta.class}`)
       .transition()
       .duration(3000)
-      .attr('d', line(meta.coordinates))
+      .attr('d', line(meta.lineData))
   }
   return {
     element: group.select(`.${meta.class}`),

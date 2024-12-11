@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   createCanvas,
-  plottedPointGenerator,
+  qsPlottedPointGenerator,
 } from 'd3qs/d3QuickStart'
 import { CoordinateEnhanced } from 'd3qs/core/types'
 import { ChartProps } from '../../../../../common/chartProps'
@@ -27,7 +27,7 @@ export const PlottedPointsEnhancedElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 156,
     })
 
-    plottedPointGenerator.points(canvas, data1)
+    qsPlottedPointGenerator.points(canvas, data1)
   }
 
   useEffect(() => {

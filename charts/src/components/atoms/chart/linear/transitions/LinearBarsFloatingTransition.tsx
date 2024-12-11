@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvas,
   createCanvas,
-  linearBarFloatingGenerator,
+  qsLinearBarFloatingGenerator,
   QsBarsFloating,
 } from 'd3qs/d3QuickStart'
 import { Orientation } from '../../../../../common/enums'
@@ -31,9 +31,9 @@ export const LinearBarsFloatingTransition: FunctionComponent<
 
     let newBars
     if (orientation === Orientation.VERTICAL) {
-      newBars = linearBarFloatingGenerator.vertical(canvas, data)
+      newBars = qsLinearBarFloatingGenerator.vertical(canvas, data)
     } else {
-      newBars = linearBarFloatingGenerator.horizontal(canvas, data)
+      newBars = qsLinearBarFloatingGenerator.horizontal(canvas, data)
     }
     setBars(newBars)
   }

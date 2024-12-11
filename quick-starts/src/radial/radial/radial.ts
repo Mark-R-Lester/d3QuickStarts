@@ -80,7 +80,7 @@ const doughnut = (
   return draw(canvas, args, config)
 }
 
-export const radialGenerator = {
+export const qsRadialGenerator = {
   pie,
   doughnut,
 }

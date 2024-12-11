@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvas,
   createCanvas,
-  linearPointGenerator,
+  qsLinearPointGenerator,
   QsLine,
 } from 'd3qs/d3QuickStart'
 import { Orientation } from '../../../../../common/enums'
@@ -25,9 +25,9 @@ export const LinearPointsTransition: FunctionComponent<OrienetedChartProps> = ({
     })
     let newElement: QsLine
     if (orientation === Orientation.VERTICAL) {
-      newElement = linearPointGenerator.vertical(canvas, data)
+      newElement = qsLinearPointGenerator.vertical(canvas, data)
     } else {
-      newElement = linearPointGenerator.horizontal(canvas, data)
+      newElement = qsLinearPointGenerator.horizontal(canvas, data)
     }
     setElement(newElement)
   }

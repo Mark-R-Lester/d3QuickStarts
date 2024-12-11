@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvas,
   createCanvas,
-  linearBarGenerator,
+  qsLinearBarGenerator,
   QsBars,
 } from 'd3qs/d3QuickStart'
 import { Orientation } from '../../../../../common/enums'
@@ -25,9 +25,9 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
     })
     let newBars: QsBars
     if (orientation === Orientation.VERTICAL) {
-      newBars = linearBarGenerator.vertical(canvas, data)
+      newBars = qsLinearBarGenerator.vertical(canvas, data)
     } else {
-      newBars = linearBarGenerator.horizontal(canvas, data)
+      newBars = qsLinearBarGenerator.horizontal(canvas, data)
     }
     setBars(newBars)
   }

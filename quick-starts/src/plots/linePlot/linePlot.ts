@@ -53,7 +53,7 @@ const line = (
   return draw(canvas, args, config)
 }
 
-export const plottedLineGenerator = {
+export const qsPlottedLineGenerator = {
   line,
 }
 

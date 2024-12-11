@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   createCanvas,
-  plottedTextGenerator,
+  qsPlottedTextGenerator,
   TextArgs,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
@@ -24,7 +24,7 @@ export const PlottedTextElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 250,
     })
 
-    plottedTextGenerator.text(canvas, data, { color: 'black' })
+    qsPlottedTextGenerator.text(canvas, data, { color: 'black' })
   }
 
   useEffect(() => {

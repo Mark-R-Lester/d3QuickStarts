@@ -3,7 +3,7 @@ import {
   QsCanvas,
   createCanvas,
   QsRadialAreaData,
-  radialAreaGenerator,
+  qsRadialAreaGenerator,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
@@ -29,7 +29,7 @@ export const RadialAreaElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 25,
     })
 
-    radialAreaGenerator.area(canvas, data1)
+    qsRadialAreaGenerator.area(canvas, data1)
   }
 
   useEffect(() => {

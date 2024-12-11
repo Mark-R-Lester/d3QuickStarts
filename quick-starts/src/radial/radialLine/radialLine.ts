@@ -54,7 +54,7 @@ const line = (
   return draw(canvas, args, config)
 }
 
-export const radialLineGenerator = {
+export const qsRadialLineGenerator = {
   line,
 }
 

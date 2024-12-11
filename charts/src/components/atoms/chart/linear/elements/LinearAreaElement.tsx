@@ -1,5 +1,9 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, createCanvas, linearAreaGenerator } from 'd3qs/d3QuickStart'
+import {
+  QsCanvas,
+  createCanvas,
+  qsLinearAreaGenerator,
+} from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const LinearAreaElement: FunctionComponent<ChartProps> = ({
@@ -16,11 +20,11 @@ export const LinearAreaElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 250,
     })
 
-    linearAreaGenerator
+    qsLinearAreaGenerator
       .horizontal(canvas, { higherData: data1 }, { color: 'black' })
       .element.attr('fill', 'blue')
       .attr('fill-opacity', '0.5')
-    linearAreaGenerator
+    qsLinearAreaGenerator
       .horizontal(canvas, { higherData: data2, lowerData: data1 })
       .element.attr('fill', 'red')
       .attr('fill-opacity', '0.5')

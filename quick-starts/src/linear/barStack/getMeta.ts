@@ -39,10 +39,7 @@ export const getMeta = (
     .range(config.colorRange)
 
   const yScale = scaleLinear()
-    .domain([
-      lowestViewableValue,
-      highestViewableValue !== 0 ? highestViewableValue : qsFindMaxSum(data),
-    ])
+    .domain([lowestViewableValue, highestViewableValue])
     .range([displayAreaHeight, 0])
 
   const xBandScale = scaleBand()

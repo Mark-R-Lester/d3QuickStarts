@@ -56,10 +56,7 @@ export const getMeta = (
   } else {
     linearScale = scaleLinear()
       .domain([1, data.length])
-      .range([
-        lowestViewableValue ? lowestViewableValue : Math.min(...data),
-        highestViewableValue ? highestViewableValue : Math.max(...data),
-      ])
+      .range([lowestViewableValue, highestViewableValue])
   }
 
   const nunberOfArcs = data.length

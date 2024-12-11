@@ -10,7 +10,6 @@ import {
 import { QsCanvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import { qsFindMax, qsFindMaxSum } from '../../core/max'
 import { BarData, BarGroupConfigStrict } from './types'
 
 export interface Meta {

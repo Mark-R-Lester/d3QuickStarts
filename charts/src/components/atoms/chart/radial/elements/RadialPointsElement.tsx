@@ -18,7 +18,7 @@ export const RadialPointsElement: FunctionComponent<ChartProps> = ({
       chartName,
       width: 600,
       lowestViewableValue: 0,
-      highestViewableValue: 250,
+      highestViewableValue: 2,
     })
 
     qsRadialPointGenerator.points(canvas, data)

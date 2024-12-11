@@ -9,7 +9,6 @@ import {
 import { QsCanvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import { qsFindMax } from '../../core/max'
 import { BarData, DrawArgs, QsBarFloatingConfigStrict } from './types'
 import { Orientation } from '../../core/enums'
 

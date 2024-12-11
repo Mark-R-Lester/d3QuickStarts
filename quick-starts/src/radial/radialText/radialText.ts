@@ -1,7 +1,7 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { arc as d3arc, interpolate, Selection } from 'd3'
 import { QsValuedText, RadialTextConfigStrict } from './types'
-import { BandData, Meta, getMeta, updateMeta } from './getMeta'
+import { BandData, Meta, getMeta, updateMeta } from './meta'
 import { RadialTextType, ScaleType } from '../../core/enums'
 
 export { QsValuedText } from './types'

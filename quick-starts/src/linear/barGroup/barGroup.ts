@@ -1,7 +1,7 @@
 import { schemePurples, Selection } from 'd3'
 import { QsCanvas } from '../../d3QuickStart'
 import { BarGroupConfigStrict } from './types'
-import { Meta, getMeta } from './getMeta'
+import { Meta, getMeta } from './meta'
 
 export interface QsBarGroupConfig {
   [key: string]: number | Iterable<String> | undefined

@@ -6,7 +6,7 @@ import {
   Selection,
 } from 'd3'
 import { QsCanvas } from '../../canvas/canvas'
-import { AreaData, getMeta, Meta } from './getMeta'
+import { AreaData, getMeta, Meta } from './meta'
 import { QsAreaData } from './types'
 
 export { QsAreaData } from './types'

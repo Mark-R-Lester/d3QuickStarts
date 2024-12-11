@@ -1,7 +1,7 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { CurveFactory, curveLinear, areaRadial, Selection } from 'd3'
 import { RadialAreaData } from './types'
-import { Meta, getMeta } from './getMeta'
+import { Meta, getMeta } from './meta'
 
 export interface QsRadialAreaConfig {
   [key: string]: CurveFactory | number | undefined | string

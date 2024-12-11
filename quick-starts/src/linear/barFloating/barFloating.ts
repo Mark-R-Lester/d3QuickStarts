@@ -1,7 +1,7 @@
 import { Selection, range } from 'd3'
 import { QsCanvas } from '../../d3QuickStart'
 
-import { getMeta, Meta } from './getMeta'
+import { getMeta, Meta } from './meta'
 import { DrawArgs, QsBarFloatingConfigStrict } from './types'
 import { Orientation } from '../../core/enums'
 

@@ -1,8 +1,8 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { arc as d3arc, Selection } from 'd3'
-import { Meta, QsRadialAxisTransitionArgs, getMeta } from './getMeta'
+import { Meta, QsRadialAxisTransitionArgs, getMeta } from './meta'
 
-export { QsRadialAxisTransitionArgs } from './getMeta'
+export { QsRadialAxisTransitionArgs } from './meta'
 
 export interface QsRadialAxisConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined

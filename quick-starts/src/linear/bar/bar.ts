@@ -1,7 +1,7 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { range, Selection } from 'd3'
 import { Meta, QsBarConfigStrict, DrawArgs } from './types'
-import { getMeta } from './getMeta'
+import { getMeta } from './meta'
 import { Orientation } from '../../core/enums'
 
 export interface QsBarConfig {

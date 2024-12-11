@@ -1,7 +1,7 @@
 import { curveLinear, CurveFactory, line as d3line, Selection } from 'd3'
 import { QsCanvas } from '../../d3QuickStart'
 import { DrawArgs } from './types'
-import { Meta, getMeta } from './getMeta'
+import { Meta, getMeta } from './meta'
 import { Orientation, ScaleType } from '../../core/enums'
 
 export interface QsLineConfig {

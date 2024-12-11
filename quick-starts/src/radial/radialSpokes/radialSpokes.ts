@@ -1,7 +1,7 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { line, Selection } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { Meta, getMeta, QsRadialSpokesTransitionArgs } from './getMeta'
+import { Meta, getMeta, QsRadialSpokesTransitionArgs } from './meta'
 
 export interface QsRadialSpokesConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined

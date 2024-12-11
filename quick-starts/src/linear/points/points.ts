@@ -1,6 +1,6 @@
 import { Selection } from 'd3'
 import { QsCanvas } from '../../d3QuickStart'
-import { Meta, getMeta } from './getMeta'
+import { Meta, getMeta } from './meta'
 import { DrawArgs } from './types'
 import { Orientation, ScaleType } from '../../core/enums'
 

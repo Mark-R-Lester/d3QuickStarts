@@ -1,5 +1,5 @@
 import { QsCanvas } from '../../canvas/canvas'
-import { getMeta, Meta } from './getMeta'
+import { getMeta, Meta } from './meta'
 import { Selection } from 'd3-selection'
 import { scaleLinear } from 'd3-scale'
 

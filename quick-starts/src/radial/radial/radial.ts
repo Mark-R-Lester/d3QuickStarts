@@ -1,7 +1,7 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { interpolate, range, schemePurples, Selection, arc as d3arc } from 'd3'
 import { QsRadialArgs, RadialConfigStrict, ArcData } from './types'
-import { Meta, getMeta, updateMeta } from './getMeta'
+import { Meta, getMeta, updateMeta } from './meta'
 
 export { QsRadialArgs } from './types'
 

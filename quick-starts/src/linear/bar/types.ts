@@ -1,5 +1,12 @@
 import { Orientation } from '../../core/enums'
 
+export interface QsBarConfigStrict {
+  [key: string]: number | Iterable<unknown> | number[] | undefined
+  padding: number
+  colorDomain: number[]
+  colorRange: Iterable<unknown>
+}
+
 export interface BarData {
   x: number
   y: number
@@ -8,20 +15,12 @@ export interface BarData {
   color: string
 }
 
-export interface Meta {
-  class: string
-  id: string
-  barData: BarData
-}
-
-export interface QsBarConfigStrict {
-  [key: string]: number | Iterable<unknown> | number[] | undefined
-  padding: number
-  colorDomain: number[]
-  colorRange: Iterable<unknown>
+export interface QsBarBoundries {
+  lowerBoundry?: number
+  upperBoundry: number
 }
 
 export interface DrawArgs {
-  data: number[]
+  data: QsBarBoundries[]
   orientation: Orientation
 }

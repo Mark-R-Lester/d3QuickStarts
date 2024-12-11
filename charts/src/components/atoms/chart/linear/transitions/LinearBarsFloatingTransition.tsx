@@ -2,8 +2,9 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvas,
   createCanvas,
-  qsLinearBarFloatingGenerator,
-  QsBarsFloating,
+  qsLinearBarGenerator,
+  QsBars,
+  QsBarBoundries,
 } from 'd3qs/d3QuickStart'
 import { Orientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
@@ -12,16 +13,32 @@ export const LinearBarsFloatingTransition: FunctionComponent<
   OrienetedChartProps
 > = ({ chartName, orientation }) => {
   const [changed, setChanged] = useState<boolean>(false)
-  const [bars, setBars] = useState<QsBarsFloating>()
+  const [bars, setBars] = useState<QsBars>()
 
   const createChart = () => {
-    const data = [
-      [10, 30],
-      [20, 40],
-      [30, 50],
-      [10, 25],
-      [10, 12],
+    const data: QsBarBoundries[] = [
+      {
+        lowerBoundry: 10,
+        upperBoundry: 30,
+      },
+      {
+        lowerBoundry: 20,
+        upperBoundry: 40,
+      },
+      {
+        lowerBoundry: 30,
+        upperBoundry: 50,
+      },
+      {
+        lowerBoundry: 10,
+        upperBoundry: 25,
+      },
+      {
+        lowerBoundry: 10,
+        upperBoundry: 12,
+      },
     ]
+
     const canvas: QsCanvas = createCanvas({
       chartName,
       width: 600,
@@ -31,9 +48,9 @@ export const LinearBarsFloatingTransition: FunctionComponent<
 
     let newBars
     if (orientation === Orientation.VERTICAL) {
-      newBars = qsLinearBarFloatingGenerator.vertical(canvas, data)
+      newBars = qsLinearBarGenerator.vertical(canvas, data)
     } else {
-      newBars = qsLinearBarFloatingGenerator.horizontal(canvas, data)
+      newBars = qsLinearBarGenerator.horizontal(canvas, data)
     }
     setBars(newBars)
   }
@@ -44,12 +61,15 @@ export const LinearBarsFloatingTransition: FunctionComponent<
 
   useEffect(
     function transitionData() {
-      const getVals = (): number[][] => {
-        const vals: number[][] = []
+      const getVals = (): QsBarBoundries[] => {
+        const vals: QsBarBoundries[] = []
         for (let i = 0; i < 8; i++) {
           let val1 = (Math.random() * 100) / 2
           let val2 = (Math.random() * 100) / 2
-          vals.push([val1 < val2 ? val1 : val2, val1 > val2 ? val1 : val2])
+          vals.push({
+            lowerBoundry: val1 < val2 ? val1 : val2,
+            upperBoundry: val1 > val2 ? val1 : val2,
+          })
         }
         return vals
       }

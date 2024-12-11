@@ -114,7 +114,7 @@
     "src/linear/area/area.ts",
     "src/linear/axis/axis.ts",
     "src/linear/bar/bar.ts",
-    "src/linear/barFloating/barFloating.ts",
+    "src/linear/bar/bar.ts",
     "src/linear/barGroup/barGroup.ts",
     "src/linear/line/line.ts",
     "src/linear/points/points.ts",

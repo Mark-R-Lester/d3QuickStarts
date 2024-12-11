@@ -1,10 +1,10 @@
-import { QsCanvas } from '../../canvas/canvas'
-import { range, Selection } from 'd3'
-import { Meta, QsBarConfigStrict, DrawArgs } from './types'
-import { getMeta } from './meta'
+import { Selection, range } from 'd3'
+import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
+import { getMeta, Meta } from './meta'
+import { DrawArgs, QsBarConfigStrict, QsBarBoundries } from './types'
 import { Orientation } from '../../core/enums'
-import { QsTransitionArgs } from '../../core/qsTypes'
 import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
+export { QsBarBoundries } from './types'
 
 export interface QsBarConfig {
   [key: string]: number | Iterable<unknown> | number[] | undefined
@@ -14,7 +14,7 @@ export interface QsBarConfig {
 }
 
 export interface QsBarTransitionData {
-  data: number[]
+  data: QsBarBoundries[]
   config?: QsBarConfig
   transitionArgs?: QsTransitionArgs
 }
@@ -27,34 +27,32 @@ export interface QsBars {
 }
 
 const addDefaultsToConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
-  const defaults: QsBarConfigStrict = {
+  const defauls: QsBarConfigStrict = {
     padding: 8,
     colorDomain: range(4),
     colorRange: ['purple'],
   }
-  if (!customConfig) return defaults
+  if (!customConfig) return defauls
 
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
+  Object.keys(customConfig).forEach((key) => (defauls[key] = customConfig[key]))
+  return defauls
 }
-const vertical = (
+const horizontal = (
   canvas: QsCanvas,
-  data: number[],
+  data: QsBarBoundries[],
   customConfig?: QsBarConfig
 ): QsBars => {
-  const args: DrawArgs = { data, orientation: Orientation.VERTICAL }
+  const args: DrawArgs = { data, orientation: Orientation.HORIZONTAL }
   const config: QsBarConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 
-const horizontal = (
+const vertical = (
   canvas: QsCanvas,
-  data: number[],
+  data: QsBarBoundries[],
   customConfig?: QsBarConfig
 ): QsBars => {
-  const args: DrawArgs = { data, orientation: Orientation.HORIZONTAL }
+  const args: DrawArgs = { data, orientation: Orientation.VERTICAL }
   const config: QsBarConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
@@ -70,12 +68,12 @@ const draw = (
   config: QsBarConfigStrict
 ): QsBars => {
   const { orientation } = args
-
   const meta: Meta[] = getMeta(canvas, args, config)
 
-  const group = canvas.displayGroup.append('g')
+  const group: Selection<SVGGElement, unknown, HTMLElement, any> =
+    canvas.displayGroup.append('g')
   group
-    .selectAll(`.${meta[0].class}`)
+    .selectAll('.bar')
     .data(meta)
     .enter()
     .append('rect')
@@ -92,8 +90,7 @@ const draw = (
     const drawArgs: DrawArgs = { data: data.data, orientation }
     const meta: Meta[] = getMeta(canvas, drawArgs, config)
 
-    group.selectAll(`.${meta[0].class}`).data(meta).transition().duration(1000)
-    if (orientation === Orientation.VERTICAL) {
+    if (orientation === Orientation.VERTICAL)
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)
@@ -101,7 +98,7 @@ const draw = (
         .duration(args.durationInMiliSeconds)
         .attr('width', (d) => d.barData.width)
         .attr('x', (d) => d.barData.x)
-    } else {
+    else
       group
         .selectAll(`.${meta[0].class}`)
         .data(meta)
@@ -109,9 +106,7 @@ const draw = (
         .duration(args.durationInMiliSeconds)
         .attr('height', (d) => d.barData.height)
         .attr('y', (d) => d.barData.y)
-    }
   }
-
   return {
     element: group.selectAll(`.${meta[0].class}`),
     transition: (data: QsBarTransitionData) => transition(data),

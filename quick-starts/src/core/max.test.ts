@@ -1,8 +1,8 @@
 import {
-  findMax,
-  findMaxCoordinateX,
-  findMaxCoordinateY,
-  findMaxSum,
+  qsFindMax,
+  qsFindMaxCoordinateX,
+  qsFindMaxCoordinateY,
+  qsFindMaxSum,
 } from './max'
 
 describe('conversion testing', () => {
@@ -13,7 +13,7 @@ describe('conversion testing', () => {
       [3, 3],
       [4, 4],
     ]
-    expect(findMaxSum(arrays)).toBe(8)
+    expect(qsFindMaxSum(arrays)).toBe(8)
   })
 
   test('find max', () => {
@@ -23,7 +23,7 @@ describe('conversion testing', () => {
       [3, 7],
       [4, 4],
     ]
-    expect(findMax(arrays)).toBe(7)
+    expect(qsFindMax(arrays)).toBe(7)
   })
 
   test('find max corodinate x', () => {
@@ -33,7 +33,7 @@ describe('conversion testing', () => {
       { x: 9, y: 10 },
       { x: 1, y: 1 },
     ]
-    expect(findMaxCoordinateX(arrays)).toBe(9)
+    expect(qsFindMaxCoordinateX(arrays)).toBe(9)
   })
 
   test('find max corodinate y', () => {
@@ -43,6 +43,6 @@ describe('conversion testing', () => {
       { x: 9, y: 10 },
       { x: 1, y: 1 },
     ]
-    expect(findMaxCoordinateY(arrays)).toBe(10)
+    expect(qsFindMaxCoordinateY(arrays)).toBe(10)
   })
 })

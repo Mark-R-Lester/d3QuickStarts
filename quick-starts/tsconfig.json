@@ -31,8 +31,11 @@
     // "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
     // "paths": {},                                      /* Specify a set of entries that re-map imports to additional lookup locations. */
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
-    // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */
-    // "types": [],                                      /* Specify type package names to be included without being referenced in a source file. */
+    // "typeRoots": [],                                  /* Specify multiple folders that act like './node_modules/@types'. */,
+    "types": [
+      "jest",
+      "node"
+    ] /* Specify type package names to be included without being referenced in a source file. */,
     // "allowUmdGlobalAccess": true,                     /* Allow accessing UMD globals from modules. */
     // "moduleSuffixes": [],                             /* List of file name suffixes to search when resolving a module. */
     // "allowImportingTsExtensions": true,               /* Allow imports to include TypeScript file extensions. Requires '--moduleResolution bundler' and either '--noEmit' or '--emitDeclarationOnly' to be set. */
@@ -109,24 +112,5 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "exclude": ["node_modules", "src/*/*test.ts"],
-  "include": [
-    "src/*/*.ts",
-    "src/linear/area/area.ts",
-    "src/linear/axis/axis.ts",
-    "src/linear/bar/bar.ts",
-    "src/linear/bar/bar.ts",
-    "src/linear/barGroup/barGroup.ts",
-    "src/linear/line/line.ts",
-    "src/linear/points/points.ts",
-    "src/plots/text/text.ts",
-    "src/plots/linePlot/linePlot.ts",
-    "src/plots/scatterPlot/scatterPlot.ts",
-    "src/radial/radial/radial.ts",
-    "src/radial/radialArea/radialArea.ts",
-    "src/radial/radialAxis/radialAxis.ts",
-    "src/radial/radialSpokes/radialSpokes.ts",
-    "src/radial/radialLine/radialLine.ts",
-    "src/radial/radialPoints/radialPoints.ts",
-    "src/radial/radialText/radialText.ts"
-  ]
+  "include": ["src/*/*.ts"]
 }

@@ -1,8 +1,8 @@
 import {
-  findMinSum,
-  findMin,
-  findMinCoordinateX,
-  findMinCoordinateY,
+  qsFindMinSum,
+  qsFindMin,
+  qsFindMinCoordinateX,
+  qsFindMinCoordinateY,
 } from './min'
 
 describe('conversion testing', () => {
@@ -13,7 +13,7 @@ describe('conversion testing', () => {
       [3, 3],
       [4, 4],
     ]
-    expect(findMinSum(arrays)).toBe(2)
+    expect(qsFindMinSum(arrays)).toBe(2)
   })
 
   test('find min', () => {
@@ -23,7 +23,7 @@ describe('conversion testing', () => {
       [3, 7],
       [4, 4],
     ]
-    expect(findMin(arrays)).toBe(1)
+    expect(qsFindMin(arrays)).toBe(1)
   })
 
   test('find min corodinate x', () => {
@@ -33,7 +33,7 @@ describe('conversion testing', () => {
       { x: 9, y: 10 },
       { x: 1, y: 1 },
     ]
-    expect(findMinCoordinateX(arrays)).toBe(1)
+    expect(qsFindMinCoordinateX(arrays)).toBe(1)
   })
 
   test('find min corodinate y', () => {
@@ -43,6 +43,6 @@ describe('conversion testing', () => {
       { x: 9, y: 10 },
       { x: 1, y: 1 },
     ]
-    expect(findMinCoordinateY(arrays)).toBe(1)
+    expect(qsFindMinCoordinateY(arrays)).toBe(1)
   })
 })

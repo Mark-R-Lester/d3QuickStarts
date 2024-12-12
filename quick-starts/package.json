@@ -4,6 +4,7 @@
   "description": "Data visualisation",
   "private": true,
   "main": "index.js",
+  "type": "module",
   "prettier": {
     "trailingComma": "es5",
     "tabWidth": 2,
@@ -18,7 +19,8 @@
     "buildDev": "webpack --config webpack.config.js --mode development && tsc",
     "buildTSC": "tsc",
     "build": "npm run addDirectory && npm run buildProd && npm run buildDev && tsc",
-    "test": "node --experimental-vm-modules node_modules/.bin/jest",
+    "test": "jest",
+    "testDebug": "jest --debug",
     "watch": "npm run addDirectory && tsc --watch",
     "addDirectory": "if not exist ..\\charts\\node_modules\\d3qs (mkdir ..\\charts\\node_modules\\d3qs)"
   },
@@ -37,9 +39,12 @@
     "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
     "@types/d3": "^7.4.3",
     "@types/jest": "^29.5.13",
     "@types/uuid": "^10.0.0",
+    "babel-jest": "^29.7.0",
+    "jest": "29.7.0",
     "prettier": "^3.3.3",
     "ts-jest": "^29.2.5",
     "ts-loader": "^9.5.1",

@@ -63,7 +63,6 @@ const draw = (
   config: BarGroupConfigStrict
 ): QsBarGroups => {
   const { data } = args
-
   const meta: Meta[] = getMeta(canvas, data, config)
 
   const group = canvas.displayGroup.append('g')

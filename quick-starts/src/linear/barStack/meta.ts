@@ -68,7 +68,7 @@ export const getMeta = (
   }
 
   const stackedData: Series<{ [key: string]: number }, string>[] = stack().keys(
-    data.map((d, i) => i.toString())
+    data[0].map((d, i) => i.toString())
   )(data as Iterable<{ [key: string]: number }>)
 
   stackedData.forEach((d, outer) => {

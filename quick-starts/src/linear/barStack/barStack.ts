@@ -2,7 +2,7 @@ import { schemePurples, Selection } from 'd3'
 import { BarStackedConfigStrict } from './types'
 import { Meta, getMeta } from './meta'
 import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
-import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addDefaultsTransitionArgs'
 
 export interface QsBarStackedConfig {
   [key: string]: number | Iterable<String> | undefined
@@ -89,7 +89,7 @@ const draw = (
   return {
     element: barStacks.selectAll(`${'.barStacked'}`),
     transition: (data: QsBarStackedTransitionData) => {
-      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+      const args = addTransitionDefaults(data.transitionArgs)
       const meta: Meta[] = getMeta(canvas, data.data, config)
 
       const bars = canvas.displayGroup.selectAll(`${'.barStack'}`).data(meta)

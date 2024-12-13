@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   QsBarBoundries,
-  createCanvas,
+  qsCreateCanvas,
   qsLinearBarGenerator,
 } from 'd3qs/d3QuickStart'
 import { Orientation } from '../../../../../common/enums'
@@ -25,7 +25,7 @@ export const LinearBarsElement: FunctionComponent<OrienetedChartProps> = ({
     ]
     const isVertical = orientation === Orientation.VERTICAL
 
-    const canvas: QsCanvas = createCanvas({
+    const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,

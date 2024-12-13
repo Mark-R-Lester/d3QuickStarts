@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvas,
-  createCanvas,
+  qsCreateCanvas,
   QsRadialArea,
   QsRadialAreaData,
   qsRadialAreaGenerator,
@@ -29,7 +29,7 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
       outerData: innerData,
     }
 
-    const canvas: QsCanvas = createCanvas({
+    const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,

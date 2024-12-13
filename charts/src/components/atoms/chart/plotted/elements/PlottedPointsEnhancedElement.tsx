@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   QsCoordinateEnhanced,
-  createCanvas,
+  qsCreateCanvas,
   qsPlottedPointGenerator,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
@@ -20,7 +20,7 @@ export const PlottedPointsEnhancedElement: FunctionComponent<ChartProps> = ({
       { x: 156, y: 140, radius: 15, opacity: 10 },
     ]
 
-    const canvas: QsCanvas = createCanvas({
+    const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,

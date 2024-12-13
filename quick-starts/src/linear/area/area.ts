@@ -9,7 +9,7 @@ import { QsCanvas } from '../../canvas/canvas'
 import { AreaData, getMeta, Meta } from './meta'
 import { QsAreaData } from './types'
 import { QsTransitionArgs } from '../../core/qsTypes'
-import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export { QsAreaData } from './types'
 export interface QsAreaConfig {
@@ -107,7 +107,7 @@ function draw(
   return {
     element: group.select(`.${meta.class}`),
     transition: (data: QsAreaTransitionData) => {
-      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+      const args = addTransitionDefaults(data.transitionArgs)
       const meta: Meta = getMeta(canvas, data.data)
 
       group

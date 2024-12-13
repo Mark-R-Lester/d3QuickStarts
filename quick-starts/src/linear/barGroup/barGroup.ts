@@ -3,7 +3,7 @@ import { BarGroupConfigStrict } from './types'
 import { Meta, getMeta } from './meta'
 import { QsTransitionArgs } from '../../core/qsTypes'
 import { QsCanvas } from '../../canvas/canvas'
-import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addDefaultsTransitionArgs'
 
 export interface QsBarGroupConfig {
   [key: string]: number | Iterable<String> | undefined
@@ -90,7 +90,7 @@ const draw = (
   return {
     element: barGroups.selectAll('.barGrouped'),
     transition: (data: QsBarGroupTransitionData) => {
-      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+      const args = addTransitionDefaults(data.transitionArgs)
       const meta: Meta[] = getMeta(canvas, data.data, config)
       const bars = canvas.displayGroup.selectAll('.barGroup').data(meta)
       bars

@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
-  createCanvas,
+  qsCreateCanvas,
   qsPlottedTextGenerator,
   TextArgs,
 } from 'd3qs/d3QuickStart'
@@ -17,7 +17,7 @@ export const PlottedTextElement: FunctionComponent<ChartProps> = ({
       { x: 100, y: 100, text: 'Some Text' },
     ]
 
-    const canvas: QsCanvas = createCanvas({
+    const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,

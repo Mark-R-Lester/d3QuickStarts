@@ -4,7 +4,7 @@ import { QsValuedText, RadialTextConfigStrict } from './types'
 import { BandData, Meta, getMeta, updateMeta } from './meta'
 import { RadialTextType, ScaleType } from '../../core/enums'
 import { QsTransitionArgs } from '../../d3QuickStart'
-import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addDefaultsTransitionArgs'
 
 export { QsValuedText } from './types'
 
@@ -273,7 +273,7 @@ const draw = (
     elementText: text.selectAll('.text'),
     elementArcs: arcs.selectAll('.arc'),
     transition: (data: QsRadialTextTransitionData) => {
-      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+      const args = addTransitionDefaults(data.transitionArgs)
       const updatedConfig = updateCurrentConfig(config, data.config)
       const updatedMeta: Meta = updateMeta(
         canvas,

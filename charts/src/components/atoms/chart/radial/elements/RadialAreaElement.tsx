@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
-  createCanvas,
+  qsCreateCanvas,
   QsRadialAreaData,
   qsRadialAreaGenerator,
 } from 'd3qs/d3QuickStart'
@@ -22,7 +22,7 @@ export const RadialAreaElement: FunctionComponent<ChartProps> = ({
       ],
     }
 
-    const canvas: QsCanvas = createCanvas({
+    const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,

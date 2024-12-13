@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvas,
-  createCanvas,
+  qsCreateCanvas,
   QsBarBoundries,
   qsLinearBarGenerator,
   QsBars,
@@ -27,7 +27,7 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
       { upperBoundry: 25 },
       { upperBoundry: 25 },
     ]
-    const canvas: QsCanvas = createCanvas({
+    const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,

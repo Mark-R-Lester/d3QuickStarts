@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvas,
-  createCanvas,
+  qsCreateCanvas,
   qsLinearBarGroupGenerator,
   QsBarGroups,
   qsLinearBarStackGenerator,
@@ -51,7 +51,7 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
   ]
 
   const createChart = () => {
-    const canvas: QsCanvas = createCanvas({
+    const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,

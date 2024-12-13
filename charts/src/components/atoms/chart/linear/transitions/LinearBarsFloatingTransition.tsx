@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvas,
-  createCanvas,
+  qsCreateCanvas,
   qsLinearBarGenerator,
   QsBars,
   QsBarBoundries,
@@ -39,7 +39,7 @@ export const LinearBarsFloatingTransition: FunctionComponent<
       },
     ]
 
-    const canvas: QsCanvas = createCanvas({
+    const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,

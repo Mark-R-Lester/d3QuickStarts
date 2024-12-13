@@ -3,7 +3,7 @@ import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
 import { getMeta, Meta } from './meta'
 import { DrawArgs, QsBarConfigStrict, QsBarBoundries } from './types'
 import { Orientation } from '../../core/enums'
-import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addDefaultsTransitionArgs'
 export { QsBarBoundries } from './types'
 
 export interface QsBarConfig {
@@ -86,7 +86,7 @@ const draw = (
     .attr('fill', (d) => d.barData.color)
 
   const transition = (data: QsBarTransitionData) => {
-    const args = addDefaultsToTransitionArgs(data.transitionArgs)
+    const args = addTransitionDefaults(data.transitionArgs)
     const drawArgs: DrawArgs = { data: data.data, orientation }
     const meta: Meta[] = getMeta(canvas, drawArgs, config)
 

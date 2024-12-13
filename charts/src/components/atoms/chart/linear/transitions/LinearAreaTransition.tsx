@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvas,
-  createCanvas,
+  qsCreateCanvas,
   qsLinearAreaGenerator,
   QsArea,
   QsAreaData,
@@ -29,7 +29,7 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
       higherData: lowerData,
     }
 
-    const canvas: QsCanvas = createCanvas({
+    const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,

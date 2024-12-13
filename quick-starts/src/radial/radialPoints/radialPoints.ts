@@ -2,7 +2,7 @@ import { getMeta, Meta } from './meta'
 import { Selection } from 'd3-selection'
 import { scaleLinear } from 'd3-scale'
 import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
-import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addDefaultsTransitionArgs'
 
 export interface QsRadialPointsConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
@@ -93,7 +93,7 @@ const draw = (
   return {
     element: dataPoints.selectAll('circle'),
     transition: (data: QsRadialPointsTransitionData) => {
-      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+      const args = addTransitionDefaults(data.transitionArgs)
       const meta: Meta[] = getMeta(canvas, data.data)
       dataPoints
         .selectAll(`.${meta[0].class}`)

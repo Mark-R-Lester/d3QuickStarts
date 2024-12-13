@@ -3,7 +3,7 @@ import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
 import { DrawArgs } from './types'
 import { Meta, getMeta } from './meta'
 import { Orientation, ScaleType } from '../../core/enums'
-import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addDefaultsTransitionArgs'
 
 export interface QsLineConfig {
   [key: string]: CurveFactory | undefined
@@ -139,7 +139,7 @@ const draw = (
     orientation: Orientation,
     scaleType: ScaleType
   ) => {
-    const args = addDefaultsToTransitionArgs(data.transitionArgs)
+    const args = addTransitionDefaults(data.transitionArgs)
     const drawArgs: DrawArgs = {
       data: data.data,
       orientation: orientation,

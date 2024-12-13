@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
-  createCanvas,
+  qsCreateCanvas,
   qsLegendGenerator,
   QsValuedColor,
 } from 'd3qs/d3QuickStart'
@@ -18,7 +18,7 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
       { value: 'Purple', color: 'purple' },
     ]
 
-    const canvas: QsCanvas = createCanvas({
+    const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,

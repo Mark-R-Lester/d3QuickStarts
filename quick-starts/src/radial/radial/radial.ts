@@ -3,7 +3,7 @@ import { interpolate, range, schemePurples, Selection, arc as d3arc } from 'd3'
 import { QsRadialArgs, RadialConfigStrict, ArcData } from './types'
 import { Meta, getMeta, updateMeta } from './meta'
 import { QsTransitionArgs } from '../../core/qsTypes'
-import { addDefaultsToTransitionArgs } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addDefaultsTransitionArgs'
 
 export { QsRadialArgs } from './types'
 
@@ -142,7 +142,7 @@ const draw = (
     element: group.selectAll('.arc'),
     transition: (data: QsRadialTransitionData) => {
       const updatedConfig = updateCurrentConfig(config, data.config)
-      const args = addDefaultsToTransitionArgs(data.transitionArgs)
+      const args = addTransitionDefaults(data.transitionArgs)
       const updatedMeta: Meta[] = updateMeta(
         canvas,
         data.data,

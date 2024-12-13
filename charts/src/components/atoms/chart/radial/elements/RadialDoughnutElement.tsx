@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
-  createCanvas,
+  qsCreateCanvas,
   qsRadialGenerator,
   QsRadialArgs,
   QsRadialConfig,
@@ -58,7 +58,7 @@ export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
       ],
     }
 
-    const canvas: QsCanvas = createCanvas({
+    const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,

@@ -35,7 +35,7 @@ export interface QsCanvas {
   config: CanvasConfigStrict
 }
 
-export function createCanvas(newConfig?: CanvasConfig): QsCanvas {
+export function qsCreateCanvas(newConfig?: CanvasConfig): QsCanvas {
   const config: CanvasConfigStrict = {
     chartName: '',
     width: 500,

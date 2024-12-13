@@ -1,5 +1,4 @@
 import type { JestConfigWithTsJest } from 'ts-jest'
-import '@types/jest'
 
 const config: JestConfigWithTsJest = {
   verbose: true,

@@ -1,0 +1,19 @@
+{
+  "name": "parent",
+  "version": "1.0.0",
+  "description": "parent",
+  "private": true,
+  "scripts": {
+    "test": "jest",
+    "testDebug": "jest --debug"
+  },
+  "keywords": [
+    "test"
+  ],
+  "author": "mark lester",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.5.14",
+    "ts-jest": "^29.2.5"
+  }
+}

@@ -3,7 +3,7 @@ import { CurveFactory, curveLinear, areaRadial, Selection } from 'd3'
 import { RadialAreaData } from './types'
 import { Meta, getMeta } from './meta'
 import { QsTransitionArgs } from '../../core/qsTypes'
-import { addTransitionDefaults } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export interface QsRadialAreaConfig {
   [key: string]: CurveFactory | number | undefined | string
@@ -111,6 +111,7 @@ const draw = (
       group
         .selectAll(`.${meta.class}`)
         .transition()
+        .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('d', radialArea(meta.areaData))
     },

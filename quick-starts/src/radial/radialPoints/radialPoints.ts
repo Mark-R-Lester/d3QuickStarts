@@ -2,7 +2,7 @@ import { getMeta, Meta } from './meta'
 import { Selection } from 'd3-selection'
 import { scaleLinear } from 'd3-scale'
 import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
-import { addTransitionDefaults } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export interface QsRadialPointsConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
@@ -99,6 +99,7 @@ const draw = (
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
+        .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('cx', (d) => d.pointData[0])
         .attr('cy', (d) => d.pointData[1])

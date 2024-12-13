@@ -113,6 +113,7 @@ function draw(
       group
         .selectAll(`.${meta.class}`)
         .transition()
+        .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('d', area(meta.areaData))
     },

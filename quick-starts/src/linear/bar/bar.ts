@@ -3,7 +3,7 @@ import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
 import { getMeta, Meta } from './meta'
 import { DrawArgs, QsBarConfigStrict, QsBarBoundries } from './types'
 import { Orientation } from '../../core/enums'
-import { addTransitionDefaults } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 export { QsBarBoundries } from './types'
 
 export interface QsBarConfig {
@@ -95,6 +95,7 @@ const draw = (
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
+        .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('width', (d) => d.barData.width)
         .attr('x', (d) => d.barData.x)
@@ -103,6 +104,7 @@ const draw = (
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
+        .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('height', (d) => d.barData.height)
         .attr('y', (d) => d.barData.y)

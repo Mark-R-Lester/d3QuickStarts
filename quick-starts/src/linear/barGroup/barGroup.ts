@@ -3,7 +3,7 @@ import { BarGroupConfigStrict } from './types'
 import { Meta, getMeta } from './meta'
 import { QsTransitionArgs } from '../../core/qsTypes'
 import { QsCanvas } from '../../canvas/canvas'
-import { addTransitionDefaults } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export interface QsBarGroupConfig {
   [key: string]: number | Iterable<String> | undefined
@@ -99,6 +99,7 @@ const draw = (
         .attr('x', (d) => d.x)
         .attr('width', (d) => d.width)
         .transition()
+        .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('y', (d) => d.y)
         .attr('height', (d) => d.height)

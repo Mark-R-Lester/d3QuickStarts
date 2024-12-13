@@ -4,7 +4,7 @@ import { QsValuedText, RadialTextConfigStrict } from './types'
 import { BandData, Meta, getMeta, updateMeta } from './meta'
 import { RadialTextType, ScaleType } from '../../core/enums'
 import { QsTransitionArgs } from '../../d3QuickStart'
-import { addTransitionDefaults } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export { QsValuedText } from './types'
 
@@ -292,6 +292,7 @@ const draw = (
           .attr('fill', 'none')
           .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
           .transition()
+          .delay(args.delayInMiliSeconds)
           .duration(args.durationInMiliSeconds)
           .attr('font-size', `${updatedMeta.yAxis(fontSize)}px`)
           .attr(
@@ -327,6 +328,7 @@ const draw = (
           .attr('d', (d) => arc(d.new))
           .transition()
           .delay(1000)
+          .delay(args.delayInMiliSeconds)
           .duration(args.durationInMiliSeconds)
           .attrTween('d', (d) => {
             const originalStartAngle = d.old.startAngle

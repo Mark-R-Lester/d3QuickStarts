@@ -3,7 +3,7 @@ import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
 import { Meta, getMeta } from './meta'
 import { DrawArgs } from './types'
 import { Orientation, ScaleType } from '../../core/enums'
-import { addTransitionDefaults } from '../../core/addDefaultsTransitionArgs'
+import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export interface QsPointsConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
@@ -137,6 +137,7 @@ const draw = (
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
+        .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('cx', (d) => d.pointData.x)
         .attr('r', (d) => d.radius)
@@ -145,6 +146,7 @@ const draw = (
         .selectAll(`.${meta[0].class}`)
         .data(meta)
         .transition()
+        .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('cy', (d) => d.pointData.y)
         .attr('r', (d) => d.radius)

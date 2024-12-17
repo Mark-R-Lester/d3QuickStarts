@@ -14,10 +14,11 @@ import {
 import { toStrings } from '../../core/conversion'
 import { ScaleType } from '../../core/enums'
 import { QsCanvas } from '../../canvas/canvas'
+import { QsEnumAlignmentBaseline, QsEnumTextAnchor } from '../../core/qsEnums'
 
 export interface QsAxisConfig {
   [key: string]: number | boolean | string | undefined
-  alignmentBaseline?: string
+  alignmentBaseline?: QsEnumAlignmentBaseline
   tickSize?: number
   tickSizeInner?: number
   tickSizeOuter?: number
@@ -25,7 +26,7 @@ export interface QsAxisConfig {
   fontSize?: number
   font?: string
   textAngle?: number
-  textAnchor?: string
+  textAnchor?: QsEnumTextAnchor
   textX?: string
   textY?: string
   hideAxisDomain?: boolean
@@ -39,7 +40,7 @@ export interface QsAxis {
 
 interface AxisConfigStrict {
   [key: string]: number | boolean | string | undefined
-  alignmentBaseline: string
+  alignmentBaseline: QsEnumAlignmentBaseline
   tickSize: number
   tickSizeInner: number
   tickSizeOuter: number
@@ -47,7 +48,7 @@ interface AxisConfigStrict {
   fontSize: number
   font: string
   textAngle: number
-  textAnchor: string
+  textAnchor: QsEnumTextAnchor
   textX: string
   textY: string
   hideAxisDomain: boolean
@@ -64,7 +65,7 @@ interface DrawArgs {
 
 const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
   const defaults: AxisConfigStrict = {
-    alignmentBaseline: '',
+    alignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
     tickSize: 6,
     tickSizeInner: 6,
     tickSizeOuter: 0,
@@ -72,7 +73,7 @@ const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
     fontSize: 5,
     font: 'sans-serif',
     textAngle: 0,
-    textAnchor: '',
+    textAnchor: QsEnumTextAnchor.MIDDLE,
     textX: '',
     textY: '',
     hideAxisDomain: false,

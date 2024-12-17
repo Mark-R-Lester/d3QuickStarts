@@ -3,6 +3,7 @@ import { QsCanvas } from '../canvas/canvas'
 import { Meta, getMeta } from './meta'
 import { LegendConfigStrict, QsValuedColor } from './types'
 import { QsTransitionArgs } from '../core/qsTypes'
+import { QsEnumAlignmentBaseline, QsEnumTextAnchor } from '../core/qsEnums'
 
 export { QsValuedColor } from './types'
 
@@ -22,8 +23,8 @@ export interface QsLegendConfig {
   font?: string
   fill?: string
   stroke?: string
-  alignmentBaseline?: string
-  textAnchor?: string
+  alignmentBaseline?: QsEnumAlignmentBaseline
+  textAnchor?: QsEnumTextAnchor
   angle?: number
 }
 
@@ -44,8 +45,8 @@ const addDefaultsToConfig = (
     font: 'sansserif',
     fill: 'black',
     stroke: '',
-    alignmentBaseline: 'middle',
-    textAnchor: 'start',
+    alignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+    textAnchor: QsEnumTextAnchor.START,
     angle: 0,
   }
   if (!customConfig) return defaults
@@ -85,7 +86,7 @@ const draw = (canvas: QsCanvas, args: DrawArgs, config: LegendConfigStrict) => {
     textAnchor,
     font,
   } = config
-
+  console.log('BaseLine', alignmentBaseline)
   const meta: Meta[] = getMeta(canvas, data, config)
 
   const group = canvas.displayGroup.append('g')
@@ -109,12 +110,12 @@ const draw = (canvas: QsCanvas, args: DrawArgs, config: LegendConfigStrict) => {
     .attr('font', font)
     .attr('fill', textFill ? textFill : null)
     .attr('stroke', textStroke ? textStroke : null)
-    .attr('fontsize', `${percentScale(fontSize)}px`)
+    .attr('font-size', `${percentScale(fontSize)}px`)
     .attr('transform', (d) => {
       return `translate(${d.tx}, ${d.ty})rotate(${0})`
     })
-    .style('textanchor', textAnchor)
-    .style('alignmentbaseline', alignmentBaseline)
+    .style('text-anchor', textAnchor)
+    .style('alignment-baseline', alignmentBaseline)
     .text((d) => d.value)
 
   return {

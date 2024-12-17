@@ -1,3 +1,5 @@
+import { QsEnumAlignmentBaseline, QsEnumTextAnchor } from '../core/qsEnums'
+
 export interface QsValuedColor {
   value: string
   color: string
@@ -14,7 +16,7 @@ export interface LegendConfigStrict {
   font: string
   fill: string
   stroke: string
-  alignmentBaseline: string
-  textAnchor: string
+  alignmentBaseline: QsEnumAlignmentBaseline
+  textAnchor: QsEnumTextAnchor
   angle: number
 }

@@ -6,6 +6,7 @@ import {
   QsValuedColor,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
+import { QsEnumAlignmentBaseline, QsEnumTextAnchor } from 'd3qs/core/qsEnums'
 
 export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
   chartName,
@@ -27,14 +28,16 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
 
     qsLegendGenerator.legend(canvas, data, {
       color: 'red', //does nothing
-      x: 10,
-      y: 50,
-      height: 3,
-      width: 10,
-      space: 8,
+      x: 0,
+      y: 100,
+      height: 1,
+      width: 7,
+      space: 4,
       font: 'block',
+      fontSize: 3,
       angle: 45, //does nothing
-      alignmentBaseline: '50', //does nothing
+      alignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+      textAnchor: QsEnumTextAnchor.START,
       stroke: 'blue', //does nothing
       fill: 'yellow', //does nothing
     })

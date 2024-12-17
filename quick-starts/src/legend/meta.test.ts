@@ -3,6 +3,7 @@ import { QsCanvas } from '../canvas/canvas'
 import { mockSelection } from '../testObjects/mockSelection'
 import { mockCanvasConfigStrict } from '../testObjects/mockCanvasConfigStrict'
 import { LegendConfigStrict, QsValuedColor } from './types'
+import { QsEnumAlignmentBaseline, QsEnumTextAnchor } from '../core/qsEnums'
 
 const canvas: QsCanvas = {
   config: mockCanvasConfigStrict,
@@ -20,8 +21,8 @@ const legendConfig: LegendConfigStrict = {
   font: '',
   fill: '',
   stroke: '',
-  alignmentBaseline: '',
-  textAnchor: '',
+  alignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+  textAnchor: QsEnumTextAnchor.MIDDLE,
   angle: 0,
 }
 

@@ -1,5 +1,6 @@
 import { scaleLinear, Selection } from 'd3'
 import { QsCanvas } from '../../d3QuickStart'
+import { QsEnumAlignmentBaseline, QsEnumTextAnchor } from '../../core/qsEnums'
 
 export interface QsTextConfig {
   [key: string]: number | string | undefined
@@ -7,8 +8,8 @@ export interface QsTextConfig {
   fontSize?: number
   fill?: string
   stroke?: string
-  alignmentBaseline?: string
-  textAnchor?: string
+  alignmentBaseline?: QsEnumAlignmentBaseline
+  textAnchor?: QsEnumTextAnchor
   angle?: number
 }
 
@@ -30,8 +31,8 @@ interface TextConfigStrict {
   fontSize: number
   fill: string
   stroke: string
-  alignmentBaseline: string
-  textAnchor: string
+  alignmentBaseline: QsEnumAlignmentBaseline
+  textAnchor: QsEnumTextAnchor
   angle: number
 }
 
@@ -45,8 +46,8 @@ const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
     fontSize: 4,
     fill: 'black',
     stroke: '',
-    alignmentBaseline: 'middle',
-    textAnchor: 'middle',
+    alignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+    textAnchor: QsEnumTextAnchor.MIDDLE,
     angle: 0,
   }
   if (!customConfig) return defaults

@@ -1,13 +1,16 @@
-import { scaleLinear, scalePoint, scaleBand } from 'd3-scale'
-import { BaseType, Selection } from 'd3-selection'
 import {
+  scaleLinear,
+  scalePoint,
+  scaleBand,
+  BaseType,
+  Selection,
   axisBottom,
   axisTop,
   axisLeft,
   axisRight,
   AxisScale,
   Axis,
-} from 'd3-axis'
+} from 'd3'
 import { toStrings } from '../../core/conversion'
 import { ScaleType } from '../../core/enums'
 import { QsCanvas } from '../../canvas/canvas'

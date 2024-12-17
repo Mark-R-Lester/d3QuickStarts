@@ -5,10 +5,12 @@ export interface QsValuedColor {
 
 export interface LegendConfigStrict {
   [key: string]: number | string | undefined
-  size: number
+  height: number
+  width: number
   space: number
   x: number
   y: number
+  fontSize: number
   font: string
   fill: string
   stroke: string

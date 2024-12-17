@@ -25,7 +25,19 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 250,
     })
 
-    qsLegendGenerator.legend(canvas, data, { color: 'black' })
+    qsLegendGenerator.legend(canvas, data, {
+      color: 'red', //does nothing
+      x: 10,
+      y: 50,
+      height: 3,
+      width: 10,
+      space: 8,
+      font: 'block',
+      angle: 45, //does nothing
+      alignmentBaseline: '50', //does nothing
+      stroke: 'blue', //does nothing
+      fill: 'yellow', //does nothing
+    })
   }
 
   useEffect(() => {

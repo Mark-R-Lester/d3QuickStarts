@@ -1,4 +1,4 @@
-import { scaleLinear } from 'd3-scale'
+import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { QsCanvas } from '../../canvas/canvas'
 

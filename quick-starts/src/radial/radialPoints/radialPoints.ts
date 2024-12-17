@@ -1,6 +1,5 @@
 import { getMeta, Meta } from './meta'
-import { Selection } from 'd3-selection'
-import { scaleLinear } from 'd3-scale'
+import { Selection, scaleLinear } from 'd3'
 import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 

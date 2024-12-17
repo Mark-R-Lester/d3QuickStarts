@@ -1,4 +1,5 @@
-import { Selection, select } from 'd3-selection'
+import { Selection, select } from 'd3'
+import { CanvasConfigStrict } from './types'
 
 export interface CanvasConfig {
   [key: string]: string | number | undefined
@@ -12,22 +13,6 @@ export interface CanvasConfig {
   highestViewableValue: number
   lowestViewableValue?: number
   borderColour?: string
-}
-
-interface CanvasConfigStrict {
-  [key: string]: string | number | undefined
-  chartName: string
-  width: number
-  height: number
-  marginRight: number
-  marginLeft: number
-  marginTop: number
-  marginBottom: number
-  highestViewableValue: number
-  lowestViewableValue: number
-  borderColour: string
-  displayAreaHeight: number
-  displayAreaWidth: number
 }
 
 export interface QsCanvas {

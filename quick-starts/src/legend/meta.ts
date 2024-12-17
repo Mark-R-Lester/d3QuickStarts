@@ -1,5 +1,5 @@
 import { QsCanvas } from '../canvas/canvas'
-import { scaleLinear } from 'd3-scale'
+import { scaleLinear } from 'd3'
 import { LegendConfigStrict, QsValuedColor } from './types'
 
 export interface Meta {
@@ -19,7 +19,7 @@ export const getMeta = (
   config: LegendConfigStrict
 ): Meta[] => {
   const { displayAreaWidth, displayAreaHeight } = canvas.config
-  const { size, space, x, y } = config
+  const { height, width, space, x, y } = config
 
   const xScale = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
   const yScale = scaleLinear().domain([0, 100]).range([displayAreaHeight, 0])
@@ -29,13 +29,13 @@ export const getMeta = (
   const meta: Meta[] = data.map((d, i) => {
     return {
       x: xScale(x),
-      y: yScale(y + size + space * invertIndex(data, i)),
-      tx: xScale(x + size * 1.3),
+      y: yScale(y + height + space * invertIndex(data, i)),
+      tx: xScale(x + width * 1.3),
       ty: yScale(y + space * invertIndex(data, i)),
-      width: xScale(size),
-      height: xScale(size),
+      width: xScale(width),
+      height: xScale(height),
       colour: d.color,
-      value: d.color,
+      value: d.value,
     }
   })
 

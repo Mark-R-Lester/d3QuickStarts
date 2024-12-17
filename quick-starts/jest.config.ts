@@ -8,11 +8,13 @@ const config: JestConfigWithTsJest = {
     '^.+\\.ts?$': 'ts-jest',
     '^.+\\.tsx?$': 'ts-jest',
   },
-  transformIgnorePatterns: ['node_modules/(?!(lit-element|lit-html)/)'],
 
+  transformIgnorePatterns: ['node_modules'],
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'node'],
   extensionsToTreatAsEsm: ['.ts'],
   moduleNameMapper: {
-    '^(\\.{1,2}/.*)\\.js$': '$1',
+    d3: '<rootDir>/node_modules/d3/dist/d3.min.js',
+    // '^(\\.{1,2}/.*)\\.js$': '$1',
   },
 }
 

@@ -1,6 +1,6 @@
 import { BaseType, scaleLinear, Selection } from 'd3'
 import { QsCanvas } from '../canvas/canvas'
-import { Meta, getMeta } from './getMeta'
+import { Meta, getMeta } from './meta'
 import { LegendConfigStrict, QsValuedColor } from './types'
 import { QsTransitionArgs } from '../core/qsTypes'
 
@@ -12,10 +12,13 @@ export interface QsLegend {
 }
 export interface QsLegendConfig {
   [key: string]: number | string | undefined
-  size?: number
+  height?: number
+  width?: number
   space?: number
   x?: number
   y?: number
+  fontSize?: number
+
   font?: string
   fill?: string
   stroke?: string
@@ -32,10 +35,12 @@ const addDefaultsToConfig = (
   customConfig?: QsLegendConfig
 ): LegendConfigStrict => {
   const defaults: LegendConfigStrict = {
-    size: 3,
+    height: 2,
+    width: 6,
     space: 10,
     x: 0,
     y: 0,
+    fontSize: 10,
     font: 'sansserif',
     fill: 'black',
     stroke: '',
@@ -72,8 +77,14 @@ const draw = (canvas: QsCanvas, args: DrawArgs, config: LegendConfigStrict) => {
     .domain([0, 100])
     .range([0, displayAreaHeight])
 
-  const { size, textFill, textStroke, alignmentBaseline, textAnchor, font } =
-    config
+  const {
+    fontSize,
+    textFill,
+    textStroke,
+    alignmentBaseline,
+    textAnchor,
+    font,
+  } = config
 
   const meta: Meta[] = getMeta(canvas, data, config)
 
@@ -98,7 +109,7 @@ const draw = (canvas: QsCanvas, args: DrawArgs, config: LegendConfigStrict) => {
     .attr('font', font)
     .attr('fill', textFill ? textFill : null)
     .attr('stroke', textStroke ? textStroke : null)
-    .attr('fontsize', `${percentScale(size)}px`)
+    .attr('fontsize', `${percentScale(fontSize)}px`)
     .attr('transform', (d) => {
       return `translate(${d.tx}, ${d.ty})rotate(${0})`
     })

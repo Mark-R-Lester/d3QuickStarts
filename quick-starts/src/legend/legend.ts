@@ -3,7 +3,14 @@ import { QsCanvas } from '../canvas/canvas'
 import { Meta, getMeta } from './meta'
 import { LegendConfigStrict, QsValuedColor } from './types'
 import { QsTransitionArgs } from '../core/qsTypes'
-import { QsEnumAlignmentBaseline, QsEnumTextAnchor } from '../core/qsEnums'
+import {
+  QsEnumAlignmentBaseline,
+  QsEnumTextAnchor,
+  QsEnumTextDecorationLine,
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+} from '../core/qsEnums'
 
 export { QsValuedColor } from './types'
 
@@ -18,14 +25,16 @@ export interface QsLegendConfig {
   space?: number
   x?: number
   y?: number
-  fontSize?: number
-
-  font?: string
-  fill?: string
-  stroke?: string
-  alignmentBaseline?: QsEnumAlignmentBaseline
+  textFont?: QsEnumTextFont | string
+  textFontSize?: number
+  textFontStyle?: QsEnumTextFontStyle
+  textFontWeight?: QsEnumTextFontWeight | number
+  textDecorationLine?: QsEnumTextDecorationLine
+  textFill?: string
+  textAngle?: number
   textAnchor?: QsEnumTextAnchor
-  angle?: number
+  textStroke?: string
+  textAlignmentBaseline?: QsEnumAlignmentBaseline
 }
 
 interface DrawArgs {
@@ -41,13 +50,16 @@ const addDefaultsToConfig = (
     space: 10,
     x: 0,
     y: 0,
-    fontSize: 10,
-    font: 'sansserif',
-    fill: 'black',
-    stroke: '',
-    alignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+    textFont: QsEnumTextFont.SERIF,
+    textFontSize: 10,
+    textFontStyle: QsEnumTextFontStyle.NORMAL,
+    textFontWeight: QsEnumTextFontWeight.NORMAL,
+    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
+    textFill: 'black',
+    textAngle: 0,
+    textStroke: '',
     textAnchor: QsEnumTextAnchor.START,
-    angle: 0,
+    textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
   }
   if (!customConfig) return defaults
 
@@ -79,16 +91,19 @@ const draw = (canvas: QsCanvas, args: DrawArgs, config: LegendConfigStrict) => {
     .range([0, displayAreaHeight])
 
   const {
-    fontSize,
+    textFont,
+    textFontSize,
+    textFontStyle,
+    textFontWeight,
+    textDecorationLine,
     textFill,
     textStroke,
-    alignmentBaseline,
+    textAlignmentBaseline,
     textAnchor,
-    font,
+    textAngle,
   } = config
-  console.log('BaseLine', alignmentBaseline)
-  const meta: Meta[] = getMeta(canvas, data, config)
 
+  const meta: Meta[] = getMeta(canvas, data, config)
   const group = canvas.displayGroup.append('g')
   group
     .selectAll('.legend')
@@ -107,15 +122,18 @@ const draw = (canvas: QsCanvas, args: DrawArgs, config: LegendConfigStrict) => {
     .data(meta)
     .enter()
     .append('text')
-    .attr('font', font)
-    .attr('fill', textFill ? textFill : null)
-    .attr('stroke', textStroke ? textStroke : null)
-    .attr('font-size', `${percentScale(fontSize)}px`)
+    .attr('font-family', textFont)
+    .attr('font-style', textFontStyle)
+    .attr('font-weight', textFontWeight)
+    .attr('font-size', `${percentScale(textFontSize)}px`)
+    .attr('text-decoration', textDecorationLine)
+    .attr('fill', textFill)
+    .attr('stroke', textStroke)
     .attr('transform', (d) => {
-      return `translate(${d.tx}, ${d.ty})rotate(${0})`
+      return `translate(${d.textX}, ${d.textY})rotate(${textAngle})`
     })
     .style('text-anchor', textAnchor)
-    .style('alignment-baseline', alignmentBaseline)
+    .style('alignment-baseline', textAlignmentBaseline)
     .text((d) => d.value)
 
   return {

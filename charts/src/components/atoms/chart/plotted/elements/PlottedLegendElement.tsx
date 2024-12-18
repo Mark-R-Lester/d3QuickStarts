@@ -6,7 +6,14 @@ import {
   QsValuedColor,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
-import { QsEnumAlignmentBaseline, QsEnumTextAnchor } from 'd3qs/core/qsEnums'
+import {
+  QsEnumAlignmentBaseline,
+  QsEnumTextAnchor,
+  QsEnumTextDecorationLine,
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+} from 'd3qs/core/qsEnums'
 
 export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
   chartName,
@@ -27,19 +34,21 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
     })
 
     qsLegendGenerator.legend(canvas, data, {
-      color: 'red', //does nothing
       x: 0,
-      y: 100,
+      y: 0,
       height: 1,
       width: 7,
-      space: 4,
-      font: 'block',
-      fontSize: 3,
-      angle: 45, //does nothing
-      alignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+      space: 10,
+      textFont: QsEnumTextFont.SERIF,
+      textFontWeight: QsEnumTextFontWeight.NORMAL,
+      textFontStyle: QsEnumTextFontStyle.ITALIC,
+      textFontSize: 10,
+      textDecorationLine: QsEnumTextDecorationLine.NORMAL,
+      textAngle: 0,
+      textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
       textAnchor: QsEnumTextAnchor.START,
-      stroke: 'blue', //does nothing
-      fill: 'yellow', //does nothing
+      textStroke: 'black',
+      textFill: 'black',
     })
   }
 

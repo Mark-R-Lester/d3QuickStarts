@@ -1,4 +1,11 @@
-import { QsEnumAlignmentBaseline, QsEnumTextAnchor } from '../core/qsEnums'
+import {
+  QsEnumAlignmentBaseline,
+  QsEnumTextAnchor,
+  QsEnumTextDecorationLine,
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+} from '../core/qsEnums'
 
 export interface QsValuedColor {
   value: string
@@ -12,11 +19,14 @@ export interface LegendConfigStrict {
   space: number
   x: number
   y: number
-  fontSize: number
-  font: string
-  fill: string
-  stroke: string
-  alignmentBaseline: QsEnumAlignmentBaseline
+  textFont: QsEnumTextFont | string
+  textFontSize: number
+  textFontStyle: QsEnumTextFontStyle
+  textFontWeight: QsEnumTextFontWeight | number
+  textDecorationLine: QsEnumTextDecorationLine
+  textFill: string
+  textAngle: number
   textAnchor: QsEnumTextAnchor
-  angle: number
+  textStroke: string
+  textAlignmentBaseline: QsEnumAlignmentBaseline
 }

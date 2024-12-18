@@ -3,7 +3,14 @@ import { QsCanvas } from '../canvas/canvas'
 import { mockSelection } from '../testObjects/mockSelection'
 import { mockCanvasConfigStrict } from '../testObjects/mockCanvasConfigStrict'
 import { LegendConfigStrict, QsValuedColor } from './types'
-import { QsEnumAlignmentBaseline, QsEnumTextAnchor } from '../core/qsEnums'
+import {
+  QsEnumAlignmentBaseline,
+  QsEnumTextAnchor,
+  QsEnumTextDecorationLine,
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+} from '../core/qsEnums'
 
 const canvas: QsCanvas = {
   config: mockCanvasConfigStrict,
@@ -16,14 +23,16 @@ const legendConfig: LegendConfigStrict = {
   space: 0,
   x: 10,
   y: 10,
-  fontSize: 10,
-
-  font: '',
-  fill: '',
-  stroke: '',
-  alignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+  textFontWeight: QsEnumTextFontWeight.NORMAL,
+  textFontStyle: QsEnumTextFontStyle.NORMAL,
+  textFontSize: 10,
+  textFont: QsEnumTextFont.SERIF,
+  textDecorationLine: QsEnumTextDecorationLine.NORMAL,
+  textFill: '',
+  textStroke: '',
+  textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
   textAnchor: QsEnumTextAnchor.MIDDLE,
-  angle: 0,
+  textAngle: 0,
 }
 
 const data: QsValuedColor[] = [
@@ -37,8 +46,8 @@ const metaResult: Meta[] = [
   {
     x: 10,
     y: 80,
-    tx: 23,
-    ty: 90,
+    textX: 23,
+    textY: 90,
     width: 10,
     height: 10,
     colour: 'red',

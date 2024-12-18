@@ -5,12 +5,12 @@ import { LegendConfigStrict, QsValuedColor } from './types'
 export interface Meta {
   x: number
   y: number
-  tx: number
-  ty: number
   width: number
   height: number
   colour: string
   value: string
+  textX: number
+  textY: number
 }
 
 export const getMeta = (
@@ -30,8 +30,8 @@ export const getMeta = (
     return {
       x: xScale(x),
       y: yScale(y + height + space * invertIndex(data, i)),
-      tx: xScale(x + width * 1.3),
-      ty: yScale(y + space * invertIndex(data, i)),
+      textX: xScale(x + width * 1.3),
+      textY: yScale(y + space * invertIndex(data, i)),
       width: xScale(width),
       height: xScale(height),
       colour: d.color,

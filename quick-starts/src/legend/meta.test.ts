@@ -20,7 +20,7 @@ const canvas: QsCanvas = {
 const legendConfig: LegendConfigStrict = {
   height: 10,
   width: 10,
-  space: 0,
+  space: 5,
   x: 10,
   y: 10,
   textFontWeight: QsEnumTextFontWeight.NORMAL,

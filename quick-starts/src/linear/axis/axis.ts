@@ -8,13 +8,19 @@ import {
   axisTop,
   axisLeft,
   axisRight,
-  AxisScale,
   Axis,
 } from 'd3'
 import { toStrings } from '../../core/conversion'
 import { ScaleType } from '../../core/enums'
 import { QsCanvas } from '../../canvas/canvas'
-import { QsEnumAlignmentBaseline, QsEnumTextAnchor } from '../../core/qsEnums'
+import {
+  QsEnumAlignmentBaseline,
+  QsEnumTextAnchor,
+  QsEnumTextDecorationLine,
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+} from '../../core/qsEnums'
 
 export interface QsAxisConfig {
   [key: string]: number | boolean | string | undefined
@@ -23,15 +29,22 @@ export interface QsAxisConfig {
   tickSizeInner?: number
   tickSizeOuter?: number
   tickPadding?: number
-  fontSize?: number
-  font?: string
+  numberOfTicks?: number
+  hideAxisLine?: boolean
+  percentageMovement?: number
+
+  textFont?: QsEnumTextFont | string
+  textFontSize?: number
+  textFontStyle?: QsEnumTextFontStyle
+  textFontWeight?: QsEnumTextFontWeight | number
+  textDecorationLine?: QsEnumTextDecorationLine
+  textFill?: string
   textAngle?: number
   textAnchor?: QsEnumTextAnchor
-  textX?: string
-  textY?: string
-  hideAxisDomain?: boolean
-  x?: number
-  y?: number
+  textStroke?: string
+  textAlignmentBaseline?: QsEnumAlignmentBaseline
+  textX?: number
+  textY?: number
 }
 
 export interface QsAxis {
@@ -45,15 +58,22 @@ interface AxisConfigStrict {
   tickSizeInner: number
   tickSizeOuter: number
   tickPadding: number
-  fontSize: number
-  font: string
+  numberOfTicks: number
+  hideAxisLine: boolean
+  percentageMovement: number
+
+  textFont: QsEnumTextFont | string
+  textFontSize: number
+  textFontStyle: QsEnumTextFontStyle
+  textFontWeight: QsEnumTextFontWeight | number
+  textDecorationLine: QsEnumTextDecorationLine
+  textFill: string
   textAngle: number
   textAnchor: QsEnumTextAnchor
-  textX: string
-  textY: string
-  hideAxisDomain: boolean
-  x: number
-  y: number
+  textStroke: string
+  textAlignmentBaseline: QsEnumAlignmentBaseline
+  textX: number
+  textY: number
 }
 
 interface DrawArgs {
@@ -70,15 +90,22 @@ const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
     tickSizeInner: 6,
     tickSizeOuter: 0,
     tickPadding: 3,
-    fontSize: 5,
-    font: 'sans-serif',
+    numberOfTicks: 0,
+    hideAxisLine: false,
+    percentageMovement: 0,
+
+    textFont: QsEnumTextFont.SERIF,
+    textFontSize: 10,
+    textFontStyle: QsEnumTextFontStyle.NORMAL,
+    textFontWeight: QsEnumTextFontWeight.NORMAL,
+    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
+    textFill: 'black',
     textAngle: 0,
-    textAnchor: QsEnumTextAnchor.MIDDLE,
-    textX: '',
-    textY: '',
-    hideAxisDomain: false,
-    x: 0,
-    y: 0,
+    textStroke: '',
+    textAnchor: QsEnumTextAnchor.START,
+    textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+    textX: 0,
+    textY: 0,
   }
   if (!customConfig) return defaults
 
@@ -231,31 +258,34 @@ const draw = (
     displayAreaHeight,
   } = canvasConfig
   const {
-    x,
-    y,
+    percentageMovement,
     textX,
     textY,
+    hideAxisLine,
     tickSize,
     tickSizeInner,
     tickSizeOuter,
     tickPadding,
-    font,
-    fontSize,
+    numberOfTicks,
+    textFont,
+    textFontStyle,
+    textFontSize,
+    textFontWeight,
     textAngle,
     textAnchor,
-    hideAxisDomain,
-    alignmentBaseline,
+    textStroke,
+    textFill,
+    textDecorationLine,
+    textAlignmentBaseline,
   } = config
   const { data, topOrRight, scaleType, isX } = args
-
-  let numbers: number[]
   let strings: string[]
-  let scale: AxisScale<string>
+  let scale: any
   let axis: Axis<string>
   let percentRange: number[]
 
   const applyScaleToAxis = (
-    scale: AxisScale<string>
+    scale: any
   ): { axis: Axis<string>; percentRange: number[] } => {
     if (isX) {
       return {
@@ -277,6 +307,7 @@ const draw = (
   const range: Iterable<number> = isX
     ? [0, displayAreaWidth]
     : [displayAreaHeight, 0]
+
   if (scaleType === ScaleType.BANDED) {
     strings = toStrings(data)
     scale = scaleBand().domain(strings).range(range)
@@ -291,17 +322,10 @@ const draw = (
       axis = result.axis
       percentRange = result.percentRange
     } else {
-      numbers = data.map((d) => Number(d))
       const linerScale = scaleLinear()
-        .domain([
-          lowestViewableValue,
-          highestViewableValue !== 0
-            ? highestViewableValue
-            : Math.max(...numbers),
-        ])
+        .domain([lowestViewableValue, highestViewableValue])
         .range(range)
-      scale = scalePoint().domain(toStrings(linerScale.domain())).range(range)
-      const result = applyScaleToAxis(scale)
+      const result = applyScaleToAxis(linerScale)
       axis = result.axis
       percentRange = result.percentRange
     }
@@ -313,12 +337,13 @@ const draw = (
   const percentScale = scaleLinear().domain([0, 100]).range(percentRange)
 
   const translation = isX
-    ? `translate(0, ${displayAreaHeight - percentScale(y)})`
-    : `translate(${percentScale(x)}, 0)`
+    ? `translate(0, ${displayAreaHeight - percentScale(percentageMovement)})`
+    : `translate(${percentScale(percentageMovement)}, 0)`
   axis.tickSize(tickSize)
   axis.tickSizeInner(tickSizeInner)
   axis.tickSizeOuter(tickSizeOuter)
   axis.tickPadding(tickPadding)
+  if (numberOfTicks) axis.ticks(numberOfTicks)
 
   const axisGroup = canvasDisplayGroup
     .append('g')
@@ -329,20 +354,22 @@ const draw = (
   const axisText = axisGroup.selectAll('text')
 
   axisText
-    .attr('text-anchor', textAnchor)
+    .attr('font-family', textFont)
+    .attr('font-style', textFontStyle)
+    .attr('font-weight', textFontWeight)
+    .attr('font-size', textPercentScale(textFontSize))
+    .attr('text-decoration', textDecorationLine)
+    .attr('fill', textFill)
+    .attr('stroke', textStroke)
     .attr('transform', `rotate(${textAngle})`)
-    .attr('font-size', textPercentScale(fontSize))
-    .attr('font', font)
-    .style('alignment-baseline', alignmentBaseline)
-  if (textY) {
-    axisText.attr('dy', textY)
-  }
-  if (textX) {
-    axisText.attr('dx', textX)
-  }
-  const axisDomain = axisGroup.select('.domain')
-  if (hideAxisDomain) {
-    axisDomain.remove()
+    .style('text-anchor', textAnchor)
+    .style('alignment-baseline', textAlignmentBaseline)
+    .attr('text-anchor', textAnchor)
+    .attr('dy', textY)
+    .attr('dx', textX)
+
+  if (hideAxisLine) {
+    axisGroup.select('.domain').remove()
   }
 
   return { element: axisText }

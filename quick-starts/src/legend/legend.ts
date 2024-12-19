@@ -115,7 +115,7 @@ const draw = (canvas: QsCanvas, args: DrawArgs, config: LegendConfigStrict) => {
     .attr('y', (d) => d.y)
     .attr('width', (d) => d.width)
     .attr('height', (d) => d.height)
-    .attr('fill', (d) => d.colour)
+    .attr('fill', (d) => d.color)
 
   group
     .selectAll('text')

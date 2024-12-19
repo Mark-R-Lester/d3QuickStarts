@@ -7,7 +7,7 @@ export interface Meta {
   y: number
   width: number
   height: number
-  colour: string
+  color: string
   value: string
   textX: number
   textY: number
@@ -34,7 +34,7 @@ export const getMeta = (
       textY: yScale(y + space * invertIndex(data, i)),
       width: xScale(width),
       height: xScale(height),
-      colour: d.color,
+      color: d.color,
       value: d.value,
     }
   })

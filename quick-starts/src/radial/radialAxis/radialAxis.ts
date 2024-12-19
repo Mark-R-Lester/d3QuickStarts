@@ -17,7 +17,7 @@ export interface QsRadialAxisConfig {
   y?: number
   axisAngle?: number
   gap?: number
-  colour?: string
+  color?: string
   strokeWidth?: number
   textFont?: QsEnumTextFont | string
   textFontSize?: number
@@ -53,7 +53,7 @@ const addDefaultsToConfig = (
     y: 50,
     axisAngle: 0,
     gap: 15,
-    colour: 'black',
+    color: 'black',
     strokeWidth: 0.3,
     textFont: QsEnumTextFont.SERIF,
     textFontSize: 4,
@@ -95,7 +95,7 @@ const draw = (
   const {
     x,
     y,
-    colour,
+    color,
     strokeWidth,
     textFont,
     textFontSize,
@@ -125,7 +125,7 @@ const draw = (
     .attr('class', (d) => d.ringClass)
     .attr('id', (d) => d.ringId)
     .attr('d', (d) => arc(d.ringData))
-    .attr('stroke', colour)
+    .attr('stroke', color)
     .attr('stroke-width', strokeWidth)
     .attr('transform', (d) => `translate(${d.xAxis(x)}, ${d.yAxis(y)})`)
   group

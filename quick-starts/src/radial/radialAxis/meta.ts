@@ -38,7 +38,7 @@ export interface RadialAxisConfigStrict {
   y: number
   axisAngle: number
   gap: number
-  colour: string
+  color: string
   strokeWidth: number
   textFont: QsEnumTextFont | string
   textFontSize: number

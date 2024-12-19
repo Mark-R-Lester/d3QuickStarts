@@ -10,7 +10,7 @@ export const mockCanvasConfigStrict: CanvasConfigStrict = {
   marginBottom: 10,
   highestViewableValue: 100,
   lowestViewableValue: 0,
-  borderColour: 'lightgray',
+  borderColor: 'lightgray',
   displayAreaHeight: 100,
   displayAreaWidth: 100,
 }

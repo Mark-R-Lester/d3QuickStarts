@@ -9,7 +9,7 @@ export interface CanvasConfigStrict {
   marginBottom: number
   highestViewableValue: number
   lowestViewableValue: number
-  borderColour: string
+  borderColor: string
   displayAreaHeight: number
   displayAreaWidth: number
 }

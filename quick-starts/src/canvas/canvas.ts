@@ -12,7 +12,7 @@ export interface CanvasConfig {
   marginBottom?: number
   highestViewableValue: number
   lowestViewableValue?: number
-  borderColour?: string
+  borderColor?: string
 }
 
 export interface QsCanvas {
@@ -31,7 +31,7 @@ export function qsCreateCanvas(newConfig?: CanvasConfig): QsCanvas {
     marginBottom: 15,
     highestViewableValue: 0,
     lowestViewableValue: 0,
-    borderColour: 'lightgray',
+    borderColor: 'lightgray',
     displayAreaHeight: 0,
     displayAreaWidth: 0,
   }
@@ -68,7 +68,7 @@ const draw = (chartName: string, config: CanvasConfigStrict): QsCanvas => {
       .attr('y', 0)
       .attr('width', config.width)
       .attr('height', config.height)
-      .style('stroke', config.borderColour)
+      .style('stroke', config.borderColor)
       .style('fill', 'none')
       .style('stroke-width', '2')
     return svg

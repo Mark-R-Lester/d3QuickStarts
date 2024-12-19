@@ -9,7 +9,7 @@ export interface QsRadialSpokesConfig {
   innerRadius?: number
   x?: number
   y?: number
-  colour?: string
+  color?: string
   strokeWidth?: number
 }
 
@@ -26,7 +26,7 @@ interface RadialSpokesConfigStrict {
   innerRadius: number
   x: number
   y: number
-  colour: string
+  color: string
   strokeWidth: number
 }
 
@@ -42,7 +42,7 @@ const addDefaultsToConfig = (
     innerRadius: 0,
     x: 50,
     y: 50,
-    colour: 'black',
+    color: 'black',
     strokeWidth: 0.4,
   }
   if (!customConfig) return defaults
@@ -83,7 +83,7 @@ const draw = (
   args: DrawArgs,
   config: RadialSpokesConfigStrict
 ): QsRadialSpokes => {
-  const { radius, innerRadius, x, y, colour, strokeWidth } = config
+  const { radius, innerRadius, x, y, color, strokeWidth } = config
 
   const { data } = args
   const transitionArgs: QsRadialSpokesTransitionArgs = {
@@ -108,7 +108,7 @@ const draw = (
     .attr('class', (d) => d.class)
     .attr('id', (d) => d.id)
     .attr('d', (d) => radialLine(d.lineData))
-    .attr('stroke', colour)
+    .attr('stroke', color)
     .attr('fill-opacity', '0')
     .attr('stroke-width', strokeWidth)
 

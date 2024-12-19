@@ -50,7 +50,7 @@ const metaResult: Meta[] = [
     textY: 90,
     width: 10,
     height: 10,
-    colour: 'red',
+    color: 'red',
     value: 'description',
   },
 ]

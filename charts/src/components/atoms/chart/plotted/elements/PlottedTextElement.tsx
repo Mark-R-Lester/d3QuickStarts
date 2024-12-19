@@ -3,20 +3,19 @@ import {
   QsCanvas,
   qsCreateCanvas,
   qsPlottedTextGenerator,
-  TextArgs,
+  QsTextArgs,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
+import {
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+} from 'd3qs/core/qsEnums'
 
 export const PlottedTextElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
   const createChart = () => {
-    const data: TextArgs[] = [
-      { x: 0, y: 0, text: 'Some Text' },
-      { x: 50, y: 50, text: 'Some Text' },
-      { x: 100, y: 100, text: 'Some Text' },
-    ]
-
     const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
@@ -24,7 +23,34 @@ export const PlottedTextElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 250,
     })
 
-    qsPlottedTextGenerator.text(canvas, data, { color: 'black' })
+    const data: QsTextArgs[] = [
+      { x: 0, y: 0, text: 'Text with no config uses defaults' },
+    ]
+    qsPlottedTextGenerator.text(canvas, data)
+
+    const data1: QsTextArgs[] = [
+      { x: 0, y: 10, text: 'Three pieces of' },
+      { x: 15, y: 20, text: 'text in one call' },
+      { x: 30, y: 30, text: 'utilise on the same config' },
+    ]
+
+    qsPlottedTextGenerator.text(canvas, data1, {
+      textFont: QsEnumTextFont.FANTASY,
+      textFontSize: 10,
+      textFontStyle: QsEnumTextFontStyle.ITALIC,
+      textStroke: 'red',
+    })
+
+    const data2: QsTextArgs[] = [
+      { x: 0, y: 50, text: 'Text in separate call uses separate config' },
+    ]
+    qsPlottedTextGenerator.text(canvas, data2, {
+      textFont: QsEnumTextFont.HELVETICA,
+      textFontSize: 7,
+      textFontWeight: QsEnumTextFontWeight.BOLD,
+      textFill: 'blue',
+      textAngle: 10,
+    })
   }
 
   useEffect(() => {

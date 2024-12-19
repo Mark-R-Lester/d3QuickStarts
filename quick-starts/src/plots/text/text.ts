@@ -1,16 +1,26 @@
 import { scaleLinear, Selection } from 'd3'
 import { QsCanvas } from '../../d3QuickStart'
-import { QsEnumAlignmentBaseline, QsEnumTextAnchor } from '../../core/qsEnums'
+import {
+  QsEnumAlignmentBaseline,
+  QsEnumTextAnchor,
+  QsEnumTextDecorationLine,
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+} from '../../core/qsEnums'
 
 export interface QsTextConfig {
   [key: string]: number | string | undefined
-  font?: string
-  fontSize?: number
-  fill?: string
-  stroke?: string
-  alignmentBaseline?: QsEnumAlignmentBaseline
+  textFont?: QsEnumTextFont | string
+  textFontSize?: number
+  textFontStyle?: QsEnumTextFontStyle
+  textFontWeight?: QsEnumTextFontWeight | number
+  textDecorationLine?: QsEnumTextDecorationLine
+  textFill?: string
+  textAngle?: number
   textAnchor?: QsEnumTextAnchor
-  angle?: number
+  textStroke?: string
+  textAlignmentBaseline?: QsEnumAlignmentBaseline
 }
 
 export interface QsText {
@@ -19,7 +29,7 @@ export interface QsText {
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
 }
 
-export interface TextArgs {
+export interface QsTextArgs {
   x: number
   y: number
   text: string
@@ -27,28 +37,34 @@ export interface TextArgs {
 
 interface TextConfigStrict {
   [key: string]: number | string | undefined
-  font: string
-  fontSize: number
-  fill: string
-  stroke: string
-  alignmentBaseline: QsEnumAlignmentBaseline
+  textFont: QsEnumTextFont | string
+  textFontSize: number
+  textFontStyle: QsEnumTextFontStyle
+  textFontWeight: QsEnumTextFontWeight | number
+  textDecorationLine: QsEnumTextDecorationLine
+  textFill: string
+  textAngle: number
   textAnchor: QsEnumTextAnchor
-  angle: number
+  textStroke: string
+  textAlignmentBaseline: QsEnumAlignmentBaseline
 }
 
 interface DrawArgs {
-  data: TextArgs[]
+  data: QsTextArgs[]
 }
 
 const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
   const defaults: TextConfigStrict = {
-    font: 'sans-serif',
-    fontSize: 4,
-    fill: 'black',
-    stroke: '',
-    alignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-    textAnchor: QsEnumTextAnchor.MIDDLE,
-    angle: 0,
+    textFont: QsEnumTextFont.SERIF,
+    textFontSize: 5,
+    textFontStyle: QsEnumTextFontStyle.NORMAL,
+    textFontWeight: QsEnumTextFontWeight.NORMAL,
+    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
+    textFill: 'black',
+    textAngle: 0,
+    textStroke: '',
+    textAnchor: QsEnumTextAnchor.START,
+    textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
   }
   if (!customConfig) return defaults
 
@@ -60,8 +76,8 @@ const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
 
 const text = (
   canvas: QsCanvas,
-  data: TextArgs[],
-  customConfig: QsTextConfig
+  data: QsTextArgs[],
+  customConfig?: QsTextConfig
 ): QsText => {
   const args: DrawArgs = { data }
   const config: TextConfigStrict = addDefaultsToConfig(customConfig)
@@ -77,7 +93,18 @@ const draw = (
   args: DrawArgs,
   config: TextConfigStrict
 ): QsText => {
-  const { font, fontSize, stroke, fill, alignmentBaseline, textAnchor } = config
+  const {
+    textFont,
+    textFontSize,
+    textFontStyle,
+    textFontWeight,
+    textDecorationLine,
+    textFill,
+    textStroke,
+    textAlignmentBaseline,
+    textAnchor,
+    textAngle,
+  } = config
   const { displayAreaWidth, displayAreaHeight } = canvas.config
   const { data } = args
 
@@ -90,15 +117,18 @@ const draw = (
     .data(data)
     .enter()
     .append('text')
-    .attr('font', font)
-    .attr('fill', fill)
-    .attr('stroke', stroke)
-    .attr('font-size', `${yScale(fontSize)}px`)
+    .attr('font-family', textFont)
+    .attr('font-style', textFontStyle)
+    .attr('font-weight', textFontWeight)
+    .attr('font-size', `${yScale(textFontSize)}px`)
+    .attr('text-decoration', textDecorationLine)
+    .attr('fill', textFill)
+    .attr('stroke', textStroke)
     .attr('transform', (d) => {
-      return `translate(${xScale(d.x)}, ${yScale(d.y)})rotate(${0})`
+      return `translate(${xScale(d.x)}, ${yScale(d.y)})rotate(${textAngle})`
     })
     .style('text-anchor', textAnchor)
-    .style('alignment-baseline', alignmentBaseline)
+    .style('alignment-baseline', textAlignmentBaseline)
     .text((d) => d.text)
   return { element: text.selectAll('text') }
 }

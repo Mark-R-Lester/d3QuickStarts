@@ -5,15 +5,30 @@ import { BandData, Meta, getMeta, updateMeta } from './meta'
 import { RadialTextType, ScaleType } from '../../core/enums'
 import { QsTransitionArgs } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import {
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+  QsEnumTextDecorationLine,
+  QsEnumTextAnchor,
+  QsEnumAlignmentBaseline,
+} from '../../core/qsEnums'
 
 export { QsValuedText } from './types'
 
 export interface QsRadialTextConfig {
-  [key: string]: number | undefined
+  [key: string]: string | number | undefined
   radius?: number
-  fontSize?: number
   x?: number
   y?: number
+  textFont?: QsEnumTextFont | string
+  textFontSize?: number
+  textFontStyle?: QsEnumTextFontStyle
+  textFontWeight?: QsEnumTextFontWeight | number
+  textDecorationLine?: QsEnumTextDecorationLine
+  textFill?: string
+  textAnchor?: QsEnumTextAnchor
+  textStroke?: string
 }
 
 export interface QsRadialTextTransitionData {
@@ -43,9 +58,17 @@ const addDefaultsToConfig = (
 ): RadialTextConfigStrict => {
   const defaults: RadialTextConfigStrict = {
     radius: 100,
-    fontSize: 8,
     x: 50,
     y: 50,
+    textFont: QsEnumTextFont.SERIF,
+    textFontSize: 5,
+    textFontStyle: QsEnumTextFontStyle.NORMAL,
+    textFontWeight: QsEnumTextFontWeight.NORMAL,
+    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
+    textFill: 'black',
+    textAngle: 0,
+    textStroke: '',
+    textAnchor: QsEnumTextAnchor.MIDDLE,
   }
   if (!customConfig) return defaults
 
@@ -194,7 +217,18 @@ const draw = (
   config: RadialTextConfigStrict
 ): QsRadialText => {
   const { data, scaleType, type } = args
-  const { fontSize, x, y } = config
+  const {
+    textFont,
+    textFontSize,
+    textFontStyle,
+    textFontWeight,
+    textDecorationLine,
+    textFill,
+    textStroke,
+    textAnchor,
+    x,
+    y,
+  } = config
 
   let rotate: (angles: { startAngle: number; endAngle: number }) => number
 
@@ -235,8 +269,14 @@ const draw = (
       .append('text')
       .attr('class', (d) => d.textClass)
       .attr('id', (d) => d.textId)
-      .attr('font-size', `${meta.yAxis(fontSize)}px`)
-      .style('text-anchor', 'middle')
+      .attr('font-family', textFont)
+      .attr('font-style', textFontStyle)
+      .attr('font-weight', textFontWeight)
+      .attr('font-size', `${meta.yAxis(textFontSize)}px`)
+      .attr('text-decoration', textDecorationLine)
+      .attr('fill', textFill)
+      .attr('stroke', textStroke)
+      .style('text-anchor', textAnchor)
       .attr(
         'transform',
         (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
@@ -260,12 +300,18 @@ const draw = (
       .data(meta.textArcData)
       .enter()
       .append('text')
-      .attr('font-size', `${meta.yAxis(fontSize)}px`)
       .attr('class', (d) => d.textClass)
       .attr('id', (d) => d.textId)
+      .attr('font-family', textFont)
+      .attr('font-style', textFontStyle)
+      .attr('font-weight', textFontWeight)
+      .attr('font-size', `${meta.yAxis(textFontSize)}px`)
+      .attr('text-decoration', textDecorationLine)
+      .attr('fill', textFill)
+      .attr('stroke', textStroke)
+      .style('text-anchor', textAnchor)
       .append('textPath')
       .attr('startOffset', '25%')
-      .style('text-anchor', 'middle')
       .attr('xlink:href', (d) => `#${d.arcId}`)
       .text((d) => (d.data.text ? d.data.text : d.data.value))
   }
@@ -294,7 +340,7 @@ const draw = (
           .transition()
           .delay(args.delayInMiliSeconds)
           .duration(args.durationInMiliSeconds)
-          .attr('font-size', `${updatedMeta.yAxis(fontSize)}px`)
+          .attr('font-size', `${updatedMeta.yAxis(textFontSize)}px`)
           .attr(
             'transform',
             (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`

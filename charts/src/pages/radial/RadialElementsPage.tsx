@@ -6,8 +6,11 @@ import { RadialAreaElement } from '../../components/atoms/chart/radial/elements/
 import { RadialAxisElement } from '../../components/atoms/chart/radial/elements/RadialAxisElement'
 import { RadialLineElement } from '../../components/atoms/chart/radial/elements/RadialLineElement'
 import { RadialPointsElement } from '../../components/atoms/chart/radial/elements/RadialPointsElement'
-import { RadialTextElement } from '../../components/atoms/chart/radial/elements/RadialTextElement'
 import { RadialDoughnutElement } from '../../components/atoms/chart/radial/elements/RadialDoughnutElement'
+import { RadialTextFollowElement } from '../../components/atoms/chart/radial/elements/RadialTextFollowElement'
+import { RadialTextSpokeElement } from '../../components/atoms/chart/radial/elements/RadialTextSpokeElement'
+import { RadialTextHorizontalElement } from '../../components/atoms/chart/radial/elements/RadialTextHorizontalElement'
+import { RadialTextRotatedElement } from '../../components/atoms/chart/radial/elements/RadialTextRotatedElement'
 
 export default function RadialElementsPage() {
   const elements: JSX.Element[] = [
@@ -17,8 +20,11 @@ export default function RadialElementsPage() {
     <RadialAxisElement chartName="radialAxis" />,
     <RadialLineElement chartName="radialLine" />,
     <RadialPointsElement chartName="radialPoints" />,
-    <RadialTextElement chartName="radialText" />,
     <RadialSpokesElement chartName="radialSpokes" />,
+    <RadialTextFollowElement chartName="radialFollowText" />,
+    <RadialTextSpokeElement chartName="radialSpokeText" />,
+    <RadialTextHorizontalElement chartName="radialHorizontalText" />,
+    <RadialTextRotatedElement chartName="radialRotatedText" />,
   ]
 
   return (

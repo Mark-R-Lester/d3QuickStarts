@@ -6,8 +6,16 @@ import {
   QsValuedText,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
+import {
+  QsEnumAlignmentBaseline,
+  QsEnumTextAnchor,
+  QsEnumTextDecorationLine,
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+} from 'd3qs/core/qsEnums'
 
-export const RadialTextElement: FunctionComponent<ChartProps> = ({
+export const RadialTextRotatedElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
   const createChart = () => {
@@ -41,7 +49,17 @@ export const RadialTextElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 250,
     })
 
-    qsRadialTextGenerator.follow(canvas, data1)
+    qsRadialTextGenerator.rotated(canvas, data1, {
+      radius: 115,
+      x: 50,
+      y: 50,
+      textFont: QsEnumTextFont.ARIAL,
+      textFontSize: 10,
+      textFontWeight: QsEnumTextFontWeight.NORMAL,
+      textAnchor: QsEnumTextAnchor.MIDDLE,
+      textFill: 'orange',
+      textStroke: 'blue',
+    })
   }
 
   useEffect(() => {

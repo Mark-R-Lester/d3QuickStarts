@@ -129,11 +129,11 @@ const draw = (canvas: QsCanvas, args: DrawArgs, config: LegendConfigStrict) => {
     .attr('text-decoration', textDecorationLine)
     .attr('fill', textFill)
     .attr('stroke', textStroke)
+    .style('text-anchor', textAnchor)
+    .style('alignment-baseline', textAlignmentBaseline)
     .attr('transform', (d) => {
       return `translate(${d.textX}, ${d.textY})rotate(${textAngle})`
     })
-    .style('text-anchor', textAnchor)
-    .style('alignment-baseline', textAlignmentBaseline)
     .text((d) => d.value)
 
   return {

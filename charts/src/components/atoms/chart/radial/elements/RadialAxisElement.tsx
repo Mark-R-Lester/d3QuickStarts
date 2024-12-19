@@ -5,12 +5,20 @@ import {
   qsRadialAxisGenerator,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
+import {
+  QsEnumTextFont,
+  QsEnumTextFontWeight,
+  QsEnumTextFontStyle,
+  QsEnumTextDecorationLine,
+  QsEnumAlignmentBaseline,
+  QsEnumTextAnchor,
+} from 'd3qs/core/qsEnums'
 
 export const RadialAxisElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
   const createChart = () => {
-    const data1: number[] = [5, 10, 15, 50]
+    const data: number[] = [5, 10, 15, 50]
 
     const canvas: QsCanvas = qsCreateCanvas({
       chartName,
@@ -19,7 +27,24 @@ export const RadialAxisElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 50,
     })
 
-    qsRadialAxisGenerator.rings(canvas, data1)
+    qsRadialAxisGenerator.rings(canvas, data, {
+      radius: 100,
+      x: 50,
+      y: 50,
+      axisAngle: 45,
+      gap: 40,
+      colour: 'black',
+      strokeWidth: 1,
+      textFont: QsEnumTextFont.VERDANA,
+      textFontWeight: QsEnumTextFontWeight.NORMAL,
+      textFontStyle: QsEnumTextFontStyle.NORMAL,
+      textFontSize: 8,
+      textDecorationLine: QsEnumTextDecorationLine.NORMAL,
+      textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+      textAnchor: QsEnumTextAnchor.MIDDLE,
+      textStroke: 'red',
+      textFill: 'black',
+    })
   }
 
   useEffect(() => {

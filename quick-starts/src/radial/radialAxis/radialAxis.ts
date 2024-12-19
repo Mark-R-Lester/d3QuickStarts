@@ -1,19 +1,33 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { arc as d3arc, Selection } from 'd3'
-import { Meta, QsRadialAxisTransitionArgs, getMeta } from './meta'
-
-export { QsRadialAxisTransitionArgs } from './meta'
+import { Meta, RadialAxisConfigStrict, getMeta } from './meta'
+import {
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+  QsEnumTextDecorationLine,
+  QsEnumTextAnchor,
+  QsEnumAlignmentBaseline,
+} from '../../core/qsEnums'
 
 export interface QsRadialAxisConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   radius?: number
-  fontSize?: number
   x?: number
   y?: number
   axisAngle?: number
   gap?: number
   colour?: string
   strokeWidth?: number
+  textFont?: QsEnumTextFont | string
+  textFontSize?: number
+  textFontStyle?: QsEnumTextFontStyle
+  textFontWeight?: QsEnumTextFontWeight | number
+  textDecorationLine?: QsEnumTextDecorationLine
+  textFill?: string
+  textAnchor?: QsEnumTextAnchor
+  textStroke?: string
+  textAlignmentBaseline?: QsEnumAlignmentBaseline
 }
 
 export interface QsRadialAxis {
@@ -23,22 +37,7 @@ export interface QsRadialAxis {
   ringsElement:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (
-    data: number[],
-    radialAxisTransitionArgs: QsRadialAxisTransitionArgs
-  ) => void
-}
-
-interface RadialAxisConfigStrict {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
-  radius: number
-  fontSize: number
-  x: number
-  y: number
-  axisAngle: number
-  gap: number
-  colour: string
-  strokeWidth: number
+  transition: (data: number[], config: QsRadialAxisConfig) => void
 }
 
 interface DrawArgs {
@@ -50,13 +49,21 @@ const addDefaultsToConfig = (
 ): RadialAxisConfigStrict => {
   const defaults: RadialAxisConfigStrict = {
     radius: 100,
-    fontSize: 4,
     x: 50,
     y: 50,
     axisAngle: 0,
     gap: 15,
     colour: 'black',
     strokeWidth: 0.3,
+    textFont: QsEnumTextFont.SERIF,
+    textFontSize: 4,
+    textFontStyle: QsEnumTextFontStyle.NORMAL,
+    textFontWeight: QsEnumTextFontWeight.NORMAL,
+    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
+    textFill: 'black',
+    textStroke: '',
+    textAnchor: QsEnumTextAnchor.MIDDLE,
+    textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
   }
   if (!customConfig) return defaults
 
@@ -85,16 +92,24 @@ const draw = (
   args: DrawArgs,
   config: RadialAxisConfigStrict
 ): QsRadialAxis => {
-  const { radius, fontSize, x, y, axisAngle, gap, colour, strokeWidth } = config
+  const {
+    x,
+    y,
+    colour,
+    strokeWidth,
+    textFont,
+    textFontSize,
+    textFontStyle,
+    textFontWeight,
+    textDecorationLine,
+    textFill,
+    textStroke,
+    textAlignmentBaseline,
+    textAnchor,
+  } = config
   const { data } = args
 
-  const radialAxisTransitionArgs: QsRadialAxisTransitionArgs = {
-    radius,
-    axisAngle,
-    gap,
-  }
-
-  const meta: Meta[] = getMeta(canvas, data, radialAxisTransitionArgs)
+  const meta: Meta[] = getMeta(canvas, data, config)
 
   const arc = d3arc()
     .innerRadius((d) => d.innerRadius)
@@ -120,10 +135,15 @@ const draw = (
     .append('text')
     .attr('class', (d) => d.textClass)
     .attr('id', (d) => d.textId)
-    .attr('fill', colour)
-    .attr('font-size', (d) => `${d.yAxis(fontSize)}px`)
-    .style('text-anchor', 'middle')
-    .style('alignment-baseline', 'middle')
+    .attr('font-family', textFont)
+    .attr('font-style', textFontStyle)
+    .attr('font-weight', textFontWeight)
+    .attr('font-size', (d) => `${d.yAxis(textFontSize)}px`)
+    .attr('text-decoration', textDecorationLine)
+    .attr('fill', textFill)
+    .attr('stroke', textStroke)
+    .style('text-anchor', textAnchor)
+    .style('alignment-baseline', textAlignmentBaseline)
     .attr(
       'transform',
       (d) => `translate(${d.ringData.textLocation})rotate(${0})`
@@ -133,11 +153,9 @@ const draw = (
   return {
     textElement: group.selectAll('text'),
     ringsElement: group.selectAll('ring'),
-    transition: (
-      data: number[],
-      radialAxisTransitionArgs: QsRadialAxisTransitionArgs
-    ) => {
-      const meta: Meta[] = getMeta(canvas, data, radialAxisTransitionArgs)
+    transition: (data: number[], config: QsRadialAxisConfig) => {
+      const transitionConfig = addDefaultsToConfig(config)
+      const meta: Meta[] = getMeta(canvas, data, transitionConfig)
       group
         .selectAll(`.${meta[0].ringClass}`)
         .data(meta)
@@ -150,7 +168,7 @@ const draw = (
         .data(meta)
         .transition()
         .duration(3000)
-        .attr('font-size', (d) => `${d.yAxis(fontSize)}px`)
+        .attr('font-size', (d) => `${d.yAxis(textFontSize)}px`)
         .attr('transform', (d) => {
           return `translate(${d.ringData.textLocation})`
         })

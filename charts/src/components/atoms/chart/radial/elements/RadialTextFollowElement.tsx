@@ -7,7 +7,6 @@ import {
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 import {
-  QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
   QsEnumTextDecorationLine,
   QsEnumTextFont,

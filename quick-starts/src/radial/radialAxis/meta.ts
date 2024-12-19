@@ -2,6 +2,14 @@ import { QsCanvas } from '../../canvas/canvas'
 import { scaleLinear, scaleOrdinal, ScaleOrdinal, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
+import {
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+  QsEnumTextDecorationLine,
+  QsEnumTextAnchor,
+  QsEnumAlignmentBaseline,
+} from '../../core/qsEnums'
 
 interface RingData {
   innerRadius: number
@@ -23,17 +31,30 @@ export interface Meta {
   yAxis: ScaleLinear<number, number, never>
 }
 
-export interface QsRadialAxisTransitionArgs {
-  [key: string]: number
+export interface RadialAxisConfigStrict {
+  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   radius: number
+  x: number
+  y: number
   axisAngle: number
   gap: number
+  colour: string
+  strokeWidth: number
+  textFont: QsEnumTextFont | string
+  textFontSize: number
+  textFontStyle: QsEnumTextFontStyle
+  textFontWeight: QsEnumTextFontWeight | number
+  textDecorationLine: QsEnumTextDecorationLine
+  textFill: string
+  textAnchor: QsEnumTextAnchor
+  textStroke: string
+  textAlignmentBaseline: QsEnumAlignmentBaseline
 }
 
 export const getMeta = (
   canvas: QsCanvas,
   data: number[],
-  radialAxisTransitionArgs: QsRadialAxisTransitionArgs
+  config: RadialAxisConfigStrict
 ): Meta[] => {
   const {
     displayAreaHeight,
@@ -41,7 +62,7 @@ export const getMeta = (
     lowestViewableValue,
     highestViewableValue,
   } = canvas.config
-  const { radius, axisAngle, gap } = radialAxisTransitionArgs
+  const { radius, axisAngle, gap, x, y } = config
 
   const meta: Meta[] = []
 
@@ -66,9 +87,12 @@ export const getMeta = (
     const radians = axisAngle * (Math.PI / 180)
     const calculateTextPosition = () => {
       const hypotenuse: number = bandWidth * i
-      const x: number = Math.sin(radians) * hypotenuse
-      const y: number = Math.cos(radians) * hypotenuse * -1
-      return [x + displayAreaWidth / 2, y + displayAreaHeight / 2]
+      const relativeX: number = Math.sin(radians) * hypotenuse
+      const relativeY: number = Math.cos(radians) * hypotenuse * -1
+      return [
+        relativeX + displayAreaWidth / 2 + xAxis(-50) + xAxis(x),
+        relativeY + displayAreaHeight / 2 + yAxis(-50) + yAxis(y),
+      ]
     }
     const sin: number = gap / (bandWidth * (i + 1))
     let text: unknown

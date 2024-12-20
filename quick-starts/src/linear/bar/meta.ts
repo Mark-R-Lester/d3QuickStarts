@@ -1,9 +1,9 @@
 import { scaleLinear, scaleBand, scaleOrdinal, ScaleOrdinal, range } from 'd3'
-import { QsCanvas } from '../../d3QuickStart'
+import { QsCanvas, QsColorDomainRange, QsColorName } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import { BarData, DrawArgs, QsBarConfigStrict, QsBarBoundries } from './types'
-import { Orientation } from '../../core/enums'
+import { BarData, DrawArgs, QsBarConfigStrict, QsBarArgs } from './types'
+import { GlobalDefaults, Orientation } from '../../core/enums'
 
 export interface Meta {
   class: string
@@ -11,21 +11,12 @@ export interface Meta {
   barData: BarData
 }
 
-const getColor = (
-  i: number,
-  colorScale: ScaleOrdinal<string, unknown, never>
-): string => {
-  let c: string | unknown = colorScale(i.toString())
-  //TODO if c is not a string throw.
-  return typeof c == 'string' ? c : '#cbc9e2'
-}
-
 export const getMeta = (
   canvas: QsCanvas,
   args: DrawArgs,
   config: QsBarConfigStrict
 ): Meta[] => {
-  const { padding, colorDomain, colorRange } = config
+  const { padding, color } = config
   const { data, orientation } = args
   const isVertical = orientation === Orientation.VERTICAL
   const findLowerBoundry = (lowerBoundry: number | undefined) =>
@@ -51,26 +42,25 @@ export const getMeta = (
     .domain([lowestViewableValue, highestViewableValue])
     .range([0, isVertical ? displayAreaWidth : displayAreaHeight])
 
-  const colors = scaleOrdinal().domain(toStrings(colorDomain)).range(colorRange)
-  const height = (d: QsBarBoundries) =>
+  const height = (d: QsBarArgs) =>
     isVertical
       ? bandWidthScale.bandwidth()
       : heightScale(d.upperBoundry - findLowerBoundry(d.lowerBoundry))
-  const width = (d: QsBarBoundries) =>
+  const width = (d: QsBarArgs) =>
     isVertical
       ? heightScale(d.upperBoundry - findLowerBoundry(d.lowerBoundry))
       : bandWidthScale.bandwidth()
 
-  const x = (d: QsBarBoundries, i: number) =>
+  const x = (d: QsBarArgs, i: number) =>
     isVertical
       ? heightScale(findLowerBoundry(d.lowerBoundry))
       : barSpaceing(d, i)
-  const y = (d: QsBarBoundries, i: number) =>
+  const y = (d: QsBarArgs, i: number) =>
     isVertical
       ? barSpaceing(d, i)
       : displayAreaHeight - heightScale(d.upperBoundry)
 
-  const barSpaceing = (d: QsBarBoundries, i: number) => {
+  const barSpaceing = (d: QsBarArgs, i: number) => {
     const adjustmentToCorrectD3 =
       (bandStepScale.step() - bandWidthScale.bandwidth()) / 2
     //TODO requires error handling
@@ -79,13 +69,38 @@ export const getMeta = (
     return 0
   }
 
+  let colorScale: ScaleOrdinal<string, unknown, never> | undefined
+  if (color.range)
+    colorScale = scaleOrdinal()
+      .domain(toStrings(typeof color.domain !== 'string' ? color.domain : []))
+      .range(color.range)
+
+  const getColor = (
+    args: QsBarArgs,
+    color: QsColorName | QsColorDomainRange,
+    colorScale?: ScaleOrdinal<string, unknown, never>
+  ): string => {
+    if (args.color) return args.color
+    if (color.colorName)
+      return typeof color.colorName === 'string'
+        ? color.colorName
+        : GlobalDefaults.DEFAULT_BAR_COLOR
+
+    let scaledColor: string | unknown
+    if (colorScale) scaledColor = colorScale(args.upperBoundry.toString())
+
+    return typeof scaledColor === 'string'
+      ? scaledColor
+      : GlobalDefaults.DEFAULT_BAR_COLOR
+  }
+
   data.forEach((d, i) => {
     const barData: BarData = {
       x: x(d, i),
       y: y(d, i),
       height: height(d),
       width: width(d),
-      color: getColor(i, colors),
+      color: getColor(d, color, colorScale),
     }
     meta.push({
       class: 'bar',

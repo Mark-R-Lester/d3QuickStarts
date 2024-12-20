@@ -7,11 +7,6 @@ import {
   QsEnumTextFontWeight,
 } from '../core/qsEnums'
 
-export interface QsValuedColor {
-  value: string
-  color: string
-}
-
 export interface LegendConfigStrict {
   [key: string]: number | string | undefined
   height: number

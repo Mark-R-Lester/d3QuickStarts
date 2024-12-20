@@ -1,20 +1,24 @@
 import { Selection, range } from 'd3'
-import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
+import {
+  QsCanvas,
+  QsColorDomainRange,
+  QsColorName,
+  QsTransitionArgs,
+} from '../../d3QuickStart'
 import { getMeta, Meta } from './meta'
-import { DrawArgs, QsBarConfigStrict, QsBarBoundries } from './types'
-import { Orientation } from '../../core/enums'
+import { DrawArgs, QsBarConfigStrict, QsBarArgs } from './types'
+import { GlobalDefaults, Orientation } from '../../core/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-export { QsBarBoundries } from './types'
+export { QsBarArgs as QsBarBoundries } from './types'
 
 export interface QsBarConfig {
-  [key: string]: number | Iterable<unknown> | number[] | undefined
+  [key: string]: number | QsColorName | QsColorDomainRange | undefined
   padding?: number
-  colorDomain?: number[]
-  colorRange?: Iterable<unknown>
+  color?: QsColorName | QsColorDomainRange
 }
 
 export interface QsBarTransitionData {
-  data: QsBarBoundries[]
+  data: QsBarArgs[]
   config?: QsBarConfig
   transitionArgs?: QsTransitionArgs
 }
@@ -29,8 +33,7 @@ export interface QsBars {
 const addDefaultsToConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
   const defauls: QsBarConfigStrict = {
     padding: 8,
-    colorDomain: range(4),
-    colorRange: ['purple'],
+    color: { colorName: GlobalDefaults.DEFAULT_BAR_COLOR },
   }
   if (!customConfig) return defauls
 
@@ -39,7 +42,7 @@ const addDefaultsToConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
 }
 const horizontal = (
   canvas: QsCanvas,
-  data: QsBarBoundries[],
+  data: QsBarArgs[],
   customConfig?: QsBarConfig
 ): QsBars => {
   const args: DrawArgs = { data, orientation: Orientation.HORIZONTAL }
@@ -49,7 +52,7 @@ const horizontal = (
 
 const vertical = (
   canvas: QsCanvas,
-  data: QsBarBoundries[],
+  data: QsBarArgs[],
   customConfig?: QsBarConfig
 ): QsBars => {
   const args: DrawArgs = { data, orientation: Orientation.VERTICAL }

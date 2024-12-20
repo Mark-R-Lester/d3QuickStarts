@@ -14,14 +14,14 @@ export const LinearBarsElement: FunctionComponent<OrienetedChartProps> = ({
 }) => {
   const createChart = () => {
     const data: QsBarBoundries[] = [
-      { upperBoundry: 25 },
-      { upperBoundry: 10 },
-      { upperBoundry: 35 },
-      { upperBoundry: 25 },
-      { upperBoundry: 35 },
-      { upperBoundry: 5 },
-      { upperBoundry: 25 },
-      { upperBoundry: 25 },
+      { upperBoundry: 25, color: 'red' },
+      { upperBoundry: 10, color: 'blue' },
+      { upperBoundry: 35, color: 'green' },
+      { upperBoundry: 25, color: 'purple' },
+      { upperBoundry: 35, color: 'black' },
+      { upperBoundry: 5, color: 'yellow' },
+      { upperBoundry: 25, color: 'orange' },
+      { upperBoundry: 25, color: 'pink' },
     ]
     const isVertical = orientation === Orientation.VERTICAL
 

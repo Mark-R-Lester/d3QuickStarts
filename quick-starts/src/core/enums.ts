@@ -19,3 +19,7 @@ export enum RadialTextType {
   SPOKE = 'spoke',
   ROTATED = 'rotated',
 }
+
+export enum GlobalDefaults {
+  DEFAULT_BAR_COLOR = 'steelblue',
+}

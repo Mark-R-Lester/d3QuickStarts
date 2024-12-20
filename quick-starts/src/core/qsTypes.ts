@@ -15,6 +15,12 @@ export interface QsColorName {
   colorName: string
 }
 
+export interface QsColorDomainRange {
+  [key: string]: number[] | Iterable<unknown>
+  domain: number[]
+  range: Iterable<unknown>
+}
+
 export interface QsDomainName {
   [key: string]: string
   domainName: string
@@ -22,5 +28,11 @@ export interface QsDomainName {
 
 export interface QsTransitionArgs {
   [key: string]: number | undefined
+  delayInMiliSeconds?: number
   durationInMiliSeconds?: number
+}
+
+export interface QsValuedColor {
+  value: string
+  color: string
 }

@@ -1,15 +1,15 @@
 import { getMeta, Meta } from './meta'
-import { QsCanvas } from '../canvas/canvas'
 import { mockSelection } from '../testObjects/mockSelection'
 import { mockCanvasConfigStrict } from '../testObjects/mockCanvasConfigStrict'
-import { LegendConfigStrict, QsValuedColor } from './types'
+import { LegendConfigStrict } from './types'
+import { QsCanvas, QsValuedColor } from '../d3QuickStart'
 import {
+  QsEnumTextFontWeight,
+  QsEnumTextFontStyle,
+  QsEnumTextFont,
+  QsEnumTextDecorationLine,
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
-  QsEnumTextDecorationLine,
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
 } from '../core/qsEnums'
 
 const canvas: QsCanvas = {

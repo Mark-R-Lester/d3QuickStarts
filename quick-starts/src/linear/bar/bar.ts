@@ -1,7 +1,7 @@
 import { Selection, range } from 'd3'
 import {
   QsCanvas,
-  QsColorDomainRange,
+  QsColorScale,
   QsColorName,
   QsTransitionArgs,
 } from '../../d3QuickStart'
@@ -12,9 +12,9 @@ import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 export { QsBarArgs as QsBarBoundries } from './types'
 
 export interface QsBarConfig {
-  [key: string]: number | QsColorName | QsColorDomainRange | undefined
+  [key: string]: number | QsColorName | QsColorScale | undefined
   padding?: number
-  color?: QsColorName | QsColorDomainRange
+  color?: QsColorName | QsColorScale
 }
 
 export interface QsBarTransitionData {

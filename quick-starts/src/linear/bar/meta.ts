@@ -1,9 +1,21 @@
-import { scaleLinear, scaleBand, scaleOrdinal, ScaleOrdinal, range } from 'd3'
-import { QsCanvas, QsColorDomainRange, QsColorName } from '../../d3QuickStart'
+import {
+  scaleLinear,
+  scaleBand,
+  scaleOrdinal,
+  ScaleOrdinal,
+  range,
+  scaleSequential,
+  interpolateRgbBasis,
+  ColorCommonInstance,
+  ScaleSequential,
+} from 'd3'
+import { QsCanvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
 import { BarData, DrawArgs, QsBarConfigStrict, QsBarArgs } from './types'
-import { GlobalDefaults, Orientation } from '../../core/enums'
+import { Orientation } from '../../core/enums'
+import { QsEnumColorScale } from '../../core/qsEnums'
+import { getScaledColor } from './getColour'
 
 export interface Meta {
   class: string
@@ -69,29 +81,41 @@ export const getMeta = (
     return 0
   }
 
-  let colorScale: ScaleOrdinal<string, unknown, never> | undefined
-  if (color.range)
-    colorScale = scaleOrdinal()
-      .domain(toStrings(typeof color.domain !== 'string' ? color.domain : []))
-      .range(color.range)
+  const myrange: (string | ColorCommonInstance)[] = ['blue']
+  interpolateRgbBasis(myrange)
+  color.range
+  color.domain
 
-  const getColor = (
-    args: QsBarArgs,
-    color: QsColorName | QsColorDomainRange,
-    colorScale?: ScaleOrdinal<string, unknown, never>
-  ): string => {
-    if (args.color) return args.color
-    if (color.colorName)
-      return typeof color.colorName === 'string'
-        ? color.colorName
-        : GlobalDefaults.DEFAULT_BAR_COLOR
+  let sequentialColorScale: ScaleSequential<string, never> | undefined
+  let oridinalColorScale: ScaleOrdinal<string, unknown, never> | undefined
 
-    let scaledColor: string | unknown
-    if (colorScale) scaledColor = colorScale(args.upperBoundry.toString())
+  const createSequentialColorScale = ():
+    | ScaleSequential<string, never>
+    | undefined => {
+    const hasValues: boolean =
+      color.range !== undefined && color.domain !== undefined
+    if (
+      typeof color.range !== 'string' &&
+      typeof color.domain !== 'string' &&
+      hasValues
+    ) {
+      return scaleSequential(color.domain, interpolateRgbBasis(color.range))
+    }
+  }
 
-    return typeof scaledColor === 'string'
-      ? scaledColor
-      : GlobalDefaults.DEFAULT_BAR_COLOR
+  const createOridinalColorScale = ():
+    | ScaleOrdinal<string, unknown, never>
+    | undefined => {
+    if (color.range)
+      return scaleOrdinal()
+        .domain(toStrings(typeof color.domain !== 'string' ? color.domain : []))
+        .range(color.range)
+  }
+
+  if (color.type === QsEnumColorScale.SEQUENTIAL) {
+    sequentialColorScale = createSequentialColorScale()
+  } else {
+    oridinalColorScale = createOridinalColorScale()
   }
 
   data.forEach((d, i) => {
@@ -100,7 +124,12 @@ export const getMeta = (
       y: y(d, i),
       height: height(d),
       width: width(d),
-      color: getColor(d, color, colorScale),
+      color: getScaledColor({
+        data: d,
+        color,
+        sequentialColorScale,
+        oridinalColorScale,
+      }),
     }
     meta.push({
       class: 'bar',

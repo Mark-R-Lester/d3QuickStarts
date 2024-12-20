@@ -1,3 +1,6 @@
+import { ColorCommonInstance } from 'd3'
+import { QsEnumColorScale } from './qsEnums'
+
 export interface QsCoordinate {
   [key: string]: number | undefined
   x: number
@@ -15,10 +18,11 @@ export interface QsColorName {
   colorName: string
 }
 
-export interface QsColorDomainRange {
-  [key: string]: number[] | Iterable<unknown>
+export interface QsColorScale {
+  [key: string]: number[] | (string | ColorCommonInstance)[] | string
   domain: number[]
-  range: Iterable<unknown>
+  range: (string | ColorCommonInstance)[]
+  type: QsEnumColorScale
 }
 
 export interface QsDomainName {

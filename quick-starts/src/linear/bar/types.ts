@@ -1,10 +1,10 @@
 import { Orientation } from '../../core/enums'
-import { QsColorName, QsColorDomainRange } from '../../d3QuickStart'
+import { QsColorName, QsColorScale } from '../../d3QuickStart'
 
 export interface QsBarConfigStrict {
-  [key: string]: number | QsColorName | QsColorDomainRange | undefined
+  [key: string]: number | QsColorName | QsColorScale | undefined
   padding: number
-  color: QsColorName | QsColorDomainRange
+  color: QsColorName | QsColorScale
 }
 
 export interface BarData {

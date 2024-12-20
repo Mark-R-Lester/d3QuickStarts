@@ -1,3 +1,8 @@
+export enum QsEnumColorScale {
+  ORDINAL = 'ordinal',
+  SEQUENTIAL = 'sequential',
+}
+
 export enum QsEnumAlignmentBaseline {
   AUTO = 'auto',
   BASELINE = 'baseline',

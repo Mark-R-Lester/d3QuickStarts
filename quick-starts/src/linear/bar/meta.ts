@@ -56,16 +56,14 @@ export const getMeta = (
   const height = (d: QsBarData) =>
     isVertical
       ? bandWidthScale.bandwidth()
-      : heightScale(d.upperBoundry - findLowerBoundry(d.lowerBoundry))
+      : heightScale(d.upperBoundry - d.lowerBoundry!)
   const width = (d: QsBarData) =>
     isVertical
-      ? heightScale(d.upperBoundry - findLowerBoundry(d.lowerBoundry))
+      ? heightScale(d.upperBoundry - d.lowerBoundry!)
       : bandWidthScale.bandwidth()
 
   const x = (d: QsBarData, i: number) =>
-    isVertical
-      ? heightScale(findLowerBoundry(d.lowerBoundry))
-      : barSpaceing(d, i)
+    isVertical ? heightScale(d.lowerBoundry!) : barSpaceing(d, i)
   const y = (d: QsBarData, i: number) =>
     isVertical
       ? barSpaceing(d, i)
@@ -108,8 +106,9 @@ export const getMeta = (
   else ordinalColorScale = createOridinalColorScale()
 
   data.forEach((d, i) => {
+    d.lowerBoundry = findLowerBoundry(d.lowerBoundry)
     const scaledColor: string | unknown | undefined = getScaledColor(
-      d.upperBoundry,
+      d.upperBoundry - d.lowerBoundry!,
       sequentialColorScale,
       ordinalColorScale
     )

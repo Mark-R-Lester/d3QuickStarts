@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
-  QsBarBoundries,
+  QsBarData,
   qsCreateCanvas,
   qsLinearBarGenerator,
 } from 'd3qs/d3QuickStart'
@@ -13,7 +13,7 @@ export const LinearBarsElement: FunctionComponent<OrienetedChartProps> = ({
   orientation,
 }) => {
   const createChart = () => {
-    const data: QsBarBoundries[] = [
+    const data: QsBarData[] = [
       { upperBoundry: 25, color: 'red' },
       { upperBoundry: 10, color: 'blue' },
       { upperBoundry: 35, color: 'green' },

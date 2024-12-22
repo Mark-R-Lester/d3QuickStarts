@@ -4,7 +4,7 @@ import { getMeta, Meta } from './meta'
 import { DrawArgs, QsBarConfigStrict, QsBarData } from './types'
 import { GlobalDefaults, Orientation } from '../../core/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-export { QsBarData as QsBarBoundries } from './types'
+export { QsBarData } from './types'
 
 export interface QsBarConfig {
   [key: string]: number | string | QsColorScale | undefined
@@ -13,10 +13,11 @@ export interface QsBarConfig {
   colorScale?: QsColorScale
 }
 
+export interface QsBarTransitionArgs extends QsTransitionArgs {}
+
 export interface QsBarTransitionData {
   data: QsBarData[]
-  config?: QsBarConfig
-  transitionArgs?: QsTransitionArgs
+  transitionArgs?: QsBarTransitionArgs
 }
 
 export interface QsBars {
@@ -99,6 +100,7 @@ const draw = (
         .duration(args.durationInMiliSeconds)
         .attr('width', (d) => d.barData.width)
         .attr('x', (d) => d.barData.x)
+        .attr('fill', (d) => d.barData.color)
     else
       group
         .selectAll(`.${meta[0].class}`)
@@ -108,6 +110,7 @@ const draw = (
         .duration(args.durationInMiliSeconds)
         .attr('height', (d) => d.barData.height)
         .attr('y', (d) => d.barData.y)
+        .attr('fill', (d) => d.barData.color)
   }
   return {
     element: group.selectAll(`.${meta[0].class}`),

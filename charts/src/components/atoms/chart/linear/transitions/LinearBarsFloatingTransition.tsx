@@ -4,10 +4,11 @@ import {
   qsCreateCanvas,
   qsLinearBarGenerator,
   QsBars,
-  QsBarBoundries,
+  QsBarData,
 } from 'd3qs/d3QuickStart'
 import { Orientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
+import { QsEnumColorScale } from 'd3qs/core/qsEnums'
 
 export const LinearBarsFloatingTransition: FunctionComponent<
   OrienetedChartProps
@@ -16,7 +17,7 @@ export const LinearBarsFloatingTransition: FunctionComponent<
   const [bars, setBars] = useState<QsBars>()
 
   const createChart = () => {
-    const data: QsBarBoundries[] = [
+    const data: QsBarData[] = [
       {
         lowerBoundry: 10,
         upperBoundry: 30,
@@ -48,9 +49,21 @@ export const LinearBarsFloatingTransition: FunctionComponent<
 
     let newBars
     if (orientation === Orientation.VERTICAL) {
-      newBars = qsLinearBarGenerator.vertical(canvas, data)
+      newBars = qsLinearBarGenerator.vertical(canvas, data, {
+        colorScale: {
+          range: ['green', 'orange', 'red'],
+          domain: [1, 70],
+          type: QsEnumColorScale.ORDINAL,
+        },
+      })
     } else {
-      newBars = qsLinearBarGenerator.horizontal(canvas, data)
+      newBars = qsLinearBarGenerator.horizontal(canvas, data, {
+        colorScale: {
+          range: ['lightblue', 'steelblue', 'blue'],
+          domain: [1, 70],
+          type: QsEnumColorScale.SEQUENTIAL,
+        },
+      })
     }
     setBars(newBars)
   }
@@ -61,8 +74,8 @@ export const LinearBarsFloatingTransition: FunctionComponent<
 
   useEffect(
     function transitionData() {
-      const getVals = (): QsBarBoundries[] => {
-        const vals: QsBarBoundries[] = []
+      const getVals = (): QsBarData[] => {
+        const vals: QsBarData[] = []
         for (let i = 0; i < 8; i++) {
           let val1 = (Math.random() * 100) / 2
           let val2 = (Math.random() * 100) / 2

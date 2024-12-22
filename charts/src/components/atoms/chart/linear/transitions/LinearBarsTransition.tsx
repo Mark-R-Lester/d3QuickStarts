@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvas,
   qsCreateCanvas,
-  QsBarBoundries,
+  QsBarData,
   qsLinearBarGenerator,
   QsBars,
 } from 'd3qs/d3QuickStart'
@@ -17,7 +17,7 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
   const [bars, setBars] = useState<QsBars>()
 
   const createChart = () => {
-    const data: QsBarBoundries[] = [
+    const data: QsBarData[] = [
       { upperBoundry: 25 },
       { upperBoundry: 10 },
       { upperBoundry: 35 },
@@ -48,11 +48,11 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
 
   useEffect(
     function transitionData() {
-      const getVals = (): QsBarBoundries[] => {
+      const getVals = (): QsBarData[] => {
         const vals = []
         for (let i = 0; i < 8; i++) {
           let num = (Math.random() * 100) / 2
-          vals.push({ upperBoundry: num })
+          vals.push({ upperBoundry: num, color: num < 25 ? 'green' : 'red' })
         }
         return vals
       }

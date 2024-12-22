@@ -6,21 +6,20 @@ import {
   range,
   scaleSequential,
   interpolateRgbBasis,
-  ColorCommonInstance,
   ScaleSequential,
 } from 'd3'
 import { QsCanvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import { BarData, DrawArgs, QsBarConfigStrict, QsBarArgs } from './types'
+import { MetaBarData, DrawArgs, QsBarConfigStrict, QsBarData } from './types'
 import { Orientation } from '../../core/enums'
 import { QsEnumColorScale } from '../../core/qsEnums'
-import { getScaledColor } from './getColour'
+import { getPrecidendedColor, getScaledColor } from './getColor'
 
 export interface Meta {
   class: string
   id: string
-  barData: BarData
+  barData: MetaBarData
 }
 
 export const getMeta = (
@@ -28,7 +27,7 @@ export const getMeta = (
   args: DrawArgs,
   config: QsBarConfigStrict
 ): Meta[] => {
-  const { padding, color } = config
+  const { padding, defaultColor, colorScale } = config
   const { data, orientation } = args
   const isVertical = orientation === Orientation.VERTICAL
   const findLowerBoundry = (lowerBoundry: number | undefined) =>
@@ -54,25 +53,25 @@ export const getMeta = (
     .domain([lowestViewableValue, highestViewableValue])
     .range([0, isVertical ? displayAreaWidth : displayAreaHeight])
 
-  const height = (d: QsBarArgs) =>
+  const height = (d: QsBarData) =>
     isVertical
       ? bandWidthScale.bandwidth()
       : heightScale(d.upperBoundry - findLowerBoundry(d.lowerBoundry))
-  const width = (d: QsBarArgs) =>
+  const width = (d: QsBarData) =>
     isVertical
       ? heightScale(d.upperBoundry - findLowerBoundry(d.lowerBoundry))
       : bandWidthScale.bandwidth()
 
-  const x = (d: QsBarArgs, i: number) =>
+  const x = (d: QsBarData, i: number) =>
     isVertical
       ? heightScale(findLowerBoundry(d.lowerBoundry))
       : barSpaceing(d, i)
-  const y = (d: QsBarArgs, i: number) =>
+  const y = (d: QsBarData, i: number) =>
     isVertical
       ? barSpaceing(d, i)
       : displayAreaHeight - heightScale(d.upperBoundry)
 
-  const barSpaceing = (d: QsBarArgs, i: number) => {
+  const barSpaceing = (d: QsBarData, i: number) => {
     const adjustmentToCorrectD3 =
       (bandStepScale.step() - bandWidthScale.bandwidth()) / 2
     //TODO requires error handling
@@ -81,55 +80,45 @@ export const getMeta = (
     return 0
   }
 
-  const myrange: (string | ColorCommonInstance)[] = ['blue']
-  interpolateRgbBasis(myrange)
-  color.range
-  color.domain
-
   let sequentialColorScale: ScaleSequential<string, never> | undefined
-  let oridinalColorScale: ScaleOrdinal<string, unknown, never> | undefined
+  let ordinalColorScale: any | undefined
 
   const createSequentialColorScale = ():
     | ScaleSequential<string, never>
     | undefined => {
-    const hasValues: boolean =
-      color.range !== undefined && color.domain !== undefined
-    if (
-      typeof color.range !== 'string' &&
-      typeof color.domain !== 'string' &&
-      hasValues
-    ) {
-      return scaleSequential(color.domain, interpolateRgbBasis(color.range))
+    if (colorScale) {
+      return scaleSequential(
+        colorScale.domain,
+        interpolateRgbBasis(colorScale.range)
+      )
     }
   }
 
   const createOridinalColorScale = ():
     | ScaleOrdinal<string, unknown, never>
     | undefined => {
-    if (color.range)
+    if (colorScale)
       return scaleOrdinal()
-        .domain(toStrings(typeof color.domain !== 'string' ? color.domain : []))
-        .range(color.range)
+        .domain(toStrings(colorScale.domain))
+        .range(colorScale.range)
   }
 
-  if (color.type === QsEnumColorScale.SEQUENTIAL) {
+  if (colorScale && colorScale.type === QsEnumColorScale.SEQUENTIAL)
     sequentialColorScale = createSequentialColorScale()
-  } else {
-    oridinalColorScale = createOridinalColorScale()
-  }
+  else ordinalColorScale = createOridinalColorScale()
 
   data.forEach((d, i) => {
-    const barData: BarData = {
+    const scaledColor: string | unknown | undefined = getScaledColor(
+      d.upperBoundry,
+      sequentialColorScale,
+      ordinalColorScale
+    )
+    const barData: MetaBarData = {
       x: x(d, i),
       y: y(d, i),
       height: height(d),
       width: width(d),
-      color: getScaledColor({
-        data: d,
-        color,
-        sequentialColorScale,
-        oridinalColorScale,
-      }),
+      color: getPrecidendedColor(d.color, defaultColor, scaledColor),
     }
     meta.push({
       class: 'bar',

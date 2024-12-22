@@ -1,5 +1,5 @@
 import { CurveFactory } from 'd3'
-import { Orientation, ScaleType } from '../../core/enums'
+import { Orientation, ScaleType } from '../../core/enums/enums'
 
 export interface DrawArgs {
   data: number[]

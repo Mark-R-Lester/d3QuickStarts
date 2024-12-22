@@ -5,7 +5,7 @@ import {
   Selection,
   line as d3line,
 } from 'd3'
-import { QsCoordinate } from '../../core/qsTypes'
+import { QsCoordinate } from '../../core/types/qsTypes'
 import { qsFindMaxCoordinateX, qsFindMaxCoordinateY } from '../../core/max'
 import { QsCanvas } from '../../d3QuickStart'
 

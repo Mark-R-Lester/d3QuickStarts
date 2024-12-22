@@ -5,7 +5,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
-} from '../../core/qsEnums'
+} from '../../core/enums/qsEnums'
 
 export interface QsValuedText {
   value: number

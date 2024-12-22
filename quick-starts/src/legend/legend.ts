@@ -2,7 +2,7 @@ import { BaseType, scaleLinear, Selection } from 'd3'
 import { QsCanvas } from '../canvas/canvas'
 import { Meta, getMeta } from './meta'
 import { LegendConfigStrict } from './types'
-import { QsTransitionArgs, QsValuedColor } from '../core/qsTypes'
+import { QsTransitionArgs, QsValuedColor } from '../core/types/qsTypes'
 import {
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
@@ -10,7 +10,7 @@ import {
   QsEnumTextFont,
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
-} from '../core/qsEnums'
+} from '../core/enums/qsEnums'
 
 export interface QsLegend {
   element: Selection<BaseType, unknown, SVGGElement, unknown>

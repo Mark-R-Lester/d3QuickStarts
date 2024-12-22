@@ -23,4 +23,4 @@ export * from './plots/text/text'
 
 export * from './core/max'
 export * from './core/min'
-export * from './core/qsTypes'
+export * from './core/types/qsTypes'

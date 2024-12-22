@@ -1,5 +1,5 @@
-import { QsTransitionArgs } from './qsTypes'
-import { transitionArgsStrict } from './types'
+import { QsTransitionArgs } from './types/qsTypes'
+import { transitionArgsStrict } from './types/types'
 
 export const addTransitionDefaults = (
   customConfig?: QsTransitionArgs

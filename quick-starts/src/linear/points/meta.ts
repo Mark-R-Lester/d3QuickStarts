@@ -2,8 +2,8 @@ import { scaleLinear, scaleBand, NumberValue, range, Selection } from 'd3'
 import { QsCanvas } from '../../d3QuickStart'
 import { DrawArgs } from './types'
 import { v4 as uuidv4 } from 'uuid'
-import { Orientation, ScaleType } from '../../core/enums'
-import { QsCoordinate } from '../../core/qsTypes'
+import { Orientation, ScaleType } from '../../core/enums/enums'
+import { QsCoordinate } from '../../core/types/qsTypes'
 
 export interface Meta {
   class: string

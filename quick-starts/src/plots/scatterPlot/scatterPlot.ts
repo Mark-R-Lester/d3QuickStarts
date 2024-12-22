@@ -1,6 +1,6 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { scaleLinear, Selection } from 'd3'
-import { QsCoordinateEnhanced } from '../../core/qsTypes'
+import { QsCoordinateEnhanced } from '../../core/types/qsTypes'
 import { qsFindMaxCoordinateX, qsFindMaxCoordinateY } from '../../core/max'
 
 export interface QsScatterPlotConfig {

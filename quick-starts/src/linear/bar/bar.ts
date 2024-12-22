@@ -2,7 +2,7 @@ import { Selection, range } from 'd3'
 import { QsCanvas, QsColorScale, QsTransitionArgs } from '../../d3QuickStart'
 import { getMeta, Meta } from './meta'
 import { DrawArgs, QsBarConfigStrict, QsBarData } from './types'
-import { GlobalDefaults, Orientation } from '../../core/enums'
+import { GlobalDefaults, Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 export { QsBarData } from './types'
 

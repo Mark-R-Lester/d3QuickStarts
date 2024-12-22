@@ -2,7 +2,7 @@ import { QsCanvas } from '../../canvas/canvas'
 import { interpolate, range, schemePurples, Selection, arc as d3arc } from 'd3'
 import { QsRadialArgs, RadialConfigStrict, ArcData } from './types'
 import { Meta, getMeta, updateMeta } from './meta'
-import { QsTransitionArgs } from '../../core/qsTypes'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export { QsRadialArgs } from './types'

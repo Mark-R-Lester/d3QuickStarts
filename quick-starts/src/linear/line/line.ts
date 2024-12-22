@@ -2,7 +2,7 @@ import { curveLinear, CurveFactory, line as d3line, Selection } from 'd3'
 import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
 import { DrawArgs } from './types'
 import { Meta, getMeta } from './meta'
-import { Orientation, ScaleType } from '../../core/enums'
+import { Orientation, ScaleType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export interface QsLineConfig {

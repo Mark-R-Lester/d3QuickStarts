@@ -2,7 +2,7 @@ import { QsCanvas } from '../../canvas/canvas'
 import { CurveFactory, curveLinear, areaRadial, Selection } from 'd3'
 import { RadialAreaData } from './types'
 import { Meta, getMeta } from './meta'
-import { QsTransitionArgs } from '../../core/qsTypes'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export interface QsRadialAreaConfig {

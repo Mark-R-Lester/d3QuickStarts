@@ -8,7 +8,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
-} from '../../core/qsEnums'
+} from '../../core/enums/qsEnums'
 
 export interface QsRadialAxisConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined

@@ -2,8 +2,7 @@ import { QsCanvas } from '../../canvas/canvas'
 import { arc as d3arc, interpolate, Selection } from 'd3'
 import { QsValuedText, RadialTextConfigStrict } from './types'
 import { BandData, Meta, getMeta, updateMeta } from './meta'
-import { RadialTextType, ScaleType } from '../../core/enums'
-import { QsTransitionArgs } from '../../d3QuickStart'
+import { RadialTextType, ScaleType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
   QsEnumTextFont,
@@ -11,8 +10,8 @@ import {
   QsEnumTextFontWeight,
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
-  QsEnumAlignmentBaseline,
-} from '../../core/qsEnums'
+} from '../../core/enums/qsEnums'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 
 export { QsValuedText } from './types'
 
@@ -31,10 +30,12 @@ export interface QsRadialTextConfig {
   textStroke?: string
 }
 
+export interface QsRadialTextTransitionArgs extends QsTransitionArgs {}
+
 export interface QsRadialTextTransitionData {
   data: QsValuedText[]
+  transitionArgs?: QsRadialTextTransitionArgs
   config?: QsRadialTextConfig
-  transitionArgs?: QsTransitionArgs
 }
 
 export interface QsRadialText {

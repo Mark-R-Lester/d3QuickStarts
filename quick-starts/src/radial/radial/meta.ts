@@ -3,7 +3,7 @@ import { scaleLinear, scaleOrdinal, ScaleOrdinal, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 
 import { toStrings } from '../../core/conversion'
-import { QsColorName, QsDomainName } from '../../core/qsTypes'
+import { QsColorName, QsDomainName } from '../../core/types/qsTypes'
 import { ArcData, QsRadialArgs, RadialConfigStrict } from './types'
 
 export interface Meta {

@@ -1,9 +1,9 @@
 import { schemePurples, Selection } from 'd3'
 import { BarGroupConfigStrict } from './types'
 import { Meta, getMeta } from './meta'
-import { QsTransitionArgs } from '../../core/qsTypes'
 import { QsCanvas } from '../../canvas/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 
 export interface QsBarGroupConfig {
   [key: string]: number | Iterable<String> | undefined

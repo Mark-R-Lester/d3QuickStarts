@@ -8,7 +8,7 @@ import {
 import { QsCanvas } from '../../canvas/canvas'
 import { AreaData, getMeta, Meta } from './meta'
 import { QsAreaData } from './types'
-import { QsTransitionArgs } from '../../core/qsTypes'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export { QsAreaData } from './types'

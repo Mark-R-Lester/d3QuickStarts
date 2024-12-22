@@ -1,5 +1,5 @@
 import { ScaleSequential, ScaleOrdinal } from 'd3'
-import { GlobalDefaults } from '../../core/enums'
+import { GlobalDefaults } from '../../core/enums/enums'
 
 export const getPrecidendedColor = (
   color?: string,

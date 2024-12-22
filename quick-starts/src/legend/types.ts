@@ -5,7 +5,7 @@ import {
   QsEnumTextFont,
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
-} from '../core/qsEnums'
+} from '../core/enums/qsEnums'
 
 export interface LegendConfigStrict {
   [key: string]: number | string | undefined

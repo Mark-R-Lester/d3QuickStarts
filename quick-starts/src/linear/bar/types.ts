@@ -1,4 +1,4 @@
-import { Orientation } from '../../core/enums'
+import { Orientation } from '../../core/enums/enums'
 import { QsColorScale } from '../../d3QuickStart'
 
 export interface QsBarConfigStrict {

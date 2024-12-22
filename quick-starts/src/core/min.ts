@@ -1,4 +1,4 @@
-import { QsCoordinate } from './qsTypes'
+import { QsCoordinate } from './types/qsTypes'
 
 export const qsFindMin = (arrays: number[][]): number => {
   return Math.min(...arrays.map((arr) => Math.min(...arr)))

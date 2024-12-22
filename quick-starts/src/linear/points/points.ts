@@ -2,7 +2,7 @@ import { Selection } from 'd3'
 import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
 import { Meta, getMeta } from './meta'
 import { DrawArgs } from './types'
-import { Orientation, ScaleType } from '../../core/enums'
+import { Orientation, ScaleType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export interface QsPointsConfig {

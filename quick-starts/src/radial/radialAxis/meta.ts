@@ -9,7 +9,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
-} from '../../core/qsEnums'
+} from '../../core/enums/qsEnums'
 
 interface RingData {
   innerRadius: number

@@ -12,8 +12,8 @@ import { QsCanvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
 import { MetaBarData, DrawArgs, QsBarConfigStrict, QsBarData } from './types'
-import { Orientation } from '../../core/enums'
-import { QsEnumColorScale } from '../../core/qsEnums'
+import { Orientation } from '../../core/enums/enums'
+import { QsEnumColorScale } from '../../core/enums/qsEnums'
 import { getPrecidendedColor, getScaledColor } from './getColor'
 
 export interface Meta {

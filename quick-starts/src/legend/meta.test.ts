@@ -10,7 +10,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
-} from '../core/qsEnums'
+} from '../core/enums/qsEnums'
 
 const canvas: QsCanvas = {
   config: mockCanvasConfigStrict,

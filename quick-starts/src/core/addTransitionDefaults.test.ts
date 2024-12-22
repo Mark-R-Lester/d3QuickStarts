@@ -1,4 +1,4 @@
-import { QsTransitionArgs } from './qsTypes'
+import { QsTransitionArgs } from '../d3QuickStart'
 import { addTransitionDefaults } from './addTransitionDefaults'
 
 describe('addTransitionDefaults', () => {

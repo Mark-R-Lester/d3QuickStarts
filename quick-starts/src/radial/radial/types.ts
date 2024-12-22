@@ -1,4 +1,4 @@
-import { QsColorName, QsDomainName } from '../../core/qsTypes'
+import { QsColorName, QsDomainName } from '../../core/types/qsTypes'
 
 export interface ArcData {
   data: number

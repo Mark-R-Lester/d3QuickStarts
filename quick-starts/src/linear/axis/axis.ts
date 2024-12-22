@@ -11,7 +11,7 @@ import {
   Axis,
 } from 'd3'
 import { toStrings } from '../../core/conversion'
-import { ScaleType } from '../../core/enums'
+import { ScaleType } from '../../core/enums/enums'
 import { QsCanvas } from '../../canvas/canvas'
 import {
   QsEnumAlignmentBaseline,
@@ -20,7 +20,7 @@ import {
   QsEnumTextFont,
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
-} from '../../core/qsEnums'
+} from '../../core/enums/qsEnums'
 
 export interface QsAxisConfig {
   [key: string]: number | boolean | string | undefined

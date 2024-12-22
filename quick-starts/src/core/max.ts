@@ -1,4 +1,4 @@
-import { QsCoordinate } from './qsTypes'
+import { QsCoordinate } from './types/qsTypes'
 
 export const qsFindMax = (arrays: number[][]): number => {
   return Math.max(...arrays.map((arr) => Math.max(...arr)))

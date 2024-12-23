@@ -38,8 +38,8 @@ export const updateMeta = (
   const newMeta: Meta = getMeta(canvas, data, config, scaleType)
 
   for (let i = 0; i < meta.textArcData.length; i++) {
-    // newMeta.textArcData[i].arcId = meta.textArcData[i].arcId
-    // newMeta.textArcData[i].textId = meta.textArcData[i].textId
+    newMeta.textArcData[i].arcId = meta.textArcData[i].arcId
+    newMeta.textArcData[i].textId = meta.textArcData[i].textId
     newMeta.textArcData[i].endAngle = meta.textArcData[i].endAngle
     newMeta.textArcData[i].startAngle = meta.textArcData[i].startAngle
   }
@@ -63,8 +63,10 @@ export const getMeta = (
     data.forEach((d) => {
       totalValue = totalValue + d.value
     })
+
     const radiansDividedByTotalValue = (Math.PI * 2) / totalValue
     let startAngle = 0
+
     return data.map((d, i) => {
       const data = d
       const index = i

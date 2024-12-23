@@ -1,17 +1,5 @@
 import { QsColorName, QsDomainName } from '../../core/types/qsTypes'
 
-export interface ArcData {
-  data: number
-  cornerRadius: number
-  outerRadius: number
-  innerRadius: number
-  startAngle: number
-  endAngle: number
-  color: string
-  index?: number
-  value?: number
-}
-
 export interface QsRadialArgs {
   value: number
   color?: QsColorName | QsDomainName

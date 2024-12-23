@@ -44,13 +44,16 @@ export const RadialTextTransition: FunctionComponent<ChartProps> = ({
         const vals = []
         for (let i = 0; i < 3; i++) {
           let num = (Math.random() * 100) / 2
-          vals.push({ value: num, text: num.toString() })
+          vals.push({ value: num })
         }
         return vals
       }
 
       const transitionData = getVals()
-      if (element1) element1.transition({ data: transitionData })
+      if (element1)
+        element1.transition({
+          data: transitionData,
+        })
       if (element2) element2.transition({ data: transitionData })
       setTimeout(() => setChanged(!changed), 3000)
     },

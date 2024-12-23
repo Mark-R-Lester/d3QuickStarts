@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { toStrings } from '../../core/conversion'
 import { QsColorName, QsDomainName } from '../../core/types/qsTypes'
-import { ArcData, QsRadialArgs, RadialConfigStrict } from './types'
+import { QsRadialArgs, RadialConfigStrict } from './types'
 
 export interface Meta {
   class: string
@@ -12,6 +12,20 @@ export interface Meta {
   arcData: ArcData
   xAxis: ScaleLinear<number, number, never>
   yAxis: ScaleLinear<number, number, never>
+}
+
+export interface ArcData {
+  data: number
+  cornerRadius: number
+  outerRadius: number
+  innerRadius: number
+  newStartAngle: number
+  startAngle: number
+  newEndAngle: number
+  endAngle: number
+  color: string
+  index?: number
+  value?: number
 }
 
 const getColor = (
@@ -38,6 +52,8 @@ export const updateMeta = (
 
   for (let i = 0; i < meta.length; i++) {
     newMeta[i].id = meta[i].id
+    newMeta[i].arcData.endAngle = meta[i].arcData.endAngle
+    newMeta[i].arcData.startAngle = meta[i].arcData.startAngle
   }
   return newMeta
 }
@@ -71,17 +87,19 @@ export const getMeta = (
     .domain([0, 100])
     .range([0, displayAreaHeight])
 
-  let shares = 0
+  let totalValue = 0
   data.forEach((d) => {
-    shares = shares + d.value
+    totalValue = totalValue + d.value
   })
   if (data.length < 2) padAngle = 0
 
-  const angle = (Math.PI * 2) / shares
+  const radiansDividedByTotalValue = (Math.PI * 2) / totalValue
   let startAngle = 0
 
   data.forEach((d, i) => {
-    const endAngle: number = startAngle + angle * d.value
+    const endAngle =
+      startAngle + radiansDividedByTotalValue * d.value - padAngle / 2
+    startAngle = startAngle + padAngle / 2
     meta.push({
       class: `arc`,
       id: `arc${uuidv4()}`,
@@ -93,8 +111,10 @@ export const getMeta = (
         cornerRadius: yAxis(cornerRadius / 2),
         outerRadius: yAxis(outerRadius / 2),
         innerRadius: yAxis(isPieDiagram ? 0 : innerRadius / 2),
-        startAngle: startAngle + padAngle / 2,
-        endAngle: endAngle - padAngle / 2,
+        startAngle,
+        newStartAngle: startAngle,
+        endAngle,
+        newEndAngle: endAngle,
       },
       xAxis: xAxis,
       yAxis: yAxis,

@@ -1,7 +1,7 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { interpolate, range, schemePurples, Selection, arc as d3arc } from 'd3'
-import { QsRadialArgs, RadialConfigStrict, ArcData } from './types'
-import { Meta, getMeta, updateMeta } from './meta'
+import { QsRadialArgs, RadialConfigStrict } from './types'
+import { Meta, getMeta, updateMeta, ArcData } from './meta'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
@@ -121,8 +121,7 @@ const draw = (
     y,
   }
 
-  const meta: Meta[] = getMeta(canvas, data, transitionArgs)
-
+  let meta: Meta[] = getMeta(canvas, data, transitionArgs)
   const arc: any = d3arc()
   const group = canvas.displayGroup.append('g')
 
@@ -143,55 +142,32 @@ const draw = (
     transition: (data: QsRadialTransitionData) => {
       const updatedConfig = updateCurrentConfig(config, data.config)
       const args = addTransitionDefaults(data.transitionArgs)
-      const updatedMeta: Meta[] = updateMeta(
-        canvas,
-        data.data,
-        updatedConfig,
-        meta
-      )
-      interface OldAndNew {
-        old: ArcData
-        new: ArcData
-      }
-
-      const createOldAndNew = (
-        metaOld: Meta[],
-        metaUpdated: Meta[]
-      ): OldAndNew[] => {
-        const arr: OldAndNew[] = []
-
-        for (let i = 0; i < meta.length; i++) {
-          arr.push({
-            new: metaUpdated[i].arcData,
-            old: metaOld[i].arcData,
-          })
-        }
-        return arr
-      }
-
-      const oldAndNew: OldAndNew[] = createOldAndNew(meta, updatedMeta)
-      const radialTween = (d: OldAndNew, arcGen: (arg0: ArcData) => any) => {
-        const originalStartAngle = d.old.startAngle
-        const originalEndAngle = d.old.endAngle
-        const tweenStart = interpolate(originalStartAngle, d.new.startAngle)
-        const tweenEnd = interpolate(originalEndAngle, d.new.endAngle)
-
-        return function (t: number) {
-          d.old.startAngle = tweenStart(t)
-          d.old.endAngle = tweenEnd(t)
-
-          return arcGen(d.old)
-        }
-      }
+      meta = updateMeta(canvas, data.data, updatedConfig, meta)
 
       group
         .selectAll(`.${meta[0].class}`)
-        .data(oldAndNew)
-        .attr('d', (d) => arc(d.new))
+        .data(meta)
+        .attr('d', (d) => arc(d.arcData))
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
-        .attrTween('d', (d) => radialTween(d, arc))
+        .attrTween('d', (d) => {
+          const tweenStart = interpolate(
+            d.arcData.startAngle,
+            d.arcData.newStartAngle
+          )
+          const tweenEnd = interpolate(
+            d.arcData.endAngle,
+            d.arcData.newEndAngle
+          )
+
+          return function (t: number) {
+            d.arcData.startAngle = tweenStart(t)
+            d.arcData.endAngle = tweenEnd(t)
+
+            return arc(d.arcData)
+          }
+        })
     },
   }
 }

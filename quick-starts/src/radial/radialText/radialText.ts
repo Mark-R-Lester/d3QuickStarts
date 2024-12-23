@@ -310,7 +310,6 @@ const draw = (
     elementArcs: arcs.selectAll('.arc'),
     transition: (data: QsRadialTextTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
-
       meta = updateMeta(canvas, data.data, config, scaleType, meta)
 
       if (type !== RadialTextType.FOLLOW) {
@@ -349,20 +348,15 @@ const draw = (
             }
           })
 
-        //   text
-        //     .selectAll(`.${meta.textClass}`)
-        //     .data(meta.textArcData)
-        //     .enter()
-        //     .append('text')
-        //     .attr('font-size', `${meta.yAxis(fontSize)}px`)
-        //     .attr('class', (d) => d.textClass)
-        //     .attr('id', (d) => d.textId)
-        //     .append('textPath')
-        //     .attr('startOffset', '25%')
-        //     .style('text-anchor', 'middle')
-        //     .attr('xlink:href', (d) => `#${d.arcId}`)
-        //     .text((d) => (d.data.text ? d.data.text : d.data.value))
-        // }
+        meta.textArcData.forEach((d) => {
+          const t = text.select(`#${d.textId}`)
+          t.selection().selectChildren().remove()
+          t.append('textPath')
+            .transition()
+            .attr('startOffset', '25%')
+            .attr('xlink:href', `#${d.arcId}`)
+            .text(d.data.text ? d.data.text : Math.round(d.data.value))
+        })
       }
     },
   }

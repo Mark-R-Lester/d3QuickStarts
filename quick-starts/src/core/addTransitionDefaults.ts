@@ -5,7 +5,7 @@ export const addTransitionDefaults = (
   customConfig?: QsTransitionArgs
 ): transitionArgsStrict => {
   const defaults: transitionArgsStrict = {
-    delayInMiliSeconds: 150,
+    delayInMiliSeconds: 0,
     durationInMiliSeconds: 3000,
   }
   if (!customConfig) return defaults

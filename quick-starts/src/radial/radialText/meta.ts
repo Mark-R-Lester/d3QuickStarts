@@ -20,7 +20,9 @@ export interface BandData {
   data: QsValuedText
   index: number
   value: string | number
+  newStartAngle: number
   startAngle: number
+  newEndAngle: number
   endAngle: number
   outerRadius: number
   innerRadius: number
@@ -36,8 +38,10 @@ export const updateMeta = (
   const newMeta: Meta = getMeta(canvas, data, config, scaleType)
 
   for (let i = 0; i < meta.textArcData.length; i++) {
-    newMeta.textArcData[i].arcId = meta.textArcData[i].arcId
-    newMeta.textArcData[i].textId = meta.textArcData[i].textId
+    // newMeta.textArcData[i].arcId = meta.textArcData[i].arcId
+    // newMeta.textArcData[i].textId = meta.textArcData[i].textId
+    newMeta.textArcData[i].endAngle = meta.textArcData[i].endAngle
+    newMeta.textArcData[i].startAngle = meta.textArcData[i].startAngle
   }
   return newMeta
 }
@@ -74,7 +78,9 @@ export const getMeta = (
         data,
         index,
         value,
+        newStartAngle: startAngle,
         startAngle,
+        newEndAngle: endAngle,
         endAngle,
         outerRadius: min ? 0 : yAxis(radius / 2),
         innerRadius: min ? 0 : yAxis(radius / 2),

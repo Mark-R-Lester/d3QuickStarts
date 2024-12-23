@@ -35,7 +35,6 @@ export interface QsRadialTextTransitionArgs extends QsTransitionArgs {}
 export interface QsRadialTextTransitionData {
   data: QsValuedText[]
   transitionArgs?: QsRadialTextTransitionArgs
-  config?: QsRadialTextConfig
 }
 
 export interface QsRadialText {
@@ -77,16 +76,6 @@ const addDefaultsToConfig = (
     (key) => (defaults[key] = customConfig[key])
   )
   return defaults
-}
-
-const updateCurrentConfig = (
-  currentConfig: RadialTextConfigStrict,
-  newConfig?: QsRadialTextConfig
-): RadialTextConfigStrict => {
-  if (!newConfig) return currentConfig
-
-  Object.keys(newConfig).forEach((key) => (currentConfig[key] = newConfig[key]))
-  return currentConfig
 }
 
 const spoke = (
@@ -254,7 +243,7 @@ const draw = (
     }
   }
 
-  const meta: Meta = getMeta(canvas, data, config, scaleType)
+  let meta: Meta = getMeta(canvas, data, config, scaleType)
   const arc: any = d3arc()
   const group = canvas.displayGroup.append('g')
   const arcs = group.append('g')
@@ -321,19 +310,13 @@ const draw = (
     elementArcs: arcs.selectAll('.arc'),
     transition: (data: QsRadialTextTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
-      const updatedConfig = updateCurrentConfig(config, data.config)
-      const updatedMeta: Meta = updateMeta(
-        canvas,
-        data.data,
-        updatedConfig,
-        scaleType,
-        meta
-      )
+
+      meta = updateMeta(canvas, data.data, config, scaleType, meta)
 
       if (type !== RadialTextType.FOLLOW) {
         text
           .selectAll('.text')
-          .data(updatedMeta.textArcData)
+          .data(meta.textArcData)
           .attr('d', arc)
           .attr('stroke-width', 0)
           .attr('fill', 'none')
@@ -341,53 +324,28 @@ const draw = (
           .transition()
           .delay(args.delayInMiliSeconds)
           .duration(args.durationInMiliSeconds)
-          .attr('font-size', `${updatedMeta.yAxis(textFontSize)}px`)
+          .attr('font-size', `${meta.yAxis(textFontSize)}px`)
           .attr(
             'transform',
             (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
           )
       } else {
-        interface OldAndNew {
-          old: BandData
-          new: BandData
-        }
-
-        const createOldAndNew = (
-          metaOld: Meta,
-          metaUpdated: Meta
-        ): OldAndNew[] => {
-          const arr: OldAndNew[] = []
-
-          for (let i = 0; i < meta.textArcData.length; i++) {
-            arr.push({
-              new: metaUpdated.textArcData[i],
-              old: metaOld.textArcData[i],
-            })
-          }
-          return arr
-        }
-
-        const oldAndNew: OldAndNew[] = createOldAndNew(meta, updatedMeta)
-
         arcs
           .selectAll('.arc')
-          .data(oldAndNew)
-          .attr('d', (d) => arc(d.new))
+          .data(meta.textArcData)
+          .attr('d', (d) => arc(d))
           .transition()
-          .delay(1000)
           .delay(args.delayInMiliSeconds)
           .duration(args.durationInMiliSeconds)
           .attrTween('d', (d) => {
-            const originalStartAngle = d.old.startAngle
-            const originalEndAngle = d.old.endAngle
-            const tweenStart = interpolate(originalStartAngle, d.new.startAngle)
-            const tweenEnd = interpolate(originalEndAngle, d.new.endAngle)
+            const tweenStart = interpolate(d.startAngle, d.newStartAngle)
+            const tweenEnd = interpolate(d.endAngle, d.newEndAngle)
 
             return function (t: number) {
-              d.old.startAngle = tweenStart(t)
-              d.old.endAngle = tweenEnd(t)
+              d.startAngle = tweenStart(t)
+              d.endAngle = tweenEnd(t)
 
-              return arc(d.old)
+              return arc(d)
             }
           })
 

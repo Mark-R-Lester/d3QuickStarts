@@ -4,7 +4,6 @@ import {
   QsEnumTextFontWeight,
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
-  QsEnumAlignmentBaseline,
 } from '../../core/enums/qsEnums'
 
 export interface QsValuedText {

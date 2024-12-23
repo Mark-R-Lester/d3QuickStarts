@@ -189,7 +189,7 @@ const draw = (
         .data(oldAndNew)
         .attr('d', (d) => arc(d.new))
         .transition()
-        .delay(1000)
+        .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attrTween('d', (d) => radialTween(d, arc))
     },

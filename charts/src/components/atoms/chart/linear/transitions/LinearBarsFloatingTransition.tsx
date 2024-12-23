@@ -16,61 +16,60 @@ export const LinearBarsFloatingTransition: FunctionComponent<
   const [changed, setChanged] = useState<boolean>(false)
   const [bars, setBars] = useState<QsBars>()
 
-  const createChart = () => {
-    const data: QsBarData[] = [
-      {
-        lowerBoundry: 10,
-        upperBoundry: 30,
-      },
-      {
-        lowerBoundry: 20,
-        upperBoundry: 40,
-      },
-      {
-        lowerBoundry: 30,
-        upperBoundry: 50,
-      },
-      {
-        lowerBoundry: 10,
-        upperBoundry: 25,
-      },
-      {
-        lowerBoundry: 10,
-        upperBoundry: 12,
-      },
-    ]
-
-    const canvas: QsCanvas = qsCreateCanvas({
-      chartName,
-      width: 600,
-      lowestViewableValue: 0,
-      highestViewableValue: 50,
-    })
-
-    let newBars
-    if (orientation === Orientation.VERTICAL) {
-      newBars = qsLinearBarGenerator.vertical(canvas, data, {
-        colorScale: {
-          range: ['green', 'orange', 'red'],
-          domain: [1, 70],
-          type: QsEnumColorScale.ORDINAL,
-        },
-      })
-    } else {
-      newBars = qsLinearBarGenerator.horizontal(canvas, data, {
-        colorScale: {
-          range: ['lightblue', 'steelblue', 'blue'],
-          domain: [1, 70],
-          type: QsEnumColorScale.SEQUENTIAL,
-        },
-      })
-    }
-    setBars(newBars)
-  }
-
   useEffect(() => {
+    const createChart = () => {
+      const data: QsBarData[] = [
+        {
+          lowerBoundry: 10,
+          upperBoundry: 30,
+        },
+        {
+          lowerBoundry: 20,
+          upperBoundry: 40,
+        },
+        {
+          lowerBoundry: 30,
+          upperBoundry: 50,
+        },
+        {
+          lowerBoundry: 10,
+          upperBoundry: 25,
+        },
+        {
+          lowerBoundry: 10,
+          upperBoundry: 12,
+        },
+      ]
+
+      const canvas: QsCanvas = qsCreateCanvas({
+        chartName,
+        width: 600,
+        lowestViewableValue: 0,
+        highestViewableValue: 50,
+      })
+
+      let newBars
+      if (orientation === Orientation.VERTICAL) {
+        newBars = qsLinearBarGenerator.vertical(canvas, data, {
+          colorScale: {
+            range: ['green', 'orange', 'red'],
+            domain: [1, 70],
+            type: QsEnumColorScale.ORDINAL,
+          },
+        })
+      } else {
+        newBars = qsLinearBarGenerator.horizontal(canvas, data, {
+          colorScale: {
+            range: ['lightblue', 'steelblue', 'blue', 'darkblue'],
+            domain: [1, 70],
+            type: QsEnumColorScale.SEQUENTIAL,
+          },
+        })
+      }
+      setBars(newBars)
+    }
     createChart()
-  }, [])
+  }, [chartName, orientation])
 
   useEffect(
     function transitionData() {
@@ -96,7 +95,7 @@ export const LinearBarsFloatingTransition: FunctionComponent<
 
       setTimeout(() => setChanged(!changed), 3000)
     },
-    [bars, changed]
+    [bars, changed, orientation]
   )
 
   return (

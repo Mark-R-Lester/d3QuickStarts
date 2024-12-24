@@ -5,7 +5,7 @@ describe('addTransitionDefaults', () => {
   test('empty transition args is populated with defaults', () => {
     const args: QsTransitionArgs = {}
     expect(addTransitionDefaults(args)).toEqual({
-      delayInMiliSeconds: 150,
+      delayInMiliSeconds: 0,
       durationInMiliSeconds: 3000,
     })
   })

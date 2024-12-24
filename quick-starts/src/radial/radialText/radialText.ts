@@ -348,14 +348,23 @@ const draw = (
             }
           })
 
-        meta.textArcData.forEach((d) => {
+        meta.textArcData.forEach((d, i) => {
           const t = text.select(`#${d.textId}`)
           t.selection().selectChildren().remove()
           t.append('textPath')
+            .datum(d)
             .transition()
+            .delay(args.delayInMiliSeconds)
+            .duration(args.durationInMiliSeconds)
             .attr('startOffset', '25%')
             .attr('xlink:href', `#${d.arcId}`)
-            .text(d.data.text ? d.data.text : Math.round(d.data.value))
+            .textTween((d) => {
+              const tweenStart = interpolate(d.data.value, d.newData.value)
+              return (t: number) => {
+                d.data.value = tweenStart(t)
+                return d.data.value.toFixed(0)
+              }
+            })
         })
       }
     },

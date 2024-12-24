@@ -17,6 +17,7 @@ export interface BandData {
   textClass: string
   arcId: string
   arcClass: string
+  newData: QsValuedText
   data: QsValuedText
   index: number
   value: string | number
@@ -42,6 +43,7 @@ export const updateMeta = (
     newMeta.textArcData[i].textId = meta.textArcData[i].textId
     newMeta.textArcData[i].endAngle = meta.textArcData[i].endAngle
     newMeta.textArcData[i].startAngle = meta.textArcData[i].startAngle
+    newMeta.textArcData[i].data = meta.textArcData[i].data
   }
   return newMeta
 }
@@ -77,6 +79,7 @@ export const getMeta = (
         textClass: `text`,
         arcId: `arc${uuidv4()}`,
         arcClass: `arc`,
+        newData: data,
         data,
         index,
         value,

@@ -5,7 +5,7 @@ import {
   qsCreateCanvas,
   qsLinearBarGenerator,
 } from 'd3qs/d3QuickStart'
-import { Orientation } from '../../../../../common/enums'
+import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearBarsElement: FunctionComponent<OrienetedChartProps> = ({
@@ -23,7 +23,7 @@ export const LinearBarsElement: FunctionComponent<OrienetedChartProps> = ({
       { upperBoundry: 25, color: 'orange' },
       { upperBoundry: 25, color: 'pink' },
     ]
-    const isVertical = orientation === Orientation.VERTICAL
+    const isVertical = orientation === EnumOrientation.VERTICAL
 
     const canvas: QsCanvas = qsCreateCanvas({
       chartName,

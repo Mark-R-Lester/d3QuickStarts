@@ -7,44 +7,44 @@ import { LinearLineElement } from '../../components/atoms/chart/linear/elements/
 import { LinearAxisElement } from '../../components/atoms/chart/linear/elements/LinearAxisElement'
 import { LinearPointsElement } from '../../components/atoms/chart/linear/elements/LinearPointsElement'
 import { LinearBarsGroupedElement } from '../../components/atoms/chart/linear/elements/LinearBarsGroupedElement'
-import { Orientation } from '../../common/enums'
+import { EnumOrientation } from '../../common/enums'
 import { LinearBarStacksElement } from '../../components/atoms/chart/linear/elements/LinearBarStacksElement'
 
 export default function LinearElementsPage() {
   const elements: JSX.Element[] = [
     <LinearBarsElement
       chartName="linearHorizontalBars"
-      orientation={Orientation.HORIZONTAL}
+      orientation={EnumOrientation.HORIZONTAL}
     />,
     <LinearFloatingBarsElement
       chartName="linearHorizontalBarsFloating"
-      orientation={Orientation.HORIZONTAL}
+      orientation={EnumOrientation.HORIZONTAL}
     />,
     <LinearLineElement
       chartName="linearLineHorizontal"
-      orientation={Orientation.HORIZONTAL}
+      orientation={EnumOrientation.HORIZONTAL}
     />,
     <LinearPointsElement
       chartName="linearPointsHorizontal"
-      orientation={Orientation.HORIZONTAL}
+      orientation={EnumOrientation.HORIZONTAL}
     />,
     <LinearBarsElement
       chartName="linearVerticalBars"
-      orientation={Orientation.VERTICAL}
+      orientation={EnumOrientation.VERTICAL}
     />,
     <LinearFloatingBarsElement
       chartName="linearVerticalBarsFloating"
-      orientation={Orientation.VERTICAL}
+      orientation={EnumOrientation.VERTICAL}
     />,
 
     <LinearLineElement
       chartName="linearLineVertical"
-      orientation={Orientation.VERTICAL}
+      orientation={EnumOrientation.VERTICAL}
     />,
 
     <LinearPointsElement
       chartName="linearPointsVertical"
-      orientation={Orientation.VERTICAL}
+      orientation={EnumOrientation.VERTICAL}
     />,
     <LinearBarsGroupedElement chartName="linearBarsGroupedVertical" />,
     <LinearBarStacksElement chartName="linearBarsStackedVertical" />,

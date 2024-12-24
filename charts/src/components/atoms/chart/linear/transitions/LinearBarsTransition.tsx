@@ -6,7 +6,7 @@ import {
   qsLinearBarGenerator,
   QsBars,
 } from 'd3qs/d3QuickStart'
-import { Orientation } from '../../../../../common/enums'
+import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
@@ -34,7 +34,7 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
       highestViewableValue: 50,
     })
     let newBars: QsBars
-    if (orientation === Orientation.VERTICAL) {
+    if (orientation === EnumOrientation.VERTICAL) {
       newBars = qsLinearBarGenerator.vertical(canvas, data)
     } else {
       newBars = qsLinearBarGenerator.horizontal(canvas, data)
@@ -58,7 +58,7 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
       }
 
       const transitionData = getVals()
-      if (orientation === Orientation.VERTICAL) {
+      if (orientation === EnumOrientation.VERTICAL) {
         if (bars) bars.transition({ data: transitionData })
       } else {
         if (bars) bars.transition({ data: transitionData })

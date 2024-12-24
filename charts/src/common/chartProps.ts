@@ -1,9 +1,96 @@
-import { Orientation } from './enums'
+import {
+  QsAreaConfig,
+  QsAreaData,
+  QsAxisConfig,
+  QsBarConfig,
+  QsBarData,
+  QsBarGroupConfig,
+  QsBarStackedConfig,
+  QsLineConfig,
+  QsPointsConfig,
+  QsRadialAreaConfig,
+  QsRadialAreaData,
+  QsRadialArgs,
+  QsRadialAxisConfig,
+  QsRadialConfig,
+  QsRadialLineConfig,
+  QsRadialPointsConfig,
+  QsRadialSpokesConfig,
+  QsRadialTextConfig,
+  QsValuedText,
+} from 'd3qs/d3QuickStart'
+import { EnumOrientation, EnumRadialTextOrientation } from './enums'
 
 export interface ChartProps {
   chartName: string
 }
 
+export interface RadialTextChartProps extends ChartProps {
+  config?: QsRadialTextConfig
+  data: QsValuedText[]
+  orientation: EnumRadialTextOrientation
+}
+
+export interface AreaChartProps extends ChartProps {
+  config?: QsAreaConfig
+  data: QsAreaData
+}
+
+export interface AxisChartProps extends ChartProps {
+  config?: QsAxisConfig
+  data: string[]
+}
+
+export interface BarChartProps extends ChartProps {
+  config?: QsBarConfig
+  data: QsBarData[]
+}
+
+export interface BarGroupChartProps extends ChartProps {
+  config?: QsBarGroupConfig
+  data: number[][]
+}
+
+export interface BarStackChartProps extends ChartProps {
+  config?: QsBarStackedConfig
+  data: number[][]
+}
+
+export interface LineChartProps extends ChartProps {
+  config?: QsLineConfig
+  data: number[]
+}
+export interface PointChartProps extends ChartProps {
+  config?: QsPointsConfig
+  data: number[]
+}
+export interface RadialChartProps extends ChartProps {
+  config?: QsRadialConfig
+  data: QsRadialArgs[]
+}
+export interface RadialAreaChartProps extends ChartProps {
+  config?: QsRadialAreaConfig
+  data: QsRadialAreaData
+}
+export interface RadialAxisChartProps extends ChartProps {
+  config?: QsRadialAxisConfig
+  data: number[]
+}
+export interface RadialLineChartProps extends ChartProps {
+  config?: QsRadialLineConfig
+  data: number[]
+}
+
+export interface RadialPointsChartProps extends ChartProps {
+  config?: QsRadialPointsConfig
+  data: number[]
+}
+
+export interface RadialSpokesChartProps extends ChartProps {
+  config?: QsRadialSpokesConfig
+  data: number
+}
+
 export interface OrienetedChartProps extends ChartProps {
-  orientation: Orientation
+  orientation: EnumOrientation
 }

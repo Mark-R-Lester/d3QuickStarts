@@ -5,7 +5,7 @@ import {
   qsLinearPointGenerator,
   QsLine,
 } from 'd3qs/d3QuickStart'
-import { Orientation } from '../../../../../common/enums'
+import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearPointsTransition: FunctionComponent<OrienetedChartProps> = ({
@@ -24,7 +24,7 @@ export const LinearPointsTransition: FunctionComponent<OrienetedChartProps> = ({
       highestViewableValue: 50,
     })
     let newElement: QsLine
-    if (orientation === Orientation.VERTICAL) {
+    if (orientation === EnumOrientation.VERTICAL) {
       newElement = qsLinearPointGenerator.vertical(canvas, data)
     } else {
       newElement = qsLinearPointGenerator.horizontal(canvas, data)
@@ -48,7 +48,7 @@ export const LinearPointsTransition: FunctionComponent<OrienetedChartProps> = ({
       }
 
       const transitionData = getVals()
-      if (orientation === Orientation.VERTICAL) {
+      if (orientation === EnumOrientation.VERTICAL) {
         if (element) element.transition({ data: transitionData })
       } else {
         if (element) element.transition({ data: transitionData })

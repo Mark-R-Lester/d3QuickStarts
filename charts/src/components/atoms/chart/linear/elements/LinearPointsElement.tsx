@@ -4,7 +4,7 @@ import {
   qsCreateCanvas,
   qsLinearPointGenerator,
 } from 'd3qs/d3QuickStart'
-import { Orientation } from '../../../../../common/enums'
+import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearPointsElement: FunctionComponent<OrienetedChartProps> = ({
@@ -20,7 +20,7 @@ export const LinearPointsElement: FunctionComponent<OrienetedChartProps> = ({
       highestViewableValue: 35,
     })
 
-    if (orientation === Orientation.VERTICAL) {
+    if (orientation === EnumOrientation.VERTICAL) {
       qsLinearPointGenerator.vertical(canvas, data1)
     } else {
       qsLinearPointGenerator.horizontal(canvas, data1)

@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import { ElementGrid } from '../../components/atoms/ElementGrid'
 import { LinearBarsFloatingTransition } from '../../components/atoms/chart/linear/transitions/LinearBarsFloatingTransition'
 import { LinearBarsTransition } from '../../components/atoms/chart/linear/transitions/LinearBarsTransition'
-import { Orientation } from '../../common/enums'
+import { EnumOrientation } from '../../common/enums'
 import { LinearLineTransition } from '../../components/atoms/chart/linear/transitions/LinearLineTransition'
 import { LinearPointsTransition } from '../../components/atoms/chart/linear/transitions/LinearPointsTransition'
 import { LinearAreaTransition } from '../../components/atoms/chart/linear/transitions/LinearAreaTransition'
@@ -12,36 +12,36 @@ export default function LinearTransitionsPage() {
   const elements: JSX.Element[] = [
     <LinearBarsTransition
       chartName="verticalBarTransition"
-      orientation={Orientation.VERTICAL}
+      orientation={EnumOrientation.VERTICAL}
     />,
     <LinearBarsFloatingTransition
       chartName="verticalBarFloatingTransition"
-      orientation={Orientation.VERTICAL}
+      orientation={EnumOrientation.VERTICAL}
     />,
     <LinearLineTransition
       chartName="verticalLineTransition"
-      orientation={Orientation.VERTICAL}
+      orientation={EnumOrientation.VERTICAL}
     />,
     <LinearPointsTransition
       chartName="verticalPointsTransition"
-      orientation={Orientation.VERTICAL}
+      orientation={EnumOrientation.VERTICAL}
     />,
     <LinearBarsTransition
       chartName="horizontalBarTransition"
-      orientation={Orientation.HORIZONTAL}
+      orientation={EnumOrientation.HORIZONTAL}
     />,
     <LinearBarsFloatingTransition
       chartName="horizontalBarFloatingTransition"
-      orientation={Orientation.HORIZONTAL}
+      orientation={EnumOrientation.HORIZONTAL}
     />,
 
     <LinearLineTransition
       chartName="horizontalLineTransition"
-      orientation={Orientation.HORIZONTAL}
+      orientation={EnumOrientation.HORIZONTAL}
     />,
     <LinearPointsTransition
       chartName="horizontalPointsTransition"
-      orientation={Orientation.HORIZONTAL}
+      orientation={EnumOrientation.HORIZONTAL}
     />,
 
     <LinearAreaTransition chartName="AreaTransition" />,

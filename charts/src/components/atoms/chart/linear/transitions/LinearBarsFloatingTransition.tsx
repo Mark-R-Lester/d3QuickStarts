@@ -6,7 +6,7 @@ import {
   QsBars,
   QsBarData,
 } from 'd3qs/d3QuickStart'
-import { Orientation } from '../../../../../common/enums'
+import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 import { QsEnumColorScale } from 'd3qs/core/qsEnums'
 
@@ -49,7 +49,7 @@ export const LinearBarsFloatingTransition: FunctionComponent<
       })
 
       let newBars
-      if (orientation === Orientation.VERTICAL) {
+      if (orientation === EnumOrientation.VERTICAL) {
         newBars = qsLinearBarGenerator.vertical(canvas, data, {
           colorScale: {
             range: ['green', 'orange', 'red'],
@@ -87,7 +87,7 @@ export const LinearBarsFloatingTransition: FunctionComponent<
       }
 
       const transitionData = getVals()
-      if (orientation === Orientation.VERTICAL) {
+      if (orientation === EnumOrientation.VERTICAL) {
         if (bars) bars.transition({ data: transitionData })
       } else {
         if (bars) bars.transition({ data: transitionData })

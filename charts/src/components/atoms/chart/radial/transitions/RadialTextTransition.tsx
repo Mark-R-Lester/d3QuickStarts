@@ -8,21 +8,20 @@ import {
   qsRadialGenerator,
   qsRadialTextGenerator,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../../common/chartProps'
+import { RadialTextChartProps } from '../../../../../common/chartProps'
+import { EnumRadialTextOrientation } from '../../../../../common/enums'
 
-export const RadialTextTransition: FunctionComponent<ChartProps> = ({
+export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
   chartName,
+  config,
+  data,
+  orientation,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element1, setElement1] = useState<QsRadialText>()
   const [element2, setElement2] = useState<QsRadial>()
 
   const createChart = () => {
-    const data = [
-      { value: 25, text: '25' },
-      { value: 10, text: '10' },
-      { value: 15, text: '15' },
-    ]
     const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
@@ -30,7 +29,14 @@ export const RadialTextTransition: FunctionComponent<ChartProps> = ({
       highestViewableValue: 40,
     })
 
-    setElement1(qsRadialTextGenerator.followBanded(canvas, data))
+    if (orientation === EnumRadialTextOrientation.FOLLOW)
+      setElement1(qsRadialTextGenerator.followBanded(canvas, data))
+    if (orientation === EnumRadialTextOrientation.SPOKE)
+      setElement1(qsRadialTextGenerator.spokeBanded(canvas, data))
+    if (orientation === EnumRadialTextOrientation.HORIZONTAL)
+      setElement1(qsRadialTextGenerator.horizontalBanded(canvas, data))
+    if (orientation === EnumRadialTextOrientation.ROTATED)
+      setElement1(qsRadialTextGenerator.rotatedBanded(canvas, data))
     setElement2(qsRadialGenerator.doughnut(canvas, data))
   }
 

@@ -4,7 +4,7 @@ import {
   qsCreateCanvas,
   qsLinearBarGenerator,
 } from 'd3qs/d3QuickStart'
-import { Orientation } from '../../../../../common/enums'
+import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 import { QsEnumColorScale } from 'd3qs/core/qsEnums'
 
@@ -42,7 +42,7 @@ export const LinearFloatingBarsElement: FunctionComponent<
       highestViewableValue: 70,
     })
 
-    if (orientation === Orientation.VERTICAL) {
+    if (orientation === EnumOrientation.VERTICAL) {
       qsLinearBarGenerator.vertical(canvas, data2, {
         colorScale: {
           range: ['green', 'orange', 'red'],

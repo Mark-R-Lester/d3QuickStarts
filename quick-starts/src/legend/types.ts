@@ -25,3 +25,8 @@ export interface LegendConfigStrict {
   textStroke: string
   textAlignmentBaseline: QsEnumAlignmentBaseline
 }
+
+export interface QsLegendData {
+  value: string
+  color: string
+}

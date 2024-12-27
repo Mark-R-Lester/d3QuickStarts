@@ -1,7 +1,6 @@
 import { QsCanvas } from '../canvas/canvas'
 import { scaleLinear } from 'd3'
-import { LegendConfigStrict } from './types'
-import { QsValuedColor } from '../d3QuickStart'
+import { LegendConfigStrict, QsLegendData } from './types'
 
 export interface Meta {
   x: number
@@ -16,7 +15,7 @@ export interface Meta {
 
 export const getMeta = (
   canvas: QsCanvas,
-  data: QsValuedColor[],
+  data: QsLegendData[],
   config: LegendConfigStrict
 ): Meta[] => {
   const { displayAreaWidth, displayAreaHeight } = canvas.config

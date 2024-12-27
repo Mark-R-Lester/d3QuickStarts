@@ -1,8 +1,8 @@
 import { BaseType, scaleLinear, Selection } from 'd3'
 import { QsCanvas } from '../canvas/canvas'
 import { Meta, getMeta } from './meta'
-import { LegendConfigStrict } from './types'
-import { QsTransitionArgs, QsValuedColor } from '../core/types/qsTypes'
+import { LegendConfigStrict, QsLegendData } from './types'
+import { QsTransitionArgs } from '../core/types/qsTypes'
 import {
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
@@ -11,11 +11,13 @@ import {
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from '../core/enums/qsEnums'
+export { QsLegendData } from './types'
 
 export interface QsLegend {
   element: Selection<BaseType, unknown, SVGGElement, unknown>
-  transition: (data: QsValuedColor[], transisionArgs?: QsTransitionArgs) => void
+  transition: (data: QsLegendData[], transisionArgs?: QsTransitionArgs) => void
 }
+
 export interface QsLegendConfig {
   [key: string]: number | string | undefined
   height?: number
@@ -36,7 +38,7 @@ export interface QsLegendConfig {
 }
 
 interface DrawArgs {
-  data: QsValuedColor[]
+  data: QsLegendData[]
 }
 
 const addDefaultsToConfig = (
@@ -69,7 +71,7 @@ const addDefaultsToConfig = (
 
 const legend = (
   canvas: QsCanvas,
-  data: QsValuedColor[],
+  data: QsLegendData[],
   customConfig: QsLegendConfig
 ): QsLegend => {
   const config: LegendConfigStrict = addDefaultsToConfig(customConfig)
@@ -136,9 +138,6 @@ const draw = (canvas: QsCanvas, args: DrawArgs, config: LegendConfigStrict) => {
 
   return {
     element: group.selectAll('.element'),
-    transition: (
-      data: QsValuedColor[],
-      transisionArgs?: QsTransitionArgs
-    ) => {},
+    transition: (data: QsLegendData[], transisionArgs?: QsTransitionArgs) => {},
   }
 }

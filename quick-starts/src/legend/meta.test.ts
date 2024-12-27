@@ -1,8 +1,8 @@
 import { getMeta, Meta } from './meta'
 import { mockSelection } from '../testObjects/mockSelection'
 import { mockCanvasConfigStrict } from '../testObjects/mockCanvasConfigStrict'
-import { LegendConfigStrict } from './types'
-import { QsCanvas, QsValuedColor } from '../d3QuickStart'
+import { LegendConfigStrict, QsLegendData } from './types'
+import { QsCanvas } from '../d3QuickStart'
 import {
   QsEnumTextFontWeight,
   QsEnumTextFontStyle,
@@ -35,7 +35,7 @@ const legendConfig: LegendConfigStrict = {
   textAngle: 0,
 }
 
-const data: QsValuedColor[] = [
+const data: QsLegendData[] = [
   {
     value: 'description',
     color: 'red',

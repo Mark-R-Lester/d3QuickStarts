@@ -2,8 +2,8 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   qsCreateCanvas,
+  QsLegendData,
   qsLegendGenerator,
-  QsValuedColor,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 import {
@@ -19,7 +19,7 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
   const createChart = () => {
-    const data: QsValuedColor[] = [
+    const data: QsLegendData[] = [
       { value: 'Red', color: 'red' },
       { value: 'Blue', color: 'blue' },
       { value: 'Green', color: 'green' },

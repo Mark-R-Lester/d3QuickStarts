@@ -12,6 +12,7 @@ import {
   QsEnumTextAnchor,
 } from '../../core/enums/qsEnums'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
+import { getRotationFunction } from './textRotation'
 
 export { QsValuedText } from './types'
 
@@ -54,10 +55,21 @@ interface DrawArgs {
 }
 
 const addDefaultsToConfig = (
+  type: RadialTextType,
   customConfig?: QsRadialTextConfig
 ): RadialTextConfigStrict => {
+  const getTextAnchor = (): QsEnumTextAnchor => {
+    return type === RadialTextType.SPOKE
+      ? QsEnumTextAnchor.START
+      : QsEnumTextAnchor.MIDDLE
+  }
+  const getRadius = (): number => {
+    return type === RadialTextType.ROTATED || type === RadialTextType.HORIZONTAL
+      ? 107
+      : 103
+  }
   const defaults: RadialTextConfigStrict = {
-    radius: 100,
+    radius: getRadius(),
     x: 50,
     y: 50,
     textFont: QsEnumTextFont.SERIF,
@@ -68,7 +80,7 @@ const addDefaultsToConfig = (
     textFill: 'black',
     textAngle: 0,
     textStroke: '',
-    textAnchor: QsEnumTextAnchor.MIDDLE,
+    textAnchor: getTextAnchor(),
   }
   if (!customConfig) return defaults
 
@@ -83,7 +95,10 @@ const spoke = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(
+    RadialTextType.SPOKE,
+    customConfig
+  )
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.LINEAR,
@@ -97,7 +112,10 @@ const horizontal = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(
+    RadialTextType.HORIZONTAL,
+    customConfig
+  )
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.LINEAR,
@@ -111,7 +129,10 @@ const rotated = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(
+    RadialTextType.ROTATED,
+    customConfig
+  )
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.LINEAR,
@@ -125,7 +146,10 @@ const follow = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(
+    RadialTextType.FOLLOW,
+    customConfig
+  )
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.LINEAR,
@@ -139,7 +163,10 @@ const spokeBanded = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(
+    RadialTextType.SPOKE,
+    customConfig
+  )
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.BANDED,
@@ -153,7 +180,10 @@ const horizontalBanded = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(
+    RadialTextType.HORIZONTAL,
+    customConfig
+  )
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.BANDED,
@@ -167,7 +197,10 @@ const rotatedBanded = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(
+    RadialTextType.ROTATED,
+    customConfig
+  )
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.BANDED,
@@ -181,7 +214,10 @@ const followBanded = (
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(customConfig)
+  const config: RadialTextConfigStrict = addDefaultsToConfig(
+    RadialTextType.FOLLOW,
+    customConfig
+  )
   const args: DrawArgs = {
     data,
     scaleType: ScaleType.BANDED,
@@ -220,28 +256,7 @@ const draw = (
     y,
   } = config
 
-  let rotate: (angles: { startAngle: number; endAngle: number }) => number
-
-  if (type === RadialTextType.SPOKE) {
-    rotate = (d) => {
-      let angle: number = d.startAngle + (d.endAngle - d.startAngle) / 2
-      angle = angle * (180 / Math.PI)
-      return angle - 90
-    }
-  }
-
-  if (type === RadialTextType.HORIZONTAL) {
-    rotate = (d) => {
-      return 0
-    }
-  }
-
-  if (type === RadialTextType.ROTATED) {
-    rotate = (d) => {
-      let angle = d.startAngle + (d.endAngle - d.startAngle) / 2
-      return (angle = angle * (180 / Math.PI))
-    }
-  }
+  let rotate: (angles: BandData) => number = getRotationFunction(type)
 
   let meta: Meta = getMeta(canvas, data, config, scaleType)
   const arc: any = d3arc()
@@ -272,7 +287,7 @@ const draw = (
         (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
       )
       .attr('dy', '0.35em')
-      .text((d) => (d.data.text ? d.data.text : d.data.value))
+      .text((d) => (d.data.text ? d.data.text : d.data.value.toFixed(0)))
   } else {
     arcs
       .selectAll(`.${meta.arcClass}`)
@@ -303,7 +318,7 @@ const draw = (
       .append('textPath')
       .attr('startOffset', '25%')
       .attr('xlink:href', (d) => `#${d.arcId}`)
-      .text((d) => (d.data.text ? d.data.text : d.data.value))
+      .text((d) => (d.data.text ? d.data.text : d.data.value.toFixed(0)))
   }
   return {
     elementText: text.selectAll('.text'),
@@ -316,27 +331,10 @@ const draw = (
         text
           .selectAll('.text')
           .data(meta.textArcData)
-          .attr('d', arc)
-          .attr('stroke-width', 0)
-          .attr('fill', 'none')
-          .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
           .transition()
           .delay(args.delayInMiliSeconds)
           .duration(args.durationInMiliSeconds)
-          .attr('font-size', `${meta.yAxis(textFontSize)}px`)
-          .attr(
-            'transform',
-            (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
-          )
-      } else {
-        arcs
-          .selectAll('.arc')
-          .data(meta.textArcData)
-          .attr('d', (d) => arc(d))
-          .transition()
-          .delay(args.delayInMiliSeconds)
-          .duration(args.durationInMiliSeconds)
-          .attrTween('d', (d) => {
+          .attrTween('transform', (d) => {
             const tweenStart = interpolate(d.startAngle, d.newStartAngle)
             const tweenEnd = interpolate(d.endAngle, d.newEndAngle)
 
@@ -344,6 +342,29 @@ const draw = (
               d.startAngle = tweenStart(t)
               d.endAngle = tweenEnd(t)
 
+              return `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
+            }
+          })
+          .textTween((d) => {
+            const tweenStart = interpolate(d.data.value, d.newData.value)
+            return (t: number) => {
+              d.data.value = tweenStart(t)
+              return d.data.value.toFixed(0)
+            }
+          })
+      } else {
+        arcs
+          .selectAll('.arc')
+          .data(meta.textArcData)
+          .transition()
+          .delay(args.delayInMiliSeconds)
+          .duration(args.durationInMiliSeconds)
+          .attrTween('d', (d) => {
+            const tweenStart = interpolate(d.startAngle, d.newStartAngle)
+            const tweenEnd = interpolate(d.endAngle, d.newEndAngle)
+            return function (t: number) {
+              d.startAngle = tweenStart(t)
+              d.endAngle = tweenEnd(t)
               return arc(d)
             }
           })

@@ -21,7 +21,7 @@ describe('color functions', () => {
       ${undefined} | ${undefined} | ${'green'}   | ${'green'}
       ${undefined} | ${'blue'}    | ${undefined} | ${'blue'}
     `(
-      'When the bar color is $color, the defaultColor is $defaultColor and scaled color is $ scaledColor the result should be $expectedColor',
+      'When the bar color is $color, the defaultColor is $defaultColor and scaled color is $scaledColor the result should be $expectedColor',
       ({ color, defaultColor, scaledColor, expectedColor }) => {
         expect(getPrecidendedColor(color, defaultColor, scaledColor)).toEqual(
           expectedColor
@@ -52,7 +52,7 @@ describe('color functions', () => {
       ${50} | ${undefined}         | ${'sequential'} | ${sequentialColorScale} | ${'rgb(44, 85, 41)'}
       ${60} | ${undefined}         | ${'sequential'} | ${sequentialColorScale} | ${'rgb(22, 81, 71)'}
     `(
-      'When the value is $value, the scale is $scaleType and scaled color is $ scaledColor the result should be $expectedColor',
+      'When the value is $value, the scale is $scaleType and scaled color is $scaledColor the result should be $expectedColor',
       ({ value, sequentialScale, oridinalScale, expectedColor }) => {
         expect(getScaledColor(value, sequentialScale, oridinalScale)).toEqual(
           expectedColor

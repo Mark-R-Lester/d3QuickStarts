@@ -4,11 +4,35 @@ import { RadialAreaTransition } from '../../components/atoms/chart/radial/transi
 import { RadialLineTransition } from '../../components/atoms/chart/radial/transitions/RadialLineTransition'
 import { RadialPointTransition } from '../../components/atoms/chart/radial/transitions/RadialPointsTransition'
 import { RadialTextTransition } from '../../components/atoms/chart/radial/transitions/RadialTextTransition'
-import { QsValuedText } from 'd3qs/d3QuickStart'
+import { QsColorScale, QsRadialData, QsValuedText } from 'd3qs/d3QuickStart'
 import { EnumRadialTextOrientation } from '../../common/enums'
+import { RadialTransition } from '../../components/atoms/chart/radial/transitions/RadialTransition'
+import { QsEnumColorScale } from 'd3qs/core/qsEnums'
 
 export default function RadialTransitionsPage() {
   const data: QsValuedText[] = [{ value: 25 }, { value: 10 }, { value: 15 }]
+  const radialData: QsRadialData[] = [
+    { value: 25 },
+    { value: 10 },
+    { value: 15 },
+    { value: 30 },
+    { value: 25 },
+    { value: 10 },
+    { value: 15 },
+    { value: 30 },
+  ]
+
+  const colorScaleOrdinal: QsColorScale = {
+    domain: [1, 100],
+    range: ['lightblue', 'darkblue'],
+    type: QsEnumColorScale.ORDINAL,
+  }
+
+  const colorScaleSequential: QsColorScale = {
+    domain: [1, 100],
+    range: ['lightblue', 'darkblue'],
+    type: QsEnumColorScale.SEQUENTIAL,
+  }
 
   const elements: JSX.Element[] = [
     <RadialAreaTransition chartName="radialAreaTransition" />,
@@ -33,6 +57,16 @@ export default function RadialTransitionsPage() {
       chartName="radialTextRotatedTransition"
       data={data}
       orientation={EnumRadialTextOrientation.ROTATED}
+    />,
+    <RadialTransition
+      chartName="radialLinearColorTransition"
+      data={radialData}
+      config={{ colorScale: colorScaleSequential }}
+    />,
+    <RadialTransition
+      chartName="radialSerialColoeTransition"
+      data={radialData}
+      config={{ colorScale: colorScaleOrdinal }}
     />,
   ]
 

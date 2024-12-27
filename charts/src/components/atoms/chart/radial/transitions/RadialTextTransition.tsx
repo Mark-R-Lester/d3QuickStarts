@@ -69,7 +69,17 @@ export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
         element1.transition({
           data: transitionData,
         })
-      if (element2) element2.transition({ data: transitionData })
+
+      const radialArgs: QsRadialData[] = [
+        { value: 0, color: 'red' },
+        { value: 0, color: 'orange' },
+        { value: 0, color: 'green' },
+      ]
+      transitionData.forEach((d, i) => {
+        radialArgs[i].value = d.value
+      })
+
+      if (element2) element2.transition({ data: radialArgs })
       setTimeout(() => setChanged(!changed), 3000)
     },
     [element1, element2, changed]

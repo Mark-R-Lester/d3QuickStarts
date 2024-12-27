@@ -15,6 +15,15 @@ export const RadialPieElement: FunctionComponent<ChartProps> = ({
       { value: 15, color: 'steelblue' },
       { value: 45, color: 'blue' },
       { value: 60, color: 'green' },
+      { value: 15, color: 'steelblue' },
+      { value: 45, color: 'blue' },
+      { value: 60, color: 'green' },
+      { value: 15, color: 'steelblue' },
+      { value: 45, color: 'blue' },
+      { value: 60, color: 'green' },
+      { value: 15, color: 'steelblue' },
+      { value: 45, color: 'blue' },
+      { value: 60, color: 'green' },
     ]
 
     const canvas: QsCanvas = qsCreateCanvas({
@@ -24,7 +33,10 @@ export const RadialPieElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 60,
     })
 
-    qsRadialGenerator.pie(canvas, data)
+    qsRadialGenerator.pie(canvas, data, {
+      outerRadius: 90,
+      innerRadius: 50,
+    })
   }
 
   useEffect(() => {

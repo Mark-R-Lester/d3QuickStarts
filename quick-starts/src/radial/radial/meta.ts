@@ -84,9 +84,6 @@ export const getMeta = (
   })
   if (data.length < 2) padAngle = 0
 
-  const radiansDividedByTotalValue = (Math.PI * 2) / totalValue
-  let startAngle = 0
-
   let sequentialColorScale: ScaleSequential<string, never> | undefined
   let ordinalColorScale: any | undefined
 
@@ -114,9 +111,11 @@ export const getMeta = (
     sequentialColorScale = createSequentialColorScale()
   else ordinalColorScale = createOridinalColorScale()
 
+  const radiansDividedByTotalValue = (Math.PI * 2) / totalValue
+  let startAngle = 0
+
   data.forEach((d, i) => {
-    const endAngle =
-      startAngle + radiansDividedByTotalValue * d.value - padAngle / 2
+    const endAngle = startAngle + radiansDividedByTotalValue * d.value
     startAngle = startAngle + padAngle / 2
 
     const scaledColor: string | unknown | undefined = getScaledColor(
@@ -124,9 +123,11 @@ export const getMeta = (
       sequentialColorScale,
       ordinalColorScale
     )
+
     meta.push({
       class: `arc`,
       id: `arc${uuidv4()}`,
+
       arcData: {
         data: d.value,
         color: getPrecidendedColor(d.color, defaultColor, scaledColor),

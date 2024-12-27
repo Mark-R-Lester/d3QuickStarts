@@ -1,5 +1,5 @@
 import { QsCanvas } from '../../canvas/canvas'
-import { interpolate, range, schemePurples, Selection, arc as d3arc } from 'd3'
+import { interpolate, Selection, arc as d3arc } from 'd3'
 import { QsRadialData, RadialConfigStrict } from './types'
 import { Meta, getMeta, updateMeta } from './meta'
 import { QsColorScale, QsTransitionArgs } from '../../core/types/qsTypes'
@@ -152,6 +152,7 @@ const draw = (
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
+        .attr('fill', (d) => d.arcData.color)
         .attrTween('d', (d) => {
           const tweenStart = interpolate(
             d.arcData.startAngle,

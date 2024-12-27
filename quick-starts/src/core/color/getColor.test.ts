@@ -6,8 +6,8 @@ import {
   scaleOrdinal,
 } from 'd3'
 import { toStrings } from '../../core/conversion'
-import { getPrecidendedColor, getScaledColor } from './getColor'
 import { GlobalDefaults } from '../../core/enums/enums'
+import { getPrecidendedColor, getScaledColor } from './getColor'
 
 describe('color functions', () => {
   describe('getPrecidendedColor', () => {

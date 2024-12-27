@@ -7,6 +7,7 @@ import {
   QsValuedText,
   qsRadialGenerator,
   qsRadialTextGenerator,
+  QsRadialData,
 } from 'd3qs/d3QuickStart'
 import { RadialTextChartProps } from '../../../../../common/chartProps'
 import { EnumRadialTextOrientation } from '../../../../../common/enums'
@@ -30,14 +31,22 @@ export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
     })
 
     if (orientation === EnumRadialTextOrientation.FOLLOW)
-      setElement1(qsRadialTextGenerator.followBanded(canvas, data))
+      setElement1(qsRadialTextGenerator.followBanded(canvas, data, config))
     if (orientation === EnumRadialTextOrientation.SPOKE)
-      setElement1(qsRadialTextGenerator.spokeBanded(canvas, data))
+      setElement1(qsRadialTextGenerator.spokeBanded(canvas, data, config))
     if (orientation === EnumRadialTextOrientation.HORIZONTAL)
-      setElement1(qsRadialTextGenerator.horizontalBanded(canvas, data))
+      setElement1(qsRadialTextGenerator.horizontalBanded(canvas, data, config))
     if (orientation === EnumRadialTextOrientation.ROTATED)
-      setElement1(qsRadialTextGenerator.rotatedBanded(canvas, data))
-    setElement2(qsRadialGenerator.doughnut(canvas, data))
+      setElement1(qsRadialTextGenerator.rotatedBanded(canvas, data, config))
+    const radialArgs: QsRadialData[] = [
+      { value: 0, color: 'red' },
+      { value: 0, color: 'orange' },
+      { value: 0, color: 'green' },
+    ]
+    data.forEach((d, i) => {
+      radialArgs[i].value = d.value
+    })
+    setElement2(qsRadialGenerator.doughnut(canvas, radialArgs))
   }
 
   useEffect(() => {

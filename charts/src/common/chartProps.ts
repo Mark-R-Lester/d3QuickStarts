@@ -10,7 +10,7 @@ import {
   QsPointsConfig,
   QsRadialAreaConfig,
   QsRadialAreaData,
-  QsRadialArgs,
+  QsRadialData,
   QsRadialAxisConfig,
   QsRadialConfig,
   QsRadialLineConfig,
@@ -66,7 +66,7 @@ export interface PointChartProps extends ChartProps {
 }
 export interface RadialChartProps extends ChartProps {
   config?: QsRadialConfig
-  data: QsRadialArgs[]
+  data: QsRadialData[]
 }
 export interface RadialAreaChartProps extends ChartProps {
   config?: QsRadialAreaConfig

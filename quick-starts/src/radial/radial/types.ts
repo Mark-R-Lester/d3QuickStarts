@@ -1,18 +1,18 @@
-import { QsColorName, QsDomainName } from '../../core/types/qsTypes'
+import { QsColorName, QsColorScale } from '../../core/types/qsTypes'
 
-export interface QsRadialArgs {
+export interface QsRadialData {
   value: number
-  color?: QsColorName | QsDomainName
+  color?: string
 }
 
 export interface RadialConfigStrict {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
+  [key: string]: number | QsColorScale | string | undefined
   outerRadius: number
   innerRadius: number
   padAngle: number
   cornerRadius: number
   x: number
   y: number
-  colorDomain: string[] | number[]
-  colorRange: Iterable<unknown>
+  defaultColor?: string
+  colorScale?: QsColorScale
 }

@@ -1,10 +1,19 @@
 import { QsCanvas } from '../../canvas/canvas'
-import { scaleLinear, scaleOrdinal, ScaleOrdinal, ScaleLinear } from 'd3'
+import {
+  scaleLinear,
+  scaleOrdinal,
+  ScaleOrdinal,
+  ScaleLinear,
+  interpolateRgbBasis,
+  ScaleSequential,
+  scaleSequential,
+} from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 
 import { toStrings } from '../../core/conversion'
-import { QsColorName, QsDomainName } from '../../core/types/qsTypes'
-import { QsRadialArgs, RadialConfigStrict } from './types'
+import { QsRadialData, RadialConfigStrict } from './types'
+import { QsEnumColorScale } from '../../core/enums/qsEnums'
+import { getPrecidendedColor, getScaledColor } from '../../core/color/getColor'
 
 export interface Meta {
   class: string
@@ -28,23 +37,9 @@ export interface ArcData {
   value?: number
 }
 
-const getColor = (
-  color: QsColorName | QsDomainName | undefined,
-  i: number,
-  colorScale: ScaleOrdinal<string, unknown, never>
-): string => {
-  if (color?.colorName) return color.colorName
-
-  let c: string | unknown = color?.domainName
-    ? colorScale(color.domainName)
-    : colorScale(i.toString())
-  //TODO if c is not a string throw.
-  return typeof c == 'string' ? c : '#cbc9e2'
-}
-
 export const updateMeta = (
   canvas: QsCanvas,
-  data: QsRadialArgs[],
+  data: QsRadialData[],
   config: RadialConfigStrict,
   meta: Meta[]
 ): Meta[] => {
@@ -60,13 +55,13 @@ export const updateMeta = (
 
 export const getMeta = (
   canvas: QsCanvas,
-  data: QsRadialArgs[],
+  data: QsRadialData[],
   config: RadialConfigStrict
 ): Meta[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const {
-    colorDomain,
-    colorRange,
+    defaultColor,
+    colorScale,
     outerRadius,
     innerRadius,
     cornerRadius,
@@ -75,10 +70,6 @@ export const getMeta = (
   let { padAngle } = config
 
   const meta: Meta[] = []
-
-  const colors: ScaleOrdinal<string, unknown, never> = scaleOrdinal()
-    .domain(toStrings(colorDomain))
-    .range(colorRange)
 
   const xAxis: ScaleLinear<number, number, never> = scaleLinear()
     .domain([0, 100])
@@ -96,16 +87,49 @@ export const getMeta = (
   const radiansDividedByTotalValue = (Math.PI * 2) / totalValue
   let startAngle = 0
 
+  let sequentialColorScale: ScaleSequential<string, never> | undefined
+  let ordinalColorScale: any | undefined
+
+  const createSequentialColorScale = ():
+    | ScaleSequential<string, never>
+    | undefined => {
+    if (colorScale) {
+      return scaleSequential(
+        colorScale.domain,
+        interpolateRgbBasis(colorScale.range)
+      )
+    }
+  }
+
+  const createOridinalColorScale = ():
+    | ScaleOrdinal<string, unknown, never>
+    | undefined => {
+    if (colorScale)
+      return scaleOrdinal()
+        .domain(toStrings(colorScale.domain))
+        .range(colorScale.range)
+  }
+
+  if (colorScale && colorScale.type === QsEnumColorScale.SEQUENTIAL)
+    sequentialColorScale = createSequentialColorScale()
+  else ordinalColorScale = createOridinalColorScale()
+
   data.forEach((d, i) => {
     const endAngle =
       startAngle + radiansDividedByTotalValue * d.value - padAngle / 2
     startAngle = startAngle + padAngle / 2
+
+    const scaledColor: string | unknown | undefined = getScaledColor(
+      d.value,
+      sequentialColorScale,
+      ordinalColorScale
+    )
     meta.push({
       class: `arc`,
       id: `arc${uuidv4()}`,
       arcData: {
         data: d.value,
-        color: getColor(d.color, i, colors),
+        color: getPrecidendedColor(d.color, defaultColor, scaledColor),
         index: i,
         value: d.value,
         cornerRadius: yAxis(cornerRadius / 2),

@@ -1,26 +1,27 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { interpolate, range, schemePurples, Selection, arc as d3arc } from 'd3'
-import { QsRadialArgs, RadialConfigStrict } from './types'
-import { Meta, getMeta, updateMeta, ArcData } from './meta'
-import { QsTransitionArgs } from '../../core/types/qsTypes'
+import { QsRadialData, RadialConfigStrict } from './types'
+import { Meta, getMeta, updateMeta } from './meta'
+import { QsColorScale, QsTransitionArgs } from '../../core/types/qsTypes'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { GlobalDefaults } from '../../core/enums/enums'
 
-export { QsRadialArgs } from './types'
+export { QsRadialData } from './types'
 
 export interface QsRadialConfig {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
+  [key: string]: number | string | QsColorScale | undefined
   outerRadius?: number
   innerRadius?: number
   padAngle?: number
   cornerRadius?: number
   x?: number
   y?: number
-  colorDomain?: string[] | number[]
-  colorRange?: Iterable<unknown>
+  defaultColor?: string
+  colorScale?: QsColorScale
 }
 
 export interface QsRadialTransitionData {
-  data: QsRadialArgs[]
+  data: QsRadialData[]
   config?: QsRadialConfig
   transitionArgs?: QsTransitionArgs
 }
@@ -33,7 +34,7 @@ export interface QsRadial {
 }
 
 interface DrawArgs {
-  data: QsRadialArgs[]
+  data: QsRadialData[]
   pie: boolean
 }
 
@@ -57,8 +58,8 @@ const addDefaultsToConfig = (
     cornerRadius: 0,
     x: 50,
     y: 50,
-    colorDomain: range(4),
-    colorRange: schemePurples[4],
+    defaultColor: GlobalDefaults.DEFAULT_BAR_COLOR,
+    colorScale: undefined,
   }
   if (!customConfig) return defaults
 
@@ -70,7 +71,7 @@ const addDefaultsToConfig = (
 
 const pie = (
   canvas: QsCanvas,
-  data: QsRadialArgs[],
+  data: QsRadialData[],
   customConfig?: QsRadialConfig
 ): QsRadial => {
   const args: DrawArgs = { data, pie: true }
@@ -80,7 +81,7 @@ const pie = (
 
 const doughnut = (
   canvas: QsCanvas,
-  data: QsRadialArgs[],
+  data: QsRadialData[],
   customConfig?: QsRadialConfig
 ): QsRadial => {
   const args: DrawArgs = { data, pie: false }

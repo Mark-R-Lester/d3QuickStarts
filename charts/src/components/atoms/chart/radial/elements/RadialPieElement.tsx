@@ -3,7 +3,7 @@ import {
   QsCanvas,
   qsCreateCanvas,
   qsRadialGenerator,
-  QsRadialArgs,
+  QsRadialData,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
@@ -11,10 +11,10 @@ export const RadialPieElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
   const createChart = () => {
-    const data: QsRadialArgs[] = [
-      { value: 15, color: { colorName: 'steelblue' } },
-      { value: 45, color: { colorName: 'blue' } },
-      { value: 60, color: { colorName: 'green' } },
+    const data: QsRadialData[] = [
+      { value: 15, color: 'steelblue' },
+      { value: 45, color: 'blue' },
+      { value: 60, color: 'green' },
     ]
 
     const canvas: QsCanvas = qsCreateCanvas({

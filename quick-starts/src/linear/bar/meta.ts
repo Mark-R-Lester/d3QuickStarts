@@ -14,7 +14,7 @@ import { toStrings } from '../../core/conversion'
 import { MetaBarData, DrawArgs, QsBarConfigStrict, QsBarData } from './types'
 import { Orientation } from '../../core/enums/enums'
 import { QsEnumColorScale } from '../../core/enums/qsEnums'
-import { getPrecidendedColor, getScaledColor } from './getColor'
+import { getPrecidendedColor, getScaledColor } from '../../core/color/getColor'
 
 export interface Meta {
   class: string

@@ -3,7 +3,7 @@ import {
   QsCanvas,
   qsCreateCanvas,
   qsRadialGenerator,
-  QsRadialArgs,
+  QsRadialData,
   QsRadialConfig,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
@@ -12,50 +12,32 @@ export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
   const createChart = () => {
-    const data: QsRadialArgs[] = [
-      { value: 1, color: { domainName: 'European' } },
-      { value: 1, color: { domainName: 'European' } },
-      { value: 1, color: { domainName: 'Citrus' } },
-      { value: 1, color: { domainName: 'Citrus' } },
-      { value: 1, color: { domainName: 'Citrus' } },
-      { value: 1, color: { domainName: 'Citrus' } },
-      { value: 1, color: { domainName: 'American' } },
-      { value: 1, color: { domainName: 'Tropical' } },
-      { value: 1, color: { domainName: 'Berry' } },
-      { value: 1, color: { domainName: 'Berry' } },
-      { value: 1, color: { domainName: 'Citrus' } },
-      { value: 1, color: { domainName: 'Citrus' } },
-      { value: 1, color: { domainName: 'Eastern' } },
-      { value: 1, color: { domainName: 'Eastern' } },
-      { value: 1, color: { domainName: 'Vine' } },
-      { value: 1, color: { domainName: 'European' } },
-      { value: 1, color: { domainName: 'European' } },
-      { value: 1, color: { domainName: 'American' } },
-      { value: 1, color: { domainName: 'European' } },
+    const data: QsRadialData[] = [
+      { value: 1, color: 'salmon' },
+      { value: 1, color: 'salmon' },
+      { value: 1, color: 'hotpink' },
+      { value: 1, color: 'hotpink' },
+      { value: 1, color: 'hotpink' },
+      { value: 1, color: 'hotpink' },
+      { value: 1, color: 'maroon' },
+      { value: 1, color: 'darksalmon' },
+      { value: 1, color: 'brown' },
+      { value: 1, color: 'magenta' },
+      { value: 1, color: 'hotpink' },
+      { value: 1, color: 'hotpink' },
+      { value: 1, color: 'purple' },
+      { value: 1, color: 'purple' },
+      { value: 1, color: 'purple' },
+      { value: 1, color: 'salmon' },
+      { value: 1, color: 'salmon' },
+      { value: 1, color: 'maroon' },
+      { value: 1, color: 'salmon' },
     ]
 
     const config: QsRadialConfig = {
       outerRadius: 90,
       innerRadius: 50,
       padAngle: 0.03,
-      colorDomain: [
-        'European',
-        'Tropical',
-        'Eastern',
-        'Vine',
-        'Citrus',
-        'American',
-        'Berry',
-      ],
-      colorRange: [
-        'salmon',
-        'darksalmon',
-        'purple',
-        'brown',
-        'hotpink',
-        'maroon',
-        'magenta',
-      ],
     }
 
     const canvas: QsCanvas = qsCreateCanvas({

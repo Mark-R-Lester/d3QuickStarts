@@ -25,18 +25,8 @@ export interface QsColorScale {
   type: QsEnumColorScale
 }
 
-export interface QsDomainName {
-  [key: string]: string
-  domainName: string
-}
-
 export interface QsTransitionArgs {
   [key: string]: number | undefined
   delayInMiliSeconds?: number
   durationInMiliSeconds?: number
-}
-
-export interface QsValuedColor {
-  value: string
-  color: string
 }

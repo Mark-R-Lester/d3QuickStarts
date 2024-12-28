@@ -46,7 +46,7 @@ const addDefaultsToConfig = (
     cornerRadius: 0,
     x: 50,
     y: 50,
-    defaultColor: GlobalDefaults.DEFAULT_BAR_COLOR,
+    defaultColor: GlobalDefaults.DEFAULT_COLOR,
     colorScaleData: undefined,
   }
   if (!customConfig) return defaults

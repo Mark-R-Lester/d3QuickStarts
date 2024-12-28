@@ -18,8 +18,12 @@ export const getPrecidendedColor = (
   if (color) return color
   if (typeof scaledColor === 'string') return scaledColor
   return defaultColor === undefined
-    ? GlobalDefaults.DEFAULT_BAR_COLOR
+    ? GlobalDefaults.DEFAULT_COLOR
     : defaultColor
+}
+
+export const applyDefaultColorIfNeeded = (color?: string): string => {
+  return color === undefined ? GlobalDefaults.DEFAULT_COLOR : color
 }
 
 /*

@@ -10,12 +10,12 @@ import { AreaData, getMeta, Meta } from './meta'
 import { QsAreaData } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { applyDefaultColorIfNeeded } from '../../core/color/color'
 
 export { QsAreaData } from './types'
 export interface QsAreaConfig {
   [key: string]: CurveFactory | string | undefined
   curve?: CurveFactory
-  color?: string
 }
 
 export interface QsAreaTransitionData {
@@ -33,7 +33,6 @@ export interface QsArea {
 interface AreaConfigStrict {
   [key: string]: CurveFactory | string | undefined
   curve: CurveFactory
-  color: string
 }
 
 interface DrawArgs {
@@ -43,7 +42,6 @@ interface DrawArgs {
 const addDefaultsToConfig = (customConfig?: QsAreaConfig): AreaConfigStrict => {
   const defaults: AreaConfigStrict = {
     curve: curveLinear,
-    color: 'red',
   }
   if (!customConfig) return defaults
 
@@ -59,7 +57,7 @@ const horizontal = (
   customConfig?: QsAreaConfig
 ): QsArea => {
   const args: DrawArgs = {
-    data: { lowerData: data.lowerData, higherData: data.higherData },
+    data,
   }
   const config: AreaConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
@@ -80,7 +78,8 @@ function draw(
     displayAreaHeight,
     displayAreaWidth,
   } = canvas.config
-  const { curve, color } = config
+  const { curve } = config
+  const { color } = args.data
   const meta: Meta = getMeta(canvas, args.data)
 
   const xScale = scaleLinear()
@@ -102,12 +101,13 @@ function draw(
     .attr('class', meta.class)
     .attr('id', meta.id)
     .attr('d', area(meta.areaData))
-    .attr('fill', color)
+    .attr('fill', applyDefaultColorIfNeeded(color))
   return {
     element: group.select(`.${meta.class}`),
     transition: (data: QsAreaTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       const meta: Meta = getMeta(canvas, data.data)
+      const { color } = data.data
 
       group
         .selectAll(`.${meta.class}`)
@@ -115,6 +115,7 @@ function draw(
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('d', area(meta.areaData))
+        .attr('fill', applyDefaultColorIfNeeded(color))
     },
   }
 }

@@ -1,4 +1,4 @@
-import { FunctionComponent, useEffect, useState } from 'react'
+import { FunctionComponent, useEffect, useRef, useState } from 'react'
 import {
   QsCanvas,
   qsCreateCanvas,
@@ -14,6 +14,7 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
   const [changed, setChanged] = useState<boolean>(false)
   const [topArea, setTopArea] = useState<QsArea>()
   const [bottomArea, setBottomArea] = useState<QsArea>()
+  const colorIndex = useRef<number>(0)
 
   const createChart = () => {
     const lowerData: number[] = [15, 10, 20, 30, 40, 26, 90, 15, 10, 30, 25, 50]
@@ -24,6 +25,7 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
     const dataUpper: QsAreaData = {
       lowerData,
       higherData,
+      color: 'blue',
     }
     const dataLower: QsAreaData = {
       higherData: lowerData,
@@ -37,9 +39,7 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
     })
 
     let newTopArea = qsLinearAreaGenerator.horizontal(canvas, dataUpper)
-    let newBottomArea = qsLinearAreaGenerator.horizontal(canvas, dataLower, {
-      color: 'blue',
-    })
+    let newBottomArea = qsLinearAreaGenerator.horizontal(canvas, dataLower)
 
     setTopArea(newTopArea)
     setBottomArea(newBottomArea)
@@ -67,7 +67,11 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
           lowerData.push(val1 < val2 ? val1 : val2)
           higherData.push(val1 > val2 ? val1 : val2)
         }
-        const upperAreaData: QsAreaData = { lowerData, higherData }
+
+        const colors = ['red', 'blue', 'green', 'pink']
+        const color = colors[colorIndex.current]
+        colorIndex.current = colorIndex.current > 2 ? 0 : colorIndex.current + 1
+        const upperAreaData: QsAreaData = { lowerData, higherData, color }
         const lowerAreaData: QsAreaData = { higherData: lowerData }
 
         return { lowerAreaData, upperAreaData }

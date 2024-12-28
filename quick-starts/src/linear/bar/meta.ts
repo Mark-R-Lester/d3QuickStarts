@@ -84,9 +84,7 @@ export const getMeta = (
     | ScaleOrdinal<string, unknown, never>
     | undefined
 
-  console.log('colorScaleData', colorScaleData)
   if (colorScaleData) colorScale = getColorScale(colorScaleData)
-  console.log('The color scale', colorScale)
 
   data.forEach((d, i) => {
     d.lowerBoundry = findLowerBoundry(d.lowerBoundry)
@@ -94,7 +92,7 @@ export const getMeta = (
       d.upperBoundry - d.lowerBoundry!,
       colorScale
     )
-    console.log('The scaled Color', scaledColor)
+
     const barData: MetaBarData = {
       x: x(d, i),
       y: y(d, i),

@@ -34,7 +34,7 @@ export interface QsBars {
 const addDefaultsToConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
   const defauls: QsBarConfigStrict = {
     padding: 8,
-    defaultColor: GlobalDefaults.DEFAULT_BAR_COLOR,
+    defaultColor: GlobalDefaults.DEFAULT_COLOR,
     colorScaleData: undefined,
   }
   if (!customConfig) return defauls

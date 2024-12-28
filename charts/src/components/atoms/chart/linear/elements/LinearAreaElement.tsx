@@ -21,13 +21,11 @@ export const LinearAreaElement: FunctionComponent<ChartProps> = ({
     })
 
     qsLinearAreaGenerator
-      .horizontal(canvas, { higherData: data1 }, { color: 'black' })
-      .element.attr('fill', 'blue')
-      .attr('fill-opacity', '0.5')
+      .horizontal(canvas, { higherData: data1, color: 'blue' })
+      .element.attr('fill-opacity', '0.5')
     qsLinearAreaGenerator
-      .horizontal(canvas, { higherData: data2, lowerData: data1 })
-      .element.attr('fill', 'red')
-      .attr('fill-opacity', '0.5')
+      .horizontal(canvas, { higherData: data2, lowerData: data1, color: 'red' })
+      .element.attr('fill-opacity', '0.5')
   }
 
   useEffect(() => {

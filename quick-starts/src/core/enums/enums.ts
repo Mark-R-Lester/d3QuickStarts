@@ -21,5 +21,5 @@ export enum RadialTextType {
 }
 
 export enum GlobalDefaults {
-  DEFAULT_BAR_COLOR = 'steelblue',
+  DEFAULT_COLOR = 'steelblue',
 }

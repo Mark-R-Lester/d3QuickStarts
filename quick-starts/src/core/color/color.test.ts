@@ -7,13 +7,17 @@ import {
 } from 'd3'
 import { toStrings } from '../../core/conversion'
 import { GlobalDefaults } from '../../core/enums/enums'
-import { getPrecidendedColor, getScaledColor } from './color'
+import {
+  applyDefaultColorIfNeeded,
+  getPrecidendedColor,
+  getScaledColor,
+} from './color'
 
 describe('color functions', () => {
   describe('getPrecidendedColor', () => {
     test.each`
       color        | defaultColor | scaledColor  | expectedColor
-      ${undefined} | ${undefined} | ${undefined} | ${GlobalDefaults.DEFAULT_BAR_COLOR}
+      ${undefined} | ${undefined} | ${undefined} | ${GlobalDefaults.DEFAULT_COLOR}
       ${undefined} | ${'blue'}    | ${'green'}   | ${'green'}
       ${'red'}     | ${undefined} | ${'green'}   | ${'red'}
       ${'red'}     | ${'blue'}    | ${undefined} | ${'red'}
@@ -26,6 +30,19 @@ describe('color functions', () => {
         expect(getPrecidendedColor(color, defaultColor, scaledColor)).toEqual(
           expectedColor
         )
+      }
+    )
+  })
+
+  describe('applyDefaultColorIfNeeded', () => {
+    test.each`
+      color        | expectedColor
+      ${undefined} | ${GlobalDefaults.DEFAULT_COLOR}
+      ${'green'}   | ${'green'}
+    `(
+      'When  color is $color, the result should be $expectedColor',
+      ({ color, expectedColor }) => {
+        expect(applyDefaultColorIfNeeded(color)).toEqual(expectedColor)
       }
     )
   })

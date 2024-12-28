@@ -1,13 +1,15 @@
 import { QsCanvas } from '../../canvas/canvas'
-import { CurveFactory, curveLinear, areaRadial, Selection } from 'd3'
+import { areaRadial, Selection } from 'd3'
 import { RadialAreaData } from './types'
 import { Meta, getMeta } from './meta'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { QsEnumCurve } from '../../core/enums/qsEnums'
+import { constantsCurves } from '../../core/constants/constants'
 
 export interface QsRadialAreaConfig {
-  [key: string]: CurveFactory | number | undefined | string
-  curve?: CurveFactory
+  [key: string]: QsEnumCurve | number | undefined | string
+  curve?: QsEnumCurve
   x?: number
   y?: number
   color?: string
@@ -33,8 +35,8 @@ export interface QsRadialAreaData {
 }
 
 interface RadialAreaConfigStrict {
-  [key: string]: CurveFactory | number | undefined | string
-  curve: CurveFactory
+  [key: string]: QsEnumCurve | number | undefined | string
+  curve: QsEnumCurve
   x: number
   y: number
   color: string
@@ -48,7 +50,7 @@ const addDefaultsToConfig = (
   customConfig?: QsRadialAreaConfig
 ): RadialAreaConfigStrict => {
   const defaults: RadialAreaConfigStrict = {
-    curve: curveLinear,
+    curve: QsEnumCurve.LINEAR,
     x: 50,
     y: 50,
     color: 'steelblue',
@@ -91,7 +93,7 @@ const draw = (
     .angle((d) => d.angle)
     .outerRadius((d) => d.outer)
     .innerRadius((d) => d.inner)
-    .curve(curve)
+    .curve(constantsCurves[curve])
 
   const group = canvas.displayGroup.append('g')
   group

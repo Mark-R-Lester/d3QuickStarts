@@ -1,13 +1,15 @@
-import { curveLinear, CurveFactory, line as d3line, Selection } from 'd3'
+import { line as d3line, Selection } from 'd3'
 import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
-import { DrawArgs } from './types'
+import { DrawArgs, LineConfigStrict } from './types'
 import { Meta, getMeta } from './meta'
 import { Orientation, ScaleType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { QsEnumCurve } from '../../core/enums/qsEnums'
+import { constantsCurves } from '../../core/constants/constants'
 
 export interface QsLineConfig {
-  [key: string]: CurveFactory | undefined
-  curve?: CurveFactory
+  [key: string]: QsEnumCurve | undefined
+  curve?: QsEnumCurve
 }
 
 export interface QsLineTransitionData {
@@ -22,14 +24,9 @@ export interface QsLine {
   transition: (data: QsLineTransitionData) => void
 }
 
-interface LineConfigStrict {
-  [key: string]: CurveFactory | undefined
-  curve: CurveFactory
-}
-
 const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
   const defauls: LineConfigStrict = {
-    curve: curveLinear,
+    curve: QsEnumCurve.LINEAR,
   }
 
   if (!customConfig) return defauls
@@ -122,7 +119,7 @@ const draw = (
         ? spacingScale(d[1]) + bandingAdjustment
         : dataScale(d[1])
     )
-    .curve(curve)
+    .curve(constantsCurves[curve])
 
   const group = canvas.displayGroup.append('g')
   group

@@ -1,14 +1,16 @@
 import { QsCanvas } from '../../canvas/canvas'
-import { curveLinear, CurveFactory, lineRadial, Selection } from 'd3'
+import { curveLinear, lineRadial, Selection } from 'd3'
 import { Meta, getMeta } from './meta'
 import { QsTransitionArgs } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { QsEnumCurve } from '../../core/enums/qsEnums'
+import { constantsCurves } from '../../core/constants/constants'
 
 export interface QsRadialLineConfig {
-  [key: string]: number | CurveFactory | undefined
+  [key: string]: number | QsEnumCurve | undefined
   x?: number
   y?: number
-  curve?: CurveFactory
+  curve?: QsEnumCurve
 }
 
 export interface QsRadialLineTransitionData {
@@ -24,10 +26,10 @@ export interface QsRadialLine {
 }
 
 interface RadialLineConfigStrict {
-  [key: string]: number | CurveFactory | undefined
+  [key: string]: number | QsEnumCurve | undefined
   x: number
   y: number
-  curve: CurveFactory
+  curve: QsEnumCurve
 }
 
 interface DrawArgs {
@@ -38,7 +40,7 @@ const addDefaultsToConfig = (
   customConfig?: QsRadialLineConfig
 ): RadialLineConfigStrict => {
   const defaults: RadialLineConfigStrict = {
-    curve: curveLinear,
+    curve: QsEnumCurve.LINEAR,
     x: 50,
     y: 50,
   }
@@ -75,7 +77,7 @@ const draw = (
 
   const meta: Meta = getMeta(canvas, data)
 
-  const radialLine = lineRadial().curve(curve)
+  const radialLine = lineRadial().curve(constantsCurves[curve])
   const group = canvas.displayGroup.append('g')
   group
     .append('path')

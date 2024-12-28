@@ -1,19 +1,3 @@
-import {
-  curveBasis,
-  curveBumpX,
-  curveBumpY,
-  curveBundle,
-  curveCardinal,
-  curveCatmullRom,
-  curveLinear,
-  curveMonotoneX,
-  curveMonotoneY,
-  curveNatural,
-  curveStep,
-  curveStepAfter,
-  curveStepBefore,
-} from 'd3'
-
 export enum QsEnumColorScale {
   ORDINAL = 'ordinal',
   SEQUENTIAL = 'sequential',

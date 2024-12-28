@@ -1,17 +1,13 @@
-import {
-  scaleLinear,
-  curveLinear,
-  CurveFactory,
-  Selection,
-  line as d3line,
-} from 'd3'
+import { scaleLinear, Selection, line as d3line } from 'd3'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { qsFindMaxCoordinateX, qsFindMaxCoordinateY } from '../../core/max'
 import { QsCanvas } from '../../d3QuickStart'
+import { QsEnumCurve } from '../../core/enums/qsEnums'
+import { constantsCurves } from '../../core/constants/constants'
 
 export interface QsLinePlotConfig {
-  [key: string]: CurveFactory | undefined
-  curve?: CurveFactory
+  [key: string]: QsEnumCurve | undefined
+  curve?: QsEnumCurve
 }
 
 export interface QsLinePlot {
@@ -21,8 +17,8 @@ export interface QsLinePlot {
 }
 
 interface LinePlotConfigStrict {
-  [key: string]: CurveFactory | undefined
-  curve: CurveFactory
+  [key: string]: QsEnumCurve | undefined
+  curve: QsEnumCurve
 }
 
 interface DrawArgs {
@@ -33,7 +29,7 @@ const addDefaultsToConfig = (
   customConfig?: QsLinePlotConfig
 ): LinePlotConfigStrict => {
   const defaults: LinePlotConfigStrict = {
-    curve: curveLinear,
+    curve: QsEnumCurve.LINEAR,
   }
   if (!customConfig) return defaults
 
@@ -75,7 +71,7 @@ const draw = (
   let line = d3line()
     .x((d) => xScale(d[0]))
     .y((d) => yScale(d[1]))
-    .curve(curve)
+    .curve(constantsCurves[curve])
 
   let lineGroup = canvas.displayGroup.append('g')
   lineGroup

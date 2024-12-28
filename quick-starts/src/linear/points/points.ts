@@ -133,7 +133,6 @@ const draw = (
     const args = addTransitionDefaults(data.transitionArgs)
     const drawArgs: DrawArgs = { data: data.data, orientation, scaleType }
     const meta: Meta[] = getMeta(canvas, drawArgs, config)
-    const { radius } = config
 
     if (orientation === Orientation.VERTICAL)
       group

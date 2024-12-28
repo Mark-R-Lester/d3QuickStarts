@@ -2,14 +2,14 @@ import { QsCanvas } from '../../canvas/canvas'
 import { interpolate, Selection, arc as d3arc } from 'd3'
 import { QsRadialData, RadialConfigStrict } from './types'
 import { Meta, getMeta, updateMeta } from './meta'
-import { QsColorScale, QsTransitionArgs } from '../../core/types/qsTypes'
+import { QsColorScaleData, QsTransitionArgs } from '../../core/types/qsTypes'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { GlobalDefaults } from '../../core/enums/enums'
 
 export { QsRadialData } from './types'
 
 export interface QsRadialConfig {
-  [key: string]: number | string | QsColorScale | undefined
+  [key: string]: number | string | QsColorScaleData | undefined
   outerRadius?: number
   innerRadius?: number
   padAngle?: number
@@ -17,7 +17,7 @@ export interface QsRadialConfig {
   x?: number
   y?: number
   defaultColor?: string
-  colorScale?: QsColorScale
+  colorScaleData?: QsColorScaleData
 }
 
 export interface QsRadialTransitionData {
@@ -47,7 +47,7 @@ const addDefaultsToConfig = (
     x: 50,
     y: 50,
     defaultColor: GlobalDefaults.DEFAULT_BAR_COLOR,
-    colorScale: undefined,
+    colorScaleData: undefined,
   }
   if (!customConfig) return defaults
 

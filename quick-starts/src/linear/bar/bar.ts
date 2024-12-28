@@ -1,5 +1,9 @@
 import { Selection } from 'd3'
-import { QsCanvas, QsColorScale, QsTransitionArgs } from '../../d3QuickStart'
+import {
+  QsCanvas,
+  QsColorScaleData,
+  QsTransitionArgs,
+} from '../../d3QuickStart'
 import { getMeta, Meta } from './meta'
 import { DrawArgs, QsBarConfigStrict, QsBarData } from './types'
 import { GlobalDefaults, Orientation } from '../../core/enums/enums'
@@ -7,10 +11,10 @@ import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 export { QsBarData } from './types'
 
 export interface QsBarConfig {
-  [key: string]: number | string | QsColorScale | undefined
+  [key: string]: number | string | QsColorScaleData | undefined
   padding?: number
   defaultColor?: string
-  colorScale?: QsColorScale
+  colorScaleData?: QsColorScaleData
 }
 
 export interface QsBarTransitionArgs extends QsTransitionArgs {}
@@ -31,7 +35,7 @@ const addDefaultsToConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
   const defauls: QsBarConfigStrict = {
     padding: 8,
     defaultColor: GlobalDefaults.DEFAULT_BAR_COLOR,
-    colorScale: undefined,
+    colorScaleData: undefined,
   }
   if (!customConfig) return defauls
 

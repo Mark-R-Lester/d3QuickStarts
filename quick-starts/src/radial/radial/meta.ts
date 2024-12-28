@@ -1,19 +1,12 @@
 import { QsCanvas } from '../../canvas/canvas'
-import {
-  scaleLinear,
-  scaleOrdinal,
-  ScaleOrdinal,
-  ScaleLinear,
-  interpolateRgbBasis,
-  ScaleSequential,
-  scaleSequential,
-} from 'd3'
+import { scaleLinear, ScaleOrdinal, ScaleLinear, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-
-import { toStrings } from '../../core/conversion'
 import { QsRadialData, RadialConfigStrict } from './types'
-import { QsEnumColorScale } from '../../core/enums/qsEnums'
-import { getPrecidendedColor, getScaledColor } from '../../core/color/getColor'
+import {
+  getColorScale,
+  getPrecidendedColor,
+  getScaledColor,
+} from '../../core/color/color'
 
 export interface Meta {
   class: string
@@ -61,7 +54,7 @@ export const getMeta = (
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const {
     defaultColor,
-    colorScale,
+    colorScaleData,
     outerRadius,
     innerRadius,
     cornerRadius,
@@ -84,32 +77,11 @@ export const getMeta = (
   })
   if (data.length < 2) padAngle = 0
 
-  let sequentialColorScale: ScaleSequential<string, never> | undefined
-  let ordinalColorScale: any | undefined
-
-  const createSequentialColorScale = ():
+  let colorScale:
     | ScaleSequential<string, never>
-    | undefined => {
-    if (colorScale) {
-      return scaleSequential(
-        colorScale.domain,
-        interpolateRgbBasis(colorScale.range)
-      )
-    }
-  }
-
-  const createOridinalColorScale = ():
     | ScaleOrdinal<string, unknown, never>
-    | undefined => {
-    if (colorScale)
-      return scaleOrdinal()
-        .domain(toStrings(colorScale.domain))
-        .range(colorScale.range)
-  }
-
-  if (colorScale && colorScale.type === QsEnumColorScale.SEQUENTIAL)
-    sequentialColorScale = createSequentialColorScale()
-  else ordinalColorScale = createOridinalColorScale()
+    | undefined
+  if (colorScaleData) colorScale = getColorScale(colorScaleData)
 
   const radiansDividedByTotalValue = (Math.PI * 2) / totalValue
   let startAngle = 0
@@ -120,8 +92,7 @@ export const getMeta = (
 
     const scaledColor: string | unknown | undefined = getScaledColor(
       d.value,
-      sequentialColorScale,
-      ordinalColorScale
+      colorScale
     )
 
     meta.push({

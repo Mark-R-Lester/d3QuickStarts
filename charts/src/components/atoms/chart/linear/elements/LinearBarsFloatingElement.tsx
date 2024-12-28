@@ -44,7 +44,7 @@ export const LinearFloatingBarsElement: FunctionComponent<
 
     if (orientation === EnumOrientation.VERTICAL) {
       qsLinearBarGenerator.vertical(canvas, data2, {
-        colorScale: {
+        colorScaleData: {
           range: ['green', 'orange', 'red'],
           domain: [1, 70],
           type: QsEnumColorScale.ORDINAL,
@@ -52,7 +52,7 @@ export const LinearFloatingBarsElement: FunctionComponent<
       })
     } else {
       qsLinearBarGenerator.horizontal(canvas, data2, {
-        colorScale: {
+        colorScaleData: {
           range: ['lightblue', 'steelblue', 'blue'],
           domain: [1, 70],
           type: QsEnumColorScale.SEQUENTIAL,

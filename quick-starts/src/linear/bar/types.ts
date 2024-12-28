@@ -1,11 +1,11 @@
 import { Orientation } from '../../core/enums/enums'
-import { QsColorScale } from '../../d3QuickStart'
+import { QsColorScaleData } from '../../d3QuickStart'
 
 export interface QsBarConfigStrict {
-  [key: string]: number | string | QsColorScale | undefined
+  [key: string]: number | string | QsColorScaleData | undefined
   padding: number
   defaultColor: string
-  colorScale?: QsColorScale
+  colorScaleData?: QsColorScaleData
 }
 
 export interface MetaBarData {

@@ -18,7 +18,7 @@ export interface QsColorName {
   colorName: string
 }
 
-export interface QsColorScale {
+export interface QsColorScaleData {
   [key: string]: number[] | (string | ColorCommonInstance)[] | string
   domain: number[]
   range: (string | ColorCommonInstance)[]

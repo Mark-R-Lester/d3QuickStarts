@@ -46,7 +46,7 @@ export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
     data.forEach((d, i) => {
       radialArgs[i].value = d.value
     })
-    setElement2(qsRadialGenerator.doughnut(canvas, radialArgs))
+    setElement2(qsRadialGenerator.radial(canvas, radialArgs))
   }
 
   useEffect(() => {

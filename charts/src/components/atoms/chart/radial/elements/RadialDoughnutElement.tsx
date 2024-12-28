@@ -47,7 +47,7 @@ export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 250,
     })
 
-    qsRadialGenerator.doughnut(canvas, data, config)
+    qsRadialGenerator.radial(canvas, data, config)
   }
 
   useEffect(() => {

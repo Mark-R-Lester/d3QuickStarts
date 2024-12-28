@@ -24,7 +24,7 @@ export const RadialTransition: FunctionComponent<RadialChartProps> = ({
       highestViewableValue: 40,
     })
 
-    setElement(qsRadialGenerator.doughnut(canvas, data, config))
+    setElement(qsRadialGenerator.radial(canvas, data, config))
   }
 
   useEffect(() => {

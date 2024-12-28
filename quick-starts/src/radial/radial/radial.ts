@@ -34,17 +34,6 @@ export interface QsRadial {
 
 interface DrawArgs {
   data: QsRadialData[]
-  pie: boolean
-}
-
-const updateCurrentConfig = (
-  currentConfig: RadialConfigStrict,
-  newConfig?: QsRadialConfig
-): RadialConfigStrict => {
-  if (!newConfig) return currentConfig
-
-  Object.keys(newConfig).forEach((key) => (currentConfig[key] = newConfig[key]))
-  return currentConfig
 }
 
 const addDefaultsToConfig = (
@@ -52,7 +41,7 @@ const addDefaultsToConfig = (
 ): RadialConfigStrict => {
   const defaults: RadialConfigStrict = {
     outerRadius: 100,
-    innerRadius: 50,
+    innerRadius: 0,
     padAngle: 0,
     cornerRadius: 0,
     x: 50,
@@ -68,29 +57,18 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-const pie = (
+const radial = (
   canvas: QsCanvas,
   data: QsRadialData[],
   customConfig?: QsRadialConfig
 ): QsRadial => {
-  const args: DrawArgs = { data, pie: true }
-  const config: RadialConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
-const doughnut = (
-  canvas: QsCanvas,
-  data: QsRadialData[],
-  customConfig?: QsRadialConfig
-): QsRadial => {
-  const args: DrawArgs = { data, pie: false }
+  const args: DrawArgs = { data }
   const config: RadialConfigStrict = addDefaultsToConfig(customConfig)
   return draw(canvas, args, config)
 }
 
 export const qsRadialGenerator = {
-  pie,
-  doughnut,
+  radial,
 }
 
 const draw = (
@@ -98,7 +76,7 @@ const draw = (
   args: DrawArgs,
   config: RadialConfigStrict
 ): QsRadial => {
-  const { data, pie } = args
+  const { data } = args
   const {
     outerRadius,
     innerRadius,

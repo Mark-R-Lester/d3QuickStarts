@@ -61,12 +61,19 @@ export default function RadialTransitionsPage() {
     <RadialTransition
       chartName="radialLinearColorTransition"
       data={radialData}
-      config={{ colorScale: colorScaleSequential }}
+      config={{
+        innerRadius: 80,
+        padAngle: 0.03,
+        colorScale: colorScaleSequential,
+      }}
     />,
     <RadialTransition
       chartName="radialSerialColoeTransition"
       data={radialData}
-      config={{ colorScale: colorScaleOrdinal }}
+      config={{
+        innerRadius: 50,
+        colorScale: colorScaleOrdinal,
+      }}
     />,
   ]
 

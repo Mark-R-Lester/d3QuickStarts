@@ -1,4 +1,4 @@
-import { Selection, range } from 'd3'
+import { Selection } from 'd3'
 import { QsCanvas, QsColorScale, QsTransitionArgs } from '../../d3QuickStart'
 import { getMeta, Meta } from './meta'
 import { DrawArgs, QsBarConfigStrict, QsBarData } from './types'

@@ -33,7 +33,7 @@ export const RadialPieElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 60,
     })
 
-    qsRadialGenerator.pie(canvas, data, {
+    qsRadialGenerator.radial(canvas, data, {
       outerRadius: 90,
       innerRadius: 50,
     })

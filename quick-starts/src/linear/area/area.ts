@@ -1,21 +1,17 @@
-import {
-  scaleLinear,
-  curveLinear,
-  CurveFactory,
-  area as d3area,
-  Selection,
-} from 'd3'
+import { scaleLinear, CurveFactory, area as d3area, Selection } from 'd3'
 import { QsCanvas } from '../../canvas/canvas'
 import { AreaData, getMeta, Meta } from './meta'
 import { QsAreaData } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { applyDefaultColorIfNeeded } from '../../core/color/color'
+import { QsEnumCurve } from '../../core/enums/qsEnums'
+import { constantsCurves } from '../../core/constants/constants'
 
 export { QsAreaData } from './types'
 export interface QsAreaConfig {
   [key: string]: CurveFactory | string | undefined
-  curve?: CurveFactory
+  curve?: QsEnumCurve
 }
 
 export interface QsAreaTransitionData {
@@ -32,7 +28,7 @@ export interface QsArea {
 
 interface AreaConfigStrict {
   [key: string]: CurveFactory | string | undefined
-  curve: CurveFactory
+  curve: QsEnumCurve
 }
 
 interface DrawArgs {
@@ -41,7 +37,7 @@ interface DrawArgs {
 
 const addDefaultsToConfig = (customConfig?: QsAreaConfig): AreaConfigStrict => {
   const defaults: AreaConfigStrict = {
-    curve: curveLinear,
+    curve: QsEnumCurve.LINEAR,
   }
   if (!customConfig) return defaults
 
@@ -93,7 +89,7 @@ function draw(
     .x((d) => xScale(d.x))
     .y1((d) => yScale(d.y1))
     .y0((d) => yScale(d.y0))
-    .curve(curve)
+    .curve(constantsCurves[curve])
 
   const group = canvas.displayGroup.append('g')
   group

@@ -1,6 +1,35 @@
+import {
+  curveBasis,
+  curveBumpX,
+  curveBumpY,
+  curveBundle,
+  curveCardinal,
+  curveCatmullRom,
+  curveLinear,
+  curveMonotoneX,
+  curveMonotoneY,
+  curveNatural,
+  curveStep,
+  curveStepAfter,
+  curveStepBefore,
+} from 'd3'
+
 export enum QsEnumColorScale {
   ORDINAL = 'ordinal',
   SEQUENTIAL = 'sequential',
+}
+
+export enum QsEnumCurve {
+  BASIS = 'basis',
+  BUMP_X = 'bunpX',
+  BUMP_Y = 'bumpY',
+  LINEAR = 'linear',
+  MONOTONE_X = 'monotoneX',
+  MONOTONE_Y = 'MonotoneY',
+  NATURAL = 'natural',
+  STEP = 'step',
+  STEP_BEFORE = 'setpBefore',
+  STEP_AFTER = 'stepAfter',
 }
 
 export enum QsEnumAlignmentBaseline {

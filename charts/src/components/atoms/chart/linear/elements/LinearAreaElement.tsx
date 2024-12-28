@@ -5,6 +5,7 @@ import {
   qsLinearAreaGenerator,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
+import { QsEnumCurve } from 'd3qs/core/enums/qsEnums'
 
 export const LinearAreaElement: FunctionComponent<ChartProps> = ({
   chartName,
@@ -21,10 +22,18 @@ export const LinearAreaElement: FunctionComponent<ChartProps> = ({
     })
 
     qsLinearAreaGenerator
-      .horizontal(canvas, { higherData: data1, color: 'blue' })
+      .horizontal(
+        canvas,
+        { higherData: data1, color: 'blue' },
+        { curve: QsEnumCurve.MONOTONE_X }
+      )
       .element.attr('fill-opacity', '0.5')
     qsLinearAreaGenerator
-      .horizontal(canvas, { higherData: data2, lowerData: data1, color: 'red' })
+      .horizontal(
+        canvas,
+        { higherData: data2, lowerData: data1, color: 'red' },
+        { curve: QsEnumCurve.MONOTONE_X }
+      )
       .element.attr('fill-opacity', '0.5')
   }
 

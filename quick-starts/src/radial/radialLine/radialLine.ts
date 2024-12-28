@@ -13,7 +13,6 @@ export interface QsRadialLineConfig {
 
 export interface QsRadialLineTransitionData {
   data: number[]
-  config?: QsRadialLineConfig
   transitionArgs?: QsTransitionArgs
 }
 

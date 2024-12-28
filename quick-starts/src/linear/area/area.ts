@@ -20,7 +20,6 @@ export interface QsAreaConfig {
 
 export interface QsAreaTransitionData {
   data: QsAreaData
-  config?: QsAreaConfig
   transitionArgs?: QsTransitionArgs
 }
 

@@ -12,7 +12,6 @@ export interface QsBarStackedConfig {
 
 export interface QsBarStackedTransitionData {
   data: number[][]
-  config?: QsBarStackedConfig
   transitionArgs?: QsTransitionArgs
 }
 

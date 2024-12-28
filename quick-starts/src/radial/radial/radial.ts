@@ -22,7 +22,6 @@ export interface QsRadialConfig {
 
 export interface QsRadialTransitionData {
   data: QsRadialData[]
-  config?: QsRadialConfig
   transitionArgs?: QsTransitionArgs
 }
 
@@ -141,9 +140,8 @@ const draw = (
   return {
     element: group.selectAll('.arc'),
     transition: (data: QsRadialTransitionData) => {
-      const updatedConfig = updateCurrentConfig(config, data.config)
       const args = addTransitionDefaults(data.transitionArgs)
-      meta = updateMeta(canvas, data.data, updatedConfig, meta)
+      meta = updateMeta(canvas, data.data, config, meta)
 
       group
         .selectAll(`.${meta[0].class}`)

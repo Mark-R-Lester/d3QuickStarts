@@ -12,7 +12,6 @@ export interface QsPointsConfig {
 
 export interface QsPointsTransitionData {
   data: number[]
-  config?: QsPointsConfig
   transitionArgs?: QsTransitionArgs
 }
 

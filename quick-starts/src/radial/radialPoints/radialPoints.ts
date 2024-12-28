@@ -12,7 +12,6 @@ export interface QsRadialPointsConfig {
 
 export interface QsRadialPointsTransitionData {
   data: number[]
-  config?: QsRadialPointsConfig
   transitionArgs?: QsTransitionArgs
 }
 

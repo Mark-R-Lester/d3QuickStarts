@@ -13,7 +13,6 @@ export interface QsBarGroupConfig {
 
 export interface QsBarGroupTransitionData {
   data: number[][]
-  config?: QsBarGroupConfig
   transitionArgs?: QsTransitionArgs
 }
 

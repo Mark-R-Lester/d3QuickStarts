@@ -12,7 +12,16 @@ export const LinearPointsElement: FunctionComponent<OrienetedChartProps> = ({
   orientation,
 }) => {
   const createChart = () => {
-    const data1 = [25, 10, 35, 25, 35, 5, 25, 25]
+    const data = [
+      { value: 25, color: 'red' },
+      { value: 10 },
+      { value: 35, color: 'red' },
+      { value: 25 },
+      { value: 35, color: 'red' },
+      { value: 5 },
+      { value: 25, color: 'red' },
+      { value: 25 },
+    ]
     const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
@@ -21,9 +30,9 @@ export const LinearPointsElement: FunctionComponent<OrienetedChartProps> = ({
     })
 
     if (orientation === EnumOrientation.VERTICAL) {
-      qsLinearPointGenerator.vertical(canvas, data1)
+      qsLinearPointGenerator.vertical(canvas, data, { radius: 10 })
     } else {
-      qsLinearPointGenerator.horizontal(canvas, data1)
+      qsLinearPointGenerator.horizontal(canvas, data, { radius: 5 })
     }
   }
 

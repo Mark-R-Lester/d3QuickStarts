@@ -1,22 +1,33 @@
-import { scaleLinear, scaleBand, NumberValue, range, Selection } from 'd3'
+import {
+  scaleLinear,
+  scaleBand,
+  range,
+  ScaleOrdinal,
+  ScaleSequential,
+} from 'd3'
 import { QsCanvas } from '../../d3QuickStart'
-import { DrawArgs } from './types'
+import { DrawArgs, PointsConfigStrict, QsPointData } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation, ScaleType } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
+import {
+  getColorScale,
+  getPrecidendedColor,
+  getScaledColor,
+} from '../../core/color/color'
 
 export interface Meta {
   class: string
   id: string
   pointData: QsCoordinate
   radiusMin: number
-  radius: number
+  color: string
 }
 
 export const getMeta = (
   canvas: QsCanvas,
   args: DrawArgs,
-  radius: number
+  config: PointsConfigStrict
 ): Meta[] => {
   const {
     displayAreaHeight,
@@ -27,6 +38,7 @@ export const getMeta = (
   const { data, orientation, scaleType } = args
   const isVertical = orientation === Orientation.VERTICAL
   const isBanded = scaleType === ScaleType.BANDED
+  const { defaultColor, colorScaleData } = config
 
   const pointSpacing = range(
     0,
@@ -34,12 +46,18 @@ export const getMeta = (
     displayAreaWidth / data.length
   )
 
-  const getCoordinates = (data: number[]): QsCoordinate[] =>
+  interface CoordinateWithColor extends QsCoordinate {
+    [key: string]: number | string | undefined
+    color?: string
+  }
+  const getCoordinates = (data: QsPointData[]): QsCoordinate[] =>
     data.map((d, i) =>
-      isVertical ? { x: d, y: pointSpacing[i] } : { x: pointSpacing[i], y: d }
+      isVertical
+        ? { x: d.value, y: pointSpacing[i], color: d.color }
+        : { x: pointSpacing[i], y: d.value, color: d.color }
     )
 
-  const coordinates: QsCoordinate[] = getCoordinates(data)
+  const coordinates: CoordinateWithColor[] = getCoordinates(data)
 
   const dataScale = scaleLinear()
     .domain(
@@ -91,13 +109,24 @@ export const getMeta = (
     return isVertical ? space : dataScale(d.y)
   }
 
+  let colorScale:
+    | ScaleSequential<string, never>
+    | ScaleOrdinal<string, unknown, never>
+    | undefined
+
+  if (colorScaleData) colorScale = getColorScale(colorScaleData)
+
   const meta: Meta[] = coordinates.map((d, i) => {
+    const scaledColor: string | unknown | undefined = getScaledColor(
+      orientation === Orientation.HORIZONTAL ? d.x : d.y,
+      colorScale
+    )
     return {
       class: 'point',
       id: `point${uuidv4()}`,
       pointData: { x: x(d), y: y(d) },
       radiusMin: 0,
-      radius: radius,
+      color: getPrecidendedColor(d.color, defaultColor, scaledColor),
     }
   })
   return meta

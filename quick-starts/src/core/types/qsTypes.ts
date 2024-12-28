@@ -2,7 +2,7 @@ import { ColorCommonInstance } from 'd3'
 import { QsEnumColorScale } from '../enums/qsEnums'
 
 export interface QsCoordinate {
-  [key: string]: number | undefined
+  [key: string]: number | string | undefined
   x: number
   y: number
 }

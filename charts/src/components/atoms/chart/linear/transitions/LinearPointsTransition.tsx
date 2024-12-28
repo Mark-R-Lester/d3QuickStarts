@@ -3,27 +3,37 @@ import {
   QsCanvas,
   qsCreateCanvas,
   qsLinearPointGenerator,
-  QsLine,
+  QsPoints,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
+import { QsPointData } from 'd3qs/linear/points/types'
 
 export const LinearPointsTransition: FunctionComponent<OrienetedChartProps> = ({
   chartName,
   orientation,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
-  const [element, setElement] = useState<QsLine>()
+  const [element, setElement] = useState<QsPoints>()
 
   const createChart = () => {
-    const data = [25, 10, 35, 25, 35, 5, 25, 25]
+    const data = [
+      { value: 25 },
+      { value: 10 },
+      { value: 35 },
+      { value: 25 },
+      { value: 35 },
+      { value: 5 },
+      { value: 25 },
+      { value: 25 },
+    ]
     const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
       lowestViewableValue: 0,
       highestViewableValue: 50,
     })
-    let newElement: QsLine
+    let newElement: QsPoints
     if (orientation === EnumOrientation.VERTICAL) {
       newElement = qsLinearPointGenerator.vertical(canvas, data)
     } else {
@@ -38,11 +48,11 @@ export const LinearPointsTransition: FunctionComponent<OrienetedChartProps> = ({
 
   useEffect(
     function transitionData() {
-      const getVals = (): number[] => {
+      const getVals = (): QsPointData[] => {
         const vals = []
         for (let i = 0; i < 8; i++) {
           let num = (Math.random() * 100) / 2
-          vals.push(num)
+          vals.push({ value: num })
         }
         return vals
       }

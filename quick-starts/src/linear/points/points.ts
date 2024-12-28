@@ -1,17 +1,23 @@
 import { Selection } from 'd3'
-import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
+import {
+  QsCanvas,
+  QsColorScaleData,
+  QsTransitionArgs,
+} from '../../d3QuickStart'
 import { Meta, getMeta } from './meta'
-import { DrawArgs } from './types'
-import { Orientation, ScaleType } from '../../core/enums/enums'
+import { DrawArgs, PointsConfigStrict, QsPointData } from './types'
+import { GlobalDefaults, Orientation, ScaleType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export interface QsPointsConfig {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
+  [key: string]: number | QsColorScaleData | string | undefined
   radius?: number
+  defaultColor?: string
+  colorScaleData?: QsColorScaleData
 }
 
 export interface QsPointsTransitionData {
-  data: number[]
+  data: QsPointData[]
   transitionArgs?: QsTransitionArgs
 }
 
@@ -22,16 +28,12 @@ export interface QsPoints {
   transition: (data: QsPointsTransitionData) => void
 }
 
-interface PointsConfigStrict {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
-  radius: number
-}
-
 const addDefaultsToConfig = (
   customConfig?: QsPointsConfig
 ): PointsConfigStrict => {
   const defaults: PointsConfigStrict = {
     radius: 3,
+    defaultColor: GlobalDefaults.DEFAULT_COLOR,
   }
   if (!customConfig) return defaults
 
@@ -43,7 +45,7 @@ const addDefaultsToConfig = (
 
 const horizontal = (
   canvas: QsCanvas,
-  data: number[],
+  data: QsPointData[],
   customConfig?: QsPointsConfig
 ): QsPoints => {
   const args: DrawArgs = {
@@ -57,7 +59,7 @@ const horizontal = (
 
 const vertical = (
   canvas: QsCanvas,
-  data: number[],
+  data: QsPointData[],
   customConfig?: QsPointsConfig
 ): QsPoints => {
   const args: DrawArgs = {
@@ -71,7 +73,7 @@ const vertical = (
 
 const horizontalBanded = (
   canvas: QsCanvas,
-  data: number[],
+  data: QsPointData[],
   customConfig?: QsPointsConfig
 ): QsPoints => {
   const args: DrawArgs = {
@@ -85,7 +87,7 @@ const horizontalBanded = (
 
 const verticalBanded = (
   canvas: QsCanvas,
-  data: number[],
+  data: QsPointData[],
   customConfig?: QsPointsConfig
 ): QsPoints => {
   const args: DrawArgs = {
@@ -112,7 +114,7 @@ const draw = (
   const { radius } = config
   const { orientation, scaleType } = args
 
-  const meta: Meta[] = getMeta(canvas, args, radius)
+  const meta: Meta[] = getMeta(canvas, args, config)
   const group = canvas.displayGroup.append('g')
 
   group
@@ -124,12 +126,14 @@ const draw = (
     .attr('id', (d) => d.id)
     .attr('cy', (d) => d.pointData.y)
     .attr('cx', (d) => d.pointData.x)
-    .attr('r', (d) => d.radius)
+    .attr('r', radius)
+    .attr('fill', (d) => d.color)
 
   const transition = (data: QsPointsTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
     const drawArgs: DrawArgs = { data: data.data, orientation, scaleType }
-    const meta: Meta[] = getMeta(canvas, drawArgs, radius)
+    const meta: Meta[] = getMeta(canvas, drawArgs, config)
+    const { radius } = config
 
     if (orientation === Orientation.VERTICAL)
       group
@@ -139,7 +143,7 @@ const draw = (
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('cx', (d) => d.pointData.x)
-        .attr('r', (d) => d.radius)
+        .attr('fill', (d) => d.color)
     else
       group
         .selectAll(`.${meta[0].class}`)
@@ -148,7 +152,7 @@ const draw = (
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('cy', (d) => d.pointData.y)
-        .attr('r', (d) => d.radius)
+        .attr('fill', (d) => d.color)
   }
   return {
     element: group.selectAll(`.${meta[0].class}`),

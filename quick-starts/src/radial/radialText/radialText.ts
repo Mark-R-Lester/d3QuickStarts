@@ -346,9 +346,9 @@ const draw = (
             }
           })
           .textTween((d) => {
-            const tweenStart = interpolate(d.data.value, d.newData.value)
+            const tweenText = interpolate(d.data.value, d.newData.value)
             return (t: number) => {
-              d.data.value = tweenStart(t)
+              d.data.value = tweenText(t)
               return d.data.value.toFixed(0)
             }
           })
@@ -380,9 +380,9 @@ const draw = (
             .attr('startOffset', '25%')
             .attr('xlink:href', `#${d.arcId}`)
             .textTween((d) => {
-              const tweenStart = interpolate(d.data.value, d.newData.value)
+              const tweenText = interpolate(d.data.value, d.newData.value)
               return (t: number) => {
-                d.data.value = tweenStart(t)
+                d.data.value = tweenText(t)
                 return d.data.value.toFixed(0)
               }
             })

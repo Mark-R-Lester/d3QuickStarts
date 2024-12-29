@@ -10,7 +10,11 @@ import { RadialTransition } from '../../components/atoms/chart/radial/transition
 import { QsEnumColorScale } from 'd3qs/core/qsEnums'
 
 export default function RadialTransitionsPage() {
-  const data: QsValuedText[] = [{ value: 25 }, { value: 10 }, { value: 15 }]
+  const data1: QsValuedText[] = [{ value: 25 }, { value: 10 }, { value: 15 }]
+  const data2: QsValuedText[] = [{ value: 25 }, { value: 10 }, { value: 15 }]
+  const data3: QsValuedText[] = [{ value: 25 }, { value: 10 }, { value: 15 }]
+  const data4: QsValuedText[] = [{ value: 25 }, { value: 10 }, { value: 15 }]
+
   const radialData: QsRadialData[] = [
     { value: 25 },
     { value: 10 },
@@ -110,22 +114,22 @@ export default function RadialTransitionsPage() {
 
     <RadialTextTransition
       chartName="radialTextFollowTransition"
-      data={data}
+      data={data1}
       orientation={EnumRadialTextOrientation.FOLLOW}
     />,
     <RadialTextTransition
       chartName="radialTextSkokeTransition"
-      data={data}
+      data={data2}
       orientation={EnumRadialTextOrientation.SPOKE}
     />,
     <RadialTextTransition
       chartName="radialTextHorizontalTransition"
-      data={data}
+      data={data3}
       orientation={EnumRadialTextOrientation.HORIZONTAL}
     />,
     <RadialTextTransition
       chartName="radialTextRotatedTransition"
-      data={data}
+      data={data4}
       orientation={EnumRadialTextOrientation.ROTATED}
     />,
     <RadialTransition

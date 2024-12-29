@@ -23,7 +23,7 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
     })
 
     let newElement: QsRadialLine
-    newElement = qsRadialLineGenerator.line(canvas, data)
+    newElement = qsRadialLineGenerator.line(canvas, { data })
 
     setElement(newElement)
   }
@@ -45,7 +45,7 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
 
       const transitionData = getVals()
 
-      if (element) element.transition({ data: transitionData })
+      if (element) element.transition({ data: { data: transitionData } })
 
       setTimeout(() => setChanged(!changed), 3000)
     },

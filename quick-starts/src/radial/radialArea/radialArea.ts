@@ -13,7 +13,6 @@ export interface QsRadialAreaConfig {
   curve?: QsEnumCurve
   x?: number
   y?: number
-  color?: string
 }
 
 export interface QsRadialAreaTransitionData {

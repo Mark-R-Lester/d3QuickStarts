@@ -5,6 +5,8 @@ import { QsTransitionArgs } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
+import { QsRadialLineData } from './types'
+import { applyDefaultColorIfNeeded } from '../../core/color/color'
 
 export interface QsRadialLineConfig {
   [key: string]: number | QsEnumCurve | undefined
@@ -14,7 +16,7 @@ export interface QsRadialLineConfig {
 }
 
 export interface QsRadialLineTransitionData {
-  data: number[]
+  data: QsRadialLineData
   transitionArgs?: QsTransitionArgs
 }
 
@@ -33,7 +35,7 @@ interface RadialLineConfigStrict {
 }
 
 interface DrawArgs {
-  data: number[]
+  data: QsRadialLineData
 }
 
 const addDefaultsToConfig = (
@@ -55,7 +57,7 @@ const addDefaultsToConfig = (
 
 const line = (
   canvas: QsCanvas,
-  data: number[],
+  data: QsRadialLineData,
   customConfig?: QsRadialLineConfig
 ): QsRadialLine => {
   const config: RadialLineConfigStrict = addDefaultsToConfig(customConfig)
@@ -73,9 +75,8 @@ const draw = (
   config: RadialLineConfigStrict
 ): QsRadialLine => {
   const { x, y, curve } = config
-  const { data } = args
-
-  const meta: Meta = getMeta(canvas, data)
+  const { color } = args.data
+  const meta: Meta = getMeta(canvas, args.data)
 
   const radialLine = lineRadial().curve(constantsCurves[curve])
   const group = canvas.displayGroup.append('g')
@@ -84,20 +85,22 @@ const draw = (
     .attr('class', meta.class)
     .attr('id', meta.id)
     .attr('d', radialLine(meta.lineData))
-    .attr('stroke', 'black')
     .attr('fill', 'none')
+    .attr('stroke', applyDefaultColorIfNeeded({ color }))
     .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
   return {
     element: group.selectAll(`.${meta.class}`),
     transition: (data: QsRadialLineTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       const meta: Meta = getMeta(canvas, data.data)
+      const { color: newColor } = data.data
       group
         .selectAll(`.${meta.class}`)
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('d', radialLine(meta.lineData))
+        .attr('stroke', applyDefaultColorIfNeeded({ color, newColor }))
     },
   }
 }

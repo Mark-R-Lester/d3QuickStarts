@@ -7,6 +7,7 @@ import {
   qsRadialAreaGenerator,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
+import { QsEnumCurve } from 'd3qs/core/enums/qsEnums'
 
 export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
   chartName,
@@ -24,6 +25,7 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
     const dataUpper: QsRadialAreaData = {
       innerData,
       outerData,
+      color: 'blue',
     }
     const dataLower: QsRadialAreaData = {
       outerData: innerData,
@@ -36,9 +38,11 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
       highestViewableValue: 100,
     })
 
-    let newTopArea = qsRadialAreaGenerator.area(canvas, dataUpper)
+    let newTopArea = qsRadialAreaGenerator.area(canvas, dataUpper, {
+      curve: QsEnumCurve.NATURAL,
+    })
     let newBottomArea = qsRadialAreaGenerator.area(canvas, dataLower, {
-      color: 'blue',
+      curve: QsEnumCurve.NATURAL,
     })
 
     setTopArea(newTopArea)

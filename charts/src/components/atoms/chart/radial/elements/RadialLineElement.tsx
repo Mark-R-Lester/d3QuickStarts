@@ -22,7 +22,7 @@ export const RadialLineElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 23,
     })
 
-    qsRadialLineGenerator.line(canvas, data)
+    qsRadialLineGenerator.line(canvas, { data, color: 'green' })
   }
 
   useEffect(() => {

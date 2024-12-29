@@ -6,35 +6,13 @@ import {
   qsRadialPointGenerator,
   QsRadialPointData,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../../common/chartProps'
+import { RadialPointsChartProps } from '../../../../../common/chartProps'
 
-export const RadialPointTransition: FunctionComponent<ChartProps> = ({
-  chartName,
-}) => {
+export const RadialPointTransition: FunctionComponent<
+  RadialPointsChartProps
+> = ({ chartName, data, config }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element, setElement] = useState<QsRadialPoints>()
-  const data = [
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-  ]
   const chartDataRef = useRef<QsRadialPointData[]>(data)
 
   useEffect(() => {
@@ -46,18 +24,27 @@ export const RadialPointTransition: FunctionComponent<ChartProps> = ({
         highestViewableValue: 2.5,
       })
       let newElement: QsRadialPoints
-      newElement = qsRadialPointGenerator.points(canvas, chartDataRef.current)
+      newElement = qsRadialPointGenerator.points(
+        canvas,
+        chartDataRef.current,
+        config
+      )
 
       setElement(newElement)
     }
     createChart()
-  }, [chartName])
+  }, [chartName, config])
 
   useEffect(
     function transitionData() {
       chartDataRef.current = chartDataRef.current.map((d) => {
-        if (d.value === 1) return { value: 2, color: 'blue' }
-        return { value: 1, color: 'red' }
+        if (d.color) {
+          return d.value === 1
+            ? { value: 2, color: 'blue' }
+            : { value: 1, color: 'red' }
+        } else {
+          return d.value === 1 ? { value: 2 } : { value: 1 }
+        }
       })
 
       if (element) element.transition({ data: chartDataRef.current })

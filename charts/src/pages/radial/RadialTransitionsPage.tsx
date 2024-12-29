@@ -22,6 +22,52 @@ export default function RadialTransitionsPage() {
     { value: 30 },
   ]
 
+  const radialPointsColouredData = [
+    { value: 1, color: 'red' },
+    { value: 2, color: 'blue' },
+    { value: 1, color: 'red' },
+    { value: 2, color: 'blue' },
+    { value: 1, color: 'red' },
+    { value: 2, color: 'blue' },
+    { value: 1, color: 'red' },
+    { value: 2, color: 'blue' },
+    { value: 1, color: 'red' },
+    { value: 2, color: 'blue' },
+    { value: 1, color: 'red' },
+    { value: 2, color: 'blue' },
+    { value: 1, color: 'red' },
+    { value: 2, color: 'blue' },
+    { value: 1, color: 'red' },
+    { value: 2, color: 'blue' },
+    { value: 1, color: 'red' },
+    { value: 2, color: 'blue' },
+    { value: 1, color: 'red' },
+    { value: 2, color: 'blue' },
+  ]
+
+  const radialPointsData = [
+    { value: 1, color: 'red' },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+  ]
+
   const colorScaleOrdinal: QsColorScaleData = {
     domain: [1, 100],
     range: ['lightblue', 'darkblue'],
@@ -34,10 +80,34 @@ export default function RadialTransitionsPage() {
     type: QsEnumColorScale.SEQUENTIAL,
   }
 
+  const colorScaleSequentialPoints: QsColorScaleData = {
+    domain: [1, 2],
+    range: ['green', 'orange'],
+    type: QsEnumColorScale.SEQUENTIAL,
+  }
+
   const elements: JSX.Element[] = [
     <RadialAreaTransition chartName="radialAreaTransition" />,
     <RadialLineTransition chartName="radialLineTransition" />,
-    <RadialPointTransition chartName="radialPointsTransition" />,
+    <RadialPointTransition
+      chartName="radialPointsTransition"
+      data={radialPointsColouredData}
+    />,
+    <RadialPointTransition
+      chartName="radialPointsOridinalTransition"
+      data={radialPointsData}
+      config={{
+        colorScaleData: colorScaleOrdinal,
+      }}
+    />,
+    <RadialPointTransition
+      chartName="radialPointsSerialTransition"
+      data={radialPointsData}
+      config={{
+        colorScaleData: colorScaleSequentialPoints,
+      }}
+    />,
+
     <RadialTextTransition
       chartName="radialTextFollowTransition"
       data={data}

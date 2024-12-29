@@ -1,12 +1,12 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { ScaleLinear, scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { RadialAreaData } from './types'
+import { RadialAreaMetaData } from './types'
 
 export interface Meta {
   class: string
   id: string
-  areaData: RadialAreaData[]
+  areaData: RadialAreaMetaData[]
   xAxis: ScaleLinear<number, number, never>
   yAxis: ScaleLinear<number, number, never>
 }

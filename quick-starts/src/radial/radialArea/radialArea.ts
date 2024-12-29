@@ -1,11 +1,12 @@
 import { QsCanvas } from '../../canvas/canvas'
 import { areaRadial, Selection } from 'd3'
-import { RadialAreaData } from './types'
+import { RadialAreaMetaData } from './types'
 import { Meta, getMeta } from './meta'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
+import { applyDefaultColorIfNeeded } from '../../core/color/color'
 
 export interface QsRadialAreaConfig {
   [key: string]: QsEnumCurve | number | undefined | string
@@ -29,9 +30,10 @@ export interface QsRadialArea {
 }
 
 export interface QsRadialAreaData {
-  [key: string]: number[] | undefined
+  [key: string]: number[] | string | undefined
   outerData: number[]
   innerData?: number[]
+  color?: string
 }
 
 interface RadialAreaConfigStrict {
@@ -39,7 +41,6 @@ interface RadialAreaConfigStrict {
   curve: QsEnumCurve
   x: number
   y: number
-  color: string
 }
 
 interface DrawArgs {
@@ -85,11 +86,11 @@ const draw = (
   args: DrawArgs,
   config: RadialAreaConfigStrict
 ): QsRadialArea => {
-  const { outerData: dataOuter, innerData: dataInner } = args.data
-  const { x, y, curve, color } = config
+  const { outerData: dataOuter, innerData: dataInner, color } = args.data
+  const { x, y, curve } = config
   const meta: Meta = getMeta(canvas, dataOuter, dataInner)
 
-  const radialArea = areaRadial<RadialAreaData>()
+  const radialArea = areaRadial<RadialAreaMetaData>()
     .angle((d) => d.angle)
     .outerRadius((d) => d.outer)
     .innerRadius((d) => d.inner)
@@ -101,12 +102,16 @@ const draw = (
     .attr('class', meta.class)
     .attr('id', meta.id)
     .attr('d', radialArea(meta.areaData))
-    .attr('fill', color)
+    .attr('fill', applyDefaultColorIfNeeded({ color }))
     .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
   return {
     element: group.selectAll('path'),
     transition: (data: QsRadialAreaTransitionData) => {
-      const { innerData: dataInner, outerData: dataOuter } = data.data
+      const {
+        innerData: dataInner,
+        outerData: dataOuter,
+        color: newColor,
+      } = data.data
       const meta = getMeta(canvas, dataOuter, dataInner)
       const args = addTransitionDefaults(data.transitionArgs)
 
@@ -116,6 +121,7 @@ const draw = (
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('d', radialArea(meta.areaData))
+        .attr('fill', applyDefaultColorIfNeeded({ color, newColor }))
     },
   }
 }

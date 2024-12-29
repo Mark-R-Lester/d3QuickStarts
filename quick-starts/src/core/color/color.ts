@@ -22,7 +22,12 @@ export const getPrecidendedColor = (
     : defaultColor
 }
 
-export const applyDefaultColorIfNeeded = (color?: string): string => {
+export const applyDefaultColorIfNeeded = (colors: {
+  color?: string
+  newColor?: string
+}): string => {
+  const { color, newColor } = colors
+  if (newColor) return newColor
   return color === undefined ? GlobalDefaults.DEFAULT_COLOR : color
 }
 

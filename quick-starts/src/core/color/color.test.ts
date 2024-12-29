@@ -36,13 +36,17 @@ describe('color functions', () => {
 
   describe('applyDefaultColorIfNeeded', () => {
     test.each`
-      color        | expectedColor
-      ${undefined} | ${GlobalDefaults.DEFAULT_COLOR}
-      ${'green'}   | ${'green'}
+      color        | newColor     | expectedColor
+      ${undefined} | ${undefined} | ${GlobalDefaults.DEFAULT_COLOR}
+      ${'green'}   | ${undefined} | ${'green'}
+      ${'green'}   | ${'red'}     | ${'red'}
+      ${undefined} | ${'red'}     | ${'red'}
     `(
-      'When  color is $color, the result should be $expectedColor',
-      ({ color, expectedColor }) => {
-        expect(applyDefaultColorIfNeeded(color)).toEqual(expectedColor)
+      'When  color is $color, and newColor is $newColor the result should be $expectedColor',
+      ({ color, newColor, expectedColor }) => {
+        expect(applyDefaultColorIfNeeded({ color, newColor })).toEqual(
+          expectedColor
+        )
       }
     )
   })

@@ -97,13 +97,13 @@ function draw(
     .attr('class', meta.class)
     .attr('id', meta.id)
     .attr('d', area(meta.areaData))
-    .attr('fill', applyDefaultColorIfNeeded(color))
+    .attr('fill', applyDefaultColorIfNeeded({ color }))
   return {
     element: group.select(`.${meta.class}`),
     transition: (data: QsAreaTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       const meta: Meta = getMeta(canvas, data.data)
-      const { color } = data.data
+      const { color: newColor } = data.data
 
       group
         .selectAll(`.${meta.class}`)
@@ -111,7 +111,7 @@ function draw(
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('d', area(meta.areaData))
-        .attr('fill', applyDefaultColorIfNeeded(color))
+        .attr('fill', applyDefaultColorIfNeeded({ color, newColor }))
     },
   }
 }

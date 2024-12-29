@@ -1,17 +1,26 @@
 import { getMeta, Meta } from './meta'
 import { Selection, scaleLinear } from 'd3'
-import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
+import {
+  QsCanvas,
+  QsColorScaleData,
+  QsTransitionArgs,
+} from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { QsRadialPointData, RadialPointsConfigStrict } from './types'
+import { GlobalDefaults } from '../../core/enums/enums'
+export { QsRadialPointData } from './types'
 
 export interface QsRadialPointsConfig {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
+  [key: string]: number | QsColorScaleData | string | undefined
   x?: number
   y?: number
   pointRadius?: number
+  defaultColor?: string
+  colorScaleData?: QsColorScaleData
 }
 
 export interface QsRadialPointsTransitionData {
-  data: number[]
+  data: QsRadialPointData[]
   transitionArgs?: QsTransitionArgs
 }
 
@@ -22,15 +31,8 @@ export interface QsRadialPoints {
   transition: (data: QsRadialPointsTransitionData) => void
 }
 
-interface RadialPointsConfigStrict {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
-  x: number
-  y: number
-  pointRadius: number
-}
-
 interface DrawArgs {
-  data: number[]
+  data: QsRadialPointData[]
 }
 
 const addDefaultsToConfig = (
@@ -40,6 +42,7 @@ const addDefaultsToConfig = (
     x: 50,
     y: 50,
     pointRadius: 1.2,
+    defaultColor: GlobalDefaults.DEFAULT_COLOR,
   }
   if (!customConfig) return defaults
 
@@ -51,7 +54,7 @@ const addDefaultsToConfig = (
 
 const points = (
   canvas: QsCanvas,
-  data: number[],
+  data: QsRadialPointData[],
   customConfig?: QsRadialPointsConfig
 ): QsRadialPoints => {
   const config: RadialPointsConfigStrict = addDefaultsToConfig(customConfig)
@@ -71,7 +74,7 @@ const draw = (
   const { x, y, pointRadius } = config
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { data } = args
-  const meta: Meta[] = getMeta(canvas, data)
+  const meta: Meta[] = getMeta(canvas, data, config)
 
   const xScale = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
   const yScale = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
@@ -86,13 +89,14 @@ const draw = (
     .attr('id', (d) => d.id)
     .attr('cx', (d) => d.pointData[0])
     .attr('cy', (d) => d.pointData[1])
+    .attr('fill', (d) => d.color)
     .attr('r', yScale(pointRadius))
     .attr('transform', `translate(${xScale(x)}, ${yScale(y)})`)
   return {
     element: dataPoints.selectAll('circle'),
     transition: (data: QsRadialPointsTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
-      const meta: Meta[] = getMeta(canvas, data.data)
+      const meta: Meta[] = getMeta(canvas, data.data, config)
       dataPoints
         .selectAll(`.${meta[0].class}`)
         .data(meta)
@@ -102,6 +106,7 @@ const draw = (
         .attr('cx', (d) => d.pointData[0])
         .attr('cy', (d) => d.pointData[1])
         .attr('r', yScale(pointRadius))
+        .attr('fill', (d) => d.color)
     },
   }
 }

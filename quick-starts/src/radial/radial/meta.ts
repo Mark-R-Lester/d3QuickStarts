@@ -81,6 +81,7 @@ export const getMeta = (
     | ScaleSequential<string, never>
     | ScaleOrdinal<string, unknown, never>
     | undefined
+
   if (colorScaleData) colorScale = getColorScale(colorScaleData)
 
   const radiansDividedByTotalValue = (Math.PI * 2) / totalValue

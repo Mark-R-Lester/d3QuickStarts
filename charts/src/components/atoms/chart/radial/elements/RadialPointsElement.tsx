@@ -5,13 +5,33 @@ import {
   qsRadialPointGenerator,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
+import { QsRadialPointData } from 'd3qs/radial/radialPoints/types'
 
 export const RadialPointsElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
   const createChart = () => {
-    const data: number[] = [
-      1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2,
+    const data: QsRadialPointData[] = [
+      { value: 1 },
+      { value: 2 },
+      { value: 1 },
+      { value: 2 },
+      { value: 1 },
+      { value: 2 },
+      { value: 1 },
+      { value: 2 },
+      { value: 1 },
+      { value: 2 },
+      { value: 1 },
+      { value: 2 },
+      { value: 1 },
+      { value: 2 },
+      { value: 1 },
+      { value: 2 },
+      { value: 1 },
+      { value: 2 },
+      { value: 1 },
+      { value: 2 },
     ]
 
     const canvas: QsCanvas = qsCreateCanvas({

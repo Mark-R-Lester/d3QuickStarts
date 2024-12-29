@@ -118,7 +118,7 @@ export const getMeta = (
 
   const meta: Meta[] = coordinates.map((d, i) => {
     const scaledColor: string | unknown | undefined = getScaledColor(
-      orientation === Orientation.HORIZONTAL ? d.x : d.y,
+      orientation === Orientation.HORIZONTAL ? d.y : d.x,
       colorScale
     )
     return {

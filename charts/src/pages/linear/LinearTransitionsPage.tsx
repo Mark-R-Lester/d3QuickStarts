@@ -7,6 +7,31 @@ import { LinearLineTransition } from '../../components/atoms/chart/linear/transi
 import { LinearPointsTransition } from '../../components/atoms/chart/linear/transitions/LinearPointsTransition'
 import { LinearAreaTransition } from '../../components/atoms/chart/linear/transitions/LinearAreaTransition'
 import { LinearBarGroupTransition } from '../../components/atoms/chart/linear/transitions/LineaBarGroupTransition'
+import { QsColorScaleData } from 'd3qs/d3QuickStart'
+import { QsEnumColorScale } from 'd3qs/core/qsEnums'
+
+const pointData = [
+  { value: 25 },
+  { value: 10 },
+  { value: 35 },
+  { value: 25 },
+  { value: 35 },
+  { value: 5 },
+  { value: 25 },
+  { value: 25 },
+]
+
+const colorScaleOrdinal: QsColorScaleData = {
+  domain: [1, 100],
+  range: ['lightblue', 'darkblue'],
+  type: QsEnumColorScale.ORDINAL,
+}
+
+const colorScaleSequential: QsColorScaleData = {
+  domain: [1, 50],
+  range: ['orange', 'red'],
+  type: QsEnumColorScale.SEQUENTIAL,
+}
 
 export default function LinearTransitionsPage() {
   const elements: JSX.Element[] = [
@@ -24,7 +49,12 @@ export default function LinearTransitionsPage() {
     />,
     <LinearPointsTransition
       chartName="verticalPointsTransition"
+      data={pointData}
       orientation={EnumOrientation.VERTICAL}
+      config={{
+        radius: 10,
+        colorScaleData: colorScaleOrdinal,
+      }}
     />,
     <LinearBarsTransition
       chartName="horizontalBarTransition"
@@ -41,7 +71,12 @@ export default function LinearTransitionsPage() {
     />,
     <LinearPointsTransition
       chartName="horizontalPointsTransition"
+      data={pointData}
       orientation={EnumOrientation.HORIZONTAL}
+      config={{
+        radius: 10,
+        colorScaleData: colorScaleSequential,
+      }}
     />,
 
     <LinearAreaTransition chartName="AreaTransition" />,

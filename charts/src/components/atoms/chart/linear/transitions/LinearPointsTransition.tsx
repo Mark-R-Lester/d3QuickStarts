@@ -6,27 +6,18 @@ import {
   QsPoints,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../../../common/enums'
-import { OrienetedChartProps } from '../../../../../common/chartProps'
+import { PointChartProps } from '../../../../../common/chartProps'
 import { QsPointData } from 'd3qs/linear/points/types'
 
-export const LinearPointsTransition: FunctionComponent<OrienetedChartProps> = ({
+export const LinearPointsTransition: FunctionComponent<PointChartProps> = ({
   chartName,
+  data,
+  config,
   orientation,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element, setElement] = useState<QsPoints>()
-
   const createChart = () => {
-    const data = [
-      { value: 25 },
-      { value: 10 },
-      { value: 35 },
-      { value: 25 },
-      { value: 35 },
-      { value: 5 },
-      { value: 25 },
-      { value: 25 },
-    ]
     const canvas: QsCanvas = qsCreateCanvas({
       chartName,
       width: 600,
@@ -35,9 +26,9 @@ export const LinearPointsTransition: FunctionComponent<OrienetedChartProps> = ({
     })
     let newElement: QsPoints
     if (orientation === EnumOrientation.VERTICAL) {
-      newElement = qsLinearPointGenerator.vertical(canvas, data)
+      newElement = qsLinearPointGenerator.vertical(canvas, data, config)
     } else {
-      newElement = qsLinearPointGenerator.horizontal(canvas, data)
+      newElement = qsLinearPointGenerator.horizontal(canvas, data, config)
     }
     setElement(newElement)
   }

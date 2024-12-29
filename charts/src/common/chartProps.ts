@@ -65,6 +65,7 @@ export interface LineChartProps extends ChartProps {
 export interface PointChartProps extends ChartProps {
   config?: QsPointsConfig
   data: QsPointData[]
+  orientation: EnumOrientation
 }
 export interface RadialChartProps extends ChartProps {
   config?: QsRadialConfig

@@ -1,4 +1,4 @@
-import { scaleLinear, scaleBand, range, ScaleBand, ScaleLinear } from 'd3'
+import { scaleLinear, scaleBand, range, ScaleLinear } from 'd3'
 import { QsCanvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { DrawArgs, LineConfigStrict } from './types'
@@ -30,19 +30,19 @@ export const getMeta = (
   const xVals: number[] = range(
     0,
     displayAreaWidth,
-    displayAreaWidth / data.length
+    displayAreaWidth / data.data.length
   )
   const yVals: number[] = range(
     0,
     displayAreaHeight,
-    displayAreaHeight / data.length
+    displayAreaHeight / data.data.length
   )
 
   const isVertical = orientation === Orientation.VERTICAL
   const coordinates: QsCoordinate[] = []
   const lineData: [number, number][] = []
 
-  data.forEach((d, i) => {
+  data.data.forEach((d, i) => {
     coordinates.push(isVertical ? { x: d, y: yVals[i] } : { x: xVals[i], y: d })
     lineData.push(isVertical ? [d, yVals[i]] : [xVals[i], d])
   })

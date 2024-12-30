@@ -25,9 +25,9 @@ export const LinearLineTransition: FunctionComponent<OrienetedChartProps> = ({
     })
     let newElement: QsLine
     if (orientation === EnumOrientation.VERTICAL) {
-      newElement = qsLinearLineGenerator.vertical(canvas, data)
+      newElement = qsLinearLineGenerator.vertical(canvas, { data })
     } else {
-      newElement = qsLinearLineGenerator.horizontal(canvas, data)
+      newElement = qsLinearLineGenerator.horizontal(canvas, { data })
     }
     setElement(newElement)
   }
@@ -49,9 +49,9 @@ export const LinearLineTransition: FunctionComponent<OrienetedChartProps> = ({
 
       const transitionData = getVals()
       if (orientation === EnumOrientation.VERTICAL) {
-        if (element) element.transition({ data: transitionData })
+        if (element) element.transition({ data: { data: transitionData } })
       } else {
-        if (element) element.transition({ data: transitionData })
+        if (element) element.transition({ data: { data: transitionData } })
       }
 
       setTimeout(() => setChanged(!changed), 3000)

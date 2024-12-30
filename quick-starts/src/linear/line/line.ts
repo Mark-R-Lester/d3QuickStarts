@@ -1,11 +1,12 @@
 import { line as d3line, Selection } from 'd3'
 import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
-import { DrawArgs, LineConfigStrict } from './types'
+import { DrawArgs, LineConfigStrict, QsLineData } from './types'
 import { Meta, getMeta } from './meta'
 import { Orientation, ScaleType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
+import { applyDefaultColorIfNeeded } from '../../core/color/color'
 
 export interface QsLineConfig {
   [key: string]: QsEnumCurve | undefined
@@ -13,7 +14,7 @@ export interface QsLineConfig {
 }
 
 export interface QsLineTransitionData {
-  data: number[]
+  data: QsLineData
   transitionArgs?: QsTransitionArgs
 }
 
@@ -37,7 +38,7 @@ const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
 
 const horizontal = (
   canvas: QsCanvas,
-  data: number[],
+  data: QsLineData,
   customConfig?: QsLineConfig
 ): QsLine => {
   const args: DrawArgs = {
@@ -51,7 +52,7 @@ const horizontal = (
 
 const vertical = (
   canvas: QsCanvas,
-  data: number[],
+  data: QsLineData,
   customConfig?: QsLineConfig
 ): QsLine => {
   const args: DrawArgs = {
@@ -65,7 +66,7 @@ const vertical = (
 
 const horizontalBanded = (
   canvas: QsCanvas,
-  data: number[],
+  data: QsLineData,
   customConfig?: QsLineConfig
 ): QsLine => {
   const args: DrawArgs = {
@@ -79,7 +80,7 @@ const horizontalBanded = (
 
 const verticalBanded = (
   canvas: QsCanvas,
-  data: number[],
+  data: QsLineData,
   customConfig?: QsLineConfig
 ): QsLine => {
   const args: DrawArgs = {
@@ -104,6 +105,7 @@ const draw = (
   config: LineConfigStrict
 ): QsLine => {
   const { orientation, scaleType } = args
+  const { color } = args.data
   const { curve } = config
   const meta: Meta = getMeta(canvas, args, config)
   const { dataScale, spacingScale, bandingAdjustment, lineData } = meta
@@ -127,8 +129,8 @@ const draw = (
     .attr('class', meta.class)
     .attr('id', meta.id)
     .attr('d', line(lineData))
-    .attr('stroke', 'black')
-    .attr('fill-opacity', '0')
+    .attr('fill', 'none')
+    .attr('stroke', applyDefaultColorIfNeeded({ color }))
 
   const transition = (
     data: QsLineTransitionData,
@@ -141,6 +143,7 @@ const draw = (
       orientation: orientation,
       scaleType: scaleType,
     }
+    const { color: newColor } = data.data
     const meta: Meta = getMeta(canvas, drawArgs, config)
     group
       .selectAll(`.${meta.class}`)
@@ -148,6 +151,7 @@ const draw = (
       .delay(args.delayInMiliSeconds)
       .duration(args.durationInMiliSeconds)
       .attr('d', line(meta.lineData))
+      .attr('stroke', applyDefaultColorIfNeeded({ color, newColor }))
   }
   return {
     element: group.select(`.${meta.class}`),

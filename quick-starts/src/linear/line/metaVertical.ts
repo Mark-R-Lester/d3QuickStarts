@@ -29,7 +29,7 @@ export const getMeta = (
   const coordinates: QsCoordinate[] = []
   const lineData: [number, number][] = []
 
-  data.data.forEach((d, i) => {
+  data.data.reverse().forEach((d, i) => {
     coordinates.push({ x: d, y: yVals[i] })
     lineData.push([d, yVals[i]])
   })

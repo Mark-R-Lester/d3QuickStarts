@@ -51,11 +51,11 @@ export const getMeta = (
     color?: string
   }
   const getCoordinates = (data: QsPointData[]): QsCoordinate[] =>
-    data.map((d, i) =>
-      isVertical
-        ? { x: d.value, y: pointSpacing[i], color: d.color }
+    data.map((d, i) => {
+      return isVertical
+        ? { x: d.value, y: pointSpacing[data.length - i - 1], color: d.color }
         : { x: pointSpacing[i], y: d.value, color: d.color }
-    )
+    })
 
   const coordinates: CoordinateWithColor[] = getCoordinates(data)
 

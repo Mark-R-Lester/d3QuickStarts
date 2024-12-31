@@ -9,9 +9,10 @@ import {
   axisLeft,
   axisRight,
   Axis,
+  ScaleLinear,
 } from 'd3'
 import { toStrings } from '../../core/conversion'
-import { ScaleType } from '../../core/enums/enums'
+import { GlobalDefaults, ScaleType } from '../../core/enums/enums'
 import { QsCanvas } from '../../canvas/canvas'
 import {
   QsEnumAlignmentBaseline,
@@ -24,14 +25,18 @@ import {
 
 export interface QsAxisConfig {
   [key: string]: number | boolean | string | undefined
-  alignmentBaseline?: QsEnumAlignmentBaseline
-  tickSize?: number
+  percentageMovement?: number
+
+  domainColor?: string
+  domainOpacity?: number
+  domainWidth?: number
+  tickColor?: string
+  tickOpacity?: number
+  tickWidth?: number
   tickSizeInner?: number
   tickSizeOuter?: number
   tickPadding?: number
   numberOfTicks?: number
-  hideAxisLine?: boolean
-  percentageMovement?: number
 
   textFont?: QsEnumTextFont | string
   textFontSize?: number
@@ -53,14 +58,18 @@ export interface QsAxis {
 
 interface AxisConfigStrict {
   [key: string]: number | boolean | string | undefined
-  alignmentBaseline: QsEnumAlignmentBaseline
-  tickSize: number
+  percentageMovement: number
+
+  domainColor: string
+  domainOpacity: number
+  domainWidth: number
+  tickColor: string
+  tickOpacity: number
+  tickWidth: number
   tickSizeInner: number
   tickSizeOuter: number
   tickPadding: number
   numberOfTicks: number
-  hideAxisLine: boolean
-  percentageMovement: number
 
   textFont: QsEnumTextFont | string
   textFontSize: number
@@ -86,20 +95,25 @@ interface DrawArgs {
 const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
   const defaults: AxisConfigStrict = {
     alignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-    tickSize: 6,
-    tickSizeInner: 6,
-    tickSizeOuter: 0,
-    tickPadding: 3,
-    numberOfTicks: 0,
-    hideAxisLine: false,
     percentageMovement: 0,
+
+    domainColor: GlobalDefaults.DEFAULT_AXIS_COLOR,
+    domainOpacity: 1,
+    domainWidth: 2,
+    tickColor: GlobalDefaults.DEFAULT_AXIS_COLOR,
+    tickOpacity: 1,
+    tickWidth: 2,
+    tickSizeInner: 2,
+    tickSizeOuter: 2,
+    tickPadding: 1,
+    numberOfTicks: 0,
 
     textFont: QsEnumTextFont.SERIF,
     textFontSize: 10,
     textFontStyle: QsEnumTextFontStyle.NORMAL,
     textFontWeight: QsEnumTextFontWeight.NORMAL,
     textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textFill: 'black',
+    textFill: GlobalDefaults.DEFAULT_AXIS_COLOR,
     textAngle: 0,
     textStroke: '',
     textAnchor: QsEnumTextAnchor.START,
@@ -259,10 +273,13 @@ const draw = (
   } = canvasConfig
   const {
     percentageMovement,
-    textX,
-    textY,
-    hideAxisLine,
-    tickSize,
+
+    domainColor,
+    domainOpacity,
+    domainWidth,
+    tickColor,
+    tickOpacity,
+    tickWidth,
     tickSizeInner,
     tickSizeOuter,
     tickPadding,
@@ -277,29 +294,36 @@ const draw = (
     textFill,
     textDecorationLine,
     textAlignmentBaseline,
+    textX,
+    textY,
   } = config
   const { data, topOrRight, scaleType, isX } = args
   let strings: string[]
   let scale: any
   let axis: Axis<string>
-  let percentRange: number[]
+  let percentScale: ScaleLinear<number, number, never>
 
-  const applyScaleToAxis = (
-    scale: any
-  ): { axis: Axis<string>; percentRange: number[] } => {
+  interface AxisAndPercentScale {
+    axis: Axis<string>
+    percentScale: ScaleLinear<number, number, never>
+  }
+
+  const applyScaleToAxis = (scale: any): AxisAndPercentScale => {
     if (isX) {
+      const percentRange = topOrRight
+        ? [displayAreaHeight, 0]
+        : [0, displayAreaHeight]
       return {
         axis: topOrRight ? axisTop(scale) : axisBottom(scale),
-        percentRange: topOrRight
-          ? [displayAreaHeight, 0]
-          : [0, displayAreaHeight],
+        percentScale: scaleLinear().domain([0, 100]).range(percentRange),
       }
     } else {
+      const percentRange = topOrRight
+        ? [displayAreaWidth, 0]
+        : [0, displayAreaWidth]
       return {
         axis: topOrRight ? axisRight(scale) : axisLeft(scale),
-        percentRange: topOrRight
-          ? [displayAreaWidth, 0]
-          : [0, displayAreaWidth],
+        percentScale: scaleLinear().domain([0, 100]).range(percentRange),
       }
     }
   }
@@ -313,36 +337,35 @@ const draw = (
     scale = scaleBand().domain(strings).range(range)
     const result = applyScaleToAxis(scale)
     axis = result.axis
-    percentRange = result.percentRange
+    percentScale = result.percentScale
   } else {
     if (data.some((d) => typeof d === 'string')) {
       strings = toStrings(data)
       scale = scalePoint().domain(strings).range(range)
       const result = applyScaleToAxis(scale)
       axis = result.axis
-      percentRange = result.percentRange
+      percentScale = result.percentScale
     } else {
       const linerScale = scaleLinear()
         .domain([lowestViewableValue, highestViewableValue])
         .range(range)
       const result = applyScaleToAxis(linerScale)
       axis = result.axis
-      percentRange = result.percentRange
+      percentScale = result.percentScale
     }
   }
 
   const textPercentScale = scaleLinear()
     .domain([0, 100])
     .range([0, displayAreaHeight])
-  const percentScale = scaleLinear().domain([0, 100]).range(percentRange)
 
   const translation = isX
     ? `translate(0, ${displayAreaHeight - percentScale(percentageMovement)})`
     : `translate(${percentScale(percentageMovement)}, 0)`
-  axis.tickSize(tickSize)
-  axis.tickSizeInner(tickSizeInner)
-  axis.tickSizeOuter(tickSizeOuter)
+  axis.tickSizeInner(percentScale(tickSizeInner))
+  axis.tickSizeOuter(percentScale(tickSizeOuter))
   axis.tickPadding(tickPadding)
+
   if (numberOfTicks) axis.ticks(numberOfTicks)
 
   const axisGroup = canvasDisplayGroup
@@ -350,9 +373,21 @@ const draw = (
     .attr('id', 'xAxis')
     .attr('transform', translation)
     .call(axis)
+  console.log(axisGroup.selectChildren())
+
+  axisGroup
+    .select('.domain')
+    .attr('stroke', domainColor)
+    .attr('stroke-width', textPercentScale(domainWidth) / 5)
+    .attr('opacity', domainOpacity)
+  axisGroup
+    .selectAll('.tick')
+    .select('line')
+    .attr('stroke', tickColor)
+    .attr('stroke-width', textPercentScale(tickWidth) / 5)
+    .attr('opacity', tickOpacity)
 
   const axisText = axisGroup.selectAll('text')
-
   axisText
     .attr('font-family', textFont)
     .attr('font-style', textFontStyle)
@@ -367,10 +402,6 @@ const draw = (
     .attr('text-anchor', textAnchor)
     .attr('dy', textY)
     .attr('dx', textX)
-
-  if (hideAxisLine) {
-    axisGroup.select('.domain').remove()
-  }
 
   return { element: axisText }
 }

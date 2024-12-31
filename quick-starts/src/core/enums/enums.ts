@@ -22,4 +22,5 @@ export enum RadialTextType {
 
 export enum GlobalDefaults {
   DEFAULT_COLOR = 'steelblue',
+  DEFAULT_AXIS_COLOR = 'black',
 }

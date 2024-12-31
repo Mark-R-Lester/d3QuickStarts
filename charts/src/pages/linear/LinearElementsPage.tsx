@@ -12,6 +12,7 @@ import { LinearBarStacksElement } from '../../components/atoms/chart/linear/elem
 
 export default function LinearElementsPage() {
   const elements: JSX.Element[] = [
+    <LinearAxisElement chartName="linearAxis" />,
     <LinearBarsElement
       chartName="linearHorizontalBars"
       orientation={EnumOrientation.HORIZONTAL}
@@ -49,7 +50,6 @@ export default function LinearElementsPage() {
     <LinearBarsGroupedElement chartName="linearBarsGroupedVertical" />,
     <LinearBarStacksElement chartName="linearBarsStackedVertical" />,
     <LinearAreaElement chartName="linearArea" />,
-    <LinearAxisElement chartName="linearAxis" />,
   ]
 
   return (

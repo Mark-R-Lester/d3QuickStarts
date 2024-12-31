@@ -1,4 +1,3 @@
-import { QsCanvas } from '../../canvas/canvas'
 import { arc as d3arc, Selection } from 'd3'
 import { Meta, RadialAxisConfigStrict, getMeta } from './meta'
 import {
@@ -9,6 +8,7 @@ import {
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
 } from '../../core/enums/qsEnums'
+import { QsCanvas } from '../../d3QuickStart'
 
 export interface QsRadialAxisConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined

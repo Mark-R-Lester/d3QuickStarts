@@ -1,4 +1,3 @@
-import { QsCanvas } from '../../canvas/canvas'
 import { scaleLinear, scaleOrdinal, ScaleOrdinal, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
@@ -10,6 +9,7 @@ import {
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
 } from '../../core/enums/qsEnums'
+import { QsCanvas } from '../../d3QuickStart'
 
 interface RingData {
   innerRadius: number

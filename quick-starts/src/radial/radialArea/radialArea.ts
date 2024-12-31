@@ -1,4 +1,3 @@
-import { QsCanvas } from '../../canvas/canvas'
 import { areaRadial, Selection } from 'd3'
 import { RadialAreaMetaData } from './types'
 import { Meta, getMeta } from './meta'
@@ -7,6 +6,7 @@ import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
 import { applyDefaultColorIfNeeded } from '../../core/color/color'
+import { QsCanvas } from '../../d3QuickStart'
 
 export interface QsRadialAreaConfig {
   [key: string]: QsEnumCurve | number | undefined | string

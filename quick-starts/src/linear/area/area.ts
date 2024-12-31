@@ -1,12 +1,10 @@
 import { scaleLinear, CurveFactory, area as d3area, Selection } from 'd3'
-import { QsCanvas } from '../../canvas/canvas'
 import { AreaData, getMeta, Meta } from './meta'
-import { QsAreaData } from './types'
-import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { applyDefaultColorIfNeeded } from '../../core/color/color'
-import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
+import { QsAreaData, QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
+import { QsEnumCurve } from '../../core/enums/qsEnums'
 
 export { QsAreaData } from './types'
 export interface QsAreaConfig {

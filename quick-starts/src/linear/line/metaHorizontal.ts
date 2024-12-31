@@ -1,11 +1,4 @@
-import {
-  scaleLinear,
-  scaleBand,
-  range,
-  ScaleLinear,
-  line as d3line,
-  Line,
-} from 'd3'
+import { scaleLinear, scaleBand, range, ScaleLinear, line as d3line } from 'd3'
 import { QsCanvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { DrawArgs, LineConfigStrict, Meta } from './types'

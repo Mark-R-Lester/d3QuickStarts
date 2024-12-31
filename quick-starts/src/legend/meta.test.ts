@@ -1,4 +1,5 @@
 import { getMeta, Meta } from './meta'
+import { getScales } from '../core/getScales'
 import { mockSelection } from '../testObjects/mockSelection'
 import { mockCanvasConfigStrict } from '../testObjects/mockCanvasConfigStrict'
 import { LegendConfigStrict, QsLegendData } from './types'
@@ -12,9 +13,11 @@ import {
   QsEnumTextAnchor,
 } from '../core/enums/qsEnums'
 
+const scales = getScales(mockCanvasConfigStrict)
 const canvas: QsCanvas = {
   config: mockCanvasConfigStrict,
   displayGroup: mockSelection,
+  scales,
 }
 
 const legendConfig: LegendConfigStrict = {

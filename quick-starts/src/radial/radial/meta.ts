@@ -1,4 +1,3 @@
-import { QsCanvas } from '../../canvas/canvas'
 import { scaleLinear, ScaleOrdinal, ScaleLinear, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { QsRadialData, RadialConfigStrict } from './types'
@@ -7,6 +6,7 @@ import {
   getPrecidendedColor,
   getScaledColor,
 } from '../../core/color/color'
+import { QsCanvas } from '../../d3QuickStart'
 
 export interface Meta {
   class: string

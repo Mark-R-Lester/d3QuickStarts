@@ -1,5 +1,5 @@
 import { BaseType, scaleLinear, Selection } from 'd3'
-import { QsCanvas } from '../canvas/canvas'
+
 import { Meta, getMeta } from './meta'
 import { LegendConfigStrict, QsLegendData } from './types'
 import { QsTransitionArgs } from '../core/types/qsTypes'
@@ -11,6 +11,7 @@ import {
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from '../core/enums/qsEnums'
+import { QsCanvas } from '../d3QuickStart'
 export { QsLegendData } from './types'
 
 export interface QsLegend {

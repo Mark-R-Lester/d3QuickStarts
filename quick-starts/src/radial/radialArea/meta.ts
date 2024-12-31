@@ -1,7 +1,7 @@
-import { QsCanvas } from '../../canvas/canvas'
 import { ScaleLinear, scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { RadialAreaMetaData } from './types'
+import { QsCanvas } from '../../d3QuickStart'
 
 export interface Meta {
   class: string

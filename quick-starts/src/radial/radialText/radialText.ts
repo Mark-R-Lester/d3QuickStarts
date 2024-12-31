@@ -1,4 +1,3 @@
-import { QsCanvas } from '../../canvas/canvas'
 import { arc as d3arc, interpolate, Selection } from 'd3'
 import { QsValuedText, RadialTextConfigStrict } from './types'
 import { BandData, Meta, getMeta, updateMeta } from './meta'
@@ -13,6 +12,7 @@ import {
 } from '../../core/enums/qsEnums'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { getRotationFunction } from './textRotation'
+import { QsCanvas } from '../../d3QuickStart'
 
 export { QsValuedText } from './types'
 

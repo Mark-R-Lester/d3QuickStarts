@@ -1,5 +1,6 @@
-import { Selection, select } from 'd3'
+import { CanvasScales, getScales } from '../core/getScales'
 import { CanvasConfigStrict } from './types'
+import { ScaleLinear, Selection, scaleLinear, select } from 'd3'
 
 export interface CanvasConfig {
   [key: string]: string | number | undefined
@@ -18,10 +19,13 @@ export interface CanvasConfig {
 export interface QsCanvas {
   displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
   config: CanvasConfigStrict
+  scales: CanvasScales
 }
 
-export function qsCreateCanvas(newConfig?: CanvasConfig): QsCanvas {
-  const config: CanvasConfigStrict = {
+const addDefaultsToConfig = (
+  customConfig?: CanvasConfig
+): CanvasConfigStrict => {
+  const defaults: CanvasConfigStrict = {
     chartName: '',
     width: 500,
     height: 70,
@@ -35,9 +39,16 @@ export function qsCreateCanvas(newConfig?: CanvasConfig): QsCanvas {
     displayAreaHeight: 0,
     displayAreaWidth: 0,
   }
-  if (newConfig) {
-    Object.keys(newConfig).forEach((key) => (config[key] = newConfig[key]))
-  }
+  if (!customConfig) return defaults
+
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
+}
+
+export function qsCreateCanvas(customConfig?: CanvasConfig): QsCanvas {
+  const config: CanvasConfigStrict = addDefaultsToConfig(customConfig)
 
   const element = document.getElementById(config.chartName)
   if (element) element.innerHTML = ''
@@ -91,5 +102,6 @@ const draw = (chartName: string, config: CanvasConfigStrict): QsCanvas => {
   }
 
   const displayGroup = createDisplayGroup(createSVG(chartName))
-  return { displayGroup, config }
+  const scales = getScales(config)
+  return { displayGroup, config, scales }
 }

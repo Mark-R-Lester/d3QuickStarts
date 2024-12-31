@@ -1,5 +1,5 @@
-import { QsCanvas } from '../../canvas/canvas'
 import { v4 as uuidv4 } from 'uuid'
+import { QsCanvas } from '../../d3QuickStart'
 
 export interface Meta {
   class: string

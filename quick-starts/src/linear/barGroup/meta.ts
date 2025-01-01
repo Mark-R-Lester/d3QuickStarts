@@ -7,7 +7,7 @@ import {
   ScaleOrdinal,
   Series,
 } from 'd3'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
 import { BarData, BarGroupConfigStrict } from './types'
@@ -19,7 +19,7 @@ export interface Meta {
 }
 
 export const getMeta = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: number[][],
   config: BarGroupConfigStrict
 ): Meta[] => {

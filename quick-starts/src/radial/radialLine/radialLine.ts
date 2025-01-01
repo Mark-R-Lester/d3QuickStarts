@@ -1,6 +1,6 @@
 import { lineRadial, Selection } from 'd3'
 import { Meta, getMeta } from './meta'
-import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
+import { Canvas, QsTransitionArgs } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
@@ -55,7 +55,7 @@ const addDefaultsToConfig = (
 }
 
 const line = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsRadialLineData,
   customConfig?: QsRadialLineConfig
 ): QsRadialLine => {
@@ -69,7 +69,7 @@ export const qsRadialLineGenerator = {
 }
 
 const draw = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: RadialLineConfigStrict
 ): QsRadialLine => {

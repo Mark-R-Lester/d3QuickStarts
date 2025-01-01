@@ -1,11 +1,5 @@
 import { FunctionComponent, useEffect, useState } from 'react'
-import {
-  QsCanvas,
-  qsCreateCanvas,
-  qsLinearBarGenerator,
-  QsBars,
-  QsBarData,
-} from 'd3qs/d3QuickStart'
+import { QsCanvas, qsCreateCanvas, QsBars, QsBarData } from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 import { QsEnumColorScale } from 'd3qs/core/qsEnums'
@@ -50,7 +44,7 @@ export const LinearBarsFloatingTransition: FunctionComponent<
 
       let newBars
       if (orientation === EnumOrientation.VERTICAL) {
-        newBars = qsLinearBarGenerator.vertical(canvas, data, {
+        newBars = canvas.generate.linear.vertical.bars(data, {
           colorScaleData: {
             range: ['green', 'orange', 'red'],
             domain: [1, 70],
@@ -58,7 +52,7 @@ export const LinearBarsFloatingTransition: FunctionComponent<
           },
         })
       } else {
-        newBars = qsLinearBarGenerator.horizontal(canvas, data, {
+        newBars = canvas.generate.linear.horizontal.bars(data, {
           colorScaleData: {
             range: ['lightblue', 'steelblue', 'blue', 'darkblue'],
             domain: [1, 70],

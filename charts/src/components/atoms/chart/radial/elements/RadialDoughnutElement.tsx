@@ -2,7 +2,6 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   qsCreateCanvas,
-  qsRadialGenerator,
   QsRadialData,
   QsRadialConfig,
 } from 'd3qs/d3QuickStart'
@@ -46,8 +45,7 @@ export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
       lowestViewableValue: 0,
       highestViewableValue: 250,
     })
-
-    qsRadialGenerator.radial(canvas, data, config)
+    canvas.generate.radial.radial(data, config)
   }
 
   useEffect(() => {

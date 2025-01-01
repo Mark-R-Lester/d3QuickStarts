@@ -1,7 +1,7 @@
 import { scaleLinear, Selection, line as d3line } from 'd3'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { qsFindMaxCoordinateX, qsFindMaxCoordinateY } from '../../core/max'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
 
@@ -40,7 +40,7 @@ const addDefaultsToConfig = (
 }
 
 const line = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsCoordinate[],
   customConfig?: QsLinePlotConfig
 ): QsLinePlot => {
@@ -54,7 +54,7 @@ export const qsPlottedLineGenerator = {
 }
 
 const draw = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: LinePlotConfigStrict
 ): QsLinePlot => {

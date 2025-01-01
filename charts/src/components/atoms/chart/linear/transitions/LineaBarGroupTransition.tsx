@@ -58,8 +58,8 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
       highestViewableValue: qsFindMaxSum(dataMax),
     })
 
-    let grouped = qsLinearBarGroupGenerator.group(canvas, dataMax)
-    let stacked = qsLinearBarStackGenerator.stack(canvas, dataMin)
+    let grouped = canvas.generate.linear.horizontal.barGroup(dataMax)
+    let stacked = canvas.generate.linear.horizontal.barStack(dataMin)
 
     setGrouped(grouped)
     setStacked(stacked)

@@ -6,7 +6,7 @@ import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
 import { applyDefaultColorIfNeeded } from '../../core/color/color'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 
 export interface QsRadialAreaConfig {
   [key: string]: QsEnumCurve | number | undefined | string
@@ -65,7 +65,7 @@ const addDefaultsToConfig = (
 }
 
 const area = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsRadialAreaData,
   customConfig?: QsRadialAreaConfig
 ): QsRadialArea => {
@@ -81,7 +81,7 @@ export const qsRadialAreaGenerator = {
 }
 
 const draw = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: RadialAreaConfigStrict
 ): QsRadialArea => {

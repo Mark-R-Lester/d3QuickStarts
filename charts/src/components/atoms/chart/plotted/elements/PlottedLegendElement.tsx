@@ -1,10 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import {
-  QsCanvas,
-  qsCreateCanvas,
-  QsLegendData,
-  qsLegendGenerator,
-} from 'd3qs/d3QuickStart'
+import { QsCanvas, qsCreateCanvas, QsLegendData } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 import {
   QsEnumAlignmentBaseline,
@@ -33,7 +28,7 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 250,
     })
 
-    qsLegendGenerator.legend(canvas, data, {
+    canvas.generate.plotted.legend(data, {
       x: 0,
       y: 0,
       height: 1,

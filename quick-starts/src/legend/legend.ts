@@ -11,7 +11,7 @@ import {
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from '../core/enums/qsEnums'
-import { QsCanvas } from '../d3QuickStart'
+import { Canvas } from '../d3QuickStart'
 export { QsLegendData } from './types'
 
 export interface QsLegend {
@@ -71,9 +71,9 @@ const addDefaultsToConfig = (
 }
 
 const legend = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsLegendData[],
-  customConfig: QsLegendConfig
+  customConfig?: QsLegendConfig
 ): QsLegend => {
   const config: LegendConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = { data }
@@ -84,7 +84,7 @@ export const qsLegendGenerator = {
   legend,
 }
 
-const draw = (canvas: QsCanvas, args: DrawArgs, config: LegendConfigStrict) => {
+const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfigStrict) => {
   const { displayAreaHeight } = canvas.config
   const { data } = args
   const percentScale = scaleLinear()

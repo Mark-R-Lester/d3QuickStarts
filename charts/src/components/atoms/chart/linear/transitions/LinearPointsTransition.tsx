@@ -1,10 +1,5 @@
 import { FunctionComponent, useEffect, useState } from 'react'
-import {
-  QsCanvas,
-  qsCreateCanvas,
-  qsLinearPointGenerator,
-  QsPoints,
-} from 'd3qs/d3QuickStart'
+import { QsCanvas, qsCreateCanvas, QsPoints } from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../../../common/enums'
 import { PointChartProps } from '../../../../../common/chartProps'
 import { QsPointData } from 'd3qs/linear/points/types'
@@ -26,9 +21,9 @@ export const LinearPointsTransition: FunctionComponent<PointChartProps> = ({
     })
     let newElement: QsPoints
     if (orientation === EnumOrientation.VERTICAL) {
-      newElement = qsLinearPointGenerator.vertical(canvas, data, config)
+      newElement = canvas.generate.linear.vertical.points(data, config)
     } else {
-      newElement = qsLinearPointGenerator.horizontal(canvas, data, config)
+      newElement = canvas.generate.linear.horizontal.points(data, config)
     }
     setElement(newElement)
   }

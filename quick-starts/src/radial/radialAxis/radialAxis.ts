@@ -8,7 +8,7 @@ import {
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
 } from '../../core/enums/qsEnums'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 
 export interface QsRadialAxisConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
@@ -74,7 +74,7 @@ const addDefaultsToConfig = (
 }
 
 const rings = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: number[],
   customConfig?: QsRadialAxisConfig
 ): QsRadialAxis => {
@@ -88,7 +88,7 @@ export const qsRadialAxisGenerator = {
 }
 
 const draw = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: RadialAxisConfigStrict
 ): QsRadialAxis => {

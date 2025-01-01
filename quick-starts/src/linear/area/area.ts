@@ -3,7 +3,7 @@ import { AreaData, getMeta, Meta } from './meta'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { applyDefaultColorIfNeeded } from '../../core/color/color'
 import { constantsCurves } from '../../core/constants/constants'
-import { QsAreaData, QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
+import { QsAreaData, Canvas, QsTransitionArgs } from '../../d3QuickStart'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 
 export { QsAreaData } from './types'
@@ -46,7 +46,7 @@ const addDefaultsToConfig = (customConfig?: QsAreaConfig): AreaConfigStrict => {
 }
 
 const horizontal = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsAreaData,
   customConfig?: QsAreaConfig
 ): QsArea => {
@@ -62,7 +62,7 @@ export const qsLinearAreaGenerator = {
 }
 
 function draw(
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: AreaConfigStrict
 ): QsArea {

@@ -9,7 +9,7 @@ import {
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
 } from '../../core/enums/qsEnums'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 
 interface RingData {
   innerRadius: number
@@ -52,7 +52,7 @@ export interface RadialAxisConfigStrict {
 }
 
 export const getMeta = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: number[],
   config: RadialAxisConfigStrict
 ): Meta[] => {

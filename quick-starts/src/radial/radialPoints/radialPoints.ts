@@ -1,10 +1,6 @@
 import { getMeta, Meta } from './meta'
 import { Selection, scaleLinear } from 'd3'
-import {
-  QsCanvas,
-  QsColorScaleData,
-  QsTransitionArgs,
-} from '../../d3QuickStart'
+import { Canvas, QsColorScaleData, QsTransitionArgs } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsRadialPointData, RadialPointsConfigStrict } from './types'
 import { GlobalDefaults } from '../../core/enums/enums'
@@ -53,7 +49,7 @@ const addDefaultsToConfig = (
 }
 
 const points = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsRadialPointData[],
   customConfig?: QsRadialPointsConfig
 ): QsRadialPoints => {
@@ -67,7 +63,7 @@ export const qsRadialPointGenerator = {
 }
 
 const draw = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: RadialPointsConfigStrict
 ): QsRadialPoints => {

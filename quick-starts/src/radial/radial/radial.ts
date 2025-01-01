@@ -4,7 +4,7 @@ import { Meta, getMeta, updateMeta } from './meta'
 import { QsColorScaleData, QsTransitionArgs } from '../../core/types/qsTypes'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { GlobalDefaults } from '../../core/enums/enums'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 
 export { QsRadialData } from './types'
 
@@ -58,7 +58,7 @@ const addDefaultsToConfig = (
 }
 
 const radial = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsRadialData[],
   customConfig?: QsRadialConfig
 ): QsRadial => {
@@ -72,7 +72,7 @@ export const qsRadialGenerator = {
 }
 
 const draw = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: RadialConfigStrict
 ): QsRadial => {

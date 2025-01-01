@@ -6,7 +6,7 @@ import {
   getPrecidendedColor,
   getScaledColor,
 } from '../../core/color/color'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 
 export interface Meta {
   id: string
@@ -16,7 +16,7 @@ export interface Meta {
 }
 
 export const getMeta = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsRadialPointData[],
   config: RadialPointsConfigStrict
 ): Meta[] => {

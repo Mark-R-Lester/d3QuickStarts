@@ -1,9 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import {
-  QsCanvas,
-  qsCreateCanvas,
-  qsLinearAreaGenerator,
-} from 'd3qs/d3QuickStart'
+import { QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 import { QsEnumCurve } from 'd3qs/core/enums/qsEnums'
 
@@ -21,16 +17,15 @@ export const LinearAreaElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 250,
     })
 
-    qsLinearAreaGenerator
-      .horizontal(
-        canvas,
+    canvas.generate.linear.horizontal
+      .area(
         { higherData: data1, color: 'blue' },
         { curve: QsEnumCurve.MONOTONE_X }
       )
       .element.attr('fill-opacity', '0.5')
-    qsLinearAreaGenerator
-      .horizontal(
-        canvas,
+
+    canvas.generate.linear.horizontal
+      .area(
         { higherData: data2, lowerData: data1, color: 'red' },
         { curve: QsEnumCurve.MONOTONE_X }
       )

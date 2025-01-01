@@ -1,5 +1,5 @@
 import { scaleLinear } from 'd3'
-import { QsCanvas, QsLegendData } from '../d3QuickStart'
+import { Canvas, QsLegendData } from '../d3QuickStart'
 import { LegendConfigStrict } from './types'
 
 export interface Meta {
@@ -14,7 +14,7 @@ export interface Meta {
 }
 
 export const getMeta = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsLegendData[],
   config: LegendConfigStrict
 ): Meta[] => {

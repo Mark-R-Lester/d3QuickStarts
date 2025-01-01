@@ -21,7 +21,7 @@ import {
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from '../../core/enums/qsEnums'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 
 export interface QsAxisConfig {
   [key: string]: number | boolean | string | undefined
@@ -129,7 +129,7 @@ const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
   return defaults
 }
 const xAxisTop = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -144,7 +144,7 @@ const xAxisTop = (
 }
 
 const xAxisBottom = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -159,7 +159,7 @@ const xAxisBottom = (
 }
 
 const xAxisBottomBanded = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -174,7 +174,7 @@ const xAxisBottomBanded = (
 }
 
 const xAxisTopBanded = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -189,7 +189,7 @@ const xAxisTopBanded = (
 }
 
 const yAxisLeft = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -204,7 +204,7 @@ const yAxisLeft = (
 }
 
 const yAxisRight = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -219,7 +219,7 @@ const yAxisRight = (
 }
 
 const yAxisLeftBanded = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -234,7 +234,7 @@ const yAxisLeftBanded = (
 }
 
 const yAxisRightBanded = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: string[] | number[],
   customConfig?: QsAxisConfig
 ): QsAxis => {
@@ -260,7 +260,7 @@ export const qsLinearAxisGenerator = {
 }
 
 const draw = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: AxisConfigStrict
 ): QsAxis => {

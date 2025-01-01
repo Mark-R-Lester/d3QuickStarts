@@ -1,5 +1,5 @@
 import { scaleLinear, Selection } from 'd3'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 import {
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
@@ -75,7 +75,7 @@ const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
 }
 
 const text = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsTextArgs[],
   customConfig?: QsTextConfig
 ): QsText => {
@@ -89,7 +89,7 @@ export const qsPlottedTextGenerator = {
 }
 
 const draw = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: TextConfigStrict
 ): QsText => {

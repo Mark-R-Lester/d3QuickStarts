@@ -3,7 +3,6 @@ import {
   QsCanvas,
   QsCoordinateEnhanced,
   qsCreateCanvas,
-  qsPlottedPointGenerator,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
@@ -11,7 +10,7 @@ export const PlottedPointsEnhancedElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
   const createChart = () => {
-    const data1: QsCoordinateEnhanced[] = [
+    const data: QsCoordinateEnhanced[] = [
       { x: 15, y: 10, radius: 10, opacity: 10 },
       { x: 20, y: 30, radius: 50, opacity: 10 },
       { x: 40, y: 26, radius: 30, opacity: 10 },
@@ -27,7 +26,7 @@ export const PlottedPointsEnhancedElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 156,
     })
 
-    qsPlottedPointGenerator.points(canvas, data1)
+    canvas.generate.plotted.points(data)
   }
 
   useEffect(() => {

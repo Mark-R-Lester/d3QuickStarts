@@ -1,10 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import {
-  QsCanvas,
-  QsCoordinate,
-  qsCreateCanvas,
-  qsPlottedLineGenerator,
-} from 'd3qs/d3QuickStart'
+import { QsCanvas, QsCoordinate, qsCreateCanvas } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const PlottedLineElement: FunctionComponent<ChartProps> = ({
@@ -27,7 +22,7 @@ export const PlottedLineElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 156,
     })
 
-    qsPlottedLineGenerator.line(canvas, data1)
+    canvas.generate.plotted.line(data1)
   }
 
   useEffect(() => {

@@ -1,9 +1,5 @@
 import { Selection } from 'd3'
-import {
-  QsCanvas,
-  QsColorScaleData,
-  QsTransitionArgs,
-} from '../../d3QuickStart'
+import { Canvas, QsColorScaleData, QsTransitionArgs } from '../../d3QuickStart'
 import { getMeta, Meta } from './meta'
 import { DrawArgs, QsBarConfigStrict, QsBarData } from './types'
 import { GlobalDefaults, Orientation } from '../../core/enums/enums'
@@ -43,7 +39,7 @@ const addDefaultsToConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
   return defauls
 }
 const horizontal = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsBarData[],
   customConfig?: QsBarConfig
 ): QsBars => {
@@ -53,7 +49,7 @@ const horizontal = (
 }
 
 const vertical = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsBarData[],
   customConfig?: QsBarConfig
 ): QsBars => {
@@ -68,7 +64,7 @@ export const qsLinearBarGenerator = {
 }
 
 const draw = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: QsBarConfigStrict
 ): QsBars => {

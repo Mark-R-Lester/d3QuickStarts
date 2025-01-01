@@ -2,7 +2,7 @@ import { scaleLinear, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { QsValuedText, RadialTextConfigStrict } from './types'
 import { ScaleType } from '../../core/enums/enums'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 
 export interface Meta {
   arcClass: string
@@ -30,7 +30,7 @@ export interface BandData {
 }
 
 export const updateMeta = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsValuedText[],
   config: RadialTextConfigStrict,
   scaleType: ScaleType,
@@ -49,7 +49,7 @@ export const updateMeta = (
 }
 
 export const getMeta = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsValuedText[],
   config: RadialTextConfigStrict,
   scaleType: ScaleType

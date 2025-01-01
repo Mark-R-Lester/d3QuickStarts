@@ -1,6 +1,8 @@
 import { CanvasScales, getScales } from '../core/getScales'
+import { getGenerators, QsGenerator } from './generators'
 import { CanvasConfigStrict } from './types'
-import { ScaleLinear, Selection, scaleLinear, select } from 'd3'
+import { Selection, select } from 'd3'
+export { QsGenerator } from './generators'
 
 export interface CanvasConfig {
   [key: string]: string | number | undefined
@@ -17,6 +19,12 @@ export interface CanvasConfig {
 }
 
 export interface QsCanvas {
+  displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
+  config: CanvasConfigStrict
+  generate: QsGenerator
+}
+
+export interface Canvas {
   displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
   config: CanvasConfigStrict
   scales: CanvasScales
@@ -103,5 +111,7 @@ const draw = (chartName: string, config: CanvasConfigStrict): QsCanvas => {
 
   const displayGroup = createDisplayGroup(createSVG(chartName))
   const scales = getScales(config)
-  return { displayGroup, config, scales }
+  const canvas: Canvas = { displayGroup, config, scales }
+  const generate: QsGenerator = getGenerators(canvas)
+  return { displayGroup, config, generate }
 }

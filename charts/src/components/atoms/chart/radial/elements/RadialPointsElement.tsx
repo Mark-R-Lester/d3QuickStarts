@@ -1,9 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import {
-  QsCanvas,
-  qsCreateCanvas,
-  qsRadialPointGenerator,
-} from 'd3qs/d3QuickStart'
+import { QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 import { QsRadialPointData } from 'd3qs/radial/radialPoints/types'
 
@@ -41,7 +37,7 @@ export const RadialPointsElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 2,
     })
 
-    qsRadialPointGenerator.points(canvas, data)
+    canvas.generate.radial.points(data)
   }
 
   useEffect(() => {

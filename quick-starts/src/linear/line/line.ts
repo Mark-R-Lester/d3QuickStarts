@@ -1,6 +1,6 @@
 import { Orientation, ScaleType } from '../../core/enums/enums'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 import {
   QsLineData,
   QsLineConfig,
@@ -29,7 +29,7 @@ const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
 }
 
 export const vertical = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsLineData,
   customConfig?: QsLineConfig
 ): QsLine => {
@@ -43,7 +43,7 @@ export const vertical = (
 }
 
 export const verticalBanded = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsLineData,
   customConfig?: QsLineConfig
 ): QsLine => {
@@ -57,7 +57,7 @@ export const verticalBanded = (
 }
 
 export const horizontal = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsLineData,
   customConfig?: QsLineConfig
 ): QsLine => {
@@ -71,7 +71,7 @@ export const horizontal = (
 }
 
 export const horizontalBanded = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsLineData,
   customConfig?: QsLineConfig
 ): QsLine => {
@@ -92,7 +92,7 @@ export const qsLinearLineGenerator = {
 }
 
 export const draw = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: LineConfigStrict
 ): QsLine => {

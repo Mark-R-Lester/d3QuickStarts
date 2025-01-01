@@ -1,10 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import {
-  QsCanvas,
-  qsCreateCanvas,
-  qsRadialTextGenerator,
-  QsValuedText,
-} from 'd3qs/d3QuickStart'
+import { QsCanvas, qsCreateCanvas, QsValuedText } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 import {
   QsEnumTextAnchor,
@@ -18,7 +13,7 @@ export const RadialTextFollowElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
   const createChart = () => {
-    const data1: QsValuedText[] = [
+    const data: QsValuedText[] = [
       {
         value: 10,
         text: 'Ten',
@@ -48,7 +43,7 @@ export const RadialTextFollowElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 250,
     })
 
-    qsRadialTextGenerator.follow(canvas, data1, {
+    canvas.generate.radial.text.follow(data, {
       radius: 100,
       x: 50,
       y: 50,

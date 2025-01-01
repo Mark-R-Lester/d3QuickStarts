@@ -12,7 +12,7 @@ import {
 } from '../../core/enums/qsEnums'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { getRotationFunction } from './textRotation'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 
 export { QsValuedText } from './types'
 
@@ -91,7 +91,7 @@ const addDefaultsToConfig = (
 }
 
 const spoke = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -108,7 +108,7 @@ const spoke = (
 }
 
 const horizontal = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -125,7 +125,7 @@ const horizontal = (
 }
 
 const rotated = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -142,7 +142,7 @@ const rotated = (
 }
 
 const follow = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -159,7 +159,7 @@ const follow = (
 }
 
 const spokeBanded = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -176,7 +176,7 @@ const spokeBanded = (
 }
 
 const horizontalBanded = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -193,7 +193,7 @@ const horizontalBanded = (
 }
 
 const rotatedBanded = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -210,7 +210,7 @@ const rotatedBanded = (
 }
 
 const followBanded = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsValuedText[],
   customConfig?: QsRadialTextConfig
 ): QsRadialText => {
@@ -238,7 +238,7 @@ export const qsRadialTextGenerator = {
 }
 
 const draw = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: RadialTextConfigStrict
 ): QsRadialText => {

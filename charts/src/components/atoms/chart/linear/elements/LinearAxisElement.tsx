@@ -1,9 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import {
-  QsCanvas,
-  qsCreateCanvas,
-  qsLinearAxisGenerator,
-} from 'd3qs/d3QuickStart'
+import { QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 import {
   QsEnumAlignmentBaseline,
@@ -27,7 +23,7 @@ export const LinearAxisElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 200,
     })
 
-    qsLinearAxisGenerator.yAxisLeft(canvas, data2, {
+    canvas.generate.linear.vertical.axis.left(data2, {
       tickSizeInner: -100,
       tickSizeOuter: 1,
       tickPadding: 2,
@@ -47,7 +43,7 @@ export const LinearAxisElement: FunctionComponent<ChartProps> = ({
       textX: -20,
       textY: 0,
     })
-    qsLinearAxisGenerator.xAxisBottomBanded(canvas, data1, {
+    canvas.generate.linear.horizontal.axis.bottomBanded(data1, {
       tickSizeInner: 2,
       tickSizeOuter: 0,
       tickPadding: 0,

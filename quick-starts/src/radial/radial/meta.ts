@@ -6,7 +6,7 @@ import {
   getPrecidendedColor,
   getScaledColor,
 } from '../../core/color/color'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 
 export interface Meta {
   class: string
@@ -31,7 +31,7 @@ export interface ArcData {
 }
 
 export const updateMeta = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsRadialData[],
   config: RadialConfigStrict,
   meta: Meta[]
@@ -47,7 +47,7 @@ export const updateMeta = (
 }
 
 export const getMeta = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: QsRadialData[],
   config: RadialConfigStrict
 ): Meta[] => {

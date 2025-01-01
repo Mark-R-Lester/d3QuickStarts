@@ -1,10 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import {
-  QsCanvas,
-  qsCreateCanvas,
-  qsPlottedTextGenerator,
-  QsTextArgs,
-} from 'd3qs/d3QuickStart'
+import { QsCanvas, qsCreateCanvas, QsTextArgs } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 import {
   QsEnumTextFont,
@@ -26,7 +21,7 @@ export const PlottedTextElement: FunctionComponent<ChartProps> = ({
     const data: QsTextArgs[] = [
       { x: 0, y: 0, text: 'Text with no config uses defaults' },
     ]
-    qsPlottedTextGenerator.text(canvas, data)
+    canvas.generate.plotted.text(data)
 
     const data1: QsTextArgs[] = [
       { x: 0, y: 10, text: 'Three pieces of' },
@@ -34,7 +29,7 @@ export const PlottedTextElement: FunctionComponent<ChartProps> = ({
       { x: 30, y: 30, text: 'utilise on the same config' },
     ]
 
-    qsPlottedTextGenerator.text(canvas, data1, {
+    canvas.generate.plotted.text(data1, {
       textFont: QsEnumTextFont.FANTASY,
       textFontSize: 10,
       textFontStyle: QsEnumTextFontStyle.ITALIC,
@@ -44,7 +39,7 @@ export const PlottedTextElement: FunctionComponent<ChartProps> = ({
     const data2: QsTextArgs[] = [
       { x: 0, y: 50, text: 'Text in separate call uses separate config' },
     ]
-    qsPlottedTextGenerator.text(canvas, data2, {
+    canvas.generate.plotted.text(data2, {
       textFont: QsEnumTextFont.HELVETICA,
       textFontSize: 7,
       textFontWeight: QsEnumTextFontWeight.BOLD,

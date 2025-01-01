@@ -3,7 +3,7 @@ import { BarGroupConfigStrict } from './types'
 import { Meta, getMeta } from './meta'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 
 export interface QsBarGroupConfig {
   [key: string]: number | Iterable<String> | undefined
@@ -43,7 +43,7 @@ const addDefaultsToConfig = (
 }
 
 const group = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: number[][],
   customConfig?: QsBarGroupConfig
 ): QsBarGroups => {
@@ -57,7 +57,7 @@ export const qsLinearBarGroupGenerator = {
 }
 
 const draw = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: BarGroupConfigStrict
 ): QsBarGroups => {

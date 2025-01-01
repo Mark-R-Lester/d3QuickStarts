@@ -1,10 +1,5 @@
 import { FunctionComponent, useEffect, useState } from 'react'
-import {
-  QsCanvas,
-  qsCreateCanvas,
-  qsLinearLineGenerator,
-  QsLine,
-} from 'd3qs/d3QuickStart'
+import { QsCanvas, qsCreateCanvas, QsLine } from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 
@@ -25,9 +20,9 @@ export const LinearLineTransition: FunctionComponent<OrienetedChartProps> = ({
     })
     let newElement: QsLine
     if (orientation === EnumOrientation.VERTICAL) {
-      newElement = qsLinearLineGenerator.vertical(canvas, { data })
+      newElement = canvas.generate.linear.vertical.line({ data })
     } else {
-      newElement = qsLinearLineGenerator.horizontal(canvas, { data })
+      newElement = canvas.generate.linear.horizontal.line({ data })
     }
     setElement(newElement)
   }

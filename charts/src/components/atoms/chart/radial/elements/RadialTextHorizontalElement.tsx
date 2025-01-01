@@ -1,15 +1,8 @@
 import { FunctionComponent, useEffect } from 'react'
-import {
-  QsCanvas,
-  qsCreateCanvas,
-  qsRadialTextGenerator,
-  QsValuedText,
-} from 'd3qs/d3QuickStart'
+import { QsCanvas, qsCreateCanvas, QsValuedText } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 import {
-  QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
-  QsEnumTextDecorationLine,
   QsEnumTextFont,
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
@@ -19,7 +12,7 @@ export const RadialTextHorizontalElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
   const createChart = () => {
-    const data1: QsValuedText[] = [
+    const data: QsValuedText[] = [
       {
         value: 10,
         text: 'Ten',
@@ -49,7 +42,7 @@ export const RadialTextHorizontalElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 250,
     })
 
-    qsRadialTextGenerator.horizontal(canvas, data1, {
+    canvas.generate.radial.text.horizontal(data, {
       radius: 100,
       x: 50,
       y: 50,

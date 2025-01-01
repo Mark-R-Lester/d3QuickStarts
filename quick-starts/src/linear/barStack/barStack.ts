@@ -1,7 +1,7 @@
 import { schemePurples, Selection } from 'd3'
 import { BarStackedConfigStrict } from './types'
 import { Meta, getMeta } from './meta'
-import { QsCanvas, QsTransitionArgs } from '../../d3QuickStart'
+import { Canvas, QsTransitionArgs } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export interface QsBarStackedConfig {
@@ -42,7 +42,7 @@ const addDefaultsToConfig = (
 }
 
 const stack = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: number[][],
   customConfig?: QsBarStackedConfig
 ): QsBarStack => {
@@ -56,7 +56,7 @@ export const qsLinearBarStackGenerator = {
 }
 
 const draw = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: BarStackedConfigStrict
 ): QsBarStack => {

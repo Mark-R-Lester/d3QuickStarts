@@ -1,6 +1,6 @@
 import { scaleLinear, ScaleLinear } from 'd3'
 import { QsRadialLineData } from './types'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 
 export interface Meta {
   class: string
@@ -10,7 +10,7 @@ export interface Meta {
   yAxis: ScaleLinear<number, number, never>
 }
 
-export const getMeta = (canvas: QsCanvas, lineData: QsRadialLineData): Meta => {
+export const getMeta = (canvas: Canvas, lineData: QsRadialLineData): Meta => {
   const {
     lowestViewableValue,
     highestViewableValue,

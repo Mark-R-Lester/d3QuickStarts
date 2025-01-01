@@ -1,17 +1,9 @@
 import { FunctionComponent, useEffect } from 'react'
-import {
-  QsCanvas,
-  qsCreateCanvas,
-  qsRadialTextGenerator,
-  QsValuedText,
-} from 'd3qs/d3QuickStart'
+import { QsCanvas, qsCreateCanvas, QsValuedText } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 import {
-  QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
-  QsEnumTextDecorationLine,
   QsEnumTextFont,
-  QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from 'd3qs/core/qsEnums'
 
@@ -19,7 +11,7 @@ export const RadialTextRotatedElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
   const createChart = () => {
-    const data1: QsValuedText[] = [
+    const data: QsValuedText[] = [
       {
         value: 10,
         text: 'Ten',
@@ -49,7 +41,7 @@ export const RadialTextRotatedElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 250,
     })
 
-    qsRadialTextGenerator.rotated(canvas, data1, {
+    canvas.generate.radial.text.rotated(data, {
       radius: 115,
       x: 50,
       y: 50,

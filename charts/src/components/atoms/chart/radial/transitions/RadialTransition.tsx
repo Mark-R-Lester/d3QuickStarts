@@ -4,7 +4,6 @@ import {
   qsCreateCanvas,
   QsRadial,
   QsValuedText,
-  qsRadialGenerator,
 } from 'd3qs/d3QuickStart'
 import { RadialChartProps } from '../../../../../common/chartProps'
 
@@ -23,8 +22,9 @@ export const RadialTransition: FunctionComponent<RadialChartProps> = ({
       lowestViewableValue: 0,
       highestViewableValue: 40,
     })
-
-    setElement(qsRadialGenerator.radial(canvas, data, config))
+    const { generate } = canvas
+    setElement(generate.radial.radial(data, config))
+    // setElement(qsRadialGenerator.radial(canvas, data, config))
   }
 
   useEffect(() => {

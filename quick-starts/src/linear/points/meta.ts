@@ -5,7 +5,7 @@ import {
   ScaleOrdinal,
   ScaleSequential,
 } from 'd3'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 import { DrawArgs, PointsConfigStrict, QsPointData } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation, ScaleType } from '../../core/enums/enums'
@@ -25,7 +25,7 @@ export interface Meta {
 }
 
 export const getMeta = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   args: DrawArgs,
   config: PointsConfigStrict
 ): Meta[] => {

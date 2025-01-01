@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { QsCanvas } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 
 export interface Meta {
   class: string
@@ -15,7 +15,7 @@ export interface QsRadialSpokesTransitionArgs {
 }
 
 export const getMeta = (
-  canvas: QsCanvas,
+  canvas: Canvas,
   data: number,
   args: QsRadialSpokesTransitionArgs
 ) => {

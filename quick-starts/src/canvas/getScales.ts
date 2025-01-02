@@ -9,6 +9,8 @@ export interface CanvasScales {
   yPercentScaleInverted: ScaleLinear<number, number, never>
   yDataScale: ScaleLinear<number, number, never>
   xDataScale: ScaleLinear<number, number, never>
+  xDataScaleInverted: ScaleLinear<number, number, never>
+  yDataScaleInverted: ScaleLinear<number, number, never>
 }
 
 export const getScales = (config: CanvasConfigStrict) => {
@@ -39,6 +41,12 @@ export const getScales = (config: CanvasConfigStrict) => {
   const xDataScale = scaleLinear()
     .domain([lowestViewableValue, highestViewableValue])
     .range([0, displayAreaWidth])
+  const yDataScaleInverted = scaleLinear()
+    .domain([lowestViewableValue, highestViewableValue])
+    .range([0, displayAreaHeight])
+  const xDataScaleInverted = scaleLinear()
+    .domain([lowestViewableValue, highestViewableValue])
+    .range([displayAreaWidth, 0])
 
   const scales: CanvasScales = {
     genralPercentScale,
@@ -48,6 +56,8 @@ export const getScales = (config: CanvasConfigStrict) => {
     yPercentScaleInverted,
     yDataScale,
     xDataScale,
+    xDataScaleInverted,
+    yDataScaleInverted,
   }
 
   return scales

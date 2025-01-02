@@ -1,10 +1,4 @@
-import {
-  scaleLinear,
-  scaleBand,
-  ScaleOrdinal,
-  range,
-  ScaleSequential,
-} from 'd3'
+import { scaleBand, ScaleOrdinal, range, ScaleSequential } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
@@ -35,13 +29,8 @@ export const getMeta = (
   const findLowerBoundry = (lowerBoundry: number | undefined) =>
     lowerBoundry !== undefined ? lowerBoundry : 0
 
-  const {
-    lowestViewableValue,
-    highestViewableValue,
-    displayAreaWidth,
-    displayAreaHeight,
-  } = canvas.config
-
+  const { displayAreaWidth, displayAreaHeight } = canvas.config
+  const { xDataScale, yDataScaleInverted } = canvas.scales
   const meta: Meta[] = []
 
   const bandStepScale = scaleBand()
@@ -51,25 +40,22 @@ export const getMeta = (
     .domain(toStrings(range(data.length)))
     .range([0, isVertical ? displayAreaHeight : displayAreaWidth])
     .padding(padding / 100)
-  const heightScale = scaleLinear()
-    .domain([lowestViewableValue, highestViewableValue])
-    .range([0, isVertical ? displayAreaWidth : displayAreaHeight])
 
   const height = (d: QsBarData) =>
     isVertical
       ? bandWidthScale.bandwidth()
-      : heightScale(d.upperBoundry - d.lowerBoundry!)
+      : yDataScaleInverted(d.upperBoundry - d.lowerBoundry!)
   const width = (d: QsBarData) =>
     isVertical
-      ? heightScale(d.upperBoundry - d.lowerBoundry!)
+      ? xDataScale(d.upperBoundry - d.lowerBoundry!)
       : bandWidthScale.bandwidth()
 
   const x = (d: QsBarData, i: number) =>
-    isVertical ? heightScale(d.lowerBoundry!) : barSpaceing(d, i)
+    isVertical ? xDataScale(d.lowerBoundry!) : barSpaceing(d, i)
   const y = (d: QsBarData, i: number) =>
     isVertical
       ? barSpaceing(d, i)
-      : displayAreaHeight - heightScale(d.upperBoundry)
+      : displayAreaHeight - yDataScaleInverted(d.upperBoundry)
 
   const barSpaceing = (d: QsBarData, i: number) => {
     const adjustmentToCorrectD3 =

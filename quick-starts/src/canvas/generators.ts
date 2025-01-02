@@ -50,24 +50,24 @@ import {
   QsTextConfig,
   QsValuedText,
 } from '../d3QuickStart'
-import { qsLegendGenerator } from '../legend/legend'
-import { qsLinearAreaGenerator } from '../linear/area/area'
-import { qsLinearAxisGenerator } from '../linear/axis/axis'
-import { qsLinearBarGenerator } from '../linear/bar/bar'
-import { qsLinearBarGroupGenerator } from '../linear/barGroup/barGroup'
-import { qsLinearBarStackGenerator } from '../linear/barStack/barStack'
-import { qsLinearLineGenerator } from '../linear/line/line'
-import { qsLinearPointGenerator } from '../linear/points/points'
-import { qsPlottedLineGenerator } from '../plots/linePlot/linePlot'
-import { qsPlottedPointGenerator } from '../plots/scatterPlot/scatterPlot'
-import { qsPlottedTextGenerator } from '../plots/text/text'
-import { qsRadialGenerator } from '../radial/radial/radial'
-import { qsRadialAreaGenerator } from '../radial/radialArea/radialArea'
-import { qsRadialAxisGenerator } from '../radial/radialAxis/radialAxis'
-import { qsRadialLineGenerator } from '../radial/radialLine/radialLine'
-import { qsRadialPointGenerator } from '../radial/radialPoints/radialPoints'
-import { qsRadialSpokesGenerator } from '../radial/radialSpokes/radialSpokes'
-import { qsRadialTextGenerator } from '../radial/radialText/radialText'
+import { plottedLegend } from '../legend/legend'
+import { linearArea } from '../linear/area/area'
+import { linearAxis } from '../linear/axis/axis'
+import { linearBar } from '../linear/bar/bar'
+import { linearBarGroup } from '../linear/barGroup/barGroup'
+import { linearBarStack } from '../linear/barStack/barStack'
+import { linearLine } from '../linear/line/line'
+import { linearPoint } from '../linear/points/points'
+import { plottedLine } from '../plots/linePlot/linePlot'
+import { plottedPoint } from '../plots/scatterPlot/scatterPlot'
+import { plottedText } from '../plots/text/text'
+import { radialSwept } from '../radial/radial/radial'
+import { radialArea } from '../radial/radialArea/radialArea'
+import { radialAxis } from '../radial/radialAxis/radialAxis'
+import { radialLine } from '../radial/radialLine/radialLine'
+import { radialPoint } from '../radial/radialPoints/radialPoints'
+import { radialSpokes } from '../radial/radialSpokes/radialSpokes'
+import { radialText } from '../radial/radialText/radialText'
 
 interface ElementWithData {
   element: any
@@ -197,11 +197,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
     linear: {
       horizontal: {
         area: (data: QsAreaData, customConfig?: QsAreaConfig): QsArea => {
-          const element = qsLinearAreaGenerator.horizontal(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = linearArea.horizontal(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
@@ -209,11 +205,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: number[][],
           customConfig?: QsBarGroupConfig
         ): QsBarGroups => {
-          const element = qsLinearBarGroupGenerator.group(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = linearBarGroup.group(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
@@ -221,34 +213,22 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: number[][],
           customConfig?: QsBarStackedConfig
         ): QsBarStack => {
-          const element = qsLinearBarStackGenerator.stack(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = linearBarStack.stack(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
         bars: (data: QsBarData[], customConfig?: QsBarConfig): QsBars => {
-          const element = qsLinearBarGenerator.horizontal(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = linearBar.horizontal(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
         line: (data: QsLineData, customConfig?: QsLineConfig): QsLine => {
-          const element = qsLinearLineGenerator.horizontal(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = linearLine.horizontal(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
         lineBanded: (data: QsLineData, customConfig?: QsLineConfig): QsLine => {
-          const element = qsLinearLineGenerator.horizontalBanded(
+          const element = linearLine.horizontalBanded(
             canvas,
             data,
             customConfig
@@ -260,11 +240,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: QsPointData[],
           customConfig?: QsPointsConfig
         ): QsPoints => {
-          const element = qsLinearPointGenerator.horizontal(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = linearPoint.horizontal(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
@@ -272,7 +248,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: QsPointData[],
           customConfig?: QsPointsConfig
         ): QsPoints => {
-          const element = qsLinearPointGenerator.horizontalBanded(
+          const element = linearPoint.horizontalBanded(
             canvas,
             data,
             customConfig
@@ -285,11 +261,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
             data: number[] | string[],
             customConfig?: QsAxisConfig
           ): QsAxis => {
-            const element = qsLinearAxisGenerator.xAxisBottom(
-              canvas,
-              data,
-              customConfig
-            )
+            const element = linearAxis.xAxisBottom(canvas, data, customConfig)
             elements.push({ element, data })
             return element
           },
@@ -297,7 +269,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
             data: number[] | string[],
             customConfig?: QsAxisConfig
           ): QsAxis => {
-            const element = qsLinearAxisGenerator.xAxisBottomBanded(
+            const element = linearAxis.xAxisBottomBanded(
               canvas,
               data,
               customConfig
@@ -309,11 +281,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
             data: number[] | string[],
             customConfig?: QsAxisConfig
           ): QsAxis => {
-            const element = qsLinearAxisGenerator.xAxisTop(
-              canvas,
-              data,
-              customConfig
-            )
+            const element = linearAxis.xAxisTop(canvas, data, customConfig)
             elements.push({ element, data })
             return element
           },
@@ -321,7 +289,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
             data: number[] | string[],
             customConfig?: QsAxisConfig
           ): QsAxis => {
-            const element = qsLinearAxisGenerator.xAxisTopBanded(
+            const element = linearAxis.xAxisTopBanded(
               canvas,
               data,
               customConfig
@@ -333,29 +301,17 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
       },
       vertical: {
         bars: (data: QsBarData[], customConfig?: QsBarConfig): QsBars => {
-          const element = qsLinearBarGenerator.vertical(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = linearBar.vertical(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
         line: (data: QsLineData, customConfig?: QsLineConfig): QsLine => {
-          const element = qsLinearLineGenerator.vertical(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = linearLine.vertical(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
         lineBanded: (data: QsLineData, customConfig?: QsLineConfig): QsLine => {
-          const element = qsLinearLineGenerator.verticalBanded(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = linearLine.verticalBanded(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
@@ -363,11 +319,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: QsPointData[],
           customConfig?: QsPointsConfig
         ): QsPoints => {
-          const element = qsLinearPointGenerator.vertical(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = linearPoint.vertical(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
@@ -375,11 +327,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: QsPointData[],
           customConfig?: QsPointsConfig
         ): QsPoints => {
-          const element = qsLinearPointGenerator.verticalBanded(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = linearPoint.verticalBanded(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
@@ -388,11 +336,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
             data: number[] | string[],
             customConfig?: QsAxisConfig
           ): QsAxis => {
-            const element = qsLinearAxisGenerator.yAxisLeft(
-              canvas,
-              data,
-              customConfig
-            )
+            const element = linearAxis.yAxisLeft(canvas, data, customConfig)
             elements.push({ element, data })
             return element
           },
@@ -400,7 +344,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
             data: number[] | string[],
             customConfig?: QsAxisConfig
           ): QsAxis => {
-            const element = qsLinearAxisGenerator.yAxisLeftBanded(
+            const element = linearAxis.yAxisLeftBanded(
               canvas,
               data,
               customConfig
@@ -412,11 +356,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
             data: number[] | string[],
             customConfig?: QsAxisConfig
           ): QsAxis => {
-            const element = qsLinearAxisGenerator.yAxisRight(
-              canvas,
-              data,
-              customConfig
-            )
+            const element = linearAxis.yAxisRight(canvas, data, customConfig)
             elements.push({ element, data })
             return element
           },
@@ -424,7 +364,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
             data: number[] | string[],
             customConfig?: QsAxisConfig
           ): QsAxis => {
-            const element = qsLinearAxisGenerator.yAxisRightBanded(
+            const element = linearAxis.yAxisRightBanded(
               canvas,
               data,
               customConfig
@@ -440,7 +380,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         data: QsLegendData[],
         customConfig?: QsLegendConfig
       ): QsLegend => {
-        const element = qsLegendGenerator.legend(canvas, data, customConfig)
+        const element = plottedLegend.legend(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
@@ -448,12 +388,12 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         data: QsCoordinate[],
         customConfig?: QsLinePlotConfig
       ): QsLinePlot => {
-        const element = qsPlottedLineGenerator.line(canvas, data, customConfig)
+        const element = plottedLine.line(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
       text: (data: QsTextArgs[], customConfig?: QsTextConfig): QsText => {
-        const element = qsPlottedTextGenerator.text(canvas, data, customConfig)
+        const element = plottedText.text(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
@@ -461,11 +401,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         data: QsCoordinateEnhanced[],
         customConfig?: QsScatterPlotConfig
       ): QsScatterPlot => {
-        const element = qsPlottedPointGenerator.points(
-          canvas,
-          data,
-          customConfig
-        )
+        const element = plottedPoint.points(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
@@ -475,7 +411,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         data: QsRadialData[],
         customConfig?: QsRadialConfig
       ): QsRadial => {
-        const element = qsRadialGenerator.radial(canvas, data, customConfig)
+        const element = radialSwept.radial(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
@@ -483,7 +419,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         data: QsRadialAreaData,
         customConfig?: QsRadialAreaConfig
       ): QsRadialArea => {
-        const element = qsRadialAreaGenerator.area(canvas, data, customConfig)
+        const element = radialArea.area(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
@@ -491,7 +427,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         data: number[],
         customConfig?: QsRadialAxisConfig
       ): QsRadialAxis => {
-        const element = qsRadialAxisGenerator.rings(canvas, data, customConfig)
+        const element = radialAxis.rings(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
@@ -499,7 +435,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         data: QsRadialLineData,
         customConfig?: QsRadialLineConfig
       ): QsRadialLine => {
-        const element = qsRadialLineGenerator.line(canvas, data, customConfig)
+        const element = radialLine.line(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
@@ -507,11 +443,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         data: QsRadialPointData[],
         customConfig?: QsRadialPointsConfig
       ): QsRadialPoints => {
-        const element = qsRadialPointGenerator.points(
-          canvas,
-          data,
-          customConfig
-        )
+        const element = radialPoint.points(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
@@ -519,11 +451,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         data: number,
         customConfig?: QsRadialSpokesConfig
       ): QsRadialSpokes => {
-        const element = qsRadialSpokesGenerator.spokes(
-          canvas,
-          data,
-          customConfig
-        )
+        const element = radialSpokes.spokes(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
@@ -532,11 +460,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: QsValuedText[],
           customConfig?: QsRadialTextConfig
         ): QsRadialText => {
-          const element = qsRadialTextGenerator.follow(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = radialText.follow(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
@@ -544,11 +468,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: QsValuedText[],
           customConfig?: QsRadialTextConfig
         ): QsRadialText => {
-          const element = qsRadialTextGenerator.followBanded(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = radialText.followBanded(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
@@ -556,11 +476,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: QsValuedText[],
           customConfig?: QsRadialTextConfig
         ): QsRadialText => {
-          const element = qsRadialTextGenerator.horizontal(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = radialText.horizontal(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
@@ -568,7 +484,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: QsValuedText[],
           customConfig?: QsRadialTextConfig
         ): QsRadialText => {
-          const element = qsRadialTextGenerator.horizontalBanded(
+          const element = radialText.horizontalBanded(
             canvas,
             data,
             customConfig
@@ -580,11 +496,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: QsValuedText[],
           customConfig?: QsRadialTextConfig
         ): QsRadialText => {
-          const element = qsRadialTextGenerator.rotated(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = radialText.rotated(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
@@ -592,11 +504,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: QsValuedText[],
           customConfig?: QsRadialTextConfig
         ): QsRadialText => {
-          const element = qsRadialTextGenerator.rotatedBanded(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = radialText.rotatedBanded(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
@@ -604,11 +512,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: QsValuedText[],
           customConfig?: QsRadialTextConfig
         ): QsRadialText => {
-          const element = qsRadialTextGenerator.spoke(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = radialText.spoke(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
@@ -616,11 +520,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           data: QsValuedText[],
           customConfig?: QsRadialTextConfig
         ): QsRadialText => {
-          const element = qsRadialTextGenerator.spokeBanded(
-            canvas,
-            data,
-            customConfig
-          )
+          const element = radialText.spokeBanded(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },

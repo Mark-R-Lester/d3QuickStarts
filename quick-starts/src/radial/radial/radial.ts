@@ -46,7 +46,7 @@ const radial = (
   return draw(canvas, args, config)
 }
 
-export const qsRadialGenerator = {
+export const radialSwept = {
   radial,
 }
 

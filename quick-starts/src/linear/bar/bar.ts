@@ -43,7 +43,7 @@ const vertical = (
   return draw(canvas, args, config)
 }
 
-export const qsLinearBarGenerator = {
+export const linearBar = {
   horizontal,
   vertical,
 }

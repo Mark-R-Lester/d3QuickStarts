@@ -214,7 +214,7 @@ const yAxisRightBanded = (
   return draw(canvas, args, config)
 }
 
-export const qsLinearAxisGenerator = {
+export const linearAxis = {
   xAxisTop,
   xAxisBottom,
   xAxisBottomBanded,

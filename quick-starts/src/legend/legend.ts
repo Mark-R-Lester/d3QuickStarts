@@ -55,7 +55,7 @@ const legend = (
   return draw(canvas, args, config)
 }
 
-export const qsLegendGenerator = {
+export const plottedLegend = {
   legend,
 }
 

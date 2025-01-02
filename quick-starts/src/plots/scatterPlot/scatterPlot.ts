@@ -34,7 +34,7 @@ const points = (
   return draw(canvas, args, configuration)
 }
 
-export const qsPlottedPointGenerator = {
+export const plottedPoint = {
   points,
 }
 

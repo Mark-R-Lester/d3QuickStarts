@@ -38,7 +38,7 @@ const stack = (
   return draw(canvas, args, config)
 }
 
-export const qsLinearBarStackGenerator = {
+export const linearBarStack = {
   stack,
 }
 

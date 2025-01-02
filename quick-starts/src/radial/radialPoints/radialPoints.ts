@@ -42,7 +42,7 @@ const points = (
   return draw(canvas, args, config)
 }
 
-export const qsRadialPointGenerator = {
+export const radialPoint = {
   points,
 }
 

@@ -45,7 +45,7 @@ const horizontal = (
   return draw(canvas, args, config)
 }
 
-export const qsLinearAreaGenerator = {
+export const linearArea = {
   horizontal,
 }
 

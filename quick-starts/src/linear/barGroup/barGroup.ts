@@ -38,7 +38,7 @@ const group = (
   return draw(canvas, args, config)
 }
 
-export const qsLinearBarGroupGenerator = {
+export const linearBarGroup = {
   group,
 }
 

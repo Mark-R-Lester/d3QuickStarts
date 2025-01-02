@@ -80,7 +80,7 @@ export const horizontalBanded = (
   return draw(canvas, args, config)
 }
 
-export const qsLinearLineGenerator = {
+export const linearLine = {
   horizontal,
   vertical,
   horizontalBanded,

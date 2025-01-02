@@ -59,7 +59,7 @@ const text = (
   return draw(canvas, args, config)
 }
 
-export const qsPlottedTextGenerator = {
+export const plottedText = {
   text,
 }
 

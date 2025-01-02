@@ -53,7 +53,7 @@ const rings = (
   return draw(canvas, args, config)
 }
 
-export const qsRadialAxisGenerator = {
+export const radialAxis = {
   rings,
 }
 

@@ -50,7 +50,7 @@ const spokes = (
   return draw(canvas, args, config)
 }
 
-export const qsRadialSpokesGenerator = {
+export const radialSpokes = {
   spokes,
 }
 

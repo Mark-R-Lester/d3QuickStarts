@@ -1,45 +1,43 @@
-import { ScaleLinear, scaleLinear } from 'd3'
+import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { RadialAreaMetaData } from './types'
+import { RadialAreaConfigStrict, RadialAreaMetaData } from './types'
 import { Canvas } from '../../d3QuickStart'
 
 export interface Meta {
   class: string
   id: string
   areaData: RadialAreaMetaData[]
-  xAxis: ScaleLinear<number, number, never>
-  yAxis: ScaleLinear<number, number, never>
+  x: number
+  y: number
 }
 
 export const getMeta = (
   canvas: Canvas,
-  dataOuter: number[],
-  dataInner?: number[]
+  outerData: number[],
+  config: RadialAreaConfigStrict,
+  innerData?: number[]
 ): Meta => {
-  const {
-    lowestViewableValue,
-    highestViewableValue,
-    displayAreaHeight,
-    displayAreaWidth,
-  } = canvas.config
+  const { x, y } = config
+  const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
+    canvas.config
+
+  const { xPercentScale, yPercentScale } = canvas.scales
 
   let dataInnerCopy: number[]
-  const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
-  const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
 
-  const dataOuterCopy: number[] = dataOuter.slice()
-  dataOuterCopy.push(dataOuter[0])
+  const dataOuterCopy: number[] = outerData.slice()
+  dataOuterCopy.push(outerData[0])
 
   const angleScale = scaleLinear()
-    .domain([0, dataOuter.length])
+    .domain([0, outerData.length])
     .range([0, 2 * Math.PI])
   const radialScale = scaleLinear()
     .domain([lowestViewableValue, highestViewableValue])
     .range([0, displayAreaHeight / 2])
 
-  if (dataInner) {
-    dataInnerCopy = dataInner.slice()
-    dataInnerCopy.push(dataInner[0])
+  if (innerData) {
+    dataInnerCopy = innerData.slice()
+    dataInnerCopy.push(innerData[0])
   }
   return {
     class: 'radialArea',
@@ -53,7 +51,7 @@ export const getMeta = (
         ),
       }
     }),
-    xAxis,
-    yAxis,
+    x: xPercentScale(x),
+    y: yPercentScale(y),
   }
 }

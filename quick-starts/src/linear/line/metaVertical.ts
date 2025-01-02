@@ -1,4 +1,4 @@
-import { scaleLinear, scaleBand, range, ScaleLinear, line as d3line } from 'd3'
+import { scaleLinear, scaleBand, range, line as d3line } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { DrawArgs, LineConfigStrict, Meta } from './types'
@@ -11,12 +11,8 @@ export const getMeta = (
   args: DrawArgs,
   config: LineConfigStrict
 ): Meta => {
-  const {
-    displayAreaWidth,
-    displayAreaHeight,
-    lowestViewableValue,
-    highestViewableValue,
-  } = canvas.config
+  const { displayAreaHeight } = canvas.config
+  const { xDataScale } = canvas.scales
   const { data, scaleType } = args
   const { curve } = config
 
@@ -37,10 +33,6 @@ export const getMeta = (
   let spacingScale: any
   let bandingAdjustment: number
 
-  const dataScale: ScaleLinear<number, number, never> = scaleLinear()
-    .domain([lowestViewableValue, highestViewableValue])
-    .range([0, displayAreaWidth])
-
   if (scaleType === ScaleType.BANDED) {
     spacingScale = scaleBand()
       .domain(coordinates.map((coordinate) => coordinate.y.toString()))
@@ -54,7 +46,7 @@ export const getMeta = (
   }
 
   const lineFunction = d3line()
-    .x((d) => dataScale(d[0]))
+    .x((d) => xDataScale(d[0]))
     .y((d) => spacingScale(d[1]) + bandingAdjustment)
     .curve(constantsCurves[curve])
 

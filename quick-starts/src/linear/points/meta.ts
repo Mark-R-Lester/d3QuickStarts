@@ -30,12 +30,8 @@ export const getMeta = (
   args: DrawArgs,
   config: PointsConfigStrict
 ): Meta[] => {
-  const {
-    displayAreaHeight,
-    displayAreaWidth,
-    lowestViewableValue,
-    highestViewableValue,
-  } = canvas.config
+  const { displayAreaHeight, displayAreaWidth } = canvas.config
+  const { xDataScale, yDataScale } = canvas.scales
   const { data, orientation, scaleType } = args
   const isVertical = orientation === Orientation.VERTICAL
   const isBanded = scaleType === ScaleType.BANDED
@@ -59,24 +55,7 @@ export const getMeta = (
     })
 
   const coordinates: CoordinateWithColor[] = getCoordinates(data)
-
-  const dataScale = scaleLinear()
-    .domain(
-      isVertical
-        ? [
-            lowestViewableValue,
-            highestViewableValue !== 0
-              ? highestViewableValue
-              : Math.max(...coordinates.map((d) => +d.x)),
-          ]
-        : [
-            lowestViewableValue,
-            highestViewableValue !== 0
-              ? highestViewableValue
-              : Math.max(...coordinates.map((d) => +d.y)),
-          ]
-    )
-    .range(isVertical ? [0, displayAreaWidth] : [displayAreaHeight, 0])
+  const dataScale = isVertical ? xDataScale : yDataScale
 
   let spacingScale: any
   if (isBanded) {

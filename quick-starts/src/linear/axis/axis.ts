@@ -227,13 +227,9 @@ const draw = (
     xPercentScaleInverted,
     yPercentScale,
     yPercentScaleInverted,
+    yDataScale,
   } = canvas.scales
-  const {
-    lowestViewableValue,
-    highestViewableValue,
-    displayAreaWidth,
-    displayAreaHeight,
-  } = canvas.config
+  const { displayAreaWidth, displayAreaHeight } = canvas.config
   const {
     percentageMovement,
     domainColor,
@@ -260,17 +256,31 @@ const draw = (
     textY,
   } = config
   const { data, chartEdge, scaleType } = args
-  let strings: string[]
-  let scale: any
-  let axis: Axis<string>
-  let percentScale: ScaleLinear<number, number, never>
 
   interface AxisAndPercentScale {
     axis: Axis<string>
     percentScale: ScaleLinear<number, number, never>
   }
 
-  const applyScaleToAxis = (scale: any): AxisAndPercentScale => {
+  const applyScaleToAxis = (): AxisAndPercentScale => {
+    const range: Iterable<number> =
+      chartEdge === ChartEdge.BOTTOM || chartEdge === ChartEdge.TOP
+        ? [0, displayAreaWidth]
+        : [displayAreaHeight, 0]
+
+    const getScale = () => {
+      if (scaleType === ScaleType.LINEAR) {
+        if (data.some((d) => typeof d === 'string')) {
+          return scalePoint().domain(toStrings(data)).range(range)
+        } else {
+          return yDataScale
+        }
+      }
+      return scaleBand().domain(toStrings(data)).range(range)
+    }
+
+    let scale: any = getScale()
+
     if (chartEdge === ChartEdge.BOTTOM)
       return {
         axis: axisBottom(scale),
@@ -293,39 +303,14 @@ const draw = (
     }
   }
 
-  const isX: boolean =
+  const result = applyScaleToAxis()
+  const axis: Axis<string> = result.axis
+  const percentScale: ScaleLinear<number, number, never> = result.percentScale
+
+  const translation =
     chartEdge === ChartEdge.BOTTOM || chartEdge === ChartEdge.TOP
-
-  const range: Iterable<number> = isX
-    ? [0, displayAreaWidth]
-    : [displayAreaHeight, 0]
-
-  if (scaleType === ScaleType.BANDED) {
-    strings = toStrings(data)
-    scale = scaleBand().domain(strings).range(range)
-    const result = applyScaleToAxis(scale)
-    axis = result.axis
-    percentScale = result.percentScale
-  } else {
-    if (data.some((d) => typeof d === 'string')) {
-      strings = toStrings(data)
-      scale = scalePoint().domain(strings).range(range)
-      const result = applyScaleToAxis(scale)
-      axis = result.axis
-      percentScale = result.percentScale
-    } else {
-      const linerScale = scaleLinear()
-        .domain([lowestViewableValue, highestViewableValue])
-        .range(range)
-      const result = applyScaleToAxis(linerScale)
-      axis = result.axis
-      percentScale = result.percentScale
-    }
-  }
-
-  const translation = isX
-    ? `translate(0, ${displayAreaHeight - percentScale(percentageMovement)})`
-    : `translate(${percentScale(percentageMovement)}, 0)`
+      ? `translate(0, ${displayAreaHeight - percentScale(percentageMovement)})`
+      : `translate(${percentScale(percentageMovement)}, 0)`
   axis.tickSizeInner(percentScale(tickSizeInner))
   axis.tickSizeOuter(percentScale(tickSizeOuter))
   axis.tickPadding(tickPadding)

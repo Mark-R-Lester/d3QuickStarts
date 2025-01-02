@@ -1,4 +1,4 @@
-import { scaleLinear, CurveFactory, area as d3area, Selection } from 'd3'
+import { CurveFactory, area as d3area } from 'd3'
 import { AreaData, getMeta, Meta } from './meta'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { applyDefaultColorIfNeeded } from '../../core/color/color'
@@ -54,27 +54,14 @@ function draw(
   args: DrawArgs,
   config: AreaConfigStrict
 ): QsArea {
-  const {
-    lowestViewableValue,
-    highestViewableValue,
-    displayAreaHeight,
-    displayAreaWidth,
-  } = canvas.config
   const { curve } = config
   const { color } = args.data
   const meta: Meta = getMeta(canvas, args.data)
 
-  const xScale = scaleLinear()
-    .domain([0, Math.max(...meta.areaData.map((d) => d.x))])
-    .range([0, displayAreaWidth])
-  const yScale = scaleLinear()
-    .domain([lowestViewableValue, highestViewableValue])
-    .range([displayAreaHeight, 0])
-
   const area = d3area<AreaData>()
-    .x((d) => xScale(d.x))
-    .y1((d) => yScale(d.y1))
-    .y0((d) => yScale(d.y0))
+    .x((d) => d.x)
+    .y1((d) => d.y1)
+    .y0((d) => d.y0)
     .curve(constantsCurves[curve])
 
   const group = canvas.displayGroup.append('g')

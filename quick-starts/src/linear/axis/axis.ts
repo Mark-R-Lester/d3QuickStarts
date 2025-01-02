@@ -339,7 +339,6 @@ const draw = (
     .attr('id', 'xAxis')
     .attr('transform', translation)
     .call(axis)
-  console.log(axisGroup.selectChildren())
 
   axisGroup
     .select('.domain')

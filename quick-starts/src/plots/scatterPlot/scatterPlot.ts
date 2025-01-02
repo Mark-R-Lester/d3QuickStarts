@@ -52,6 +52,7 @@ const draw = (
   const yScale = scaleLinear()
     .domain([0, qsFindMaxCoordinateY(data)])
     .range([displayAreaHeight, 0])
+
   const dataPoints = canvas.displayGroup.append('g')
   dataPoints
     .selectAll('circle')

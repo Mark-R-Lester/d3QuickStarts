@@ -1,4 +1,4 @@
-import { scaleLinear, ScaleOrdinal, ScaleLinear, ScaleSequential } from 'd3'
+import { ScaleOrdinal, ScaleLinear, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { RadialConfigStrict } from './types'
 import {
@@ -13,8 +13,8 @@ export interface Meta {
   class: string
   id: string
   arcData: ArcData
-  xAxis: ScaleLinear<number, number, never>
-  yAxis: ScaleLinear<number, number, never>
+  x: number
+  y: number
 }
 
 export interface ArcData {
@@ -52,7 +52,7 @@ export const getMeta = (
   data: QsRadialData[],
   config: RadialConfigStrict
 ): Meta[] => {
-  const { displayAreaHeight, displayAreaWidth } = canvas.config
+  const { xPercentScale, yPercentScale } = canvas.scales
   const {
     defaultColor,
     colorScaleData,
@@ -60,17 +60,12 @@ export const getMeta = (
     innerRadius,
     cornerRadius,
     isPieDiagram,
+    x,
+    y,
   } = config
   let { padAngle } = config
 
   const meta: Meta[] = []
-
-  const xAxis: ScaleLinear<number, number, never> = scaleLinear()
-    .domain([0, 100])
-    .range([0, displayAreaWidth])
-  const yAxis: ScaleLinear<number, number, never> = scaleLinear()
-    .domain([0, 100])
-    .range([0, displayAreaHeight])
 
   let totalValue = 0
   data.forEach((d) => {
@@ -106,16 +101,16 @@ export const getMeta = (
         color: getPrecidendedColor(d.color, defaultColor, scaledColor),
         index: i,
         value: d.value,
-        cornerRadius: yAxis(cornerRadius / 2),
-        outerRadius: yAxis(outerRadius / 2),
-        innerRadius: yAxis(isPieDiagram ? 0 : innerRadius / 2),
+        cornerRadius: yPercentScale(cornerRadius / 2),
+        outerRadius: yPercentScale(outerRadius / 2),
+        innerRadius: yPercentScale(isPieDiagram ? 0 : innerRadius / 2),
         startAngle,
         newStartAngle: startAngle,
         endAngle,
         newEndAngle: endAngle,
       },
-      xAxis: xAxis,
-      yAxis: yAxis,
+      x: xPercentScale(x),
+      y: yPercentScale(y),
     })
     startAngle = endAngle
   })

@@ -23,24 +23,28 @@ export const getScales = (config: CanvasConfigStrict) => {
   const genralPercentScale = scaleLinear()
     .domain([0, 100])
     .range([0, Math.min(displayAreaHeight, displayAreaWidth)])
+
   const xPercentScale = scaleLinear()
     .domain([0, 100])
     .range([0, displayAreaWidth])
   const yPercentScale = scaleLinear()
     .domain([0, 100])
     .range([0, displayAreaHeight])
+
   const xPercentScaleInverted = scaleLinear()
     .domain([0, 100])
     .range([displayAreaWidth, 0])
   const yPercentScaleInverted = scaleLinear()
     .domain([0, 100])
     .range([displayAreaHeight, 0])
+
   const yDataScale = scaleLinear()
     .domain([lowestViewableValue, highestViewableValue])
     .range([displayAreaHeight, 0])
   const yDataScaleInverted = scaleLinear()
     .domain([lowestViewableValue, highestViewableValue])
     .range([0, displayAreaHeight])
+
   const xDataScale = scaleLinear()
     .domain([lowestViewableValue, highestViewableValue])
     .range([0, displayAreaWidth])

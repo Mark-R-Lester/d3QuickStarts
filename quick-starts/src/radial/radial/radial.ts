@@ -90,7 +90,7 @@ const draw = (
     .attr('class', (d) => d.class)
     .attr('id', (d) => d.id)
     .attr('stroke', 'none')
-    .attr('transform', (d) => `translate(${d.xAxis(x)}, ${d.yAxis(y)})`)
+    .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
     .attr('d', (d) => arc(d.arcData))
     .attr('fill', (d) => d.arcData.color)
 

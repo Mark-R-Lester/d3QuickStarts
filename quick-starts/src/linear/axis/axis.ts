@@ -10,7 +10,7 @@ import {
   ScaleLinear,
 } from 'd3'
 import { toStrings } from '../../core/conversion'
-import { GlobalDefaults, ScaleType } from '../../core/enums/enums'
+import { ChartEdge, GlobalDefaults, ScaleType } from '../../core/enums/enums'
 import {
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
@@ -53,9 +53,8 @@ interface AxisConfigStrict {
 
 interface DrawArgs {
   data: string[] | number[]
-  topOrRight: boolean
+  chartEdge: ChartEdge
   scaleType: ScaleType
-  isX: boolean
 }
 
 const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
@@ -102,9 +101,8 @@ const xAxisTop = (
   const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
-    topOrRight: true,
+    chartEdge: ChartEdge.TOP,
     scaleType: ScaleType.LINEAR,
-    isX: true,
   }
   return draw(canvas, args, config)
 }
@@ -117,9 +115,8 @@ const xAxisBottom = (
   const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
-    topOrRight: false,
+    chartEdge: ChartEdge.BOTTOM,
     scaleType: ScaleType.LINEAR,
-    isX: true,
   }
   return draw(canvas, args, config)
 }
@@ -132,9 +129,8 @@ const xAxisBottomBanded = (
   const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
-    topOrRight: false,
+    chartEdge: ChartEdge.BOTTOM,
     scaleType: ScaleType.BANDED,
-    isX: true,
   }
   return draw(canvas, args, config)
 }
@@ -147,9 +143,8 @@ const xAxisTopBanded = (
   const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
-    topOrRight: true,
+    chartEdge: ChartEdge.TOP,
     scaleType: ScaleType.BANDED,
-    isX: true,
   }
   return draw(canvas, args, config)
 }
@@ -162,9 +157,8 @@ const yAxisLeft = (
   const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
-    topOrRight: false,
+    chartEdge: ChartEdge.LEFT,
     scaleType: ScaleType.LINEAR,
-    isX: false,
   }
   return draw(canvas, args, config)
 }
@@ -177,9 +171,8 @@ const yAxisRight = (
   const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
-    topOrRight: true,
+    chartEdge: ChartEdge.RIGHT,
     scaleType: ScaleType.LINEAR,
-    isX: false,
   }
   return draw(canvas, args, config)
 }
@@ -192,9 +185,8 @@ const yAxisLeftBanded = (
   const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
-    topOrRight: false,
+    chartEdge: ChartEdge.LEFT,
     scaleType: ScaleType.BANDED,
-    isX: false,
   }
   return draw(canvas, args, config)
 }
@@ -207,9 +199,8 @@ const yAxisRightBanded = (
   const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
   const args: DrawArgs = {
     data,
-    topOrRight: true,
+    chartEdge: ChartEdge.RIGHT,
     scaleType: ScaleType.BANDED,
-    isX: false,
   }
   return draw(canvas, args, config)
 }
@@ -230,16 +221,21 @@ const draw = (
   args: DrawArgs,
   config: AxisConfigStrict
 ): QsAxis => {
-  const { config: canvasConfig, displayGroup: canvasDisplayGroup } = canvas
+  const {
+    genralPercentScale,
+    xPercentScale,
+    xPercentScaleInverted,
+    yPercentScale,
+    yPercentScaleInverted,
+  } = canvas.scales
   const {
     lowestViewableValue,
     highestViewableValue,
     displayAreaWidth,
     displayAreaHeight,
-  } = canvasConfig
+  } = canvas.config
   const {
     percentageMovement,
-
     domainColor,
     domainOpacity,
     domainWidth,
@@ -263,7 +259,7 @@ const draw = (
     textX,
     textY,
   } = config
-  const { data, topOrRight, scaleType, isX } = args
+  const { data, chartEdge, scaleType } = args
   let strings: string[]
   let scale: any
   let axis: Axis<string>
@@ -275,24 +271,30 @@ const draw = (
   }
 
   const applyScaleToAxis = (scale: any): AxisAndPercentScale => {
-    if (isX) {
-      const percentRange = topOrRight
-        ? [displayAreaHeight, 0]
-        : [0, displayAreaHeight]
+    if (chartEdge === ChartEdge.BOTTOM)
       return {
-        axis: topOrRight ? axisTop(scale) : axisBottom(scale),
-        percentScale: scaleLinear().domain([0, 100]).range(percentRange),
+        axis: axisBottom(scale),
+        percentScale: yPercentScale,
       }
-    } else {
-      const percentRange = topOrRight
-        ? [displayAreaWidth, 0]
-        : [0, displayAreaWidth]
+    if (chartEdge === ChartEdge.TOP)
       return {
-        axis: topOrRight ? axisRight(scale) : axisLeft(scale),
-        percentScale: scaleLinear().domain([0, 100]).range(percentRange),
+        axis: axisTop(scale),
+        percentScale: yPercentScaleInverted,
       }
+    if (chartEdge === ChartEdge.LEFT)
+      return {
+        axis: axisLeft(scale),
+        percentScale: xPercentScale,
+      }
+
+    return {
+      axis: axisRight(scale),
+      percentScale: xPercentScaleInverted,
     }
   }
+
+  const isX: boolean =
+    chartEdge === ChartEdge.BOTTOM || chartEdge === ChartEdge.TOP
 
   const range: Iterable<number> = isX
     ? [0, displayAreaWidth]
@@ -321,10 +323,6 @@ const draw = (
     }
   }
 
-  const textPercentScale = scaleLinear()
-    .domain([0, 100])
-    .range([0, displayAreaHeight])
-
   const translation = isX
     ? `translate(0, ${displayAreaHeight - percentScale(percentageMovement)})`
     : `translate(${percentScale(percentageMovement)}, 0)`
@@ -334,7 +332,7 @@ const draw = (
 
   if (numberOfTicks) axis.ticks(numberOfTicks)
 
-  const axisGroup = canvasDisplayGroup
+  const axisGroup = canvas.displayGroup
     .append('g')
     .attr('id', 'xAxis')
     .attr('transform', translation)
@@ -343,13 +341,13 @@ const draw = (
   axisGroup
     .select('.domain')
     .attr('stroke', domainColor)
-    .attr('stroke-width', textPercentScale(domainWidth) / 5)
+    .attr('stroke-width', genralPercentScale(domainWidth) / 5)
     .attr('opacity', domainOpacity)
   axisGroup
     .selectAll('.tick')
     .select('line')
     .attr('stroke', tickColor)
-    .attr('stroke-width', textPercentScale(tickWidth) / 5)
+    .attr('stroke-width', genralPercentScale(tickWidth) / 5)
     .attr('opacity', tickOpacity)
 
   const axisText = axisGroup.selectAll('text')
@@ -357,7 +355,7 @@ const draw = (
     .attr('font-family', textFont)
     .attr('font-style', textFontStyle)
     .attr('font-weight', textFontWeight)
-    .attr('font-size', textPercentScale(textFontSize))
+    .attr('font-size', genralPercentScale(textFontSize))
     .attr('text-decoration', textDecorationLine)
     .attr('fill', textFill)
     .attr('stroke', textStroke)

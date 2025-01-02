@@ -13,6 +13,13 @@ export enum ScaleType {
   LINEAR = 'linear',
 }
 
+export enum ChartEdge {
+  TOP = 'top',
+  BOTTOM = 'bottom',
+  LEFT = 'left',
+  RIGHT = 'right',
+}
+
 export enum RadialTextType {
   FOLLOW = 'follow',
   HORIZONTAL = 'horizontal',

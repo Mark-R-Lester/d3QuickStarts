@@ -17,48 +17,32 @@ import {
   QsLegend,
   QsLegendConfig,
   QsLegendData,
-  qsLegendGenerator,
   QsLine,
-  qsLinearAreaGenerator,
-  qsLinearAxisGenerator,
-  qsLinearBarGenerator,
-  qsLinearBarGroupGenerator,
-  qsLinearBarStackGenerator,
-  qsLinearLineGenerator,
-  qsLinearPointGenerator,
   QsLineConfig,
   QsLineData,
   QsLinePlot,
   QsLinePlotConfig,
-  qsPlottedLineGenerator,
-  qsPlottedPointGenerator,
-  qsPlottedTextGenerator,
+  QsPointData,
   QsPoints,
   QsPointsConfig,
   QsRadial,
   QsRadialArea,
   QsRadialAreaConfig,
   QsRadialAreaData,
-  qsRadialAreaGenerator,
   QsRadialAxis,
   QsRadialAxisConfig,
-  qsRadialAxisGenerator,
   QsRadialConfig,
   QsRadialData,
-  qsRadialGenerator,
   QsRadialLine,
   QsRadialLineConfig,
-  qsRadialLineGenerator,
+  QsRadialLineData,
   QsRadialPointData,
-  qsRadialPointGenerator,
   QsRadialPoints,
   QsRadialPointsConfig,
   QsRadialSpokes,
   QsRadialSpokesConfig,
-  qsRadialSpokesGenerator,
   QsRadialText,
   QsRadialTextConfig,
-  qsRadialTextGenerator,
   QsScatterPlot,
   QsScatterPlotConfig,
   QsText,
@@ -66,8 +50,24 @@ import {
   QsTextConfig,
   QsValuedText,
 } from '../d3QuickStart'
-import { QsPointData } from '../linear/points/types'
-import { QsRadialLineData } from '../radial/radialLine/types'
+import { qsLegendGenerator } from '../legend/legend'
+import { qsLinearAreaGenerator } from '../linear/area/area'
+import { qsLinearAxisGenerator } from '../linear/axis/axis'
+import { qsLinearBarGenerator } from '../linear/bar/bar'
+import { qsLinearBarGroupGenerator } from '../linear/barGroup/barGroup'
+import { qsLinearBarStackGenerator } from '../linear/barStack/barStack'
+import { qsLinearLineGenerator } from '../linear/line/line'
+import { qsLinearPointGenerator } from '../linear/points/points'
+import { qsPlottedLineGenerator } from '../plots/linePlot/linePlot'
+import { qsPlottedPointGenerator } from '../plots/scatterPlot/scatterPlot'
+import { qsPlottedTextGenerator } from '../plots/text/text'
+import { qsRadialGenerator } from '../radial/radial/radial'
+import { qsRadialAreaGenerator } from '../radial/radialArea/radialArea'
+import { qsRadialAxisGenerator } from '../radial/radialAxis/radialAxis'
+import { qsRadialLineGenerator } from '../radial/radialLine/radialLine'
+import { qsRadialPointGenerator } from '../radial/radialPoints/radialPoints'
+import { qsRadialSpokesGenerator } from '../radial/radialSpokes/radialSpokes'
+import { qsRadialTextGenerator } from '../radial/radialText/radialText'
 
 interface ElementWithData {
   element: any

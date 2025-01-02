@@ -1,17 +1,11 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../d3QuickStart'
+import { QsRadialSpokesTransitionArgs } from './qsTypes'
 
 export interface Meta {
   class: string
   id: string
   lineData: [number, number][]
-}
-
-export interface QsRadialSpokesTransitionArgs {
-  x: number
-  y: number
-  radius: number
-  innerRadius: number
 }
 
 export const getMeta = (

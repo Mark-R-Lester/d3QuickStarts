@@ -1,4 +1,4 @@
-import { arc as d3arc, Selection } from 'd3'
+import { arc as d3arc } from 'd3'
 import { Meta, RadialAxisConfigStrict, getMeta } from './meta'
 import {
   QsEnumTextFont,
@@ -8,37 +8,7 @@ import {
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
 } from '../../core/enums/qsEnums'
-import { Canvas } from '../../d3QuickStart'
-
-export interface QsRadialAxisConfig {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
-  radius?: number
-  x?: number
-  y?: number
-  axisAngle?: number
-  gap?: number
-  color?: string
-  strokeWidth?: number
-  textFont?: QsEnumTextFont | string
-  textFontSize?: number
-  textFontStyle?: QsEnumTextFontStyle
-  textFontWeight?: QsEnumTextFontWeight | number
-  textDecorationLine?: QsEnumTextDecorationLine
-  textFill?: string
-  textAnchor?: QsEnumTextAnchor
-  textStroke?: string
-  textAlignmentBaseline?: QsEnumAlignmentBaseline
-}
-
-export interface QsRadialAxis {
-  textElement:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  ringsElement:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: number[], config: QsRadialAxisConfig) => void
-}
+import { Canvas, QsRadialAxis, QsRadialAxisConfig } from '../../d3QuickStart'
 
 interface DrawArgs {
   data: number[]

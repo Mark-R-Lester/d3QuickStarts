@@ -1,7 +1,7 @@
 import { range } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { QsAreaData } from './types'
 import { Canvas } from '../../d3QuickStart'
+import { QsAreaData } from './qsTypes'
 
 export interface Meta {
   class: string

@@ -1,21 +1,17 @@
 import { Orientation, ScaleType } from '../../core/enums/enums'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { Canvas } from '../../d3QuickStart'
-import {
-  QsLineData,
-  QsLineConfig,
-  QsLine,
-  DrawArgs,
-  LineConfigStrict,
-  Meta,
-  QsLineTransitionData,
-} from './types'
+import { DrawArgs, LineConfigStrict, Meta } from './types'
 import { getMeta as getVerticalMeta } from './metaVertical'
 import { getMeta as getHorizontalMeta } from './metaHorizontal'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { applyDefaultColorIfNeeded } from '../../core/color/color'
-
-export { QsLineData, QsLineConfig, QsLineTransitionData, QsLine } from './types'
+import {
+  QsLineConfig,
+  QsLineData,
+  QsLine,
+  QsLineTransitionData,
+} from './qsTypes'
 
 const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
   const defauls: LineConfigStrict = {

@@ -1,5 +1,5 @@
-import { arc as d3arc, interpolate, Selection } from 'd3'
-import { QsValuedText, RadialTextConfigStrict } from './types'
+import { arc as d3arc, interpolate } from 'd3'
+import { RadialTextConfigStrict } from './types'
 import { BandData, Meta, getMeta, updateMeta } from './meta'
 import { RadialTextType, ScaleType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
@@ -10,43 +10,14 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
 } from '../../core/enums/qsEnums'
-import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { getRotationFunction } from './textRotation'
 import { Canvas } from '../../d3QuickStart'
-
-export { QsValuedText } from './types'
-
-export interface QsRadialTextConfig {
-  [key: string]: string | number | undefined
-  radius?: number
-  x?: number
-  y?: number
-  textFont?: QsEnumTextFont | string
-  textFontSize?: number
-  textFontStyle?: QsEnumTextFontStyle
-  textFontWeight?: QsEnumTextFontWeight | number
-  textDecorationLine?: QsEnumTextDecorationLine
-  textFill?: string
-  textAnchor?: QsEnumTextAnchor
-  textStroke?: string
-}
-
-export interface QsRadialTextTransitionArgs extends QsTransitionArgs {}
-
-export interface QsRadialTextTransitionData {
-  data: QsValuedText[]
-  transitionArgs?: QsRadialTextTransitionArgs
-}
-
-export interface QsRadialText {
-  elementText:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  elementArcs:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsRadialTextTransitionData) => void
-}
+import {
+  QsRadialTextConfig,
+  QsRadialText,
+  QsRadialTextTransitionData,
+  QsValuedText,
+} from './qsTypes'
 
 interface DrawArgs {
   data: QsValuedText[]

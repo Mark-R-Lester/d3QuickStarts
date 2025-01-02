@@ -1,4 +1,4 @@
-import { scaleLinear, Selection } from 'd3'
+import { scaleLinear } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import {
   QsEnumAlignmentBaseline,
@@ -8,32 +8,7 @@ import {
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from '../../core/enums/qsEnums'
-
-export interface QsTextConfig {
-  [key: string]: number | string | undefined
-  textFont?: QsEnumTextFont | string
-  textFontSize?: number
-  textFontStyle?: QsEnumTextFontStyle
-  textFontWeight?: QsEnumTextFontWeight | number
-  textDecorationLine?: QsEnumTextDecorationLine
-  textFill?: string
-  textAngle?: number
-  textAnchor?: QsEnumTextAnchor
-  textStroke?: string
-  textAlignmentBaseline?: QsEnumAlignmentBaseline
-}
-
-export interface QsText {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-}
-
-export interface QsTextArgs {
-  x: number
-  y: number
-  text: string
-}
+import { QsTextArgs, QsTextConfig, QsText } from './qsTypes'
 
 interface TextConfigStrict {
   [key: string]: number | string | undefined

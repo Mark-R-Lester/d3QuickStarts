@@ -1,12 +1,13 @@
 import { scaleLinear, ScaleOrdinal, ScaleLinear, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { QsRadialData, RadialConfigStrict } from './types'
+import { RadialConfigStrict } from './types'
 import {
   getColorScale,
   getPrecidendedColor,
   getScaledColor,
 } from '../../core/color/color'
 import { Canvas } from '../../d3QuickStart'
+import { QsRadialData } from './qsTypes'
 
 export interface Meta {
   class: string

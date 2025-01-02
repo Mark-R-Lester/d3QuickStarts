@@ -8,7 +8,7 @@ import {
 import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import { MetaBarData, DrawArgs, QsBarConfigStrict, QsBarData } from './types'
+import { MetaBarData, DrawArgs } from './types'
 import { Orientation } from '../../core/enums/enums'
 
 import {
@@ -16,6 +16,7 @@ import {
   getScaledColor,
   getColorScale,
 } from '../../core/color/color'
+import { QsBarConfigStrict, QsBarData } from './qsTypes'
 
 export interface Meta {
   class: string

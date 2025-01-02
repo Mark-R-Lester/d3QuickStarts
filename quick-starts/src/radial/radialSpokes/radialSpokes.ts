@@ -1,23 +1,11 @@
-import { line, Selection } from 'd3'
-import { Meta, getMeta, QsRadialSpokesTransitionArgs } from './meta'
+import { line } from 'd3'
+import { Meta, getMeta } from './meta'
 import { Canvas } from '../../d3QuickStart'
-
-export interface QsRadialSpokesConfig {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
-  radius?: number
-  innerRadius?: number
-  x?: number
-  y?: number
-  color?: string
-  strokeWidth?: number
-}
-
-export interface QsRadialSpokes {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: number) => void
-}
+import {
+  QsRadialSpokesConfig,
+  QsRadialSpokes,
+  QsRadialSpokesTransitionArgs,
+} from './qsTypes'
 
 interface RadialSpokesConfigStrict {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined

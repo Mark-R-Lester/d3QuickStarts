@@ -1,20 +1,10 @@
-import { scaleLinear, Selection, line as d3line } from 'd3'
+import { scaleLinear, line as d3line } from 'd3'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { qsFindMaxCoordinateX, qsFindMaxCoordinateY } from '../../core/max'
 import { Canvas } from '../../d3QuickStart'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
-
-export interface QsLinePlotConfig {
-  [key: string]: QsEnumCurve | undefined
-  curve?: QsEnumCurve
-}
-
-export interface QsLinePlot {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-}
+import { QsLinePlotConfig, QsLinePlot } from './qsTypes'
 
 interface LinePlotConfigStrict {
   [key: string]: QsEnumCurve | undefined

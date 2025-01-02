@@ -1,7 +1,5 @@
-import { BaseType, scaleLinear, Selection } from 'd3'
-
 import { Meta, getMeta } from './meta'
-import { LegendConfigStrict, QsLegendData } from './types'
+import { LegendConfigStrict } from './types'
 import { QsTransitionArgs } from '../core/types/qsTypes'
 import {
   QsEnumAlignmentBaseline,
@@ -12,31 +10,8 @@ import {
   QsEnumTextFontWeight,
 } from '../core/enums/qsEnums'
 import { Canvas } from '../d3QuickStart'
-export { QsLegendData } from './types'
-
-export interface QsLegend {
-  element: Selection<BaseType, unknown, SVGGElement, unknown>
-  transition: (data: QsLegendData[], transisionArgs?: QsTransitionArgs) => void
-}
-
-export interface QsLegendConfig {
-  [key: string]: number | string | undefined
-  height?: number
-  width?: number
-  space?: number
-  x?: number
-  y?: number
-  textFont?: QsEnumTextFont | string
-  textFontSize?: number
-  textFontStyle?: QsEnumTextFontStyle
-  textFontWeight?: QsEnumTextFontWeight | number
-  textDecorationLine?: QsEnumTextDecorationLine
-  textFill?: string
-  textAngle?: number
-  textAnchor?: QsEnumTextAnchor
-  textStroke?: string
-  textAlignmentBaseline?: QsEnumAlignmentBaseline
-}
+import { QsLegendData, QsLegendConfig, QsLegend } from './qsTypes'
+import { scaleLinear } from 'd3'
 
 interface DrawArgs {
   data: QsLegendData[]

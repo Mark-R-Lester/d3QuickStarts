@@ -1,36 +1,15 @@
-import { interpolate, Selection, arc as d3arc } from 'd3'
-import { QsRadialData, RadialConfigStrict } from './types'
+import { interpolate, arc as d3arc } from 'd3'
+import { RadialConfigStrict } from './types'
 import { Meta, getMeta, updateMeta } from './meta'
-import { QsColorScaleData, QsTransitionArgs } from '../../core/types/qsTypes'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { GlobalDefaults } from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
-
-export { QsRadialData } from './types'
-
-export interface QsRadialConfig {
-  [key: string]: number | string | QsColorScaleData | undefined
-  outerRadius?: number
-  innerRadius?: number
-  padAngle?: number
-  cornerRadius?: number
-  x?: number
-  y?: number
-  defaultColor?: string
-  colorScaleData?: QsColorScaleData
-}
-
-export interface QsRadialTransitionData {
-  data: QsRadialData[]
-  transitionArgs?: QsTransitionArgs
-}
-
-export interface QsRadial {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsRadialTransitionData) => void
-}
+import {
+  QsRadialConfig,
+  QsRadial,
+  QsRadialTransitionData,
+  QsRadialData,
+} from './qsTypes'
 
 interface DrawArgs {
   data: QsRadialData[]

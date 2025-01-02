@@ -1,28 +1,14 @@
-import { Selection } from 'd3'
-import { Canvas, QsColorScaleData, QsTransitionArgs } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 import { Meta, getMeta } from './meta'
-import { DrawArgs, PointsConfigStrict, QsPointData } from './types'
+import { DrawArgs, PointsConfigStrict } from './types'
 import { GlobalDefaults, Orientation, ScaleType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-
-export interface QsPointsConfig {
-  [key: string]: number | QsColorScaleData | string | undefined
-  radius?: number
-  defaultColor?: string
-  colorScaleData?: QsColorScaleData
-}
-
-export interface QsPointsTransitionData {
-  data: QsPointData[]
-  transitionArgs?: QsTransitionArgs
-}
-
-export interface QsPoints {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsPointsTransitionData) => void
-}
+import {
+  QsPointData,
+  QsPoints,
+  QsPointsConfig,
+  QsPointsTransitionData,
+} from './qsTypes'
 
 const addDefaultsToConfig = (
   customConfig?: QsPointsConfig

@@ -1,8 +1,9 @@
 import { scaleLinear, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { QsValuedText, RadialTextConfigStrict } from './types'
+import { RadialTextConfigStrict } from './types'
 import { ScaleType } from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
+import { QsValuedText } from './qsTypes'
 
 export interface Meta {
   arcClass: string

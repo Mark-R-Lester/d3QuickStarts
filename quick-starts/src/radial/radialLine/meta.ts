@@ -1,6 +1,6 @@
 import { scaleLinear, ScaleLinear } from 'd3'
-import { QsRadialLineData } from './types'
 import { Canvas } from '../../d3QuickStart'
+import { QsRadialLineData } from './qsTypes'
 
 export interface Meta {
   class: string

@@ -1,12 +1,5 @@
 import { Orientation } from '../../core/enums/enums'
-import { QsColorScaleData } from '../../d3QuickStart'
-
-export interface QsBarConfigStrict {
-  [key: string]: number | string | QsColorScaleData | undefined
-  padding: number
-  defaultColor: string
-  colorScaleData?: QsColorScaleData
-}
+import { QsBarData } from './qsTypes'
 
 export interface MetaBarData {
   x: number
@@ -14,12 +7,6 @@ export interface MetaBarData {
   height: number
   width: number
   color: string
-}
-
-export interface QsBarData {
-  lowerBoundry?: number
-  upperBoundry: number
-  color?: string
 }
 
 export interface DrawArgs {

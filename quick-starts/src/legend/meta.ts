@@ -1,6 +1,7 @@
 import { scaleLinear } from 'd3'
-import { Canvas, QsLegendData } from '../d3QuickStart'
+import { Canvas } from '../d3QuickStart'
 import { LegendConfigStrict } from './types'
+import { QsLegendData } from './qsTypes'
 
 export interface Meta {
   x: number

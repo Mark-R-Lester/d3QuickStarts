@@ -1,4 +1,4 @@
-import { CanvasScales, getScales } from '../core/getScales'
+import { CanvasScales, getScales } from './getScales'
 import { getGenerators, QsGenerator } from './generators'
 import { CanvasConfigStrict } from './types'
 import { Selection, select } from 'd3'

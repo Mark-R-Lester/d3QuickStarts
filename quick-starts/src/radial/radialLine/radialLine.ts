@@ -1,30 +1,16 @@
-import { lineRadial, Selection } from 'd3'
+import { lineRadial } from 'd3'
 import { Meta, getMeta } from './meta'
-import { Canvas, QsTransitionArgs } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
-import { QsRadialLineData } from './types'
 import { applyDefaultColorIfNeeded } from '../../core/color/color'
-
-export interface QsRadialLineConfig {
-  [key: string]: number | QsEnumCurve | undefined
-  x?: number
-  y?: number
-  curve?: QsEnumCurve
-}
-
-export interface QsRadialLineTransitionData {
-  data: QsRadialLineData
-  transitionArgs?: QsTransitionArgs
-}
-
-export interface QsRadialLine {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsRadialLineTransitionData) => void
-}
+import {
+  QsRadialLineConfig,
+  QsRadialLine,
+  QsRadialLineTransitionData,
+  QsRadialLineData,
+} from './qsTypes'
 
 interface RadialLineConfigStrict {
   [key: string]: number | QsEnumCurve | undefined

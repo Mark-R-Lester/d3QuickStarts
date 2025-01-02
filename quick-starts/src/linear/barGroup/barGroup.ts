@@ -1,27 +1,13 @@
-import { schemePurples, Selection } from 'd3'
+import { schemePurples } from 'd3'
 import { BarGroupConfigStrict } from './types'
 import { Meta, getMeta } from './meta'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { Canvas } from '../../d3QuickStart'
-
-export interface QsBarGroupConfig {
-  [key: string]: number | Iterable<String> | undefined
-  padding?: number
-  colorRange?: Iterable<String>
-}
-
-export interface QsBarGroupTransitionData {
-  data: number[][]
-  transitionArgs?: QsTransitionArgs
-}
-
-export interface QsBarGroups {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsBarGroupTransitionData) => void
-}
+import {
+  QsBarGroupConfig,
+  QsBarGroups,
+  QsBarGroupTransitionData,
+} from './qsTypes'
 
 interface DrawArgs {
   data: number[][]

@@ -1,9 +1,9 @@
 import { getMeta, Meta } from './meta'
-import { getScales } from '../core/getScales'
+import { getScales } from '../canvas/getScales'
 import { mockSelection } from '../testObjects/mockSelection'
 import { mockCanvasConfigStrict } from '../testObjects/mockCanvasConfigStrict'
-import { LegendConfigStrict, QsLegendData } from './types'
-import { QsCanvas } from '../d3QuickStart'
+import { LegendConfigStrict } from './types'
+import { Canvas } from '../d3QuickStart'
 import {
   QsEnumTextFontWeight,
   QsEnumTextFontStyle,
@@ -12,9 +12,10 @@ import {
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
 } from '../core/enums/qsEnums'
+import { QsLegendData } from './qsTypes'
 
 const scales = getScales(mockCanvasConfigStrict)
-const canvas: QsCanvas = {
+const canvas: Canvas = {
   config: mockCanvasConfigStrict,
   displayGroup: mockSelection,
   scales,

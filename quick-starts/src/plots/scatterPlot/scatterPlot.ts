@@ -1,17 +1,8 @@
-import { scaleLinear, Selection } from 'd3'
+import { scaleLinear } from 'd3'
 import { QsCoordinateEnhanced } from '../../core/types/qsTypes'
 import { qsFindMaxCoordinateX, qsFindMaxCoordinateY } from '../../core/max'
 import { Canvas } from '../../d3QuickStart'
-
-export interface QsScatterPlotConfig {
-  [key: string]: string | undefined
-}
-
-export interface QsScatterPlot {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-}
+import { QsScatterPlotConfig, QsScatterPlot } from './qsTypes'
 
 interface ScatterPlotConfigStrict {
   [key: string]: string | undefined

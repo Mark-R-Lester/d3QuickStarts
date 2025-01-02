@@ -3,26 +3,14 @@ import { AreaData, getMeta, Meta } from './meta'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { applyDefaultColorIfNeeded } from '../../core/color/color'
 import { constantsCurves } from '../../core/constants/constants'
-import { QsAreaData, Canvas, QsTransitionArgs } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
-
-export { QsAreaData } from './types'
-export interface QsAreaConfig {
-  [key: string]: CurveFactory | string | undefined
-  curve?: QsEnumCurve
-}
-
-export interface QsAreaTransitionData {
-  data: QsAreaData
-  transitionArgs?: QsTransitionArgs
-}
-
-export interface QsArea {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsAreaTransitionData) => void
-}
+import {
+  QsArea,
+  QsAreaConfig,
+  QsAreaData,
+  QsAreaTransitionData,
+} from './qsTypes'
 
 interface AreaConfigStrict {
   [key: string]: CurveFactory | string | undefined

@@ -1,31 +1,15 @@
 import { getMeta, Meta } from './meta'
-import { Selection, scaleLinear } from 'd3'
-import { Canvas, QsColorScaleData, QsTransitionArgs } from '../../d3QuickStart'
+import { scaleLinear } from 'd3'
+import { Canvas } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { QsRadialPointData, RadialPointsConfigStrict } from './types'
+import { RadialPointsConfigStrict } from './types'
 import { GlobalDefaults } from '../../core/enums/enums'
-export { QsRadialPointData } from './types'
-
-export interface QsRadialPointsConfig {
-  [key: string]: number | QsColorScaleData | string | undefined
-  x?: number
-  y?: number
-  pointRadius?: number
-  defaultColor?: string
-  colorScaleData?: QsColorScaleData
-}
-
-export interface QsRadialPointsTransitionData {
-  data: QsRadialPointData[]
-  transitionArgs?: QsTransitionArgs
-}
-
-export interface QsRadialPoints {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsRadialPointsTransitionData) => void
-}
+import {
+  QsRadialPointData,
+  QsRadialPointsConfig,
+  QsRadialPoints,
+  QsRadialPointsTransitionData,
+} from './qsTypes'
 
 interface DrawArgs {
   data: QsRadialPointData[]

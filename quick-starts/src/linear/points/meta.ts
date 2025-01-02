@@ -6,7 +6,7 @@ import {
   ScaleSequential,
 } from 'd3'
 import { Canvas } from '../../d3QuickStart'
-import { DrawArgs, PointsConfigStrict, QsPointData } from './types'
+import { DrawArgs, PointsConfigStrict } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation, ScaleType } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
@@ -15,6 +15,7 @@ import {
   getPrecidendedColor,
   getScaledColor,
 } from '../../core/color/color'
+import { QsPointData } from './qsTypes'
 
 export interface Meta {
   class: string

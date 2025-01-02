@@ -1,12 +1,4 @@
-import {
-  scaleLinear,
-  scaleBand,
-  scaleOrdinal,
-  range,
-  stack,
-  ScaleOrdinal,
-  Series,
-} from 'd3'
+import { scaleBand, scaleOrdinal, range, stack, ScaleOrdinal, Series } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
@@ -23,12 +15,8 @@ export const getMeta = (
   data: number[][],
   config: BarGroupConfigStrict
 ): Meta[] => {
-  const {
-    lowestViewableValue,
-    highestViewableValue,
-    displayAreaWidth,
-    displayAreaHeight,
-  } = canvas.config
+  const { displayAreaWidth } = canvas.config
+  const { yDataScale } = canvas.scales
   const { padding } = config
   const meta: Meta[] = []
 
@@ -36,17 +24,13 @@ export const getMeta = (
     .domain(toStrings(range([...config.colorRange].length)))
     .range(config.colorRange)
 
-  const yScale = scaleLinear()
-    .domain([lowestViewableValue, highestViewableValue])
-    .range([displayAreaHeight, 0])
-
   const xBandScale = scaleBand()
     .domain(toStrings(range(data.length)))
     .range([0, displayAreaWidth])
     .paddingInner(padding / 200)
     .paddingOuter(padding / 200)
 
-  const y = (d: number[]): number => yScale(d[1] - d[0])
+  const y = (d: number[]): number => yDataScale(d[1] - d[0])
   const x = (outer: number, inner: string): number => {
     //TODO requires error handling
     const bandVal = xBandScale(inner)
@@ -55,7 +39,7 @@ export const getMeta = (
     return 0
   }
 
-  const height = (d: number[]) => yScale(0) - yScale(d[1] - d[0])
+  const height = (d: number[]) => yDataScale(0) - yDataScale(d[1] - d[0])
   const width = () => xBandScale.bandwidth() / data[0].length
 
   const getColor = (

@@ -2,23 +2,24 @@ import { scaleBand, scaleOrdinal, range, stack, ScaleOrdinal, Series } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import { BarData, BarGroupConfigStrict } from './types'
+import { BarData, BarStackedConfigStrict } from './types'
 
-export interface Meta {
+export interface CalculatedData {
   groupId: string
-  groupClass: string
+  stackClass: string
   barData: BarData[]
 }
 
-export const getMeta = (
+export const getCalculatedData = (
   canvas: Canvas,
   data: number[][],
-  config: BarGroupConfigStrict
-): Meta[] => {
+  config: BarStackedConfigStrict
+): CalculatedData[] => {
   const { displayAreaWidth } = canvas.config
   const { yDataScale } = canvas.scales
   const { padding } = config
-  const meta: Meta[] = []
+
+  const calculatedData: CalculatedData[] = []
 
   const colors = scaleOrdinal()
     .domain(toStrings(range([...config.colorRange].length)))
@@ -30,17 +31,16 @@ export const getMeta = (
     .paddingInner(padding / 200)
     .paddingOuter(padding / 200)
 
-  const y = (d: number[]): number => yDataScale(d[1] - d[0])
-  const x = (outer: number, inner: string): number => {
+  const y = (d: number[]): number => yDataScale(d[1])
+  const x = (inner: string): number => {
     //TODO requires error handling
     const bandVal = xBandScale(inner)
-    if (bandVal)
-      return bandVal + (xBandScale.bandwidth() / data[0].length) * outer
+    if (bandVal) return bandVal
     return 0
   }
 
-  const height = (d: number[]) => yDataScale(0) - yDataScale(d[1] - d[0])
-  const width = () => xBandScale.bandwidth() / data[0].length
+  const height = (d: number[]) => yDataScale(d[0]) - yDataScale(d[1])
+  const width = () => xBandScale.bandwidth()
 
   const getColor = (
     i: number,
@@ -56,23 +56,23 @@ export const getMeta = (
   )(data as Iterable<{ [key: string]: number }>)
 
   stackedData.forEach((d, outer) => {
-    const barIds = d.map(() => `barGrouped${uuidv4()}`)
+    const barIds = d.map(() => `${`barStacked${uuidv4()}`}`)
     const data: BarData[] = d.map((d, inner): BarData => {
       return {
         id: barIds[inner],
-        class: 'barGrouped',
-        x: x(outer, inner.toString()),
+        class: `${'barStacked'}`,
+        x: x(inner.toString()),
         y: y(d),
         height: height(d),
         width: width(),
         color: getColor(inner, colors),
       }
     })
-    meta.push({
-      groupId: `group${outer}`,
-      groupClass: 'barGroup',
+    calculatedData.push({
+      groupId: `stack${outer}`,
+      stackClass: `${'barStack'}`,
       barData: data,
     })
   })
-  return meta
+  return calculatedData
 }

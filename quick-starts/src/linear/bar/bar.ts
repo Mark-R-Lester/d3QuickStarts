@@ -1,6 +1,6 @@
 import { Selection } from 'd3'
 import { Canvas } from '../../d3QuickStart'
-import { getMeta, Meta } from './meta'
+import { getCalculatedData, CalculatedData } from './calculatedData'
 import { DrawArgs } from './types'
 import { GlobalDefaults, Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
@@ -51,13 +51,17 @@ const draw = (
   config: QsBarConfigStrict
 ): QsBars => {
   const { orientation } = args
-  const meta: Meta[] = getMeta(canvas, args, config)
+  const calculatedData: CalculatedData[] = getCalculatedData(
+    canvas,
+    args,
+    config
+  )
 
   const group: Selection<SVGGElement, unknown, HTMLElement, any> =
     canvas.displayGroup.append('g')
   group
     .selectAll('.bar')
-    .data(meta)
+    .data(calculatedData)
     .enter()
     .append('rect')
     .attr('class', (d) => d.class)
@@ -71,12 +75,16 @@ const draw = (
   const transition = (data: QsBarTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
     const drawArgs: DrawArgs = { data: data.data, orientation }
-    const meta: Meta[] = getMeta(canvas, drawArgs, config)
+    const calculatedData: CalculatedData[] = getCalculatedData(
+      canvas,
+      drawArgs,
+      config
+    )
 
     if (orientation === Orientation.VERTICAL)
       group
-        .selectAll(`.${meta[0].class}`)
-        .data(meta)
+        .selectAll(`.${calculatedData[0].class}`)
+        .data(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
@@ -85,8 +93,8 @@ const draw = (
         .attr('fill', (d) => d.barData.color)
     else
       group
-        .selectAll(`.${meta[0].class}`)
-        .data(meta)
+        .selectAll(`.${calculatedData[0].class}`)
+        .data(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
@@ -95,7 +103,7 @@ const draw = (
         .attr('fill', (d) => d.barData.color)
   }
   return {
-    element: group.selectAll(`.${meta[0].class}`),
+    element: group.selectAll(`.${calculatedData[0].class}`),
     transition: (data: QsBarTransitionData) => transition(data),
   }
 }

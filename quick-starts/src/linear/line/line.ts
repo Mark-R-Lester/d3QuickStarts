@@ -1,9 +1,9 @@
 import { Orientation, ScaleType } from '../../core/enums/enums'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { Canvas } from '../../d3QuickStart'
-import { DrawArgs, LineConfigStrict, Meta } from './types'
-import { getMeta as getVerticalMeta } from './metaVertical'
-import { getMeta as getHorizontalMeta } from './metaHorizontal'
+import { DrawArgs, LineConfigStrict, CalculatedData } from './types'
+import { getCalculatedData as getVerticalCalculatedData } from './calculatedDataVertical'
+import { getCalculatedData as getHorizontalCalculatedData } from './calculatedDataHorizontal'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { applyDefaultColorIfNeeded } from '../../core/color/color'
 import {
@@ -86,17 +86,17 @@ export const draw = (
 ): QsLine => {
   const { scaleType, orientation } = args
   const { color } = args.data
-  const meta: Meta =
+  const calculatedData: CalculatedData =
     orientation === Orientation.HORIZONTAL
-      ? getHorizontalMeta(canvas, args, config)
-      : getVerticalMeta(canvas, args, config)
+      ? getHorizontalCalculatedData(canvas, args, config)
+      : getVerticalCalculatedData(canvas, args, config)
 
-  const { lineFunction, lineData } = meta
+  const { lineFunction, lineData } = calculatedData
   const group = canvas.displayGroup.append('g')
   group
     .append('path')
-    .attr('class', meta.class)
-    .attr('id', meta.id)
+    .attr('class', calculatedData.class)
+    .attr('id', calculatedData.id)
     .attr('d', lineFunction(lineData))
     .attr('fill', 'none')
     .attr('stroke', applyDefaultColorIfNeeded({ color }))
@@ -109,21 +109,21 @@ export const draw = (
       orientation,
     }
     const { color: newColor } = data.data
-    const meta: Meta =
+    const calculatedData: CalculatedData =
       orientation === Orientation.HORIZONTAL
-        ? getHorizontalMeta(canvas, drawArgs, config)
-        : getVerticalMeta(canvas, drawArgs, config)
+        ? getHorizontalCalculatedData(canvas, drawArgs, config)
+        : getVerticalCalculatedData(canvas, drawArgs, config)
 
     group
-      .selectAll(`.${meta.class}`)
+      .selectAll(`.${calculatedData.class}`)
       .transition()
       .delay(args.delayInMiliSeconds)
       .duration(args.durationInMiliSeconds)
-      .attr('d', lineFunction(meta.lineData))
+      .attr('d', lineFunction(calculatedData.lineData))
       .attr('stroke', applyDefaultColorIfNeeded({ color, newColor }))
   }
   return {
-    element: group.select(`.${meta.class}`),
+    element: group.select(`.${calculatedData.class}`),
     transition: (data: QsLineTransitionData) => transition(data),
   }
 }

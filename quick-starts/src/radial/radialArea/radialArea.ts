@@ -1,6 +1,6 @@
 import { areaRadial } from 'd3'
-import { RadialAreaConfigStrict, RadialAreaMetaData } from './types'
-import { Meta, getMeta } from './meta'
+import { RadialAreaConfigStrict, RadialAreaCalculatedDataData } from './types'
+import { CalculatedData, getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
@@ -56,9 +56,14 @@ const draw = (
 ): QsRadialArea => {
   const { outerData: dataOuter, innerData: dataInner, color } = args.data
   const { x, y, curve } = config
-  const meta: Meta = getMeta(canvas, dataOuter, config, dataInner)
+  const calculatedData: CalculatedData = getCalculatedData(
+    canvas,
+    dataOuter,
+    config,
+    dataInner
+  )
 
-  const radialArea = areaRadial<RadialAreaMetaData>()
+  const radialArea = areaRadial<RadialAreaCalculatedDataData>()
     .angle((d) => d.angle)
     .outerRadius((d) => d.outer)
     .innerRadius((d) => d.inner)
@@ -67,24 +72,29 @@ const draw = (
   const group = canvas.displayGroup.append('g')
   group
     .append('path')
-    .attr('class', meta.class)
-    .attr('id', meta.id)
-    .attr('d', radialArea(meta.areaData))
+    .attr('class', calculatedData.class)
+    .attr('id', calculatedData.id)
+    .attr('d', radialArea(calculatedData.areaData))
     .attr('fill', applyDefaultColorIfNeeded({ color }))
-    .attr('transform', `translate(${meta.x}, ${meta.y})`)
+    .attr('transform', `translate(${calculatedData.x}, ${calculatedData.y})`)
   return {
     element: group.selectAll('path'),
     transition: (data: QsRadialAreaTransitionData) => {
       const { innerData, outerData, color: newColor } = data.data
-      const meta = getMeta(canvas, outerData, config, innerData)
+      const calculatedData = getCalculatedData(
+        canvas,
+        outerData,
+        config,
+        innerData
+      )
       const args = addTransitionDefaults(data.transitionArgs)
 
       group
-        .selectAll(`.${meta.class}`)
+        .selectAll(`.${calculatedData.class}`)
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
-        .attr('d', radialArea(meta.areaData))
+        .attr('d', radialArea(calculatedData.areaData))
         .attr('fill', applyDefaultColorIfNeeded({ color, newColor }))
     },
   }

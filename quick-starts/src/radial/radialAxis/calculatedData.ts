@@ -20,7 +20,7 @@ interface RingData {
   text: number | string
 }
 
-export interface Meta {
+export interface CalculatedData {
   [key: string]: string | RingData | number
   ringId: string
   textId: string
@@ -52,11 +52,11 @@ export interface RadialAxisConfigStrict {
   textAlignmentBaseline: QsEnumAlignmentBaseline
 }
 
-export const getMeta = (
+export const getCalculatedData = (
   canvas: Canvas,
   data: number[],
   config: RadialAxisConfigStrict
-): Meta[] => {
+): CalculatedData[] => {
   const {
     displayAreaHeight,
     displayAreaWidth,
@@ -66,7 +66,7 @@ export const getMeta = (
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
   const { radius, axisAngle, gap, x, y, textFontSize } = config
 
-  const meta: Meta[] = []
+  const calculatedData: CalculatedData[] = []
   const ordinal = data.some((d) => typeof d === 'string')
 
   let ordialScale: ScaleOrdinal<string, unknown, never>
@@ -105,7 +105,7 @@ export const getMeta = (
       else return ''
     }
 
-    meta.push({
+    calculatedData.push({
       ringId: `ring${uuidv4()}`,
       textId: `ringText${uuidv4()}`,
       ringClass: `ring`,
@@ -124,5 +124,5 @@ export const getMeta = (
       textFontSize: genralPercentScale(textFontSize),
     })
   })
-  return meta
+  return calculatedData
 }

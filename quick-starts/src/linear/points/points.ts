@@ -1,5 +1,5 @@
 import { Canvas } from '../../d3QuickStart'
-import { Meta, getMeta } from './meta'
+import { CalculatedData, getCalculatedData } from './calculatedData'
 import { DrawArgs, PointsConfigStrict } from './types'
 import { GlobalDefaults, Orientation, ScaleType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
@@ -88,12 +88,16 @@ const draw = (
   const { radius } = config
   const { orientation, scaleType } = args
 
-  const meta: Meta[] = getMeta(canvas, args, config)
+  const calculatedData: CalculatedData[] = getCalculatedData(
+    canvas,
+    args,
+    config
+  )
   const group = canvas.displayGroup.append('g')
 
   group
     .selectAll('circle')
-    .data(meta)
+    .data(calculatedData)
     .enter()
     .append('circle')
     .attr('class', (d) => d.class)
@@ -106,12 +110,16 @@ const draw = (
   const transition = (data: QsPointsTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
     const drawArgs: DrawArgs = { data: data.data, orientation, scaleType }
-    const meta: Meta[] = getMeta(canvas, drawArgs, config)
+    const calculatedData: CalculatedData[] = getCalculatedData(
+      canvas,
+      drawArgs,
+      config
+    )
 
     if (orientation === Orientation.VERTICAL)
       group
-        .selectAll(`.${meta[0].class}`)
-        .data(meta)
+        .selectAll(`.${calculatedData[0].class}`)
+        .data(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
@@ -119,8 +127,8 @@ const draw = (
         .attr('fill', (d) => d.color)
     else
       group
-        .selectAll(`.${meta[0].class}`)
-        .data(meta)
+        .selectAll(`.${calculatedData[0].class}`)
+        .data(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
@@ -128,7 +136,7 @@ const draw = (
         .attr('fill', (d) => d.color)
   }
   return {
-    element: group.selectAll(`.${meta[0].class}`),
+    element: group.selectAll(`.${calculatedData[0].class}`),
     transition: (data: QsPointsTransitionData) => transition(data),
   }
 }

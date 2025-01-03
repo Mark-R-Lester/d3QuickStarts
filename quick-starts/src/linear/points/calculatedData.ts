@@ -17,7 +17,7 @@ import {
 } from '../../core/color/color'
 import { QsPointData } from './qsTypes'
 
-export interface Meta {
+export interface CalculatedData {
   class: string
   id: string
   pointData: QsCoordinate
@@ -25,11 +25,11 @@ export interface Meta {
   color: string
 }
 
-export const getMeta = (
+export const getCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
   config: PointsConfigStrict
-): Meta[] => {
+): CalculatedData[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { xDataScale, yDataScale } = canvas.scales
   const { data, orientation, scaleType } = args
@@ -96,7 +96,7 @@ export const getMeta = (
 
   if (colorScaleData) colorScale = getColorScale(colorScaleData)
 
-  const meta: Meta[] = coordinates.map((d, i) => {
+  const calculatedData: CalculatedData[] = coordinates.map((d, i) => {
     const scaledColor: string | unknown | undefined = getScaledColor(
       orientation === Orientation.HORIZONTAL ? d.y : d.x,
       colorScale
@@ -109,5 +109,5 @@ export const getMeta = (
       color: getPrecidendedColor(d.color, defaultColor, scaledColor),
     }
   })
-  return meta
+  return calculatedData
 }

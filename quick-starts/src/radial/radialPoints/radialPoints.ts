@@ -1,5 +1,4 @@
-import { getMeta, Meta } from './meta'
-import { scaleLinear } from 'd3'
+import { getCalculatedData, CalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { RadialPointsConfigStrict } from './types'
@@ -50,12 +49,16 @@ const draw = (
   config: RadialPointsConfigStrict
 ): QsRadialPoints => {
   const { data } = args
-  const meta: Meta[] = getMeta(canvas, data, config)
+  const calculatedData: CalculatedData[] = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
 
   const dataPoints = canvas.displayGroup.append('g')
   dataPoints
     .selectAll('circle')
-    .data(meta)
+    .data(calculatedData)
     .enter()
     .append('circle')
     .attr('class', (d) => d.class)
@@ -69,10 +72,14 @@ const draw = (
     element: dataPoints.selectAll('circle'),
     transition: (data: QsRadialPointsTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
-      const meta: Meta[] = getMeta(canvas, data.data, config)
+      const calculatedData: CalculatedData[] = getCalculatedData(
+        canvas,
+        data.data,
+        config
+      )
       dataPoints
-        .selectAll(`.${meta[0].class}`)
-        .data(meta)
+        .selectAll(`.${calculatedData[0].class}`)
+        .data(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)

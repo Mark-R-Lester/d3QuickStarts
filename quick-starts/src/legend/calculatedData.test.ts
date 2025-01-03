@@ -1,4 +1,4 @@
-import { getMeta, Meta } from './meta'
+import { getCalculatedData, CalculatedData } from './calculatedData'
 import { getScales } from '../canvas/getScales'
 import { mockSelection } from '../testObjects/mockSelection'
 import { mockCanvasConfigStrict } from '../testObjects/mockCanvasConfigStrict'
@@ -46,7 +46,7 @@ const data: QsLegendData[] = [
   },
 ]
 
-const metaResult: Meta[] = [
+const calculatedDataResult: CalculatedData[] = [
   {
     x: 10,
     y: 80,
@@ -59,8 +59,10 @@ const metaResult: Meta[] = [
   },
 ]
 
-describe('legend getMeta', () => {
+describe('legend getCalculatedData', () => {
   test('to strings', () => {
-    expect(getMeta(canvas, data, legendConfig)).toEqual(metaResult)
+    expect(getCalculatedData(canvas, data, legendConfig)).toEqual(
+      calculatedDataResult
+    )
   })
 })

@@ -1,6 +1,6 @@
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 
-export interface RadialAreaMetaData {
+export interface RadialAreaCalculatedDataData {
   angle: number
   inner: number
   outer: number

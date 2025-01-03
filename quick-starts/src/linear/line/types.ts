@@ -15,7 +15,7 @@ export interface LineConfigStrict {
   curve: QsEnumCurve
 }
 
-export interface Meta {
+export interface CalculatedData {
   class: string
   id: string
   lineData: [number, number][]

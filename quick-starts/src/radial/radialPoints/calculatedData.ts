@@ -9,7 +9,7 @@ import {
 import { Canvas, QsCoordinate } from '../../d3QuickStart'
 import { QsRadialPointData } from './qsTypes'
 
-export interface Meta {
+export interface CalculatedData {
   id: string
   class: string
   coordinate: QsCoordinate
@@ -19,17 +19,17 @@ export interface Meta {
   pointRadius: number
 }
 
-export const getMeta = (
+export const getCalculatedData = (
   canvas: Canvas,
   data: QsRadialPointData[],
   config: RadialPointsConfigStrict
-): Meta[] => {
+): CalculatedData[] => {
   const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
     canvas.config
   const { genralPercentScale, xPercentScale, yPercentScale } = canvas.scales
   const { colorScaleData, defaultColor, x, y, pointRadius } = config
 
-  const meta: Meta[] = []
+  const calculatedData: CalculatedData[] = []
   const angleScale = scaleLinear()
     .domain([0, data.length])
     .range([0, 2 * Math.PI])
@@ -57,7 +57,7 @@ export const getMeta = (
       colorScale
     )
 
-    meta.push({
+    calculatedData.push({
       id: `radialPoint${uuidv4()}`,
       class: 'radialPoint',
       coordinate,
@@ -67,5 +67,5 @@ export const getMeta = (
       pointRadius: genralPercentScale(pointRadius),
     })
   })
-  return meta
+  return calculatedData
 }

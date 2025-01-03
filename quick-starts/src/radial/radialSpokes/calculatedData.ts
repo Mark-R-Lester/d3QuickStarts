@@ -2,13 +2,13 @@ import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../d3QuickStart'
 import { QsRadialSpokesTransitionArgs } from './qsTypes'
 
-export interface Meta {
+export interface CalculatedData {
   class: string
   id: string
   lineData: [number, number][]
 }
 
-export const getMeta = (
+export const getCalculatedData = (
   canvas: Canvas,
   data: number,
   args: QsRadialSpokesTransitionArgs
@@ -16,7 +16,7 @@ export const getMeta = (
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { x, y, radius, innerRadius } = args
 
-  const meta: Meta[] = []
+  const calculatedData: CalculatedData[] = []
 
   const xCenter = (displayAreaWidth / 100) * x
   const yCenter = (displayAreaHeight / 100) * y
@@ -29,7 +29,7 @@ export const getMeta = (
     const outerY = Math.cos(angle) * outerHypotenuse + yCenter
     const innerX = Math.sin(angle) * innerHypotenuse + xCenter
     const innerY = Math.cos(angle) * innerHypotenuse + yCenter
-    meta[i] = {
+    calculatedData[i] = {
       class: 'axisSpoke',
       id: `axisSpoke${uuidv4()}`,
       lineData: [
@@ -38,5 +38,5 @@ export const getMeta = (
       ],
     }
   }
-  return meta
+  return calculatedData
 }

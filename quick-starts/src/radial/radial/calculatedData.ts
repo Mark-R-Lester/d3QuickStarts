@@ -9,7 +9,7 @@ import {
 import { Canvas } from '../../d3QuickStart'
 import { QsRadialData } from './qsTypes'
 
-export interface Meta {
+export interface CalculatedData {
   class: string
   id: string
   arcData: ArcData
@@ -31,27 +31,32 @@ export interface ArcData {
   value?: number
 }
 
-export const updateMeta = (
+export const updateCalculatedData = (
   canvas: Canvas,
   data: QsRadialData[],
   config: RadialConfigStrict,
-  meta: Meta[]
-): Meta[] => {
-  const newMeta: Meta[] = getMeta(canvas, data, config)
+  calculatedData: CalculatedData[]
+): CalculatedData[] => {
+  const newCalculatedData: CalculatedData[] = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
 
-  for (let i = 0; i < meta.length; i++) {
-    newMeta[i].id = meta[i].id
-    newMeta[i].arcData.endAngle = meta[i].arcData.endAngle
-    newMeta[i].arcData.startAngle = meta[i].arcData.startAngle
+  for (let i = 0; i < calculatedData.length; i++) {
+    newCalculatedData[i].id = calculatedData[i].id
+    newCalculatedData[i].arcData.endAngle = calculatedData[i].arcData.endAngle
+    newCalculatedData[i].arcData.startAngle =
+      calculatedData[i].arcData.startAngle
   }
-  return newMeta
+  return newCalculatedData
 }
 
-export const getMeta = (
+export const getCalculatedData = (
   canvas: Canvas,
   data: QsRadialData[],
   config: RadialConfigStrict
-): Meta[] => {
+): CalculatedData[] => {
   const { xPercentScale, yPercentScale } = canvas.scales
   const {
     defaultColor,
@@ -65,7 +70,7 @@ export const getMeta = (
   } = config
   let { padAngle } = config
 
-  const meta: Meta[] = []
+  const calculatedData: CalculatedData[] = []
 
   let totalValue = 0
   data.forEach((d) => {
@@ -92,7 +97,7 @@ export const getMeta = (
       colorScale
     )
 
-    meta.push({
+    calculatedData.push({
       class: `arc`,
       id: `arc${uuidv4()}`,
 
@@ -114,5 +119,5 @@ export const getMeta = (
     })
     startAngle = endAngle
   })
-  return meta
+  return calculatedData
 }

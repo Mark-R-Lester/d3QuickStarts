@@ -3,7 +3,7 @@ import { Canvas } from '../../d3QuickStart'
 import { QsRadialLineData } from './qsTypes'
 import { RadialLineConfigStrict } from './types'
 
-export interface Meta {
+export interface CalculatedData {
   class: string
   id: string
   lineData: Iterable<[number, number]>
@@ -11,11 +11,11 @@ export interface Meta {
   y: number
 }
 
-export const getMeta = (
+export const getCalculatedData = (
   canvas: Canvas,
   lineData: QsRadialLineData,
   config: RadialLineConfigStrict
-): Meta => {
+): CalculatedData => {
   const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
     canvas.config
   const { xPercentScale, yPercentScale } = canvas.scales

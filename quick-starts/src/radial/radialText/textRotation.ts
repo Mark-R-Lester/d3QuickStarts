@@ -1,5 +1,5 @@
 import { RadialTextType } from '../../core/enums/enums'
-import { BandData } from './meta'
+import { BandData } from './calculatedData'
 
 export const getRotationFunction = (
   type: RadialTextType

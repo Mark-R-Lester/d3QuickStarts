@@ -4,7 +4,7 @@ import { ScaleType } from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
 import { QsValuedText } from './qsTypes'
 
-export interface Meta {
+export interface CalculatedData {
   arcClass: string
   textClass: string
   textArcData: BandData[]
@@ -30,31 +30,39 @@ export interface BandData {
   innerRadius: number
 }
 
-export const updateMeta = (
+export const updateCalculatedData = (
   canvas: Canvas,
   data: QsValuedText[],
   config: RadialTextConfigStrict,
   scaleType: ScaleType,
-  meta: Meta
-): Meta => {
-  const newMeta: Meta = getMeta(canvas, data, config, scaleType)
+  calculatedData: CalculatedData
+): CalculatedData => {
+  const newCalculatedData: CalculatedData = getCalculatedData(
+    canvas,
+    data,
+    config,
+    scaleType
+  )
 
-  for (let i = 0; i < meta.textArcData.length; i++) {
-    newMeta.textArcData[i].arcId = meta.textArcData[i].arcId
-    newMeta.textArcData[i].textId = meta.textArcData[i].textId
-    newMeta.textArcData[i].endAngle = meta.textArcData[i].endAngle
-    newMeta.textArcData[i].startAngle = meta.textArcData[i].startAngle
-    newMeta.textArcData[i].data = meta.textArcData[i].data
+  for (let i = 0; i < calculatedData.textArcData.length; i++) {
+    newCalculatedData.textArcData[i].arcId = calculatedData.textArcData[i].arcId
+    newCalculatedData.textArcData[i].textId =
+      calculatedData.textArcData[i].textId
+    newCalculatedData.textArcData[i].endAngle =
+      calculatedData.textArcData[i].endAngle
+    newCalculatedData.textArcData[i].startAngle =
+      calculatedData.textArcData[i].startAngle
+    newCalculatedData.textArcData[i].data = calculatedData.textArcData[i].data
   }
-  return newMeta
+  return newCalculatedData
 }
 
-export const getMeta = (
+export const getCalculatedData = (
   canvas: Canvas,
   data: QsValuedText[],
   config: RadialTextConfigStrict,
   scaleType: ScaleType
-): Meta => {
+): CalculatedData => {
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
   const { radius, x, y, textFontSize } = config
 

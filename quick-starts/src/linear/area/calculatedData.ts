@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../d3QuickStart'
 import { QsAreaData } from './qsTypes'
 
-export interface Meta {
+export interface CalculatedData {
   class: string
   id: string
   areaData: AreaData[]
@@ -15,7 +15,7 @@ export interface AreaData {
   y1: number
 }
 
-export const getMeta = (canvas: Canvas, areaData: QsAreaData) => {
+export const getCalculatedData = (canvas: Canvas, areaData: QsAreaData) => {
   const { displayAreaWidth } = canvas.config
   const { yDataScale } = canvas.scales
   const { higherData, lowerData } = areaData
@@ -24,7 +24,7 @@ export const getMeta = (canvas: Canvas, areaData: QsAreaData) => {
     .domain([0, higherData.length - 1])
     .range([0, displayAreaWidth])
 
-  const meta: Meta = {
+  const calculatedData: CalculatedData = {
     class: 'area',
     id: `area-${uuidv4()}`,
     areaData: higherData.map((d, i) => ({
@@ -33,5 +33,5 @@ export const getMeta = (canvas: Canvas, areaData: QsAreaData) => {
       y0: yDataScale(lowerData ? lowerData[i] : 0),
     })),
   }
-  return meta
+  return calculatedData
 }

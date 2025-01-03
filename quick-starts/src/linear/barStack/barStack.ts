@@ -1,6 +1,6 @@
 import { schemePurples } from 'd3'
 import { BarStackedConfigStrict } from './types'
-import { Meta, getMeta } from './meta'
+import { CalculatedData, getCalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
@@ -47,12 +47,16 @@ const draw = (
 ): QsBarStack => {
   const { data } = args
 
-  const meta: Meta[] = getMeta(canvas, data, config)
+  const calculatedData: CalculatedData[] = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
 
   const group = canvas.displayGroup.append('g')
   const barStacks = group
     .selectAll(`${'.barStack'}`)
-    .data(meta)
+    .data(calculatedData)
     .enter()
     .append('g')
     .attr('class', (d) => d.stackClass)
@@ -74,9 +78,15 @@ const draw = (
     element: barStacks.selectAll(`${'.barStacked'}`),
     transition: (data: QsBarStackedTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
-      const meta: Meta[] = getMeta(canvas, data.data, config)
+      const calculatedData: CalculatedData[] = getCalculatedData(
+        canvas,
+        data.data,
+        config
+      )
 
-      const bars = canvas.displayGroup.selectAll(`${'.barStack'}`).data(meta)
+      const bars = canvas.displayGroup
+        .selectAll(`${'.barStack'}`)
+        .data(calculatedData)
       bars
         .selectAll(`${'.barStacked'}`)
         .data((d) => d.barData)

@@ -1,5 +1,5 @@
 import { line } from 'd3'
-import { Meta, getMeta } from './meta'
+import { CalculatedData, getCalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
 import {
   QsRadialSpokesConfig,
@@ -67,7 +67,11 @@ const draw = (
     y,
   }
 
-  const meta: Meta[] = getMeta(canvas, data, transitionArgs)
+  const calculatedData: CalculatedData[] = getCalculatedData(
+    canvas,
+    data,
+    transitionArgs
+  )
 
   const radialLine = line()
     .x((d) => d[0])
@@ -76,7 +80,7 @@ const draw = (
   const group = canvas.displayGroup.append('g')
   group
     .selectAll('path')
-    .data(meta)
+    .data(calculatedData)
     .enter()
     .append('path')
     .attr('class', (d) => d.class)
@@ -87,12 +91,16 @@ const draw = (
     .attr('stroke-width', strokeWidth)
 
   return {
-    element: group.selectAll(`.${meta[0].class}`),
+    element: group.selectAll(`.${calculatedData[0].class}`),
     transition: (data: number) => {
-      const meta: Meta[] = getMeta(canvas, data, transitionArgs)
+      const calculatedData: CalculatedData[] = getCalculatedData(
+        canvas,
+        data,
+        transitionArgs
+      )
       group
-        .selectAll(`.${meta[0].class}`)
-        .data(meta.map((d) => d.lineData))
+        .selectAll(`.${calculatedData[0].class}`)
+        .data(calculatedData.map((d) => d.lineData))
         .transition()
         .duration(3000)
         .attr('d', radialLine)

@@ -1,6 +1,6 @@
 import { schemePurples } from 'd3'
 import { BarGroupConfigStrict } from './types'
-import { Meta, getMeta } from './meta'
+import { CalculatedData, getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { Canvas } from '../../d3QuickStart'
 import {
@@ -46,12 +46,16 @@ const draw = (
   config: BarGroupConfigStrict
 ): QsBarGroups => {
   const { data } = args
-  const meta: Meta[] = getMeta(canvas, data, config)
+  const calculatedData: CalculatedData[] = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
 
   const group = canvas.displayGroup.append('g')
   const barGroups = group
     .selectAll('.barGroup')
-    .data(meta)
+    .data(calculatedData)
     .enter()
     .append('g')
     .attr('class', (d) => d.groupClass)
@@ -73,8 +77,14 @@ const draw = (
     element: barGroups.selectAll('.barGrouped'),
     transition: (data: QsBarGroupTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
-      const meta: Meta[] = getMeta(canvas, data.data, config)
-      const bars = canvas.displayGroup.selectAll('.barGroup').data(meta)
+      const calculatedData: CalculatedData[] = getCalculatedData(
+        canvas,
+        data.data,
+        config
+      )
+      const bars = canvas.displayGroup
+        .selectAll('.barGroup')
+        .data(calculatedData)
       bars
         .selectAll('.barGrouped')
         .data((d) => d.barData)

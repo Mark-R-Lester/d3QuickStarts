@@ -1,6 +1,10 @@
 import { interpolate, arc as d3arc } from 'd3'
 import { RadialConfigStrict } from './types'
-import { Meta, getMeta, updateMeta } from './meta'
+import {
+  CalculatedData,
+  getCalculatedData,
+  updateCalculatedData,
+} from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { GlobalDefaults } from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
@@ -76,13 +80,17 @@ const draw = (
     y,
   }
 
-  let meta: Meta[] = getMeta(canvas, data, transitionArgs)
+  let calculatedData: CalculatedData[] = getCalculatedData(
+    canvas,
+    data,
+    transitionArgs
+  )
   const arc: any = d3arc()
   const group = canvas.displayGroup.append('g')
 
   group
     .selectAll('.arc')
-    .data(meta)
+    .data(calculatedData)
     .enter()
     .append('path')
     .attr('class', (d) => d.class)
@@ -96,11 +104,16 @@ const draw = (
     element: group.selectAll('.arc'),
     transition: (data: QsRadialTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
-      meta = updateMeta(canvas, data.data, config, meta)
+      calculatedData = updateCalculatedData(
+        canvas,
+        data.data,
+        config,
+        calculatedData
+      )
 
       group
-        .selectAll(`.${meta[0].class}`)
-        .data(meta)
+        .selectAll(`.${calculatedData[0].class}`)
+        .data(calculatedData)
         .attr('d', (d) => arc(d.arcData))
         .transition()
         .delay(args.delayInMiliSeconds)

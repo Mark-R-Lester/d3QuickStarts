@@ -1,16 +1,16 @@
 import { scaleLinear, scaleBand, range, line as d3line } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
-import { DrawArgs, LineConfigStrict, Meta } from './types'
+import { DrawArgs, LineConfigStrict, CalculatedData } from './types'
 import { ScaleType } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { constantsCurves } from '../../core/constants/constants'
 
-export const getMeta = (
+export const getCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
   config: LineConfigStrict
-): Meta => {
+): CalculatedData => {
   const { displayAreaHeight } = canvas.config
   const { xDataScale } = canvas.scales
   const { data, scaleType } = args

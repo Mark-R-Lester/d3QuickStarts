@@ -1,5 +1,5 @@
 import { lineRadial } from 'd3'
-import { Meta, getMeta } from './meta'
+import { CalculatedData, getCalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
@@ -48,30 +48,34 @@ const draw = (
 ): QsRadialLine => {
   const { curve } = config
   const { color } = data
-  const meta: Meta = getMeta(canvas, data, config)
+  const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
 
   const radialLine = lineRadial().curve(constantsCurves[curve])
   const group = canvas.displayGroup.append('g')
   group
     .append('path')
-    .attr('class', meta.class)
-    .attr('id', meta.id)
-    .attr('d', radialLine(meta.lineData))
+    .attr('class', calculatedData.class)
+    .attr('id', calculatedData.id)
+    .attr('d', radialLine(calculatedData.lineData))
     .attr('fill', 'none')
     .attr('stroke', applyDefaultColorIfNeeded({ color }))
-    .attr('transform', `translate(${meta.x}, ${meta.y})`)
+    .attr('transform', `translate(${calculatedData.x}, ${calculatedData.y})`)
   return {
-    element: group.selectAll(`.${meta.class}`),
+    element: group.selectAll(`.${calculatedData.class}`),
     transition: (data: QsRadialLineTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
-      const meta: Meta = getMeta(canvas, data.data, config)
+      const calculatedData: CalculatedData = getCalculatedData(
+        canvas,
+        data.data,
+        config
+      )
       const { color: newColor } = data.data
       group
-        .selectAll(`.${meta.class}`)
+        .selectAll(`.${calculatedData.class}`)
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
-        .attr('d', radialLine(meta.lineData))
+        .attr('d', radialLine(calculatedData.lineData))
         .attr('stroke', applyDefaultColorIfNeeded({ color, newColor }))
     },
   }

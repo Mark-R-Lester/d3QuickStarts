@@ -1,22 +1,22 @@
 import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { RadialAreaConfigStrict, RadialAreaMetaData } from './types'
+import { RadialAreaConfigStrict, RadialAreaCalculatedDataData } from './types'
 import { Canvas } from '../../d3QuickStart'
 
-export interface Meta {
+export interface CalculatedData {
   class: string
   id: string
-  areaData: RadialAreaMetaData[]
+  areaData: RadialAreaCalculatedDataData[]
   x: number
   y: number
 }
 
-export const getMeta = (
+export const getCalculatedData = (
   canvas: Canvas,
   outerData: number[],
   config: RadialAreaConfigStrict,
   innerData?: number[]
-): Meta => {
+): CalculatedData => {
   const { x, y } = config
   const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
     canvas.config

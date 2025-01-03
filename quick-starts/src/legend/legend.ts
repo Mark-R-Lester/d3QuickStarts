@@ -1,4 +1,4 @@
-import { Meta, getMeta } from './meta'
+import { CalculatedData, getCalculatedData } from './calculatedData'
 import { LegendConfigStrict } from './types'
 import { QsTransitionArgs } from '../core/types/qsTypes'
 import {
@@ -79,11 +79,15 @@ const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfigStrict) => {
     textAngle,
   } = config
 
-  const meta: Meta[] = getMeta(canvas, data, config)
+  const calculatedData: CalculatedData[] = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
   const group = canvas.displayGroup.append('g')
   group
     .selectAll('.legend')
-    .data(meta)
+    .data(calculatedData)
     .enter()
     .append('rect')
     .attr('class', 'legend')
@@ -95,7 +99,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfigStrict) => {
 
   group
     .selectAll('text')
-    .data(meta)
+    .data(calculatedData)
     .enter()
     .append('text')
     .attr('font-family', textFont)

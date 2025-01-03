@@ -3,7 +3,7 @@ import { Canvas } from '../d3QuickStart'
 import { LegendConfigStrict } from './types'
 import { QsLegendData } from './qsTypes'
 
-export interface Meta {
+export interface CalculatedData {
   x: number
   y: number
   width: number
@@ -14,11 +14,11 @@ export interface Meta {
   textY: number
 }
 
-export const getMeta = (
+export const getCalculatedData = (
   canvas: Canvas,
   data: QsLegendData[],
   config: LegendConfigStrict
-): Meta[] => {
+): CalculatedData[] => {
   const { displayAreaWidth, displayAreaHeight } = canvas.config
   const { height, width, space, x, y } = config
 
@@ -27,7 +27,7 @@ export const getMeta = (
 
   const invertIndex = (array: any[], index: number) => data.length - (index + 1)
 
-  const meta: Meta[] = data.map((d, i) => {
+  const calculatedData: CalculatedData[] = data.map((d, i) => {
     return {
       x: xScale(x),
       y: yScale(y + height + space * invertIndex(data, i)),
@@ -40,5 +40,5 @@ export const getMeta = (
     }
   })
 
-  return meta
+  return calculatedData
 }

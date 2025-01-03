@@ -1,5 +1,5 @@
 import { CurveFactory, area as d3area } from 'd3'
-import { AreaData, getMeta, Meta } from './meta'
+import { AreaData, getCalculatedData, CalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { applyDefaultColorIfNeeded } from '../../core/color/color'
 import { constantsCurves } from '../../core/constants/constants'
@@ -54,7 +54,7 @@ function draw(
 ): QsArea {
   const { curve } = config
   const { color } = args.data
-  const meta: Meta = getMeta(canvas, args.data)
+  const calculatedData: CalculatedData = getCalculatedData(canvas, args.data)
 
   const area = d3area<AreaData>()
     .x((d) => d.x)
@@ -65,23 +65,26 @@ function draw(
   const group = canvas.displayGroup.append('g')
   group
     .append('path')
-    .attr('class', meta.class)
-    .attr('id', meta.id)
-    .attr('d', area(meta.areaData))
+    .attr('class', calculatedData.class)
+    .attr('id', calculatedData.id)
+    .attr('d', area(calculatedData.areaData))
     .attr('fill', applyDefaultColorIfNeeded({ color }))
   return {
-    element: group.select(`.${meta.class}`),
+    element: group.select(`.${calculatedData.class}`),
     transition: (data: QsAreaTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
-      const meta: Meta = getMeta(canvas, data.data)
+      const calculatedData: CalculatedData = getCalculatedData(
+        canvas,
+        data.data
+      )
       const { color: newColor } = data.data
 
       group
-        .selectAll(`.${meta.class}`)
+        .selectAll(`.${calculatedData.class}`)
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
-        .attr('d', area(meta.areaData))
+        .attr('d', area(calculatedData.areaData))
         .attr('fill', applyDefaultColorIfNeeded({ color, newColor }))
     },
   }

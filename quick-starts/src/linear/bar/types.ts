@@ -1,7 +1,7 @@
 import { Orientation } from '../../core/enums/enums'
 import { QsBarData } from './qsTypes'
 
-export interface MetaBarData {
+export interface CalculatedDataBarData {
   x: number
   y: number
   height: number

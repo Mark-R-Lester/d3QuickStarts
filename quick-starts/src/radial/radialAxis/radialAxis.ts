@@ -1,5 +1,9 @@
 import { arc as d3arc } from 'd3'
-import { Meta, RadialAxisConfigStrict, getMeta } from './meta'
+import {
+  CalculatedData,
+  RadialAxisConfigStrict,
+  getCalculatedData,
+} from './calculatedData'
 import {
   QsEnumTextFont,
   QsEnumTextFontStyle,
@@ -74,7 +78,11 @@ const draw = (
   } = config
   const { data } = args
 
-  const meta: Meta[] = getMeta(canvas, data, config)
+  const calculatedData: CalculatedData[] = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
 
   const arc = d3arc()
     .innerRadius((d) => d.innerRadius)
@@ -83,8 +91,8 @@ const draw = (
     .endAngle((d) => d.endAngle)
   const group = canvas.displayGroup.append('g')
   group
-    .selectAll(`.${meta[0].ringClass}`)
-    .data(meta)
+    .selectAll(`.${calculatedData[0].ringClass}`)
+    .data(calculatedData)
     .enter()
     .append('path')
     .attr('class', (d) => d.ringClass)
@@ -95,7 +103,7 @@ const draw = (
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   group
     .selectAll('text')
-    .data(meta)
+    .data(calculatedData)
     .enter()
     .append('text')
     .attr('class', (d) => d.textClass)
@@ -120,17 +128,21 @@ const draw = (
     ringsElement: group.selectAll('ring'),
     transition: (data: number[], config: QsRadialAxisConfig) => {
       const transitionConfig = addDefaultsToConfig(config)
-      const meta: Meta[] = getMeta(canvas, data, transitionConfig)
+      const calculatedData: CalculatedData[] = getCalculatedData(
+        canvas,
+        data,
+        transitionConfig
+      )
       group
-        .selectAll(`.${meta[0].ringClass}`)
-        .data(meta)
+        .selectAll(`.${calculatedData[0].ringClass}`)
+        .data(calculatedData)
         .transition()
         .duration(3000)
         .attr('stroke-width', strokeWidth)
         .attr('d', (d) => arc(d.ringData))
       group
-        .selectAll(`.${meta[0].textClass}`)
-        .data(meta)
+        .selectAll(`.${calculatedData[0].textClass}`)
+        .data(calculatedData)
         .transition()
         .duration(3000)
         .attr('font-size', (d) => `${d.textFontSize}px`)

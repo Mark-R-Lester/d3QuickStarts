@@ -1,6 +1,11 @@
 import { arc as d3arc, interpolate } from 'd3'
 import { RadialTextConfigStrict } from './types'
-import { BandData, Meta, getMeta, updateMeta } from './meta'
+import {
+  BandData,
+  CalculatedData,
+  getCalculatedData,
+  updateCalculatedData,
+} from './calculatedData'
 import { RadialTextType, ScaleType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
@@ -212,7 +217,12 @@ const draw = (
 
   let rotate: (angles: BandData) => number = getRotationFunction(type)
 
-  let meta: Meta = getMeta(canvas, data, config, scaleType)
+  let calculatedData: CalculatedData = getCalculatedData(
+    canvas,
+    data,
+    config,
+    scaleType
+  )
   const arc: any = d3arc()
   const group = canvas.displayGroup.append('g')
   const arcs = group.append('g')
@@ -220,18 +230,18 @@ const draw = (
 
   if (type !== RadialTextType.FOLLOW) {
     text
-      .selectAll(`.${meta.textClass}`)
-      .data(meta.textArcData)
+      .selectAll(`.${calculatedData.textClass}`)
+      .data(calculatedData.textArcData)
       .enter()
       .append('g')
-      .attr('transform', `translate(${meta.x}, ${meta.y})`)
+      .attr('transform', `translate(${calculatedData.x}, ${calculatedData.y})`)
       .append('text')
       .attr('class', (d) => d.textClass)
       .attr('id', (d) => d.textId)
       .attr('font-family', textFont)
       .attr('font-style', textFontStyle)
       .attr('font-weight', textFontWeight)
-      .attr('font-size', `${meta.textFontSize}px`)
+      .attr('font-size', `${calculatedData.textFontSize}px`)
       .attr('text-decoration', textDecorationLine)
       .attr('fill', textFill)
       .attr('stroke', textStroke)
@@ -244,8 +254,8 @@ const draw = (
       .text((d) => (d.data.text ? d.data.text : d.data.value.toFixed(0)))
   } else {
     arcs
-      .selectAll(`.${meta.arcClass}`)
-      .data(meta.textArcData)
+      .selectAll(`.${calculatedData.arcClass}`)
+      .data(calculatedData.textArcData)
       .enter()
       .append('path')
       .attr('class', (d) => d.arcClass)
@@ -253,10 +263,10 @@ const draw = (
       .attr('d', arc)
       .attr('stroke-width', 0)
       .attr('fill', 'none')
-      .attr('transform', `translate(${meta.x}, ${meta.y})`)
+      .attr('transform', `translate(${calculatedData.x}, ${calculatedData.y})`)
     text
-      .selectAll(`.${meta.textClass}`)
-      .data(meta.textArcData)
+      .selectAll(`.${calculatedData.textClass}`)
+      .data(calculatedData.textArcData)
       .enter()
       .append('text')
       .attr('class', (d) => d.textClass)
@@ -264,7 +274,7 @@ const draw = (
       .attr('font-family', textFont)
       .attr('font-style', textFontStyle)
       .attr('font-weight', textFontWeight)
-      .attr('font-size', `${meta.textFontSize}px`)
+      .attr('font-size', `${calculatedData.textFontSize}px`)
       .attr('text-decoration', textDecorationLine)
       .attr('fill', textFill)
       .attr('stroke', textStroke)
@@ -279,12 +289,18 @@ const draw = (
     elementArcs: arcs.selectAll('.arc'),
     transition: (data: QsRadialTextTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
-      meta = updateMeta(canvas, data.data, config, scaleType, meta)
+      calculatedData = updateCalculatedData(
+        canvas,
+        data.data,
+        config,
+        scaleType,
+        calculatedData
+      )
 
       if (type !== RadialTextType.FOLLOW) {
         text
           .selectAll('.text')
-          .data(meta.textArcData)
+          .data(calculatedData.textArcData)
           .transition()
           .delay(args.delayInMiliSeconds)
           .duration(args.durationInMiliSeconds)
@@ -309,7 +325,7 @@ const draw = (
       } else {
         arcs
           .selectAll('.arc')
-          .data(meta.textArcData)
+          .data(calculatedData.textArcData)
           .transition()
           .delay(args.delayInMiliSeconds)
           .duration(args.durationInMiliSeconds)
@@ -323,7 +339,7 @@ const draw = (
             }
           })
 
-        meta.textArcData.forEach((d, i) => {
+        calculatedData.textArcData.forEach((d, i) => {
           const t = text.select(`#${d.textId}`)
           t.selection().selectChildren().remove()
           t.append('textPath')

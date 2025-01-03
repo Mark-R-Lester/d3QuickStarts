@@ -2,7 +2,7 @@ import { scaleBand, ScaleOrdinal, range, ScaleSequential } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import { MetaBarData, DrawArgs } from './types'
+import { CalculatedDataBarData, DrawArgs } from './types'
 import { Orientation } from '../../core/enums/enums'
 
 import {
@@ -12,17 +12,17 @@ import {
 } from '../../core/color/color'
 import { QsBarConfigStrict, QsBarData } from './qsTypes'
 
-export interface Meta {
+export interface CalculatedData {
   class: string
   id: string
-  barData: MetaBarData
+  barData: CalculatedDataBarData
 }
 
-export const getMeta = (
+export const getCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
   config: QsBarConfigStrict
-): Meta[] => {
+): CalculatedData[] => {
   const { padding, defaultColor, colorScaleData } = config
   const { data, orientation } = args
   const isVertical = orientation === Orientation.VERTICAL
@@ -31,7 +31,7 @@ export const getMeta = (
 
   const { displayAreaWidth, displayAreaHeight } = canvas.config
   const { xDataScale, yDataScaleInverted } = canvas.scales
-  const meta: Meta[] = []
+  const calculatedData: CalculatedData[] = []
 
   const bandStepScale = scaleBand()
     .domain(toStrings(range(data.length)))
@@ -80,18 +80,18 @@ export const getMeta = (
       colorScale
     )
 
-    const barData: MetaBarData = {
+    const barData: CalculatedDataBarData = {
       x: x(d, i),
       y: y(d, i),
       height: height(d),
       width: width(d),
       color: getPrecidendedColor(d.color, defaultColor, scaledColor),
     }
-    meta.push({
+    calculatedData.push({
       class: 'bar',
       id: `bar-${uuidv4()}`,
       barData,
     })
   })
-  return meta
+  return calculatedData
 }

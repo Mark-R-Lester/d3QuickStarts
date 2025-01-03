@@ -61,12 +61,9 @@ const draw = (
   config: RadialAxisConfigStrict
 ): QsRadialAxis => {
   const {
-    x,
-    y,
     color,
     strokeWidth,
     textFont,
-    textFontSize,
     textFontStyle,
     textFontWeight,
     textDecorationLine,
@@ -95,7 +92,7 @@ const draw = (
     .attr('d', (d) => arc(d.ringData))
     .attr('stroke', color)
     .attr('stroke-width', strokeWidth)
-    .attr('transform', (d) => `translate(${d.xAxis(x)}, ${d.yAxis(y)})`)
+    .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   group
     .selectAll('text')
     .data(meta)
@@ -106,7 +103,7 @@ const draw = (
     .attr('font-family', textFont)
     .attr('font-style', textFontStyle)
     .attr('font-weight', textFontWeight)
-    .attr('font-size', (d) => `${d.yAxis(textFontSize)}px`)
+    .attr('font-size', (d) => `${d.textFontSize}px`)
     .attr('text-decoration', textDecorationLine)
     .attr('fill', textFill)
     .attr('stroke', textStroke)
@@ -136,7 +133,7 @@ const draw = (
         .data(meta)
         .transition()
         .duration(3000)
-        .attr('font-size', (d) => `${d.yAxis(textFontSize)}px`)
+        .attr('font-size', (d) => `${d.textFontSize}px`)
         .attr('transform', (d) => {
           return `translate(${d.ringData.textLocation})`
         })

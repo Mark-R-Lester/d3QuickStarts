@@ -9,7 +9,7 @@ import {
 import { Selection } from 'd3'
 
 export interface QsRadialAxisConfig {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
+  [key: string]: number | string | undefined
   radius?: number
   x?: number
   y?: number

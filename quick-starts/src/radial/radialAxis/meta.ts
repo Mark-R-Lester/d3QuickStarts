@@ -21,18 +21,19 @@ interface RingData {
 }
 
 export interface Meta {
-  [key: string]: string | RingData | ScaleLinear<number, number, never>
+  [key: string]: string | RingData | number
   ringId: string
   textId: string
   ringClass: string
   textClass: string
   ringData: RingData
-  xAxis: ScaleLinear<number, number, never>
-  yAxis: ScaleLinear<number, number, never>
+  x: number
+  y: number
+  textFontSize: number
 }
 
 export interface RadialAxisConfigStrict {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
+  [key: string]: number | undefined | string
   radius: number
   x: number
   y: number
@@ -62,13 +63,11 @@ export const getMeta = (
     lowestViewableValue,
     highestViewableValue,
   } = canvas.config
-  const { radius, axisAngle, gap, x, y } = config
+  const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
+  const { radius, axisAngle, gap, x, y, textFontSize } = config
 
   const meta: Meta[] = []
-
   const ordinal = data.some((d) => typeof d === 'string')
-  const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
-  const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
 
   let ordialScale: ScaleOrdinal<string, unknown, never>
   let linearScale: ScaleLinear<number, number, never>
@@ -81,7 +80,7 @@ export const getMeta = (
   }
 
   const nunberOfArcs = data.length
-  const bandWidth = yAxis(radius / 2 / (nunberOfArcs - 1))
+  const bandWidth = yPercentScale(radius / 2 / (nunberOfArcs - 1))
 
   data.forEach((d, i) => {
     const radians = axisAngle * (Math.PI / 180)
@@ -90,8 +89,8 @@ export const getMeta = (
       const relativeX: number = Math.sin(radians) * hypotenuse
       const relativeY: number = Math.cos(radians) * hypotenuse * -1
       return [
-        relativeX + displayAreaWidth / 2 + xAxis(-50) + xAxis(x),
-        relativeY + displayAreaHeight / 2 + yAxis(-50) + yAxis(y),
+        relativeX + displayAreaWidth / 2 + xPercentScale(-50 + x),
+        relativeY + displayAreaHeight / 2 + yPercentScale(-50 + y),
       ]
     }
     const sin: number = gap / (bandWidth * (i + 1))
@@ -120,8 +119,9 @@ export const getMeta = (
         textLocation: calculateTextPosition(),
         text: handleText(text),
       },
-      xAxis,
-      yAxis,
+      x: xPercentScale(x),
+      y: yPercentScale(y),
+      textFontSize: genralPercentScale(textFontSize),
     })
   })
   return meta

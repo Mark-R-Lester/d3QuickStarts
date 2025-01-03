@@ -24,67 +24,59 @@ const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
   return defauls
 }
 
-export const vertical = (
-  canvas: Canvas,
-  data: QsLineData,
-  customConfig?: QsLineConfig
-): QsLine => {
-  const args: DrawArgs = {
-    data,
-    scaleType: ScaleType.LINEAR,
-    orientation: Orientation.VERTICAL,
-  }
-  const config: LineConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
-export const verticalBanded = (
-  canvas: Canvas,
-  data: QsLineData,
-  customConfig?: QsLineConfig
-): QsLine => {
-  const args: DrawArgs = {
-    data,
-    scaleType: ScaleType.BANDED,
-    orientation: Orientation.VERTICAL,
-  }
-  const config: LineConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
-export const horizontal = (
-  canvas: Canvas,
-  data: QsLineData,
-  customConfig?: QsLineConfig
-): QsLine => {
-  const args: DrawArgs = {
-    data,
-    scaleType: ScaleType.LINEAR,
-    orientation: Orientation.HORIZONTAL,
-  }
-  const config: LineConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
-export const horizontalBanded = (
-  canvas: Canvas,
-  data: QsLineData,
-  customConfig?: QsLineConfig
-): QsLine => {
-  const args: DrawArgs = {
-    data,
-    scaleType: ScaleType.BANDED,
-    orientation: Orientation.HORIZONTAL,
-  }
-  const config: LineConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
 export const linearLine = {
-  horizontal,
-  vertical,
-  horizontalBanded,
-  verticalBanded,
+  vertical: (
+    canvas: Canvas,
+    data: QsLineData,
+    customConfig?: QsLineConfig
+  ): QsLine => {
+    const args: DrawArgs = {
+      data,
+      scaleType: ScaleType.LINEAR,
+      orientation: Orientation.VERTICAL,
+    }
+    const config: LineConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, args, config)
+  },
+  verticalBanded: (
+    canvas: Canvas,
+    data: QsLineData,
+    customConfig?: QsLineConfig
+  ): QsLine => {
+    const args: DrawArgs = {
+      data,
+      scaleType: ScaleType.BANDED,
+      orientation: Orientation.VERTICAL,
+    }
+    const config: LineConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, args, config)
+  },
+  horizontal: (
+    canvas: Canvas,
+    data: QsLineData,
+    customConfig?: QsLineConfig
+  ): QsLine => {
+    const args: DrawArgs = {
+      data,
+      scaleType: ScaleType.LINEAR,
+      orientation: Orientation.HORIZONTAL,
+    }
+    const config: LineConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, args, config)
+  },
+  horizontalBanded: (
+    canvas: Canvas,
+    data: QsLineData,
+    customConfig?: QsLineConfig
+  ): QsLine => {
+    const args: DrawArgs = {
+      data,
+      scaleType: ScaleType.BANDED,
+      orientation: Orientation.HORIZONTAL,
+    }
+    const config: LineConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, args, config)
+  },
 }
 
 export const draw = (

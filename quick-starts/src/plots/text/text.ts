@@ -49,18 +49,16 @@ const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
   return defaults
 }
 
-const text = (
-  canvas: Canvas,
-  data: QsTextArgs[],
-  customConfig?: QsTextConfig
-): QsText => {
-  const args: DrawArgs = { data }
-  const config: TextConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
 export const plottedText = {
-  text,
+  text: (
+    canvas: Canvas,
+    data: QsTextArgs[],
+    customConfig?: QsTextConfig
+  ): QsText => {
+    const args: DrawArgs = { data }
+    const config: TextConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, args, config)
+  },
 }
 
 const draw = (

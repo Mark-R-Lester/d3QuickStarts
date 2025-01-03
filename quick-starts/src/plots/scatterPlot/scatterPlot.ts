@@ -14,28 +14,15 @@ interface DrawArgs {
 
 const configuration: ScatterPlotConfigStrict = {}
 
-const addDefaultsToConfig = (
-  defaults: ScatterPlotConfigStrict,
-  customConfig?: QsScatterPlotConfig
-): ScatterPlotConfigStrict => {
-  const result: ScatterPlotConfigStrict = structuredClone(defaults)
-  if (!customConfig) return result
-
-  Object.keys(customConfig).forEach((key) => (result[key] = customConfig[key]))
-  return result
-}
-
-const points = (
-  canvas: Canvas,
-  data: QsCoordinateEnhanced[],
-  config?: QsScatterPlotConfig
-): QsScatterPlot => {
-  const args: DrawArgs = { data }
-  return draw(canvas, args, configuration)
-}
-
 export const plottedPoint = {
-  points,
+  points: (
+    canvas: Canvas,
+    data: QsCoordinateEnhanced[],
+    config?: QsScatterPlotConfig
+  ): QsScatterPlot => {
+    const args: DrawArgs = { data }
+    return draw(canvas, args, configuration)
+  },
 }
 
 const draw = (

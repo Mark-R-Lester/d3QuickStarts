@@ -23,29 +23,26 @@ const addDefaultsToConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
   Object.keys(customConfig).forEach((key) => (defauls[key] = customConfig[key]))
   return defauls
 }
-const horizontal = (
-  canvas: Canvas,
-  data: QsBarData[],
-  customConfig?: QsBarConfig
-): QsBars => {
-  const args: DrawArgs = { data, orientation: Orientation.HORIZONTAL }
-  const config: QsBarConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
-const vertical = (
-  canvas: Canvas,
-  data: QsBarData[],
-  customConfig?: QsBarConfig
-): QsBars => {
-  const args: DrawArgs = { data, orientation: Orientation.VERTICAL }
-  const config: QsBarConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
 
 export const linearBar = {
-  horizontal,
-  vertical,
+  horizontal: (
+    canvas: Canvas,
+    data: QsBarData[],
+    customConfig?: QsBarConfig
+  ): QsBars => {
+    const args: DrawArgs = { data, orientation: Orientation.HORIZONTAL }
+    const config: QsBarConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, args, config)
+  },
+  vertical: (
+    canvas: Canvas,
+    data: QsBarData[],
+    customConfig?: QsBarConfig
+  ): QsBars => {
+    const args: DrawArgs = { data, orientation: Orientation.VERTICAL }
+    const config: QsBarConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, args, config)
+  },
 }
 
 const draw = (

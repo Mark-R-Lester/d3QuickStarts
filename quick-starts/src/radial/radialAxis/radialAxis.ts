@@ -43,18 +43,16 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-const rings = (
-  canvas: Canvas,
-  data: number[],
-  customConfig?: QsRadialAxisConfig
-): QsRadialAxis => {
-  const config: RadialAxisConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = { data }
-  return draw(canvas, args, config)
-}
-
 export const radialAxis = {
-  rings,
+  rings: (
+    canvas: Canvas,
+    data: number[],
+    customConfig?: QsRadialAxisConfig
+  ): QsRadialAxis => {
+    const config: RadialAxisConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = { data }
+    return draw(canvas, args, config)
+  },
 }
 
 const draw = (

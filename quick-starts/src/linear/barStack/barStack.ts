@@ -28,18 +28,16 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-const stack = (
-  canvas: Canvas,
-  data: number[][],
-  customConfig?: QsBarStackedConfig
-): QsBarStack => {
-  const config: BarStackedConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = { data }
-  return draw(canvas, args, config)
-}
-
 export const linearBarStack = {
-  stack,
+  stack: (
+    canvas: Canvas,
+    data: number[][],
+    customConfig?: QsBarStackedConfig
+  ): QsBarStack => {
+    const config: BarStackedConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = { data }
+    return draw(canvas, args, config)
+  },
 }
 
 const draw = (

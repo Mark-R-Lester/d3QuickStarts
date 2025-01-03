@@ -33,20 +33,18 @@ const addDefaultsToConfig = (customConfig?: QsAreaConfig): AreaConfigStrict => {
   return defaults
 }
 
-const horizontal = (
-  canvas: Canvas,
-  data: QsAreaData,
-  customConfig?: QsAreaConfig
-): QsArea => {
-  const args: DrawArgs = {
-    data,
-  }
-  const config: AreaConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
 export const linearArea = {
-  horizontal,
+  horizontal: (
+    canvas: Canvas,
+    data: QsAreaData,
+    customConfig?: QsAreaConfig
+  ): QsArea => {
+    const args: DrawArgs = {
+      data,
+    }
+    const config: AreaConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, args, config)
+  },
 }
 
 function draw(

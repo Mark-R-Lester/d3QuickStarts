@@ -40,18 +40,16 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-const spokes = (
-  canvas: Canvas,
-  data: number,
-  customConfig?: QsRadialSpokesConfig
-): QsRadialSpokes => {
-  const config: RadialSpokesConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = { data }
-  return draw(canvas, args, config)
-}
-
 export const radialSpokes = {
-  spokes,
+  spokes: (
+    canvas: Canvas,
+    data: number,
+    customConfig?: QsRadialSpokesConfig
+  ): QsRadialSpokes => {
+    const config: RadialSpokesConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = { data }
+    return draw(canvas, args, config)
+  },
 }
 
 const draw = (

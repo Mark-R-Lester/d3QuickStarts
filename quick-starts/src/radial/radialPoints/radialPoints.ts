@@ -32,18 +32,16 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-const points = (
-  canvas: Canvas,
-  data: QsRadialPointData[],
-  customConfig?: QsRadialPointsConfig
-): QsRadialPoints => {
-  const config: RadialPointsConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = { data }
-  return draw(canvas, args, config)
-}
-
 export const radialPoint = {
-  points,
+  points: (
+    canvas: Canvas,
+    data: QsRadialPointData[],
+    customConfig?: QsRadialPointsConfig
+  ): QsRadialPoints => {
+    const config: RadialPointsConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = { data }
+    return draw(canvas, args, config)
+  },
 }
 
 const draw = (

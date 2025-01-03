@@ -29,18 +29,16 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-const line = (
-  canvas: Canvas,
-  data: QsCoordinate[],
-  customConfig?: QsLinePlotConfig
-): QsLinePlot => {
-  const config: LinePlotConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = { data }
-  return draw(canvas, args, config)
-}
-
 export const plottedLine = {
-  line,
+  line: (
+    canvas: Canvas,
+    data: QsCoordinate[],
+    customConfig?: QsLinePlotConfig
+  ): QsLinePlot => {
+    const config: LinePlotConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = { data }
+    return draw(canvas, args, config)
+  },
 }
 
 const draw = (

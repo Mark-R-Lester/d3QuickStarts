@@ -28,18 +28,16 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-const group = (
-  canvas: Canvas,
-  data: number[][],
-  customConfig?: QsBarGroupConfig
-): QsBarGroups => {
-  const config: BarGroupConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = { data }
-  return draw(canvas, args, config)
-}
-
 export const linearBarGroup = {
-  group,
+  group: (
+    canvas: Canvas,
+    data: number[][],
+    customConfig?: QsBarGroupConfig
+  ): QsBarGroups => {
+    const config: BarGroupConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = { data }
+    return draw(canvas, args, config)
+  },
 }
 
 const draw = (

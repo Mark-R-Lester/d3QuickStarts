@@ -93,127 +93,112 @@ const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
   )
   return defaults
 }
-const xAxisTop = (
-  canvas: Canvas,
-  data: string[] | number[],
-  customConfig?: QsAxisConfig
-): QsAxis => {
-  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    chartEdge: ChartEdge.TOP,
-    scaleType: ScaleType.LINEAR,
-  }
-  return draw(canvas, args, config)
-}
-
-const xAxisBottom = (
-  canvas: Canvas,
-  data: string[] | number[],
-  customConfig?: QsAxisConfig
-): QsAxis => {
-  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    chartEdge: ChartEdge.BOTTOM,
-    scaleType: ScaleType.LINEAR,
-  }
-  return draw(canvas, args, config)
-}
-
-const xAxisBottomBanded = (
-  canvas: Canvas,
-  data: string[] | number[],
-  customConfig?: QsAxisConfig
-): QsAxis => {
-  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    chartEdge: ChartEdge.BOTTOM,
-    scaleType: ScaleType.BANDED,
-  }
-  return draw(canvas, args, config)
-}
-
-const xAxisTopBanded = (
-  canvas: Canvas,
-  data: string[] | number[],
-  customConfig?: QsAxisConfig
-): QsAxis => {
-  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    chartEdge: ChartEdge.TOP,
-    scaleType: ScaleType.BANDED,
-  }
-  return draw(canvas, args, config)
-}
-
-const yAxisLeft = (
-  canvas: Canvas,
-  data: string[] | number[],
-  customConfig?: QsAxisConfig
-): QsAxis => {
-  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    chartEdge: ChartEdge.LEFT,
-    scaleType: ScaleType.LINEAR,
-  }
-  return draw(canvas, args, config)
-}
-
-const yAxisRight = (
-  canvas: Canvas,
-  data: string[] | number[],
-  customConfig?: QsAxisConfig
-): QsAxis => {
-  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    chartEdge: ChartEdge.RIGHT,
-    scaleType: ScaleType.LINEAR,
-  }
-  return draw(canvas, args, config)
-}
-
-const yAxisLeftBanded = (
-  canvas: Canvas,
-  data: string[] | number[],
-  customConfig?: QsAxisConfig
-): QsAxis => {
-  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    chartEdge: ChartEdge.LEFT,
-    scaleType: ScaleType.BANDED,
-  }
-  return draw(canvas, args, config)
-}
-
-const yAxisRightBanded = (
-  canvas: Canvas,
-  data: string[] | number[],
-  customConfig?: QsAxisConfig
-): QsAxis => {
-  const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-    chartEdge: ChartEdge.RIGHT,
-    scaleType: ScaleType.BANDED,
-  }
-  return draw(canvas, args, config)
-}
 
 export const linearAxis = {
-  xAxisTop,
-  xAxisBottom,
-  xAxisBottomBanded,
-  xAxisTopBanded,
-  yAxisLeft,
-  yAxisRight,
-  yAxisLeftBanded,
-  yAxisRightBanded,
+  xAxisTop: (
+    canvas: Canvas,
+    data: string[] | number[],
+    customConfig?: QsAxisConfig
+  ): QsAxis => {
+    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = {
+      data,
+      chartEdge: ChartEdge.TOP,
+      scaleType: ScaleType.LINEAR,
+    }
+    return draw(canvas, args, config)
+  },
+  xAxisBottom: (
+    canvas: Canvas,
+    data: string[] | number[],
+    customConfig?: QsAxisConfig
+  ): QsAxis => {
+    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = {
+      data,
+      chartEdge: ChartEdge.BOTTOM,
+      scaleType: ScaleType.LINEAR,
+    }
+    return draw(canvas, args, config)
+  },
+  xAxisBottomBanded: (
+    canvas: Canvas,
+    data: string[] | number[],
+    customConfig?: QsAxisConfig
+  ): QsAxis => {
+    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = {
+      data,
+      chartEdge: ChartEdge.BOTTOM,
+      scaleType: ScaleType.BANDED,
+    }
+    return draw(canvas, args, config)
+  },
+  xAxisTopBanded: (
+    canvas: Canvas,
+    data: string[] | number[],
+    customConfig?: QsAxisConfig
+  ): QsAxis => {
+    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = {
+      data,
+      chartEdge: ChartEdge.TOP,
+      scaleType: ScaleType.BANDED,
+    }
+    return draw(canvas, args, config)
+  },
+  yAxisLeft: (
+    canvas: Canvas,
+    data: string[] | number[],
+    customConfig?: QsAxisConfig
+  ): QsAxis => {
+    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = {
+      data,
+      chartEdge: ChartEdge.LEFT,
+      scaleType: ScaleType.LINEAR,
+    }
+    return draw(canvas, args, config)
+  },
+  yAxisRight: (
+    canvas: Canvas,
+    data: string[] | number[],
+    customConfig?: QsAxisConfig
+  ): QsAxis => {
+    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = {
+      data,
+      chartEdge: ChartEdge.RIGHT,
+      scaleType: ScaleType.LINEAR,
+    }
+    return draw(canvas, args, config)
+  },
+  yAxisLeftBanded: (
+    canvas: Canvas,
+    data: string[] | number[],
+    customConfig?: QsAxisConfig
+  ): QsAxis => {
+    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = {
+      data,
+      chartEdge: ChartEdge.LEFT,
+      scaleType: ScaleType.BANDED,
+    }
+    return draw(canvas, args, config)
+  },
+  yAxisRightBanded: (
+    canvas: Canvas,
+    data: string[] | number[],
+    customConfig?: QsAxisConfig
+  ): QsAxis => {
+    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = {
+      data,
+      chartEdge: ChartEdge.RIGHT,
+      scaleType: ScaleType.BANDED,
+    }
+    return draw(canvas, args, config)
+  },
 }
 
 const draw = (

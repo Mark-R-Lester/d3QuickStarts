@@ -25,67 +25,59 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-const horizontal = (
-  canvas: Canvas,
-  data: QsPointData[],
-  customConfig?: QsPointsConfig
-): QsPoints => {
-  const args: DrawArgs = {
-    data,
-    orientation: Orientation.HORIZONTAL,
-    scaleType: ScaleType.LINEAR,
-  }
-  const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
-const vertical = (
-  canvas: Canvas,
-  data: QsPointData[],
-  customConfig?: QsPointsConfig
-): QsPoints => {
-  const args: DrawArgs = {
-    data,
-    orientation: Orientation.VERTICAL,
-    scaleType: ScaleType.LINEAR,
-  }
-  const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
-const horizontalBanded = (
-  canvas: Canvas,
-  data: QsPointData[],
-  customConfig?: QsPointsConfig
-): QsPoints => {
-  const args: DrawArgs = {
-    data,
-    orientation: Orientation.HORIZONTAL,
-    scaleType: ScaleType.BANDED,
-  }
-  const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
-const verticalBanded = (
-  canvas: Canvas,
-  data: QsPointData[],
-  customConfig?: QsPointsConfig
-): QsPoints => {
-  const args: DrawArgs = {
-    data,
-    orientation: Orientation.VERTICAL,
-    scaleType: ScaleType.BANDED,
-  }
-  const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
 export const linearPoint = {
-  horizontal,
-  horizontalBanded,
-  vertical,
-  verticalBanded,
+  horizontal: (
+    canvas: Canvas,
+    data: QsPointData[],
+    customConfig?: QsPointsConfig
+  ): QsPoints => {
+    const args: DrawArgs = {
+      data,
+      orientation: Orientation.HORIZONTAL,
+      scaleType: ScaleType.LINEAR,
+    }
+    const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, args, config)
+  },
+  vertical: (
+    canvas: Canvas,
+    data: QsPointData[],
+    customConfig?: QsPointsConfig
+  ): QsPoints => {
+    const args: DrawArgs = {
+      data,
+      orientation: Orientation.VERTICAL,
+      scaleType: ScaleType.LINEAR,
+    }
+    const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, args, config)
+  },
+  horizontalBanded: (
+    canvas: Canvas,
+    data: QsPointData[],
+    customConfig?: QsPointsConfig
+  ): QsPoints => {
+    const args: DrawArgs = {
+      data,
+      orientation: Orientation.HORIZONTAL,
+      scaleType: ScaleType.BANDED,
+    }
+    const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, args, config)
+  },
+  verticalBanded: (
+    canvas: Canvas,
+    data: QsPointData[],
+    customConfig?: QsPointsConfig
+  ): QsPoints => {
+    const args: DrawArgs = {
+      data,
+      orientation: Orientation.VERTICAL,
+      scaleType: ScaleType.BANDED,
+    }
+    const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, args, config)
+  },
 }
 
 const draw = (

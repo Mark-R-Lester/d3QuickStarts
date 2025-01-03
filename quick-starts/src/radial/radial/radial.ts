@@ -36,18 +36,16 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-const radial = (
-  canvas: Canvas,
-  data: QsRadialData[],
-  customConfig?: QsRadialConfig
-): QsRadial => {
-  const args: DrawArgs = { data }
-  const config: RadialConfigStrict = addDefaultsToConfig(customConfig)
-  return draw(canvas, args, config)
-}
-
 export const radialSwept = {
-  radial,
+  radial: (
+    canvas: Canvas,
+    data: QsRadialData[],
+    customConfig?: QsRadialConfig
+  ): QsRadial => {
+    const args: DrawArgs = { data }
+    const config: RadialConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, args, config)
+  },
 }
 
 const draw = (

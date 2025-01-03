@@ -6,14 +6,17 @@ import {
   getPrecidendedColor,
   getScaledColor,
 } from '../../core/color/color'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas, QsCoordinate } from '../../d3QuickStart'
 import { QsRadialPointData } from './qsTypes'
 
 export interface Meta {
   id: string
   class: string
-  pointData: number[]
+  coordinate: QsCoordinate
   color: string
+  x: number
+  y: number
+  pointRadius: number
 }
 
 export const getMeta = (
@@ -23,7 +26,8 @@ export const getMeta = (
 ): Meta[] => {
   const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
     canvas.config
-  const { colorScaleData, defaultColor } = config
+  const { genralPercentScale, xPercentScale, yPercentScale } = canvas.scales
+  const { colorScaleData, defaultColor, x, y, pointRadius } = config
 
   const meta: Meta[] = []
   const angleScale = scaleLinear()
@@ -43,8 +47,11 @@ export const getMeta = (
   data.forEach((d, i) => {
     const radians = angleScale(i)
     const hypotenuse = radialScale(d.value)
-    const x = Math.sin(radians) * hypotenuse
-    const y = Math.cos(radians) * hypotenuse * -1
+    const coordinate: QsCoordinate = {
+      x: Math.sin(radians) * hypotenuse,
+      y: Math.cos(radians) * hypotenuse * -1,
+    }
+
     const scaledColor: string | unknown | undefined = getScaledColor(
       d.value,
       colorScale
@@ -53,8 +60,11 @@ export const getMeta = (
     meta.push({
       id: `radialPoint${uuidv4()}`,
       class: 'radialPoint',
-      pointData: [x, y],
+      coordinate,
       color: getPrecidendedColor(d.color, defaultColor, scaledColor),
+      x: xPercentScale(x),
+      y: yPercentScale(y),
+      pointRadius: genralPercentScale(pointRadius),
     })
   })
   return meta

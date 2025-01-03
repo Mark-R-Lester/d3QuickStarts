@@ -51,13 +51,8 @@ const draw = (
   args: DrawArgs,
   config: RadialPointsConfigStrict
 ): QsRadialPoints => {
-  const { x, y, pointRadius } = config
-  const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { data } = args
   const meta: Meta[] = getMeta(canvas, data, config)
-
-  const xScale = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
-  const yScale = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
 
   const dataPoints = canvas.displayGroup.append('g')
   dataPoints
@@ -67,11 +62,11 @@ const draw = (
     .append('circle')
     .attr('class', (d) => d.class)
     .attr('id', (d) => d.id)
-    .attr('cx', (d) => d.pointData[0])
-    .attr('cy', (d) => d.pointData[1])
+    .attr('cx', (d) => d.coordinate.x)
+    .attr('cy', (d) => d.coordinate.y)
     .attr('fill', (d) => d.color)
-    .attr('r', yScale(pointRadius))
-    .attr('transform', `translate(${xScale(x)}, ${yScale(y)})`)
+    .attr('r', (d) => d.pointRadius)
+    .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   return {
     element: dataPoints.selectAll('circle'),
     transition: (data: QsRadialPointsTransitionData) => {
@@ -83,9 +78,9 @@ const draw = (
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
-        .attr('cx', (d) => d.pointData[0])
-        .attr('cy', (d) => d.pointData[1])
-        .attr('r', yScale(pointRadius))
+        .attr('cx', (d) => d.coordinate.x)
+        .attr('cy', (d) => d.coordinate.y)
+        .attr('r', (d) => d.pointRadius)
         .attr('fill', (d) => d.color)
     },
   }

@@ -35,20 +35,18 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-const area = (
-  canvas: Canvas,
-  data: QsRadialAreaData,
-  customConfig?: QsRadialAreaConfig
-): QsRadialArea => {
-  const config: RadialAreaConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = {
-    data,
-  }
-  return draw(canvas, args, config)
-}
-
 export const radialArea = {
-  area,
+  area: (
+    canvas: Canvas,
+    data: QsRadialAreaData,
+    customConfig?: QsRadialAreaConfig
+  ): QsRadialArea => {
+    const config: RadialAreaConfigStrict = addDefaultsToConfig(customConfig)
+    const args: DrawArgs = {
+      data,
+    }
+    return draw(canvas, args, config)
+  },
 }
 
 const draw = (

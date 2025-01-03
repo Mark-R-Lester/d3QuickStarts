@@ -11,17 +11,7 @@ import {
   QsRadialLineTransitionData,
   QsRadialLineData,
 } from './qsTypes'
-
-interface RadialLineConfigStrict {
-  [key: string]: number | QsEnumCurve | undefined
-  x: number
-  y: number
-  curve: QsEnumCurve
-}
-
-interface DrawArgs {
-  data: QsRadialLineData
-}
+import { RadialLineConfigStrict } from './types'
 
 const addDefaultsToConfig = (
   customConfig?: QsRadialLineConfig
@@ -40,28 +30,25 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-const line = (
-  canvas: Canvas,
-  data: QsRadialLineData,
-  customConfig?: QsRadialLineConfig
-): QsRadialLine => {
-  const config: RadialLineConfigStrict = addDefaultsToConfig(customConfig)
-  const args: DrawArgs = { data }
-  return draw(canvas, args, config)
-}
-
 export const radialLine = {
-  line,
+  line: (
+    canvas: Canvas,
+    data: QsRadialLineData,
+    customConfig?: QsRadialLineConfig
+  ): QsRadialLine => {
+    const config: RadialLineConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, data, config)
+  },
 }
 
 const draw = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: QsRadialLineData,
   config: RadialLineConfigStrict
 ): QsRadialLine => {
-  const { x, y, curve } = config
-  const { color } = args.data
-  const meta: Meta = getMeta(canvas, args.data)
+  const { curve } = config
+  const { color } = data
+  const meta: Meta = getMeta(canvas, data, config)
 
   const radialLine = lineRadial().curve(constantsCurves[curve])
   const group = canvas.displayGroup.append('g')
@@ -72,12 +59,12 @@ const draw = (
     .attr('d', radialLine(meta.lineData))
     .attr('fill', 'none')
     .attr('stroke', applyDefaultColorIfNeeded({ color }))
-    .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
+    .attr('transform', `translate(${meta.x}, ${meta.y})`)
   return {
     element: group.selectAll(`.${meta.class}`),
     transition: (data: QsRadialLineTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
-      const meta: Meta = getMeta(canvas, data.data)
+      const meta: Meta = getMeta(canvas, data.data, config)
       const { color: newColor } = data.data
       group
         .selectAll(`.${meta.class}`)

@@ -1,28 +1,27 @@
-import { scaleLinear, ScaleLinear } from 'd3'
+import { scaleLinear } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { QsRadialLineData } from './qsTypes'
+import { RadialLineConfigStrict } from './types'
 
 export interface Meta {
   class: string
   id: string
   lineData: Iterable<[number, number]>
-  xAxis: ScaleLinear<number, number, never>
-  yAxis: ScaleLinear<number, number, never>
+  x: number
+  y: number
 }
 
-export const getMeta = (canvas: Canvas, lineData: QsRadialLineData): Meta => {
-  const {
-    lowestViewableValue,
-    highestViewableValue,
-    displayAreaHeight,
-    displayAreaWidth,
-  } = canvas.config
+export const getMeta = (
+  canvas: Canvas,
+  lineData: QsRadialLineData,
+  config: RadialLineConfigStrict
+): Meta => {
+  const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
+    canvas.config
+  const { xPercentScale, yPercentScale } = canvas.scales
+  const { x, y } = config
   const { data } = lineData
-
   const dataCopy = data.slice()
-
-  const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
-  const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
 
   const angleScale = scaleLinear()
     .domain([0, data.length])
@@ -36,7 +35,7 @@ export const getMeta = (canvas: Canvas, lineData: QsRadialLineData): Meta => {
     class: 'radialLine',
     id: 'radialLine',
     lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d)]),
-    xAxis,
-    yAxis,
+    x: xPercentScale(x),
+    y: yPercentScale(y),
   }
 }

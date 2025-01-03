@@ -61,151 +61,135 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-const spoke = (
-  canvas: Canvas,
-  data: QsValuedText[],
-  customConfig?: QsRadialTextConfig
-): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(
-    RadialTextType.SPOKE,
-    customConfig
-  )
-  const args: DrawArgs = {
-    data,
-    scaleType: ScaleType.LINEAR,
-    type: RadialTextType.SPOKE,
-  }
-  return draw(canvas, args, config)
-}
-
-const horizontal = (
-  canvas: Canvas,
-  data: QsValuedText[],
-  customConfig?: QsRadialTextConfig
-): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(
-    RadialTextType.HORIZONTAL,
-    customConfig
-  )
-  const args: DrawArgs = {
-    data,
-    scaleType: ScaleType.LINEAR,
-    type: RadialTextType.HORIZONTAL,
-  }
-  return draw(canvas, args, config)
-}
-
-const rotated = (
-  canvas: Canvas,
-  data: QsValuedText[],
-  customConfig?: QsRadialTextConfig
-): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(
-    RadialTextType.ROTATED,
-    customConfig
-  )
-  const args: DrawArgs = {
-    data,
-    scaleType: ScaleType.LINEAR,
-    type: RadialTextType.ROTATED,
-  }
-  return draw(canvas, args, config)
-}
-
-const follow = (
-  canvas: Canvas,
-  data: QsValuedText[],
-  customConfig?: QsRadialTextConfig
-): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(
-    RadialTextType.FOLLOW,
-    customConfig
-  )
-  const args: DrawArgs = {
-    data,
-    scaleType: ScaleType.LINEAR,
-    type: RadialTextType.FOLLOW,
-  }
-  return draw(canvas, args, config)
-}
-
-const spokeBanded = (
-  canvas: Canvas,
-  data: QsValuedText[],
-  customConfig?: QsRadialTextConfig
-): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(
-    RadialTextType.SPOKE,
-    customConfig
-  )
-  const args: DrawArgs = {
-    data,
-    scaleType: ScaleType.BANDED,
-    type: RadialTextType.SPOKE,
-  }
-  return draw(canvas, args, config)
-}
-
-const horizontalBanded = (
-  canvas: Canvas,
-  data: QsValuedText[],
-  customConfig?: QsRadialTextConfig
-): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(
-    RadialTextType.HORIZONTAL,
-    customConfig
-  )
-  const args: DrawArgs = {
-    data,
-    scaleType: ScaleType.BANDED,
-    type: RadialTextType.HORIZONTAL,
-  }
-  return draw(canvas, args, config)
-}
-
-const rotatedBanded = (
-  canvas: Canvas,
-  data: QsValuedText[],
-  customConfig?: QsRadialTextConfig
-): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(
-    RadialTextType.ROTATED,
-    customConfig
-  )
-  const args: DrawArgs = {
-    data,
-    scaleType: ScaleType.BANDED,
-    type: RadialTextType.ROTATED,
-  }
-  return draw(canvas, args, config)
-}
-
-const followBanded = (
-  canvas: Canvas,
-  data: QsValuedText[],
-  customConfig?: QsRadialTextConfig
-): QsRadialText => {
-  const config: RadialTextConfigStrict = addDefaultsToConfig(
-    RadialTextType.FOLLOW,
-    customConfig
-  )
-  const args: DrawArgs = {
-    data,
-    scaleType: ScaleType.BANDED,
-    type: RadialTextType.FOLLOW,
-  }
-  return draw(canvas, args, config)
-}
-
 export const radialText = {
-  spoke,
-  horizontal,
-  rotated,
-  follow,
-  spokeBanded,
-  horizontalBanded,
-  rotatedBanded,
-  followBanded,
+  spoke: (
+    canvas: Canvas,
+    data: QsValuedText[],
+    customConfig?: QsRadialTextConfig
+  ): QsRadialText => {
+    const config: RadialTextConfigStrict = addDefaultsToConfig(
+      RadialTextType.SPOKE,
+      customConfig
+    )
+    const args: DrawArgs = {
+      data,
+      scaleType: ScaleType.LINEAR,
+      type: RadialTextType.SPOKE,
+    }
+    return draw(canvas, args, config)
+  },
+  horizontal: (
+    canvas: Canvas,
+    data: QsValuedText[],
+    customConfig?: QsRadialTextConfig
+  ): QsRadialText => {
+    const config: RadialTextConfigStrict = addDefaultsToConfig(
+      RadialTextType.HORIZONTAL,
+      customConfig
+    )
+    const args: DrawArgs = {
+      data,
+      scaleType: ScaleType.LINEAR,
+      type: RadialTextType.HORIZONTAL,
+    }
+    return draw(canvas, args, config)
+  },
+  rotated: (
+    canvas: Canvas,
+    data: QsValuedText[],
+    customConfig?: QsRadialTextConfig
+  ): QsRadialText => {
+    const config: RadialTextConfigStrict = addDefaultsToConfig(
+      RadialTextType.ROTATED,
+      customConfig
+    )
+    const args: DrawArgs = {
+      data,
+      scaleType: ScaleType.LINEAR,
+      type: RadialTextType.ROTATED,
+    }
+    return draw(canvas, args, config)
+  },
+  follow: (
+    canvas: Canvas,
+    data: QsValuedText[],
+    customConfig?: QsRadialTextConfig
+  ): QsRadialText => {
+    const config: RadialTextConfigStrict = addDefaultsToConfig(
+      RadialTextType.FOLLOW,
+      customConfig
+    )
+    const args: DrawArgs = {
+      data,
+      scaleType: ScaleType.LINEAR,
+      type: RadialTextType.FOLLOW,
+    }
+    return draw(canvas, args, config)
+  },
+  spokeBanded: (
+    canvas: Canvas,
+    data: QsValuedText[],
+    customConfig?: QsRadialTextConfig
+  ): QsRadialText => {
+    const config: RadialTextConfigStrict = addDefaultsToConfig(
+      RadialTextType.SPOKE,
+      customConfig
+    )
+    const args: DrawArgs = {
+      data,
+      scaleType: ScaleType.BANDED,
+      type: RadialTextType.SPOKE,
+    }
+    return draw(canvas, args, config)
+  },
+  horizontalBanded: (
+    canvas: Canvas,
+    data: QsValuedText[],
+    customConfig?: QsRadialTextConfig
+  ): QsRadialText => {
+    const config: RadialTextConfigStrict = addDefaultsToConfig(
+      RadialTextType.HORIZONTAL,
+      customConfig
+    )
+    const args: DrawArgs = {
+      data,
+      scaleType: ScaleType.BANDED,
+      type: RadialTextType.HORIZONTAL,
+    }
+    return draw(canvas, args, config)
+  },
+  rotatedBanded: (
+    canvas: Canvas,
+    data: QsValuedText[],
+    customConfig?: QsRadialTextConfig
+  ): QsRadialText => {
+    const config: RadialTextConfigStrict = addDefaultsToConfig(
+      RadialTextType.ROTATED,
+      customConfig
+    )
+    const args: DrawArgs = {
+      data,
+      scaleType: ScaleType.BANDED,
+      type: RadialTextType.ROTATED,
+    }
+    return draw(canvas, args, config)
+  },
+  followBanded: (
+    canvas: Canvas,
+    data: QsValuedText[],
+    customConfig?: QsRadialTextConfig
+  ): QsRadialText => {
+    const config: RadialTextConfigStrict = addDefaultsToConfig(
+      RadialTextType.FOLLOW,
+      customConfig
+    )
+    const args: DrawArgs = {
+      data,
+      scaleType: ScaleType.BANDED,
+      type: RadialTextType.FOLLOW,
+    }
+    return draw(canvas, args, config)
+  },
 }
 
 const draw = (
@@ -216,7 +200,6 @@ const draw = (
   const { data, scaleType, type } = args
   const {
     textFont,
-    textFontSize,
     textFontStyle,
     textFontWeight,
     textDecorationLine,
@@ -241,14 +224,14 @@ const draw = (
       .data(meta.textArcData)
       .enter()
       .append('g')
-      .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
+      .attr('transform', `translate(${meta.x}, ${meta.y})`)
       .append('text')
       .attr('class', (d) => d.textClass)
       .attr('id', (d) => d.textId)
       .attr('font-family', textFont)
       .attr('font-style', textFontStyle)
       .attr('font-weight', textFontWeight)
-      .attr('font-size', `${meta.yAxis(textFontSize)}px`)
+      .attr('font-size', `${meta.textFontSize}px`)
       .attr('text-decoration', textDecorationLine)
       .attr('fill', textFill)
       .attr('stroke', textStroke)
@@ -270,7 +253,7 @@ const draw = (
       .attr('d', arc)
       .attr('stroke-width', 0)
       .attr('fill', 'none')
-      .attr('transform', `translate(${meta.xAxis(x)}, ${meta.yAxis(y)})`)
+      .attr('transform', `translate(${meta.x}, ${meta.y})`)
     text
       .selectAll(`.${meta.textClass}`)
       .data(meta.textArcData)
@@ -281,7 +264,7 @@ const draw = (
       .attr('font-family', textFont)
       .attr('font-style', textFontStyle)
       .attr('font-weight', textFontWeight)
-      .attr('font-size', `${meta.yAxis(textFontSize)}px`)
+      .attr('font-size', `${meta.textFontSize}px`)
       .attr('text-decoration', textDecorationLine)
       .attr('fill', textFill)
       .attr('stroke', textStroke)

@@ -1,4 +1,3 @@
-import { scaleLinear, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { RadialTextConfigStrict } from './types'
 import { ScaleType } from '../../core/enums/enums'
@@ -9,8 +8,9 @@ export interface Meta {
   arcClass: string
   textClass: string
   textArcData: BandData[]
-  xAxis: ScaleLinear<number, number, never>
-  yAxis: ScaleLinear<number, number, never>
+  x: number
+  y: number
+  textFontSize: number
 }
 
 export interface BandData {
@@ -55,11 +55,8 @@ export const getMeta = (
   config: RadialTextConfigStrict,
   scaleType: ScaleType
 ): Meta => {
-  const { displayAreaHeight, displayAreaWidth } = canvas.config
-  const { radius } = config
-
-  const xAxis = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
-  const yAxis = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
+  const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
+  const { radius, x, y, textFontSize } = config
 
   const bandData = (data: QsValuedText[], min?: boolean): BandData[] => {
     let totalValue = 0
@@ -88,8 +85,8 @@ export const getMeta = (
         startAngle,
         newEndAngle: endAngle,
         endAngle,
-        outerRadius: min ? 0 : yAxis(radius / 2),
-        innerRadius: min ? 0 : yAxis(radius / 2),
+        outerRadius: min ? 0 : yPercentScale(radius / 2),
+        innerRadius: min ? 0 : yPercentScale(radius / 2),
       }
       startAngle = endAngle
       return res
@@ -108,7 +105,8 @@ export const getMeta = (
     textClass: 'text',
     textArcData:
       scaleType === ScaleType.BANDED ? bandData(data) : pointData(data),
-    xAxis,
-    yAxis,
+    x: xPercentScale(x),
+    y: yPercentScale(y),
+    textFontSize: genralPercentScale(textFontSize),
   }
 }

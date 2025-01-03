@@ -1,8 +1,12 @@
 import { FunctionComponent, useEffect, useState } from 'react'
-import { QsCanvas, qsCreateCanvas, QsPoints } from 'd3qs/d3QuickStart'
+import {
+  QsCanvas,
+  qsCreateCanvas,
+  QsPointData,
+  QsPoints,
+} from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../../../common/enums'
 import { PointChartProps } from '../../../../../common/chartProps'
-import { QsPointData } from 'd3qs/linear/points/types'
 
 export const LinearPointsTransition: FunctionComponent<PointChartProps> = ({
   chartName,

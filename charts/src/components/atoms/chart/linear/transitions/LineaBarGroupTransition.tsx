@@ -2,9 +2,7 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvas,
   qsCreateCanvas,
-  qsLinearBarGroupGenerator,
   QsBarGroups,
-  qsLinearBarStackGenerator,
   qsFindMaxSum,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'

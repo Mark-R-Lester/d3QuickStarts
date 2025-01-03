@@ -19,9 +19,9 @@ import {
   QsRadialTextConfig,
   QsValuedText,
   QsRadialPointData,
+  QsPointData,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation, EnumRadialTextOrientation } from './enums'
-import { QsPointData } from 'd3qs/linear/points/types'
 
 export interface ChartProps {
   chartName: string

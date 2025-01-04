@@ -1,15 +1,14 @@
 import { Canvas } from '../../d3QuickStart'
 import {
+  CalculatedData,
+  getCalculatedData,
+  ScatterPlotConfigStrict,
+} from './calculatedData'
+import {
   QsScatterPlotConfig,
   QsScatterPlot,
   QsPlottedPointData,
 } from './qsTypes'
-
-interface ScatterPlotConfigStrict {
-  [key: string]: number | number | undefined
-  defaultRadius: number
-  defaultOpacity: number
-}
 
 const addDefaultsToConfig = (
   customConfig?: QsScatterPlotConfig
@@ -42,22 +41,23 @@ const draw = (
   data: QsPlottedPointData[],
   config: ScatterPlotConfigStrict
 ): QsScatterPlot => {
-  const { xDataScalePlotted, yDataScalePlotted, genralPercentScale } =
-    canvas.scales
-  const { defaultRadius, defaultOpacity } = config
   const dataPoints = canvas.displayGroup.append('g')
+  const calculatedData: CalculatedData[] = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
 
   dataPoints
     .selectAll('circle')
-    .data(data)
+    .data(calculatedData)
     .enter()
     .append('circle')
     .attr('class', 'linePoint')
-    .attr('cx', (d) => xDataScalePlotted(d.x))
-    .attr('cy', (d) => yDataScalePlotted(d.y))
-    .attr('r', (d) => genralPercentScale(d.radius ? d.radius : defaultRadius))
-    .attr('opacity', (d) =>
-      genralPercentScale(d.opacity ? d.opacity : defaultOpacity)
-    )
+    .attr('cx', (d) => d.x)
+    .attr('cy', (d) => d.y)
+    .attr('r', (d) => d.radius)
+    .attr('opacity', (d) => d.opacity)
+
   return { element: dataPoints }
 }

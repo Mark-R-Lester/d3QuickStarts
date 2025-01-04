@@ -8,24 +8,23 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
   const [changed, setChanged] = useState<boolean>(false)
   const [element, setElement] = useState<QsRadialLine>()
 
-  const createChart = () => {
-    const data = [25, 10, 35, 25, 35, 5, 25, 25]
-    const canvas: QsCanvas = qsCreateCanvas({
-      chartName,
-      width: 600,
-      lowestViewableValue: 0,
-      highestViewableValue: 50,
-    })
-
-    let newElement: QsRadialLine
-    newElement = canvas.generate.radial.line({ data })
-
-    setElement(newElement)
-  }
-
   useEffect(() => {
+    const createChart = () => {
+      const data = [25, 10, 35, 25, 35, 5, 25, 25]
+      const canvas: QsCanvas = qsCreateCanvas({
+        chartName,
+        width: 600,
+        lowestViewableValue: 0,
+        highestViewableValue: 50,
+      })
+
+      let newElement: QsRadialLine
+      newElement = canvas.generate.radial.line({ data })
+
+      setElement(newElement)
+    }
     createChart()
-  }, [])
+  }, [chartName])
 
   useEffect(
     function transitionData() {

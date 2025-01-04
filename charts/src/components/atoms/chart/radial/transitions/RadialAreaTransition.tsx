@@ -15,42 +15,43 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
   const [topArea, setTopArea] = useState<QsRadialArea>()
   const [bottomArea, setBottomArea] = useState<QsRadialArea>()
 
-  const createChart = () => {
-    const innerData: number[] = [15, 10, 20, 30, 40, 26, 90, 15, 10, 30, 25, 50]
-    const outerData: number[] = [
-      25, 15, 40, 36, 80, 100, 96, 30, 100, 98, 100, 60,
-    ]
-
-    const dataUpper: QsRadialAreaData = {
-      innerData,
-      outerData,
-      color: 'blue',
-    }
-    const dataLower: QsRadialAreaData = {
-      outerData: innerData,
-    }
-
-    const canvas: QsCanvas = qsCreateCanvas({
-      chartName,
-      width: 600,
-      lowestViewableValue: 0,
-      highestViewableValue: 100,
-    })
-
-    let newTopArea = canvas.generate.radial.area(dataUpper, {
-      curve: QsEnumCurve.NATURAL,
-    })
-    let newBottomArea = canvas.generate.radial.area(dataLower, {
-      curve: QsEnumCurve.NATURAL,
-    })
-
-    setTopArea(newTopArea)
-    setBottomArea(newBottomArea)
-  }
-
   useEffect(() => {
+    const createChart = () => {
+      const innerData: number[] = [
+        15, 10, 20, 30, 40, 26, 90, 15, 10, 30, 25, 50,
+      ]
+      const outerData: number[] = [
+        25, 15, 40, 36, 80, 100, 96, 30, 100, 98, 100, 60,
+      ]
+
+      const dataUpper: QsRadialAreaData = {
+        innerData,
+        outerData,
+        color: 'blue',
+      }
+      const dataLower: QsRadialAreaData = {
+        outerData: innerData,
+      }
+
+      const canvas: QsCanvas = qsCreateCanvas({
+        chartName,
+        width: 600,
+        lowestViewableValue: 0,
+        highestViewableValue: 100,
+      })
+
+      let newTopArea = canvas.generate.radial.area(dataUpper, {
+        curve: QsEnumCurve.BASIS,
+      })
+      let newBottomArea = canvas.generate.radial.area(dataLower, {
+        curve: QsEnumCurve.BASIS,
+      })
+
+      setTopArea(newTopArea)
+      setBottomArea(newBottomArea)
+    }
     createChart()
-  }, [])
+  }, [chartName])
 
   useEffect(
     function transitionData() {

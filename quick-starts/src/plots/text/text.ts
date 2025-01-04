@@ -1,4 +1,3 @@
-import { scaleLinear } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import {
   QsEnumAlignmentBaseline,
@@ -78,11 +77,8 @@ const draw = (
     textAnchor,
     textAngle,
   } = config
-  const { displayAreaWidth, displayAreaHeight } = canvas.config
+  const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
   const { data } = args
-
-  const xScale = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
-  const yScale = scaleLinear().domain([0, 100]).range([0, displayAreaHeight])
 
   const text = canvas.displayGroup.append('g')
   text
@@ -93,12 +89,12 @@ const draw = (
     .attr('font-family', textFont)
     .attr('font-style', textFontStyle)
     .attr('font-weight', textFontWeight)
-    .attr('font-size', `${yScale(textFontSize)}px`)
+    .attr('font-size', `${genralPercentScale(textFontSize)}px`)
     .attr('text-decoration', textDecorationLine)
     .attr('fill', textFill)
     .attr('stroke', textStroke)
     .attr('transform', (d) => {
-      return `translate(${xScale(d.x)}, ${yScale(d.y)})rotate(${textAngle})`
+      return `translate(${xPercentScale(d.x)}, ${yPercentScale(d.y)})rotate(${textAngle})`
     })
     .style('text-anchor', textAnchor)
     .style('alignment-baseline', textAlignmentBaseline)

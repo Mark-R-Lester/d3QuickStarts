@@ -14,7 +14,7 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
       chartName,
       width: 600,
       lowestViewableValue: 0,
-      highestViewableValue: 35,
+      highestViewableValue: 50,
     })
 
     let newElement: QsRadialLine

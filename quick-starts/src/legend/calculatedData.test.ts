@@ -56,6 +56,7 @@ const calculatedDataResult: CalculatedData[] = [
     height: 10,
     color: 'red',
     value: 'description',
+    textFontSize: 10,
   },
 ]
 

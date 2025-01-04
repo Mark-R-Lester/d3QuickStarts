@@ -60,15 +60,9 @@ export const plottedLegend = {
 }
 
 const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfigStrict) => {
-  const { displayAreaHeight } = canvas.config
   const { data } = args
-  const percentScale = scaleLinear()
-    .domain([0, 100])
-    .range([0, displayAreaHeight])
-
   const {
     textFont,
-    textFontSize,
     textFontStyle,
     textFontWeight,
     textDecorationLine,
@@ -105,7 +99,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfigStrict) => {
     .attr('font-family', textFont)
     .attr('font-style', textFontStyle)
     .attr('font-weight', textFontWeight)
-    .attr('font-size', `${percentScale(textFontSize)}px`)
+    .attr('font-size', (d) => `${d.textFontSize}px`)
     .attr('text-decoration', textDecorationLine)
     .attr('fill', textFill)
     .attr('stroke', textStroke)

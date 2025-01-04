@@ -37,7 +37,7 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
       textFont: QsEnumTextFont.SERIF,
       textFontWeight: QsEnumTextFontWeight.NORMAL,
       textFontStyle: QsEnumTextFontStyle.ITALIC,
-      textFontSize: 10,
+      textFontSize: 5,
       textDecorationLine: QsEnumTextDecorationLine.NORMAL,
       textAngle: 0,
       textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,

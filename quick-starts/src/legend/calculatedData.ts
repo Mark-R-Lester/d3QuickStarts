@@ -1,4 +1,3 @@
-import { scaleLinear } from 'd3'
 import { Canvas } from '../d3QuickStart'
 import { LegendConfigStrict } from './types'
 import { QsLegendData } from './qsTypes'
@@ -12,6 +11,7 @@ export interface CalculatedData {
   value: string
   textX: number
   textY: number
+  textFontSize: number
 }
 
 export const getCalculatedData = (
@@ -19,24 +19,23 @@ export const getCalculatedData = (
   data: QsLegendData[],
   config: LegendConfigStrict
 ): CalculatedData[] => {
-  const { displayAreaWidth, displayAreaHeight } = canvas.config
-  const { height, width, space, x, y } = config
+  const { xPercentScale, yPercentScaleInverted, genralPercentScale } =
+    canvas.scales
+  const { textFontSize, height, width, space, x, y } = config
 
-  const xScale = scaleLinear().domain([0, 100]).range([0, displayAreaWidth])
-  const yScale = scaleLinear().domain([0, 100]).range([displayAreaHeight, 0])
-
-  const invertIndex = (array: any[], index: number) => data.length - (index + 1)
+  const invertIndex = (data: any[], index: number) => data.length - (index + 1)
 
   const calculatedData: CalculatedData[] = data.map((d, i) => {
     return {
-      x: xScale(x),
-      y: yScale(y + height + space * invertIndex(data, i)),
-      textX: xScale(x + width * 1.3),
-      textY: yScale(y + space * invertIndex(data, i)),
-      width: xScale(width),
-      height: xScale(height),
+      x: xPercentScale(x),
+      y: yPercentScaleInverted(y + height + space * invertIndex(data, i)),
+      textX: xPercentScale(x + width * 1.3),
+      textY: yPercentScaleInverted(y + space * invertIndex(data, i)),
+      width: xPercentScale(width),
+      height: xPercentScale(height),
       color: d.color,
       value: d.value,
+      textFontSize: genralPercentScale(textFontSize),
     }
   })
 

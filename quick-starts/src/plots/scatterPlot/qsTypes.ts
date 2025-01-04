@@ -1,7 +1,16 @@
 import { Selection } from 'd3'
+import { QsCoordinate } from '../../d3QuickStart'
 
 export interface QsScatterPlotConfig {
-  [key: string]: string | undefined
+  [key: string]: number | undefined
+  defaultRadius?: number
+  defaultOpacity?: number
+}
+
+export interface QsPlottedPointData extends QsCoordinate {
+  [key: string]: number | undefined
+  radius?: number
+  opacity?: number
 }
 
 export interface QsScatterPlot {

@@ -13,7 +13,6 @@ import {
   QsBarStack,
   QsBarStackedConfig,
   QsCoordinate,
-  QsCoordinateEnhanced,
   QsLegend,
   QsLegendConfig,
   QsLegendData,
@@ -45,6 +44,7 @@ import {
   QsRadialTextConfig,
   QsScatterPlot,
   QsScatterPlotConfig,
+  QsPlottedPointData,
   QsText,
   QsTextArgs,
   QsTextConfig,
@@ -124,10 +124,7 @@ interface QsPlottedElementFunctions {
   legend: (data: QsLegendData[], customConfig?: QsLegendConfig) => {}
   line: (data: QsCoordinate[], customConfig?: QsLinePlotConfig) => {}
   text: (data: QsTextArgs[], customConfig?: QsTextConfig) => {}
-  points: (
-    data: QsCoordinateEnhanced[],
-    customConfig?: QsScatterPlotConfig
-  ) => {}
+  points: (data: QsPlottedPointData[], customConfig?: QsScatterPlotConfig) => {}
 }
 
 interface QsRadialTextElementFunctions {
@@ -398,7 +395,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         return element
       },
       points: (
-        data: QsCoordinateEnhanced[],
+        data: QsPlottedPointData[],
         customConfig?: QsScatterPlotConfig
       ): QsScatterPlot => {
         const element = plottedPoint.points(canvas, data, customConfig)

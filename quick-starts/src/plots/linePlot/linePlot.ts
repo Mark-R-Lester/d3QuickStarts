@@ -1,6 +1,5 @@
-import { scaleLinear, line as d3line } from 'd3'
+import { line as d3line } from 'd3'
 import { QsCoordinate } from '../../core/types/qsTypes'
-import { qsFindMaxCoordinateX, qsFindMaxCoordinateY } from '../../core/max'
 import { Canvas } from '../../d3QuickStart'
 import { QsEnumCurve } from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
@@ -47,18 +46,12 @@ const draw = (
   config: LinePlotConfigStrict
 ): QsLinePlot => {
   const { curve } = config
-  const { displayAreaWidth, displayAreaHeight } = canvas.config
+  const { xDataScalePlotted, yDataScalePlotted } = canvas.scales
   const { data } = args
 
-  const xScale = scaleLinear()
-    .domain([0, qsFindMaxCoordinateX(data)])
-    .range([0, displayAreaWidth])
-  const yScale = scaleLinear()
-    .domain([0, qsFindMaxCoordinateY(data)])
-    .range([displayAreaHeight, 0])
   let line = d3line()
-    .x((d) => xScale(d[0]))
-    .y((d) => yScale(d[1]))
+    .x((d) => xDataScalePlotted(d[0]))
+    .y((d) => yDataScalePlotted(d[1]))
     .curve(constantsCurves[curve])
 
   let lineGroup = canvas.displayGroup.append('g')

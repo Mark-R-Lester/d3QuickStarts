@@ -1,55 +1,63 @@
-import { scaleLinear } from 'd3'
-import { QsCoordinateEnhanced } from '../../core/types/qsTypes'
-import { qsFindMaxCoordinateX, qsFindMaxCoordinateY } from '../../core/max'
 import { Canvas } from '../../d3QuickStart'
-import { QsScatterPlotConfig, QsScatterPlot } from './qsTypes'
+import {
+  QsScatterPlotConfig,
+  QsScatterPlot,
+  QsPlottedPointData,
+} from './qsTypes'
 
 interface ScatterPlotConfigStrict {
-  [key: string]: string | undefined
+  [key: string]: number | number | undefined
+  defaultRadius: number
+  defaultOpacity: number
 }
 
-interface DrawArgs {
-  data: QsCoordinateEnhanced[]
-}
+const addDefaultsToConfig = (
+  customConfig?: QsScatterPlotConfig
+): ScatterPlotConfigStrict => {
+  const defaults: ScatterPlotConfigStrict = {
+    defaultRadius: 2,
+    defaultOpacity: 1,
+  }
+  if (!customConfig) return defaults
 
-const configuration: ScatterPlotConfigStrict = {}
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
+}
 
 export const plottedPoint = {
   points: (
     canvas: Canvas,
-    data: QsCoordinateEnhanced[],
-    config?: QsScatterPlotConfig
+    data: QsPlottedPointData[],
+    customConfig?: QsScatterPlotConfig
   ): QsScatterPlot => {
-    const args: DrawArgs = { data }
-    return draw(canvas, args, configuration)
+    const config: ScatterPlotConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, data, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: QsPlottedPointData[],
   config: ScatterPlotConfigStrict
 ): QsScatterPlot => {
-  const { displayAreaHeight, displayAreaWidth } = canvas.config
-  const { data } = args
-
-  const xScale = scaleLinear()
-    .domain([0, qsFindMaxCoordinateX(data)])
-    .range([0, displayAreaWidth])
-  const yScale = scaleLinear()
-    .domain([0, qsFindMaxCoordinateY(data)])
-    .range([displayAreaHeight, 0])
-
+  const { xDataScalePlotted, yDataScalePlotted, genralPercentScale } =
+    canvas.scales
+  const { defaultRadius, defaultOpacity } = config
   const dataPoints = canvas.displayGroup.append('g')
+
   dataPoints
     .selectAll('circle')
     .data(data)
     .enter()
     .append('circle')
     .attr('class', 'linePoint')
-    .attr('cx', (d) => xScale(d.x))
-    .attr('cy', (d) => yScale(d.y))
-    .attr('r', (d) => (d.radius ? d.radius : '3'))
-    .attr('opacity', (d) => (d.opacity ? d.opacity / 100 : '1'))
+    .attr('cx', (d) => xDataScalePlotted(d.x))
+    .attr('cy', (d) => yDataScalePlotted(d.y))
+    .attr('r', (d) => genralPercentScale(d.radius ? d.radius : defaultRadius))
+    .attr('opacity', (d) =>
+      genralPercentScale(d.opacity ? d.opacity : defaultOpacity)
+    )
   return { element: dataPoints }
 }

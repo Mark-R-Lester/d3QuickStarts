@@ -46,7 +46,10 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
         const vals = []
         for (let i = 0; i < 8; i++) {
           let num = (Math.random() * 100) / 2
-          vals.push({ upperBoundry: num, color: num < 25 ? 'green' : 'red' })
+          vals.push({
+            upperBoundry: num,
+            fillColor: num < 25 ? 'green' : 'red',
+          })
         }
         return vals
       }

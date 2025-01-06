@@ -26,7 +26,7 @@ export interface ArcData {
   startAngle: number
   newEndAngle: number
   endAngle: number
-  color: string
+  fillColor: string
   index?: number
   value?: number
 }
@@ -103,7 +103,7 @@ export const getCalculatedData = (
 
       arcData: {
         data: d.value,
-        color: getPrecidendedColor(d.color, defaultColor, scaledColor),
+        fillColor: getPrecidendedColor(d.fillColor, defaultColor, scaledColor),
         index: i,
         value: d.value,
         cornerRadius: yPercentScale(cornerRadius / 2),

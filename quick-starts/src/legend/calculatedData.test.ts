@@ -42,7 +42,7 @@ const legendConfig: LegendConfigStrict = {
 const data: QsLegendData[] = [
   {
     value: 'description',
-    color: 'red',
+    fillColor: 'red',
   },
 ]
 
@@ -54,7 +54,7 @@ const calculatedDataResult: CalculatedData[] = [
     textY: 90,
     width: 10,
     height: 10,
-    color: 'red',
+    fillColor: 'red',
     value: 'description',
     textFontSize: 10,
   },

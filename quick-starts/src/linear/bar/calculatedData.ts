@@ -85,7 +85,7 @@ export const getCalculatedData = (
       y: y(d, i),
       height: height(d),
       width: width(d),
-      color: getPrecidendedColor(d.color, defaultColor, scaledColor),
+      fillColor: getPrecidendedColor(d.fillColor, defaultColor, scaledColor),
     }
     calculatedData.push({
       class: 'bar',

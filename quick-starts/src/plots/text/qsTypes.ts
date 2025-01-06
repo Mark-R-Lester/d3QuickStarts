@@ -7,6 +7,7 @@ import {
   QsEnumAlignmentBaseline,
 } from '../../core/enums/qsEnums'
 import { Selection } from 'd3'
+import { QsCoordinate } from '../../d3QuickStart'
 
 export interface QsTextConfig {
   [key: string]: number | string | undefined
@@ -28,8 +29,6 @@ export interface QsText {
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
 }
 
-export interface QsTextArgs {
-  x: number
-  y: number
+export interface QsTextArgs extends QsCoordinate {
   text: string
 }

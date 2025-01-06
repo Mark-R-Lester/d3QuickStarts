@@ -24,5 +24,5 @@ export interface QsRadialPoints {
 
 export interface QsRadialPointData {
   value: number
-  color?: string
+  fillColor?: string
 }

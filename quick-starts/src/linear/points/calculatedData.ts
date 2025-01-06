@@ -22,7 +22,7 @@ export interface CalculatedData {
   id: string
   pointData: QsCoordinate
   radiusMin: number
-  color: string
+  fillColor: string
 }
 
 export const getCalculatedData = (
@@ -45,13 +45,17 @@ export const getCalculatedData = (
 
   interface CoordinateWithColor extends QsCoordinate {
     [key: string]: number | string | undefined
-    color?: string
+    fillColor?: string
   }
-  const getCoordinates = (data: QsPointData[]): QsCoordinate[] =>
+  const getCoordinates = (data: QsPointData[]): CoordinateWithColor[] =>
     data.map((d, i) => {
       return isVertical
-        ? { x: d.value, y: pointSpacing[data.length - i - 1], color: d.color }
-        : { x: pointSpacing[i], y: d.value, color: d.color }
+        ? {
+            x: d.value,
+            y: pointSpacing[data.length - i - 1],
+            fillColor: d.fillColor,
+          }
+        : { x: pointSpacing[i], y: d.value, fillColor: d.fillColor }
     })
 
   const coordinates: CoordinateWithColor[] = getCoordinates(data)
@@ -106,7 +110,7 @@ export const getCalculatedData = (
       id: `point${uuidv4()}`,
       pointData: { x: x(d), y: y(d) },
       radiusMin: 0,
-      color: getPrecidendedColor(d.color, defaultColor, scaledColor),
+      fillColor: getPrecidendedColor(d.fillColor, defaultColor, scaledColor),
     }
   })
   return calculatedData

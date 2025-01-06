@@ -70,7 +70,7 @@ const draw = (
     .attr('y', (d) => d.barData.y)
     .attr('width', (d) => d.barData.width)
     .attr('height', (d) => d.barData.height)
-    .attr('fill', (d) => d.barData.color)
+    .attr('fill', (d) => d.barData.fillColor)
 
   const transition = (data: QsBarTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
@@ -90,7 +90,7 @@ const draw = (
         .duration(args.durationInMiliSeconds)
         .attr('width', (d) => d.barData.width)
         .attr('x', (d) => d.barData.x)
-        .attr('fill', (d) => d.barData.color)
+        .attr('fill', (d) => d.barData.fillColor)
     else
       group
         .selectAll(`.${calculatedData[0].class}`)
@@ -100,7 +100,7 @@ const draw = (
         .duration(args.durationInMiliSeconds)
         .attr('height', (d) => d.barData.height)
         .attr('y', (d) => d.barData.y)
-        .attr('fill', (d) => d.barData.color)
+        .attr('fill', (d) => d.barData.fillColor)
   }
   return {
     element: group.selectAll(`.${calculatedData[0].class}`),

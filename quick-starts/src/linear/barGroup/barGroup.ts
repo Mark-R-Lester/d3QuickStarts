@@ -60,7 +60,7 @@ const draw = (
     .append('g')
     .attr('class', (d) => d.groupClass)
     .attr('id', (d) => d.groupId)
-    .attr('fill', (d, i) => d.barData[i].color)
+    .attr('fill', (d, i) => d.barData[i].fillColor)
   barGroups
     .selectAll('rect')
     .data((d) => d.barData)

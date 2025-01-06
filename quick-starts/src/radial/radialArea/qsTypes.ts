@@ -26,5 +26,5 @@ export interface QsRadialAreaData {
   [key: string]: number[] | string | undefined
   outerData: number[]
   innerData?: number[]
-  color?: string
+  fillColor?: string
 }

@@ -5,7 +5,7 @@ import { QsTransitionArgs } from '../../d3QuickStart'
 export interface QsAreaData {
   lowerData?: number[]
   higherData: number[]
-  color?: string
+  fillColor?: string
 }
 
 export interface QsAreaConfig {

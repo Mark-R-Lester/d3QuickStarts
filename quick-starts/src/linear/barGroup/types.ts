@@ -11,5 +11,5 @@ export interface BarData {
   y: number
   height: number
   width: number
-  color: string
+  fillColor: string
 }

@@ -9,13 +9,13 @@ export const LinearPointsElement: FunctionComponent<OrienetedChartProps> = ({
 }) => {
   const createChart = () => {
     const data = [
-      { value: 25, color: 'red' },
+      { value: 25, fillColor: 'red' },
       { value: 10 },
-      { value: 35, color: 'red' },
+      { value: 35, fillColor: 'red' },
       { value: 25 },
-      { value: 35, color: 'red' },
+      { value: 35, fillColor: 'red' },
       { value: 5 },
-      { value: 25, color: 'red' },
+      { value: 25, fillColor: 'red' },
       { value: 25 },
     ]
     const canvas: QsCanvas = qsCreateCanvas({

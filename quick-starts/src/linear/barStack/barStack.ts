@@ -61,7 +61,7 @@ const draw = (
     .append('g')
     .attr('class', (d) => d.stackClass)
     .attr('id', (d) => d.groupId)
-    .attr('fill', (d, i) => d.barData[i].color)
+    .attr('fill', (d, i) => d.barData[i].fillColor)
   barStacks
     .selectAll('rect')
     .data((d) => d.barData)

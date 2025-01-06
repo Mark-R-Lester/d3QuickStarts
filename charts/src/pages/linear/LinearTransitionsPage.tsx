@@ -11,7 +11,7 @@ import { QsColorScaleData } from 'd3qs/d3QuickStart'
 import { QsEnumColorScale } from 'd3qs/core/qsEnums'
 
 const pointData = [
-  { value: 25 },
+  { value: 25, fillColor: 'red' },
   { value: 10 },
   { value: 35 },
   { value: 25 },

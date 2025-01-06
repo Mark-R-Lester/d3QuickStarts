@@ -85,7 +85,7 @@ export const draw = (
   config: LineConfigStrict
 ): QsLine => {
   const { scaleType, orientation } = args
-  const { color } = args.data
+  const { strokeColor } = args.data
   const calculatedData: CalculatedData =
     orientation === Orientation.HORIZONTAL
       ? getHorizontalCalculatedData(canvas, args, config)
@@ -99,7 +99,7 @@ export const draw = (
     .attr('id', calculatedData.id)
     .attr('d', lineFunction(lineData))
     .attr('fill', 'none')
-    .attr('stroke', applyDefaultColorIfNeeded({ color }))
+    .attr('stroke', applyDefaultColorIfNeeded({ color: strokeColor }))
 
   const transition = (data: QsLineTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
@@ -108,7 +108,7 @@ export const draw = (
       scaleType,
       orientation,
     }
-    const { color: newColor } = data.data
+    const { strokeColor: newColor } = data.data
     const calculatedData: CalculatedData =
       orientation === Orientation.HORIZONTAL
         ? getHorizontalCalculatedData(canvas, drawArgs, config)
@@ -120,7 +120,10 @@ export const draw = (
       .delay(args.delayInMiliSeconds)
       .duration(args.durationInMiliSeconds)
       .attr('d', lineFunction(calculatedData.lineData))
-      .attr('stroke', applyDefaultColorIfNeeded({ color, newColor }))
+      .attr(
+        'stroke',
+        applyDefaultColorIfNeeded({ color: strokeColor, newColor })
+      )
   }
   return {
     element: group.select(`.${calculatedData.class}`),

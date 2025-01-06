@@ -1,4 +1,4 @@
-import { QsColorName, QsColorScaleData } from '../../core/types/qsTypes'
+import { QsColorScaleData } from '../../core/types/qsTypes'
 
 export interface RadialConfigStrict {
   [key: string]: number | QsColorScaleData | string | undefined

@@ -4,7 +4,7 @@ import { Selection } from 'd3'
 export interface QsBarData {
   lowerBoundry?: number
   upperBoundry: number
-  color?: string
+  fillColor?: string
 }
 
 export interface QsBarConfigStrict {

@@ -98,7 +98,7 @@ const draw = (
     .attr('stroke', 'none')
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
     .attr('d', (d) => arc(d.arcData))
-    .attr('fill', (d) => d.arcData.color)
+    .attr('fill', (d) => d.arcData.fillColor)
 
   return {
     element: group.selectAll('.arc'),
@@ -118,7 +118,7 @@ const draw = (
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
-        .attr('fill', (d) => d.arcData.color)
+        .attr('fill', (d) => d.arcData.fillColor)
         .attrTween('d', (d) => {
           const tweenStart = interpolate(
             d.arcData.startAngle,

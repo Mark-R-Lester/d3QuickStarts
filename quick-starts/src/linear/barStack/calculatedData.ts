@@ -65,7 +65,7 @@ export const getCalculatedData = (
         y: y(d),
         height: height(d),
         width: width(),
-        color: getColor(inner, colors),
+        fillColor: getColor(inner, colors),
       }
     })
     calculatedData.push({

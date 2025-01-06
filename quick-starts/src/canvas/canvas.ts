@@ -99,7 +99,6 @@ const draw = (chartName: string, config: CanvasConfigStrict): QsCanvas => {
     const displayGroup = svg.append('g')
     displayGroup
       .attr('class', 'displayGroup')
-      .attr('border-color', 'red')
       .attr(
         'transform',
         'translate(' + config.marginLeft + ',' + config.marginTop + ')'

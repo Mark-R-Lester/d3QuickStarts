@@ -65,7 +65,7 @@ const draw = (
     .attr('id', (d) => d.id)
     .attr('cx', (d) => d.coordinate.x)
     .attr('cy', (d) => d.coordinate.y)
-    .attr('fill', (d) => d.color)
+    .attr('fill', (d) => d.fillColor)
     .attr('r', (d) => d.pointRadius)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   return {
@@ -86,7 +86,7 @@ const draw = (
         .attr('cx', (d) => d.coordinate.x)
         .attr('cy', (d) => d.coordinate.y)
         .attr('r', (d) => d.pointRadius)
-        .attr('fill', (d) => d.color)
+        .attr('fill', (d) => d.fillColor)
     },
   }
 }

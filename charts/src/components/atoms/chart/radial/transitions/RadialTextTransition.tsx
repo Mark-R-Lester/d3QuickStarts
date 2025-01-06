@@ -38,9 +38,9 @@ export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
       setElement1(canvas.generate.radial.text.rotatedBanded(data, config))
 
     const radialArgs: QsRadialData[] = [
-      { value: 0, color: 'red' },
-      { value: 0, color: 'orange' },
-      { value: 0, color: 'green' },
+      { value: 0, fillColor: 'red' },
+      { value: 0, fillColor: 'orange' },
+      { value: 0, fillColor: 'green' },
     ]
     data.forEach((d, i) => {
       radialArgs[i].value = d.value
@@ -71,9 +71,9 @@ export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
         })
 
       const radialArgs: QsRadialData[] = [
-        { value: 0, color: 'red' },
-        { value: 0, color: 'orange' },
-        { value: 0, color: 'green' },
+        { value: 0, fillColor: 'red' },
+        { value: 0, fillColor: 'orange' },
+        { value: 0, fillColor: 'green' },
       ]
       transitionData.forEach((d, i) => {
         radialArgs[i].value = d.value

@@ -9,14 +9,14 @@ export const LinearBarsElement: FunctionComponent<OrienetedChartProps> = ({
 }) => {
   const createChart = () => {
     const data: QsBarData[] = [
-      { upperBoundry: 25, color: 'red' },
-      { upperBoundry: 10, color: 'blue' },
-      { upperBoundry: 35, color: 'green' },
-      { upperBoundry: 25, color: 'purple' },
-      { upperBoundry: 35, color: 'black' },
-      { upperBoundry: 5, color: 'yellow' },
-      { upperBoundry: 25, color: 'orange' },
-      { upperBoundry: 25, color: 'pink' },
+      { upperBoundry: 25, fillColor: 'red' },
+      { upperBoundry: 10, fillColor: 'blue' },
+      { upperBoundry: 35, fillColor: 'green' },
+      { upperBoundry: 25, fillColor: 'purple' },
+      { upperBoundry: 35, fillColor: 'black' },
+      { upperBoundry: 5, fillColor: 'yellow' },
+      { upperBoundry: 25, fillColor: 'orange' },
+      { upperBoundry: 25, fillColor: 'pink' },
     ]
     const isVertical = orientation === EnumOrientation.VERTICAL
 

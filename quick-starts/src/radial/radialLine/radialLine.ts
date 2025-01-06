@@ -47,7 +47,7 @@ const draw = (
   config: RadialLineConfigStrict
 ): QsRadialLine => {
   const { curve } = config
-  const { color } = data
+  const { strokeColor } = data
   const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
 
   const radialLine = lineRadial().curve(constantsCurves[curve])
@@ -58,7 +58,7 @@ const draw = (
     .attr('id', calculatedData.id)
     .attr('d', radialLine(calculatedData.lineData))
     .attr('fill', 'none')
-    .attr('stroke', applyDefaultColorIfNeeded({ color }))
+    .attr('stroke', applyDefaultColorIfNeeded({ color: strokeColor }))
     .attr('transform', `translate(${calculatedData.x}, ${calculatedData.y})`)
   return {
     element: group.selectAll(`.${calculatedData.class}`),
@@ -69,14 +69,17 @@ const draw = (
         data.data,
         config
       )
-      const { color: newColor } = data.data
+      const { strokeColor: newColor } = data.data
       group
         .selectAll(`.${calculatedData.class}`)
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('d', radialLine(calculatedData.lineData))
-        .attr('stroke', applyDefaultColorIfNeeded({ color, newColor }))
+        .attr(
+          'stroke',
+          applyDefaultColorIfNeeded({ color: strokeColor, newColor })
+        )
     },
   }
 }

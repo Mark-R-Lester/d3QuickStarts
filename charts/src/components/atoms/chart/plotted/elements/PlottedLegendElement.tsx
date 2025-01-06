@@ -15,10 +15,10 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
 }) => {
   const createChart = () => {
     const data: QsLegendData[] = [
-      { value: 'Red', color: 'red' },
-      { value: 'Blue', color: 'blue' },
-      { value: 'Green', color: 'green' },
-      { value: 'Purple', color: 'purple' },
+      { value: 'Red', fillColor: 'red' },
+      { value: 'Blue', fillColor: 'blue' },
+      { value: 'Green', fillColor: 'green' },
+      { value: 'Purple', fillColor: 'purple' },
     ]
 
     const canvas: QsCanvas = qsCreateCanvas({

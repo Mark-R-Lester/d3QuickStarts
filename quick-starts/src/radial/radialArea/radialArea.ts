@@ -24,7 +24,7 @@ const addDefaultsToConfig = (
     curve: QsEnumCurve.LINEAR,
     x: 50,
     y: 50,
-    color: 'steelblue',
+    fillColor: 'steelblue',
   }
 
   if (!customConfig) return defaults
@@ -54,8 +54,8 @@ const draw = (
   args: DrawArgs,
   config: RadialAreaConfigStrict
 ): QsRadialArea => {
-  const { outerData: dataOuter, innerData: dataInner, color } = args.data
-  const { x, y, curve } = config
+  const { outerData: dataOuter, innerData: dataInner, fillColor } = args.data
+  const { curve } = config
   const calculatedData: CalculatedData = getCalculatedData(
     canvas,
     dataOuter,
@@ -75,12 +75,12 @@ const draw = (
     .attr('class', calculatedData.class)
     .attr('id', calculatedData.id)
     .attr('d', radialArea(calculatedData.areaData))
-    .attr('fill', applyDefaultColorIfNeeded({ color }))
+    .attr('fill', applyDefaultColorIfNeeded({ color: fillColor }))
     .attr('transform', `translate(${calculatedData.x}, ${calculatedData.y})`)
   return {
     element: group.selectAll('path'),
     transition: (data: QsRadialAreaTransitionData) => {
-      const { innerData, outerData, color: newColor } = data.data
+      const { innerData, outerData, fillColor: newColor } = data.data
       const calculatedData = getCalculatedData(
         canvas,
         outerData,
@@ -95,7 +95,7 @@ const draw = (
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('d', radialArea(calculatedData.areaData))
-        .attr('fill', applyDefaultColorIfNeeded({ color, newColor }))
+        .attr('fill', applyDefaultColorIfNeeded({ color: fillColor, newColor }))
     },
   }
 }

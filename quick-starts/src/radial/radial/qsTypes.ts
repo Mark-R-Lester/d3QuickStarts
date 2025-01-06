@@ -27,5 +27,5 @@ export interface QsRadial {
 
 export interface QsRadialData {
   value: number
-  color?: string
+  fillColor?: string
 }

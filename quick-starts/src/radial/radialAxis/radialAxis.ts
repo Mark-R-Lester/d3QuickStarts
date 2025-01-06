@@ -13,6 +13,7 @@ import {
   QsEnumAlignmentBaseline,
 } from '../../core/enums/qsEnums'
 import { Canvas, QsRadialAxis, QsRadialAxisConfig } from '../../d3QuickStart'
+import { GlobalDefaultStrings } from '../../core/enums/enums'
 
 interface DrawArgs {
   data: number[]
@@ -27,7 +28,7 @@ const addDefaultsToConfig = (
     y: 50,
     axisAngle: 0,
     gap: 15,
-    color: 'black',
+    fillColor: GlobalDefaultStrings.AXIS_COLOR,
     strokeWidth: 0.3,
     textFont: QsEnumTextFont.SERIF,
     textFontSize: 4,
@@ -65,7 +66,7 @@ const draw = (
   config: RadialAxisConfigStrict
 ): QsRadialAxis => {
   const {
-    color,
+    fillColor,
     strokeWidth,
     textFont,
     textFontStyle,
@@ -98,7 +99,7 @@ const draw = (
     .attr('class', (d) => d.ringClass)
     .attr('id', (d) => d.ringId)
     .attr('d', (d) => arc(d.ringData))
-    .attr('stroke', color)
+    .attr('stroke', fillColor)
     .attr('stroke-width', strokeWidth)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   group

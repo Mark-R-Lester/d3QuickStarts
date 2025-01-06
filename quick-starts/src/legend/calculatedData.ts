@@ -7,7 +7,7 @@ export interface CalculatedData {
   y: number
   width: number
   height: number
-  color: string
+  fillColor: string
   value: string
   textX: number
   textY: number
@@ -33,7 +33,7 @@ export const getCalculatedData = (
       textY: yPercentScaleInverted(y + space * invertIndex(data, i)),
       width: xPercentScale(width),
       height: xPercentScale(height),
-      color: d.color,
+      fillColor: d.fillColor,
       value: d.value,
       textFontSize: genralPercentScale(textFontSize),
     }

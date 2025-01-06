@@ -8,9 +8,14 @@ export interface QsScatterPlotConfig {
 }
 
 export interface QsPlottedPointData extends QsCoordinate {
-  [key: string]: number | undefined
+  [key: string]: number | string | undefined
   radius?: number
   opacity?: number
+  fillColor?: string
+  fillOpacity?: string
+  strokeColor?: string
+  strokeWidth?: number
+  strokeOpacity?: string
 }
 
 export interface QsScatterPlot {

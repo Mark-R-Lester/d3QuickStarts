@@ -7,18 +7,18 @@ export const RadialPieElement: FunctionComponent<ChartProps> = ({
 }) => {
   const createChart = () => {
     const data: QsRadialData[] = [
-      { value: 15, color: 'steelblue' },
-      { value: 45, color: 'blue' },
-      { value: 60, color: 'green' },
-      { value: 15, color: 'steelblue' },
-      { value: 45, color: 'blue' },
-      { value: 60, color: 'green' },
-      { value: 15, color: 'steelblue' },
-      { value: 45, color: 'blue' },
-      { value: 60, color: 'green' },
-      { value: 15, color: 'steelblue' },
-      { value: 45, color: 'blue' },
-      { value: 60, color: 'green' },
+      { value: 15, fillColor: 'steelblue' },
+      { value: 45, fillColor: 'blue' },
+      { value: 60, fillColor: 'green' },
+      { value: 15, fillColor: 'steelblue' },
+      { value: 45, fillColor: 'blue' },
+      { value: 60, fillColor: 'green' },
+      { value: 15, fillColor: 'steelblue' },
+      { value: 45, fillColor: 'blue' },
+      { value: 60, fillColor: 'green' },
+      { value: 15, fillColor: 'steelblue' },
+      { value: 45, fillColor: 'blue' },
+      { value: 60, fillColor: 'green' },
     ]
 
     const canvas: QsCanvas = qsCreateCanvas({

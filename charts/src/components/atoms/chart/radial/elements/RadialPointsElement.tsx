@@ -7,7 +7,7 @@ export const RadialPointsElement: FunctionComponent<ChartProps> = ({
 }) => {
   const createChart = () => {
     const data: QsRadialPointData[] = [
-      { value: 1 },
+      { value: 1, fillColor: 'red' },
       { value: 2 },
       { value: 1 },
       { value: 2 },

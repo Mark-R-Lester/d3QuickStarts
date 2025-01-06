@@ -53,7 +53,7 @@ function draw(
   config: AreaConfigStrict
 ): QsArea {
   const { curve } = config
-  const { color } = args.data
+  const { fillColor } = args.data
   const calculatedData: CalculatedData = getCalculatedData(canvas, args.data)
 
   const area = d3area<AreaData>()
@@ -68,7 +68,7 @@ function draw(
     .attr('class', calculatedData.class)
     .attr('id', calculatedData.id)
     .attr('d', area(calculatedData.areaData))
-    .attr('fill', applyDefaultColorIfNeeded({ color }))
+    .attr('fill', applyDefaultColorIfNeeded({ color: fillColor }))
   return {
     element: group.select(`.${calculatedData.class}`),
     transition: (data: QsAreaTransitionData) => {
@@ -77,7 +77,7 @@ function draw(
         canvas,
         data.data
       )
-      const { color: newColor } = data.data
+      const { fillColor: newColor } = data.data
 
       group
         .selectAll(`.${calculatedData.class}`)
@@ -85,7 +85,7 @@ function draw(
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('d', area(calculatedData.areaData))
-        .attr('fill', applyDefaultColorIfNeeded({ color, newColor }))
+        .attr('fill', applyDefaultColorIfNeeded({ color: fillColor, newColor }))
     },
   }
 }

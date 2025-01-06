@@ -13,7 +13,7 @@ export interface CalculatedData {
   id: string
   class: string
   coordinate: QsCoordinate
-  color: string
+  fillColor: string
   x: number
   y: number
   pointRadius: number
@@ -61,7 +61,7 @@ export const getCalculatedData = (
       id: `radialPoint${uuidv4()}`,
       class: 'radialPoint',
       coordinate,
-      color: getPrecidendedColor(d.color, defaultColor, scaledColor),
+      fillColor: getPrecidendedColor(d.fillColor, defaultColor, scaledColor),
       x: xPercentScale(x),
       y: yPercentScale(y),
       pointRadius: genralPercentScale(pointRadius),

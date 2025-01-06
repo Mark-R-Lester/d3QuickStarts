@@ -89,7 +89,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfigStrict) => {
     .attr('y', (d) => d.y)
     .attr('width', (d) => d.width)
     .attr('height', (d) => d.height)
-    .attr('fill', (d) => d.color)
+    .attr('fill', (d) => d.fillColor)
 
   group
     .selectAll('text')

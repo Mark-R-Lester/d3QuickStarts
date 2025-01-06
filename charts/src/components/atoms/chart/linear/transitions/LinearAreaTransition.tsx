@@ -19,7 +19,7 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
     const dataUpper: QsAreaData = {
       lowerData,
       higherData,
-      color: 'blue',
+      fillColor: 'blue',
     }
     const dataLower: QsAreaData = {
       higherData: lowerData,
@@ -63,9 +63,9 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
         }
 
         const colors = ['red', 'blue', 'green', 'pink']
-        const color = colors[colorIndex.current]
+        const fillColor = colors[colorIndex.current]
         colorIndex.current = colorIndex.current > 2 ? 0 : colorIndex.current + 1
-        const upperAreaData: QsAreaData = { lowerData, higherData, color }
+        const upperAreaData: QsAreaData = { lowerData, higherData, fillColor }
         const lowerAreaData: QsAreaData = { higherData: lowerData }
 
         return { lowerAreaData, upperAreaData }

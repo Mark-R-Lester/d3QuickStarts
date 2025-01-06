@@ -3,7 +3,7 @@ import { Selection } from 'd3'
 
 export interface QsPointData {
   value: number
-  color?: string
+  fillColor?: string
 }
 
 export interface QsPointsConfig {

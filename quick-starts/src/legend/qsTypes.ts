@@ -30,7 +30,7 @@ export interface QsLegendConfig {
 
 export interface QsLegendData {
   value: string
-  color: string
+  fillColor: string
 }
 
 export interface QsLegend {

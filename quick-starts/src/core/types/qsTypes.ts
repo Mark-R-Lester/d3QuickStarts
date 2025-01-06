@@ -7,11 +7,6 @@ export interface QsCoordinate {
   y: number
 }
 
-export interface QsColorName {
-  [key: string]: string
-  colorName: string
-}
-
 export interface QsColorScaleData {
   [key: string]: number[] | (string | ColorCommonInstance)[] | string
   domain: number[]

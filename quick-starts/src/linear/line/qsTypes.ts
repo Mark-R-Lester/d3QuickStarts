@@ -5,7 +5,7 @@ import { Selection } from 'd3'
 export interface QsLineData {
   [key: string]: number[] | string | undefined
   data: number[]
-  color?: string
+  strokeColor?: string
 }
 
 export interface QsLineConfig {

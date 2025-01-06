@@ -19,14 +19,14 @@ export const LinearAreaElement: FunctionComponent<ChartProps> = ({
 
     canvas.generate.linear.horizontal
       .area(
-        { higherData: data1, color: 'blue' },
+        { higherData: data1, fillColor: 'blue' },
         { curve: QsEnumCurve.MONOTONE_X }
       )
       .element.attr('fill-opacity', '0.5')
 
     canvas.generate.linear.horizontal
       .area(
-        { higherData: data2, lowerData: data1, color: 'red' },
+        { higherData: data2, lowerData: data1, fillColor: 'red' },
         { curve: QsEnumCurve.MONOTONE_X }
       )
       .element.attr('fill-opacity', '0.5')

@@ -27,7 +27,7 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
       const dataUpper: QsRadialAreaData = {
         innerData,
         outerData,
-        color: 'blue',
+        fillColor: 'blue',
       }
       const dataLower: QsRadialAreaData = {
         outerData: innerData,

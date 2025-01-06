@@ -109,7 +109,7 @@ const draw = (
     .attr('cy', (d) => d.pointData.y)
     .attr('cx', (d) => d.pointData.x)
     .attr('r', radius)
-    .attr('fill', (d) => d.color)
+    .attr('fill', (d) => d.fillColor)
 
   const transition = (data: QsPointsTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
@@ -128,7 +128,7 @@ const draw = (
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('cx', (d) => d.pointData.x)
-        .attr('fill', (d) => d.color)
+        .attr('fill', (d) => d.fillColor)
     else
       group
         .selectAll(`.${calculatedData[0].class}`)
@@ -137,7 +137,7 @@ const draw = (
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('cy', (d) => d.pointData.y)
-        .attr('fill', (d) => d.color)
+        .attr('fill', (d) => d.fillColor)
   }
   return {
     element: group.selectAll(`.${calculatedData[0].class}`),

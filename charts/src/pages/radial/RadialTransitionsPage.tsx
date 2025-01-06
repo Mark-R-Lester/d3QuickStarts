@@ -4,7 +4,12 @@ import { RadialAreaTransition } from '../../components/atoms/chart/radial/transi
 import { RadialLineTransition } from '../../components/atoms/chart/radial/transitions/RadialLineTransition'
 import { RadialPointTransition } from '../../components/atoms/chart/radial/transitions/RadialPointsTransition'
 import { RadialTextTransition } from '../../components/atoms/chart/radial/transitions/RadialTextTransition'
-import { QsColorScaleData, QsRadialData, QsValuedText } from 'd3qs/d3QuickStart'
+import {
+  QsColorScaleData,
+  QsRadialData,
+  QsRadialPointData,
+  QsValuedText,
+} from 'd3qs/d3QuickStart'
 import { EnumRadialTextOrientation } from '../../common/enums'
 import { RadialTransition } from '../../components/atoms/chart/radial/transitions/RadialTransition'
 import { QsEnumColorScale } from 'd3qs/core/qsEnums'
@@ -26,31 +31,31 @@ export default function RadialTransitionsPage() {
     { value: 30 },
   ]
 
-  const radialPointsColouredData = [
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
-    { value: 1, color: 'red' },
-    { value: 2, color: 'blue' },
+  const radialPointsColouredData: QsRadialPointData[] = [
+    { value: 1, fillColor: 'red' },
+    { value: 2, fillColor: 'blue' },
+    { value: 1, fillColor: 'red' },
+    { value: 2, fillColor: 'blue' },
+    { value: 1, fillColor: 'red' },
+    { value: 2, fillColor: 'blue' },
+    { value: 1, fillColor: 'red' },
+    { value: 2, fillColor: 'blue' },
+    { value: 1, fillColor: 'red' },
+    { value: 2, fillColor: 'blue' },
+    { value: 1, fillColor: 'red' },
+    { value: 2, fillColor: 'blue' },
+    { value: 1, fillColor: 'red' },
+    { value: 2, fillColor: 'blue' },
+    { value: 1, fillColor: 'red' },
+    { value: 2, fillColor: 'blue' },
+    { value: 1, fillColor: 'red' },
+    { value: 2, fillColor: 'blue' },
+    { value: 1, fillColor: 'red' },
+    { value: 2, fillColor: 'blue' },
   ]
 
-  const radialPointsData = [
-    { value: 1, color: 'red' },
+  const radialPointsData: QsRadialPointData[] = [
+    { value: 1, fillColor: 'red' },
     { value: 2 },
     { value: 1 },
     { value: 2 },

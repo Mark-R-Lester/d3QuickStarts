@@ -6,7 +6,7 @@ export interface QsRadialSpokesConfig {
   innerRadius?: number
   x?: number
   y?: number
-  color?: string
+  fillColor?: string
   strokeWidth?: number
 }
 

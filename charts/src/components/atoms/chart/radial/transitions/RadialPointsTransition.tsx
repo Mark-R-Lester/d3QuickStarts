@@ -31,10 +31,10 @@ export const RadialPointTransition: FunctionComponent<
   useEffect(
     function transitionData() {
       chartDataRef.current = chartDataRef.current.map((d) => {
-        if (d.color) {
+        if (d.fillColor) {
           return d.value === 1
-            ? { value: 2, color: 'blue' }
-            : { value: 1, color: 'red' }
+            ? { value: 2, fillColor: 'blue' }
+            : { value: 1, fillColor: 'red' }
         } else {
           return d.value === 1 ? { value: 2 } : { value: 1 }
         }

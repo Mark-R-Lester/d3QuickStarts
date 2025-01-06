@@ -2,7 +2,7 @@ import { getCalculatedData, CalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { RadialPointsConfigStrict } from './types'
-import { GlobalDefaults } from '../../core/enums/enums'
+import { GlobalDefaultStrings } from '../../core/enums/enums'
 import {
   QsRadialPointData,
   QsRadialPointsConfig,
@@ -21,7 +21,7 @@ const addDefaultsToConfig = (
     x: 50,
     y: 50,
     pointRadius: 1.2,
-    defaultColor: GlobalDefaults.DEFAULT_COLOR,
+    defaultColor: GlobalDefaultStrings.COLOR,
   }
   if (!customConfig) return defaults
 

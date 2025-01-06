@@ -1,7 +1,11 @@
 import { Canvas } from '../../d3QuickStart'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { DrawArgs, PointsConfigStrict } from './types'
-import { GlobalDefaults, Orientation, ScaleType } from '../../core/enums/enums'
+import {
+  GlobalDefaultStrings,
+  Orientation,
+  ScaleType,
+} from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
   QsPointData,
@@ -15,7 +19,7 @@ const addDefaultsToConfig = (
 ): PointsConfigStrict => {
   const defaults: PointsConfigStrict = {
     radius: 3,
-    defaultColor: GlobalDefaults.DEFAULT_COLOR,
+    defaultColor: GlobalDefaultStrings.COLOR,
   }
   if (!customConfig) return defaults
 

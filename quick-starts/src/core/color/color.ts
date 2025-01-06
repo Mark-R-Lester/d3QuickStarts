@@ -5,7 +5,7 @@ import {
   scaleOrdinal,
   scaleSequential,
 } from 'd3'
-import { GlobalDefaults } from '../enums/enums'
+import { GlobalDefaultStrings } from '../enums/enums'
 import { QsEnumColorScale } from '../enums/qsEnums'
 import { toStrings } from '../conversion'
 import { QsColorScaleData } from '../types/qsTypes'
@@ -17,9 +17,7 @@ export const getPrecidendedColor = (
 ): string => {
   if (color) return color
   if (typeof scaledColor === 'string') return scaledColor
-  return defaultColor === undefined
-    ? GlobalDefaults.DEFAULT_COLOR
-    : defaultColor
+  return defaultColor === undefined ? GlobalDefaultStrings.COLOR : defaultColor
 }
 
 export const applyDefaultColorIfNeeded = (colors: {
@@ -28,7 +26,7 @@ export const applyDefaultColorIfNeeded = (colors: {
 }): string => {
   const { color, newColor } = colors
   if (newColor) return newColor
-  return color === undefined ? GlobalDefaults.DEFAULT_COLOR : color
+  return color === undefined ? GlobalDefaultStrings.COLOR : color
 }
 
 /*

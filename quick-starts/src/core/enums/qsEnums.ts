@@ -90,3 +90,15 @@ export enum QsEnumTextFont {
   PAPYRUS = 'papyrus',
   IMPACT = 'Impact',
 }
+
+export enum QsEnumLineJoin {
+  ROUND = 'round',
+  BEVEL = 'bevel',
+  MITER = 'miter',
+}
+
+export enum QsEnumLineCap {
+  ROUND = 'round',
+  BUTT = 'butt',
+  SQUARE = 'square',
+}

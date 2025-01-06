@@ -27,7 +27,13 @@ export enum RadialTextType {
   ROTATED = 'rotated',
 }
 
-export enum GlobalDefaults {
-  DEFAULT_COLOR = 'steelblue',
-  DEFAULT_AXIS_COLOR = 'black',
+export enum GlobalDefaultStrings {
+  COLOR = 'steelblue',
+  AXIS_COLOR = 'black',
+  LINE_COLOR = 'black',
+}
+
+export enum GlobalDefaultNumbers {
+  OPACITY = 1,
+  STROKE_WIDTH = 1,
 }

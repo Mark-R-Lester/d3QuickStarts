@@ -6,7 +6,7 @@ import {
   scaleOrdinal,
 } from 'd3'
 import { toStrings } from '../../core/conversion'
-import { GlobalDefaults } from '../../core/enums/enums'
+import { GlobalDefaultStrings } from '../../core/enums/enums'
 import {
   applyDefaultColorIfNeeded,
   getPrecidendedColor,
@@ -17,7 +17,7 @@ describe('color functions', () => {
   describe('getPrecidendedColor', () => {
     test.each`
       color        | defaultColor | scaledColor  | expectedColor
-      ${undefined} | ${undefined} | ${undefined} | ${GlobalDefaults.DEFAULT_COLOR}
+      ${undefined} | ${undefined} | ${undefined} | ${GlobalDefaultStrings.COLOR}
       ${undefined} | ${'blue'}    | ${'green'}   | ${'green'}
       ${'red'}     | ${undefined} | ${'green'}   | ${'red'}
       ${'red'}     | ${'blue'}    | ${undefined} | ${'red'}
@@ -37,7 +37,7 @@ describe('color functions', () => {
   describe('applyDefaultColorIfNeeded', () => {
     test.each`
       color        | newColor     | expectedColor
-      ${undefined} | ${undefined} | ${GlobalDefaults.DEFAULT_COLOR}
+      ${undefined} | ${undefined} | ${GlobalDefaultStrings.COLOR}
       ${'green'}   | ${undefined} | ${'green'}
       ${'green'}   | ${'red'}     | ${'red'}
       ${undefined} | ${'red'}     | ${'red'}

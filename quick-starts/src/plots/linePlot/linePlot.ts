@@ -1,17 +1,19 @@
 import { line as d3line } from 'd3'
-import { QsCoordinate } from '../../core/types/qsTypes'
 import { Canvas } from '../../d3QuickStart'
-import { QsEnumCurve } from '../../core/enums/qsEnums'
+import {
+  QsEnumCurve,
+  QsEnumLineCap,
+  QsEnumLineJoin,
+} from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
-import { QsLinePlotConfig, QsLinePlot } from './qsTypes'
+import { QsLinePlotConfig, QsLinePlot, QsPlottedLineData } from './qsTypes'
+import { CalculatedData, getCalculatedData } from './calculatedData'
 
 interface LinePlotConfigStrict {
-  [key: string]: QsEnumCurve | undefined
+  [key: string]: QsEnumCurve | number | string | undefined
   curve: QsEnumCurve
-}
-
-interface DrawArgs {
-  data: QsCoordinate[]
+  strokeLineJoin: QsEnumLineJoin
+  strokeLineCap: QsEnumLineCap
 }
 
 const addDefaultsToConfig = (
@@ -19,6 +21,8 @@ const addDefaultsToConfig = (
 ): LinePlotConfigStrict => {
   const defaults: LinePlotConfigStrict = {
     curve: QsEnumCurve.LINEAR,
+    strokeLineJoin: QsEnumLineJoin.ROUND,
+    strokeLineCap: QsEnumLineCap.ROUND,
   }
   if (!customConfig) return defaults
 
@@ -31,38 +35,41 @@ const addDefaultsToConfig = (
 export const plottedLine = {
   line: (
     canvas: Canvas,
-    data: QsCoordinate[],
+    data: QsPlottedLineData,
     customConfig?: QsLinePlotConfig
   ): QsLinePlot => {
     const config: LinePlotConfigStrict = addDefaultsToConfig(customConfig)
-    const args: DrawArgs = { data }
-    return draw(canvas, args, config)
+    return draw(canvas, data, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: QsPlottedLineData,
   config: LinePlotConfigStrict
 ): QsLinePlot => {
-  const { curve } = config
-  const { xDataScalePlotted, yDataScalePlotted } = canvas.scales
-  const { data } = args
+  const { curve, strokeLineJoin, strokeLineCap } = config
+
+  const calculatedData: CalculatedData = getCalculatedData(canvas, data)
+  console.log(calculatedData)
 
   let line = d3line()
-    .x((d) => xDataScalePlotted(d[0]))
-    .y((d) => yDataScalePlotted(d[1]))
+    .x((d) => d[0])
+    .y((d) => d[1])
     .curve(constantsCurves[curve])
 
   let lineGroup = canvas.displayGroup.append('g')
   lineGroup
     .append('path')
+    .datum(calculatedData)
     .attr('class', 'line')
-    .attr('d', line(data.map((coordinate) => [coordinate.x, coordinate.y])))
-    .attr('stroke', 'black')
-    .attr('stroke-linejoin', 'round')
-    .attr('stroke-linecap', 'round')
+    .attr('d', (d) => line(d.coordinates))
+    .attr('stroke', (d) => d.strokeColor)
+    .attr('stroke-width', (d) => d.strokeWidth)
+    .attr('opacity', (d) => d.opacity)
+    .attr('stroke-linejoin', strokeLineJoin)
+    .attr('stroke-linecap', strokeLineCap)
     .attr('fill-opacity', '0')
-    .attr('stroke-width', 1.5)
+
   return { element: lineGroup.select('.line') }
 }

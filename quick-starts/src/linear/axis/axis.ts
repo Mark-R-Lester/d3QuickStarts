@@ -10,7 +10,11 @@ import {
   ScaleLinear,
 } from 'd3'
 import { toStrings } from '../../core/conversion'
-import { ChartEdge, GlobalDefaults, ScaleType } from '../../core/enums/enums'
+import {
+  ChartEdge,
+  GlobalDefaultStrings,
+  ScaleType,
+} from '../../core/enums/enums'
 import {
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
@@ -62,10 +66,10 @@ const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
     alignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
     percentageMovement: 0,
 
-    domainColor: GlobalDefaults.DEFAULT_AXIS_COLOR,
+    domainColor: GlobalDefaultStrings.AXIS_COLOR,
     domainOpacity: 1,
     domainWidth: 2,
-    tickColor: GlobalDefaults.DEFAULT_AXIS_COLOR,
+    tickColor: GlobalDefaultStrings.AXIS_COLOR,
     tickOpacity: 1,
     tickWidth: 2,
     tickSizeInner: 2,
@@ -78,7 +82,7 @@ const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
     textFontStyle: QsEnumTextFontStyle.NORMAL,
     textFontWeight: QsEnumTextFontWeight.NORMAL,
     textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textFill: GlobalDefaults.DEFAULT_AXIS_COLOR,
+    textFill: GlobalDefaultStrings.AXIS_COLOR,
     textAngle: 0,
     textStroke: '',
     textAnchor: QsEnumTextAnchor.START,

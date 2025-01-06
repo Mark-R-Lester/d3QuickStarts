@@ -1,9 +1,24 @@
 import { Selection } from 'd3'
-import { QsEnumCurve } from '../../core/enums/qsEnums'
+import {
+  QsEnumCurve,
+  QsEnumLineCap,
+  QsEnumLineJoin,
+} from '../../core/enums/qsEnums'
+import { QsCoordinate } from '../../d3QuickStart'
 
 export interface QsLinePlotConfig {
-  [key: string]: QsEnumCurve | undefined
+  [key: string]: QsEnumCurve | number | string | undefined
   curve?: QsEnumCurve
+  strokeLineJoin?: QsEnumLineJoin
+  strokeLineCap?: QsEnumLineCap
+}
+
+export interface QsPlottedLineData {
+  [key: string]: number | string | QsCoordinate[] | undefined
+  coordinates: QsCoordinate[]
+  opacity?: number
+  strokeColor?: string
+  strokeWidth?: number
 }
 
 export interface QsLinePlot {

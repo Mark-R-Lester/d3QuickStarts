@@ -12,7 +12,6 @@ import {
   QsBars,
   QsBarStack,
   QsBarStackedConfig,
-  QsCoordinate,
   QsLegend,
   QsLegendConfig,
   QsLegendData,
@@ -49,6 +48,7 @@ import {
   QsTextArgs,
   QsTextConfig,
   QsValuedText,
+  QsPlottedLineData,
 } from '../d3QuickStart'
 import { plottedLegend } from '../legend/legend'
 import { linearArea } from '../linear/area/area'
@@ -122,7 +122,7 @@ interface QsLinearElementFunctions {
 
 interface QsPlottedElementFunctions {
   legend: (data: QsLegendData[], customConfig?: QsLegendConfig) => {}
-  line: (data: QsCoordinate[], customConfig?: QsLinePlotConfig) => {}
+  line: (data: QsPlottedLineData, customConfig?: QsLinePlotConfig) => {}
   text: (data: QsTextArgs[], customConfig?: QsTextConfig) => {}
   points: (data: QsPlottedPointData[], customConfig?: QsScatterPlotConfig) => {}
 }
@@ -382,7 +382,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         return element
       },
       line: (
-        data: QsCoordinate[],
+        data: QsPlottedLineData,
         customConfig?: QsLinePlotConfig
       ): QsLinePlot => {
         const element = plottedLine.line(canvas, data, customConfig)

@@ -2,7 +2,7 @@ import { Selection } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { getCalculatedData, CalculatedData } from './calculatedData'
 import { DrawArgs } from './types'
-import { GlobalDefaults, Orientation } from '../../core/enums/enums'
+import { GlobalDefaultStrings, Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
   QsBarConfig,
@@ -15,7 +15,7 @@ import {
 const addDefaultsToConfig = (customConfig?: QsBarConfig): QsBarConfigStrict => {
   const defauls: QsBarConfigStrict = {
     padding: 8,
-    defaultColor: GlobalDefaults.DEFAULT_COLOR,
+    defaultColor: GlobalDefaultStrings.COLOR,
     colorScaleData: undefined,
   }
   if (!customConfig) return defauls

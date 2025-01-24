@@ -51,7 +51,6 @@ const draw = (
   const { curve, strokeLineJoin, strokeLineCap } = config
 
   const calculatedData: CalculatedData = getCalculatedData(canvas, data)
-  console.log(calculatedData)
 
   let line = d3line()
     .x((d) => d[0])

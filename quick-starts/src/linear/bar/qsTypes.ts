@@ -5,20 +5,34 @@ export interface QsBarData {
   lowerBoundry?: number
   upperBoundry: number
   fillColor?: string
+  fillOpacity?: number
+  strokeColor?: string
+  strokeWidth?: number
+  strokeOpacity?: number
 }
 
-export interface QsBarConfigStrict {
+export interface BarConfigStrict {
   [key: string]: number | string | QsColorScaleData | undefined
   padding: number
-  defaultColor: string
-  colorScaleData?: QsColorScaleData
+  defaultFillColor: string
+  defaultFillOpacity: number
+  defaultStrokeColor: string
+  defaultStrokeWidth: number
+  defaultStrokeOpacity: number
+  fillColorScaleData?: QsColorScaleData
+  strokeColorScaleData?: QsColorScaleData
 }
 
 export interface QsBarConfig {
   [key: string]: number | string | QsColorScaleData | undefined
   padding?: number
-  defaultColor?: string
-  colorScaleData?: QsColorScaleData
+  defaultFillColor?: string
+  defaultFillOpacity?: number
+  defaultStrokeColor?: string
+  defaultStrokeWidth?: number
+  defaultStrokeOpacity?: number
+  fillColorScaleData?: QsColorScaleData
+  strokeColorScaleData?: QsColorScaleData
 }
 
 export interface QsBarTransitionArgs extends QsTransitionArgs {}

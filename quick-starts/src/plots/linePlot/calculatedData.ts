@@ -1,6 +1,6 @@
 import {
-  GlobalDefaultNumbers,
-  GlobalDefaultStrings,
+  GlobalDefaultSettings,
+  GlobalDefaultColors,
 } from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
 import { QsPlottedLineData } from './qsTypes'
@@ -25,12 +25,13 @@ export const getCalculatedData = (
       xDataScalePlotted(d.x),
       yDataScalePlotted(d.y),
     ]),
-    opacity: opacity === undefined ? GlobalDefaultNumbers.OPACITY : opacity,
+    opacity:
+      opacity === undefined ? GlobalDefaultSettings.FILL_OPACITY : opacity,
     strokeColor:
-      strokeColor === undefined ? GlobalDefaultStrings.LINE_COLOR : strokeColor,
+      strokeColor === undefined ? GlobalDefaultColors.LINE_COLOR : strokeColor,
     strokeWidth: genralPercentScale(
       strokeWidth === undefined
-        ? GlobalDefaultNumbers.STROKE_WIDTH
+        ? GlobalDefaultSettings.STROKE_WIDTH
         : strokeWidth
     ),
   }

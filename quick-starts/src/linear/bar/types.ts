@@ -7,6 +7,10 @@ export interface CalculatedDataBarData {
   height: number
   width: number
   fillColor: string
+  fillOpacity: number
+  strokeColor: string
+  strokeWidth: number
+  strokeOpacity: number
 }
 
 export interface DrawArgs {

@@ -1,5 +1,4 @@
 import {
-  scaleLinear,
   scalePoint,
   scaleBand,
   axisBottom,
@@ -12,7 +11,7 @@ import {
 import { toStrings } from '../../core/conversion'
 import {
   ChartEdge,
-  GlobalDefaultStrings,
+  GlobalDefaultColors,
   ScaleType,
 } from '../../core/enums/enums'
 import {
@@ -66,10 +65,10 @@ const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
     alignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
     percentageMovement: 0,
 
-    domainColor: GlobalDefaultStrings.AXIS_COLOR,
+    domainColor: GlobalDefaultColors.AXIS_COLOR,
     domainOpacity: 1,
     domainWidth: 2,
-    tickColor: GlobalDefaultStrings.AXIS_COLOR,
+    tickColor: GlobalDefaultColors.AXIS_COLOR,
     tickOpacity: 1,
     tickWidth: 2,
     tickSizeInner: 2,
@@ -82,7 +81,7 @@ const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
     textFontStyle: QsEnumTextFontStyle.NORMAL,
     textFontWeight: QsEnumTextFontWeight.NORMAL,
     textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textFill: GlobalDefaultStrings.AXIS_COLOR,
+    textFill: GlobalDefaultColors.AXIS_COLOR,
     textAngle: 0,
     textStroke: '',
     textAnchor: QsEnumTextAnchor.START,

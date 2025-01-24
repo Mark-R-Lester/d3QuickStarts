@@ -6,7 +6,7 @@ import {
   QsRadialSpokes,
   QsRadialSpokesTransitionArgs,
 } from './qsTypes'
-import { GlobalDefaultStrings } from '../../core/enums/enums'
+import { GlobalDefaultColors } from '../../core/enums/enums'
 
 interface RadialSpokesConfigStrict {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
@@ -30,7 +30,7 @@ const addDefaultsToConfig = (
     innerRadius: 0,
     x: 50,
     y: 50,
-    fillColor: GlobalDefaultStrings.AXIS_COLOR,
+    fillColor: GlobalDefaultColors.AXIS_COLOR,
     strokeWidth: 0.4,
   }
   if (!customConfig) return defaults

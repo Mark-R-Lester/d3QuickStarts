@@ -10,7 +10,7 @@ import {
   getScaledColor,
   getColorScale,
 } from '../../core/color/color'
-import { QsBarConfigStrict, QsBarData } from './qsTypes'
+import { BarConfigStrict, QsBarData } from './qsTypes'
 
 export interface CalculatedData {
   class: string
@@ -21,16 +21,26 @@ export interface CalculatedData {
 export const getCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
-  config: QsBarConfigStrict
+  config: BarConfigStrict
 ): CalculatedData[] => {
-  const { padding, defaultColor, colorScaleData } = config
+  const {
+    padding,
+    defaultFillColor,
+    defaultFillOpacity,
+    defaultStrokeColor,
+    defaultStrokeWidth,
+    defaultStrokeOpacity,
+    fillColorScaleData,
+    strokeColorScaleData,
+  } = config
   const { data, orientation } = args
+
   const isVertical = orientation === Orientation.VERTICAL
   const findLowerBoundry = (lowerBoundry: number | undefined) =>
     lowerBoundry !== undefined ? lowerBoundry : 0
 
   const { displayAreaWidth, displayAreaHeight } = canvas.config
-  const { xDataScale, yDataScaleInverted } = canvas.scales
+  const { xDataScale, yDataScaleInverted, genralPercentScale } = canvas.scales
   const calculatedData: CalculatedData[] = []
 
   const bandStepScale = scaleBand()
@@ -66,18 +76,30 @@ export const getCalculatedData = (
     return 0
   }
 
-  let colorScale:
+  let fillColorScale:
     | ScaleSequential<string, never>
     | ScaleOrdinal<string, unknown, never>
     | undefined
 
-  if (colorScaleData) colorScale = getColorScale(colorScaleData)
+  if (fillColorScaleData) fillColorScale = getColorScale(fillColorScaleData)
+
+  let strokeColorScale:
+    | ScaleSequential<string, never>
+    | ScaleOrdinal<string, unknown, never>
+    | undefined
+
+  if (strokeColorScaleData)
+    strokeColorScale = getColorScale(strokeColorScaleData)
 
   data.forEach((d, i) => {
     d.lowerBoundry = findLowerBoundry(d.lowerBoundry)
-    const scaledColor: string | unknown | undefined = getScaledColor(
+    const scaledFillColor: string | unknown | undefined = getScaledColor(
       d.upperBoundry - d.lowerBoundry!,
-      colorScale
+      fillColorScale
+    )
+    const scaledStrokeColor: string | unknown | undefined = getScaledColor(
+      d.upperBoundry - d.lowerBoundry!,
+      strokeColorScale
     )
 
     const barData: CalculatedDataBarData = {
@@ -85,7 +107,25 @@ export const getCalculatedData = (
       y: y(d, i),
       height: height(d),
       width: width(d),
-      fillColor: getPrecidendedColor(d.fillColor, defaultColor, scaledColor),
+      fillColor: getPrecidendedColor(
+        d.fillColor,
+        defaultFillColor,
+        scaledFillColor
+      ),
+      strokeColor: getPrecidendedColor(
+        d.strokeColor,
+        defaultStrokeColor,
+        scaledStrokeColor
+      ),
+      fillOpacity: genralPercentScale(
+        d.fillOpacity !== undefined ? d.fillOpacity : defaultFillOpacity
+      ),
+      strokeWidth: genralPercentScale(
+        d.strokeWidth !== undefined ? d.strokeWidth : defaultStrokeWidth
+      ),
+      strokeOpacity: genralPercentScale(
+        d.strokeOpacity !== undefined ? d.strokeOpacity : defaultStrokeOpacity
+      ),
     }
     calculatedData.push({
       class: 'bar',

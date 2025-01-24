@@ -13,7 +13,7 @@ import {
   QsEnumAlignmentBaseline,
 } from '../../core/enums/qsEnums'
 import { Canvas, QsRadialAxis, QsRadialAxisConfig } from '../../d3QuickStart'
-import { GlobalDefaultStrings } from '../../core/enums/enums'
+import { GlobalDefaultColors } from '../../core/enums/enums'
 
 interface DrawArgs {
   data: number[]
@@ -28,7 +28,7 @@ const addDefaultsToConfig = (
     y: 50,
     axisAngle: 0,
     gap: 15,
-    fillColor: GlobalDefaultStrings.AXIS_COLOR,
+    fillColor: GlobalDefaultColors.AXIS_COLOR,
     strokeWidth: 0.3,
     textFont: QsEnumTextFont.SERIF,
     textFontSize: 4,

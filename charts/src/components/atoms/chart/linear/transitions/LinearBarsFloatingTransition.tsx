@@ -45,7 +45,7 @@ export const LinearBarsFloatingTransition: FunctionComponent<
       let newBars
       if (orientation === EnumOrientation.VERTICAL) {
         newBars = canvas.generate.linear.vertical.bars(data, {
-          colorScaleData: {
+          fillColorScaleData: {
             range: ['green', 'orange', 'red'],
             domain: [1, 70],
             type: QsEnumColorScale.ORDINAL,
@@ -53,7 +53,7 @@ export const LinearBarsFloatingTransition: FunctionComponent<
         })
       } else {
         newBars = canvas.generate.linear.horizontal.bars(data, {
-          colorScaleData: {
+          fillColorScaleData: {
             range: ['lightblue', 'steelblue', 'blue', 'darkblue'],
             domain: [1, 70],
             type: QsEnumColorScale.SEQUENTIAL,

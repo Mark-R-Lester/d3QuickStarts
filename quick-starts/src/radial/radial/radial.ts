@@ -6,7 +6,7 @@ import {
   updateCalculatedData,
 } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { GlobalDefaultStrings } from '../../core/enums/enums'
+import { GlobalDefaultColors } from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
 import {
   QsRadialConfig,
@@ -29,7 +29,7 @@ const addDefaultsToConfig = (
     cornerRadius: 0,
     x: 50,
     y: 50,
-    defaultColor: GlobalDefaultStrings.COLOR,
+    defaultColor: GlobalDefaultColors.FILL_COLOR,
     colorScaleData: undefined,
   }
   if (!customConfig) return defaults

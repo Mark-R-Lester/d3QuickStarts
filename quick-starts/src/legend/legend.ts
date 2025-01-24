@@ -11,7 +11,6 @@ import {
 } from '../core/enums/qsEnums'
 import { Canvas } from '../d3QuickStart'
 import { QsLegendData, QsLegendConfig, QsLegend } from './qsTypes'
-import { scaleLinear } from 'd3'
 
 interface DrawArgs {
   data: QsLegendData[]

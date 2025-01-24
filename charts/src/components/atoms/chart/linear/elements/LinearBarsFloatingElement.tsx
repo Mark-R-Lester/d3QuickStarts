@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
+import { QsBarData, QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 import { QsEnumColorScale } from 'd3qs/core/qsEnums'
@@ -8,7 +8,7 @@ export const LinearFloatingBarsElement: FunctionComponent<
   OrienetedChartProps
 > = ({ chartName, orientation }) => {
   const createChart = () => {
-    const data2 = [
+    const data: QsBarData[] = [
       {
         lowerBoundry: 0,
         upperBoundry: 10,
@@ -39,16 +39,20 @@ export const LinearFloatingBarsElement: FunctionComponent<
     })
 
     if (orientation === EnumOrientation.VERTICAL) {
-      canvas.generate.linear.vertical.bars(data2, {
-        colorScaleData: {
+      data[0].strokeColor = 'black'
+      data[0].strokeWidth = 2
+      canvas.generate.linear.vertical.bars(data, {
+        defaultStrokeWidth: 1,
+        defaultStrokeColor: 'orange',
+        fillColorScaleData: {
           range: ['green', 'orange', 'red'],
           domain: [1, 70],
           type: QsEnumColorScale.ORDINAL,
         },
       })
     } else {
-      canvas.generate.linear.horizontal.bars(data2, {
-        colorScaleData: {
+      canvas.generate.linear.horizontal.bars(data, {
+        fillColorScaleData: {
           range: ['lightblue', 'steelblue', 'blue'],
           domain: [1, 70],
           type: QsEnumColorScale.SEQUENTIAL,

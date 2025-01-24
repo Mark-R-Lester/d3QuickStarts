@@ -18,6 +18,7 @@ export const LinearBarsElement: FunctionComponent<OrienetedChartProps> = ({
       { upperBoundry: 25, fillColor: 'orange' },
       { upperBoundry: 25, fillColor: 'pink' },
     ]
+
     const isVertical = orientation === EnumOrientation.VERTICAL
 
     const canvas: QsCanvas = qsCreateCanvas({

@@ -33,8 +33,20 @@ export const RadialPointTransition: FunctionComponent<
       chartDataRef.current = chartDataRef.current.map((d) => {
         if (d.fillColor) {
           return d.value === 1
-            ? { value: 2, fillColor: 'blue' }
-            : { value: 1, fillColor: 'red' }
+            ? {
+                value: 2,
+                fillColor: 'blue',
+                radius: 5,
+                strokeWidth: 2,
+                strokeOpacity: 1,
+              }
+            : {
+                value: 1,
+                fillColor: 'red',
+                radius: 2,
+                strokeWidth: 0,
+                strokeOpacity: 0,
+              }
         } else {
           return d.value === 1 ? { value: 2 } : { value: 1 }
         }

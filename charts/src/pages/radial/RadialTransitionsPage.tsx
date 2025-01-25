@@ -106,14 +106,14 @@ export default function RadialTransitionsPage() {
       chartName="radialPointsOridinalTransition"
       data={radialPointsData}
       config={{
-        colorScaleData: colorScaleOrdinal,
+        fillColorScaleData: colorScaleOrdinal,
       }}
     />,
     <RadialPointTransition
       chartName="radialPointsSerialTransition"
       data={radialPointsData}
       config={{
-        colorScaleData: colorScaleSequentialPoints,
+        fillColorScaleData: colorScaleSequentialPoints,
       }}
     />,
 

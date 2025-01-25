@@ -13,10 +13,14 @@ export interface CalculatedData {
   id: string
   class: string
   coordinate: QsCoordinate
-  fillColor: string
   x: number
   y: number
-  pointRadius: number
+  radius: number
+  fillColor: string
+  fillOpacity: number
+  strokeColor: string
+  strokeWidth: number
+  strokeOpacity: number
 }
 
 export const getCalculatedData = (
@@ -27,7 +31,18 @@ export const getCalculatedData = (
   const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
     canvas.config
   const { genralPercentScale, xPercentScale, yPercentScale } = canvas.scales
-  const { colorScaleData, defaultColor, x, y, pointRadius } = config
+  const {
+    x,
+    y,
+    defaultRadius,
+    defaultFillColor,
+    defaultFillOpacity,
+    defaultStrokeColor,
+    defaultStrokeWidth,
+    defaultStrokeOpacity,
+    fillColorScaleData,
+    strokeColorScaleData,
+  } = config
 
   const calculatedData: CalculatedData[] = []
   const angleScale = scaleLinear()
@@ -37,12 +52,20 @@ export const getCalculatedData = (
     .domain([lowestViewableValue, highestViewableValue])
     .range([0, displayAreaHeight / 2])
 
-  let colorScale:
+  let fillColorScale:
     | ScaleSequential<string, never>
     | ScaleOrdinal<string, unknown, never>
     | undefined
 
-  if (colorScaleData) colorScale = getColorScale(colorScaleData)
+  if (fillColorScaleData) fillColorScale = getColorScale(fillColorScaleData)
+
+  let strokeColorScale:
+    | ScaleSequential<string, never>
+    | ScaleOrdinal<string, unknown, never>
+    | undefined
+
+  if (strokeColorScaleData)
+    strokeColorScale = getColorScale(strokeColorScaleData)
 
   data.forEach((d, i) => {
     const radians = angleScale(i)
@@ -52,19 +75,42 @@ export const getCalculatedData = (
       y: Math.cos(radians) * hypotenuse * -1,
     }
 
-    const scaledColor: string | unknown | undefined = getScaledColor(
+    const scaledFillColor: string | unknown | undefined = getScaledColor(
       d.value,
-      colorScale
+      fillColorScale
+    )
+
+    const scaledStrokeColor: string | unknown | undefined = getScaledColor(
+      d.value,
+      strokeColorScale
     )
 
     calculatedData.push({
       id: `radialPoint${uuidv4()}`,
       class: 'radialPoint',
       coordinate,
-      fillColor: getPrecidendedColor(d.fillColor, defaultColor, scaledColor),
+      fillColor: getPrecidendedColor(
+        d.fillColor,
+        defaultFillColor,
+        scaledFillColor
+      ),
+      strokeColor: getPrecidendedColor(
+        d.strokeColor,
+        defaultStrokeColor,
+        scaledStrokeColor
+      ),
       x: xPercentScale(x),
       y: yPercentScale(y),
-      pointRadius: genralPercentScale(pointRadius),
+      radius: genralPercentScale(
+        d.radius !== undefined ? d.radius : defaultRadius
+      ),
+      fillOpacity:
+        d.fillOpacity !== undefined ? d.fillOpacity : defaultFillOpacity,
+      strokeWidth: genralPercentScale(
+        d.strokeWidth !== undefined ? d.strokeWidth : defaultStrokeWidth
+      ),
+      strokeOpacity:
+        d.strokeOpacity !== undefined ? d.strokeOpacity : defaultStrokeOpacity,
     })
   })
   return calculatedData

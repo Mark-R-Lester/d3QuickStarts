@@ -2,7 +2,10 @@ import { getCalculatedData, CalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { RadialPointsConfigStrict } from './types'
-import { GlobalDefaultColors } from '../../core/enums/enums'
+import {
+  GlobalDefaultColors,
+  GlobalDefaultSettings,
+} from '../../core/enums/enums'
 import {
   QsRadialPointData,
   QsRadialPointsConfig,
@@ -20,8 +23,14 @@ const addDefaultsToConfig = (
   const defaults: RadialPointsConfigStrict = {
     x: 50,
     y: 50,
-    pointRadius: 1.2,
-    defaultColor: GlobalDefaultColors.FILL_COLOR,
+    defaultRadius: 3,
+    defaultFillColor: GlobalDefaultColors.POINT_FILL,
+    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
+    defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
+    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
+    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
+    fillColorScaleData: undefined,
+    strokeColorScaleData: undefined,
   }
   if (!customConfig) return defaults
 
@@ -65,8 +74,12 @@ const draw = (
     .attr('id', (d) => d.id)
     .attr('cx', (d) => d.coordinate.x)
     .attr('cy', (d) => d.coordinate.y)
+    .attr('r', (d) => d.radius)
     .attr('fill', (d) => d.fillColor)
-    .attr('r', (d) => d.pointRadius)
+    .attr('fill-opacity', (d) => d.fillOpacity)
+    .attr('stroke', (d) => d.strokeColor)
+    .attr('stroke-opacity', (d) => d.strokeOpacity)
+    .attr('stroke-width', (d) => d.strokeWidth)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   return {
     element: dataPoints.selectAll('circle'),
@@ -85,8 +98,13 @@ const draw = (
         .duration(args.durationInMiliSeconds)
         .attr('cx', (d) => d.coordinate.x)
         .attr('cy', (d) => d.coordinate.y)
-        .attr('r', (d) => d.pointRadius)
+        .attr('r', (d) => d.radius)
         .attr('fill', (d) => d.fillColor)
+        .attr('fill', (d) => d.fillColor)
+        .attr('fill-opacity', (d) => d.fillOpacity)
+        .attr('stroke', (d) => d.strokeColor)
+        .attr('stroke-opacity', (d) => d.strokeOpacity)
+        .attr('stroke-width', (d) => d.strokeWidth)
     },
   }
 }

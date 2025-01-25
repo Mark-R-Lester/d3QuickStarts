@@ -5,9 +5,14 @@ export interface QsRadialPointsConfig {
   [key: string]: number | QsColorScaleData | string | undefined
   x?: number
   y?: number
-  pointRadius?: number
-  defaultColor?: string
-  colorScaleData?: QsColorScaleData
+  defaultRadius?: number
+  defaultFillColor?: string
+  defaultFillOpacity?: number
+  defaultStrokeColor?: string
+  defaultStrokeWidth?: number
+  defaultStrokeOpacity?: number
+  fillColorScaleData?: QsColorScaleData
+  strokeColorScaleData?: QsColorScaleData
 }
 
 export interface QsRadialPointsTransitionData {
@@ -24,5 +29,10 @@ export interface QsRadialPoints {
 
 export interface QsRadialPointData {
   value: number
+  radius?: number
   fillColor?: string
+  fillOpacity?: number
+  strokeColor?: string
+  strokeWidth?: number
+  strokeOpacity?: number
 }

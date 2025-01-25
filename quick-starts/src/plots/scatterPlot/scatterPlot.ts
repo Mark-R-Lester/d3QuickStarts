@@ -1,3 +1,7 @@
+import {
+  GlobalDefaultColors,
+  GlobalDefaultSettings,
+} from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
 import {
   CalculatedData,
@@ -14,8 +18,12 @@ const addDefaultsToConfig = (
   customConfig?: QsScatterPlotConfig
 ): ScatterPlotConfigStrict => {
   const defaults: ScatterPlotConfigStrict = {
-    defaultRadius: 2,
-    defaultOpacity: 1,
+    defaultRadius: 3,
+    defaultFillColor: GlobalDefaultColors.POINT_FILL,
+    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
+    defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
+    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
+    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
   }
   if (!customConfig) return defaults
 
@@ -57,7 +65,11 @@ const draw = (
     .attr('cx', (d) => d.x)
     .attr('cy', (d) => d.y)
     .attr('r', (d) => d.radius)
-    .attr('opacity', (d) => d.opacity)
+    .attr('fill', (d) => d.fillColor)
+    .attr('fill-opacity', (d) => d.fillOpacity)
+    .attr('stroke', (d) => d.strokeColor)
+    .attr('stroke-opacity', (d) => d.strokeOpacity)
+    .attr('stroke-width', (d) => d.strokeWidth)
 
   return { element: dataPoints }
 }

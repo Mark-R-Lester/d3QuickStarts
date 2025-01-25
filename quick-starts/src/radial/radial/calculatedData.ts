@@ -1,4 +1,4 @@
-import { ScaleOrdinal, ScaleLinear, ScaleSequential } from 'd3'
+import { ScaleOrdinal, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { RadialConfigStrict } from './types'
 import {
@@ -27,6 +27,10 @@ export interface ArcData {
   newEndAngle: number
   endAngle: number
   fillColor: string
+  fillOpacity: number
+  strokeColor: string
+  strokeWidth: number
+  strokeOpacity: number
   index?: number
   value?: number
 }
@@ -57,16 +61,21 @@ export const getCalculatedData = (
   data: QsRadialData[],
   config: RadialConfigStrict
 ): CalculatedData[] => {
-  const { xPercentScale, yPercentScale } = canvas.scales
+  const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
   const {
-    defaultColor,
-    colorScaleData,
     outerRadius,
     innerRadius,
     cornerRadius,
     isPieDiagram,
     x,
     y,
+    defaultFillColor,
+    defaultFillOpacity,
+    defaultStrokeColor,
+    defaultStrokeWidth,
+    defaultStrokeOpacity,
+    fillColorScaleData,
+    strokeColorScaleData,
   } = config
   let { padAngle } = config
 
@@ -78,12 +87,20 @@ export const getCalculatedData = (
   })
   if (data.length < 2) padAngle = 0
 
-  let colorScale:
+  let fillColorScale:
     | ScaleSequential<string, never>
     | ScaleOrdinal<string, unknown, never>
     | undefined
 
-  if (colorScaleData) colorScale = getColorScale(colorScaleData)
+  if (fillColorScaleData) fillColorScale = getColorScale(fillColorScaleData)
+
+  let strokeColorScale:
+    | ScaleSequential<string, never>
+    | ScaleOrdinal<string, unknown, never>
+    | undefined
+
+  if (strokeColorScaleData)
+    strokeColorScale = getColorScale(strokeColorScaleData)
 
   const radiansDividedByTotalValue = (Math.PI * 2) / totalValue
   let startAngle = 0
@@ -92,9 +109,14 @@ export const getCalculatedData = (
     const endAngle = startAngle + radiansDividedByTotalValue * d.value
     startAngle = startAngle + padAngle / 2
 
-    const scaledColor: string | unknown | undefined = getScaledColor(
+    const scaledFillColor: string | unknown | undefined = getScaledColor(
       d.value,
-      colorScale
+      fillColorScale
+    )
+
+    const scaledStrokeColor: string | unknown | undefined = getScaledColor(
+      d.value,
+      strokeColorScale
     )
 
     calculatedData.push({
@@ -103,7 +125,16 @@ export const getCalculatedData = (
 
       arcData: {
         data: d.value,
-        fillColor: getPrecidendedColor(d.fillColor, defaultColor, scaledColor),
+        fillColor: getPrecidendedColor(
+          d.fillColor,
+          defaultFillColor,
+          scaledFillColor
+        ),
+        strokeColor: getPrecidendedColor(
+          d.strokeColor,
+          defaultStrokeColor,
+          scaledStrokeColor
+        ),
         index: i,
         value: d.value,
         cornerRadius: yPercentScale(cornerRadius / 2),
@@ -113,6 +144,15 @@ export const getCalculatedData = (
         newStartAngle: startAngle,
         endAngle,
         newEndAngle: endAngle,
+        fillOpacity:
+          d.fillOpacity !== undefined ? d.fillOpacity : defaultFillOpacity,
+        strokeWidth: genralPercentScale(
+          d.strokeWidth !== undefined ? d.strokeWidth : defaultStrokeWidth
+        ),
+        strokeOpacity:
+          d.strokeOpacity !== undefined
+            ? d.strokeOpacity
+            : defaultStrokeOpacity,
       },
       x: xPercentScale(x),
       y: yPercentScale(y),

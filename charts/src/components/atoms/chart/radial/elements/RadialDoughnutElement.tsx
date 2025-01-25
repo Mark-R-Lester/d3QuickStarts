@@ -12,7 +12,13 @@ export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
 }) => {
   const createChart = () => {
     const data: QsRadialData[] = [
-      { value: 1, fillColor: 'salmon' },
+      {
+        value: 1,
+        fillColor: 'salmon',
+        fillOpacity: 0.5,
+        strokeWidth: 1,
+        strokeColor: 'red',
+      },
       { value: 1, fillColor: 'salmon' },
       { value: 1, fillColor: 'hotpink' },
       { value: 1, fillColor: 'hotpink' },

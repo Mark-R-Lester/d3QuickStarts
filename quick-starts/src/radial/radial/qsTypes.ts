@@ -9,8 +9,13 @@ export interface QsRadialConfig {
   cornerRadius?: number
   x?: number
   y?: number
-  defaultColor?: string
-  colorScaleData?: QsColorScaleData
+  defaultFillColor?: string
+  defaultFillOpacity?: number
+  defaultStrokeColor?: string
+  defaultStrokeWidth?: number
+  defaultStrokeOpacity?: number
+  fillColorScaleData?: QsColorScaleData
+  strokeColorScaleData?: QsColorScaleData
 }
 
 export interface QsRadialTransitionData {
@@ -28,4 +33,8 @@ export interface QsRadial {
 export interface QsRadialData {
   value: number
   fillColor?: string
+  fillOpacity?: number
+  strokeColor?: string
+  strokeWidth?: number
+  strokeOpacity?: number
 }

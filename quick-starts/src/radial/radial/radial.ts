@@ -6,7 +6,10 @@ import {
   updateCalculatedData,
 } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { GlobalDefaultColors } from '../../core/enums/enums'
+import {
+  GlobalDefaultColors,
+  GlobalDefaultSettings,
+} from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
 import {
   QsRadialConfig,
@@ -29,8 +32,13 @@ const addDefaultsToConfig = (
     cornerRadius: 0,
     x: 50,
     y: 50,
-    defaultColor: GlobalDefaultColors.FILL_COLOR,
-    colorScaleData: undefined,
+    defaultFillColor: GlobalDefaultColors.POINT_FILL,
+    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
+    defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
+    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
+    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
+    fillColorScaleData: undefined,
+    strokeColorScaleData: undefined,
   }
   if (!customConfig) return defaults
 
@@ -58,33 +66,8 @@ const draw = (
   config: RadialConfigStrict
 ): QsRadial => {
   const { data } = args
-  const {
-    outerRadius,
-    innerRadius,
-    padAngle,
-    cornerRadius,
-    x,
-    y,
-    colorDomain,
-    colorRange,
-  } = config
 
-  const transitionArgs: RadialConfigStrict = {
-    colorDomain,
-    colorRange,
-    outerRadius,
-    innerRadius,
-    cornerRadius,
-    padAngle,
-    x,
-    y,
-  }
-
-  let calculatedData: CalculatedData[] = getCalculatedData(
-    canvas,
-    data,
-    transitionArgs
-  )
+  let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
   const arc: any = d3arc()
   const group = canvas.displayGroup.append('g')
 
@@ -99,6 +82,10 @@ const draw = (
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
     .attr('d', (d) => arc(d.arcData))
     .attr('fill', (d) => d.arcData.fillColor)
+    .attr('fill-opacity', (d) => d.arcData.fillOpacity)
+    .attr('stroke', (d) => d.arcData.strokeColor)
+    .attr('stroke-opacity', (d) => d.arcData.strokeOpacity)
+    .attr('stroke-width', (d) => d.arcData.strokeWidth)
 
   return {
     element: group.selectAll('.arc'),
@@ -119,6 +106,10 @@ const draw = (
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('fill', (d) => d.arcData.fillColor)
+        .attr('fill-opacity', (d) => d.arcData.fillOpacity)
+        .attr('stroke', (d) => d.arcData.strokeColor)
+        .attr('stroke-opacity', (d) => d.arcData.strokeOpacity)
+        .attr('stroke-width', (d) => d.arcData.strokeWidth)
         .attrTween('d', (d) => {
           const tweenStart = interpolate(
             d.arcData.startAngle,

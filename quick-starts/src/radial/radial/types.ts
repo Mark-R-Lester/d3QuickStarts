@@ -8,6 +8,11 @@ export interface RadialConfigStrict {
   cornerRadius: number
   x: number
   y: number
-  defaultColor?: string
-  colorScaleData?: QsColorScaleData
+  defaultFillColor: string
+  defaultFillOpacity: number
+  defaultStrokeColor: string
+  defaultStrokeWidth: number
+  defaultStrokeOpacity: number
+  fillColorScaleData?: QsColorScaleData
+  strokeColorScaleData?: QsColorScaleData
 }

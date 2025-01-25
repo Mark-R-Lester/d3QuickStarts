@@ -20,9 +20,13 @@ import { QsPointData } from './qsTypes'
 export interface CalculatedData {
   class: string
   id: string
+  radius: number
   pointData: QsCoordinate
-  radiusMin: number
   fillColor: string
+  fillOpacity: number
+  strokeColor: string
+  strokeWidth: number
+  strokeOpacity: number
 }
 
 export const getCalculatedData = (
@@ -31,11 +35,20 @@ export const getCalculatedData = (
   config: PointsConfigStrict
 ): CalculatedData[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
-  const { xDataScale, yDataScale } = canvas.scales
+  const { xDataScale, yDataScale, genralPercentScale } = canvas.scales
   const { data, orientation, scaleType } = args
   const isVertical = orientation === Orientation.VERTICAL
   const isBanded = scaleType === ScaleType.BANDED
-  const { defaultColor, colorScaleData } = config
+  const {
+    defaultRadius,
+    defaultFillColor,
+    defaultFillOpacity,
+    defaultStrokeColor,
+    defaultStrokeWidth,
+    defaultStrokeOpacity,
+    fillColorScaleData,
+    strokeColorScaleData,
+  } = config
 
   const pointSpacing = range(
     0,
@@ -43,22 +56,29 @@ export const getCalculatedData = (
     displayAreaWidth / data.length
   )
 
-  interface CoordinateWithColor extends QsCoordinate {
+  interface CoordinateAugmented extends QsCoordinate {
     [key: string]: number | string | undefined
     fillColor?: string
+    fillOpacity?: number
+    strokeColor?: string
+    strokeWidth?: number
+    strokeOpacity?: number
+    radius?: number
   }
-  const getCoordinates = (data: QsPointData[]): CoordinateWithColor[] =>
-    data.map((d, i) => {
-      return isVertical
-        ? {
-            x: d.value,
-            y: pointSpacing[data.length - i - 1],
-            fillColor: d.fillColor,
-          }
-        : { x: pointSpacing[i], y: d.value, fillColor: d.fillColor }
-    })
 
-  const coordinates: CoordinateWithColor[] = getCoordinates(data)
+  const getCoordinates = (data: QsPointData[]): CoordinateAugmented[] =>
+    data.map((d, i) => ({
+      x: isVertical ? d.value : pointSpacing[i],
+      y: isVertical ? pointSpacing[data.length - i - 1] : d.value,
+      fillColor: d.fillColor,
+      fillOpacity: d.fillOpacity,
+      strokeColor: d.strokeColor,
+      strokeWidth: d.strokeWidth,
+      strokeOpacity: d.strokeOpacity,
+      radius: d.radius,
+    }))
+
+  const coordinates: CoordinateAugmented[] = getCoordinates(data)
   const dataScale = isVertical ? xDataScale : yDataScale
 
   let spacingScale: any
@@ -93,24 +113,54 @@ export const getCalculatedData = (
     return isVertical ? space : dataScale(d.y)
   }
 
-  let colorScale:
+  let fillColorScale:
     | ScaleSequential<string, never>
     | ScaleOrdinal<string, unknown, never>
     | undefined
 
-  if (colorScaleData) colorScale = getColorScale(colorScaleData)
+  if (fillColorScaleData) fillColorScale = getColorScale(fillColorScaleData)
+
+  let strokeColorScale:
+    | ScaleSequential<string, never>
+    | ScaleOrdinal<string, unknown, never>
+    | undefined
+
+  if (strokeColorScaleData)
+    strokeColorScale = getColorScale(strokeColorScaleData)
 
   const calculatedData: CalculatedData[] = coordinates.map((d, i) => {
-    const scaledColor: string | unknown | undefined = getScaledColor(
+    const scaledFillColor: string | unknown | undefined = getScaledColor(
       orientation === Orientation.HORIZONTAL ? d.y : d.x,
-      colorScale
+      fillColorScale
+    )
+    const scaledStrokeColor: string | unknown | undefined = getScaledColor(
+      orientation === Orientation.HORIZONTAL ? d.y : d.x,
+      strokeColorScale
     )
     return {
       class: 'point',
       id: `point${uuidv4()}`,
       pointData: { x: x(d), y: y(d) },
-      radiusMin: 0,
-      fillColor: getPrecidendedColor(d.fillColor, defaultColor, scaledColor),
+      fillColor: getPrecidendedColor(
+        d.fillColor,
+        defaultFillColor,
+        scaledFillColor
+      ),
+      strokeColor: getPrecidendedColor(
+        d.strokeColor,
+        defaultStrokeColor,
+        scaledStrokeColor
+      ),
+      radius: genralPercentScale(
+        d.radius !== undefined ? d.radius : defaultRadius
+      ),
+      fillOpacity:
+        d.fillOpacity !== undefined ? d.fillOpacity : defaultFillOpacity,
+      strokeWidth: genralPercentScale(
+        d.strokeWidth !== undefined ? d.strokeWidth : defaultStrokeWidth
+      ),
+      strokeOpacity:
+        d.strokeOpacity !== undefined ? d.strokeOpacity : defaultStrokeOpacity,
     }
   })
   return calculatedData

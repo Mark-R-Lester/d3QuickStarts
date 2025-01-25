@@ -32,6 +32,8 @@ export enum GlobalDefaultColors {
   STROKE_COLOR = 'black',
   BAR_FILL = 'steelblue',
   BAR_STROKE = 'black',
+  POINT_FILL = 'steelblue',
+  POINT_STROKE = 'black',
   AXIS_COLOR = 'black',
   LINE_COLOR = 'black',
 }

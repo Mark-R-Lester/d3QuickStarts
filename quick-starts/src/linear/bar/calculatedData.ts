@@ -2,7 +2,7 @@ import { scaleBand, ScaleOrdinal, range, ScaleSequential } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import { CalculatedDataBarData, DrawArgs } from './types'
+import { BarConfigStrict, CalculatedDataBarData, DrawArgs } from './types'
 import { Orientation } from '../../core/enums/enums'
 
 import {
@@ -10,7 +10,7 @@ import {
   getScaledColor,
   getColorScale,
 } from '../../core/color/color'
-import { BarConfigStrict, QsBarData } from './qsTypes'
+import { QsBarData } from './qsTypes'
 
 export interface CalculatedData {
   class: string
@@ -117,15 +117,13 @@ export const getCalculatedData = (
         defaultStrokeColor,
         scaledStrokeColor
       ),
-      fillOpacity: genralPercentScale(
-        d.fillOpacity !== undefined ? d.fillOpacity : defaultFillOpacity
-      ),
+      fillOpacity:
+        d.fillOpacity !== undefined ? d.fillOpacity : defaultFillOpacity,
       strokeWidth: genralPercentScale(
         d.strokeWidth !== undefined ? d.strokeWidth : defaultStrokeWidth
       ),
-      strokeOpacity: genralPercentScale(
-        d.strokeOpacity !== undefined ? d.strokeOpacity : defaultStrokeOpacity
-      ),
+      strokeOpacity:
+        d.strokeOpacity !== undefined ? d.strokeOpacity : defaultStrokeOpacity,
     }
     calculatedData.push({
       class: 'bar',

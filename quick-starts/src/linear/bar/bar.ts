@@ -1,20 +1,14 @@
 import { Selection } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { getCalculatedData, CalculatedData } from './calculatedData'
-import { DrawArgs } from './types'
+import { BarConfigStrict, DrawArgs } from './types'
 import {
   GlobalDefaultColors,
   GlobalDefaultSettings,
   Orientation,
 } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import {
-  QsBarConfig,
-  BarConfigStrict,
-  QsBarData,
-  QsBars,
-  QsBarTransitionData,
-} from './qsTypes'
+import { QsBarConfig, QsBarData, QsBars, QsBarTransitionData } from './qsTypes'
 
 const addDefaultsToConfig = (customConfig?: QsBarConfig): BarConfigStrict => {
   const defauls: BarConfigStrict = {

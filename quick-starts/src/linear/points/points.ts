@@ -3,6 +3,7 @@ import { CalculatedData, getCalculatedData } from './calculatedData'
 import { DrawArgs, PointsConfigStrict } from './types'
 import {
   GlobalDefaultColors,
+  GlobalDefaultSettings,
   Orientation,
   ScaleType,
 } from '../../core/enums/enums'
@@ -18,8 +19,14 @@ const addDefaultsToConfig = (
   customConfig?: QsPointsConfig
 ): PointsConfigStrict => {
   const defaults: PointsConfigStrict = {
-    radius: 3,
-    defaultColor: GlobalDefaultColors.FILL_COLOR,
+    defaultRadius: 3,
+    defaultFillColor: GlobalDefaultColors.POINT_FILL,
+    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
+    defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
+    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
+    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
+    fillColorScaleData: undefined,
+    strokeColorScaleData: undefined,
   }
   if (!customConfig) return defaults
 
@@ -89,7 +96,6 @@ const draw = (
   args: DrawArgs,
   config: PointsConfigStrict
 ): QsPoints => {
-  const { radius } = config
   const { orientation, scaleType } = args
 
   const calculatedData: CalculatedData[] = getCalculatedData(
@@ -97,6 +103,7 @@ const draw = (
     args,
     config
   )
+
   const group = canvas.displayGroup.append('g')
 
   group
@@ -108,8 +115,12 @@ const draw = (
     .attr('id', (d) => d.id)
     .attr('cy', (d) => d.pointData.y)
     .attr('cx', (d) => d.pointData.x)
-    .attr('r', radius)
+    .attr('r', (d) => d.radius)
     .attr('fill', (d) => d.fillColor)
+    .attr('fill-opacity', (d) => d.fillOpacity)
+    .attr('stroke', (d) => d.strokeColor)
+    .attr('stroke-opacity', (d) => d.strokeOpacity)
+    .attr('stroke-width', (d) => d.strokeWidth)
 
   const transition = (data: QsPointsTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
@@ -120,24 +131,21 @@ const draw = (
       config
     )
 
-    if (orientation === Orientation.VERTICAL)
-      group
-        .selectAll(`.${calculatedData[0].class}`)
-        .data(calculatedData)
-        .transition()
-        .delay(args.delayInMiliSeconds)
-        .duration(args.durationInMiliSeconds)
-        .attr('cx', (d) => d.pointData.x)
-        .attr('fill', (d) => d.fillColor)
-    else
-      group
-        .selectAll(`.${calculatedData[0].class}`)
-        .data(calculatedData)
-        .transition()
-        .delay(args.delayInMiliSeconds)
-        .duration(args.durationInMiliSeconds)
-        .attr('cy', (d) => d.pointData.y)
-        .attr('fill', (d) => d.fillColor)
+    group
+      .selectAll(`.${calculatedData[0].class}`)
+      .data(calculatedData)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr(orientation === Orientation.VERTICAL ? 'cx' : 'cy', (d) =>
+        orientation === Orientation.VERTICAL ? d.pointData.x : d.pointData.y
+      )
+      .attr('r', (d) => d.radius)
+      .attr('fill', (d) => d.fillColor)
+      .attr('fill-opacity', (d) => d.fillOpacity)
+      .attr('stroke', (d) => d.strokeColor)
+      .attr('stroke-opacity', (d) => d.strokeOpacity)
+      .attr('stroke-width', (d) => d.strokeWidth)
   }
   return {
     element: group.selectAll(`.${calculatedData[0].class}`),

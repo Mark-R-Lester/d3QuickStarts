@@ -10,7 +10,12 @@ export interface DrawArgs {
 
 export interface PointsConfigStrict {
   [key: string]: number | QsColorScaleData | string | undefined
-  radius: number
-  defaultColor: string
-  colorScaleData?: QsColorScaleData
+  defaultRadius: number
+  defaultFillColor: string
+  defaultFillOpacity: number
+  defaultStrokeColor: string
+  defaultStrokeWidth: number
+  defaultStrokeOpacity: number
+  fillColorScaleData?: QsColorScaleData
+  strokeColorScaleData?: QsColorScaleData
 }

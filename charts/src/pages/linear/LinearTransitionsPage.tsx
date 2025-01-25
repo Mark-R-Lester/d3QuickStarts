@@ -52,8 +52,8 @@ export default function LinearTransitionsPage() {
       data={pointData}
       orientation={EnumOrientation.VERTICAL}
       config={{
-        radius: 10,
-        colorScaleData: colorScaleOrdinal,
+        defaultRadius: 3,
+        fillColorScaleData: colorScaleOrdinal,
       }}
     />,
     <LinearBarsTransition
@@ -74,8 +74,8 @@ export default function LinearTransitionsPage() {
       data={pointData}
       orientation={EnumOrientation.HORIZONTAL}
       config={{
-        radius: 10,
-        colorScaleData: colorScaleSequential,
+        defaultRadius: 3,
+        fillColorScaleData: colorScaleSequential,
       }}
     />,
 

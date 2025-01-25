@@ -3,14 +3,24 @@ import { Selection } from 'd3'
 
 export interface QsPointData {
   value: number
+  radius?: number
   fillColor?: string
+  fillOpacity?: number
+  strokeColor?: string
+  strokeWidth?: number
+  strokeOpacity?: number
 }
 
 export interface QsPointsConfig {
   [key: string]: number | QsColorScaleData | string | undefined
-  radius?: number
-  defaultColor?: string
-  colorScaleData?: QsColorScaleData
+  defaultRadius?: number
+  defaultFillColor?: string
+  defaultFillOpacity?: number
+  defaultStrokeColor?: string
+  defaultStrokeWidth?: number
+  defaultStrokeOpacity?: number
+  fillColorScaleData?: QsColorScaleData
+  strokeColorScaleData?: QsColorScaleData
 }
 
 export interface QsPointsTransitionData {

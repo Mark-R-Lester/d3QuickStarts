@@ -11,18 +11,6 @@ export interface QsBarData {
   strokeOpacity?: number
 }
 
-export interface BarConfigStrict {
-  [key: string]: number | string | QsColorScaleData | undefined
-  padding: number
-  defaultFillColor: string
-  defaultFillOpacity: number
-  defaultStrokeColor: string
-  defaultStrokeWidth: number
-  defaultStrokeOpacity: number
-  fillColorScaleData?: QsColorScaleData
-  strokeColorScaleData?: QsColorScaleData
-}
-
 export interface QsBarConfig {
   [key: string]: number | string | QsColorScaleData | undefined
   padding?: number

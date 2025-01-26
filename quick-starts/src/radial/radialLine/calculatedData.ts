@@ -2,6 +2,7 @@ import { scaleLinear } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { QsRadialLineData } from './qsTypes'
 import { RadialLineConfigStrict } from './types'
+import { GlobalDefaultSettings } from '../../core/enums/enums'
 
 export interface CalculatedData {
   class: string
@@ -9,6 +10,9 @@ export interface CalculatedData {
   lineData: Iterable<[number, number]>
   x: number
   y: number
+  strokeOpacity: number
+  strokeColor: string
+  strokeWidth: number
 }
 
 export const getCalculatedData = (
@@ -18,9 +22,9 @@ export const getCalculatedData = (
 ): CalculatedData => {
   const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
     canvas.config
-  const { xPercentScale, yPercentScale } = canvas.scales
-  const { x, y } = config
-  const { data } = lineData
+  const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
+  const { x, y, defaultStrokeColor } = config
+  const { data, strokeOpacity, strokeColor, strokeWidth } = lineData
   const dataCopy = data.slice()
 
   const angleScale = scaleLinear()
@@ -37,5 +41,15 @@ export const getCalculatedData = (
     lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d)]),
     x: xPercentScale(x),
     y: yPercentScale(y),
+    strokeOpacity:
+      strokeOpacity === undefined
+        ? GlobalDefaultSettings.FILL_OPACITY
+        : strokeOpacity,
+    strokeColor: strokeColor === undefined ? defaultStrokeColor : strokeColor,
+    strokeWidth: genralPercentScale(
+      strokeWidth === undefined
+        ? GlobalDefaultSettings.LINE_STROKE_WIDTH
+        : strokeWidth
+    ),
   }
 }

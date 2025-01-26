@@ -2,9 +2,12 @@ import { lineRadial } from 'd3'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { QsEnumCurve } from '../../core/enums/qsEnums'
+import {
+  QsEnumCurve,
+  QsEnumLineCap,
+  QsEnumLineJoin,
+} from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
-import { applyDefaultColorIfNeeded } from '../../core/color/color'
 import {
   QsRadialLineConfig,
   QsRadialLine,
@@ -12,12 +15,16 @@ import {
   QsRadialLineData,
 } from './qsTypes'
 import { RadialLineConfigStrict } from './types'
+import { GlobalDefaultColors } from '../../core/enums/enums'
 
 const addDefaultsToConfig = (
   customConfig?: QsRadialLineConfig
 ): RadialLineConfigStrict => {
   const defaults: RadialLineConfigStrict = {
     curve: QsEnumCurve.LINEAR,
+    strokeLineJoin: QsEnumLineJoin.ROUND,
+    strokeLineCap: QsEnumLineCap.ROUND,
+    defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
     x: 50,
     y: 50,
   }
@@ -46,20 +53,24 @@ const draw = (
   data: QsRadialLineData,
   config: RadialLineConfigStrict
 ): QsRadialLine => {
-  const { curve } = config
-  const { strokeColor } = data
+  const { curve, strokeLineJoin, strokeLineCap } = config
   const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
 
   const radialLine = lineRadial().curve(constantsCurves[curve])
   const group = canvas.displayGroup.append('g')
   group
     .append('path')
-    .attr('class', calculatedData.class)
-    .attr('id', calculatedData.id)
-    .attr('d', radialLine(calculatedData.lineData))
+    .datum(calculatedData)
+    .attr('class', (d) => d.class)
+    .attr('id', (d) => d.id)
+    .attr('d', (d) => radialLine(d.lineData))
     .attr('fill', 'none')
-    .attr('stroke', applyDefaultColorIfNeeded({ color: strokeColor }))
-    .attr('transform', `translate(${calculatedData.x}, ${calculatedData.y})`)
+    .attr('stroke', (d) => d.strokeColor)
+    .attr('stroke-width', (d) => d.strokeWidth)
+    .attr('stroke-opacity', (d) => d.strokeOpacity)
+    .attr('stroke-linejoin', strokeLineJoin)
+    .attr('stroke-linecap', strokeLineCap)
+    .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   return {
     element: group.selectAll(`.${calculatedData.class}`),
     transition: (data: QsRadialLineTransitionData) => {
@@ -69,17 +80,16 @@ const draw = (
         data.data,
         config
       )
-      const { strokeColor: newColor } = data.data
       group
         .selectAll(`.${calculatedData.class}`)
+        .datum(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
-        .attr('d', radialLine(calculatedData.lineData))
-        .attr(
-          'stroke',
-          applyDefaultColorIfNeeded({ color: strokeColor, newColor })
-        )
+        .attr('d', (d) => radialLine(d.lineData))
+        .attr('stroke', (d) => d.strokeColor)
+        .attr('stroke-width', (d) => d.strokeWidth)
+        .attr('stroke-opacity', (d) => d.strokeOpacity)
     },
   }
 }

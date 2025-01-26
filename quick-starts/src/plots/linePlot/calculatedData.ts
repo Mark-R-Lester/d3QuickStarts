@@ -32,7 +32,7 @@ export const getCalculatedData = (
     strokeColor: strokeColor === undefined ? defaultStrokeColor : strokeColor,
     strokeWidth: genralPercentScale(
       strokeWidth === undefined
-        ? GlobalDefaultSettings.STROKE_WIDTH
+        ? GlobalDefaultSettings.LINE_STROKE_WIDTH
         : strokeWidth
     ),
   }

@@ -2,7 +2,7 @@ import { scaleLinear, scaleBand, range, line as d3line } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { DrawArgs, LineConfigStrict, CalculatedData } from './types'
-import { GlobalDefaultSettings, ScaleType } from '../../core/enums/enums'
+import { ScaleType } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { constantsCurves } from '../../core/constants/constants'
 

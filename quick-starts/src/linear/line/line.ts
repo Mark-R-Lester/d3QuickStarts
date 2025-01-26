@@ -104,8 +104,6 @@ export const draw = (
       : getVerticalCalculatedData(canvas, args, config)
   const { strokeLineJoin, strokeLineCap } = config
 
-  console.log('calculatedData', calculatedData)
-
   const group = canvas.displayGroup.append('g')
   group
     .append('path')

@@ -8,7 +8,10 @@ import {
 import { constantsCurves } from '../../core/constants/constants'
 import { QsLinePlotConfig, QsLinePlot, QsPlottedLineData } from './qsTypes'
 import { CalculatedData, getCalculatedData } from './calculatedData'
-import { GlobalDefaultColors } from '../../core/enums/enums'
+import {
+  GlobalDefaultColors,
+  GlobalDefaultSettings,
+} from '../../core/enums/enums'
 import { LinePlotConfigStrict } from './types'
 
 const addDefaultsToConfig = (
@@ -19,6 +22,8 @@ const addDefaultsToConfig = (
     strokeLineJoin: QsEnumLineJoin.ROUND,
     strokeLineCap: QsEnumLineCap.ROUND,
     defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
+    defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
+    defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
   }
   if (!customConfig) return defaults
 

@@ -15,7 +15,12 @@ export const getCalculatedData = (
   const { yDataScale, genralPercentScale } = canvas.scales
   const { data, scaleType } = args
   const { strokeOpacity, strokeColor, strokeWidth } = data
-  const { curve, defaultStrokeColor } = config
+  const {
+    curve,
+    defaultStrokeColor,
+    defaultStrokeWidth,
+    defaultStrokeOpacity,
+  } = config
 
   const xVals: number[] = range(
     0,
@@ -57,14 +62,10 @@ export const getCalculatedData = (
     lineData,
     lineFunction,
     strokeOpacity:
-      strokeOpacity === undefined
-        ? GlobalDefaultSettings.FILL_OPACITY
-        : strokeOpacity,
+      strokeOpacity === undefined ? defaultStrokeOpacity : strokeOpacity,
     strokeColor: strokeColor === undefined ? defaultStrokeColor : strokeColor,
     strokeWidth: genralPercentScale(
-      strokeWidth === undefined
-        ? GlobalDefaultSettings.LINE_STROKE_WIDTH
-        : strokeWidth
+      strokeWidth === undefined ? defaultStrokeWidth : strokeWidth
     ),
   }
 }

@@ -23,7 +23,8 @@ export const getCalculatedData = (
   const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
     canvas.config
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
-  const { x, y, defaultStrokeColor } = config
+  const { x, y, defaultStrokeColor, defaultStrokeWidth, defaultStrokeOpacity } =
+    config
   const { data, strokeOpacity, strokeColor, strokeWidth } = lineData
   const dataCopy = data.slice()
 
@@ -42,14 +43,10 @@ export const getCalculatedData = (
     x: xPercentScale(x),
     y: yPercentScale(y),
     strokeOpacity:
-      strokeOpacity === undefined
-        ? GlobalDefaultSettings.FILL_OPACITY
-        : strokeOpacity,
+      strokeOpacity === undefined ? defaultStrokeOpacity : strokeOpacity,
     strokeColor: strokeColor === undefined ? defaultStrokeColor : strokeColor,
     strokeWidth: genralPercentScale(
-      strokeWidth === undefined
-        ? GlobalDefaultSettings.LINE_STROKE_WIDTH
-        : strokeWidth
+      strokeWidth === undefined ? defaultStrokeWidth : strokeWidth
     ),
   }
 }

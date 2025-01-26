@@ -15,14 +15,11 @@ export interface QsLineData {
 }
 
 export interface QsLineConfig {
-  [key: string]:
-    | QsEnumCurve
-    | QsEnumLineJoin
-    | QsEnumLineCap
-    | string
-    | undefined
+  [key: string]: QsEnumCurve | number | string | undefined
   curve?: QsEnumCurve
   defaultStrokeColor: string
+  defaultStrokeWidth?: number
+  defaultStrokeOpacity?: number
   strokeLineJoin?: QsEnumLineJoin
   strokeLineCap?: QsEnumLineCap
 }

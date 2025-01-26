@@ -43,4 +43,5 @@ export enum GlobalDefaultSettings {
   STROKE_OPACITY = 1,
   STROKE_WIDTH = 0,
   LINE_STROKE_WIDTH = 0.5,
+  LINE_STROKE_OPACITY = 1,
 }

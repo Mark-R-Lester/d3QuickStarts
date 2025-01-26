@@ -15,7 +15,10 @@ import {
   QsRadialLineData,
 } from './qsTypes'
 import { RadialLineConfigStrict } from './types'
-import { GlobalDefaultColors } from '../../core/enums/enums'
+import {
+  GlobalDefaultColors,
+  GlobalDefaultSettings,
+} from '../../core/enums/enums'
 
 const addDefaultsToConfig = (
   customConfig?: QsRadialLineConfig
@@ -25,6 +28,8 @@ const addDefaultsToConfig = (
     strokeLineJoin: QsEnumLineJoin.ROUND,
     strokeLineCap: QsEnumLineCap.ROUND,
     defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
+    defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
+    defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
     x: 50,
     y: 50,
   }

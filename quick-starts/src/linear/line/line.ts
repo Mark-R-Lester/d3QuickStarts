@@ -1,5 +1,6 @@
 import {
   GlobalDefaultColors,
+  GlobalDefaultSettings,
   Orientation,
   ScaleType,
 } from '../../core/enums/enums'
@@ -26,6 +27,8 @@ const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
     strokeLineJoin: QsEnumLineJoin.ROUND,
     strokeLineCap: QsEnumLineCap.ROUND,
     defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
+    defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
+    defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
   }
 
   if (!customConfig) return defauls

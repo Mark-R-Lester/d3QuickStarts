@@ -11,6 +11,8 @@ export interface QsRadialLineConfig {
   x?: number
   y?: number
   defaultStrokeColor?: string
+  defaultStrokeWidth?: number
+  defaultStrokeOpacity?: number
   curve?: QsEnumCurve
   strokeLineJoin?: QsEnumLineJoin
   strokeLineCap?: QsEnumLineCap

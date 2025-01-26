@@ -1,11 +1,18 @@
-import { Orientation, ScaleType } from '../../core/enums/enums'
-import { QsEnumCurve } from '../../core/enums/qsEnums'
+import {
+  GlobalDefaultColors,
+  Orientation,
+  ScaleType,
+} from '../../core/enums/enums'
+import {
+  QsEnumCurve,
+  QsEnumLineCap,
+  QsEnumLineJoin,
+} from '../../core/enums/qsEnums'
 import { Canvas } from '../../d3QuickStart'
 import { DrawArgs, LineConfigStrict, CalculatedData } from './types'
 import { getCalculatedData as getVerticalCalculatedData } from './calculatedDataVertical'
 import { getCalculatedData as getHorizontalCalculatedData } from './calculatedDataHorizontal'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { applyDefaultColorIfNeeded } from '../../core/color/color'
 import {
   QsLineConfig,
   QsLineData,
@@ -16,6 +23,9 @@ import {
 const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
   const defauls: LineConfigStrict = {
     curve: QsEnumCurve.LINEAR,
+    strokeLineJoin: QsEnumLineJoin.ROUND,
+    strokeLineCap: QsEnumLineCap.ROUND,
+    defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
   }
 
   if (!customConfig) return defauls
@@ -85,21 +95,27 @@ export const draw = (
   config: LineConfigStrict
 ): QsLine => {
   const { scaleType, orientation } = args
-  const { strokeColor } = args.data
   const calculatedData: CalculatedData =
     orientation === Orientation.HORIZONTAL
       ? getHorizontalCalculatedData(canvas, args, config)
       : getVerticalCalculatedData(canvas, args, config)
+  const { strokeLineJoin, strokeLineCap } = config
 
-  const { lineFunction, lineData } = calculatedData
+  console.log('calculatedData', calculatedData)
+
   const group = canvas.displayGroup.append('g')
   group
     .append('path')
-    .attr('class', calculatedData.class)
-    .attr('id', calculatedData.id)
-    .attr('d', lineFunction(lineData))
+    .datum(calculatedData)
+    .attr('class', (d) => d.class)
+    .attr('id', (d) => d.id)
+    .attr('d', (d) => d.lineFunction(d.lineData))
     .attr('fill', 'none')
-    .attr('stroke', applyDefaultColorIfNeeded({ color: strokeColor }))
+    .attr('stroke', (d) => d.strokeColor)
+    .attr('stroke-width', (d) => d.strokeWidth)
+    .attr('stroke-opacity', (d) => d.strokeOpacity)
+    .attr('stroke-linejoin', strokeLineJoin)
+    .attr('stroke-linecap', strokeLineCap)
 
   const transition = (data: QsLineTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
@@ -108,7 +124,6 @@ export const draw = (
       scaleType,
       orientation,
     }
-    const { strokeColor: newColor } = data.data
     const calculatedData: CalculatedData =
       orientation === Orientation.HORIZONTAL
         ? getHorizontalCalculatedData(canvas, drawArgs, config)
@@ -116,14 +131,14 @@ export const draw = (
 
     group
       .selectAll(`.${calculatedData.class}`)
+      .datum(calculatedData)
       .transition()
       .delay(args.delayInMiliSeconds)
       .duration(args.durationInMiliSeconds)
-      .attr('d', lineFunction(calculatedData.lineData))
-      .attr(
-        'stroke',
-        applyDefaultColorIfNeeded({ color: strokeColor, newColor })
-      )
+      .attr('d', (d) => d.lineFunction(d.lineData))
+      .attr('stroke', (d) => d.strokeColor)
+      .attr('stroke-width', (d) => d.strokeWidth)
+      .attr('stroke-opacity', (d) => d.strokeOpacity)
   }
   return {
     element: group.select(`.${calculatedData.class}`),

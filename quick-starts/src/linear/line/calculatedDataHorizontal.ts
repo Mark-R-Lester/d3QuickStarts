@@ -2,7 +2,7 @@ import { scaleLinear, scaleBand, range, line as d3line } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { DrawArgs, LineConfigStrict, CalculatedData } from './types'
-import { ScaleType } from '../../core/enums/enums'
+import { GlobalDefaultSettings, ScaleType } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { constantsCurves } from '../../core/constants/constants'
 
@@ -12,9 +12,10 @@ export const getCalculatedData = (
   config: LineConfigStrict
 ): CalculatedData => {
   const { displayAreaWidth } = canvas.config
-  const { yDataScale } = canvas.scales
+  const { yDataScale, genralPercentScale } = canvas.scales
   const { data, scaleType } = args
-  const { curve } = config
+  const { strokeOpacity, strokeColor, strokeWidth } = data
+  const { curve, defaultStrokeColor } = config
 
   const xVals: number[] = range(
     0,
@@ -55,5 +56,15 @@ export const getCalculatedData = (
     id: `line${uuidv4()}`,
     lineData,
     lineFunction,
+    strokeOpacity:
+      strokeOpacity === undefined
+        ? GlobalDefaultSettings.FILL_OPACITY
+        : strokeOpacity,
+    strokeColor: strokeColor === undefined ? defaultStrokeColor : strokeColor,
+    strokeWidth: genralPercentScale(
+      strokeWidth === undefined
+        ? GlobalDefaultSettings.LINE_STROKE_WIDTH
+        : strokeWidth
+    ),
   }
 }

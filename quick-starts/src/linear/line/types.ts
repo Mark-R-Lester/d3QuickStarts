@@ -1,6 +1,10 @@
 import { Line } from 'd3'
 import { Orientation, ScaleType } from '../../core/enums/enums'
-import { QsEnumCurve } from '../../core/enums/qsEnums'
+import {
+  QsEnumCurve,
+  QsEnumLineCap,
+  QsEnumLineJoin,
+} from '../../core/enums/qsEnums'
 
 import { QsLineData } from './qsTypes'
 
@@ -11,8 +15,16 @@ export interface DrawArgs {
 }
 
 export interface LineConfigStrict {
-  [key: string]: QsEnumCurve | undefined
+  [key: string]:
+    | QsEnumCurve
+    | QsEnumLineJoin
+    | QsEnumLineCap
+    | string
+    | undefined
   curve: QsEnumCurve
+  defaultStrokeColor: string
+  strokeLineJoin: QsEnumLineJoin
+  strokeLineCap: QsEnumLineCap
 }
 
 export interface CalculatedData {
@@ -20,4 +32,7 @@ export interface CalculatedData {
   id: string
   lineData: [number, number][]
   lineFunction: Line<[number, number]>
+  strokeOpacity: number
+  strokeColor: string
+  strokeWidth: number
 }

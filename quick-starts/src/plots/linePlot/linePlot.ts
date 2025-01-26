@@ -8,13 +8,8 @@ import {
 import { constantsCurves } from '../../core/constants/constants'
 import { QsLinePlotConfig, QsLinePlot, QsPlottedLineData } from './qsTypes'
 import { CalculatedData, getCalculatedData } from './calculatedData'
-
-interface LinePlotConfigStrict {
-  [key: string]: QsEnumCurve | number | string | undefined
-  curve: QsEnumCurve
-  strokeLineJoin: QsEnumLineJoin
-  strokeLineCap: QsEnumLineCap
-}
+import { GlobalDefaultColors } from '../../core/enums/enums'
+import { LinePlotConfigStrict } from './types'
 
 const addDefaultsToConfig = (
   customConfig?: QsLinePlotConfig
@@ -23,6 +18,7 @@ const addDefaultsToConfig = (
     curve: QsEnumCurve.LINEAR,
     strokeLineJoin: QsEnumLineJoin.ROUND,
     strokeLineCap: QsEnumLineCap.ROUND,
+    defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
   }
   if (!customConfig) return defaults
 
@@ -50,7 +46,7 @@ const draw = (
 ): QsLinePlot => {
   const { curve, strokeLineJoin, strokeLineCap } = config
 
-  const calculatedData: CalculatedData = getCalculatedData(canvas, data)
+  const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
 
   let line = d3line()
     .x((d) => d[0])
@@ -63,12 +59,12 @@ const draw = (
     .datum(calculatedData)
     .attr('class', 'line')
     .attr('d', (d) => line(d.coordinates))
+    .attr('fill', 'none')
     .attr('stroke', (d) => d.strokeColor)
     .attr('stroke-width', (d) => d.strokeWidth)
-    .attr('opacity', (d) => d.opacity)
+    .attr('stroke-opacity', (d) => d.strokeOpacity)
     .attr('stroke-linejoin', strokeLineJoin)
     .attr('stroke-linecap', strokeLineCap)
-    .attr('fill-opacity', '0')
 
   return { element: lineGroup.select('.line') }
 }

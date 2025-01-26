@@ -42,4 +42,5 @@ export enum GlobalDefaultSettings {
   FILL_OPACITY = 1,
   STROKE_OPACITY = 1,
   STROKE_WIDTH = 0,
+  LINE_STROKE_WIDTH = 0.5,
 }

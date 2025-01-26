@@ -9,6 +9,7 @@ import { QsCoordinate } from '../../d3QuickStart'
 export interface QsLinePlotConfig {
   [key: string]: QsEnumCurve | number | string | undefined
   curve?: QsEnumCurve
+  defaultStrokeColor?: string
   strokeLineJoin?: QsEnumLineJoin
   strokeLineCap?: QsEnumLineCap
 }
@@ -16,7 +17,7 @@ export interface QsLinePlotConfig {
 export interface QsPlottedLineData {
   [key: string]: number | string | QsCoordinate[] | undefined
   coordinates: QsCoordinate[]
-  opacity?: number
+  strokeOpacity?: number
   strokeColor?: string
   strokeWidth?: number
 }

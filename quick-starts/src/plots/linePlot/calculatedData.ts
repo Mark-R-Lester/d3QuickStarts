@@ -1,34 +1,35 @@
-import {
-  GlobalDefaultSettings,
-  GlobalDefaultColors,
-} from '../../core/enums/enums'
+import { GlobalDefaultSettings } from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
 import { QsPlottedLineData } from './qsTypes'
+import { LinePlotConfigStrict } from './types'
 
 export interface CalculatedData {
   coordinates: [number, number][]
-  opacity: number
+  strokeOpacity: number
   strokeColor: string
   strokeWidth: number
 }
 
 export const getCalculatedData = (
   canvas: Canvas,
-  data: QsPlottedLineData
+  data: QsPlottedLineData,
+  config: LinePlotConfigStrict
 ): CalculatedData => {
   const { xDataScalePlotted, yDataScalePlotted, genralPercentScale } =
     canvas.scales
-  const { coordinates, opacity, strokeColor, strokeWidth } = data
+  const { coordinates, strokeOpacity, strokeColor, strokeWidth } = data
+  const { defaultStrokeColor } = config
 
   return {
     coordinates: coordinates.map((d) => [
       xDataScalePlotted(d.x),
       yDataScalePlotted(d.y),
     ]),
-    opacity:
-      opacity === undefined ? GlobalDefaultSettings.FILL_OPACITY : opacity,
-    strokeColor:
-      strokeColor === undefined ? GlobalDefaultColors.LINE_COLOR : strokeColor,
+    strokeOpacity:
+      strokeOpacity === undefined
+        ? GlobalDefaultSettings.FILL_OPACITY
+        : strokeOpacity,
+    strokeColor: strokeColor === undefined ? defaultStrokeColor : strokeColor,
     strokeWidth: genralPercentScale(
       strokeWidth === undefined
         ? GlobalDefaultSettings.STROKE_WIDTH

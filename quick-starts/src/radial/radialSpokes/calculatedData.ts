@@ -1,20 +1,16 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../d3QuickStart'
-import { QsRadialSpokesTransitionArgs } from './qsTypes'
 
-export interface CalculatedData {
-  class: string
-  id: string
-  lineData: [number, number][]
-}
+import { CalculatedData, RadialSpokesConfigStrict } from './types'
 
 export const getCalculatedData = (
   canvas: Canvas,
   data: number,
-  args: QsRadialSpokesTransitionArgs
+  config: RadialSpokesConfigStrict
 ) => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
-  const { x, y, radius, innerRadius } = args
+  const { x, y, radius, innerRadius, strokeWidth } = config
+  const { genralPercentScale } = canvas.scales
 
   const calculatedData: CalculatedData[] = []
 
@@ -36,6 +32,7 @@ export const getCalculatedData = (
         [innerX, innerY],
         [outerX, outerY],
       ],
+      strokeWidth: genralPercentScale(strokeWidth),
     }
   }
   return calculatedData

@@ -16,10 +16,3 @@ export interface QsRadialSpokes {
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
   transition: (data: number) => void
 }
-
-export interface QsRadialSpokesTransitionArgs {
-  x: number
-  y: number
-  radius: number
-  innerRadius: number
-}

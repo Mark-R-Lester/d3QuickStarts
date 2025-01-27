@@ -1,22 +1,12 @@
 import { line } from 'd3'
-import { CalculatedData, getCalculatedData } from './calculatedData'
+import { getCalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
+import { QsRadialSpokesConfig, QsRadialSpokes } from './qsTypes'
 import {
-  QsRadialSpokesConfig,
-  QsRadialSpokes,
-  QsRadialSpokesTransitionArgs,
-} from './qsTypes'
-import { GlobalDefaultColors } from '../../core/enums/enums'
-
-interface RadialSpokesConfigStrict {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
-  radius: number
-  innerRadius: number
-  x: number
-  y: number
-  fillColor: string
-  strokeWidth: number
-}
+  GlobalDefaultColors,
+  GlobalDefaultSettings,
+} from '../../core/enums/enums'
+import { CalculatedData, RadialSpokesConfigStrict } from './types'
 
 interface DrawArgs {
   data: number
@@ -28,10 +18,11 @@ const addDefaultsToConfig = (
   const defaults: RadialSpokesConfigStrict = {
     radius: 100,
     innerRadius: 0,
-    x: 50,
-    y: 50,
-    fillColor: GlobalDefaultColors.AXIS_COLOR,
-    strokeWidth: 0.4,
+    x: GlobalDefaultSettings.RADIAL_X,
+    y: GlobalDefaultSettings.RADIAL_Y,
+    strokeColor: GlobalDefaultColors.AXIS_COLOR,
+    strokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
+    strokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
   }
   if (!customConfig) return defaults
 
@@ -58,20 +49,13 @@ const draw = (
   args: DrawArgs,
   config: RadialSpokesConfigStrict
 ): QsRadialSpokes => {
-  const { radius, innerRadius, x, y, fillColor, strokeWidth } = config
-
+  const { strokeColor, strokeOpacity } = config
   const { data } = args
-  const transitionArgs: QsRadialSpokesTransitionArgs = {
-    radius,
-    innerRadius,
-    x,
-    y,
-  }
 
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
     data,
-    transitionArgs
+    config
   )
 
   const radialLine = line()
@@ -87,9 +71,10 @@ const draw = (
     .attr('class', (d) => d.class)
     .attr('id', (d) => d.id)
     .attr('d', (d) => radialLine(d.lineData))
-    .attr('stroke', fillColor)
-    .attr('fill-opacity', '0')
-    .attr('stroke-width', strokeWidth)
+    .attr('fill', 'none')
+    .attr('stroke', strokeColor)
+    .attr('stroke-width', (d) => d.strokeWidth)
+    .attr('stroke-opacity', strokeOpacity)
 
   return {
     element: group.selectAll(`.${calculatedData[0].class}`),
@@ -97,7 +82,7 @@ const draw = (
       const calculatedData: CalculatedData[] = getCalculatedData(
         canvas,
         data,
-        transitionArgs
+        config
       )
       group
         .selectAll(`.${calculatedData[0].class}`)

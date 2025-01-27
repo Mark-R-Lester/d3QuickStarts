@@ -18,7 +18,7 @@ const addDefaultsToConfig = (
   customConfig?: QsScatterPlotConfig
 ): ScatterPlotConfigStrict => {
   const defaults: ScatterPlotConfigStrict = {
-    defaultRadius: 3,
+    defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
     defaultFillColor: GlobalDefaultColors.POINT_FILL,
     defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
     defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,

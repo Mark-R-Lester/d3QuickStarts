@@ -30,8 +30,8 @@ const addDefaultsToConfig = (
     defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
     defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
     defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
-    x: 50,
-    y: 50,
+    x: GlobalDefaultSettings.RADIAL_X,
+    y: GlobalDefaultSettings.RADIAL_Y,
   }
 
   if (!customConfig) return defaults

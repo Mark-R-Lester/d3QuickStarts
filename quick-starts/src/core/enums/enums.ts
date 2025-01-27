@@ -51,4 +51,5 @@ export enum GlobalDefaultSettings {
   FONT_SIZE = 4,
   RADIAL_X = 50,
   RADIAL_Y = 50,
+  POINT_RADIUS = 3,
 }

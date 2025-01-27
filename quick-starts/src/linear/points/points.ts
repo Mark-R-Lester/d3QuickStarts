@@ -19,7 +19,7 @@ const addDefaultsToConfig = (
   customConfig?: QsPointsConfig
 ): PointsConfigStrict => {
   const defaults: PointsConfigStrict = {
-    defaultRadius: 3,
+    defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
     defaultFillColor: GlobalDefaultColors.POINT_FILL,
     defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
     defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,

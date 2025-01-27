@@ -21,9 +21,9 @@ const addDefaultsToConfig = (
   customConfig?: QsRadialPointsConfig
 ): RadialPointsConfigStrict => {
   const defaults: RadialPointsConfigStrict = {
-    x: 50,
-    y: 50,
-    defaultRadius: 3,
+    x: GlobalDefaultSettings.RADIAL_X,
+    y: GlobalDefaultSettings.RADIAL_Y,
+    defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
     defaultFillColor: GlobalDefaultColors.POINT_FILL,
     defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
     defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,

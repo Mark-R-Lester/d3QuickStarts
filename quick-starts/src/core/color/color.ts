@@ -22,15 +22,6 @@ export const getPrecidendedColor = (
     : defaultColor
 }
 
-export const applyDefaultColorIfNeeded = (colors: {
-  color?: string
-  newColor?: string
-}): string => {
-  const { color, newColor } = colors
-  if (newColor) return newColor
-  return color === undefined ? GlobalDefaultColors.FILL_COLOR : color
-}
-
 /*
  * The colorScale arg is of type any because the tryping on top of d3 is not correct in this insrtance
  * The typing as it stands would mke this method impossible to implement due to incompatible types

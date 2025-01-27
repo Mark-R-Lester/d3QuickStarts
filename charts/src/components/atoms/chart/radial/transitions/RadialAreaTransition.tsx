@@ -27,7 +27,6 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
       const dataUpper: QsRadialAreaData = {
         innerData,
         outerData,
-        fillColor: 'blue',
       }
       const dataLower: QsRadialAreaData = {
         outerData: innerData,
@@ -42,6 +41,7 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
 
       let newTopArea = canvas.generate.radial.area(dataUpper, {
         curve: QsEnumCurve.BASIS,
+        defaultFillColor: 'blue',
       })
       let newBottomArea = canvas.generate.radial.area(dataLower, {
         curve: QsEnumCurve.BASIS,
@@ -71,7 +71,10 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
           innerData.push(val1 < val2 ? val1 : val2)
           outerData.push(val1 > val2 ? val1 : val2)
         }
-        const upperAreaData: QsRadialAreaData = { innerData, outerData }
+        const upperAreaData: QsRadialAreaData = {
+          innerData,
+          outerData,
+        }
         const lowerAreaData: QsRadialAreaData = { outerData: innerData }
 
         return { lowerAreaData, upperAreaData }

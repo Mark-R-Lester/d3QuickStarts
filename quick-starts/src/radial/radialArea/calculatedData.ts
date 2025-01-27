@@ -1,27 +1,35 @@
 import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { RadialAreaConfigStrict, RadialAreaCalculatedDataData } from './types'
-import { Canvas } from '../../d3QuickStart'
-
-export interface CalculatedData {
-  class: string
-  id: string
-  areaData: RadialAreaCalculatedDataData[]
-  x: number
-  y: number
-}
+import { CalculatedData, RadialAreaConfigStrict } from './types'
+import { Canvas, QsRadialAreaData } from '../../d3QuickStart'
 
 export const getCalculatedData = (
   canvas: Canvas,
-  outerData: number[],
-  config: RadialAreaConfigStrict,
-  innerData?: number[]
+  areaData: QsRadialAreaData,
+  config: RadialAreaConfigStrict
 ): CalculatedData => {
-  const { x, y } = config
+  const {
+    x,
+    y,
+    defaultFillColor,
+    defaultFillOpacity,
+    defaultStrokeColor,
+    defaultStrokeWidth,
+    defaultStrokeOpacity,
+  } = config
+  const {
+    outerData,
+    innerData,
+    fillColor,
+    fillOpacity,
+    strokeOpacity,
+    strokeColor,
+    strokeWidth,
+  } = areaData
   const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
     canvas.config
 
-  const { xPercentScale, yPercentScale } = canvas.scales
+  const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
 
   let dataInnerCopy: number[]
 
@@ -53,5 +61,13 @@ export const getCalculatedData = (
     }),
     x: xPercentScale(x),
     y: yPercentScale(y),
+    fillColor: fillColor === undefined ? defaultFillColor : fillColor,
+    fillOpacity: fillOpacity === undefined ? defaultFillOpacity : fillOpacity,
+    strokeOpacity:
+      strokeOpacity === undefined ? defaultStrokeOpacity : strokeOpacity,
+    strokeColor: strokeColor === undefined ? defaultStrokeColor : strokeColor,
+    strokeWidth: genralPercentScale(
+      strokeWidth === undefined ? defaultStrokeWidth : strokeWidth
+    ),
   }
 }

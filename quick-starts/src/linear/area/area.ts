@@ -1,5 +1,5 @@
 import { area as d3area } from 'd3'
-import { AreaData, getCalculatedData, CalculatedData } from './calculatedData'
+import { getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { constantsCurves } from '../../core/constants/constants'
 import { Canvas } from '../../d3QuickStart'
@@ -18,7 +18,7 @@ import {
   GlobalDefaultColors,
   GlobalDefaultSettings,
 } from '../../core/enums/enums'
-import { AreaConfigStrict } from './types'
+import { AreaConfigStrict, AreaData, CalculatedData } from './types'
 
 interface DrawArgs {
   data: QsAreaData

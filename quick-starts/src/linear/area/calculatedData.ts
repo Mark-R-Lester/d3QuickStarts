@@ -2,24 +2,7 @@ import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../d3QuickStart'
 import { QsAreaData } from './qsTypes'
-import { AreaConfigStrict } from './types'
-
-export interface CalculatedData {
-  class: string
-  id: string
-  areaData: AreaData[]
-  fillColor: string
-  fillOpacity: number
-  strokeColor: string
-  strokeWidth: number
-  strokeOpacity: number
-}
-
-export interface AreaData {
-  x: number
-  y0: number
-  y1: number
-}
+import { AreaConfigStrict, CalculatedData } from './types'
 
 export const getCalculatedData = (
   canvas: Canvas,

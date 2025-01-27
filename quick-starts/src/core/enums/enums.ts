@@ -30,6 +30,8 @@ export enum RadialTextType {
 export enum GlobalDefaultColors {
   FILL_COLOR = 'steelblue',
   STROKE_COLOR = 'black',
+  AREA_FILL_COLOR = 'steelblue',
+  AREA_STROKE_COLOR = 'black',
   BAR_FILL = 'steelblue',
   BAR_STROKE = 'black',
   POINT_FILL = 'steelblue',

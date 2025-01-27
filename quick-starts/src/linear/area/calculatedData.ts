@@ -2,11 +2,17 @@ import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../d3QuickStart'
 import { QsAreaData } from './qsTypes'
+import { AreaConfigStrict } from './types'
 
 export interface CalculatedData {
   class: string
   id: string
   areaData: AreaData[]
+  fillColor: string
+  fillOpacity: number
+  strokeColor: string
+  strokeWidth: number
+  strokeOpacity: number
 }
 
 export interface AreaData {
@@ -15,10 +21,29 @@ export interface AreaData {
   y1: number
 }
 
-export const getCalculatedData = (canvas: Canvas, areaData: QsAreaData) => {
+export const getCalculatedData = (
+  canvas: Canvas,
+  areaData: QsAreaData,
+  config: AreaConfigStrict
+) => {
   const { displayAreaWidth } = canvas.config
-  const { yDataScale } = canvas.scales
-  const { higherData, lowerData } = areaData
+  const { yDataScale, genralPercentScale } = canvas.scales
+  const {
+    higherData,
+    lowerData,
+    fillColor,
+    fillOpacity,
+    strokeOpacity,
+    strokeColor,
+    strokeWidth,
+  } = areaData
+  const {
+    defaultFillColor,
+    defaultFillOpacity,
+    defaultStrokeColor,
+    defaultStrokeWidth,
+    defaultStrokeOpacity,
+  } = config
 
   const xDataScale = scaleLinear()
     .domain([0, higherData.length - 1])
@@ -32,6 +57,14 @@ export const getCalculatedData = (canvas: Canvas, areaData: QsAreaData) => {
       y1: yDataScale(d),
       y0: yDataScale(lowerData ? lowerData[i] : 0),
     })),
+    fillColor: fillColor === undefined ? defaultFillColor : fillColor,
+    fillOpacity: fillOpacity === undefined ? defaultFillOpacity : fillOpacity,
+    strokeOpacity:
+      strokeOpacity === undefined ? defaultStrokeOpacity : strokeOpacity,
+    strokeColor: strokeColor === undefined ? defaultStrokeColor : strokeColor,
+    strokeWidth: genralPercentScale(
+      strokeWidth === undefined ? defaultStrokeWidth : strokeWidth
+    ),
   }
   return calculatedData
 }

@@ -1,21 +1,24 @@
-import { CurveFactory, area as d3area } from 'd3'
+import { area as d3area } from 'd3'
 import { AreaData, getCalculatedData, CalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { applyDefaultColorIfNeeded } from '../../core/color/color'
 import { constantsCurves } from '../../core/constants/constants'
 import { Canvas } from '../../d3QuickStart'
-import { QsEnumCurve } from '../../core/enums/qsEnums'
+import {
+  QsEnumCurve,
+  QsEnumLineCap,
+  QsEnumLineJoin,
+} from '../../core/enums/qsEnums'
 import {
   QsArea,
   QsAreaConfig,
   QsAreaData,
   QsAreaTransitionData,
 } from './qsTypes'
-
-interface AreaConfigStrict {
-  [key: string]: CurveFactory | string | undefined
-  curve: QsEnumCurve
-}
+import {
+  GlobalDefaultColors,
+  GlobalDefaultSettings,
+} from '../../core/enums/enums'
+import { AreaConfigStrict } from './types'
 
 interface DrawArgs {
   data: QsAreaData
@@ -24,6 +27,13 @@ interface DrawArgs {
 const addDefaultsToConfig = (customConfig?: QsAreaConfig): AreaConfigStrict => {
   const defaults: AreaConfigStrict = {
     curve: QsEnumCurve.LINEAR,
+    strokeLineJoin: QsEnumLineJoin.ROUND,
+    strokeLineCap: QsEnumLineCap.ROUND,
+    defaultFillColor: GlobalDefaultColors.AREA_FILL_COLOR,
+    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
+    defaultStrokeColor: GlobalDefaultColors.AREA_STROKE_COLOR,
+    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
+    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
   }
   if (!customConfig) return defaults
 
@@ -53,8 +63,11 @@ function draw(
   config: AreaConfigStrict
 ): QsArea {
   const { curve } = config
-  const { fillColor } = args.data
-  const calculatedData: CalculatedData = getCalculatedData(canvas, args.data)
+  const calculatedData: CalculatedData = getCalculatedData(
+    canvas,
+    args.data,
+    config
+  )
 
   const area = d3area<AreaData>()
     .x((d) => d.x)
@@ -65,27 +78,39 @@ function draw(
   const group = canvas.displayGroup.append('g')
   group
     .append('path')
-    .attr('class', calculatedData.class)
-    .attr('id', calculatedData.id)
-    .attr('d', area(calculatedData.areaData))
-    .attr('fill', applyDefaultColorIfNeeded({ color: fillColor }))
+    .datum(calculatedData)
+    .attr('class', (d) => d.class)
+    .attr('id', (d) => d.id)
+    .attr('d', (d) => area(d.areaData))
+    .attr('fill', (d) => d.fillColor)
+    .attr('fill-opacity', (d) => d.fillOpacity)
+    .attr('stroke', (d) => d.strokeColor)
+    .attr('stroke-width', (d) => d.strokeWidth)
+    .attr('stroke-opacity', (d) => d.strokeOpacity)
+    .attr('stroke-linejoin', QsEnumLineJoin.ROUND)
+    .attr('stroke-linecap', QsEnumLineCap.ROUND)
   return {
     element: group.select(`.${calculatedData.class}`),
     transition: (data: QsAreaTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       const calculatedData: CalculatedData = getCalculatedData(
         canvas,
-        data.data
+        data.data,
+        config
       )
-      const { fillColor: newColor } = data.data
 
       group
         .selectAll(`.${calculatedData.class}`)
+        .datum(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
         .attr('d', area(calculatedData.areaData))
-        .attr('fill', applyDefaultColorIfNeeded({ color: fillColor, newColor }))
+        .attr('fill', (d) => d.fillColor)
+        .attr('fill-opacity', (d) => d.fillOpacity)
+        .attr('stroke', (d) => d.strokeColor)
+        .attr('stroke-width', (d) => d.strokeWidth)
+        .attr('stroke-opacity', (d) => d.strokeOpacity)
     },
   }
 }

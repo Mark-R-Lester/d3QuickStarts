@@ -12,24 +12,20 @@ export const LinearAreaElement: FunctionComponent<ChartProps> = ({
 
     const canvas: QsCanvas = qsCreateCanvas({
       chartName,
-      width: 600,
+      width: 1200,
       lowestViewableValue: 0,
       highestViewableValue: 250,
     })
 
-    canvas.generate.linear.horizontal
-      .area(
-        { higherData: data1, fillColor: 'blue' },
-        { curve: QsEnumCurve.MONOTONE_X }
-      )
-      .element.attr('fill-opacity', '0.5')
+    canvas.generate.linear.horizontal.area(
+      { higherData: data1, fillColor: 'blue' },
+      { curve: QsEnumCurve.LINEAR }
+    )
 
-    canvas.generate.linear.horizontal
-      .area(
-        { higherData: data2, lowerData: data1, fillColor: 'red' },
-        { curve: QsEnumCurve.MONOTONE_X }
-      )
-      .element.attr('fill-opacity', '0.5')
+    canvas.generate.linear.horizontal.area(
+      { higherData: data2, lowerData: data1, fillColor: 'red' },
+      { curve: QsEnumCurve.LINEAR }
+    )
   }
 
   useEffect(() => {

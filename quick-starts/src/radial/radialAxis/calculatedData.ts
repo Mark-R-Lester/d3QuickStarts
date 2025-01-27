@@ -1,56 +1,8 @@
 import { scaleLinear, scaleOrdinal, ScaleOrdinal, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-  QsEnumAlignmentBaseline,
-} from '../../core/enums/qsEnums'
 import { Canvas } from '../../d3QuickStart'
-
-interface RingData {
-  innerRadius: number
-  outerRadius: number
-  startAngle: number
-  endAngle: number
-  textLocation: number[]
-  text: number | string
-}
-
-export interface CalculatedData {
-  [key: string]: string | RingData | number
-  ringId: string
-  textId: string
-  ringClass: string
-  textClass: string
-  ringData: RingData
-  x: number
-  y: number
-  textFontSize: number
-}
-
-export interface RadialAxisConfigStrict {
-  [key: string]: number | undefined | string
-  radius: number
-  x: number
-  y: number
-  axisAngle: number
-  gap: number
-  fillColor: string
-  strokeWidth: number
-  textFont: QsEnumTextFont | string
-  textFontSize: number
-  textFontStyle: QsEnumTextFontStyle
-  textFontWeight: QsEnumTextFontWeight | number
-  textDecorationLine: QsEnumTextDecorationLine
-  textFill: string
-  textAnchor: QsEnumTextAnchor
-  textStroke: string
-  textAlignmentBaseline: QsEnumAlignmentBaseline
-}
+import { RadialAxisConfigStrict, CalculatedData } from './types'
 
 export const getCalculatedData = (
   canvas: Canvas,
@@ -64,7 +16,7 @@ export const getCalculatedData = (
     highestViewableValue,
   } = canvas.config
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
-  const { radius, axisAngle, gap, x, y, textFontSize } = config
+  const { radius, axisAngle, gap, x, y, textFontSize, strokeWidth } = config
 
   const calculatedData: CalculatedData[] = []
   const ordinal = data.some((d) => typeof d === 'string')
@@ -122,6 +74,7 @@ export const getCalculatedData = (
       x: xPercentScale(x),
       y: yPercentScale(y),
       textFontSize: genralPercentScale(textFontSize),
+      strokeWidth: genralPercentScale(strokeWidth),
     })
   })
   return calculatedData

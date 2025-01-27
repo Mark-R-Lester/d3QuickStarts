@@ -15,8 +15,9 @@ export interface QsRadialAxisConfig {
   y?: number
   axisAngle?: number
   gap?: number
-  fillColor?: string
+  strokeColor?: string
   strokeWidth?: number
+  strokeOpacity?: number
   textFont?: QsEnumTextFont | string
   textFontSize?: number
   textFontStyle?: QsEnumTextFontStyle

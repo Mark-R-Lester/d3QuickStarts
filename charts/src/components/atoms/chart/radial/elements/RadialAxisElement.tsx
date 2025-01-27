@@ -30,7 +30,6 @@ export const RadialAxisElement: FunctionComponent<ChartProps> = ({
       axisAngle: 45,
       gap: 40,
       color: 'black',
-      strokeWidth: 1,
       textFont: QsEnumTextFont.VERDANA,
       textFontWeight: QsEnumTextFontWeight.NORMAL,
       textFontStyle: QsEnumTextFontStyle.NORMAL,

@@ -1,9 +1,5 @@
 import { arc as d3arc } from 'd3'
-import {
-  CalculatedData,
-  RadialAxisConfigStrict,
-  getCalculatedData,
-} from './calculatedData'
+import { getCalculatedData } from './calculatedData'
 import {
   QsEnumTextFont,
   QsEnumTextFontStyle,
@@ -13,7 +9,11 @@ import {
   QsEnumAlignmentBaseline,
 } from '../../core/enums/qsEnums'
 import { Canvas, QsRadialAxis, QsRadialAxisConfig } from '../../d3QuickStart'
-import { GlobalDefaultColors } from '../../core/enums/enums'
+import {
+  GlobalDefaultColors,
+  GlobalDefaultSettings,
+} from '../../core/enums/enums'
+import { RadialAxisConfigStrict, CalculatedData } from './types'
 
 interface DrawArgs {
   data: number[]
@@ -24,19 +24,20 @@ const addDefaultsToConfig = (
 ): RadialAxisConfigStrict => {
   const defaults: RadialAxisConfigStrict = {
     radius: 100,
-    x: 50,
-    y: 50,
+    x: GlobalDefaultSettings.RADIAL_X,
+    y: GlobalDefaultSettings.RADIAL_Y,
     axisAngle: 0,
     gap: 15,
-    fillColor: GlobalDefaultColors.AXIS_COLOR,
-    strokeWidth: 0.3,
+    strokeColor: GlobalDefaultColors.AXIS_COLOR,
+    strokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
+    strokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
     textFont: QsEnumTextFont.SERIF,
-    textFontSize: 4,
+    textFontSize: GlobalDefaultSettings.FONT_SIZE,
     textFontStyle: QsEnumTextFontStyle.NORMAL,
     textFontWeight: QsEnumTextFontWeight.NORMAL,
     textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textFill: 'black',
-    textStroke: '',
+    textFill: GlobalDefaultColors.TEXT_FILL_COLOR,
+    textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
     textAnchor: QsEnumTextAnchor.MIDDLE,
     textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
   }
@@ -66,8 +67,8 @@ const draw = (
   config: RadialAxisConfigStrict
 ): QsRadialAxis => {
   const {
-    fillColor,
-    strokeWidth,
+    strokeColor,
+    strokeOpacity,
     textFont,
     textFontStyle,
     textFontWeight,
@@ -99,8 +100,9 @@ const draw = (
     .attr('class', (d) => d.ringClass)
     .attr('id', (d) => d.ringId)
     .attr('d', (d) => arc(d.ringData))
-    .attr('stroke', fillColor)
-    .attr('stroke-width', strokeWidth)
+    .attr('stroke', strokeColor)
+    .attr('stroke-width', (d) => d.strokeWidth)
+    .attr('stroke-opacity', strokeOpacity)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   group
     .selectAll('text')
@@ -139,7 +141,7 @@ const draw = (
         .data(calculatedData)
         .transition()
         .duration(3000)
-        .attr('stroke-width', strokeWidth)
+        .attr('stroke-width', (d) => d.strokeWidth)
         .attr('d', (d) => arc(d.ringData))
       group
         .selectAll(`.${calculatedData[0].textClass}`)

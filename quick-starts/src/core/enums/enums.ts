@@ -38,12 +38,17 @@ export enum GlobalDefaultColors {
   POINT_STROKE = 'black',
   AXIS_COLOR = 'black',
   LINE_COLOR = 'black',
+  TEXT_FILL_COLOR = 'black',
+  TEXT_STROKE_COLOR = 'black',
 }
 
 export enum GlobalDefaultSettings {
   FILL_OPACITY = 1,
   STROKE_OPACITY = 1,
   STROKE_WIDTH = 0,
-  LINE_STROKE_WIDTH = 0.5,
+  LINE_STROKE_WIDTH = 0.3,
   LINE_STROKE_OPACITY = 1,
+  FONT_SIZE = 4,
+  RADIAL_X = 50,
+  RADIAL_Y = 50,
 }

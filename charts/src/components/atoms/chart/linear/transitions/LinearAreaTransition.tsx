@@ -10,38 +10,39 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
   const [bottomArea, setBottomArea] = useState<QsArea>()
   const colorIndex = useRef<number>(0)
 
-  const createChart = () => {
-    const lowerData: number[] = [15, 10, 20, 30, 40, 26, 90, 15, 10, 30, 25, 50]
-    const higherData: number[] = [
-      25, 15, 40, 36, 80, 100, 96, 30, 100, 98, 100, 60,
-    ]
-
-    const dataUpper: QsAreaData = {
-      lowerData,
-      higherData,
-      fillColor: 'blue',
-    }
-    const dataLower: QsAreaData = {
-      higherData: lowerData,
-    }
-
-    const canvas: QsCanvas = qsCreateCanvas({
-      chartName,
-      width: 600,
-      lowestViewableValue: 0,
-      highestViewableValue: 100,
-    })
-
-    let newTopArea = canvas.generate.linear.horizontal.area(dataUpper)
-    let newBottomArea = canvas.generate.linear.horizontal.area(dataLower)
-
-    setTopArea(newTopArea)
-    setBottomArea(newBottomArea)
-  }
-
   useEffect(() => {
+    const createChart = () => {
+      const lowerData: number[] = [
+        15, 10, 20, 30, 40, 26, 90, 15, 10, 30, 25, 50,
+      ]
+      const higherData: number[] = [
+        25, 15, 40, 36, 80, 100, 96, 30, 100, 98, 100, 60,
+      ]
+
+      const dataUpper: QsAreaData = {
+        lowerData,
+        higherData,
+        fillColor: 'blue',
+      }
+      const dataLower: QsAreaData = {
+        higherData: lowerData,
+      }
+
+      const canvas: QsCanvas = qsCreateCanvas({
+        chartName,
+        width: 600,
+        lowestViewableValue: 0,
+        highestViewableValue: 100,
+      })
+
+      let newTopArea = canvas.generate.linear.horizontal.area(dataUpper)
+      let newBottomArea = canvas.generate.linear.horizontal.area(dataLower)
+
+      setTopArea(newTopArea)
+      setBottomArea(newBottomArea)
+    }
     createChart()
-  }, [])
+  }, [chartName])
 
   useEffect(
     function transitionData() {

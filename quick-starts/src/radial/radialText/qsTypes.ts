@@ -13,6 +13,7 @@ export interface QsRadialTextConfig {
   radius?: number
   x?: number
   y?: number
+  defaultDecimalPoints?: number
   textFont?: QsEnumTextFont | string
   textFontSize?: number
   textFontStyle?: QsEnumTextFontStyle

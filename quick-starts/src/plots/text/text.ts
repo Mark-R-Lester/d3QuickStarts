@@ -8,20 +8,11 @@ import {
   QsEnumTextFontWeight,
 } from '../../core/enums/qsEnums'
 import { QsTextArgs, QsTextConfig, QsText } from './qsTypes'
-
-interface TextConfigStrict {
-  [key: string]: number | string | undefined
-  textFont: QsEnumTextFont | string
-  textFontSize: number
-  textFontStyle: QsEnumTextFontStyle
-  textFontWeight: QsEnumTextFontWeight | number
-  textDecorationLine: QsEnumTextDecorationLine
-  textFill: string
-  textAngle: number
-  textAnchor: QsEnumTextAnchor
-  textStroke: string
-  textAlignmentBaseline: QsEnumAlignmentBaseline
-}
+import {
+  GlobalDefaultColors,
+  GlobalDefaultSettings,
+} from '../../core/enums/enums'
+import { TextConfigStrict } from './types'
 
 interface DrawArgs {
   data: QsTextArgs[]
@@ -30,13 +21,13 @@ interface DrawArgs {
 const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
   const defaults: TextConfigStrict = {
     textFont: QsEnumTextFont.SERIF,
-    textFontSize: 5,
+    textFontSize: GlobalDefaultSettings.FONT_SIZE,
     textFontStyle: QsEnumTextFontStyle.NORMAL,
     textFontWeight: QsEnumTextFontWeight.NORMAL,
     textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textFill: 'black',
-    textAngle: 0,
-    textStroke: '',
+    textFill: GlobalDefaultColors.TEXT_FILL_COLOR,
+    textAngle: GlobalDefaultSettings.TEXT_ANGLE,
+    textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
     textAnchor: QsEnumTextAnchor.START,
     textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
   }

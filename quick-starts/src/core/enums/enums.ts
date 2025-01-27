@@ -39,7 +39,7 @@ export enum GlobalDefaultColors {
   AXIS_COLOR = 'black',
   LINE_COLOR = 'black',
   TEXT_FILL_COLOR = 'black',
-  TEXT_STROKE_COLOR = 'black',
+  TEXT_STROKE_COLOR = 'none',
 }
 
 export enum GlobalDefaultSettings {
@@ -52,4 +52,6 @@ export enum GlobalDefaultSettings {
   RADIAL_X = 50,
   RADIAL_Y = 50,
   POINT_RADIUS = 3,
+  DECIMAL_POINTS = 1,
+  TEXT_ANGLE = 0,
 }

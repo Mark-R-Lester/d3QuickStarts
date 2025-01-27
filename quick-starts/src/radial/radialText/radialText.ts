@@ -6,7 +6,12 @@ import {
   getCalculatedData,
   updateCalculatedData,
 } from './calculatedData'
-import { RadialTextType, ScaleType } from '../../core/enums/enums'
+import {
+  GlobalDefaultColors,
+  GlobalDefaultSettings,
+  RadialTextType,
+  ScaleType,
+} from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
   QsEnumTextFont,
@@ -46,16 +51,17 @@ const addDefaultsToConfig = (
   }
   const defaults: RadialTextConfigStrict = {
     radius: getRadius(),
-    x: 50,
-    y: 50,
+    x: GlobalDefaultSettings.RADIAL_X,
+    y: GlobalDefaultSettings.RADIAL_Y,
+    defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
     textFont: QsEnumTextFont.SERIF,
-    textFontSize: 5,
+    textFontSize: GlobalDefaultSettings.FONT_SIZE,
     textFontStyle: QsEnumTextFontStyle.NORMAL,
     textFontWeight: QsEnumTextFontWeight.NORMAL,
     textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textFill: 'black',
-    textAngle: 0,
-    textStroke: '',
+    textFill: GlobalDefaultColors.TEXT_FILL_COLOR,
+    textAngle: GlobalDefaultSettings.TEXT_ANGLE,
+    textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
     textAnchor: getTextAnchor(),
   }
   if (!customConfig) return defaults
@@ -204,6 +210,7 @@ const draw = (
 ): QsRadialText => {
   const { data, scaleType, type } = args
   const {
+    defaultDecimalPoints,
     textFont,
     textFontStyle,
     textFontWeight,
@@ -211,8 +218,6 @@ const draw = (
     textFill,
     textStroke,
     textAnchor,
-    x,
-    y,
   } = config
 
   let rotate: (angles: BandData) => number = getRotationFunction(type)
@@ -251,7 +256,9 @@ const draw = (
         (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
       )
       .attr('dy', '0.35em')
-      .text((d) => (d.data.text ? d.data.text : d.data.value.toFixed(0)))
+      .text((d) =>
+        d.data.text ? d.data.text : d.data.value.toFixed(defaultDecimalPoints)
+      )
   } else {
     arcs
       .selectAll(`.${calculatedData.arcClass}`)
@@ -282,7 +289,9 @@ const draw = (
       .append('textPath')
       .attr('startOffset', '25%')
       .attr('xlink:href', (d) => `#${d.arcId}`)
-      .text((d) => (d.data.text ? d.data.text : d.data.value.toFixed(0)))
+      .text((d) =>
+        d.data.text ? d.data.text : d.data.value.toFixed(defaultDecimalPoints)
+      )
   }
   return {
     elementText: text.selectAll('.text'),
@@ -319,7 +328,7 @@ const draw = (
             const tweenText = interpolate(d.data.value, d.newData.value)
             return (t: number) => {
               d.data.value = tweenText(t)
-              return d.data.value.toFixed(0)
+              return d.data.value.toFixed(defaultDecimalPoints)
             }
           })
       } else {
@@ -353,7 +362,7 @@ const draw = (
               const tweenText = interpolate(d.data.value, d.newData.value)
               return (t: number) => {
                 d.data.value = tweenText(t)
-                return d.data.value.toFixed(0)
+                return d.data.value.toFixed(defaultDecimalPoints)
               }
             })
         })

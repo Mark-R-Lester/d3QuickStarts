@@ -58,6 +58,8 @@ import { linearBarGroup } from '../linear/barGroup/barGroup'
 import { linearBarStack } from '../linear/barStack/barStack'
 import { linearLine } from '../linear/line/line'
 import { linearPoint } from '../linear/points/points'
+import { QsText, QsTextConfig, QsTextData } from '../linear/text/qsTypes'
+import { linearText } from '../linear/text/text'
 import { plottedLine } from '../plots/linePlot/linePlot'
 import { plottedPoint } from '../plots/scatterPlot/scatterPlot'
 import { plottedText } from '../plots/text/text'
@@ -93,6 +95,8 @@ interface QsHorizontalLinearElementFunctions {
   lineBanded: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
   points: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   pointsBanded: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
+  text: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
+
   axis: QsHorizontalLinearAxisFunctions
 }
 
@@ -112,6 +116,7 @@ interface QsVerticalLinearElementFunctions {
   lineBanded: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
   points: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   pointsBanded: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
+  text: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
   axis: QsVerticalLinearAxisFunctions
 }
 
@@ -241,6 +246,11 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           elements.push({ element, data })
           return element
         },
+        text: (data: QsTextData[], customConfig?: QsTextConfig): QsText => {
+          const element = linearText.horizontal(canvas, data, customConfig)
+          elements.push({ element, data })
+          return element
+        },
         pointsBanded: (
           data: QsPointData[],
           customConfig?: QsPointsConfig
@@ -325,6 +335,11 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           customConfig?: QsPointsConfig
         ): QsPoints => {
           const element = linearPoint.verticalBanded(canvas, data, customConfig)
+          elements.push({ element, data })
+          return element
+        },
+        text: (data: QsTextData[], customConfig?: QsTextConfig): QsText => {
+          const element = linearText.vertical(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },

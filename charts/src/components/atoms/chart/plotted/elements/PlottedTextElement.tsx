@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas, QsTextArgs } from 'd3qs/d3QuickStart'
+import { QsCanvas, qsCreateCanvas, QsPlottedTextArgs } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 import {
   QsEnumTextFont,
@@ -18,12 +18,12 @@ export const PlottedTextElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 250,
     })
 
-    const data: QsTextArgs[] = [
+    const data: QsPlottedTextArgs[] = [
       { x: 0, y: 0, text: 'Text with no config uses defaults' },
     ]
     canvas.generate.plotted.text(data)
 
-    const data1: QsTextArgs[] = [
+    const data1: QsPlottedTextArgs[] = [
       { x: 0, y: 10, text: 'Three pieces of' },
       { x: 15, y: 20, text: 'text in one call' },
       { x: 30, y: 30, text: 'utilise on the same config' },
@@ -36,7 +36,7 @@ export const PlottedTextElement: FunctionComponent<ChartProps> = ({
       textStroke: 'red',
     })
 
-    const data2: QsTextArgs[] = [
+    const data2: QsPlottedTextArgs[] = [
       { x: 0, y: 50, text: 'Text in separate call uses separate config' },
     ]
     canvas.generate.plotted.text(data2, {

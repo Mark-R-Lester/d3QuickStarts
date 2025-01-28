@@ -9,6 +9,7 @@ import { LinearAreaTransition } from '../../components/atoms/chart/linear/transi
 import { LinearBarGroupTransition } from '../../components/atoms/chart/linear/transitions/LineaBarGroupTransition'
 import { QsColorScaleData } from 'd3qs/d3QuickStart'
 import { QsEnumColorScale } from 'd3qs/core/qsEnums'
+import { LinearTextTransition } from '../../components/atoms/chart/linear/transitions/LinearTextTransition'
 
 const pointData = [
   { value: 25, fillColor: 'red' },
@@ -56,6 +57,15 @@ export default function LinearTransitionsPage() {
         fillColorScaleData: colorScaleOrdinal,
       }}
     />,
+    <LinearTextTransition
+      chartName="verticalTextTransition"
+      data={pointData}
+      orientation={EnumOrientation.VERTICAL}
+      config={{
+        defaultRadius: 3,
+        fillColorScaleData: colorScaleOrdinal,
+      }}
+    />,
     <LinearBarsTransition
       chartName="horizontalBarTransition"
       orientation={EnumOrientation.HORIZONTAL}
@@ -76,6 +86,15 @@ export default function LinearTransitionsPage() {
       config={{
         defaultRadius: 3,
         fillColorScaleData: colorScaleSequential,
+      }}
+    />,
+    <LinearTextTransition
+      chartName="horizontalTextTransition"
+      data={pointData}
+      orientation={EnumOrientation.HORIZONTAL}
+      config={{
+        defaultRadius: 3,
+        fillColorScaleData: colorScaleOrdinal,
       }}
     />,
 

@@ -8,6 +8,7 @@ export * from './linear/barStack/qsTypes'
 export * from './linear/line/qsTypes'
 export * from './linear/area/qsTypes'
 export * from './linear/points/qsTypes'
+export * from './linear/text/qsTypes'
 
 export * from './radial/radial/qsTypes'
 export * from './radial/radialAxis/qsTypes'

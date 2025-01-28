@@ -8,7 +8,7 @@ import {
 import { EnumOrientation } from '../../../../../common/enums'
 import { PointChartProps } from '../../../../../common/chartProps'
 
-export const LinearPointsTransition: FunctionComponent<PointChartProps> = ({
+export const LinearTextTransition: FunctionComponent<PointChartProps> = ({
   chartName,
   data,
   config,
@@ -27,9 +27,9 @@ export const LinearPointsTransition: FunctionComponent<PointChartProps> = ({
       })
       let newElement: QsPoints
       if (orientation === EnumOrientation.VERTICAL) {
-        newElement = canvas.generate.linear.vertical.points(data, config)
+        newElement = canvas.generate.linear.vertical.text(data, config)
       } else {
-        newElement = canvas.generate.linear.horizontal.points(data, config)
+        newElement = canvas.generate.linear.horizontal.text(data, config)
       }
       setElement(newElement)
     }

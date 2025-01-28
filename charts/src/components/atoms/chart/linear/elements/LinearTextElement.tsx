@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas, QsPointData } from 'd3qs/d3QuickStart'
+import { QsCanvas, qsCreateCanvas, QsTextData } from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 
@@ -9,7 +9,7 @@ export const LinearTextElement: FunctionComponent<OrienetedChartProps> = ({
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const data: QsPointData[] = [
+      const data: QsTextData[] = [
         { value: 25 },
         { value: 10 },
         { value: 35 },

@@ -7,19 +7,25 @@ import {
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from '../../core/enums/qsEnums'
-import { QsTextArgs, QsTextConfig, QsText } from './qsTypes'
+import {
+  QsPlottedTextArgs,
+  QsPlottedTextConfig,
+  QsPlottedText,
+} from './qsTypes'
 import {
   GlobalDefaultColors,
   GlobalDefaultSettings,
 } from '../../core/enums/enums'
-import { TextConfigStrict } from './types'
+import { PlottedTextConfigStrict } from './types'
 
 interface DrawArgs {
-  data: QsTextArgs[]
+  data: QsPlottedTextArgs[]
 }
 
-const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
-  const defaults: TextConfigStrict = {
+const addDefaultsToConfig = (
+  customConfig?: QsPlottedTextConfig
+): PlottedTextConfigStrict => {
+  const defaults: PlottedTextConfigStrict = {
     textFont: QsEnumTextFont.SERIF,
     textFontSize: GlobalDefaultSettings.FONT_SIZE,
     textFontStyle: QsEnumTextFontStyle.NORMAL,
@@ -42,11 +48,11 @@ const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
 export const plottedText = {
   text: (
     canvas: Canvas,
-    data: QsTextArgs[],
-    customConfig?: QsTextConfig
-  ): QsText => {
+    data: QsPlottedTextArgs[],
+    customConfig?: QsPlottedTextConfig
+  ): QsPlottedText => {
     const args: DrawArgs = { data }
-    const config: TextConfigStrict = addDefaultsToConfig(customConfig)
+    const config: PlottedTextConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, args, config)
   },
 }
@@ -54,8 +60,8 @@ export const plottedText = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: TextConfigStrict
-): QsText => {
+  config: PlottedTextConfigStrict
+): QsPlottedText => {
   const {
     textFont,
     textFontSize,

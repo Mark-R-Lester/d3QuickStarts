@@ -44,9 +44,9 @@ import {
   QsScatterPlot,
   QsScatterPlotConfig,
   QsPlottedPointData,
-  QsText,
-  QsTextArgs,
-  QsTextConfig,
+  QsPlottedText,
+  QsPlottedTextArgs,
+  QsPlottedTextConfig,
   QsValuedText,
   QsPlottedLineData,
 } from '../d3QuickStart'
@@ -123,7 +123,7 @@ interface QsLinearElementFunctions {
 interface QsPlottedElementFunctions {
   legend: (data: QsLegendData[], customConfig?: QsLegendConfig) => {}
   line: (data: QsPlottedLineData, customConfig?: QsLinePlotConfig) => {}
-  text: (data: QsTextArgs[], customConfig?: QsTextConfig) => {}
+  text: (data: QsPlottedTextArgs[], customConfig?: QsPlottedTextConfig) => {}
   points: (data: QsPlottedPointData[], customConfig?: QsScatterPlotConfig) => {}
 }
 
@@ -389,7 +389,10 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         elements.push({ element, data })
         return element
       },
-      text: (data: QsTextArgs[], customConfig?: QsTextConfig): QsText => {
+      text: (
+        data: QsPlottedTextArgs[],
+        customConfig?: QsPlottedTextConfig
+      ): QsPlottedText => {
         const element = plottedText.text(canvas, data, customConfig)
         elements.push({ element, data })
         return element

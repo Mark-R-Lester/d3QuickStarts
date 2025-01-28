@@ -9,7 +9,7 @@ import {
 import { Selection } from 'd3'
 import { QsCoordinate } from '../../d3QuickStart'
 
-export interface QsTextConfig {
+export interface QsPlottedTextConfig {
   [key: string]: number | string | undefined
   textFont?: QsEnumTextFont | string
   textFontSize?: number
@@ -23,12 +23,12 @@ export interface QsTextConfig {
   textAlignmentBaseline?: QsEnumAlignmentBaseline
 }
 
-export interface QsText {
+export interface QsPlottedText {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
 }
 
-export interface QsTextArgs extends QsCoordinate {
+export interface QsPlottedTextArgs extends QsCoordinate {
   text: string
 }

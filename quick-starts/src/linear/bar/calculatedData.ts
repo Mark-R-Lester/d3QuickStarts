@@ -37,7 +37,7 @@ export const getCalculatedData = (
 
   const isVertical = orientation === Orientation.VERTICAL
   const findLowerBoundry = (lowerBoundry: number | undefined) =>
-    lowerBoundry !== undefined ? lowerBoundry : 0
+    lowerBoundry ?? 0
 
   const { displayAreaWidth, displayAreaHeight } = canvas.config
   const { xDataScale, yDataScaleInverted, genralPercentScale } = canvas.scales
@@ -117,13 +117,9 @@ export const getCalculatedData = (
         defaultStrokeColor,
         scaledStrokeColor
       ),
-      fillOpacity:
-        d.fillOpacity !== undefined ? d.fillOpacity : defaultFillOpacity,
-      strokeWidth: genralPercentScale(
-        d.strokeWidth !== undefined ? d.strokeWidth : defaultStrokeWidth
-      ),
-      strokeOpacity:
-        d.strokeOpacity !== undefined ? d.strokeOpacity : defaultStrokeOpacity,
+      fillOpacity: d.fillOpacity ?? defaultFillOpacity,
+      strokeWidth: genralPercentScale(d.strokeWidth ?? defaultStrokeWidth),
+      strokeOpacity: d.strokeOpacity ?? defaultStrokeOpacity,
     }
     calculatedData.push({
       class: 'bar',

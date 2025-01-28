@@ -42,11 +42,8 @@ export const getCalculatedData = (
     lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d)]),
     x: xPercentScale(x),
     y: yPercentScale(y),
-    strokeOpacity:
-      strokeOpacity === undefined ? defaultStrokeOpacity : strokeOpacity,
-    strokeColor: strokeColor === undefined ? defaultStrokeColor : strokeColor,
-    strokeWidth: genralPercentScale(
-      strokeWidth === undefined ? defaultStrokeWidth : strokeWidth
-    ),
+    strokeOpacity: strokeOpacity ?? defaultStrokeOpacity,
+    strokeColor: strokeColor ?? defaultStrokeColor,
+    strokeWidth: genralPercentScale(strokeWidth ?? defaultStrokeWidth),
   }
 }

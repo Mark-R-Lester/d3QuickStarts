@@ -42,16 +42,11 @@ export const getCalculatedData = (
       x: xDataScalePlotted(d.x),
       y: yDataScalePlotted(d.y),
       radius: genralPercentScale(d.radius ? d.radius : defaultRadius),
-      fillColor: d.fillColor !== undefined ? d.fillColor : defaultFillColor,
-      strokeColor:
-        d.strokeColor !== undefined ? d.strokeColor : defaultStrokeColor,
-      fillOpacity:
-        d.fillOpacity !== undefined ? d.fillOpacity : defaultFillOpacity,
-      strokeWidth: genralPercentScale(
-        d.strokeWidth !== undefined ? d.strokeWidth : defaultStrokeWidth
-      ),
-      strokeOpacity:
-        d.strokeOpacity !== undefined ? d.strokeOpacity : defaultStrokeOpacity,
+      fillColor: d.fillColor ?? defaultFillColor,
+      strokeColor: d.strokeColor ?? defaultStrokeColor,
+      fillOpacity: d.fillOpacity ?? defaultFillOpacity,
+      strokeWidth: genralPercentScale(d.strokeWidth ?? defaultStrokeWidth),
+      strokeOpacity: d.strokeOpacity ?? defaultStrokeOpacity,
     }
   })
 

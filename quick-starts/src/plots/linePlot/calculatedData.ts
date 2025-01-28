@@ -25,11 +25,8 @@ export const getCalculatedData = (
       xDataScalePlotted(d.x),
       yDataScalePlotted(d.y),
     ]),
-    strokeOpacity:
-      strokeOpacity === undefined ? defaultStrokeOpacity : strokeOpacity,
-    strokeColor: strokeColor === undefined ? defaultStrokeColor : strokeColor,
-    strokeWidth: genralPercentScale(
-      strokeWidth === undefined ? defaultStrokeWidth : strokeWidth
-    ),
+    strokeOpacity: strokeOpacity ?? defaultStrokeOpacity,
+    strokeColor: strokeColor ?? defaultStrokeColor,
+    strokeWidth: genralPercentScale(strokeWidth ?? defaultStrokeWidth),
   }
 }

@@ -101,16 +101,10 @@ export const getCalculatedData = (
       ),
       x: xPercentScale(x),
       y: yPercentScale(y),
-      radius: genralPercentScale(
-        d.radius !== undefined ? d.radius : defaultRadius
-      ),
-      fillOpacity:
-        d.fillOpacity !== undefined ? d.fillOpacity : defaultFillOpacity,
-      strokeWidth: genralPercentScale(
-        d.strokeWidth !== undefined ? d.strokeWidth : defaultStrokeWidth
-      ),
-      strokeOpacity:
-        d.strokeOpacity !== undefined ? d.strokeOpacity : defaultStrokeOpacity,
+      radius: genralPercentScale(d.radius ?? defaultRadius),
+      fillOpacity: d.fillOpacity ?? defaultFillOpacity,
+      strokeWidth: genralPercentScale(d.strokeWidth ?? defaultStrokeWidth),
+      strokeOpacity: d.strokeOpacity ?? defaultStrokeOpacity,
     })
   })
   return calculatedData

@@ -17,9 +17,7 @@ export const getPrecidendedColor = (
 ): string => {
   if (color) return color
   if (typeof scaledColor === 'string') return scaledColor
-  return defaultColor === undefined
-    ? GlobalDefaultColors.FILL_COLOR
-    : defaultColor
+  return defaultColor ?? GlobalDefaultColors.FILL_COLOR
 }
 
 /*

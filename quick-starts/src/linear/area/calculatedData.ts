@@ -40,14 +40,11 @@ export const getCalculatedData = (
       y1: yDataScale(d),
       y0: yDataScale(lowerData ? lowerData[i] : 0),
     })),
-    fillColor: fillColor === undefined ? defaultFillColor : fillColor,
-    fillOpacity: fillOpacity === undefined ? defaultFillOpacity : fillOpacity,
-    strokeOpacity:
-      strokeOpacity === undefined ? defaultStrokeOpacity : strokeOpacity,
-    strokeColor: strokeColor === undefined ? defaultStrokeColor : strokeColor,
-    strokeWidth: genralPercentScale(
-      strokeWidth === undefined ? defaultStrokeWidth : strokeWidth
-    ),
+    fillColor: fillColor ?? defaultFillColor,
+    fillOpacity: fillOpacity ?? defaultFillOpacity,
+    strokeOpacity: strokeOpacity ?? defaultStrokeOpacity,
+    strokeColor: strokeColor ?? defaultStrokeColor,
+    strokeWidth: genralPercentScale(strokeWidth ?? defaultStrokeWidth),
   }
   return calculatedData
 }

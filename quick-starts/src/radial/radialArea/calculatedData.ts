@@ -61,13 +61,10 @@ export const getCalculatedData = (
     }),
     x: xPercentScale(x),
     y: yPercentScale(y),
-    fillColor: fillColor === undefined ? defaultFillColor : fillColor,
-    fillOpacity: fillOpacity === undefined ? defaultFillOpacity : fillOpacity,
-    strokeOpacity:
-      strokeOpacity === undefined ? defaultStrokeOpacity : strokeOpacity,
-    strokeColor: strokeColor === undefined ? defaultStrokeColor : strokeColor,
-    strokeWidth: genralPercentScale(
-      strokeWidth === undefined ? defaultStrokeWidth : strokeWidth
-    ),
+    fillColor: fillColor ?? defaultFillColor,
+    fillOpacity: fillOpacity ?? defaultFillOpacity,
+    strokeOpacity: strokeOpacity ?? defaultStrokeOpacity,
+    strokeColor: strokeColor ?? defaultStrokeColor,
+    strokeWidth: genralPercentScale(strokeWidth ?? defaultStrokeWidth),
   }
 }

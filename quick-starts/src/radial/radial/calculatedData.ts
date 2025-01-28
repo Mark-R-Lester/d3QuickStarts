@@ -144,15 +144,9 @@ export const getCalculatedData = (
         newStartAngle: startAngle,
         endAngle,
         newEndAngle: endAngle,
-        fillOpacity:
-          d.fillOpacity !== undefined ? d.fillOpacity : defaultFillOpacity,
-        strokeWidth: genralPercentScale(
-          d.strokeWidth !== undefined ? d.strokeWidth : defaultStrokeWidth
-        ),
-        strokeOpacity:
-          d.strokeOpacity !== undefined
-            ? d.strokeOpacity
-            : defaultStrokeOpacity,
+        fillOpacity: d.fillOpacity ?? defaultFillOpacity,
+        strokeWidth: genralPercentScale(d.strokeWidth ?? defaultStrokeWidth),
+        strokeOpacity: d.strokeOpacity ?? defaultStrokeOpacity,
       },
       x: xPercentScale(x),
       y: yPercentScale(y),

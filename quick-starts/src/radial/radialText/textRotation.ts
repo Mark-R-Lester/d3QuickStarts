@@ -1,11 +1,11 @@
 import { RadialTextType } from '../../core/enums/enums'
-import { BandData } from './calculatedData'
+import { TextArcData } from './calculatedData'
 
 export const getRotationFunction = (
   type: RadialTextType
-): ((angles: BandData) => number) => {
+): ((angles: TextArcData) => number) => {
   if (type === RadialTextType.SPOKE) {
-    return (d: BandData): number => {
+    return (d: TextArcData): number => {
       let angle: number = d.startAngle + (d.endAngle - d.startAngle) / 2
       angle = angle * (180 / Math.PI) - 90
       return angle % 360
@@ -13,14 +13,14 @@ export const getRotationFunction = (
   }
 
   if (type === RadialTextType.ROTATED) {
-    return (d: BandData) => {
+    return (d: TextArcData) => {
       let angle = d.startAngle + (d.endAngle - d.startAngle) / 2
       angle = angle * (180 / Math.PI)
       return angle % 360
     }
   }
 
-  return (d: BandData) => {
+  return (d: TextArcData) => {
     return 0
   }
 }

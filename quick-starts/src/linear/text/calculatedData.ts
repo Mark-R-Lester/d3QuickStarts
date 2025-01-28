@@ -18,7 +18,10 @@ export interface CalculatedData {
   class: string
   id: string
   coordinate: QsCoordinate
-  text: string
+  text?: string
+  newText?: string
+  value: number
+  newValue: number
   textFont: QsEnumTextFont | string
   textFontSize: number
   textFontStyle: QsEnumTextFontStyle
@@ -29,6 +32,26 @@ export interface CalculatedData {
   textAnchor: QsEnumTextAnchor
   textStroke: string
   textAlignmentBaseline: QsEnumAlignmentBaseline
+}
+
+export const updateCalculatedData = (
+  canvas: Canvas,
+  args: DrawArgs,
+  config: TextConfigStrict,
+  calculatedData: CalculatedData[]
+): CalculatedData[] => {
+  const newCalculatedData: CalculatedData[] = getCalculatedData(
+    canvas,
+    args,
+    config
+  )
+
+  for (let i = 0; i < calculatedData.length; i++) {
+    newCalculatedData[i].text = calculatedData[i].text
+    newCalculatedData[i].value = calculatedData[i].value
+  }
+
+  return newCalculatedData
 }
 
 export const getCalculatedData = (
@@ -42,7 +65,6 @@ export const getCalculatedData = (
   const isVertical = orientation === Orientation.VERTICAL
   const isBanded = scaleType === ScaleType.BANDED
   const {
-    defaultDecimalPoints,
     defaultTextFont,
     defaultTextFontSize,
     defaultTextFontStyle,
@@ -135,7 +157,10 @@ export const getCalculatedData = (
       class: 'linearText',
       id: `linearText${uuidv4()}`,
       coordinate: { x: x(d), y: y(d) },
-      text: d.text ?? d.value.toFixed(defaultDecimalPoints),
+      text: d.text,
+      newText: d.text,
+      value: d.value,
+      newValue: d.value,
       textFont: d.textFont ?? defaultTextFont,
       textFontSize: genralPercentScale(d.textFontSize ?? defaultTextFontSize),
       textFontStyle: d.textFontStyle ?? defaultTextFontStyle,

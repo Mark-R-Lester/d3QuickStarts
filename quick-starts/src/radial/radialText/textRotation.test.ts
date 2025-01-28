@@ -1,9 +1,9 @@
 import { RadialTextType } from '../../core/enums/enums'
 import { getRotationFunction } from './textRotation'
-import { BandData } from './calculatedData'
+import { TextArcData } from './calculatedData'
 
 describe('color functions', () => {
-  const bandData: BandData = {
+  const bandData: TextArcData = {
     textId: '',
     textClass: '',
     arcId: '',

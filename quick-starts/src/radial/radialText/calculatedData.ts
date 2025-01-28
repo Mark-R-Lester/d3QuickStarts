@@ -7,13 +7,13 @@ import { QsValuedText } from './qsTypes'
 export interface CalculatedData {
   arcClass: string
   textClass: string
-  textArcData: BandData[]
+  textArcData: TextArcData[]
   x: number
   y: number
   textFontSize: number
 }
 
-export interface BandData {
+export interface TextArcData {
   textId: string
   textClass: string
   arcId: string
@@ -66,7 +66,7 @@ export const getCalculatedData = (
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
   const { radius, x, y, textFontSize } = config
 
-  const bandData = (data: QsValuedText[], min?: boolean): BandData[] => {
+  const bandData = (data: QsValuedText[], min?: boolean): TextArcData[] => {
     let totalValue = 0
     data.forEach((d) => {
       totalValue = totalValue + d.value
@@ -100,7 +100,7 @@ export const getCalculatedData = (
       return res
     })
   }
-  const pointData = (data: QsValuedText[], min?: boolean): BandData[] =>
+  const pointData = (data: QsValuedText[], min?: boolean): TextArcData[] =>
     bandData(data, min).map((d) => {
       const offSet = (d.endAngle - d.startAngle) / 2
       d.startAngle = d.startAngle - offSet

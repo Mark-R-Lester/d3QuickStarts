@@ -1,5 +1,9 @@
 import { Canvas } from '../../d3QuickStart'
-import { CalculatedData, getCalculatedData } from './calculatedData'
+import {
+  CalculatedData,
+  getCalculatedData,
+  updateCalculatedData,
+} from './calculatedData'
 import { DrawArgs, TextConfigStrict } from './types'
 import {
   GlobalDefaultColors,
@@ -22,6 +26,7 @@ import {
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
 } from '../../core/enums/qsEnums'
+import { interpolate } from 'd3'
 
 const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
   const defaults: TextConfigStrict = {
@@ -107,11 +112,8 @@ const draw = (
 ): QsText => {
   const { orientation, scaleType } = args
 
-  const calculatedData: CalculatedData[] = getCalculatedData(
-    canvas,
-    args,
-    config
-  )
+  let calculatedData: CalculatedData[] = getCalculatedData(canvas, args, config)
+  const { defaultDecimalPoints } = config
 
   const group = canvas.displayGroup.append('g')
 
@@ -134,15 +136,16 @@ const draw = (
     })
     .style('text-anchor', (d) => d.textAnchor)
     .style('alignment-baseline', (d) => d.textAlignmentBaseline)
-    .text((d) => d.text)
+    .text((d) => d.text ?? d.value.toFixed(defaultDecimalPoints))
 
   const transition = (data: QsTextTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
     const drawArgs: DrawArgs = { data: data.data, orientation, scaleType }
-    const calculatedData: CalculatedData[] = getCalculatedData(
+    calculatedData = updateCalculatedData(
       canvas,
       drawArgs,
-      config
+      config,
+      calculatedData
     )
 
     group
@@ -160,6 +163,13 @@ const draw = (
       .attr('stroke', (d) => d.textStroke)
       .attr('transform', (d) => {
         return `translate(${d.coordinate.x}, ${d.coordinate.y})rotate(${d.textAngle})`
+      })
+      .textTween((d) => {
+        const tweenText = interpolate(d.value, d.newValue)
+        return (t: number) => {
+          d.value = tweenText(t)
+          return d.text ?? d.value.toFixed(defaultDecimalPoints)
+        }
       })
   }
   return {

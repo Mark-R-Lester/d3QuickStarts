@@ -1,7 +1,7 @@
 import { arc as d3arc, interpolate } from 'd3'
 import { RadialTextConfigStrict } from './types'
 import {
-  BandData,
+  TextArcData,
   CalculatedData,
   getCalculatedData,
   updateCalculatedData,
@@ -220,7 +220,7 @@ const draw = (
     textAnchor,
   } = config
 
-  let rotate: (angles: BandData) => number = getRotationFunction(type)
+  let rotate: (angles: TextArcData) => number = getRotationFunction(type)
 
   let calculatedData: CalculatedData = getCalculatedData(
     canvas,

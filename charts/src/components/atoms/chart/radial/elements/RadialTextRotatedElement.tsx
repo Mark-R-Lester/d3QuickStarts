@@ -1,11 +1,13 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas, QsValuedText } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../../common/chartProps'
 import {
+  QsCanvas,
+  qsCreateCanvas,
+  QsValuedText,
   QsEnumTextAnchor,
   QsEnumTextFont,
   QsEnumTextFontWeight,
-} from 'd3qs/core/qsEnums'
+} from 'd3qs/d3QuickStart'
+import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialTextRotatedElement: FunctionComponent<ChartProps> = ({
   chartName,

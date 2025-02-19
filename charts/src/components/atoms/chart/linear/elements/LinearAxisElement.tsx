@@ -1,14 +1,15 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../../common/chartProps'
 import {
+  QsCanvas,
+  qsCreateCanvas,
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
   QsEnumTextDecorationLine,
   QsEnumTextFont,
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
-} from 'd3qs/core/qsEnums'
+} from 'd3qs/d3QuickStart'
+import { ChartProps } from '../../../../../common/chartProps'
 
 export const LinearAxisElement: FunctionComponent<ChartProps> = ({
   chartName,

@@ -4,9 +4,9 @@ import {
   qsCreateCanvas,
   QsRadialArea,
   QsRadialAreaData,
+  QsEnumCurve,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
-import { QsEnumCurve } from 'd3qs/core/enums/qsEnums'
 
 export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
   chartName,

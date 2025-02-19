@@ -1,8 +1,13 @@
 import { FunctionComponent, useEffect, useState } from 'react'
-import { QsCanvas, qsCreateCanvas, QsBars, QsBarData } from 'd3qs/d3QuickStart'
+import {
+  QsCanvas,
+  qsCreateCanvas,
+  QsBars,
+  QsBarData,
+  QsEnumColorScale,
+} from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
-import { QsEnumColorScale } from 'd3qs/core/qsEnums'
 
 export const LinearBarsFloatingTransition: FunctionComponent<
   OrienetedChartProps

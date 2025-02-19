@@ -1,11 +1,13 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas, QsPlottedLineData } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../../common/chartProps'
 import {
+  QsCanvas,
+  qsCreateCanvas,
+  QsPlottedLineData,
   QsEnumCurve,
   QsEnumLineCap,
   QsEnumLineJoin,
-} from 'd3qs/core/enums/qsEnums'
+} from 'd3qs/d3QuickStart'
+import { ChartProps } from '../../../../../common/chartProps'
 
 export const PlottedLineElement: FunctionComponent<ChartProps> = ({
   chartName,

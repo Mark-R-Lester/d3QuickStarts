@@ -9,10 +9,10 @@ import {
   QsRadialData,
   QsRadialPointData,
   QsValuedText,
+  QsEnumColorScale,
 } from 'd3qs/d3QuickStart'
 import { EnumRadialTextOrientation } from '../../common/enums'
 import { RadialTransition } from '../../components/atoms/chart/radial/transitions/RadialTransition'
-import { QsEnumColorScale } from 'd3qs/core/qsEnums'
 
 export default function RadialTransitionsPage() {
   const data1: QsValuedText[] = [{ value: 25 }, { value: 10 }, { value: 15 }]

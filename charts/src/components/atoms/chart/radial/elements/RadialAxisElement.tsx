@@ -1,14 +1,15 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../../common/chartProps'
 import {
+  QsCanvas,
+  qsCreateCanvas,
   QsEnumTextFont,
   QsEnumTextFontWeight,
   QsEnumTextFontStyle,
   QsEnumTextDecorationLine,
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
-} from 'd3qs/core/qsEnums'
+} from 'd3qs/d3QuickStart'
+import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialAxisElement: FunctionComponent<ChartProps> = ({
   chartName,

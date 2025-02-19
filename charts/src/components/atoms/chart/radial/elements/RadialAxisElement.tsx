@@ -14,38 +14,37 @@ import { ChartProps } from '../../../../../common/chartProps'
 export const RadialAxisElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
-  const createChart = () => {
-    const data: number[] = [5, 10, 15, 50]
-
-    const canvas: QsCanvas = qsCreateCanvas({
-      chartName,
-      width: 600,
-      lowestViewableValue: 0,
-      highestViewableValue: 50,
-    })
-
-    canvas.generate.radial.axis(data, {
-      radius: 100,
-      x: 50,
-      y: 50,
-      axisAngle: 45,
-      gap: 40,
-      color: 'black',
-      textFont: QsEnumTextFont.VERDANA,
-      textFontWeight: QsEnumTextFontWeight.NORMAL,
-      textFontStyle: QsEnumTextFontStyle.NORMAL,
-      textFontSize: 8,
-      textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-      textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-      textAnchor: QsEnumTextAnchor.MIDDLE,
-      textStroke: 'red',
-      textFill: 'black',
-    })
-  }
-
   useEffect(() => {
+    const createChart = () => {
+      const data: number[] = [5, 10, 15, 50]
+
+      const canvas: QsCanvas = qsCreateCanvas({
+        chartName,
+        width: 600,
+        lowestViewableValue: 0,
+        highestViewableValue: 50,
+      })
+
+      canvas.generate.radial.axis(data, {
+        radius: 100,
+        x: 50,
+        y: 50,
+        axisAngle: 45,
+        gap: 40,
+        color: 'black',
+        textFont: QsEnumTextFont.VERDANA,
+        textFontWeight: QsEnumTextFontWeight.NORMAL,
+        textFontStyle: QsEnumTextFontStyle.NORMAL,
+        textFontSize: 8,
+        textDecorationLine: QsEnumTextDecorationLine.NORMAL,
+        textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+        textAnchor: QsEnumTextAnchor.MIDDLE,
+        textStroke: 'red',
+        textFill: 'black',
+      })
+    }
     createChart()
-  }, [])
+  }, [chartName])
 
   return (
     <>

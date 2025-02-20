@@ -49,7 +49,6 @@ export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
         radialArgs[i].value = d.value
       })
       setElement2(canvas.generate.radialArc.radial(radialArgs))
-      // setElement2(qsRadialGenerator.radial(canvas, radialArgs))
     }
     createChart()
   }, [chartName, config, data, orientation])

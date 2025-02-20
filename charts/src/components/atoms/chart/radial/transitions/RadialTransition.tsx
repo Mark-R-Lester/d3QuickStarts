@@ -25,7 +25,6 @@ export const RadialTransition: FunctionComponent<RadialChartProps> = ({
       })
       const { generate } = canvas
       setElement(generate.radialArc.radial(data, config))
-      // setElement(qsRadialGenerator.radial(canvas, data, config))
     }
     createChart()
   }, [chartName, config, data])

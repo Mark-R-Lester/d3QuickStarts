@@ -1,4 +1,4 @@
-import { Button, Link, Menu, MenuItem } from '@mui/material'
+import { Button, Menu, MenuItem } from '@mui/material'
 import { FunctionComponent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { MenuRoute } from '../types/atomicTypes'
@@ -31,15 +31,6 @@ export const MenuButton: FunctionComponent<MenuButtonProps> = ({
       >
         {title}
       </Button>
-
-      <Link
-        variant="h6"
-        noWrap
-        // href={'/linear/charts'}
-        sx={{ color: 'white', padding: 5 }}
-      >
-        {title}
-      </Link>
 
       <Menu
         id="demo-positioned-menu"

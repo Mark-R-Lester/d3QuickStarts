@@ -8,7 +8,6 @@ import { LinearPointsTransition } from '../../components/atoms/chart/linear/tran
 import { LinearAreaTransition } from '../../components/atoms/chart/linear/transitions/LinearAreaTransition'
 import { LinearBarGroupTransition } from '../../components/atoms/chart/linear/transitions/LineaBarGroupTransition'
 import { QsColorScaleData, QsEnumColorScale } from 'd3qs/d3QuickStart'
-
 import { LinearTextTransition } from '../../components/atoms/chart/linear/transitions/LinearTextTransition'
 
 const pointData = [

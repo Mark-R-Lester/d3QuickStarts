@@ -2,11 +2,7 @@ import { ExpandLess, ExpandMore } from '@mui/icons-material'
 import { ListItemButton, ListItemText, Collapse, List } from '@mui/material'
 import { FunctionComponent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-
-export interface MenuRoute {
-  displayName: string
-  route: string
-}
+import { MenuRoute } from '../types/atomicTypes'
 
 export interface DropdownMenuProps {
   title: string
@@ -28,7 +24,7 @@ export const DropdownMenu: FunctionComponent<DropdownMenuProps> = ({
   }
   return (
     <>
-      <ListItemButton onClick={handleClick} sx={{ backgroundColor: '#99e6ff' }}>
+      <ListItemButton onClick={handleClick}>
         <ListItemText primary={title} sx={{ color: 'black' }} />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
@@ -37,13 +33,13 @@ export const DropdownMenu: FunctionComponent<DropdownMenuProps> = ({
         <List component="div" disablePadding>
           {routes.map((route) => (
             <ListItemButton
-              key={route.displayName}
+              key={route.title}
               sx={{ pl: 4, pt: 0, pb: 0 }}
               onClick={() => {
                 handleNavigate(route.route)
               }}
             >
-              <ListItemText primary={route.displayName} />
+              <ListItemText primary={route.title} />
             </ListItemButton>
           ))}
         </List>

@@ -1,13 +1,14 @@
 import './App.css'
 import { Box } from '@mui/material'
+
 import { AppRoutes } from './AppRoutes'
-import { ApplicationMenu } from './components/molecules/ApplicationMenu'
+import { ApplicationRootLayout } from './components/molecules/ApplicationMenuSystem/ApplicationRootLayout'
 
 export default function App() {
   return (
     <>
-      <Box sx={{ maxWidth: { xs: 320, sm: 480 }, bgcolor: 'background.paper' }}>
-        <ApplicationMenu />
+      <Box>
+        <ApplicationRootLayout />
       </Box>
       <Box
         sx={{

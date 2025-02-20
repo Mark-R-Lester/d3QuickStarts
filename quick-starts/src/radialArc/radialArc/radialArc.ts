@@ -48,7 +48,7 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-export const radialSwept = {
+export const radialArc = {
   radial: (
     canvas: Canvas,
     data: QsRadialData[],

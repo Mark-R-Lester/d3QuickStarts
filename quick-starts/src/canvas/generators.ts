@@ -49,6 +49,9 @@ import {
   QsPlottedTextConfig,
   QsValuedText,
   QsPlottedLineData,
+  QsText,
+  QsTextConfig,
+  QsTextData,
 } from '../d3QuickStart'
 import { plottedLegend } from '../legend/legend'
 import { linearArea } from '../linear/linearArea/area'
@@ -58,12 +61,11 @@ import { linearBarGroup } from '../linear/linearBarGroup/barGroup'
 import { linearBarStack } from '../linear/linearBarStack/barStack'
 import { linearLine } from '../linear/linearLine/line'
 import { linearPoint } from '../linear/linearPoints/points'
-import { QsText, QsTextConfig, QsTextData } from '../linear/linearText/qsTypes'
 import { linearText } from '../linear/linearText/text'
 import { plottedLine } from '../plots/plottedLine/plottedLine'
 import { plottedPoint } from '../plots/plottedPoints/plottedPoints'
 import { plottedText } from '../plots/plottedText/plottedText'
-import { radialSwept } from '../radialArc/radialArc/radialArc'
+import { radialArc } from '../radialArc/radialArc/radialArc'
 import { radialArea } from '../radialCentroid/radialCentroidArea/radialCentroidArea'
 import { radialAxis } from '../radialCentroid/radialCentroidAxis/radialCentroidAxis'
 import { radialLine } from '../radialCentroid/radialCentroidLine/radialCentroidLine'
@@ -426,7 +428,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         data: QsRadialData[],
         customConfig?: QsRadialConfig
       ): QsRadial => {
-        const element = radialSwept.radial(canvas, data, customConfig)
+        const element = radialArc.radial(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },

@@ -15,21 +15,20 @@ export const RadialTransition: FunctionComponent<RadialChartProps> = ({
   const [changed, setChanged] = useState<boolean>(false)
   const [element, setElement] = useState<QsRadial>()
 
-  const createChart = () => {
-    const canvas: QsCanvas = qsCreateCanvas({
-      chartName,
-      width: 600,
-      lowestViewableValue: 0,
-      highestViewableValue: 40,
-    })
-    const { generate } = canvas
-    setElement(generate.radialArc.radial(data, config))
-    // setElement(qsRadialGenerator.radial(canvas, data, config))
-  }
-
   useEffect(() => {
+    const createChart = () => {
+      const canvas: QsCanvas = qsCreateCanvas({
+        chartName,
+        width: 600,
+        lowestViewableValue: 0,
+        highestViewableValue: 40,
+      })
+      const { generate } = canvas
+      setElement(generate.radialArc.radial(data, config))
+      // setElement(qsRadialGenerator.radial(canvas, data, config))
+    }
     createChart()
-  }, [])
+  }, [chartName, config, data])
 
   useEffect(
     function transitionData() {

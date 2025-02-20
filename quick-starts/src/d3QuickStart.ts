@@ -18,9 +18,9 @@ export * from './radial/radialArea/qsTypes'
 export * from './radial/radialPoints/qsTypes'
 export * from './radial/radialText/qsTypes'
 
-export * from './plots/linePlot/qsTypes'
-export * from './plots/scatterPlot/qsTypes'
-export * from './plots/text/qsTypes'
+export * from './plots/plottedLine/qsTypes'
+export * from './plots/plottedPoints/qsTypes'
+export * from './plots/plottedText/qsTypes'
 
 export * from './core/max'
 export * from './core/min'

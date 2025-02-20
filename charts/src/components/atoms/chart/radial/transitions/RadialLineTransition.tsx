@@ -19,7 +19,7 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
       })
 
       let newElement: QsRadialLine
-      newElement = canvas.generate.radial.line({ data })
+      newElement = canvas.generate.radialCentroid.line({ data })
 
       setElement(newElement)
     }

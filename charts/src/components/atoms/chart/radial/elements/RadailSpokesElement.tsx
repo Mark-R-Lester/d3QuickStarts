@@ -14,7 +14,7 @@ export const RadialSpokesElement: FunctionComponent<ChartProps> = ({
     })
 
     const numberOfSpokes = 6
-    canvas.generate.radial.spokes(numberOfSpokes)
+    canvas.generate.radialCentroid.spokes(numberOfSpokes)
   }
 
   useEffect(() => {

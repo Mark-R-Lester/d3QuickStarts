@@ -23,7 +23,9 @@ export const RadialPointTransition: FunctionComponent<
         highestViewableValue: 2.5,
       })
 
-      setElement(canvas.generate.radial.points(chartDataRef.current, config))
+      setElement(
+        canvas.generate.radialCentroid.points(chartDataRef.current, config)
+      )
     }
     createChart()
   }, [chartName, config])

@@ -66,19 +66,19 @@ import { plottedLine } from '../plots/plottedLine/plottedLine'
 import { plottedPoint } from '../plots/plottedPoints/plottedPoints'
 import { plottedText } from '../plots/plottedText/plottedText'
 import { radialArc } from '../radialArc/radialArc/radialArc'
+import { radialText } from '../radialArc/radialArcText/radialArcText'
 import { radialArea } from '../radialCentroid/radialCentroidArea/radialCentroidArea'
 import { radialAxis } from '../radialCentroid/radialCentroidAxis/radialCentroidAxis'
 import { radialLine } from '../radialCentroid/radialCentroidLine/radialCentroidLine'
 import { radialPoint } from '../radialCentroid/radialCentroidPoints/radialCentroidPoints'
 import { radialSpokes } from '../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
-import { radialText } from '../radialArc/radialArcText/radialArcText'
 
 interface ElementWithData {
   element: any
   data: any
 }
 
-interface QsHorizontalLinearAxisFunctions {
+interface horizontalLinearAxisFunctions {
   bottom: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
   bottomBanded: (
     data: number[] | string[],
@@ -88,7 +88,7 @@ interface QsHorizontalLinearAxisFunctions {
   topBanded: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
 }
 
-interface QsHorizontalLinearElementFunctions {
+interface horizontalLinearElementFunctions {
   area: (data: QsAreaData, customConfig?: QsAreaConfig) => QsArea
   barGroup: (data: number[][], customConfig?: QsBarGroupConfig) => QsBarGroups
   barStack: (data: number[][], customConfig?: QsBarStackedConfig) => QsBarStack
@@ -99,10 +99,10 @@ interface QsHorizontalLinearElementFunctions {
   pointsBanded: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   text: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
 
-  axis: QsHorizontalLinearAxisFunctions
+  axis: horizontalLinearAxisFunctions
 }
 
-interface QsVerticalLinearAxisFunctions {
+interface verticalLinearAxisFunctions {
   left: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
   leftBanded: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
   right: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
@@ -112,29 +112,29 @@ interface QsVerticalLinearAxisFunctions {
   ) => QsAxis
 }
 
-interface QsVerticalLinearElementFunctions {
+interface verticalLinearElementFunctions {
   bars: (data: QsBarData[], customConfig?: QsBarConfig) => QsBars
   line: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
   lineBanded: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
   points: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   pointsBanded: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   text: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
-  axis: QsVerticalLinearAxisFunctions
+  axis: verticalLinearAxisFunctions
 }
 
-interface QsLinearElementFunctions {
-  horizontal: QsHorizontalLinearElementFunctions
-  vertical: QsVerticalLinearElementFunctions
+interface linearElementFunctions {
+  horizontal: horizontalLinearElementFunctions
+  vertical: verticalLinearElementFunctions
 }
 
-interface QsPlottedElementFunctions {
+interface plottedElementFunctions {
   legend: (data: QsLegendData[], customConfig?: QsLegendConfig) => {}
   line: (data: QsPlottedLineData, customConfig?: QsLinePlotConfig) => {}
   text: (data: QsPlottedTextArgs[], customConfig?: QsPlottedTextConfig) => {}
   points: (data: QsPlottedPointData[], customConfig?: QsScatterPlotConfig) => {}
 }
 
-interface QsRadialTextElementFunctions {
+interface radialArcTextElementFunctions {
   follow: (
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
@@ -169,8 +169,12 @@ interface QsRadialTextElementFunctions {
   ) => QsRadialText
 }
 
-interface QsRadialElementFunctions {
+interface radialArcElementFunctions {
   radial: (data: QsRadialData[], customConfig?: QsRadialConfig) => QsRadial
+  text: radialArcTextElementFunctions
+}
+
+interface radialCentroidElementFunctions {
   area: (
     data: QsRadialAreaData,
     customConfig?: QsRadialAreaConfig
@@ -185,13 +189,13 @@ interface QsRadialElementFunctions {
     customConfig?: QsRadialPointsConfig
   ) => QsRadialPoints
   spokes: (data: number, customConfig?: QsRadialSpokesConfig) => QsRadialSpokes
-  text: QsRadialTextElementFunctions
 }
 
 export interface QsGenerator {
-  linear: QsLinearElementFunctions
-  radial: QsRadialElementFunctions
-  plotted: QsPlottedElementFunctions
+  linear: linearElementFunctions
+  radialArc: radialArcElementFunctions
+  radialCentroid: radialCentroidElementFunctions
+  plotted: plottedElementFunctions
 }
 
 const elements: ElementWithData[] = []
@@ -423,52 +427,12 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         return element
       },
     },
-    radial: {
+    radialArc: {
       radial: (
         data: QsRadialData[],
         customConfig?: QsRadialConfig
       ): QsRadial => {
         const element = radialArc.radial(canvas, data, customConfig)
-        elements.push({ element, data })
-        return element
-      },
-      area: (
-        data: QsRadialAreaData,
-        customConfig?: QsRadialAreaConfig
-      ): QsRadialArea => {
-        const element = radialArea.area(canvas, data, customConfig)
-        elements.push({ element, data })
-        return element
-      },
-      axis: (
-        data: number[],
-        customConfig?: QsRadialAxisConfig
-      ): QsRadialAxis => {
-        const element = radialAxis.rings(canvas, data, customConfig)
-        elements.push({ element, data })
-        return element
-      },
-      line: (
-        data: QsRadialLineData,
-        customConfig?: QsRadialLineConfig
-      ): QsRadialLine => {
-        const element = radialLine.line(canvas, data, customConfig)
-        elements.push({ element, data })
-        return element
-      },
-      points: (
-        data: QsRadialPointData[],
-        customConfig?: QsRadialPointsConfig
-      ): QsRadialPoints => {
-        const element = radialPoint.points(canvas, data, customConfig)
-        elements.push({ element, data })
-        return element
-      },
-      spokes: (
-        data: number,
-        customConfig?: QsRadialSpokesConfig
-      ): QsRadialSpokes => {
-        const element = radialSpokes.spokes(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
@@ -541,6 +505,48 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           elements.push({ element, data })
           return element
         },
+      },
+    },
+    radialCentroid: {
+      area: (
+        data: QsRadialAreaData,
+        customConfig?: QsRadialAreaConfig
+      ): QsRadialArea => {
+        const element = radialArea.area(canvas, data, customConfig)
+        elements.push({ element, data })
+        return element
+      },
+      axis: (
+        data: number[],
+        customConfig?: QsRadialAxisConfig
+      ): QsRadialAxis => {
+        const element = radialAxis.rings(canvas, data, customConfig)
+        elements.push({ element, data })
+        return element
+      },
+      line: (
+        data: QsRadialLineData,
+        customConfig?: QsRadialLineConfig
+      ): QsRadialLine => {
+        const element = radialLine.line(canvas, data, customConfig)
+        elements.push({ element, data })
+        return element
+      },
+      points: (
+        data: QsRadialPointData[],
+        customConfig?: QsRadialPointsConfig
+      ): QsRadialPoints => {
+        const element = radialPoint.points(canvas, data, customConfig)
+        elements.push({ element, data })
+        return element
+      },
+      spokes: (
+        data: number,
+        customConfig?: QsRadialSpokesConfig
+      ): QsRadialSpokes => {
+        const element = radialSpokes.spokes(canvas, data, customConfig)
+        elements.push({ element, data })
+        return element
       },
     },
   }

@@ -36,7 +36,7 @@ export const RadialPointsElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 2,
     })
 
-    canvas.generate.radial.points(data)
+    canvas.generate.radialCentroid.points(data)
   }
 
   useEffect(() => {

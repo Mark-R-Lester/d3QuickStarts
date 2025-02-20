@@ -18,7 +18,7 @@ export const RadialLineElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 23,
     })
 
-    canvas.generate.radial.line({ data, color: 'green' })
+    canvas.generate.radialCentroid.line({ data, color: 'green' })
   }
 
   useEffect(() => {

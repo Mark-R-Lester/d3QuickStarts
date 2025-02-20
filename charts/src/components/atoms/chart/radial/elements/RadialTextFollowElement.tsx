@@ -46,7 +46,7 @@ export const RadialTextFollowElement: FunctionComponent<ChartProps> = ({
         highestViewableValue: 250,
       })
 
-      canvas.generate.radial.text.follow(data, {
+      canvas.generate.radialArc.text.follow(data, {
         radius: 100,
         x: 50,
         y: 50,

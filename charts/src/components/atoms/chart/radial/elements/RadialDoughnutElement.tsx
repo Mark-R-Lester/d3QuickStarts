@@ -51,7 +51,7 @@ export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
       lowestViewableValue: 0,
       highestViewableValue: 250,
     })
-    canvas.generate.radial.radial(data, config)
+    canvas.generate.radialArc.radial(data, config)
   }
 
   useEffect(() => {

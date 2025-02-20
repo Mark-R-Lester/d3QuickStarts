@@ -44,7 +44,7 @@ export const RadialTextSpokeElement: FunctionComponent<ChartProps> = ({
         highestViewableValue: 250,
       })
 
-      canvas.generate.radial.text.spoke(data, {
+      canvas.generate.radialArc.text.spoke(data, {
         radius: 100,
         x: 50,
         y: 50,

@@ -39,11 +39,11 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
         highestViewableValue: 100,
       })
 
-      let newTopArea = canvas.generate.radial.area(dataUpper, {
+      let newTopArea = canvas.generate.radialCentroid.area(dataUpper, {
         curve: QsEnumCurve.BASIS,
         defaultFillColor: 'blue',
       })
-      let newBottomArea = canvas.generate.radial.area(dataLower, {
+      let newBottomArea = canvas.generate.radialCentroid.area(dataLower, {
         curve: QsEnumCurve.BASIS,
       })
 

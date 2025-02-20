@@ -24,7 +24,7 @@ export const RadialAreaElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 25,
     })
 
-    canvas.generate.radial.area(data1)
+    canvas.generate.radialCentroid.area(data1)
   }
 
   useEffect(() => {

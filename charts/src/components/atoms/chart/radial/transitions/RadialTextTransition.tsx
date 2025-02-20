@@ -29,13 +29,13 @@ export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
     })
 
     if (orientation === EnumRadialTextOrientation.FOLLOW)
-      setElement1(canvas.generate.radial.text.followBanded(data, config))
+      setElement1(canvas.generate.radialArc.text.followBanded(data, config))
     if (orientation === EnumRadialTextOrientation.SPOKE)
-      setElement1(canvas.generate.radial.text.spokeBanded(data, config))
+      setElement1(canvas.generate.radialArc.text.spokeBanded(data, config))
     if (orientation === EnumRadialTextOrientation.HORIZONTAL)
-      setElement1(canvas.generate.radial.text.horizontalBanded(data, config))
+      setElement1(canvas.generate.radialArc.text.horizontalBanded(data, config))
     if (orientation === EnumRadialTextOrientation.ROTATED)
-      setElement1(canvas.generate.radial.text.rotatedBanded(data, config))
+      setElement1(canvas.generate.radialArc.text.rotatedBanded(data, config))
 
     const radialArgs: QsRadialData[] = [
       { value: 0, fillColor: 'red' },
@@ -45,7 +45,7 @@ export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
     data.forEach((d, i) => {
       radialArgs[i].value = d.value
     })
-    setElement2(canvas.generate.radial.radial(radialArgs))
+    setElement2(canvas.generate.radialArc.radial(radialArgs))
     // setElement2(qsRadialGenerator.radial(canvas, radialArgs))
   }
 

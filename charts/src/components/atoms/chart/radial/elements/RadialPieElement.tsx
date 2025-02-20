@@ -28,7 +28,7 @@ export const RadialPieElement: FunctionComponent<ChartProps> = ({
       highestViewableValue: 60,
     })
 
-    canvas.generate.radial.radial(data, {
+    canvas.generate.radialArc.radial(data, {
       outerRadius: 90,
       innerRadius: 50,
     })

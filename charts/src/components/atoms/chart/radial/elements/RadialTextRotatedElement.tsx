@@ -44,7 +44,7 @@ export const RadialTextRotatedElement: FunctionComponent<ChartProps> = ({
         highestViewableValue: 250,
       })
 
-      canvas.generate.radial.text.rotated(data, {
+      canvas.generate.radialArc.text.rotated(data, {
         radius: 115,
         x: 50,
         y: 50,

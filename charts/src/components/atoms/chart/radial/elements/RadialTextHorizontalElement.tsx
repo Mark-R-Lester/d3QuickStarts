@@ -45,7 +45,7 @@ export const RadialTextHorizontalElement: FunctionComponent<ChartProps> = ({
         highestViewableValue: 250,
       })
 
-      canvas.generate.radial.text.horizontal(data, {
+      canvas.generate.radialArc.text.horizontal(data, {
         radius: 100,
         x: 50,
         y: 50,

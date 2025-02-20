@@ -25,7 +25,7 @@ export const RadialAxisElement: FunctionComponent<ChartProps> = ({
         highestViewableValue: 50,
       })
 
-      canvas.generate.radial.axis(data, {
+      canvas.generate.radialCentroid.axis(data, {
         radius: 100,
         x: 50,
         y: 50,

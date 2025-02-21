@@ -1,7 +1,6 @@
 import { FunctionComponent } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import HomePage from './pages/home/HomePage'
-import PlottedElementsPage from './pages/plotted/PlottedElementsPage'
 import RadialElementsPage from './pages/radial/RadialElementsPage'
 import PlottedTransitionsPage from './pages/plotted/PlottedTransitionsPage'
 import LinearTransitionsPage from './pages/linear/LinearTransitionsPage'
@@ -14,6 +13,10 @@ import LinearBarStackPage from './pages/linear/LinearBarStackPage'
 import LinearLinePage from './pages/linear/LinearLinePage'
 import LinearPointsPage from './pages/linear/LinearPointsPage'
 import LinearTextPage from './pages/linear/LinearTextPage'
+import PlottedLegendPage from './pages/plotted/PlottedLegendPage'
+import PlottedLinePage from './pages/plotted/PlottedLinePage'
+import PlottedPointsPage from './pages/plotted/PlottedPointsPage'
+import PlottedTextPage from './pages/plotted/PlottedTextPage'
 
 export const AppRoutes: FunctionComponent = () => {
   return (
@@ -31,7 +34,11 @@ export const AppRoutes: FunctionComponent = () => {
 
       <Route path="/linear/transitions" Component={LinearTransitionsPage} />
 
-      <Route path="/plotted/elements" Component={PlottedElementsPage} />
+      <Route path="/plotted/points" Component={PlottedPointsPage} />
+      <Route path="/plotted/line" Component={PlottedLinePage} />
+      <Route path="/plotted/text" Component={PlottedTextPage} />
+      <Route path="/plotted/legend" Component={PlottedLegendPage} />
+
       <Route path="/plotted/transitions" Component={PlottedTransitionsPage} />
 
       <Route path="/radial/elements" Component={RadialElementsPage} />

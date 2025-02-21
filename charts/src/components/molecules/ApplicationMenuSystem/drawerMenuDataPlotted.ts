@@ -10,8 +10,4 @@ export const drawerLayoutDataPlotted: DropdownMenuProps[] = [
     title: 'Transitions',
     routes: [{ title: 'Plotted', route: '/plotted/transitions' }],
   },
-  {
-    title: 'Charts',
-    routes: [{ title: 'Plotted', route: '/plotted/charts' }],
-  },
 ]

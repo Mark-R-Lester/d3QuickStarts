@@ -1,14 +1,14 @@
 import { Typography } from '@mui/material'
-import { LinearAreaElement } from '../../components/atoms/chart/linear/elements/LinearAreaElement'
 import { ElementGrid } from '../../components/atoms/ElementGrid'
+import { LinearAxisElement } from '../../components/atoms/chart/linear/elements/LinearAxisElement'
 
-export default function PlottedChartsPage() {
-  const elements: JSX.Element[] = [<LinearAreaElement chartName="linearArea" />]
+export default function LinearAxisPage() {
+  const elements: JSX.Element[] = [<LinearAxisElement chartName="linearAxis" />]
 
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Plotted Charts
+        Linear Axis
       </Typography>
       <ElementGrid elements={elements}></ElementGrid>
     </>

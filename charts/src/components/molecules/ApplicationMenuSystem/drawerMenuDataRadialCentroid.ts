@@ -9,8 +9,4 @@ export const drawerLayoutDataRadialCentroid: DropdownMenuProps[] = [
     title: 'Transitions',
     routes: [{ title: 'Radial', route: '/radial/transitions' }],
   },
-  {
-    title: 'Charts',
-    routes: [{ title: 'Radial', route: '/radial/charts' }],
-  },
 ]

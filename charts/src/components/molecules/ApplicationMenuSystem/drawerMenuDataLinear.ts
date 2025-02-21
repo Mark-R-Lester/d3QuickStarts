@@ -3,15 +3,15 @@ import { DropdownMenuProps } from '../../atoms/DropdownMenu'
 export const drawerLayoutDataLinear: DropdownMenuProps[] = [
   {
     title: 'Elements',
-
-    routes: [{ title: 'Linear', route: '/linear/elements' }],
-  },
-  {
-    title: 'Transitions',
-    routes: [{ title: 'Linear', route: '/linear/transitions' }],
-  },
-  {
-    title: 'Charts',
-    routes: [{ title: 'Linear', route: '/linear/charts' }],
+    routes: [
+      { title: 'Bars', route: '/linear/bars' },
+      { title: 'Area', route: '/linear/area' },
+      { title: 'Axis', route: '/linear/axis' },
+      { title: 'Bar Group', route: '/linear/bargroup' },
+      { title: 'Bar Stack', route: '/linear/barstack' },
+      { title: 'Line', route: '/linear/line' },
+      { title: 'Points', route: '/linear/points' },
+      { title: 'Text', route: '/linear/text' },
+    ],
   },
 ]

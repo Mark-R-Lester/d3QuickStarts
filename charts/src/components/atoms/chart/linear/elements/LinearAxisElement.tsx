@@ -20,7 +20,7 @@ export const LinearAxisElement: FunctionComponent<ChartProps> = ({
       const data2 = [0, 20, 20, 30, 20, 35, 0, 20, 15, 30, 10, 50]
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 1200,
+        width: 150,
         lowestViewableValue: 0,
         highestViewableValue: 200,
       })

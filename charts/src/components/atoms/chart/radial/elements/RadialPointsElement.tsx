@@ -5,43 +5,42 @@ import { ChartProps } from '../../../../../common/chartProps'
 export const RadialPointsElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
-  const createChart = () => {
-    const data: QsRadialPointData[] = [
-      { value: 1, fillColor: 'red' },
-      { value: 2 },
-      { value: 1 },
-      { value: 2 },
-      { value: 1 },
-      { value: 2 },
-      { value: 1 },
-      { value: 2 },
-      { value: 1 },
-      { value: 2 },
-      { value: 1 },
-      { value: 2 },
-      { value: 1 },
-      { value: 2 },
-      { value: 1 },
-      { value: 2 },
-      { value: 1 },
-      { value: 2 },
-      { value: 1 },
-      { value: 2 },
-    ]
-
-    const canvas: QsCanvas = qsCreateCanvas({
-      chartName,
-      width: 600,
-      lowestViewableValue: 0,
-      highestViewableValue: 2,
-    })
-
-    canvas.generate.radialCentroid.points(data)
-  }
-
   useEffect(() => {
+    const createChart = () => {
+      const data: QsRadialPointData[] = [
+        { value: 1, fillColor: 'red' },
+        { value: 2 },
+        { value: 1 },
+        { value: 2 },
+        { value: 1 },
+        { value: 2 },
+        { value: 1 },
+        { value: 2 },
+        { value: 1 },
+        { value: 2 },
+        { value: 1 },
+        { value: 2 },
+        { value: 1 },
+        { value: 2 },
+        { value: 1 },
+        { value: 2 },
+        { value: 1 },
+        { value: 2 },
+        { value: 1 },
+        { value: 2 },
+      ]
+
+      const canvas: QsCanvas = qsCreateCanvas({
+        chartName,
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 2,
+      })
+
+      canvas.generate.radialCentroid.points(data)
+    }
     createChart()
-  }, [])
+  }, [chartName])
 
   return (
     <>

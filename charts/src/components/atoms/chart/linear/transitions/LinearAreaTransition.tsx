@@ -30,7 +30,7 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 600,
+        width: 150,
         lowestViewableValue: 0,
         highestViewableValue: 100,
       })

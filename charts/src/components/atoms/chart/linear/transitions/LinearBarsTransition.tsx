@@ -10,35 +10,34 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
   const [changed, setChanged] = useState<boolean>(false)
   const [bars, setBars] = useState<QsBars>()
 
-  const createChart = () => {
-    const data: QsBarData[] = [
-      { upperBoundry: 25 },
-      { upperBoundry: 10 },
-      { upperBoundry: 35 },
-      { upperBoundry: 25 },
-      { upperBoundry: 35 },
-      { upperBoundry: 5 },
-      { upperBoundry: 25 },
-      { upperBoundry: 25 },
-    ]
-    const canvas: QsCanvas = qsCreateCanvas({
-      chartName,
-      width: 600,
-      lowestViewableValue: 0,
-      highestViewableValue: 50,
-    })
-    let newBars: QsBars
-    if (orientation === EnumOrientation.VERTICAL) {
-      newBars = canvas.generate.linear.vertical.bars(data)
-    } else {
-      newBars = canvas.generate.linear.horizontal.bars(data)
-    }
-    setBars(newBars)
-  }
-
   useEffect(() => {
+    const createChart = () => {
+      const data: QsBarData[] = [
+        { upperBoundry: 25 },
+        { upperBoundry: 10 },
+        { upperBoundry: 35 },
+        { upperBoundry: 25 },
+        { upperBoundry: 35 },
+        { upperBoundry: 5 },
+        { upperBoundry: 25 },
+        { upperBoundry: 25 },
+      ]
+      const canvas: QsCanvas = qsCreateCanvas({
+        chartName,
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 50,
+      })
+      let newBars: QsBars
+      if (orientation === EnumOrientation.VERTICAL) {
+        newBars = canvas.generate.linear.vertical.bars(data)
+      } else {
+        newBars = canvas.generate.linear.horizontal.bars(data)
+      }
+      setBars(newBars)
+    }
     createChart()
-  }, [])
+  }, [chartName, orientation])
 
   useEffect(
     function transitionData() {
@@ -63,7 +62,7 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
 
       setTimeout(() => setChanged(!changed), 3000)
     },
-    [bars, changed]
+    [bars, changed, orientation]
   )
 
   return (

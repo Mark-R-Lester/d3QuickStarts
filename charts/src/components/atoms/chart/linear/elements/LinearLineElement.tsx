@@ -7,25 +7,24 @@ export const LinearLineElement: FunctionComponent<OrienetedChartProps> = ({
   chartName,
   orientation,
 }) => {
-  const createChart = () => {
-    const data = [25, 10, 35, 25, 35, 5, 25, 25]
-    const canvas: QsCanvas = qsCreateCanvas({
-      chartName,
-      width: 600,
-      lowestViewableValue: 0,
-      highestViewableValue: 35,
-    })
-
-    if (orientation === EnumOrientation.VERTICAL) {
-      canvas.generate.linear.vertical.line({ data, color: 'red' })
-    } else {
-      canvas.generate.linear.horizontal.line({ data })
-    }
-  }
-
   useEffect(() => {
+    const createChart = () => {
+      const data = [25, 10, 35, 25, 35, 5, 25, 25]
+      const canvas: QsCanvas = qsCreateCanvas({
+        chartName,
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 35,
+      })
+
+      if (orientation === EnumOrientation.VERTICAL) {
+        canvas.generate.linear.vertical.line({ data, color: 'red' })
+      } else {
+        canvas.generate.linear.horizontal.line({ data })
+      }
+    }
     createChart()
-  }, [])
+  }, [chartName, orientation])
 
   return (
     <>

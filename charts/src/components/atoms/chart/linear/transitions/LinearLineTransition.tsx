@@ -10,26 +10,25 @@ export const LinearLineTransition: FunctionComponent<OrienetedChartProps> = ({
   const [changed, setChanged] = useState<boolean>(false)
   const [element, setElement] = useState<QsLine>()
 
-  const createChart = () => {
-    const data = [25, 10, 35, 25, 35, 5, 25, 25]
-    const canvas: QsCanvas = qsCreateCanvas({
-      chartName,
-      width: 600,
-      lowestViewableValue: 0,
-      highestViewableValue: 50,
-    })
-    let newElement: QsLine
-    if (orientation === EnumOrientation.VERTICAL) {
-      newElement = canvas.generate.linear.vertical.line({ data })
-    } else {
-      newElement = canvas.generate.linear.horizontal.line({ data })
-    }
-    setElement(newElement)
-  }
-
   useEffect(() => {
+    const createChart = () => {
+      const data = [25, 10, 35, 25, 35, 5, 25, 25]
+      const canvas: QsCanvas = qsCreateCanvas({
+        chartName,
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 50,
+      })
+      let newElement: QsLine
+      if (orientation === EnumOrientation.VERTICAL) {
+        newElement = canvas.generate.linear.vertical.line({ data })
+      } else {
+        newElement = canvas.generate.linear.horizontal.line({ data })
+      }
+      setElement(newElement)
+    }
     createChart()
-  }, [])
+  }, [chartName, orientation])
 
   useEffect(
     function transitionData() {
@@ -51,7 +50,7 @@ export const LinearLineTransition: FunctionComponent<OrienetedChartProps> = ({
 
       setTimeout(() => setChanged(!changed), 3000)
     },
-    [element, changed]
+    [element, changed, orientation]
   )
 
   return (

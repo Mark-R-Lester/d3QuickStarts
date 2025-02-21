@@ -21,7 +21,7 @@ export const LinearTextElement: FunctionComponent<OrienetedChartProps> = ({
       ]
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 600,
+        width: 150,
         lowestViewableValue: 0,
         highestViewableValue: 35,
       })

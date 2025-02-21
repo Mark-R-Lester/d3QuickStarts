@@ -12,7 +12,7 @@ export const LinearAreaElement: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 1200,
+        width: 150,
         lowestViewableValue: 0,
         highestViewableValue: 250,
       })

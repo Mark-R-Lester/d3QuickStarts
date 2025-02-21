@@ -13,7 +13,7 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
       const data = [25, 10, 35, 25, 35, 5, 25, 25]
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 600,
+        width: 150,
         lowestViewableValue: 0,
         highestViewableValue: 50,
       })

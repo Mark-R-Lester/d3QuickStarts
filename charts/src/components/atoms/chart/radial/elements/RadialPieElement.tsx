@@ -5,38 +5,37 @@ import { ChartProps } from '../../../../../common/chartProps'
 export const RadialPieElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
-  const createChart = () => {
-    const data: QsRadialData[] = [
-      { value: 15, fillColor: 'steelblue' },
-      { value: 45, fillColor: 'blue' },
-      { value: 60, fillColor: 'green' },
-      { value: 15, fillColor: 'steelblue' },
-      { value: 45, fillColor: 'blue' },
-      { value: 60, fillColor: 'green' },
-      { value: 15, fillColor: 'steelblue' },
-      { value: 45, fillColor: 'blue' },
-      { value: 60, fillColor: 'green' },
-      { value: 15, fillColor: 'steelblue' },
-      { value: 45, fillColor: 'blue' },
-      { value: 60, fillColor: 'green' },
-    ]
-
-    const canvas: QsCanvas = qsCreateCanvas({
-      chartName,
-      width: 600,
-      lowestViewableValue: 0,
-      highestViewableValue: 60,
-    })
-
-    canvas.generate.radialArc.radial(data, {
-      outerRadius: 90,
-      innerRadius: 50,
-    })
-  }
-
   useEffect(() => {
+    const createChart = () => {
+      const data: QsRadialData[] = [
+        { value: 15, fillColor: 'steelblue' },
+        { value: 45, fillColor: 'blue' },
+        { value: 60, fillColor: 'green' },
+        { value: 15, fillColor: 'steelblue' },
+        { value: 45, fillColor: 'blue' },
+        { value: 60, fillColor: 'green' },
+        { value: 15, fillColor: 'steelblue' },
+        { value: 45, fillColor: 'blue' },
+        { value: 60, fillColor: 'green' },
+        { value: 15, fillColor: 'steelblue' },
+        { value: 45, fillColor: 'blue' },
+        { value: 60, fillColor: 'green' },
+      ]
+
+      const canvas: QsCanvas = qsCreateCanvas({
+        chartName,
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 60,
+      })
+
+      canvas.generate.radialArc.radial(data, {
+        outerRadius: 90,
+        innerRadius: 50,
+      })
+    }
     createChart()
-  }, [])
+  }, [chartName])
 
   return (
     <>

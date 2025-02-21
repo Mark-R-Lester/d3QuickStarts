@@ -5,21 +5,20 @@ import { ChartProps } from '../../../../../common/chartProps'
 export const RadialSpokesElement: FunctionComponent<ChartProps> = ({
   chartName,
 }) => {
-  const createChart = () => {
-    const canvas: QsCanvas = qsCreateCanvas({
-      chartName,
-      width: 600,
-      lowestViewableValue: 0,
-      highestViewableValue: 250,
-    })
-
-    const numberOfSpokes = 6
-    canvas.generate.radialCentroid.spokes(numberOfSpokes)
-  }
-
   useEffect(() => {
+    const createChart = () => {
+      const canvas: QsCanvas = qsCreateCanvas({
+        chartName,
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 250,
+      })
+
+      const numberOfSpokes = 6
+      canvas.generate.radialCentroid.spokes(numberOfSpokes)
+    }
     createChart()
-  }, [])
+  }, [chartName])
 
   return (
     <>

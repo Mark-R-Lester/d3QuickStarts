@@ -7,10 +7,13 @@ import { RadialTextRotatedElement } from '../../components/atoms/chart/radial/el
 
 export default function RadialArcTextPage() {
   const elements: JSX.Element[] = [
-    <RadialTextFollowElement chartName="radialFollowText" />,
-    <RadialTextSpokeElement chartName="radialSpokeText" />,
-    <RadialTextHorizontalElement chartName="radialHorizontalText" />,
-    <RadialTextRotatedElement chartName="radialRotatedText" />,
+    <RadialTextFollowElement chartName="radialFollowText" chartWidth={150} />,
+    <RadialTextSpokeElement chartName="radialSpokeText" chartWidth={150} />,
+    <RadialTextHorizontalElement
+      chartName="radialHorizontalText"
+      chartWidth={150}
+    />,
+    <RadialTextRotatedElement chartName="radialRotatedText" chartWidth={150} />,
   ]
 
   return (

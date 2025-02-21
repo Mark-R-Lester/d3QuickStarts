@@ -4,6 +4,7 @@ import { ChartProps } from '../../../../../common/chartProps'
 
 export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
   chartName,
+  chartWidth,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [topArea, setTopArea] = useState<QsArea>()
@@ -30,7 +31,7 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 100,
       })
@@ -42,7 +43,7 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
       setBottomArea(newBottomArea)
     }
     createChart()
-  }, [chartName])
+  }, [chartName, chartWidth])
 
   useEffect(
     function transitionData() {

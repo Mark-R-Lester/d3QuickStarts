@@ -4,6 +4,7 @@ import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialPointsElement: FunctionComponent<ChartProps> = ({
   chartName,
+  chartWidth,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -32,7 +33,7 @@ export const RadialPointsElement: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 2,
       })
@@ -40,7 +41,7 @@ export const RadialPointsElement: FunctionComponent<ChartProps> = ({
       canvas.generate.radialCentroid.points(data)
     }
     createChart()
-  }, [chartName])
+  }, [chartName, chartWidth])
 
   return (
     <>

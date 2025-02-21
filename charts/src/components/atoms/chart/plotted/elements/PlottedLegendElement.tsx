@@ -14,6 +14,7 @@ import { ChartProps } from '../../../../../common/chartProps'
 
 export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
   chartName,
+  chartWidth,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -26,7 +27,7 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 250,
       })
@@ -50,7 +51,7 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
       })
     }
     createChart()
-  }, [chartName])
+  }, [chartName, chartWidth])
 
   return (
     <>

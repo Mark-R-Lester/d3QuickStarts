@@ -3,7 +3,9 @@ import { ElementGrid } from '../../components/atoms/ElementGrid'
 import { RadialLineElement } from '../../components/atoms/chart/radial/elements/RadialLineElement'
 
 export default function RadialCentroidLinePage() {
-  const elements: JSX.Element[] = [<RadialLineElement chartName="radialLine" />]
+  const elements: JSX.Element[] = [
+    <RadialLineElement chartName="radialLine" chartWidth={150} />,
+  ]
 
   return (
     <>

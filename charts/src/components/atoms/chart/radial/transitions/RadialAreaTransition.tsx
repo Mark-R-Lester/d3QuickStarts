@@ -10,6 +10,7 @@ import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
   chartName,
+  chartWidth,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [topArea, setTopArea] = useState<QsRadialArea>()
@@ -34,7 +35,7 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 100,
       })
@@ -51,7 +52,7 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
       setBottomArea(newBottomArea)
     }
     createChart()
-  }, [chartName])
+  }, [chartName, chartWidth])
 
   useEffect(
     function transitionData() {

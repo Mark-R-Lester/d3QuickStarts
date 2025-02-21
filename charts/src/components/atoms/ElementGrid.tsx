@@ -3,15 +3,22 @@ import { FunctionComponent } from 'react'
 
 export interface ElementGridProps {
   elements: JSX.Element[]
+  onClick?: (index: number) => void
 }
 
 export const ElementGrid: FunctionComponent<ElementGridProps> = ({
   elements,
+  onClick,
 }) => {
   return (
     <Grid container spacing={2} columnSpacing={2} size={12}>
       {elements.map((element, i) => (
-        <Grid key={i}>{element}</Grid>
+        <Grid
+          key={i}
+          onClick={() => (onClick === undefined ? undefined : onClick(i))}
+        >
+          {element}
+        </Grid>
       ))}
     </Grid>
   )

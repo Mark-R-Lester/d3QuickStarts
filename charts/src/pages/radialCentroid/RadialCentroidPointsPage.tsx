@@ -4,7 +4,7 @@ import { RadialPointsElement } from '../../components/atoms/chart/radial/element
 
 export default function RadialCentroidPointsPage() {
   const elements: JSX.Element[] = [
-    <RadialPointsElement chartName="radialPoints" />,
+    <RadialPointsElement chartName="radialPoints" chartWidth={150} />,
   ]
 
   return (

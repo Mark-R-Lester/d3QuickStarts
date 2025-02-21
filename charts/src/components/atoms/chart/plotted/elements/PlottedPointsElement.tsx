@@ -4,6 +4,7 @@ import { ChartProps } from '../../../../../common/chartProps'
 
 export const PlottedPointsElement: FunctionComponent<ChartProps> = ({
   chartName,
+  chartWidth,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -18,7 +19,7 @@ export const PlottedPointsElement: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 156,
       })
@@ -26,7 +27,7 @@ export const PlottedPointsElement: FunctionComponent<ChartProps> = ({
       canvas.generate.plotted.points(data)
     }
     createChart()
-  }, [chartName])
+  }, [chartName, chartWidth])
 
   return (
     <>

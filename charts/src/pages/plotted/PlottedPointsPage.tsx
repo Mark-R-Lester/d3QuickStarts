@@ -5,8 +5,11 @@ import { PlottedPointsEnhancedElement } from '../../components/atoms/chart/plott
 
 export default function PlottedPointsPage() {
   const elements: JSX.Element[] = [
-    <PlottedPointsElement chartName="plottedPoints" />,
-    <PlottedPointsEnhancedElement chartName="PlottedPontsEnhanced" />,
+    <PlottedPointsElement chartName="plottedPoints" chartWidth={150} />,
+    <PlottedPointsEnhancedElement
+      chartName="PlottedPontsEnhanced"
+      chartWidth={150}
+    />,
   ]
 
   return (

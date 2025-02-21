@@ -8,11 +8,13 @@ export default function LinearTextPage() {
   const elements: JSX.Element[] = [
     <LinearTextElement
       chartName="linearTextHorizontal"
+      chartWidth={150}
       orientation={EnumOrientation.HORIZONTAL}
     />,
 
     <LinearTextElement
       chartName="linearTextVertical"
+      chartWidth={150}
       orientation={EnumOrientation.VERTICAL}
     />,
   ]

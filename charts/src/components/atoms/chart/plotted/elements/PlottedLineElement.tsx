@@ -11,6 +11,7 @@ import { ChartProps } from '../../../../../common/chartProps'
 
 export const PlottedLineElement: FunctionComponent<ChartProps> = ({
   chartName,
+  chartWidth,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -29,7 +30,7 @@ export const PlottedLineElement: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 156,
       })
@@ -41,7 +42,7 @@ export const PlottedLineElement: FunctionComponent<ChartProps> = ({
       })
     }
     createChart()
-  }, [chartName])
+  }, [chartName, chartWidth])
 
   return (
     <>

@@ -4,6 +4,7 @@ import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialPieElement: FunctionComponent<ChartProps> = ({
   chartName,
+  chartWidth,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -24,7 +25,7 @@ export const RadialPieElement: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 60,
       })
@@ -35,7 +36,7 @@ export const RadialPieElement: FunctionComponent<ChartProps> = ({
       })
     }
     createChart()
-  }, [chartName])
+  }, [chartName, chartWidth])
 
   return (
     <>

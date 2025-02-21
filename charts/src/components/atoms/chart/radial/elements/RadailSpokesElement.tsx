@@ -4,12 +4,13 @@ import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialSpokesElement: FunctionComponent<ChartProps> = ({
   chartName,
+  chartWidth,
 }) => {
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 250,
       })
@@ -18,7 +19,7 @@ export const RadialSpokesElement: FunctionComponent<ChartProps> = ({
       canvas.generate.radialCentroid.spokes(numberOfSpokes)
     }
     createChart()
-  }, [chartName])
+  }, [chartName, chartWidth])
 
   return (
     <>

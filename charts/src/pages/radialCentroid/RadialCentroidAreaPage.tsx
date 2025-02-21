@@ -3,7 +3,9 @@ import { ElementGrid } from '../../components/atoms/ElementGrid'
 import { RadialAreaElement } from '../../components/atoms/chart/radial/elements/RadialAreaElement'
 
 export default function RadialCentroidAreaPage() {
-  const elements: JSX.Element[] = [<RadialAreaElement chartName="radialArea" />]
+  const elements: JSX.Element[] = [
+    <RadialAreaElement chartName="radialArea" chartWidth={150} />,
+  ]
 
   return (
     <>

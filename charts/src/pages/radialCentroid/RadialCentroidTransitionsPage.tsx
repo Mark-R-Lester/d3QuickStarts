@@ -69,14 +69,16 @@ export default function RadialTransitionsPage() {
   }
 
   const elements: JSX.Element[] = [
-    <RadialAreaTransition chartName="radialAreaTransition" />,
-    <RadialLineTransition chartName="radialLineTransition" />,
+    <RadialAreaTransition chartName="radialAreaTransition" chartWidth={150} />,
+    <RadialLineTransition chartName="radialLineTransition" chartWidth={150} />,
     <RadialPointTransition
       chartName="radialPointsTransition"
+      chartWidth={150}
       data={radialPointsColouredData}
     />,
     <RadialPointTransition
       chartName="radialPointsOridinalTransition"
+      chartWidth={150}
       data={radialPointsData}
       config={{
         fillColorScaleData: colorScaleOrdinal,
@@ -84,6 +86,7 @@ export default function RadialTransitionsPage() {
     />,
     <RadialPointTransition
       chartName="radialPointsSerialTransition"
+      chartWidth={150}
       data={radialPointsData}
       config={{
         fillColorScaleData: colorScaleSequentialPoints,

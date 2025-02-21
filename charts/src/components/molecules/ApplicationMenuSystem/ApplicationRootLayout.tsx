@@ -58,7 +58,6 @@ export const ApplicationRootLayout: FunctionComponent = () => {
     },
     [navigate]
   )
-  console.log('loading')
 
   return (
     <>
@@ -74,8 +73,6 @@ export const ApplicationRootLayout: FunctionComponent = () => {
           </Typography>
 
           {rootLayoutData.menuData.map((datum) => {
-            console.log('called')
-
             return (
               <Button
                 key={datum.appBarTitle}
@@ -92,7 +89,6 @@ export const ApplicationRootLayout: FunctionComponent = () => {
         </Box>
       </AppBar>
       {useMemo(() => {
-        console.log('memo called')
         return (
           <Drawer
             PaperProps={{

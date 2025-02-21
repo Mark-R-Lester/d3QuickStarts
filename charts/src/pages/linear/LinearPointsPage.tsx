@@ -8,11 +8,13 @@ export default function LinearPointsPage() {
   const elements: JSX.Element[] = [
     <LinearPointsElement
       chartName="linearPointsHorizontal"
+      chartWidth={150}
       orientation={EnumOrientation.HORIZONTAL}
     />,
 
     <LinearPointsElement
       chartName="linearPointsVertical"
+      chartWidth={150}
       orientation={EnumOrientation.VERTICAL}
     />,
   ]

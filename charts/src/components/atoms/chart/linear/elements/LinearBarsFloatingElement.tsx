@@ -10,7 +10,7 @@ import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearFloatingBarsElement: FunctionComponent<
   OrienetedChartProps
-> = ({ chartName, orientation }) => {
+> = ({ chartName, chartWidth, orientation }) => {
   useEffect(() => {
     const createChart = () => {
       const data: QsBarData[] = [
@@ -38,7 +38,7 @@ export const LinearFloatingBarsElement: FunctionComponent<
       ]
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 70,
       })
@@ -66,7 +66,7 @@ export const LinearFloatingBarsElement: FunctionComponent<
       }
     }
     createChart()
-  }, [chartName, orientation])
+  }, [chartName, chartWidth, orientation])
 
   return (
     <>

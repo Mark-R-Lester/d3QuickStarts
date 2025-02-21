@@ -11,6 +11,7 @@ import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialTextSpokeElement: FunctionComponent<ChartProps> = ({
   chartName,
+  chartWidth,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -39,7 +40,7 @@ export const RadialTextSpokeElement: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 250,
       })
@@ -56,7 +57,7 @@ export const RadialTextSpokeElement: FunctionComponent<ChartProps> = ({
       })
     }
     createChart()
-  }, [chartName])
+  }, [chartName, chartWidth])
 
   return (
     <>

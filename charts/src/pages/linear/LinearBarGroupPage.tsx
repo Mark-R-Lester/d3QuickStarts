@@ -4,7 +4,10 @@ import { LinearBarsGroupedElement } from '../../components/atoms/chart/linear/el
 
 export default function LinearBarGroupPage() {
   const elements: JSX.Element[] = [
-    <LinearBarsGroupedElement chartName="linearBarsGroupedVertical" />,
+    <LinearBarsGroupedElement
+      chartName="linearBarsGroupedVertical"
+      chartWidth={150}
+    />,
   ]
 
   return (

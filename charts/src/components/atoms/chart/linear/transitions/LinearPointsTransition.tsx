@@ -10,6 +10,7 @@ import { PointChartProps } from '../../../../../common/chartProps'
 
 export const LinearPointsTransition: FunctionComponent<PointChartProps> = ({
   chartName,
+  chartWidth,
   data,
   config,
   orientation,
@@ -21,7 +22,7 @@ export const LinearPointsTransition: FunctionComponent<PointChartProps> = ({
     const createChart = () => {
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 50,
       })
@@ -34,7 +35,7 @@ export const LinearPointsTransition: FunctionComponent<PointChartProps> = ({
       setElement(newElement)
     }
     createChart()
-  }, [chartName, config, data, orientation])
+  }, [chartName, chartWidth, config, data, orientation])
 
   useEffect(
     function transitionData() {

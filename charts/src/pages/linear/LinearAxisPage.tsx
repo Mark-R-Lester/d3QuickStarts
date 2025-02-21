@@ -3,7 +3,9 @@ import { ElementGrid } from '../../components/atoms/ElementGrid'
 import { LinearAxisElement } from '../../components/atoms/chart/linear/elements/LinearAxisElement'
 
 export default function LinearAxisPage() {
-  const elements: JSX.Element[] = [<LinearAxisElement chartName="linearAxis" />]
+  const elements: JSX.Element[] = [
+    <LinearAxisElement chartName="linearAxis" chartWidth={150} />,
+  ]
 
   return (
     <>

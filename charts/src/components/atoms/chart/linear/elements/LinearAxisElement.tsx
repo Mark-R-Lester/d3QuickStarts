@@ -13,6 +13,7 @@ import { ChartProps } from '../../../../../common/chartProps'
 
 export const LinearAxisElement: FunctionComponent<ChartProps> = ({
   chartName,
+  chartWidth,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -20,7 +21,7 @@ export const LinearAxisElement: FunctionComponent<ChartProps> = ({
       const data2 = [0, 20, 20, 30, 20, 35, 0, 20, 15, 30, 10, 50]
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 200,
       })
@@ -67,7 +68,7 @@ export const LinearAxisElement: FunctionComponent<ChartProps> = ({
       })
     }
     createChart()
-  }, [chartName])
+  }, [chartName, chartWidth])
 
   return (
     <>

@@ -14,7 +14,7 @@ export const DropdownMenu: FunctionComponent<DropdownMenuProps> = ({
   routes,
 }) => {
   const navigate = useNavigate()
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState<boolean>(false)
   const handleClick = () => {
     setOpen(!open)
   }

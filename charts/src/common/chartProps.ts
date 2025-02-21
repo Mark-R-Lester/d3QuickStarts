@@ -25,6 +25,7 @@ import { EnumOrientation, EnumRadialTextOrientation } from './enums'
 
 export interface ChartProps {
   chartName: string
+  chartWidth: number
 }
 
 export interface RadialTextChartProps extends ChartProps {

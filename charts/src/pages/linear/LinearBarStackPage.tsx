@@ -5,7 +5,10 @@ import { LinearBarStacksElement } from '../../components/atoms/chart/linear/elem
 
 export default function LinearBarStackPage() {
   const elements: JSX.Element[] = [
-    <LinearBarStacksElement chartName="linearBarsStackedVertical" />,
+    <LinearBarStacksElement
+      chartName="linearBarsStackedVertical"
+      chartWidth={150}
+    />,
   ]
 
   return (

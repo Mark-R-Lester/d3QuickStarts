@@ -37,18 +37,22 @@ export default function LinearTransitionsPage() {
   const elements: JSX.Element[] = [
     <LinearBarsTransition
       chartName="verticalBarTransition"
+      chartWidth={150}
       orientation={EnumOrientation.VERTICAL}
     />,
     <LinearBarsFloatingTransition
       chartName="verticalBarFloatingTransition"
+      chartWidth={150}
       orientation={EnumOrientation.VERTICAL}
     />,
     <LinearLineTransition
       chartName="verticalLineTransition"
+      chartWidth={150}
       orientation={EnumOrientation.VERTICAL}
     />,
     <LinearPointsTransition
       chartName="verticalPointsTransition"
+      chartWidth={150}
       data={pointData}
       orientation={EnumOrientation.VERTICAL}
       config={{
@@ -58,6 +62,7 @@ export default function LinearTransitionsPage() {
     />,
     <LinearTextTransition
       chartName="verticalTextTransition"
+      chartWidth={150}
       data={pointData}
       orientation={EnumOrientation.VERTICAL}
       config={{
@@ -67,19 +72,23 @@ export default function LinearTransitionsPage() {
     />,
     <LinearBarsTransition
       chartName="horizontalBarTransition"
+      chartWidth={150}
       orientation={EnumOrientation.HORIZONTAL}
     />,
     <LinearBarsFloatingTransition
       chartName="horizontalBarFloatingTransition"
+      chartWidth={150}
       orientation={EnumOrientation.HORIZONTAL}
     />,
 
     <LinearLineTransition
       chartName="horizontalLineTransition"
+      chartWidth={150}
       orientation={EnumOrientation.HORIZONTAL}
     />,
     <LinearPointsTransition
       chartName="horizontalPointsTransition"
+      chartWidth={150}
       data={pointData}
       orientation={EnumOrientation.HORIZONTAL}
       config={{
@@ -89,6 +98,7 @@ export default function LinearTransitionsPage() {
     />,
     <LinearTextTransition
       chartName="horizontalTextTransition"
+      chartWidth={150}
       data={pointData}
       orientation={EnumOrientation.HORIZONTAL}
       config={{
@@ -97,8 +107,11 @@ export default function LinearTransitionsPage() {
       }}
     />,
 
-    <LinearAreaTransition chartName="AreaTransition" />,
-    <LinearBarGroupTransition chartName="BarGroupTransition" />,
+    <LinearAreaTransition chartName="AreaTransition" chartWidth={150} />,
+    <LinearBarGroupTransition
+      chartName="BarGroupTransition"
+      chartWidth={150}
+    />,
   ]
 
   return (

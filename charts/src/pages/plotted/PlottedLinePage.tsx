@@ -4,7 +4,7 @@ import { PlottedLineElement } from '../../components/atoms/chart/plotted/element
 
 export default function PlottedLinePage() {
   const elements: JSX.Element[] = [
-    <PlottedLineElement chartName="plottedLine" />,
+    <PlottedLineElement chartName="plottedLine" chartWidth={150} />,
   ]
 
   return (

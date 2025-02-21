@@ -4,7 +4,7 @@ import { PlottedLegendElement } from '../../components/atoms/chart/plotted/eleme
 
 export default function PlottedLegendPage() {
   const elements: JSX.Element[] = [
-    <PlottedLegendElement chartName="legendElement" />,
+    <PlottedLegendElement chartName="legendElement" chartWidth={150} />,
   ]
 
   return (

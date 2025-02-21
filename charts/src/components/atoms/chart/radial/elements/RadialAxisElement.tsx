@@ -13,6 +13,7 @@ import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialAxisElement: FunctionComponent<ChartProps> = ({
   chartName,
+  chartWidth,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -20,7 +21,7 @@ export const RadialAxisElement: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 50,
       })
@@ -44,7 +45,7 @@ export const RadialAxisElement: FunctionComponent<ChartProps> = ({
       })
     }
     createChart()
-  }, [chartName])
+  }, [chartName, chartWidth])
 
   return (
     <>

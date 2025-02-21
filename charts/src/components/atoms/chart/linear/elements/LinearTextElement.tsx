@@ -5,6 +5,7 @@ import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearTextElement: FunctionComponent<OrienetedChartProps> = ({
   chartName,
+  chartWidth,
   orientation,
 }) => {
   useEffect(() => {
@@ -21,7 +22,7 @@ export const LinearTextElement: FunctionComponent<OrienetedChartProps> = ({
       ]
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 35,
       })
@@ -33,7 +34,7 @@ export const LinearTextElement: FunctionComponent<OrienetedChartProps> = ({
       }
     }
     createChart()
-  }, [chartName, orientation])
+  }, [chartName, chartWidth, orientation])
 
   return (
     <>

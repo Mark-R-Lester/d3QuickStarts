@@ -5,6 +5,7 @@ import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
   chartName,
+  chartWidth,
   orientation,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
@@ -24,7 +25,7 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
       ]
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 50,
       })
@@ -37,7 +38,7 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
       setBars(newBars)
     }
     createChart()
-  }, [chartName, orientation])
+  }, [chartName, chartWidth, orientation])
 
   useEffect(
     function transitionData() {

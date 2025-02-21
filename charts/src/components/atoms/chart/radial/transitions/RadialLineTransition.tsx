@@ -4,6 +4,7 @@ import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialLineTransition: FunctionComponent<ChartProps> = ({
   chartName,
+  chartWidth,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element, setElement] = useState<QsRadialLine>()
@@ -13,7 +14,7 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
       const data = [25, 10, 35, 25, 35, 5, 25, 25]
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: 50,
       })
@@ -24,7 +25,7 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
       setElement(newElement)
     }
     createChart()
-  }, [chartName])
+  }, [chartName, chartWidth])
 
   useEffect(
     function transitionData() {

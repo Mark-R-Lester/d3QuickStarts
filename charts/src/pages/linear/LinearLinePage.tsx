@@ -7,11 +7,13 @@ export default function LinearLinePage() {
   const elements: JSX.Element[] = [
     <LinearLineElement
       chartName="linearLineHorizontal"
+      chartWidth={150}
       orientation={EnumOrientation.HORIZONTAL}
     />,
 
     <LinearLineElement
       chartName="linearLineVertical"
+      chartWidth={150}
       orientation={EnumOrientation.VERTICAL}
     />,
   ]

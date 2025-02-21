@@ -4,6 +4,7 @@ import { ChartProps } from '../../../../../common/chartProps'
 
 export const LinearBarStacksElement: FunctionComponent<ChartProps> = ({
   chartName,
+  chartWidth,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -20,7 +21,7 @@ export const LinearBarStacksElement: FunctionComponent<ChartProps> = ({
       ]
       const canvas: QsCanvas = qsCreateCanvas({
         chartName,
-        width: 150,
+        width: chartWidth,
         lowestViewableValue: 0,
         highestViewableValue: qsFindMaxSum(data),
       })
@@ -28,7 +29,7 @@ export const LinearBarStacksElement: FunctionComponent<ChartProps> = ({
       canvas.generate.linear.horizontal.barStack(data)
     }
     createChart()
-  }, [chartName])
+  }, [chartName, chartWidth])
 
   return (
     <>

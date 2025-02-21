@@ -3,7 +3,9 @@ import { ElementGrid } from '../../components/atoms/ElementGrid'
 import { RadialAxisElement } from '../../components/atoms/chart/radial/elements/RadialAxisElement'
 
 export default function RadialCentroidAxisPage() {
-  const elements: JSX.Element[] = [<RadialAxisElement chartName="radialAxis" />]
+  const elements: JSX.Element[] = [
+    <RadialAxisElement chartName="radialAxis" chartWidth={150} />,
+  ]
 
   return (
     <>

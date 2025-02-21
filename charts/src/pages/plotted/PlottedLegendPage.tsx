@@ -10,7 +10,7 @@ export default function PlottedLegendPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Plotted Elements
+        Plotted Legend
       </Typography>
       <ElementGrid elements={elements}></ElementGrid>
     </>

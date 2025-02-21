@@ -16,7 +16,7 @@ export default function RadialArcTextPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Radial Elements
+        Radial Arc Text
       </Typography>
       <ElementGrid elements={elements}></ElementGrid>
     </>

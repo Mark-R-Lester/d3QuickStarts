@@ -12,7 +12,7 @@ export default function PlottedPointsPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Plotted Elements
+        Plotted Points
       </Typography>
       <ElementGrid elements={elements}></ElementGrid>
     </>

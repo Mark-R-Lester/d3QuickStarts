@@ -48,8 +48,11 @@ export const AppRoutes: FunctionComponent = () => {
 
       <Route path="/radialcentroid/area" Component={RadialCentroidAreaPage} />
       <Route path="/radialcentroid/axis" Component={RadialCentroidAxisPage} />
-      <Route path="/radialcentroid/line" Component={RadialCentroidPointsPage} />
-      <Route path="/radialcentroid/points" Component={RadialCentroidLinePage} />
+      <Route path="/radialcentroid/line" Component={RadialCentroidLinePage} />
+      <Route
+        path="/radialcentroid/points"
+        Component={RadialCentroidPointsPage}
+      />
       <Route
         path="/radialCentroid/spokes"
         Component={RadialCentroidSpokesPage}

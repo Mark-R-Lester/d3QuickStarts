@@ -4,8 +4,8 @@ export const drawerLayoutDataRadialArc: DropdownMenuProps[] = [
   {
     title: 'Elements',
     routes: [
-      { title: 'RadialArc', route: '/radial/elements' },
-      { title: 'Text', route: '/radial/elements' },
+      { title: 'Arc', route: '/radialarc/arc' },
+      { title: 'Text', route: '/radialarc/text' },
     ],
   },
 ]

@@ -11,7 +11,7 @@ export const ElementGrid: FunctionComponent<ElementGridProps> = ({
   onClick,
 }) => {
   return (
-    <Grid container spacing={2} columnSpacing={2} size={12}>
+    <Grid container spacing={2} columnSpacing={2}>
       {elements.map((element, i) => (
         <Grid
           key={i}

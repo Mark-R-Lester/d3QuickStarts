@@ -123,10 +123,10 @@ export const ApplicationRootLayout: FunctionComponent = () => {
               </ListItemButton>
 
               {menuData.map((props) => (
-                <>
+                <div key={props.title}>
                   <Divider />
                   <DropdownMenu {...props} />
-                </>
+                </div>
               ))}
             </List>
           </Drawer>

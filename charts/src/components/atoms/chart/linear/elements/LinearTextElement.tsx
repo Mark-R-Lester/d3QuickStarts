@@ -4,8 +4,7 @@ import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearTextElement: FunctionComponent<OrienetedChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
   orientation,
 }) => {
   useEffect(() => {
@@ -20,12 +19,7 @@ export const LinearTextElement: FunctionComponent<OrienetedChartProps> = ({
         { value: 25 },
         { value: 25 },
       ]
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 35,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       if (orientation === EnumOrientation.VERTICAL) {
         canvas.generate.linear.vertical.text(data, { defaultRadius: 3 })
@@ -34,11 +28,11 @@ export const LinearTextElement: FunctionComponent<OrienetedChartProps> = ({
       }
     }
     createChart()
-  }, [chartName, chartWidth, orientation])
+  }, [canvasProps, orientation])
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

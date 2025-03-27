@@ -12,19 +12,13 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialAxisElement: FunctionComponent<ChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
 }) => {
   useEffect(() => {
     const createChart = () => {
       const data: number[] = [5, 10, 15, 50]
 
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 50,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       canvas.generate.radialCentroid.axis(data, {
         radius: 100,
@@ -45,11 +39,11 @@ export const RadialAxisElement: FunctionComponent<ChartProps> = ({
       })
     }
     createChart()
-  }, [chartName, chartWidth])
+  }, [canvasProps])
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

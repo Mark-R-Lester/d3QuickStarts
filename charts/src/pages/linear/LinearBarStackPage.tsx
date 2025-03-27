@@ -6,8 +6,12 @@ import { LinearBarStacksElement } from '../../components/atoms/chart/linear/elem
 export default function LinearBarStackPage() {
   const elements: JSX.Element[] = [
     <LinearBarStacksElement
-      chartName="linearBarsStackedVertical"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'linearBarsStackedVertical',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 50,
+      }}
     />,
   ]
 

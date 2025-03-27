@@ -7,14 +7,22 @@ import { LinearTextElement } from '../../components/atoms/chart/linear/elements/
 export default function LinearTextPage() {
   const elements: JSX.Element[] = [
     <LinearTextElement
-      chartName="linearTextHorizontal"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'linearTextHorizontal',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 35,
+      }}
       orientation={EnumOrientation.HORIZONTAL}
     />,
 
     <LinearTextElement
-      chartName="linearTextVertical"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'linearTextVertical',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 35,
+      }}
       orientation={EnumOrientation.VERTICAL}
     />,
   ]

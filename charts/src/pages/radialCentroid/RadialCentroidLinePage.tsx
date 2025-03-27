@@ -4,7 +4,14 @@ import { RadialLineElement } from '../../components/atoms/chart/radial/elements/
 
 export default function RadialCentroidLinePage() {
   const elements: JSX.Element[] = [
-    <RadialLineElement chartName="radialLine" chartWidth={150} />,
+    <RadialLineElement
+      canvasProps={{
+        chartName: 'radialLine',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 23,
+      }}
+    />,
   ]
 
   return (

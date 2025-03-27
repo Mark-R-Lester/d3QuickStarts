@@ -3,8 +3,7 @@ import { QsCanvas, qsCreateCanvas, QsRadialData } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialPieElement: FunctionComponent<ChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -23,12 +22,7 @@ export const RadialPieElement: FunctionComponent<ChartProps> = ({
         { value: 60, fillColor: 'green' },
       ]
 
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 60,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       canvas.generate.radialArc.radial(data, {
         outerRadius: 90,
@@ -36,11 +30,11 @@ export const RadialPieElement: FunctionComponent<ChartProps> = ({
       })
     }
     createChart()
-  }, [chartName, chartWidth])
+  }, [canvasProps])
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

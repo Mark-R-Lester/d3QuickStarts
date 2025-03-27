@@ -4,7 +4,14 @@ import { LinearAxisElement } from '../../components/atoms/chart/linear/elements/
 
 export default function LinearAxisPage() {
   const elements: JSX.Element[] = [
-    <LinearAxisElement chartName="linearAxis" chartWidth={150} />,
+    <LinearAxisElement
+      canvasProps={{
+        chartName: 'linearAxis',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 200,
+      }}
+    />,
   ]
 
   return (

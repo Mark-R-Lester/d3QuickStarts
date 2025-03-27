@@ -3,8 +3,7 @@ import { QsCanvas, qsCreateCanvas, QsRadialLine } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialLineTransition: FunctionComponent<ChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element, setElement] = useState<QsRadialLine>()
@@ -12,12 +11,7 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
   useEffect(() => {
     const createChart = () => {
       const data = [25, 10, 35, 25, 35, 5, 25, 25]
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 50,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       let newElement: QsRadialLine
       newElement = canvas.generate.radialCentroid.line({ data })
@@ -25,7 +19,7 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
       setElement(newElement)
     }
     createChart()
-  }, [chartName, chartWidth])
+  }, [canvasProps])
 
   useEffect(
     function transitionData() {
@@ -49,7 +43,7 @@ export const RadialLineTransition: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

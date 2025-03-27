@@ -2,27 +2,7 @@ import { CanvasScales, getScales } from './getScales'
 import { getGenerators, QsGenerator } from './generators'
 import { CanvasConfigStrict } from './types'
 import { Selection, select } from 'd3'
-export { QsGenerator } from './generators'
-
-export interface CanvasConfig {
-  [key: string]: string | number | undefined
-  chartName: string
-  width?: number
-  height?: number
-  marginRight?: number
-  marginLeft?: number
-  marginTop?: number
-  marginBottom?: number
-  highestViewableValue: number
-  lowestViewableValue?: number
-  borderColor?: string
-}
-
-export interface QsCanvas {
-  displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
-  config: CanvasConfigStrict
-  generate: QsGenerator
-}
+import { QsCanvas, QsCanvasConfig } from './qsTypes'
 
 export interface Canvas {
   displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
@@ -31,7 +11,7 @@ export interface Canvas {
 }
 
 const addDefaultsToConfig = (
-  customConfig?: CanvasConfig
+  customConfig?: QsCanvasConfig
 ): CanvasConfigStrict => {
   const defaults: CanvasConfigStrict = {
     chartName: '',
@@ -55,7 +35,7 @@ const addDefaultsToConfig = (
   return defaults
 }
 
-export function qsCreateCanvas(customConfig?: CanvasConfig): QsCanvas {
+export function qsCreateCanvas(customConfig?: QsCanvasConfig): QsCanvas {
   const config: CanvasConfigStrict = addDefaultsToConfig(customConfig)
 
   const element = document.getElementById(config.chartName)

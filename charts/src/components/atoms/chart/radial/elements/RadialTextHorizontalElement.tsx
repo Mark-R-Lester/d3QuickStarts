@@ -11,8 +11,7 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialTextHorizontalElement: FunctionComponent<ChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -39,12 +38,7 @@ export const RadialTextHorizontalElement: FunctionComponent<ChartProps> = ({
         },
       ]
 
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       canvas.generate.radialArc.text.horizontal(data, {
         radius: 100,
@@ -59,11 +53,11 @@ export const RadialTextHorizontalElement: FunctionComponent<ChartProps> = ({
       })
     }
     createChart()
-  }, [chartName, chartWidth])
+  }, [canvasProps])
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

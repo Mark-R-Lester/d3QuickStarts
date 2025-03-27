@@ -4,7 +4,14 @@ import { ElementGrid } from '../../components/atoms/ElementGrid'
 
 export default function LinearAreaPage() {
   const elements: JSX.Element[] = [
-    <LinearAreaElement chartName="linearArea" chartWidth={150} />,
+    <LinearAreaElement
+      canvasProps={{
+        chartName: 'linearArea',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 250,
+      }}
+    />,
   ]
 
   return (

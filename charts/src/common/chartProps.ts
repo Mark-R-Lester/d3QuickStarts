@@ -20,12 +20,16 @@ import {
   QsValuedText,
   QsRadialPointData,
   QsPointData,
+  QsCanvasConfig,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation, EnumRadialTextOrientation } from './enums'
 
 export interface ChartProps {
-  chartName: string
-  chartWidth: number
+  canvasProps: QsCanvasConfig
+}
+
+export interface OrienetedChartProps extends ChartProps {
+  orientation: EnumOrientation
 }
 
 export interface RadialTextChartProps extends ChartProps {
@@ -44,7 +48,7 @@ export interface AxisChartProps extends ChartProps {
   data: string[]
 }
 
-export interface BarChartProps extends ChartProps {
+export interface BarChartProps extends OrienetedChartProps {
   config?: QsBarConfig
   data: QsBarData[]
 }
@@ -93,8 +97,4 @@ export interface RadialPointsChartProps extends ChartProps {
 export interface RadialSpokesChartProps extends ChartProps {
   config?: QsRadialSpokesConfig
   data: number
-}
-
-export interface OrienetedChartProps extends ChartProps {
-  orientation: EnumOrientation
 }

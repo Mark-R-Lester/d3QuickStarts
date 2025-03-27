@@ -6,14 +6,22 @@ import { LinearLineElement } from '../../components/atoms/chart/linear/elements/
 export default function LinearLinePage() {
   const elements: JSX.Element[] = [
     <LinearLineElement
-      chartName="linearLineHorizontal"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'linearLineHorizontal',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 35,
+      }}
       orientation={EnumOrientation.HORIZONTAL}
     />,
 
     <LinearLineElement
-      chartName="linearLineVertical"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'linearLineVertical',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 35,
+      }}
       orientation={EnumOrientation.VERTICAL}
     />,
   ]

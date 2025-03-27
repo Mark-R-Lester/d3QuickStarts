@@ -5,10 +5,21 @@ import { PlottedPointsEnhancedElement } from '../../components/atoms/chart/plott
 
 export default function PlottedPointsPage() {
   const elements: JSX.Element[] = [
-    <PlottedPointsElement chartName="plottedPoints" chartWidth={150} />,
+    <PlottedPointsElement
+      canvasProps={{
+        chartName: 'plottedPoints',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 156,
+      }}
+    />,
     <PlottedPointsEnhancedElement
-      chartName="PlottedPontsEnhanced"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'PlottedPontsEnhanced',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 156,
+      }}
     />,
   ]
 

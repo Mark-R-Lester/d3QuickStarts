@@ -8,8 +8,7 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
 }) => {
   const [changedStack, setChangedStack] = useState<boolean>(false)
   const [changedGroup, setChangedGroup] = useState<boolean>(false)
@@ -57,12 +56,7 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: qsFindMaxSum(dataMax),
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       let grouped = canvas.generate.linear.horizontal.barGroup(dataMax)
       let stacked = canvas.generate.linear.horizontal.barStack(dataMin)
@@ -71,7 +65,7 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
       setStacked(stacked)
     }
     createChart()
-  }, [chartName, chartWidth, dataMax, dataMin])
+  }, [canvasProps, dataMax, dataMin])
 
   useEffect(
     function transitionGrouped() {
@@ -99,7 +93,7 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

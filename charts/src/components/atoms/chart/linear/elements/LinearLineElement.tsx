@@ -4,19 +4,13 @@ import { EnumOrientation } from '../../../../../common/enums'
 import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearLineElement: FunctionComponent<OrienetedChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
   orientation,
 }) => {
   useEffect(() => {
     const createChart = () => {
       const data = [25, 10, 35, 25, 35, 5, 25, 25]
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 35,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       if (orientation === EnumOrientation.VERTICAL) {
         canvas.generate.linear.vertical.line({ data, color: 'red' })
@@ -25,11 +19,11 @@ export const LinearLineElement: FunctionComponent<OrienetedChartProps> = ({
       }
     }
     createChart()
-  }, [chartName, chartWidth, orientation])
+  }, [canvasProps, orientation])
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

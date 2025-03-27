@@ -4,7 +4,14 @@ import { PlottedTextElement } from '../../components/atoms/chart/plotted/element
 
 export default function PlottedTextPage() {
   const elements: JSX.Element[] = [
-    <PlottedTextElement chartName="textElement" chartWidth={150} />,
+    <PlottedTextElement
+      canvasProps={{
+        chartName: 'textElement',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 250,
+      }}
+    />,
   ]
 
   return (

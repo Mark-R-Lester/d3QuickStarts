@@ -3,20 +3,14 @@ import { QsCanvas, qsCreateCanvas, QsEnumCurve } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const LinearAreaElement: FunctionComponent<ChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
 }) => {
   useEffect(() => {
     const createChart = () => {
       const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
       const data2 = [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 205, 240]
 
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       canvas.generate.linear.horizontal.area(
         { higherData: data1, fillColor: 'blue' },
@@ -29,11 +23,11 @@ export const LinearAreaElement: FunctionComponent<ChartProps> = ({
       )
     }
     createChart()
-  }, [chartName, chartWidth])
+  }, [canvasProps])
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

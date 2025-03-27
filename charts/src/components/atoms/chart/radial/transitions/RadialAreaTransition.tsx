@@ -9,8 +9,7 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [topArea, setTopArea] = useState<QsRadialArea>()
@@ -33,12 +32,7 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
         outerData: innerData,
       }
 
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 100,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       let newTopArea = canvas.generate.radialCentroid.area(dataUpper, {
         curve: QsEnumCurve.BASIS,
@@ -52,7 +46,7 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
       setBottomArea(newBottomArea)
     }
     createChart()
-  }, [chartName, chartWidth])
+  }, [canvasProps])
 
   useEffect(
     function transitionData() {
@@ -93,7 +87,7 @@ export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

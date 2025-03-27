@@ -11,7 +11,7 @@ import { OrienetedChartProps } from '../../../../../common/chartProps'
 
 export const LinearBarsFloatingTransition: FunctionComponent<
   OrienetedChartProps
-> = ({ chartName, chartWidth, orientation }) => {
+> = ({ canvasProps, orientation }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [bars, setBars] = useState<QsBars>()
 
@@ -40,12 +40,7 @@ export const LinearBarsFloatingTransition: FunctionComponent<
         },
       ]
 
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 50,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       let newBars
       if (orientation === EnumOrientation.VERTICAL) {
@@ -68,7 +63,7 @@ export const LinearBarsFloatingTransition: FunctionComponent<
       setBars(newBars)
     }
     createChart()
-  }, [chartName, chartWidth, orientation])
+  }, [canvasProps, orientation])
 
   useEffect(
     function transitionData() {
@@ -99,7 +94,7 @@ export const LinearBarsFloatingTransition: FunctionComponent<
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

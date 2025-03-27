@@ -7,14 +7,22 @@ import { LinearPointsElement } from '../../components/atoms/chart/linear/element
 export default function LinearPointsPage() {
   const elements: JSX.Element[] = [
     <LinearPointsElement
-      chartName="linearPointsHorizontal"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'linearPointsHorizontal',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 35,
+      }}
       orientation={EnumOrientation.HORIZONTAL}
     />,
 
     <LinearPointsElement
-      chartName="linearPointsVertical"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'linearPointsVertical',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 35,
+      }}
       orientation={EnumOrientation.VERTICAL}
     />,
   ]

@@ -8,8 +8,7 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -47,20 +46,15 @@ export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
         padAngle: 0.03,
       }
 
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
       canvas.generate.radialArc.radial(data, config)
     }
     createChart()
-  }, [chartName, chartWidth])
+  }, [canvasProps])
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

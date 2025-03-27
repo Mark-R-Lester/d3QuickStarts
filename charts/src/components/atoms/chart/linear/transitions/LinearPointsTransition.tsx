@@ -9,8 +9,7 @@ import { EnumOrientation } from '../../../../../common/enums'
 import { PointChartProps } from '../../../../../common/chartProps'
 
 export const LinearPointsTransition: FunctionComponent<PointChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
   data,
   config,
   orientation,
@@ -20,12 +19,7 @@ export const LinearPointsTransition: FunctionComponent<PointChartProps> = ({
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 50,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
       let newElement: QsPoints
       if (orientation === EnumOrientation.VERTICAL) {
         newElement = canvas.generate.linear.vertical.points(data, config)
@@ -35,7 +29,7 @@ export const LinearPointsTransition: FunctionComponent<PointChartProps> = ({
       setElement(newElement)
     }
     createChart()
-  }, [chartName, chartWidth, config, data, orientation])
+  }, [canvasProps, config, data, orientation])
 
   useEffect(
     function transitionData() {
@@ -62,7 +56,7 @@ export const LinearPointsTransition: FunctionComponent<PointChartProps> = ({
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

@@ -5,8 +5,12 @@ import { LinearBarsGroupedElement } from '../../components/atoms/chart/linear/el
 export default function LinearBarGroupPage() {
   const elements: JSX.Element[] = [
     <LinearBarsGroupedElement
-      chartName="linearBarsGroupedVertical"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'linearBarsGroupedVertical',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 50,
+      }}
     />,
   ]
 

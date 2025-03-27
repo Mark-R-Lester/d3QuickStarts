@@ -69,24 +69,50 @@ export default function RadialTransitionsPage() {
   }
 
   const elements: JSX.Element[] = [
-    <RadialAreaTransition chartName="radialAreaTransition" chartWidth={150} />,
-    <RadialLineTransition chartName="radialLineTransition" chartWidth={150} />,
+    <RadialAreaTransition
+      canvasProps={{
+        chartName: 'radialAreaTransition',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 100,
+      }}
+    />,
+    <RadialLineTransition
+      canvasProps={{
+        chartName: 'radialLineTransition',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 50,
+      }}
+    />,
     <RadialPointTransition
-      chartName="radialPointsTransition"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'radialPointsTransition',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 2.5,
+      }}
       data={radialPointsColouredData}
     />,
     <RadialPointTransition
-      chartName="radialPointsOridinalTransition"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'radialPointsOridinalTransition',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 2.5,
+      }}
       data={radialPointsData}
       config={{
         fillColorScaleData: colorScaleOrdinal,
       }}
     />,
     <RadialPointTransition
-      chartName="radialPointsSerialTransition"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'radialPointsSerialTransition',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 2.5,
+      }}
       data={radialPointsData}
       config={{
         fillColorScaleData: colorScaleSequentialPoints,

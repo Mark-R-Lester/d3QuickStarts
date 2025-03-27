@@ -1,4 +1,6 @@
 export * from './canvas/canvas'
+export * from './canvas/qsTypes'
+
 export * from './legend/qsTypes'
 
 export * from './linear/linearAxis/qsTypes'

@@ -96,57 +96,53 @@ export default function RadialTransitionsPage() {
   }
 
   const elements: JSX.Element[] = [
-    <RadialAreaTransition chartName="radialAreaTransition" chartWidth={150} />,
-    <RadialLineTransition chartName="radialLineTransition" chartWidth={150} />,
-    <RadialPointTransition
-      chartName="radialPointsTransition"
-      chartWidth={150}
-      data={radialPointsColouredData}
-    />,
-    <RadialPointTransition
-      chartName="radialPointsOridinalTransition"
-      chartWidth={150}
-      data={radialPointsData}
-      config={{
-        fillColorScaleData: colorScaleOrdinal,
-      }}
-    />,
-    <RadialPointTransition
-      chartName="radialPointsSerialTransition"
-      chartWidth={150}
-      data={radialPointsData}
-      config={{
-        fillColorScaleData: colorScaleSequentialPoints,
-      }}
-    />,
-
     <RadialTextTransition
-      chartName="radialTextFollowTransition"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'radialTextFollowTransition',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 40,
+      }}
       data={data1}
       orientation={EnumRadialTextOrientation.FOLLOW}
     />,
     <RadialTextTransition
-      chartName="radialTextSkokeTransition"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'radialTextSkokeTransition',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 40,
+      }}
       data={data2}
       orientation={EnumRadialTextOrientation.SPOKE}
     />,
     <RadialTextTransition
-      chartName="radialTextHorizontalTransition"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'radialTextHorizontalTransition',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 40,
+      }}
       data={data3}
       orientation={EnumRadialTextOrientation.HORIZONTAL}
     />,
     <RadialTextTransition
-      chartName="radialTextRotatedTransition"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'radialTextRotatedTransition',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 40,
+      }}
       data={data4}
       orientation={EnumRadialTextOrientation.ROTATED}
     />,
     <RadialTransition
-      chartName="radialLinearColorTransition"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'radialLinearColorTransition',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 40,
+      }}
       data={radialData}
       config={{
         innerRadius: 80,
@@ -155,8 +151,12 @@ export default function RadialTransitionsPage() {
       }}
     />,
     <RadialTransition
-      chartName="radialSerialColoeTransition"
-      chartWidth={150}
+      canvasProps={{
+        chartName: 'radialSerialColoeTransition',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 40,
+      }}
       data={radialData}
       config={{
         innerRadius: 50,

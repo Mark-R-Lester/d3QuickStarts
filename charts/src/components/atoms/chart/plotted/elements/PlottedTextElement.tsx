@@ -10,17 +10,11 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const PlottedTextElement: FunctionComponent<ChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       const data: QsPlottedTextArgs[] = [
         { x: 0, y: 0, text: 'Text with no config uses defaults' },
@@ -52,11 +46,11 @@ export const PlottedTextElement: FunctionComponent<ChartProps> = ({
       })
     }
     createChart()
-  }, [chartName, chartWidth])
+  }, [canvasProps])
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

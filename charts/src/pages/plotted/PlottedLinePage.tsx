@@ -4,7 +4,14 @@ import { PlottedLineElement } from '../../components/atoms/chart/plotted/element
 
 export default function PlottedLinePage() {
   const elements: JSX.Element[] = [
-    <PlottedLineElement chartName="plottedLine" chartWidth={150} />,
+    <PlottedLineElement
+      canvasProps={{
+        chartName: 'plottedLine',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 156,
+      }}
+    />,
   ]
 
   return (

@@ -3,8 +3,7 @@ import { QsCanvas, qsCreateCanvas, QsArea, QsAreaData } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [topArea, setTopArea] = useState<QsArea>()
@@ -29,12 +28,7 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
         higherData: lowerData,
       }
 
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 100,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       let newTopArea = canvas.generate.linear.horizontal.area(dataUpper)
       let newBottomArea = canvas.generate.linear.horizontal.area(dataLower)
@@ -43,7 +37,7 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
       setBottomArea(newBottomArea)
     }
     createChart()
-  }, [chartName, chartWidth])
+  }, [canvasProps])
 
   useEffect(
     function transitionData() {
@@ -85,7 +79,7 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

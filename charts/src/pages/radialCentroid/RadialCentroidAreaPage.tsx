@@ -4,7 +4,14 @@ import { RadialAreaElement } from '../../components/atoms/chart/radial/elements/
 
 export default function RadialCentroidAreaPage() {
   const elements: JSX.Element[] = [
-    <RadialAreaElement chartName="radialArea" chartWidth={150} />,
+    <RadialAreaElement
+      canvasProps={{
+        chartName: 'radialArea',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 25,
+      }}
+    />,
   ]
 
   return (

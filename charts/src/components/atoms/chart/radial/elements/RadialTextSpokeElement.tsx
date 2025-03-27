@@ -10,8 +10,7 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const RadialTextSpokeElement: FunctionComponent<ChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -38,12 +37,7 @@ export const RadialTextSpokeElement: FunctionComponent<ChartProps> = ({
         },
       ]
 
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       canvas.generate.radialArc.text.spoke(data, {
         radius: 100,
@@ -57,11 +51,11 @@ export const RadialTextSpokeElement: FunctionComponent<ChartProps> = ({
       })
     }
     createChart()
-  }, [chartName, chartWidth])
+  }, [canvasProps])
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

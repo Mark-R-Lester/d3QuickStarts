@@ -4,7 +4,14 @@ import { RadialAxisElement } from '../../components/atoms/chart/radial/elements/
 
 export default function RadialCentroidAxisPage() {
   const elements: JSX.Element[] = [
-    <RadialAxisElement chartName="radialAxis" chartWidth={150} />,
+    <RadialAxisElement
+      canvasProps={{
+        chartName: 'radialAxis',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 50,
+      }}
+    />,
   ]
 
   return (

@@ -4,7 +4,14 @@ import { RadialSpokesElement } from '../../components/atoms/chart/radial/element
 
 export default function RadialCentroidSpokesPage() {
   const elements: JSX.Element[] = [
-    <RadialSpokesElement chartName="radialSpokes" chartWidth={150} />,
+    <RadialSpokesElement
+      canvasProps={{
+        chartName: 'radialSpokes',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 50,
+      }}
+    />,
   ]
 
   return (

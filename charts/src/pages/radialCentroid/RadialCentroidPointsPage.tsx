@@ -4,7 +4,14 @@ import { RadialPointsElement } from '../../components/atoms/chart/radial/element
 
 export default function RadialCentroidPointsPage() {
   const elements: JSX.Element[] = [
-    <RadialPointsElement chartName="radialPoints" chartWidth={150} />,
+    <RadialPointsElement
+      canvasProps={{
+        chartName: 'radialPoints',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 50,
+      }}
+    />,
   ]
 
   return (

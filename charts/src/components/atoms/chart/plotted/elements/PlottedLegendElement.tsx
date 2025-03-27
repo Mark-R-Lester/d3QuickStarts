@@ -13,8 +13,7 @@ import {
 import { ChartProps } from '../../../../../common/chartProps'
 
 export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
-  chartName,
-  chartWidth,
+  canvasProps,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -25,12 +24,7 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
         { value: 'Purple', fillColor: 'purple' },
       ]
 
-      const canvas: QsCanvas = qsCreateCanvas({
-        chartName,
-        width: chartWidth,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      })
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       canvas.generate.plotted.legend(data, {
         x: 0,
@@ -51,11 +45,11 @@ export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
       })
     }
     createChart()
-  }, [chartName, chartWidth])
+  }, [canvasProps])
 
   return (
     <>
-      <div id={chartName}></div>
+      <div id={canvasProps.chartName}></div>
     </>
   )
 }

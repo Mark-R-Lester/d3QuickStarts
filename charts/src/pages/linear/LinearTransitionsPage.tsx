@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import { ElementGrid } from '../../components/atoms/ElementGrid'
+import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
 import { LinearBarsFloatingTransition } from '../../components/atoms/chart/linear/transitions/LinearBarsFloatingTransition'
 import { LinearBarsTransition } from '../../components/atoms/chart/linear/transitions/LinearBarsTransition'
 import { EnumOrientation } from '../../common/enums'
@@ -170,7 +170,7 @@ export default function LinearTransitionsPage() {
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
         Linear Transitions
       </Typography>
-      <ElementGrid elements={elements}></ElementGrid>
+      {/* <ChartButtonGrid elements={elements}></ChartButtonGrid> */}
     </>
   )
 }

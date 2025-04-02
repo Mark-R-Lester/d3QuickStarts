@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import { ElementGrid } from '../../components/atoms/ElementGrid'
+import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
 import { LinearAxisElement } from '../../components/atoms/chart/linear/elements/LinearAxisElement'
 
 export default function LinearAxisPage() {
@@ -19,7 +19,7 @@ export default function LinearAxisPage() {
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
         Linear Axis
       </Typography>
-      <ElementGrid elements={elements}></ElementGrid>
+      {/* <ChartButtonGrid elements={elements}></ChartButtonGrid> */}
     </>
   )
 }

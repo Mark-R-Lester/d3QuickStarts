@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import { ElementGrid } from '../../components/atoms/ElementGrid'
+import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
 import { PlottedLegendElement } from '../../components/atoms/chart/plotted/elements/PlottedLegendElement'
 
 export default function PlottedLegendPage() {
@@ -19,7 +19,7 @@ export default function PlottedLegendPage() {
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
         Plotted Legend
       </Typography>
-      <ElementGrid elements={elements}></ElementGrid>
+      {/* <ChartButtonGrid elements={elements}></ChartButtonGrid> */}
     </>
   )
 }

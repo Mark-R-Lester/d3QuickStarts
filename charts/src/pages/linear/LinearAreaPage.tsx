@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material'
 import { LinearAreaElement } from '../../components/atoms/chart/linear/elements/LinearAreaElement'
-import { ElementGrid } from '../../components/atoms/ElementGrid'
+import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
 
 export default function LinearAreaPage() {
   const elements: JSX.Element[] = [
@@ -19,7 +19,7 @@ export default function LinearAreaPage() {
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
         Linear Area
       </Typography>
-      <ElementGrid elements={elements}></ElementGrid>
+      {/* <ChartButtonGrid elements={elements}></ChartButtonGrid> */}
     </>
   )
 }

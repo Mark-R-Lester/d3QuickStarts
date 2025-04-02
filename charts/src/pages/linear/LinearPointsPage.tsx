@@ -1,6 +1,6 @@
 import { Typography } from '@mui/material'
 
-import { ElementGrid } from '../../components/atoms/ElementGrid'
+import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
 import { EnumOrientation } from '../../common/enums'
 import { LinearPointsElement } from '../../components/atoms/chart/linear/elements/LinearPointsElement'
 
@@ -32,7 +32,7 @@ export default function LinearPointsPage() {
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
         Linear Points
       </Typography>
-      <ElementGrid elements={elements}></ElementGrid>
+      {/* <ChartButtonGrid elements={elements}></ChartButtonGrid> */}
     </>
   )
 }

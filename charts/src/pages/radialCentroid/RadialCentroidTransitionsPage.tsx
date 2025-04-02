@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import { ElementGrid } from '../../components/atoms/ElementGrid'
+import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
 import { RadialAreaTransition } from '../../components/atoms/chart/radial/transitions/RadialAreaTransition'
 import { RadialLineTransition } from '../../components/atoms/chart/radial/transitions/RadialLineTransition'
 import { RadialPointTransition } from '../../components/atoms/chart/radial/transitions/RadialPointsTransition'
@@ -125,7 +125,7 @@ export default function RadialTransitionsPage() {
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
         Radial Centroid Transitions
       </Typography>
-      <ElementGrid elements={elements}></ElementGrid>
+      {/* <ChartButtonGrid elements={elements}></ChartButtonGrid> */}
     </>
   )
 }

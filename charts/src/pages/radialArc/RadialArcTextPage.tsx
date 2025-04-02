@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import { ElementGrid } from '../../components/atoms/ElementGrid'
+import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
 import { RadialTextFollowElement } from '../../components/atoms/chart/radial/elements/RadialTextFollowElement'
 import { RadialTextSpokeElement } from '../../components/atoms/chart/radial/elements/RadialTextSpokeElement'
 import { RadialTextHorizontalElement } from '../../components/atoms/chart/radial/elements/RadialTextHorizontalElement'
@@ -46,7 +46,7 @@ export default function RadialArcTextPage() {
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
         Radial Arc Text
       </Typography>
-      <ElementGrid elements={elements}></ElementGrid>
+      {/* <ChartButtonGrid elements={elements}></ChartButtonGrid> */}
     </>
   )
 }

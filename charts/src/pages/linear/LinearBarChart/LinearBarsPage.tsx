@@ -19,6 +19,7 @@ import {
   floatingBarChartSmall,
   floatingBarChartSmallVertical,
 } from './SimpleFloatingBars'
+import { ChartEditor } from './ChartEditor'
 
 export default function LinearBarsPage() {
   const menuElements: JSX.Element[] = [
@@ -55,6 +56,27 @@ export default function LinearBarsPage() {
     setChart(charts[index])
   }
 
+  const code = `
+      const data: QsBarData[] = [
+        { upperBoundry: 25 },
+        { upperBoundry: 10 },
+        { upperBoundry: 35 },
+        { upperBoundry: 25 },
+        { upperBoundry: 35 },
+        { upperBoundry: 5 },
+        { upperBoundry: 25 },
+        { upperBoundry: 25 },
+      ]
+      const canvasProps = {
+        chartName: 'ChartEditable',
+        width: 800,
+        lowestViewableValue: 0,
+        highestViewableValue: 35,
+      }
+      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      canvas.generate.linear.vertical.bars(data)
+    `
+
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
@@ -65,6 +87,8 @@ export default function LinearBarsPage() {
         onClick={onClick}
       ></ChartButtonGrid>
       <ContentContainer elements={content}></ContentContainer>
+
+      <ChartEditor initialCode={code}></ChartEditor>
     </>
   )
 }

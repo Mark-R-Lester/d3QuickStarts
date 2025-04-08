@@ -137,6 +137,5 @@ export const getCalculatedData = (
     })
   })
 
-  console.log('calculatedData', calculatedData)
   return calculatedData
 }

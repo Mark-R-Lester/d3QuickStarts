@@ -27,6 +27,21 @@ describe('Linear Bars calculatedData', () => {
     strokeColorScaleData: undefined,
   }
 
+  const canvasConfig: CanvasConfigStrict = {
+    chartName: 'myChart',
+    width: 100,
+    height: 100,
+    marginRight: 0,
+    marginLeft: 0,
+    marginTop: 0,
+    marginBottom: 0,
+    highestViewableValue: 100,
+    lowestViewableValue: 0,
+    borderColor: 'lightgrey',
+    displayAreaHeight: 100,
+    displayAreaWidth: 100,
+  }
+
   test.each`
     zeroY | zeroHeight | oneY                 | oneHeight            | twoY                 | twoHeight            | threeY | threeHeight | lowestViewableValue | highestViewableValue
     ${0}  | ${100}     | ${25}                | ${75}                | ${50}                | ${50}                | ${75}  | ${25}       | ${0}                | ${100}
@@ -49,44 +64,19 @@ describe('Linear Bars calculatedData', () => {
       lowestViewableValue,
       highestViewableValue,
     }) => {
-      const canvasConfig: CanvasConfigStrict = {
-        chartName: 'myChart',
-        width: 100,
-        height: 100,
-        marginRight: 0,
-        marginLeft: 0,
-        marginTop: 0,
-        marginBottom: 0,
-        highestViewableValue,
-        lowestViewableValue,
-        borderColor: 'lightgrey',
-        displayAreaHeight: 100,
-        displayAreaWidth: 100,
-      }
-
       const data: QsBarData[] = [
-        {
-          lowerBoundry: 0,
-          upperBoundry: 100,
-        },
-        {
-          lowerBoundry: 0,
-          upperBoundry: 75,
-        },
-        {
-          lowerBoundry: 0,
-          upperBoundry: 50,
-        },
-        {
-          lowerBoundry: 0,
-          upperBoundry: 25,
-        },
+        { lowerBoundry: 0, upperBoundry: 100 },
+        { lowerBoundry: 0, upperBoundry: 75 },
+        { lowerBoundry: 0, upperBoundry: 50 },
+        { lowerBoundry: 0, upperBoundry: 25 },
       ]
       const args: DrawArgs = {
         data,
         orientation: Orientation.HORIZONTAL,
       }
 
+      canvasConfig.highestViewableValue = highestViewableValue
+      canvasConfig.lowestViewableValue = lowestViewableValue
       const scales = getScales(canvasConfig)
       const qsCanvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
@@ -126,36 +116,17 @@ describe('Linear Bars calculatedData', () => {
       lowestViewableValue,
       highestViewableValue,
     }) => {
-      const canvasConfig: CanvasConfigStrict = {
-        chartName: 'myChart',
-        width: 100,
-        height: 100,
-        marginRight: 0,
-        marginLeft: 0,
-        marginTop: 0,
-        marginBottom: 0,
-        highestViewableValue,
-        lowestViewableValue,
-        borderColor: 'lightgrey',
-        displayAreaHeight: 100,
-        displayAreaWidth: 100,
-      }
-
       const data: QsBarData[] = [
-        {
-          lowerBoundry: 0,
-          upperBoundry: 100,
-        },
-        {
-          lowerBoundry: 10,
-          upperBoundry: 100,
-        },
+        { lowerBoundry: 0, upperBoundry: 100 },
+        { lowerBoundry: 10, upperBoundry: 100 },
       ]
       const args: DrawArgs = {
         data,
         orientation: Orientation.HORIZONTAL,
       }
 
+      canvasConfig.highestViewableValue = highestViewableValue
+      canvasConfig.lowestViewableValue = lowestViewableValue
       const scales = getScales(canvasConfig)
       const qsCanvas: QsCanvas = qsCreateCanvas(canvasConfig)
 

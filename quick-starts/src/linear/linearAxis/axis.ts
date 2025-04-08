@@ -60,9 +60,37 @@ interface DrawArgs {
   scaleType: ScaleType
 }
 
-const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
+enum AixsOrientation {
+  LEFT,
+  RIGHT,
+  TOP,
+  BOTTOM,
+}
+
+const addDefaultsToConfig = (
+  orientation: AixsOrientation,
+  customConfig?: QsAxisConfig
+): AxisConfigStrict => {
+  const getTextAnchor = (orietation: AixsOrientation): QsEnumTextAnchor => {
+    let anchor = QsEnumTextAnchor.MIDDLE
+    if (orietation === AixsOrientation.LEFT) anchor = QsEnumTextAnchor.END
+    if (orietation === AixsOrientation.RIGHT) anchor = QsEnumTextAnchor.START
+
+    return anchor
+  }
+
+  const getTextAlignmentBaseline = (
+    orietation: AixsOrientation
+  ): QsEnumAlignmentBaseline => {
+    let baseline = QsEnumAlignmentBaseline.MIDDLE
+    if (orietation === AixsOrientation.BOTTOM)
+      baseline = QsEnumAlignmentBaseline.HANGING
+    if (orietation === AixsOrientation.TOP)
+      baseline = QsEnumAlignmentBaseline.BASELINE
+
+    return baseline
+  }
   const defaults: AxisConfigStrict = {
-    alignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
     percentageMovement: 0,
 
     domainColor: GlobalDefaultColors.AXIS_COLOR,
@@ -77,15 +105,15 @@ const addDefaultsToConfig = (customConfig?: QsAxisConfig): AxisConfigStrict => {
     numberOfTicks: 0,
 
     textFont: QsEnumTextFont.SERIF,
-    textFontSize: 10,
+    textFontSize: 6,
     textFontStyle: QsEnumTextFontStyle.NORMAL,
     textFontWeight: QsEnumTextFontWeight.NORMAL,
     textDecorationLine: QsEnumTextDecorationLine.NORMAL,
     textFill: GlobalDefaultColors.AXIS_COLOR,
     textAngle: 0,
     textStroke: '',
-    textAnchor: QsEnumTextAnchor.START,
-    textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+    textAnchor: getTextAnchor(orientation),
+    textAlignmentBaseline: getTextAlignmentBaseline(orientation),
     textX: 0,
     textY: 0,
   }
@@ -103,7 +131,10 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const config: AxisConfigStrict = addDefaultsToConfig(
+      AixsOrientation.TOP,
+      customConfig
+    )
     const args: DrawArgs = {
       data,
       chartEdge: ChartEdge.TOP,
@@ -116,7 +147,10 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const config: AxisConfigStrict = addDefaultsToConfig(
+      AixsOrientation.BOTTOM,
+      customConfig
+    )
     const args: DrawArgs = {
       data,
       chartEdge: ChartEdge.BOTTOM,
@@ -129,7 +163,10 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const config: AxisConfigStrict = addDefaultsToConfig(
+      AixsOrientation.BOTTOM,
+      customConfig
+    )
     const args: DrawArgs = {
       data,
       chartEdge: ChartEdge.BOTTOM,
@@ -142,7 +179,10 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const config: AxisConfigStrict = addDefaultsToConfig(
+      AixsOrientation.TOP,
+      customConfig
+    )
     const args: DrawArgs = {
       data,
       chartEdge: ChartEdge.TOP,
@@ -155,7 +195,10 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const config: AxisConfigStrict = addDefaultsToConfig(
+      AixsOrientation.LEFT,
+      customConfig
+    )
     const args: DrawArgs = {
       data,
       chartEdge: ChartEdge.LEFT,
@@ -168,7 +211,10 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const config: AxisConfigStrict = addDefaultsToConfig(
+      AixsOrientation.RIGHT,
+      customConfig
+    )
     const args: DrawArgs = {
       data,
       chartEdge: ChartEdge.RIGHT,
@@ -181,7 +227,10 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const config: AxisConfigStrict = addDefaultsToConfig(
+      AixsOrientation.LEFT,
+      customConfig
+    )
     const args: DrawArgs = {
       data,
       chartEdge: ChartEdge.LEFT,
@@ -194,7 +243,10 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(customConfig)
+    const config: AxisConfigStrict = addDefaultsToConfig(
+      AixsOrientation.RIGHT,
+      customConfig
+    )
     const args: DrawArgs = {
       data,
       chartEdge: ChartEdge.RIGHT,
@@ -299,8 +351,8 @@ const draw = (
     chartEdge === ChartEdge.BOTTOM || chartEdge === ChartEdge.TOP
       ? `translate(0, ${displayAreaHeight - percentScale(percentageMovement)})`
       : `translate(${percentScale(percentageMovement)}, 0)`
-  axis.tickSizeInner(percentScale(tickSizeInner))
-  axis.tickSizeOuter(percentScale(tickSizeOuter))
+  axis.tickSizeInner(genralPercentScale(tickSizeInner))
+  axis.tickSizeOuter(genralPercentScale(tickSizeOuter))
   axis.tickPadding(tickPadding)
 
   if (numberOfTicks) axis.ticks(numberOfTicks)

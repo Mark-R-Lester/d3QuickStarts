@@ -5,11 +5,11 @@ import { EnumOrientation } from '../../../common/enums'
 export const barDataSimple: QsBarData[] = [
   { upperBoundry: 25, lowerBoundry: 5 },
   { upperBoundry: 5 },
-  { upperBoundry: 35 },
-  { upperBoundry: 25 },
+  { upperBoundry: 35, lowerBoundry: 10 },
+  { upperBoundry: 25, lowerBoundry: 15 },
   { upperBoundry: 30 },
   { upperBoundry: 5 },
-  { upperBoundry: 25 },
+  { upperBoundry: 23 },
   { upperBoundry: 25 },
 ]
 
@@ -56,7 +56,7 @@ export const simpleBarChartLarge = (
     canvasProps={{
       chartName: 'bars',
       width: 800,
-      lowestViewableValue: 0,
+      lowestViewableValue: 20,
       highestViewableValue: 35,
     }}
     orientation={EnumOrientation.HORIZONTAL}

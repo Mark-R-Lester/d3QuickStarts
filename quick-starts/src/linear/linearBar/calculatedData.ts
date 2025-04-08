@@ -44,6 +44,10 @@ export const getCalculatedData = (
   const { xDataScale, yDataScaleInverted, genralPercentScale } = canvas.scales
   const calculatedData: CalculatedData[] = []
 
+  const getOffset = (offset: number) => {
+    return offset >= 0 ? offset : 0
+  }
+
   const bandStepScale = scaleBand()
     .domain(toStrings(range(data.length)))
     .range([0, isVertical ? displayAreaHeight : displayAreaWidth])
@@ -55,10 +59,14 @@ export const getCalculatedData = (
   const height = (d: QsBarData) =>
     isVertical
       ? bandWidthScale.bandwidth()
-      : yDataScaleInverted(d.upperBoundry - d.lowerBoundry!)
+      : yDataScaleInverted(
+          d.upperBoundry - getOffset(d.lowerBoundry! - lowestViewableValue)
+        )
   const width = (d: QsBarData) =>
     isVertical
-      ? xDataScale(d.upperBoundry - d.lowerBoundry!)
+      ? xDataScale(
+          d.upperBoundry - getOffset(d.lowerBoundry! - lowestViewableValue)
+        )
       : bandWidthScale.bandwidth()
 
   const x = (d: QsBarData, i: number) =>
@@ -66,7 +74,7 @@ export const getCalculatedData = (
   const y = (d: QsBarData, i: number) =>
     isVertical
       ? barSpaceing(d, i)
-      : displayAreaHeight - yDataScaleInverted(d.upperBoundry - d.lowerBoundry!)
+      : displayAreaHeight - yDataScaleInverted(d.upperBoundry)
 
   const barSpaceing = (d: QsBarData, i: number) => {
     const adjustmentToCorrectD3 =

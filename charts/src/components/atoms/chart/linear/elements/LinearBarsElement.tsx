@@ -16,8 +16,13 @@ export const LinearBarsElement: FunctionComponent<BarChartProps> = ({
 
       if (isVertical) {
         canvas.generate.linear.vertical.bars(data, config)
+        canvas.generate.linear.vertical.axis.left([0, 35])
       } else {
         canvas.generate.linear.horizontal.bars(data, config)
+        canvas.generate.linear.vertical.axis.left([0, 35])
+        canvas.generate.linear.horizontal.axis.bottomBanded([
+          1, 2, 3, 4, 5, 6, 7, 8,
+        ])
       }
     }
     createChart()

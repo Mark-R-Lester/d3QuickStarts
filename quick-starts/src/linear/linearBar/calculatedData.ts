@@ -39,7 +39,8 @@ export const getCalculatedData = (
   const findLowerBoundry = (lowerBoundry: number | undefined) =>
     lowerBoundry ?? 0
 
-  const { displayAreaWidth, displayAreaHeight } = canvas.config
+  const { displayAreaWidth, displayAreaHeight, lowestViewableValue } =
+    canvas.config
   const { xDataScale, yDataScaleInverted, genralPercentScale } = canvas.scales
   const calculatedData: CalculatedData[] = []
 
@@ -61,11 +62,11 @@ export const getCalculatedData = (
       : bandWidthScale.bandwidth()
 
   const x = (d: QsBarData, i: number) =>
-    isVertical ? xDataScale(d.lowerBoundry!) : barSpaceing(d, i)
+    isVertical ? xDataScale(d.upperBoundry!) : barSpaceing(d, i)
   const y = (d: QsBarData, i: number) =>
     isVertical
       ? barSpaceing(d, i)
-      : displayAreaHeight - yDataScaleInverted(d.upperBoundry)
+      : displayAreaHeight - yDataScaleInverted(d.upperBoundry - d.lowerBoundry!)
 
   const barSpaceing = (d: QsBarData, i: number) => {
     const adjustmentToCorrectD3 =
@@ -127,5 +128,7 @@ export const getCalculatedData = (
       barData,
     })
   })
+
+  console.log('calculatedData', calculatedData)
   return calculatedData
 }

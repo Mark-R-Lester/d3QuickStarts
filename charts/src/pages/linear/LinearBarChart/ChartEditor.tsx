@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useEffect, useState } from 'react'
 import AceEditor from 'react-ace'
 import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/theme-monokai'
@@ -6,7 +6,6 @@ import 'ace-builds/src-noconflict/worker-javascript'
 import ace from 'ace-builds'
 import { transpile } from 'typescript'
 import { qsCreateCanvas } from 'd3qs/d3QuickStart'
-import { Button } from '@mui/material'
 import { styled } from '@mui/material/styles'
 
 ace.config.set('basePath', '/node_modules/ace-builds/src-noconflict/')
@@ -52,15 +51,21 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
     }
   }
 
+  useEffect(() => {
+    executeJsCode(initialCode)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const ChartEditorTheme = styled('div')(({ theme }) => ({
     '.chartEditor': {
       display: 'flex',
       flexDirection: 'row',
-      '&: hover': {
-        borderColor: '#39d615',
-        boxShadow: '0px 0px 10px #39d615',
-      },
     },
+  }))
+
+  const EditableChartTheme = styled('div')(({ theme }) => ({
+    paddingLeft: '100px',
+    flexDirection: 'row',
   }))
 
   return (
@@ -80,7 +85,9 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
         />
 
         {error && <p className="mt-2 text-red-500 text-sm">{error}</p>}
-        <div id="ChartEditable" />
+        <EditableChartTheme>
+          <div id="ChartEditable" />
+        </EditableChartTheme>
       </div>
     </ChartEditorTheme>
   )

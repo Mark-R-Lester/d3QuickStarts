@@ -57,11 +57,13 @@
     "@testing-library/user-event": "^13.5.0",
     "@toolpad/core": "^0.8.1",
     "@types/jest": "^27.5.2",
+    "@types/jsdom": "^21.1.7",
     "@types/node": "^16.18.113",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
     "@types/react-router-dom": "^5.3.3",
     "@types/react-syntax-highlighter": "^15.5.13",
+    "jsdom": "^26.0.0",
     "react-scripts": "^5.0.1"
   }
 }

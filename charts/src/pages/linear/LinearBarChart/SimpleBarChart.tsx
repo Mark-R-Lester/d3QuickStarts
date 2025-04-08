@@ -3,11 +3,11 @@ import { LinearBarsElement } from '../../../components/atoms/chart/linear/elemen
 import { EnumOrientation } from '../../../common/enums'
 
 export const barDataSimple: QsBarData[] = [
-  { upperBoundry: 25 },
-  { upperBoundry: 10 },
+  { upperBoundry: 25, lowerBoundry: 5 },
+  { upperBoundry: 5 },
   { upperBoundry: 35 },
   { upperBoundry: 25 },
-  { upperBoundry: 35 },
+  { upperBoundry: 30 },
   { upperBoundry: 5 },
   { upperBoundry: 25 },
   { upperBoundry: 25 },
@@ -18,7 +18,7 @@ export const barDataAsString: string = `const barDataSimple: QsBarData[] =[
   { upperBoundry: 10 },
   { upperBoundry: 35 },
   { upperBoundry: 25 },
-  { upperBoundry: 35 },
+  { upperBoundry: 30 },
   { upperBoundry: 5 },
   { upperBoundry: 25 },
   { upperBoundry: 25 },

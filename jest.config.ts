@@ -17,6 +17,8 @@ const config: JestConfigWithTsJest = {
       testMatch: [
         "<rootDir>/quick-starts/**/*.test.ts",
         "<rootDir>/charts/**/*.test.ts",
+        "<rootDir>/quick-starts/**/*.test.tsx",
+        "<rootDir>/charts/**/*.test.tsx",
       ],
       moduleNameMapper: {
         d3: "<rootDir>/quick-starts/node_modules/d3/dist/d3.min.js",

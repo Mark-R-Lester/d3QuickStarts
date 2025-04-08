@@ -23,7 +23,7 @@ const addDefaultsToConfig = (
     marginBottom: 15,
     highestViewableValue: 0,
     lowestViewableValue: 0,
-    borderColor: 'transparent',
+    borderColor: 'lightgrey',
     displayAreaHeight: 0,
     displayAreaWidth: 0,
   }

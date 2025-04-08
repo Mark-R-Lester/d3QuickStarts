@@ -24,16 +24,16 @@ import { ChartEditor } from './ChartEditor'
 export default function LinearBarsPage() {
   const menuElements: JSX.Element[] = [
     simpleBarChartSmall,
-    simpleBarChartSmallVertical,
-    floatingBarChartSmall,
-    floatingBarChartSmallVertical,
+    // simpleBarChartSmallVertical,
+    // floatingBarChartSmall,
+    // floatingBarChartSmallVertical,
   ]
 
   const charts: JSX.Element[] = [
     simpleBarChartLarge,
-    simpleBarChartLargeVertical,
-    floatingBarChartLarge,
-    floatingBarChartLargeVertical,
+    // simpleBarChartLargeVertical,
+    // floatingBarChartLarge,
+    // floatingBarChartLargeVertical,
   ]
 
   const [chart, setChart] = useState<JSX.Element>(charts[0])
@@ -58,8 +58,8 @@ export default function LinearBarsPage() {
 
   const code = `
       const data: QsBarData[] = [
-        { upperBoundry: 25 },
-        { upperBoundry: 10 },
+        { upperBoundry: 25, lowerBoundry: 5},
+        { upperBoundry: 5 },
         { upperBoundry: 35 },
         { upperBoundry: 25 },
         { upperBoundry: 35 },
@@ -88,7 +88,7 @@ export default function LinearBarsPage() {
       ></ChartButtonGrid>
       <ContentContainer elements={content}></ContentContainer>
 
-      <ChartEditor initialCode={code}></ChartEditor>
+      {/* <ChartEditor initialCode={code}></ChartEditor> */}
     </>
   )
 }

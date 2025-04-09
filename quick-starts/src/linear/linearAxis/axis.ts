@@ -60,33 +60,25 @@ interface DrawArgs {
   scaleType: ScaleType
 }
 
-enum AixsOrientation {
-  LEFT,
-  RIGHT,
-  TOP,
-  BOTTOM,
-}
-
 const addDefaultsToConfig = (
-  orientation: AixsOrientation,
+  chartEdge: ChartEdge,
   customConfig?: QsAxisConfig
 ): AxisConfigStrict => {
-  const getTextAnchor = (orietation: AixsOrientation): QsEnumTextAnchor => {
+  const getTextAnchor = (chartEdge: ChartEdge): QsEnumTextAnchor => {
     let anchor = QsEnumTextAnchor.MIDDLE
-    if (orietation === AixsOrientation.LEFT) anchor = QsEnumTextAnchor.END
-    if (orietation === AixsOrientation.RIGHT) anchor = QsEnumTextAnchor.START
+    if (chartEdge === ChartEdge.LEFT) anchor = QsEnumTextAnchor.END
+    if (chartEdge === ChartEdge.RIGHT) anchor = QsEnumTextAnchor.START
 
     return anchor
   }
 
   const getTextAlignmentBaseline = (
-    orietation: AixsOrientation
+    chartEdge: ChartEdge
   ): QsEnumAlignmentBaseline => {
     let baseline = QsEnumAlignmentBaseline.MIDDLE
-    if (orietation === AixsOrientation.BOTTOM)
+    if (chartEdge === ChartEdge.BOTTOM)
       baseline = QsEnumAlignmentBaseline.HANGING
-    if (orietation === AixsOrientation.TOP)
-      baseline = QsEnumAlignmentBaseline.BASELINE
+    if (chartEdge === ChartEdge.TOP) baseline = QsEnumAlignmentBaseline.BASELINE
 
     return baseline
   }
@@ -112,8 +104,8 @@ const addDefaultsToConfig = (
     textFill: GlobalDefaultColors.AXIS_COLOR,
     textAngle: 0,
     textStroke: '',
-    textAnchor: getTextAnchor(orientation),
-    textAlignmentBaseline: getTextAlignmentBaseline(orientation),
+    textAnchor: getTextAnchor(chartEdge),
+    textAlignmentBaseline: getTextAlignmentBaseline(chartEdge),
     textX: 0,
     textY: 0,
   }
@@ -132,7 +124,7 @@ export const linearAxis = {
     customConfig?: QsAxisConfig
   ): QsAxis => {
     const config: AxisConfigStrict = addDefaultsToConfig(
-      AixsOrientation.TOP,
+      ChartEdge.TOP,
       customConfig
     )
     const args: DrawArgs = {
@@ -148,7 +140,7 @@ export const linearAxis = {
     customConfig?: QsAxisConfig
   ): QsAxis => {
     const config: AxisConfigStrict = addDefaultsToConfig(
-      AixsOrientation.BOTTOM,
+      ChartEdge.BOTTOM,
       customConfig
     )
     const args: DrawArgs = {
@@ -164,7 +156,7 @@ export const linearAxis = {
     customConfig?: QsAxisConfig
   ): QsAxis => {
     const config: AxisConfigStrict = addDefaultsToConfig(
-      AixsOrientation.BOTTOM,
+      ChartEdge.BOTTOM,
       customConfig
     )
     const args: DrawArgs = {
@@ -180,7 +172,7 @@ export const linearAxis = {
     customConfig?: QsAxisConfig
   ): QsAxis => {
     const config: AxisConfigStrict = addDefaultsToConfig(
-      AixsOrientation.TOP,
+      ChartEdge.TOP,
       customConfig
     )
     const args: DrawArgs = {
@@ -196,7 +188,7 @@ export const linearAxis = {
     customConfig?: QsAxisConfig
   ): QsAxis => {
     const config: AxisConfigStrict = addDefaultsToConfig(
-      AixsOrientation.LEFT,
+      ChartEdge.LEFT,
       customConfig
     )
     const args: DrawArgs = {
@@ -212,7 +204,7 @@ export const linearAxis = {
     customConfig?: QsAxisConfig
   ): QsAxis => {
     const config: AxisConfigStrict = addDefaultsToConfig(
-      AixsOrientation.RIGHT,
+      ChartEdge.RIGHT,
       customConfig
     )
     const args: DrawArgs = {
@@ -228,7 +220,7 @@ export const linearAxis = {
     customConfig?: QsAxisConfig
   ): QsAxis => {
     const config: AxisConfigStrict = addDefaultsToConfig(
-      AixsOrientation.LEFT,
+      ChartEdge.LEFT,
       customConfig
     )
     const args: DrawArgs = {
@@ -244,7 +236,7 @@ export const linearAxis = {
     customConfig?: QsAxisConfig
   ): QsAxis => {
     const config: AxisConfigStrict = addDefaultsToConfig(
-      AixsOrientation.RIGHT,
+      ChartEdge.RIGHT,
       customConfig
     )
     const args: DrawArgs = {
@@ -268,6 +260,7 @@ const draw = (
     yPercentScale,
     yPercentScaleInverted,
     yDataScale,
+    xDataScale,
   } = canvas.scales
   const { displayAreaWidth, displayAreaHeight } = canvas.config
   const {
@@ -313,7 +306,9 @@ const draw = (
         if (data.some((d) => typeof d === 'string')) {
           return scalePoint().domain(toStrings(data)).range(range)
         } else {
-          return yDataScale
+          return chartEdge === ChartEdge.BOTTOM || ChartEdge.TOP
+            ? xDataScale
+            : yDataScale
         }
       }
       return scaleBand().domain(toStrings(data)).range(range)

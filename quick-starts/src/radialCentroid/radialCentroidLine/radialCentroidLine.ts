@@ -1,0 +1,100 @@
+import { lineRadial } from 'd3'
+import { CalculatedData, getCalculatedData } from './calculatedData'
+import { Canvas } from '../../d3QuickStart'
+import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import {
+  QsEnumCurve,
+  QsEnumLineCap,
+  QsEnumLineJoin,
+} from '../../core/enums/qsEnums'
+import { constantsCurves } from '../../core/constants/constants'
+import {
+  QsRadialLineConfig,
+  QsRadialLine,
+  QsRadialLineTransitionData,
+  QsRadialLineData,
+} from './qsTypes'
+import { RadialLineConfigStrict } from './types'
+import {
+  GlobalDefaultColors,
+  GlobalDefaultSettings,
+} from '../../core/enums/enums'
+
+const addDefaultsToConfig = (
+  customConfig?: QsRadialLineConfig
+): RadialLineConfigStrict => {
+  const defaults: RadialLineConfigStrict = {
+    curve: QsEnumCurve.LINEAR,
+    strokeLineJoin: QsEnumLineJoin.ROUND,
+    strokeLineCap: QsEnumLineCap.ROUND,
+    defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
+    defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
+    defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
+    x: GlobalDefaultSettings.RADIAL_X,
+    y: GlobalDefaultSettings.RADIAL_Y,
+  }
+
+  if (!customConfig) return defaults
+
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
+}
+
+export const radialLine = {
+  line: (
+    canvas: Canvas,
+    data: QsRadialLineData,
+    customConfig?: QsRadialLineConfig
+  ): QsRadialLine => {
+    const config: RadialLineConfigStrict = addDefaultsToConfig(customConfig)
+    return draw(canvas, data, config)
+  },
+}
+
+const draw = (
+  canvas: Canvas,
+  data: QsRadialLineData,
+  config: RadialLineConfigStrict
+): QsRadialLine => {
+  const { curve, strokeLineJoin, strokeLineCap } = config
+  const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
+
+  const radialLine = lineRadial().curve(constantsCurves[curve])
+  const group = canvas.displayGroup.append('g')
+  group
+    .append('path')
+    .datum(calculatedData)
+    .attr('class', (d) => d.class)
+    .attr('id', (d) => d.id)
+    .attr('d', (d) => radialLine(d.lineData))
+    .attr('fill', 'none')
+    .attr('stroke', (d) => d.strokeColor)
+    .attr('stroke-width', (d) => d.strokeWidth)
+    .attr('stroke-opacity', (d) => d.strokeOpacity)
+    .attr('stroke-linejoin', strokeLineJoin)
+    .attr('stroke-linecap', strokeLineCap)
+    .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
+  return {
+    element: group.selectAll(`.${calculatedData.class}`),
+    transition: (data: QsRadialLineTransitionData) => {
+      const args = addTransitionDefaults(data.transitionArgs)
+      const calculatedData: CalculatedData = getCalculatedData(
+        canvas,
+        data.data,
+        config
+      )
+      group
+        .selectAll(`.${calculatedData.class}`)
+        .datum(calculatedData)
+        .transition()
+        .delay(args.delayInMiliSeconds)
+        .duration(args.durationInMiliSeconds)
+        .attr('d', (d) => radialLine(d.lineData))
+        .attr('stroke', (d) => d.strokeColor)
+        .attr('stroke-width', (d) => d.strokeWidth)
+        .attr('stroke-opacity', (d) => d.strokeOpacity)
+    },
+  }
+}

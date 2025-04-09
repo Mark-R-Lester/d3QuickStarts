@@ -1,0 +1,38 @@
+import { Typography } from '@mui/material'
+
+import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
+import { EnumOrientation } from '../../common/enums'
+import { LinearTextElement } from '../../components/atoms/chart/linear/elements/LinearTextElement'
+
+export default function LinearTextPage() {
+  const elements: JSX.Element[] = [
+    <LinearTextElement
+      canvasProps={{
+        chartName: 'linearTextHorizontal',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 35,
+      }}
+      orientation={EnumOrientation.HORIZONTAL}
+    />,
+
+    <LinearTextElement
+      canvasProps={{
+        chartName: 'linearTextVertical',
+        width: 150,
+        lowestViewableValue: 0,
+        highestViewableValue: 35,
+      }}
+      orientation={EnumOrientation.VERTICAL}
+    />,
+  ]
+
+  return (
+    <>
+      <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
+        Linear Text
+      </Typography>
+      {/* <ChartButtonGrid elements={elements}></ChartButtonGrid> */}
+    </>
+  )
+}

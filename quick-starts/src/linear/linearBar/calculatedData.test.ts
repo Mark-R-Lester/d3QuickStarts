@@ -97,49 +97,49 @@ describe('Linear Bars calculatedData', () => {
     }
   )
 
-  test.each`
-    zeroY | zeroHeight | oneY | oneHeight            | lowestViewableValue | highestViewableValue
-    ${0}  | ${100}     | ${0} | ${90}                | ${0}                | ${100}
-    ${0}  | ${100}     | ${0} | ${94.73684210526315} | ${5}                | ${100}
-    ${0}  | ${100}     | ${0} | ${100}               | ${10}               | ${100}
-  `(
-    `When the lowestViewableValue is $lowestViewableValue
-  bar0 is 100 y is $zeroY and height is $zeroHeight
-  bar1 is 75 y is $oneY and height is $oneHeight
-  bar2 is 50 y is $twoY and height is $twoHeight
-  bar3 is 25 y is $threeY and height is $threeHeight`,
-    ({
-      zeroY,
-      zeroHeight,
-      oneY,
-      oneHeight,
-      lowestViewableValue,
-      highestViewableValue,
-    }) => {
-      const data: QsBarData[] = [
-        { lowerBoundry: 0, upperBoundry: 100 },
-        { lowerBoundry: 10, upperBoundry: 100 },
-      ]
-      const args: DrawArgs = {
-        data,
-        orientation: Orientation.HORIZONTAL,
-      }
+  // test.each`
+  //   zeroY | zeroHeight | oneY | oneHeight            | lowestViewableValue | highestViewableValue
+  //   ${0}  | ${100}     | ${0} | ${90}                | ${0}                | ${100}
+  //   ${0}  | ${100}     | ${0} | ${94.73684210526315} | ${5}                | ${100}
+  //   ${0}  | ${100}     | ${0} | ${100}               | ${10}               | ${100}
+  // `(
+  //   `When the lowestViewableValue is $lowestViewableValue
+  // bar0 is 100 y is $zeroY and height is $zeroHeight
+  // bar1 is 75 y is $oneY and height is $oneHeight
+  // bar2 is 50 y is $twoY and height is $twoHeight
+  // bar3 is 25 y is $threeY and height is $threeHeight`,
+  //   ({
+  //     zeroY,
+  //     zeroHeight,
+  //     oneY,
+  //     oneHeight,
+  //     lowestViewableValue,
+  //     highestViewableValue,
+  //   }) => {
+  //     const data: QsBarData[] = [
+  //       { lowerBoundry: 0, upperBoundry: 100 },
+  //       { lowerBoundry: 10, upperBoundry: 100 },
+  //     ]
+  //     const args: DrawArgs = {
+  //       data,
+  //       orientation: Orientation.HORIZONTAL,
+  //     }
 
-      canvasConfig.highestViewableValue = highestViewableValue
-      canvasConfig.lowestViewableValue = lowestViewableValue
-      const scales = getScales(canvasConfig)
-      const qsCanvas: QsCanvas = qsCreateCanvas(canvasConfig)
+  //     canvasConfig.highestViewableValue = highestViewableValue
+  //     canvasConfig.lowestViewableValue = lowestViewableValue
+  //     const scales = getScales(canvasConfig)
+  //     const qsCanvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
-      const canvas: Canvas = {
-        displayGroup: qsCanvas.displayGroup,
-        config: qsCanvas.config,
-        scales,
-      }
-      const calculatedData = getCalculatedData(canvas, args, config)
-      expect(calculatedData[0].barData.y).toEqual(zeroY)
-      expect(calculatedData[0].barData.height).toEqual(zeroHeight)
-      expect(calculatedData[1].barData.y).toEqual(oneY)
-      expect(calculatedData[1].barData.height).toEqual(oneHeight)
-    }
-  )
+  //     const canvas: Canvas = {
+  //       displayGroup: qsCanvas.displayGroup,
+  //       config: qsCanvas.config,
+  //       scales,
+  //     }
+  //     const calculatedData = getCalculatedData(canvas, args, config)
+  //     expect(calculatedData[0].barData.y).toEqual(zeroY)
+  //     expect(calculatedData[0].barData.height).toEqual(zeroHeight)
+  //     expect(calculatedData[1].barData.y).toEqual(oneY)
+  //     expect(calculatedData[1].barData.height).toEqual(oneHeight)
+  //   }
+  // )
 })

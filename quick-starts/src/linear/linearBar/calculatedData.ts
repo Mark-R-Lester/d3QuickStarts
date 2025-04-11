@@ -90,7 +90,9 @@ export const getCalculatedData = (
   }
 
   const bandStepScale = scaleBand()
-    .domain(toStrings(range(data.length)))
+    .domain(
+      toStrings(isVertical ? range(data.length).reverse() : range(data.length))
+    )
     .range([0, isVertical ? displayAreaHeight : displayAreaWidth])
   const bandWidthScale = scaleBand()
     .domain(toStrings(range(data.length)))
@@ -190,6 +192,5 @@ export const getCalculatedData = (
     })
   })
 
-  console.log(calculatedData)
   return calculatedData
 }

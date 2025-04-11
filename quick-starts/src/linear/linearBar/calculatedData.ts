@@ -137,7 +137,7 @@ export const getCalculatedData = (
     //TODO requires error handling
     const bandStep = bandStepScale(i.toString())
     if (bandStep) return bandStep + adjustmentToCorrectD3
-    return 0
+    return adjustmentToCorrectD3
   }
 
   let fillColorScale:
@@ -192,5 +192,6 @@ export const getCalculatedData = (
     })
   })
 
+  console.log(calculatedData)
   return calculatedData
 }

@@ -88,7 +88,7 @@ export default function LinearBarsPage() {
       ></ChartButtonGrid>
       <ContentContainer elements={content}></ContentContainer>
 
-      <ChartEditor initialCode={code}></ChartEditor>
+      {/* <ChartEditor initialCode={code}></ChartEditor> */}
     </>
   )
 }

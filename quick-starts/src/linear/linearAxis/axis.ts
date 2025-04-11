@@ -306,7 +306,7 @@ const draw = (
         if (data.some((d) => typeof d === 'string')) {
           return scalePoint().domain(toStrings(data)).range(range)
         } else {
-          return chartEdge === ChartEdge.BOTTOM || ChartEdge.TOP
+          return chartEdge === (ChartEdge.BOTTOM || ChartEdge.TOP)
             ? xDataScale
             : yDataScale
         }

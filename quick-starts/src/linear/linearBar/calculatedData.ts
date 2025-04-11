@@ -105,9 +105,9 @@ export const getCalculatedData = (
         : yDataScaleInverted(
             d.upperBoundry -
               ensureIsNotGreaterThanZero(
-                d.lowerBoundry!,
                 lowestViewableValue,
-                highestViewableValue
+                highestViewableValue,
+                d.lowerBoundry!
               )
           )
   const width = (d: QsBarData) =>

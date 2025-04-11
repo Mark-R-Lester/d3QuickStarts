@@ -20,6 +20,7 @@ export interface CalculatedData {
 
 export const calculateDataSize = (
   lowestViewableValue: number,
+  highestViewableValue: number,
   lowerBoundry: number,
   upperBoundry: number
 ) => {
@@ -27,7 +28,10 @@ export const calculateDataSize = (
     lowerBoundry + (upperBoundry - lowerBoundry) <= lowestViewableValue
   const theBarIsMovingAcrossTheChart =
     lowerBoundry <= lowestViewableValue && upperBoundry > lowestViewableValue
+  const theLowestViewableValueExceedsTheHighest =
+    lowestViewableValue >= highestViewableValue
 
+  if (theLowestViewableValueExceedsTheHighest) return 0
   if (theBarIsShrinkingOffTheChart) return lowestViewableValue
   if (theBarIsMovingAcrossTheChart) return upperBoundry
 
@@ -64,7 +68,16 @@ export const getCalculatedData = (
   const findLowerBoundry = (lowerBoundry: number | undefined) =>
     lowerBoundry ?? 0
 
-  const ensureIsNotGreaterThanZero = (offset: number) => {
+  const ensureIsNotGreaterThanZero = (
+    lowestViewableValue: number,
+    highestViewableValue: number,
+    lowerBoundry: number
+  ) => {
+    const offset = lowerBoundry - lowestViewableValue
+    const theLowestViewableValueExceedsTheHighest =
+      lowestViewableValue >= highestViewableValue
+
+    if (theLowestViewableValueExceedsTheHighest) return 0
     return offset >= 0 ? offset : 0
   }
 
@@ -91,19 +104,22 @@ export const getCalculatedData = (
         ? 0
         : yDataScaleInverted(
             d.upperBoundry -
-              ensureIsNotGreaterThanZero(d.lowerBoundry! - lowestViewableValue)
+              ensureIsNotGreaterThanZero(
+                d.lowerBoundry!,
+                lowestViewableValue,
+                highestViewableValue
+              )
           )
   const width = (d: QsBarData) =>
     isVertical
-      ? lowestViewableValue >= highestViewableValue
-        ? 0
-        : xDataScale(
-            calculateDataSize(
-              lowestViewableValue,
-              d.lowerBoundry!,
-              d.upperBoundry
-            )
+      ? xDataScale(
+          calculateDataSize(
+            lowestViewableValue,
+            highestViewableValue,
+            d.lowerBoundry!,
+            d.upperBoundry
           )
+        )
       : bandWidthScale.bandwidth()
 
   const x = (d: QsBarData, i: number) =>

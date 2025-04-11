@@ -18,7 +18,7 @@ export interface CalculatedData {
   barData: CalculatedDataBarData
 }
 
-export const calculateDataSize = (
+export const calculateDataWidth = (
   lowestViewableValue: number,
   highestViewableValue: number,
   lowerBoundry: number,
@@ -113,7 +113,7 @@ export const getCalculatedData = (
   const width = (d: QsBarData) =>
     isVertical
       ? xDataScale(
-          calculateDataSize(
+          calculateDataWidth(
             lowestViewableValue,
             highestViewableValue,
             d.lowerBoundry!,

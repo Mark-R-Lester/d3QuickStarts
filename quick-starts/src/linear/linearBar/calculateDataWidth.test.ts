@@ -1,5 +1,5 @@
 import { JSDOM } from 'jsdom'
-import { calculateDataSize } from './calculatedData'
+import { calculateDataWidth } from './calculatedData'
 
 const dom = new JSDOM()
 global.document = dom.window.document
@@ -28,7 +28,7 @@ describe('Linear Bars calculateDataSize', () => {
       highestViewableValue,
       expectedResult,
     }) => {
-      const result = calculateDataSize(
+      const result = calculateDataWidth(
         lowestViewableValue,
         highestViewableValue,
         lowerBoundry,

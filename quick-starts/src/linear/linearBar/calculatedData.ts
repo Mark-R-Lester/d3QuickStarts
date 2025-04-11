@@ -100,16 +100,14 @@ export const getCalculatedData = (
   const height = (d: QsBarData) =>
     isVertical
       ? bandWidthScale.bandwidth()
-      : lowestViewableValue >= highestViewableValue
-        ? 0
-        : yDataScaleInverted(
-            d.upperBoundry -
-              ensureIsNotGreaterThanZero(
-                lowestViewableValue,
-                highestViewableValue,
-                d.lowerBoundry!
-              )
-          )
+      : yDataScaleInverted(
+          d.upperBoundry -
+            ensureIsNotGreaterThanZero(
+              lowestViewableValue,
+              highestViewableValue,
+              d.lowerBoundry!
+            )
+        )
   const width = (d: QsBarData) =>
     isVertical
       ? xDataScale(

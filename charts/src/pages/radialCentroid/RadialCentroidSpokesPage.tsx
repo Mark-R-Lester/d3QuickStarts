@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { RadialSpokesElement } from '../../components/atoms/chart/radial/elements/RadailSpokesElement'
+import { RadialSpokesElement } from '../../components/atoms/chart/radial/RadailSpokes'
 import { useState } from 'react'
 
 export default function RadialCentroidSpokesPage() {

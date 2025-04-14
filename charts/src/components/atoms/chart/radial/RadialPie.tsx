@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import { QsCanvas, qsCreateCanvas, QsRadialData } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../../common/chartProps'
+import { ChartProps } from '../../../../common/chartProps'
 
 export const RadialPieElement: FunctionComponent<ChartProps> = ({
   canvasProps,

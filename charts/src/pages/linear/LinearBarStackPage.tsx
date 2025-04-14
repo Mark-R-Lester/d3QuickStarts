@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { LinearBarStacksElement } from '../../components/atoms/chart/linear/elements/LinearBarStacksElement'
+import { LinearBarStacksElement } from '../../components/atoms/chart/linear/LinearBarStacks'
 import { useState } from 'react'
 
 export default function LinearBarStackPage() {

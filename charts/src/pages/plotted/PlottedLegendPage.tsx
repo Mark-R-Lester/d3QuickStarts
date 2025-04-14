@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { PlottedLegendElement } from '../../components/atoms/chart/plotted/elements/PlottedLegendElement'
+import { PlottedLegendElement } from '../../components/atoms/chart/plotted/PlottedLegend'
 import { useState } from 'react'
 
 export default function PlottedLegendPage() {

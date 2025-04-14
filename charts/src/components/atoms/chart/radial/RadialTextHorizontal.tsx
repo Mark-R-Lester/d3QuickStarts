@@ -6,10 +6,11 @@ import {
   QsEnumTextAnchor,
   QsEnumTextFont,
   QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../../common/chartProps'
+import { ChartProps } from '../../../../common/chartProps'
 
-export const RadialTextSpokeElement: FunctionComponent<ChartProps> = ({
+export const RadialTextHorizontalElement: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {
@@ -39,14 +40,15 @@ export const RadialTextSpokeElement: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
-      canvas.generate.radialArc.text.spoke(data, {
+      canvas.generate.radialArc.text.horizontal(data, {
         radius: 100,
         x: 50,
         y: 50,
-        textFont: QsEnumTextFont.IMPACT,
+        textFont: QsEnumTextFont.COMIC_SANS_MS,
         textFontSize: 6,
         textFontStyle: QsEnumTextFontStyle.ITALIC,
-        textFill: 'blue',
+        textFontWeight: QsEnumTextFontWeight.NORMAL,
+        textFill: 'black',
         textAnchor: QsEnumTextAnchor.MIDDLE,
       })
     }

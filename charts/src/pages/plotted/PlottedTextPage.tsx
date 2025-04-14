@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { PlottedTextElement } from '../../components/atoms/chart/plotted/elements/PlottedTextElement'
+import { PlottedTextElement } from '../../components/atoms/chart/plotted/PlottedText'
 import { useState } from 'react'
 
 export default function PlottedTextPage() {

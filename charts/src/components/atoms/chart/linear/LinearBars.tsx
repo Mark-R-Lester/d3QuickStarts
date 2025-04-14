@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import { QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
-import { EnumOrientation } from '../../../../../common/enums'
-import { BarChartProps } from '../../../../../common/chartProps'
+import { EnumOrientation } from '../../../../common/enums'
+import { BarChartProps } from '../../../../common/chartProps'
 
 export const LinearBarsElement: FunctionComponent<BarChartProps> = ({
   canvasProps,

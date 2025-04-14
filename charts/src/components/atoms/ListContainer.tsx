@@ -4,7 +4,7 @@ import { FunctionComponent } from 'react'
 const ThemedContainer = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(5),
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'left',
   flexDirection: 'column',
   bgcolor: 'background.paper',
   position: 'relative',

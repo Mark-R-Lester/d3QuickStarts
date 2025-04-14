@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material'
-import { LinearAreaElement } from '../../components/atoms/chart/linear/elements/LinearAreaElement'
+import { LinearAreaElement } from '../../components/atoms/chart/linear/LinearArea'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
 import { useState } from 'react'
 

@@ -1,8 +1,8 @@
 import { FunctionComponent, useEffect } from 'react'
 import { QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../../common/chartProps'
+import { ChartProps } from '../../../../common/chartProps'
 
-export const LinearBarsGroupedElement: FunctionComponent<ChartProps> = ({
+export const LinearBarStacksElement: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {
@@ -20,7 +20,7 @@ export const LinearBarsGroupedElement: FunctionComponent<ChartProps> = ({
       ]
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
-      canvas.generate.linear.horizontal.barGroup(data)
+      canvas.generate.linear.horizontal.barStack(data)
     }
     createChart()
   }, [canvasProps])

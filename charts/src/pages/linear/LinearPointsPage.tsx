@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material'
 
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
 import { EnumOrientation } from '../../common/enums'
-import { LinearPointsElement } from '../../components/atoms/chart/linear/elements/LinearPointsElement'
+import { LinearPointsElement } from '../../components/atoms/chart/linear/LinearPoints'
 import { useState } from 'react'
 
 export default function LinearPointsPage() {

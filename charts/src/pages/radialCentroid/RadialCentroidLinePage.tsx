@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { RadialLineElement } from '../../components/atoms/chart/radial/elements/RadialLineElement'
+import { RadialLineElement } from '../../components/atoms/chart/radial/RadialLine'
 import { useState } from 'react'
 
 export default function RadialCentroidLinePage() {

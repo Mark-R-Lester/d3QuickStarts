@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { LinearBarsGroupedElement } from '../../components/atoms/chart/linear/elements/LinearBarsGroupedElement'
+import { LinearBarsGroupedElement } from '../../components/atoms/chart/linear/LinearBarsGrouped'
 import { useState } from 'react'
 
 export default function LinearBarGroupPage() {

@@ -1,9 +1,9 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { RadialTextFollowElement } from '../../components/atoms/chart/radial/elements/RadialTextFollowElement'
-import { RadialTextSpokeElement } from '../../components/atoms/chart/radial/elements/RadialTextSpokeElement'
-import { RadialTextHorizontalElement } from '../../components/atoms/chart/radial/elements/RadialTextHorizontalElement'
-import { RadialTextRotatedElement } from '../../components/atoms/chart/radial/elements/RadialTextRotatedElement'
+import { RadialTextFollowElement } from '../../components/atoms/chart/radial/RadialTextFollow'
+import { RadialTextSpokeElement } from '../../components/atoms/chart/radial/RadialTextSpoke'
+import { RadialTextHorizontalElement } from '../../components/atoms/chart/radial/RadialTextHorizontal'
+import { RadialTextRotatedElement } from '../../components/atoms/chart/radial/RadialTextRotated'
 import { useState } from 'react'
 
 export default function RadialArcTextPage() {

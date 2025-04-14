@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { LinearAxisElement } from '../../components/atoms/chart/linear/elements/LinearAxisElement'
+import { LinearAxisElement } from '../../components/atoms/chart/linear/LinearAxis'
 import { useState } from 'react'
 
 export default function LinearAxisPage() {

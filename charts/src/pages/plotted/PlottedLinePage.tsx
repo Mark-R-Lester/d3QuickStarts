@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { PlottedLineElement } from '../../components/atoms/chart/plotted/elements/PlottedLineElement'
+import { PlottedLineElement } from '../../components/atoms/chart/plotted/PlottedLine'
 import { useState } from 'react'
 
 export default function PlottedLinePage() {

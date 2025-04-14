@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { RadialPieElement } from '../../components/atoms/chart/radial/elements/RadialPieElement'
-import { RadialDoughnutElement } from '../../components/atoms/chart/radial/elements/RadialDoughnutElement'
+import { RadialPieElement } from '../../components/atoms/chart/radial/RadialPie'
+import { RadialDoughnutElement } from '../../components/atoms/chart/radial/RadialDoughnut'
 import { useState } from 'react'
 
 export default function RadialArcPage() {

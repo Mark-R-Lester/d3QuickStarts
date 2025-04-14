@@ -4,14 +4,12 @@ import {
   qsCreateCanvas,
   QsValuedText,
   QsEnumTextAnchor,
-  QsEnumTextDecorationLine,
   QsEnumTextFont,
   QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../../common/chartProps'
+import { ChartProps } from '../../../../common/chartProps'
 
-export const RadialTextFollowElement: FunctionComponent<ChartProps> = ({
+export const RadialTextSpokeElement: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {
@@ -41,17 +39,14 @@ export const RadialTextFollowElement: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
-      canvas.generate.radialArc.text.follow(data, {
+      canvas.generate.radialArc.text.spoke(data, {
         radius: 100,
         x: 50,
         y: 50,
-        textFont: QsEnumTextFont.ARIAL,
+        textFont: QsEnumTextFont.IMPACT,
         textFontSize: 6,
         textFontStyle: QsEnumTextFontStyle.ITALIC,
-        textFontWeight: QsEnumTextFontWeight.NORMAL,
-        textDecorationLine: QsEnumTextDecorationLine.OVERLINE_UNDERLINE,
-        textFill: 'orange',
-        textStroke: 'purple',
+        textFill: 'blue',
         textAnchor: QsEnumTextAnchor.MIDDLE,
       })
     }

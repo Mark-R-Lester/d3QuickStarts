@@ -5,7 +5,7 @@ import {
   QsRadialPoints,
   QsRadialPointData,
 } from 'd3qs/d3QuickStart'
-import { RadialPointsChartProps } from '../../../../../common/chartProps'
+import { RadialPointsChartProps } from '../../../../common/chartProps'
 
 export const RadialPointTransition: FunctionComponent<
   RadialPointsChartProps

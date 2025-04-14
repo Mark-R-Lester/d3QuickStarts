@@ -1,8 +1,8 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { RadialAreaTransition } from '../../components/atoms/chart/radial/transitions/RadialAreaTransition'
-import { RadialLineTransition } from '../../components/atoms/chart/radial/transitions/RadialLineTransition'
-import { RadialPointTransition } from '../../components/atoms/chart/radial/transitions/RadialPointsTransition'
+import { RadialAreaTransition } from '../../components/atoms/chart/radial/RadialAreaTransition'
+import { RadialLineTransition } from '../../components/atoms/chart/radial/RadialLineTransition'
+import { RadialPointTransition } from '../../components/atoms/chart/radial/RadialPointsTransition'
 import {
   QsColorScaleData,
   QsRadialPointData,

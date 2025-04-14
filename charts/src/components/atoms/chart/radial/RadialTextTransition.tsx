@@ -7,8 +7,8 @@ import {
   QsValuedText,
   QsRadialData,
 } from 'd3qs/d3QuickStart'
-import { RadialTextChartProps } from '../../../../../common/chartProps'
-import { EnumRadialTextOrientation } from '../../../../../common/enums'
+import { RadialTextChartProps } from '../../../../common/chartProps'
+import { EnumRadialTextOrientation } from '../../../../common/enums'
 
 export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
   canvasProps,

@@ -6,8 +6,8 @@ import {
   QsBarData,
   QsEnumColorScale,
 } from 'd3qs/d3QuickStart'
-import { EnumOrientation } from '../../../../../common/enums'
-import { OrienetedChartProps } from '../../../../../common/chartProps'
+import { EnumOrientation } from '../../../../common/enums'
+import { OrienetedChartProps } from '../../../../common/chartProps'
 
 export const LinearBarsFloatingTransition: FunctionComponent<
   OrienetedChartProps

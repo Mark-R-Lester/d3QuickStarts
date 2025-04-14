@@ -5,10 +5,10 @@ import {
   QsPointData,
   QsPoints,
 } from 'd3qs/d3QuickStart'
-import { EnumOrientation } from '../../../../../common/enums'
-import { PointChartProps } from '../../../../../common/chartProps'
+import { EnumOrientation } from '../../../../common/enums'
+import { PointChartProps } from '../../../../common/chartProps'
 
-export const LinearTextTransition: FunctionComponent<PointChartProps> = ({
+export const LinearPointsTransition: FunctionComponent<PointChartProps> = ({
   canvasProps,
   data,
   config,
@@ -22,9 +22,9 @@ export const LinearTextTransition: FunctionComponent<PointChartProps> = ({
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
       let newElement: QsPoints
       if (orientation === EnumOrientation.VERTICAL) {
-        newElement = canvas.generate.linear.vertical.text(data, config)
+        newElement = canvas.generate.linear.vertical.points(data, config)
       } else {
-        newElement = canvas.generate.linear.horizontal.text(data, config)
+        newElement = canvas.generate.linear.horizontal.points(data, config)
       }
       setElement(newElement)
     }

@@ -5,7 +5,7 @@ import {
   QsBarGroups,
   qsFindMaxSum,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../../common/chartProps'
+import { ChartProps } from '../../../../common/chartProps'
 
 export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
   canvasProps,

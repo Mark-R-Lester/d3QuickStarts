@@ -1,6 +1,6 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { RadialTextTransition } from '../../components/atoms/chart/radial/transitions/RadialTextTransition'
+import { RadialTextTransition } from '../../components/atoms/chart/radial/RadialTextTransition'
 import {
   QsColorScaleData,
   QsRadialData,
@@ -8,7 +8,7 @@ import {
   QsEnumColorScale,
 } from 'd3qs/d3QuickStart'
 import { EnumRadialTextOrientation } from '../../common/enums'
-import { RadialTransition } from '../../components/atoms/chart/radial/transitions/RadialTransition'
+import { RadialTransition } from '../../components/atoms/chart/radial/RadialTransition'
 import { useState } from 'react'
 
 export default function RadialTransitionsPage() {

@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import { QsCanvas, qsCreateCanvas, QsRadialLine } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../../common/chartProps'
+import { ChartProps } from '../../../../common/chartProps'
 
 export const RadialLineTransition: FunctionComponent<ChartProps> = ({
   canvasProps,

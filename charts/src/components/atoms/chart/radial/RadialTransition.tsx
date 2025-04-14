@@ -5,7 +5,7 @@ import {
   QsRadial,
   QsValuedText,
 } from 'd3qs/d3QuickStart'
-import { RadialChartProps } from '../../../../../common/chartProps'
+import { RadialChartProps } from '../../../../common/chartProps'
 
 export const RadialTransition: FunctionComponent<RadialChartProps> = ({
   canvasProps,

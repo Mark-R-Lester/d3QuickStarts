@@ -1,17 +1,30 @@
 import { Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
 import { useState } from 'react'
-import {
-  simpleBarChartHorizontal,
-  simpleBarChartVertical,
-} from './SimpleBarChart'
-
-import { verticalBarContent, horizontalBarContent } from './contents'
+import { verticalBarContent, horizontalBarContent } from './Content'
+import { EnumOrientation } from '../../../common/enums'
+import { LinearBarsElement } from './LinearBarsChart'
 
 export default function LinearBarsPage() {
   const menuElements: JSX.Element[] = [
-    simpleBarChartHorizontal('simpleBarChartHorizontal', 130),
-    simpleBarChartVertical('simpleBarChartVertical', 130),
+    <LinearBarsElement
+      canvasProps={{
+        chartName: 'simpleBarChartHorizontal',
+        width: 130,
+        lowestViewableValue: 0,
+        highestViewableValue: 35,
+      }}
+      orientation={EnumOrientation.HORIZONTAL}
+    />,
+    <LinearBarsElement
+      canvasProps={{
+        chartName: 'simpleBarChartVertical',
+        width: 130,
+        lowestViewableValue: 0,
+        highestViewableValue: 35,
+      }}
+      orientation={EnumOrientation.VERTICAL}
+    />,
   ]
 
   const contents: JSX.Element[] = [horizontalBarContent, verticalBarContent]

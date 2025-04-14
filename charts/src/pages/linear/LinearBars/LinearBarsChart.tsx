@@ -1,27 +1,36 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
-import { EnumOrientation } from '../../../../common/enums'
-import { BarChartProps } from '../../../../common/chartProps'
+import { QsBarData, QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
+import { EnumOrientation } from '../../../common/enums'
+import { OrienetedChartProps } from '../../../common/chartProps'
 
-export const LinearBarsElement: FunctionComponent<BarChartProps> = ({
+export const LinearBarsElement: FunctionComponent<OrienetedChartProps> = ({
   canvasProps,
   orientation,
-  data,
-  config,
 }) => {
   useEffect(() => {
     const createChart = () => {
       const isVertical = orientation === EnumOrientation.VERTICAL
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
+      const data: QsBarData[] = [
+        { upperBoundry: 35, lowerBoundry: 5 },
+        { upperBoundry: 35, lowerBoundry: 10 },
+        { upperBoundry: 30, lowerBoundry: 15 },
+        { upperBoundry: 25 },
+        { upperBoundry: 20 },
+        { upperBoundry: 15 },
+        { upperBoundry: 10 },
+        { upperBoundry: 5 },
+      ]
+
       if (isVertical) {
-        canvas.generate.linear.vertical.bars(data, config)
+        canvas.generate.linear.vertical.bars(data)
         canvas.generate.linear.horizontal.axis.bottom([0, 35])
         canvas.generate.linear.vertical.axis.leftBanded([
           1, 2, 3, 4, 5, 6, 7, 8,
         ])
       } else {
-        canvas.generate.linear.horizontal.bars(data, config)
+        canvas.generate.linear.horizontal.bars(data)
         canvas.generate.linear.vertical.axis.left([0, 35])
         canvas.generate.linear.horizontal.axis.bottomBanded([
           1, 2, 3, 4, 5, 6, 7, 8,
@@ -29,7 +38,7 @@ export const LinearBarsElement: FunctionComponent<BarChartProps> = ({
       }
     }
     createChart()
-  }, [canvasProps, config, data, orientation])
+  }, [canvasProps, orientation])
 
   return (
     <>

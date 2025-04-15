@@ -3,7 +3,7 @@ import { QsBarData, QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../common/enums'
 import { OrienetedChartProps } from '../../../common/chartProps'
 
-export const LinearBarsElement: FunctionComponent<OrienetedChartProps> = ({
+export const SimpleBarChart: FunctionComponent<OrienetedChartProps> = ({
   canvasProps,
   orientation,
 }) => {

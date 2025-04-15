@@ -1,13 +1,20 @@
 import { Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
 import { useState } from 'react'
-import { verticalBarContent, horizontalBarContent } from './Content'
+import {
+  verticalBarContent,
+  horizontalBarContent,
+  editorContent,
+  configAndData,
+} from './Content'
 import { EnumOrientation } from '../../../common/enums'
-import { LinearBarsElement } from './LinearBarsChart'
+import { SimpleBarChart } from './SimpleBarChart'
+import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
+import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 
 export default function LinearBarsPage() {
   const menuElements: JSX.Element[] = [
-    <LinearBarsElement
+    <SimpleBarChart
       canvasProps={{
         chartName: 'simpleBarChartHorizontal',
         width: 130,
@@ -16,7 +23,7 @@ export default function LinearBarsPage() {
       }}
       orientation={EnumOrientation.HORIZONTAL}
     />,
-    <LinearBarsElement
+    <SimpleBarChart
       canvasProps={{
         chartName: 'simpleBarChartVertical',
         width: 130,
@@ -25,9 +32,16 @@ export default function LinearBarsPage() {
       }}
       orientation={EnumOrientation.VERTICAL}
     />,
+    <ConfigAndData />,
+    <TryItYourSelf />,
   ]
 
-  const contents: JSX.Element[] = [horizontalBarContent, verticalBarContent]
+  const contents: JSX.Element[] = [
+    horizontalBarContent,
+    verticalBarContent,
+    configAndData,
+    editorContent,
+  ]
   const [content, setContent] = useState<JSX.Element>(contents[0])
 
   const onClick = (index: number) => {

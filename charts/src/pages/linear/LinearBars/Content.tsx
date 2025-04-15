@@ -1,13 +1,12 @@
-import { Box, Typography } from '@mui/material'
-
+import { Typography } from '@mui/material'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { ContentContainer } from '../../../components/atoms/ListContainer'
+import { ContentContainer } from '../../../components/atoms/ContentContainer'
 import { ChartEditor } from './ChartEditor'
 import { EnumOrientation } from '../../../common/enums'
-import { LinearBarsElement } from './LinearBarsChart'
+import { SimpleBarChart } from './SimpleBarChart'
 
-export const barDataAsString: string = `const barDataSimple: QsBarData[] =[
+const barDataAsString: string = `const barDataSimple: QsBarData[] =[
   { upperBoundry: 35, lowerBoundry: 5 },
   { upperBoundry: 35, lowerBoundry: 10 },
   { upperBoundry: 30, lowerBoundry: 15 },
@@ -18,19 +17,65 @@ export const barDataAsString: string = `const barDataSimple: QsBarData[] =[
   { upperBoundry: 5 },
 ]`
 
-export const barsVerticalAsString: string = `const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+const barsVerticalAsString: string = `const canvas: QsCanvas = qsCreateCanvas(canvasProps)
   canvas.generate.linear.vertical.bars(data, config)
   canvas.generate.linear.horizontal.axis.bottom([0, 35])
   canvas.generate.linear.vertical.axis.leftBanded([
     1, 2, 3, 4, 5, 6, 7, 8,
   ])`
 
-export const barsHorizontalAsString: string = `const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+const barsHorizontalAsString: string = `const canvas: QsCanvas = qsCreateCanvas(canvasProps)
   canvas.generate.linear.horizontal.bars(data, config)
   canvas.generate.linear.vertical.axis.left([0, 35])
   canvas.generate.linear.horizontal.axis.bottomBanded([
     1, 2, 3, 4, 5, 6, 7, 8,
   ])`
+
+const qsBarData: string = `interface QsBarData {
+  lowerBoundry?: number
+  upperBoundry: number
+  fillColor?: string
+  fillOpacity?: number
+  strokeColor?: string
+  strokeWidth?: number
+  strokeOpacity?: number
+}`
+
+const qsBarConfig: string = `interface QsBarConfig {
+  [key: string]: number | string | QsColorScaleData | undefined
+  padding?: number
+  defaultFillColor?: string
+  defaultFillOpacity?: number
+  defaultStrokeColor?: string
+  defaultStrokeWidth?: number
+  defaultStrokeOpacity?: number
+  fillColorScaleData?: QsColorScaleData
+  strokeColorScaleData?: QsColorScaleData
+}`
+
+export const configAndData: JSX.Element = (
+  <ContentContainer
+    elements={[
+      <Typography variant="body1">QsBarData interface</Typography>,
+      <SyntaxHighlighter language="typescript" style={atomOneDark}>
+        {qsBarData}
+      </SyntaxHighlighter>,
+      <Typography variant="body1">QsBarConfig interface</Typography>,
+      <SyntaxHighlighter language="typescript" style={atomOneDark}>
+        {qsBarConfig}
+      </SyntaxHighlighter>,
+      <SimpleBarChart
+        canvasProps={{
+          chartName: 'chartV',
+          width: 800,
+          lowestViewableValue: 0,
+          highestViewableValue: 35,
+        }}
+        orientation={EnumOrientation.VERTICAL}
+      />,
+    ]}
+  ></ContentContainer>
+)
 
 export const horizontalBarContent: JSX.Element = (
   <ContentContainer
@@ -48,7 +93,7 @@ export const horizontalBarContent: JSX.Element = (
       <SyntaxHighlighter language="typescript" style={atomOneDark}>
         {barDataAsString}
       </SyntaxHighlighter>,
-      <LinearBarsElement
+      <SimpleBarChart
         canvasProps={{
           chartName: 'chartH',
           width: 800,
@@ -77,7 +122,7 @@ export const verticalBarContent: JSX.Element = (
       <SyntaxHighlighter language="typescript" style={atomOneDark}>
         {barDataAsString}
       </SyntaxHighlighter>,
-      <LinearBarsElement
+      <SimpleBarChart
         canvasProps={{
           chartName: 'chartV',
           width: 800,

@@ -1,10 +1,11 @@
 import { Typography } from '@mui/material'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { ContentContainer } from '../../../components/atoms/ContentContainer'
+import { ContentColumn } from '../../../components/atoms/ContentColums'
 import { ChartEditor } from './ChartEditor'
 import { EnumOrientation } from '../../../common/enums'
 import { SimpleBarChart } from './SimpleBarChart'
+import { ContentRow } from '../../../components/atoms/ContentRow'
 
 const barDataAsString: string = `const barDataSimple: QsBarData[] =[
   { upperBoundry: 35, lowerBoundry: 5 },
@@ -54,7 +55,7 @@ const qsBarConfig: string = `interface QsBarConfig {
 }`
 
 export const configAndData: JSX.Element = (
-  <ContentContainer
+  <ContentColumn
     elements={[
       <Typography variant="body1">QsBarData interface</Typography>,
       <SyntaxHighlighter language="typescript" style={atomOneDark}>
@@ -74,19 +75,23 @@ export const configAndData: JSX.Element = (
         orientation={EnumOrientation.VERTICAL}
       />,
     ]}
-  ></ContentContainer>
+  ></ContentColumn>
 )
 
 export const horizontalBarContent: JSX.Element = (
-  <ContentContainer
+  <ContentColumn
     elements={[
-      <Typography variant="body1">
-        The simplest bar chart can be created in just four lines of code,
-        excluding data.
-      </Typography>,
-      <SyntaxHighlighter language="typescript" style={atomOneDark}>
-        {barsHorizontalAsString}
-      </SyntaxHighlighter>,
+      <ContentRow
+        elements={[
+          <Typography variant="body1">
+            The simplest bar chart can be created in just four lines of code,
+            excluding data.
+          </Typography>,
+          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+            {barsHorizontalAsString}
+          </SyntaxHighlighter>,
+        ]}
+      ></ContentRow>,
       <Typography variant="body1">
         Bars use the type QsBarData the only mandatory field is upperBoundry
       </Typography>,
@@ -103,11 +108,24 @@ export const horizontalBarContent: JSX.Element = (
         orientation={EnumOrientation.HORIZONTAL}
       />,
     ]}
-  ></ContentContainer>
+  ></ContentColumn>
+)
+export const someContent: JSX.Element = (
+  <ContentRow
+    elements={[
+      <Typography variant="body1">
+        The simplest bar chart can be created in just four lines of code,
+        excluding data.
+      </Typography>,
+      <SyntaxHighlighter language="typescript" style={atomOneDark}>
+        {barsHorizontalAsString}
+      </SyntaxHighlighter>,
+    ]}
+  ></ContentRow>
 )
 
 export const verticalBarContent: JSX.Element = (
-  <ContentContainer
+  <ContentColumn
     elements={[
       <Typography variant="body1">
         The simplest bar chart can be created in just four lines of code,
@@ -132,7 +150,7 @@ export const verticalBarContent: JSX.Element = (
         orientation={EnumOrientation.VERTICAL}
       />,
     ]}
-  ></ContentContainer>
+  ></ContentColumn>
 )
 
 export const editorContent: JSX.Element = (

@@ -5,7 +5,7 @@ const ThemedContainer = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(5),
   display: 'flex',
   justifyContent: 'left',
-  flexDirection: 'column',
+  flexDirection: 'row',
   bgcolor: 'background.paper',
   position: 'relative',
 }))
@@ -21,7 +21,7 @@ interface ContentContainerProps {
   elements: JSX.Element[]
 }
 
-export const ContentContainer: FunctionComponent<ContentContainerProps> = ({
+export const ContentRow: FunctionComponent<ContentContainerProps> = ({
   elements,
 }) => {
   return (

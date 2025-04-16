@@ -1,19 +1,20 @@
 import { styled } from '@mui/material/styles'
 import { FunctionComponent } from 'react'
 
-const ThemedContainer = styled('div')(({ theme }) => ({
+const ColumnContainer = styled('div')(({ theme }) => ({
   paddingTop: theme.spacing(5),
+  width: '90%',
   display: 'flex',
-  justifyContent: 'left',
+  justifyContent: 'center',
   flexDirection: 'column',
+  gap: '20px',
+  flexWrap: 'wrap',
   bgcolor: 'background.paper',
-  position: 'relative',
 }))
 
-const ThemedItem = styled('div')(({ theme }) => ({
+const ColumnItem = styled('div')(({ theme }) => ({
   display: 'flex',
-  justifyContent: 'space-evenly',
-  flexGrow: 0,
+  justifyContent: 'center',
   bgcolor: 'background.paper',
 }))
 
@@ -25,10 +26,10 @@ export const ContentColumn: FunctionComponent<ContentContainerProps> = ({
   elements,
 }) => {
   return (
-    <ThemedContainer>
+    <ColumnContainer>
       {elements.map((element, i) => (
-        <ThemedItem key={i}>{element}</ThemedItem>
+        <ColumnItem key={i}>{element}</ColumnItem>
       ))}
-    </ThemedContainer>
+    </ColumnContainer>
   )
 }

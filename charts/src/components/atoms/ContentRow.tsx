@@ -1,34 +1,58 @@
 import { styled } from '@mui/material/styles'
-import { FunctionComponent } from 'react'
+import { FunctionComponent, useEffect, useState } from 'react'
 
-const ThemedContainer = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(5),
+const RowContainer = styled('div')(({ theme }) => ({
+  width: '100%',
   display: 'flex',
-  justifyContent: 'left',
+  justifyContent: 'center',
   flexDirection: 'row',
+  flexWrap: 'wrap',
+  gap: '1%',
   bgcolor: 'background.paper',
   position: 'relative',
-}))
-
-const ThemedItem = styled('div')(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-evenly',
-  flexGrow: 0,
-  bgcolor: 'background.paper',
+  '.two': {
+    maxWidth: '49%',
+    minWidth: '49%',
+    justifyContent: 'left',
+    bgcolor: 'background.paper',
+    border: 'solid',
+  },
+  '.three': {
+    maxWidth: '32%',
+    minWidth: '32%',
+    justifyContent: 'left',
+    bgcolor: 'background.paper',
+    border: 'solid',
+  },
 }))
 
 interface ContentContainerProps {
   elements: JSX.Element[]
 }
 
+enum ContentRowStyles {
+  TWO = 'two',
+  THREE = 'three',
+}
+
 export const ContentRow: FunctionComponent<ContentContainerProps> = ({
   elements,
 }) => {
+  const [style, setStyle] = useState<ContentRowStyles>(ContentRowStyles.TWO)
+
+  useEffect(() => {
+    elements.length === 2
+      ? setStyle(ContentRowStyles.TWO)
+      : setStyle(ContentRowStyles.THREE)
+  }, [elements.length])
+
   return (
-    <ThemedContainer>
+    <RowContainer>
       {elements.map((element, i) => (
-        <ThemedItem key={i}>{element}</ThemedItem>
+        <div key={i} className={style}>
+          {element}
+        </div>
       ))}
-    </ThemedContainer>
+    </RowContainer>
   )
 }

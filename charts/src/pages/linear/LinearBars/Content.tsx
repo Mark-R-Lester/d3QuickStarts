@@ -54,17 +54,83 @@ const qsBarConfig: string = `interface QsBarConfig {
   strokeColorScaleData?: QsColorScaleData
 }`
 
-export const configAndData: JSX.Element = (
+export const horizontalBarContent: JSX.Element = (
   <ContentColumn
     elements={[
-      <Typography variant="body1">QsBarData interface</Typography>,
-      <SyntaxHighlighter language="typescript" style={atomOneDark}>
-        {qsBarData}
-      </SyntaxHighlighter>,
-      <Typography variant="body1">QsBarConfig interface</Typography>,
-      <SyntaxHighlighter language="typescript" style={atomOneDark}>
-        {qsBarConfig}
-      </SyntaxHighlighter>,
+      <Typography variant="h4">Horizontal Bars</Typography>,
+      <Typography variant="body1">
+        Though it's clear the bars a vertical, the bars element when set to
+        horizontal lays the bars out along the horizontal axis. This makes more
+        sense when using other horizontal elements such as lines or points in
+        conjunction with bars.
+      </Typography>,
+      <ContentRow
+        elements={[
+          <Typography variant="body1">
+            The simplest bar chart can be created in just four lines of code,
+            excluding data.
+          </Typography>,
+          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+            {barsHorizontalAsString}
+          </SyntaxHighlighter>,
+        ]}
+      ></ContentRow>,
+
+      <ContentRow
+        elements={[
+          <Typography variant="body1">
+            Bars use the type QsBarData the only mandatory field is upperBoundry
+          </Typography>,
+          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+            {barDataAsString}
+          </SyntaxHighlighter>,
+        ]}
+      ></ContentRow>,
+      <SimpleBarChart
+        canvasProps={{
+          chartName: 'chartH',
+          width: 800,
+          lowestViewableValue: 0,
+          highestViewableValue: 35,
+        }}
+        orientation={EnumOrientation.HORIZONTAL}
+      />,
+    ]}
+  ></ContentColumn>
+)
+
+export const verticalBarContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <Typography variant="h4">Horizontal Bars</Typography>,
+      <Typography variant="body1">
+        Though it's clear the bars a horizonal, the bars element when set to
+        vertical lays the bars out along the vertical axis. This makes more
+        sense when using other vertical elements such as lines or points in
+        conjunction with bars.
+      </Typography>,
+      <ContentRow
+        elements={[
+          <Typography variant="body1">
+            The simplest bar chart can be created in just four lines of code,
+            excluding data.
+          </Typography>,
+          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+            {barsVerticalAsString}
+          </SyntaxHighlighter>,
+        ]}
+      ></ContentRow>,
+
+      <ContentRow
+        elements={[
+          <Typography variant="body1">
+            Bars use the type QsBarData the only mandatory field is upperBoundry
+          </Typography>,
+          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+            {barDataAsString}
+          </SyntaxHighlighter>,
+        ]}
+      ></ContentRow>,
       <SimpleBarChart
         canvasProps={{
           chartName: 'chartV',
@@ -78,68 +144,31 @@ export const configAndData: JSX.Element = (
   ></ContentColumn>
 )
 
-export const horizontalBarContent: JSX.Element = (
+export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentRow
         elements={[
-          <Typography variant="body1">
-            The simplest bar chart can be created in just four lines of code,
-            excluding data.
-          </Typography>,
+          <Typography variant="body1">QsBarData interface</Typography>,
           <SyntaxHighlighter language="typescript" style={atomOneDark}>
-            {barsHorizontalAsString}
+            {qsBarData}
+          </SyntaxHighlighter>,
+          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+            {qsBarConfig}
           </SyntaxHighlighter>,
         ]}
       ></ContentRow>,
-      <Typography variant="body1">
-        Bars use the type QsBarData the only mandatory field is upperBoundry
-      </Typography>,
-      <SyntaxHighlighter language="typescript" style={atomOneDark}>
-        {barDataAsString}
-      </SyntaxHighlighter>,
-      <SimpleBarChart
-        canvasProps={{
-          chartName: 'chartH',
-          width: 800,
-          lowestViewableValue: 0,
-          highestViewableValue: 35,
-        }}
-        orientation={EnumOrientation.HORIZONTAL}
-      />,
-    ]}
-  ></ContentColumn>
-)
-export const someContent: JSX.Element = (
-  <ContentRow
-    elements={[
-      <Typography variant="body1">
-        The simplest bar chart can be created in just four lines of code,
-        excluding data.
-      </Typography>,
-      <SyntaxHighlighter language="typescript" style={atomOneDark}>
-        {barsHorizontalAsString}
-      </SyntaxHighlighter>,
-    ]}
-  ></ContentRow>
-)
-
-export const verticalBarContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <Typography variant="body1">
-        The simplest bar chart can be created in just four lines of code,
-        excluding data.
-      </Typography>,
-      <SyntaxHighlighter language="typescript" style={atomOneDark}>
-        {barsVerticalAsString}
-      </SyntaxHighlighter>,
-      <Typography variant="body1">
-        Bars use the type QsBarData the only mandatory field is upperBoundry
-      </Typography>,
-      <SyntaxHighlighter language="typescript" style={atomOneDark}>
-        {barDataAsString}
-      </SyntaxHighlighter>,
+      <ContentRow
+        elements={[
+          <Typography variant="body1">QsBarConfig interface</Typography>,
+          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+            {qsBarConfig}
+          </SyntaxHighlighter>,
+          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+            {qsBarConfig}
+          </SyntaxHighlighter>,
+        ]}
+      ></ContentRow>,
       <SimpleBarChart
         canvasProps={{
           chartName: 'chartV',

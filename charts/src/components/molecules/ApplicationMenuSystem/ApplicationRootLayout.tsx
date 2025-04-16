@@ -7,7 +7,7 @@ import {
   AppBar,
   Typography,
   Box,
-  Button,
+  Collapse,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
 import { FunctionComponent, useCallback, useMemo, useState } from 'react'
@@ -15,17 +15,26 @@ import { useNavigate } from 'react-router-dom'
 import { DropdownMenu } from '../../atoms/DropdownMenu'
 import { MenuRoute } from '../../types/atomicTypes'
 import { MenuButtonProps } from '../../atoms/MenuButton'
-import { rootLayoutData } from './barMenuData'
+import {
+  menuElementsLinear,
+  menuElementsPlotted,
+  menuElementsRadialArc,
+  menuElementsRadialCentroid,
+} from './drawerMenuData'
+import { ExpandLess, ExpandMore } from '@mui/icons-material'
 
-const drawerWidth = 170
-const appBarHeight = 70
+const drawerWidth = '180px'
+const appBarHeight = '90px'
 const useStyles = makeStyles({
   appBar: {
     height: appBarHeight,
   },
   drawer: {
-    width: drawerWidth,
     marginTop: appBarHeight,
+    width: '40px',
+    border: 'solid',
+    borderColor: 'black',
+    borderWidth: '10',
   },
   drawPaper: {
     width: drawerWidth,
@@ -50,14 +59,18 @@ export const ApplicationRootLayout: FunctionComponent = () => {
   const navigate = useNavigate()
   const classes = useStyles()
   const homeRoute: MenuRoute = { title: 'Home', route: '/' }
-  const [menuData, setMenuData] = useState<MenuButtonProps[]>([])
 
   const handleNavigate = useCallback(
-    (route: string) => (route: string) => {
+    (route: string) => {
       navigate(route)
     },
     [navigate]
   )
+
+  const [open, setOpen] = useState<boolean>(false)
+  const handleClick = () => {
+    setOpen(!open)
+  }
 
   return (
     <>
@@ -71,34 +84,21 @@ export const ApplicationRootLayout: FunctionComponent = () => {
           <Typography variant="h6" noWrap component="div">
             D3 Quick starts
           </Typography>
-
-          {rootLayoutData.menuData.map((datum) => {
-            return (
-              <Button
-                key={datum.appBarTitle}
-                variant="text"
-                onClick={() =>
-                  setMenuData(datum.linkAlternatives.menuButtonProps)
-                }
-                sx={{ color: 'white', display: 'block' }}
-              >
-                {datum.appBarTitle}
-              </Button>
-            )
-          })}
         </Box>
       </AppBar>
       {useMemo(() => {
         return (
           <Drawer
-            PaperProps={{
-              style: {
-                position: 'fixed',
-                marginTop: appBarHeight,
+            slotProps={{
+              paper: {
+                sx: {
+                  width: drawerWidth,
+                  position: 'fixed',
+                  marginTop: appBarHeight,
+                },
               },
             }}
             variant="permanent"
-            className={classes.drawer}
           >
             <List
               sx={{
@@ -110,33 +110,48 @@ export const ApplicationRootLayout: FunctionComponent = () => {
               aria-labelledby="nested-list-subheader"
             >
               <ListItemButton
-                sx={{ pt: 0 }}
+                sx={{
+                  '& .MuiListItemText-primary': {
+                    color: 'black',
+                    fontWeight: 500,
+                  },
+                }}
                 onClick={() => {
                   handleNavigate(homeRoute.route)
                 }}
               >
-                <ListItemText>
-                  <Typography variant="h6" noWrap component="div">
-                    {homeRoute.title}
-                  </Typography>
-                </ListItemText>
+                <ListItemText>{homeRoute.title}</ListItemText>
               </ListItemButton>
 
-              {menuData.map((props) => (
-                <div key={props.title}>
-                  <Divider />
-                  <DropdownMenu {...props} />
-                </div>
-              ))}
+              <Divider />
+              <ListItemButton onClick={handleClick}>
+                <ListItemText
+                  primary={'Elements'}
+                  sx={{
+                    '& .MuiListItemText-primary': {
+                      color: 'black',
+                      fontWeight: 500,
+                    },
+                  }}
+                />
+                {open ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
+              <Collapse in={open} timeout="auto" unmountOnExit>
+                <DropdownMenu {...menuElementsLinear} />
+                <DropdownMenu {...menuElementsPlotted} />
+                <DropdownMenu {...menuElementsRadialArc} />
+                <DropdownMenu {...menuElementsRadialCentroid} />
+              </Collapse>
             </List>
           </Drawer>
         )
+        // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [
         classes.drawer,
         handleNavigate,
         homeRoute.route,
         homeRoute.title,
-        menuData,
+        open,
       ])}
     </>
   )

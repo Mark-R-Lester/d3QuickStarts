@@ -59,7 +59,7 @@ export const horizontalBarContent: JSX.Element = (
     elements={[
       <Typography variant="h4">Horizontal Bars</Typography>,
       <Typography variant="body1">
-        Though it's clear the bars a vertical, the bars element when set to
+        Though it's clear the bars are vertical, the bars element when set to
         horizontal lays the bars out along the horizontal axis. This makes more
         sense when using other horizontal elements such as lines or points in
         conjunction with bars.
@@ -104,7 +104,7 @@ export const verticalBarContent: JSX.Element = (
     elements={[
       <Typography variant="h4">Horizontal Bars</Typography>,
       <Typography variant="body1">
-        Though it's clear the bars a horizonal, the bars element when set to
+        Though it's clear the bars are horizonal, the bars element when set to
         vertical lays the bars out along the vertical axis. This makes more
         sense when using other vertical elements such as lines or points in
         conjunction with bars.
@@ -158,6 +158,7 @@ export const configAndData: JSX.Element = (
           </SyntaxHighlighter>,
         ]}
       ></ContentRow>,
+
       <ContentRow
         elements={[
           <Typography variant="body1">QsBarConfig interface</Typography>,

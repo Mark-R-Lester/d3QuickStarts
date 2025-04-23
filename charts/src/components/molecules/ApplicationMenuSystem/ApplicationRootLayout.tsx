@@ -8,9 +8,10 @@ import {
   Typography,
   Box,
   Collapse,
+  Toolbar,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { FunctionComponent, useCallback, useMemo, useState } from 'react'
+import { FunctionComponent, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { DropdownMenu } from '../../atoms/DropdownMenu'
 import { MenuRoute } from '../../types/atomicTypes'
@@ -22,9 +23,10 @@ import {
   menuElementsRadialCentroid,
 } from './drawerMenuData'
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import { AppRoutes } from '../../../AppRoutes'
 
 const drawerWidth = '180px'
-const appBarHeight = '90px'
+const appBarHeight = '50px'
 const useStyles = makeStyles({
   appBar: {
     height: appBarHeight,
@@ -55,7 +57,7 @@ export interface LinkAlternatives {
   menuButtonProps: MenuButtonProps[]
 }
 
-export const ApplicationRootLayout: FunctionComponent = () => {
+export const ApplicationLayout: FunctionComponent = () => {
   const navigate = useNavigate()
   const classes = useStyles()
   const homeRoute: MenuRoute = { title: 'Home', route: '/' }
@@ -80,79 +82,80 @@ export const ApplicationRootLayout: FunctionComponent = () => {
         enableColorOnDark
         className={classes.appBar}
       >
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-          <Typography variant="h6" noWrap component="div">
+        <Toolbar variant="dense">
+          <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             D3 Quick starts
           </Typography>
-        </Box>
+        </Toolbar>
       </AppBar>
-      {useMemo(() => {
-        return (
-          <Drawer
-            slotProps={{
-              paper: {
-                sx: {
-                  width: drawerWidth,
-                  position: 'fixed',
-                  marginTop: appBarHeight,
-                },
+
+      <Box
+        sx={{
+          paddingLeft: { xs: 25, sm: 30 },
+          paddingTop: { xs: 5, sm: 5 },
+          bgcolor: 'background.paper',
+          marginTop: appBarHeight,
+        }}
+      >
+        <AppRoutes />
+      </Box>
+
+      <Drawer
+        slotProps={{
+          paper: {
+            sx: {
+              position: 'fixed',
+              width: drawerWidth,
+              marginTop: appBarHeight,
+            },
+          },
+        }}
+        variant="permanent"
+      >
+        <List
+          sx={{
+            width: '100%',
+            maxWidth: 360,
+            bgcolor: 'background.paper',
+          }}
+          component="nav"
+          aria-labelledby="nested-list-subheader"
+        >
+          <ListItemButton
+            sx={{
+              '& .MuiListItemText-primary': {
+                color: 'black',
+                fontWeight: 500,
               },
             }}
-            variant="permanent"
+            onClick={() => {
+              handleNavigate(homeRoute.route)
+            }}
           >
-            <List
-              sx={{
-                width: '100%',
-                maxWidth: 360,
-                bgcolor: 'background.paper',
-              }}
-              component="nav"
-              aria-labelledby="nested-list-subheader"
-            >
-              <ListItemButton
-                sx={{
-                  '& .MuiListItemText-primary': {
-                    color: 'black',
-                    fontWeight: 500,
-                  },
-                }}
-                onClick={() => {
-                  handleNavigate(homeRoute.route)
-                }}
-              >
-                <ListItemText>{homeRoute.title}</ListItemText>
-              </ListItemButton>
+            <ListItemText>{homeRoute.title}</ListItemText>
+          </ListItemButton>
 
-              <Divider />
-              <ListItemButton onClick={handleClick}>
-                <ListItemText
-                  primary={'Elements'}
-                  sx={{
-                    '& .MuiListItemText-primary': {
-                      color: 'black',
-                      fontWeight: 500,
-                    },
-                  }}
-                />
-                {open ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
-              <Collapse in={open} timeout="auto" unmountOnExit>
-                <DropdownMenu {...menuElementsLinear} />
-                <DropdownMenu {...menuElementsPlotted} />
-                <DropdownMenu {...menuElementsRadialArc} />
-                <DropdownMenu {...menuElementsRadialCentroid} />
-              </Collapse>
-            </List>
-          </Drawer>
-        )
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [
-        classes.drawer,
-        handleNavigate,
-        homeRoute.route,
-        homeRoute.title,
-        open,
-      ])}
+          <Divider />
+          <ListItemButton onClick={handleClick}>
+            <ListItemText
+              primary={'Elements'}
+              sx={{
+                '& .MuiListItemText-primary': {
+                  color: 'black',
+                  fontWeight: 500,
+                },
+              }}
+            />
+            {open ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={open} timeout="auto" unmountOnExit>
+            <DropdownMenu {...menuElementsLinear} />
+            <DropdownMenu {...menuElementsPlotted} />
+            <DropdownMenu {...menuElementsRadialArc} />
+            <DropdownMenu {...menuElementsRadialCentroid} />
+          </Collapse>
+        </List>
+      </Drawer>
     </>
   )
 }

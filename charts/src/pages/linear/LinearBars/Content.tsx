@@ -6,6 +6,7 @@ import { ChartEditor } from './ChartEditor'
 import { EnumOrientation } from '../../../common/enums'
 import { SimpleBarChart } from './SimpleBarChart'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
+import { ContentTitle } from '../../../components/atoms/content/ContentTitle'
 
 const barDataAsString: string = `const barDataSimple: QsBarData[] =[
   { upperBoundry: 35, lowerBoundry: 5 },
@@ -18,19 +19,29 @@ const barDataAsString: string = `const barDataSimple: QsBarData[] =[
   { upperBoundry: 5 },
 ]`
 
-const barsVerticalAsString: string = `const canvas: QsCanvas = qsCreateCanvas(canvasProps)
-  canvas.generate.linear.vertical.bars(data, config)
-  canvas.generate.linear.horizontal.axis.bottom([0, 35])
-  canvas.generate.linear.vertical.axis.leftBanded([
-    1, 2, 3, 4, 5, 6, 7, 8,
-  ])`
+const barsVerticalAsString: string = `
+${barDataAsString}
 
-const barsHorizontalAsString: string = `const canvas: QsCanvas = qsCreateCanvas(canvasProps)
-  canvas.generate.linear.horizontal.bars(data, config)
-  canvas.generate.linear.vertical.axis.left([0, 35])
-  canvas.generate.linear.horizontal.axis.bottomBanded([
-    1, 2, 3, 4, 5, 6, 7, 8,
-  ])`
+const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+canvas.generate.linear.vertical.bars(data, config)
+canvas.generate.linear.horizontal.axis.bottom([0, 35])
+canvas.generate.linear.vertical.axis.leftBanded([
+  1, 2, 3, 4, 5, 6, 7, 8,
+])
+  
+`
+
+const barsHorizontalAsString: string = `
+${barDataAsString}
+
+const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+canvas.generate.linear.horizontal.bars(data, config)
+canvas.generate.linear.vertical.axis.left([0, 35])
+canvas.generate.linear.horizontal.axis.bottomBanded([
+  1, 2, 3, 4, 5, 6, 7, 8,
+])
+  
+`
 
 const qsBarData: string = `interface QsBarData {
   lowerBoundry?: number
@@ -57,35 +68,32 @@ const qsBarConfig: string = `interface QsBarConfig {
 export const horizontalBarContent: JSX.Element = (
   <ContentColumn
     elements={[
-      <Typography variant="h4">Horizontal Bars</Typography>,
+      <ContentTitle variant="h4">Horizontal Bars</ContentTitle>,
       <Typography variant="body1">
         Though it's clear the bars are vertical, the bars element when set to
         horizontal lays the bars out along the horizontal axis. This makes more
         sense when using other horizontal elements such as lines or points in
         conjunction with bars.
       </Typography>,
+
       <ContentRow
         elements={[
-          <Typography variant="body1">
-            The simplest bar chart can be created in just four lines of code,
-            excluding data.
-          </Typography>,
+          <>
+            <Typography variant="body1">
+              Bars use the type QsBarData the only mandatory field is
+              upperBoundry
+            </Typography>
+            <Typography variant="body1">
+              The simplest bar chart can be created in just four lines of code,
+              excluding data.
+            </Typography>
+          </>,
           <SyntaxHighlighter language="typescript" style={atomOneDark}>
             {barsHorizontalAsString}
           </SyntaxHighlighter>,
         ]}
-      ></ContentRow>,
+      />,
 
-      <ContentRow
-        elements={[
-          <Typography variant="body1">
-            Bars use the type QsBarData the only mandatory field is upperBoundry
-          </Typography>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
-            {barDataAsString}
-          </SyntaxHighlighter>,
-        ]}
-      ></ContentRow>,
       <SimpleBarChart
         canvasProps={{
           chartName: 'chartH',
@@ -102,7 +110,7 @@ export const horizontalBarContent: JSX.Element = (
 export const verticalBarContent: JSX.Element = (
   <ContentColumn
     elements={[
-      <Typography variant="h4">Horizontal Bars</Typography>,
+      <ContentTitle variant="h4">Vertical Bars</ContentTitle>,
       <Typography variant="body1">
         Though it's clear the bars are horizonal, the bars element when set to
         vertical lays the bars out along the vertical axis. This makes more
@@ -111,26 +119,21 @@ export const verticalBarContent: JSX.Element = (
       </Typography>,
       <ContentRow
         elements={[
-          <Typography variant="body1">
-            The simplest bar chart can be created in just four lines of code,
-            excluding data.
-          </Typography>,
+          <>
+            <Typography variant="body1">
+              Bars use the type QsBarData the only mandatory field is
+              upperBoundry
+            </Typography>
+            <Typography variant="body1">
+              The simplest bar chart can be created in just four lines of code,
+              excluding data.
+            </Typography>
+          </>,
           <SyntaxHighlighter language="typescript" style={atomOneDark}>
             {barsVerticalAsString}
           </SyntaxHighlighter>,
         ]}
-      ></ContentRow>,
-
-      <ContentRow
-        elements={[
-          <Typography variant="body1">
-            Bars use the type QsBarData the only mandatory field is upperBoundry
-          </Typography>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
-            {barDataAsString}
-          </SyntaxHighlighter>,
-        ]}
-      ></ContentRow>,
+      />,
       <SimpleBarChart
         canvasProps={{
           chartName: 'chartV',

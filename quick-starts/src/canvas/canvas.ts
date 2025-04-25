@@ -16,11 +16,11 @@ const addDefaultsToConfig = (
   const defaults: CanvasConfigStrict = {
     chartName: '',
     width: 500,
-    height: 70,
+    height: 350,
     marginRight: 7,
     marginLeft: 7,
-    marginTop: 15,
-    marginBottom: 15,
+    marginTop: 12,
+    marginBottom: 12,
     highestViewableValue: 0,
     lowestViewableValue: 0,
     borderColor: 'transparent',
@@ -28,6 +28,9 @@ const addDefaultsToConfig = (
     displayAreaWidth: 0,
   }
   if (!customConfig) return defaults
+  if (customConfig.width) {
+    defaults.height = (customConfig.width * 70) / 100
+  }
 
   Object.keys(customConfig).forEach(
     (key) => (defaults[key] = customConfig[key])
@@ -46,7 +49,7 @@ export function qsCreateCanvas(customConfig?: QsCanvasConfig): QsCanvas {
 
 const draw = (chartName: string, config: CanvasConfigStrict): QsCanvas => {
   const scaleValues = (config: CanvasConfigStrict): void => {
-    config.height = (config.width * config.height) / 100
+    // config.height = (config.width * config.height) / 100
     config.marginRight = (config.width * config.marginRight) / 100
     config.marginLeft = (config.width * config.marginLeft) / 100
     config.marginTop = (config.height * config.marginTop) / 100

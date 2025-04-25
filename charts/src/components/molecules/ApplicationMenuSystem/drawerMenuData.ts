@@ -1,5 +1,10 @@
 import { DropdownMenuProps } from '../../atoms/DropdownMenu'
 
+export const menuCanvas: DropdownMenuProps = {
+  title: 'Canvas',
+  routes: [{ title: 'Canvas', route: '/canvas' }],
+}
+
 export const menuElementsPlotted: DropdownMenuProps = {
   title: 'Plotted',
   routes: [

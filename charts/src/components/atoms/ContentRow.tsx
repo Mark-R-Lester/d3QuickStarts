@@ -7,6 +7,7 @@ const RowContainer = styled('div')(({ theme }) => ({
   justifyContent: 'center',
   flexDirection: 'row',
   flexWrap: 'wrap',
+  alignItems: 'flex-start',
   gap: '1%',
   bgcolor: 'background.paper',
   position: 'relative',
@@ -15,14 +16,14 @@ const RowContainer = styled('div')(({ theme }) => ({
     minWidth: '49%',
     justifyContent: 'left',
     bgcolor: 'background.paper',
-    border: 'solid',
+    // border: 'solid',
   },
   '.three': {
     maxWidth: '32%',
     minWidth: '32%',
     justifyContent: 'left',
     bgcolor: 'background.paper',
-    border: 'solid',
+    // border: 'solid',
   },
 }))
 

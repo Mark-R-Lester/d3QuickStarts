@@ -2,13 +2,11 @@ import { styled } from '@mui/material/styles'
 import { FunctionComponent } from 'react'
 
 const ColumnContainer = styled('div')(({ theme }) => ({
-  paddingTop: theme.spacing(5),
-  width: '90%',
+  width: '70%',
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
   gap: '20px',
-  flexWrap: 'wrap',
   bgcolor: 'background.paper',
 }))
 

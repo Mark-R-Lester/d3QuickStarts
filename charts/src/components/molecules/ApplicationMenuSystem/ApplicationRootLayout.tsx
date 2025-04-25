@@ -15,8 +15,8 @@ import { FunctionComponent, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { DropdownMenu } from '../../atoms/DropdownMenu'
 import { MenuRoute } from '../../types/atomicTypes'
-import { MenuButtonProps } from '../../atoms/MenuButton'
 import {
+  menuCanvas,
   menuElementsLinear,
   menuElementsPlotted,
   menuElementsRadialArc,
@@ -42,20 +42,6 @@ const useStyles = makeStyles({
     width: drawerWidth,
   },
 })
-
-export interface RootLayoutData {
-  menuData: MenuData[]
-}
-
-export interface MenuData {
-  appBarTitle: string
-  linkAlternatives: LinkAlternatives
-}
-
-export interface LinkAlternatives {
-  route?: string
-  menuButtonProps: MenuButtonProps[]
-}
 
 export const ApplicationLayout: FunctionComponent = () => {
   const navigate = useNavigate()
@@ -136,6 +122,7 @@ export const ApplicationLayout: FunctionComponent = () => {
           </ListItemButton>
 
           <Divider />
+          <DropdownMenu {...menuCanvas} />
           <ListItemButton onClick={handleClick}>
             <ListItemText
               primary={'Elements'}

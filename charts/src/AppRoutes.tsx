@@ -23,11 +23,14 @@ import RadialCentroidAxisPage from './pages/radialCentroid/RadialCentroidAxisPag
 import RadialCentroidLinePage from './pages/radialCentroid/RadialCentroidLinePage'
 import RadialCentroidPointsPage from './pages/radialCentroid/RadialCentroidPointsPage'
 import RadialCentroidSpokesPage from './pages/radialCentroid/RadialCentroidSpokesPage'
+import CanvasPage from './pages/canvas/CanvasPage'
 
 export const AppRoutes: FunctionComponent = () => {
   return (
     <Routes>
       <Route path="/" Component={HomePage} />
+
+      <Route path="/canvas" Component={CanvasPage} />
 
       <Route path="/linear/bars" Component={LinearBarsPage} />
       <Route path="/linear/area" Component={LinearAreaPage} />

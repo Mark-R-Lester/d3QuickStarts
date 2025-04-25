@@ -1,44 +1,40 @@
 import { Typography } from '@mui/material'
 import { useState } from 'react'
-import { EnumOrientation } from '../../common/enums'
 import { ConfigAndData } from '../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../components/atoms/chart/TryItYourSelf'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
+import { SimpleCanvas } from './SimpleCanvas'
+import { SimpleCanvasWithArea } from './SimpleCanvasWithArea'
 import {
-  horizontalBarContent,
-  verticalBarContent,
+  blankCanvasContent,
+  canvasWithVisibleDisplayArea,
   configAndData,
   editorContent,
-} from '../linear/LinearBars/Content'
-import { SimpleBarChart } from '../linear/LinearBars/SimpleBarChart'
+} from './Content'
 
 export default function CanvasPage() {
   const menuElements: JSX.Element[] = [
-    <SimpleBarChart
+    <SimpleCanvas
       canvasProps={{
-        chartName: 'simpleBarChartHorizontal',
+        chartName: 'simpleCanvas',
         width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 35,
+        highestViewableValue: 100,
       }}
-      orientation={EnumOrientation.HORIZONTAL}
     />,
-    <SimpleBarChart
+    <SimpleCanvasWithArea
       canvasProps={{
-        chartName: 'simpleBarChartVertical',
+        chartName: 'simpleCanvasWithArea',
         width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 35,
+        highestViewableValue: 100,
       }}
-      orientation={EnumOrientation.VERTICAL}
     />,
     <ConfigAndData />,
     <TryItYourSelf />,
   ]
 
   const contents: JSX.Element[] = [
-    horizontalBarContent,
-    verticalBarContent,
+    blankCanvasContent,
+    canvasWithVisibleDisplayArea,
     configAndData,
     editorContent,
   ]
@@ -51,7 +47,7 @@ export default function CanvasPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Linear Bars
+        Canvas
       </Typography>
       <ChartButtonGrid
         elements={menuElements}

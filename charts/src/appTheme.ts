@@ -7,11 +7,7 @@ export const appTheme = createTheme({
       contrastText: 'white',
     },
   },
-  typography: {
-    body1: {
-      fontSize: 25,
-    },
-  },
+  typography: {},
   components: {
     MuiButton: {
       styleOverrides: {

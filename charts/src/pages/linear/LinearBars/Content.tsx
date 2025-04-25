@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { ContentColumn } from '../../../components/atoms/ContentColums'
+import { ContentColumn } from '../../../components/atoms/ContentColum'
 import { ChartEditor } from './ChartEditor'
 import { EnumOrientation } from '../../../common/enums'
 import { SimpleBarChart } from './SimpleBarChart'

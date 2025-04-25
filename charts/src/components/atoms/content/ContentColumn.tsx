@@ -2,7 +2,10 @@ import { styled } from '@mui/material/styles'
 import { FunctionComponent } from 'react'
 
 const ColumnContainer = styled('div')(({ theme }) => ({
-  width: '70%',
+  marginLeft: '7%',
+  marginRight: '10%',
+
+  width: '80%',
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
@@ -14,6 +17,8 @@ const ColumnItem = styled('div')(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
   bgcolor: 'background.paper',
+  // borderColor: 'red',
+  // border: 'solid',
 }))
 
 interface ContentContainerProps {

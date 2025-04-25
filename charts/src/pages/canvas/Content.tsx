@@ -1,14 +1,15 @@
 import { Typography } from '@mui/material'
-import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { EnumOrientation } from '../../common/enums'
-import { ContentColumn } from '../../components/atoms/content/ContentColum'
+import { ContentColumn } from '../../components/atoms/content/ContentColumn'
 import { ContentRow } from '../../components/atoms/content/ContentRow'
 import { ChartEditor } from '../linear/LinearBars/ChartEditor'
-import { SimpleBarChart } from '../linear/LinearBars/SimpleBarChart'
 import { SimpleCanvas } from './SimpleCanvas'
 import { SimpleCanvasWithArea } from './SimpleCanvasWithArea'
-import { ContentTitle } from '../../components/atoms/content/ContentTitle'
+import {
+  ContentSyntaxHighlighter,
+  ContentTitle,
+} from '../../components/atoms/content/ContentStyled'
+import { ContentInnerColumn } from '../../components/atoms/content/ContentInnerColumn'
 
 const areaDataAsString: string = `
 qsCreateCanvas(canvasConfig)
@@ -112,9 +113,9 @@ export const blankCanvasContent: JSX.Element = (
             This is a canvas created with minimal configuration and no visual
             elements
           </Typography>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+          <ContentSyntaxHighlighter language="typescript" style={atomOneDark}>
             {canvasConfig}
-          </SyntaxHighlighter>,
+          </ContentSyntaxHighlighter>,
         ]}
       ></ContentRow>,
 
@@ -158,9 +159,9 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
             </Typography>
           </>,
 
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+          <ContentSyntaxHighlighter language="typescript" style={atomOneDark}>
             {areaDataAsString}
-          </SyntaxHighlighter>,
+          </ContentSyntaxHighlighter>,
         ]}
       ></ContentRow>,
       <ContentTitle variant="h5">
@@ -188,9 +189,9 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
               as high as your highest value
             </Typography>
           </>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+          <ContentSyntaxHighlighter language="typescript" style={atomOneDark}>
             {canvasConfig1}
-          </SyntaxHighlighter>,
+          </ContentSyntaxHighlighter>,
         ]}
       ></ContentRow>,
       <SimpleCanvasWithArea
@@ -210,9 +211,9 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
               area with whatever dimentions you want
             </Typography>
           </>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+          <ContentSyntaxHighlighter language="typescript" style={atomOneDark}>
             {canvasConfig2}
-          </SyntaxHighlighter>,
+          </ContentSyntaxHighlighter>,
         ]}
       ></ContentRow>,
       <SimpleCanvasWithArea
@@ -235,9 +236,9 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
               drastically change how the data is displayed
             </Typography>
           </>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+          <ContentSyntaxHighlighter language="typescript" style={atomOneDark}>
             {canvasConfig3}
-          </SyntaxHighlighter>,
+          </ContentSyntaxHighlighter>,
         ]}
       ></ContentRow>,
       <SimpleCanvasWithArea
@@ -262,9 +263,9 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
               of the height and 10% of the width.
             </Typography>
           </>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+          <ContentSyntaxHighlighter language="typescript" style={atomOneDark}>
             {canvasConfig4}
-          </SyntaxHighlighter>,
+          </ContentSyntaxHighlighter>,
         ]}
       ></ContentRow>,
       <SimpleCanvasWithArea
@@ -288,39 +289,51 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
+      <ContentTitle variant="h4">QsCanvasConfig</ContentTitle>,
       <ContentRow
         elements={[
-          <Typography variant="body1">QsBarConfig interface</Typography>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
-            {qsCanvasConfig}
-          </SyntaxHighlighter>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
-            {qsCanvasConfig}
-          </SyntaxHighlighter>,
+          <ContentInnerColumn
+            elements={[
+              <Typography variant="body1">Interface:</Typography>,
+              <ContentSyntaxHighlighter
+                language="typescript"
+                style={atomOneDark}
+              >
+                {qsCanvasConfig}
+              </ContentSyntaxHighlighter>,
+            ]}
+          />,
+          <ContentInnerColumn
+            elements={[
+              <Typography variant="body1">Example:</Typography>,
+              <ContentSyntaxHighlighter
+                language="typescript"
+                style={atomOneDark}
+              >
+                {canvasConfig4}
+              </ContentSyntaxHighlighter>,
+            ]}
+          />,
         ]}
-      ></ContentRow>,
-      <SimpleBarChart
-        canvasProps={{
-          chartName: 'chart',
-          width: 800,
-          lowestViewableValue: 0,
-          highestViewableValue: 35,
-          borderColor: 'black',
-        }}
-        orientation={EnumOrientation.VERTICAL}
       />,
     ]}
-  ></ContentColumn>
+  />
 )
 
 export const editorContent: JSX.Element = (
-  <ChartEditor
-    initialCode={`
+  <>
+    <ContentColumn
+      elements={[<ContentTitle variant="h4">Try it for yourself</ContentTitle>]}
+    />
+
+    <ChartEditor
+      initialCode={`
   const canvas: QsCanvas = qsCreateCanvas(canvasProps)
   const data: QsAreaData = {
     higherData: [100, 100],
   }
   canvas.generate.linear.horizontal.area(data)
 `}
-  ></ChartEditor>
+    />
+  </>
 )

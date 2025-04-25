@@ -1,12 +1,14 @@
 import { Typography } from '@mui/material'
-import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { ContentColumn } from '../../../components/atoms/content/ContentColum'
+import { ContentColumn } from '../../../components/atoms/content/ContentColumn'
 import { ChartEditor } from './ChartEditor'
 import { EnumOrientation } from '../../../common/enums'
 import { SimpleBarChart } from './SimpleBarChart'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
-import { ContentTitle } from '../../../components/atoms/content/ContentTitle'
+import {
+  ContentSyntaxHighlighter,
+  ContentTitle,
+} from '../../../components/atoms/content/ContentStyled'
 
 const barDataAsString: string = `const barDataSimple: QsBarData[] =[
   { upperBoundry: 35, lowerBoundry: 5 },
@@ -88,9 +90,9 @@ export const horizontalBarContent: JSX.Element = (
               excluding data.
             </Typography>
           </>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+          <ContentSyntaxHighlighter language="typescript" style={atomOneDark}>
             {barsHorizontalAsString}
-          </SyntaxHighlighter>,
+          </ContentSyntaxHighlighter>,
         ]}
       />,
 
@@ -129,9 +131,9 @@ export const verticalBarContent: JSX.Element = (
               excluding data.
             </Typography>
           </>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+          <ContentSyntaxHighlighter language="typescript" style={atomOneDark}>
             {barsVerticalAsString}
-          </SyntaxHighlighter>,
+          </ContentSyntaxHighlighter>,
         ]}
       />,
       <SimpleBarChart
@@ -153,24 +155,24 @@ export const configAndData: JSX.Element = (
       <ContentRow
         elements={[
           <Typography variant="body1">QsBarData interface</Typography>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+          <ContentSyntaxHighlighter language="typescript" style={atomOneDark}>
             {qsBarData}
-          </SyntaxHighlighter>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+          </ContentSyntaxHighlighter>,
+          <ContentSyntaxHighlighter language="typescript" style={atomOneDark}>
             {qsBarConfig}
-          </SyntaxHighlighter>,
+          </ContentSyntaxHighlighter>,
         ]}
       ></ContentRow>,
 
       <ContentRow
         elements={[
           <Typography variant="body1">QsBarConfig interface</Typography>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+          <ContentSyntaxHighlighter language="typescript" style={atomOneDark}>
             {qsBarConfig}
-          </SyntaxHighlighter>,
-          <SyntaxHighlighter language="typescript" style={atomOneDark}>
+          </ContentSyntaxHighlighter>,
+          <ContentSyntaxHighlighter language="typescript" style={atomOneDark}>
             {qsBarConfig}
-          </SyntaxHighlighter>,
+          </ContentSyntaxHighlighter>,
         ]}
       ></ContentRow>,
       <SimpleBarChart

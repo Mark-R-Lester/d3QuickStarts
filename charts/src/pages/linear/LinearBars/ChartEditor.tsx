@@ -58,6 +58,7 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
 
   const ChartEditorTheme = styled('div')(({ theme }) => ({
     '.chartEditor': {
+      marginTop: '30px',
       display: 'flex',
       flexDirection: 'row',
     },

@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { ContentColumn } from '../../../components/atoms/ContentColum'
+import { ContentColumn } from '../../../components/atoms/content/ContentColum'
 import { ChartEditor } from './ChartEditor'
 import { EnumOrientation } from '../../../common/enums'
 import { SimpleBarChart } from './SimpleBarChart'
-import { ContentRow } from '../../../components/atoms/ContentRow'
+import { ContentRow } from '../../../components/atoms/content/ContentRow'
 
 const barDataAsString: string = `const barDataSimple: QsBarData[] =[
   { upperBoundry: 35, lowerBoundry: 5 },

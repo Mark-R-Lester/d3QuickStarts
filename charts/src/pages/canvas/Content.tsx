@@ -2,13 +2,13 @@ import { Typography } from '@mui/material'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { EnumOrientation } from '../../common/enums'
-import { ContentColumn } from '../../components/atoms/ContentColum'
-import { ContentRow } from '../../components/atoms/ContentRow'
+import { ContentColumn } from '../../components/atoms/content/ContentColum'
+import { ContentRow } from '../../components/atoms/content/ContentRow'
 import { ChartEditor } from '../linear/LinearBars/ChartEditor'
 import { SimpleBarChart } from '../linear/LinearBars/SimpleBarChart'
 import { SimpleCanvas } from './SimpleCanvas'
 import { SimpleCanvasWithArea } from './SimpleCanvasWithArea'
-import { ContentTitle } from '../../components/atoms/ContentTitle'
+import { ContentTitle } from '../../components/atoms/content/ContentTitle'
 
 const areaDataAsString: string = `
 qsCreateCanvas(canvasConfig)

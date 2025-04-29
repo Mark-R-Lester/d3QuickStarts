@@ -141,13 +141,13 @@ export const getCalculatedData = (
 
   const x = (d: QsCoordinate) => {
     const space = isBanded
-      ? spacingScale(d.x) + spacingScale.bandwidth() / 2
+      ? spacingScale(d.x.toString()) + spacingScale.bandwidth() / 2
       : spacingScale(d.x)
     return isVertical ? dataScale(d.x) : space
   }
   const y = (d: QsCoordinate) => {
     const space = isBanded
-      ? spacingScale(d.y) + spacingScale.bandwidth() / 2
+      ? spacingScale(d.y.toString()) + spacingScale.bandwidth() / 2
       : spacingScale(d.y)
     return isVertical ? space : dataScale(d.y)
   }

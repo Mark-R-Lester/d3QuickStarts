@@ -98,6 +98,7 @@ interface horizontalLinearElementFunctions {
   points: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   pointsBanded: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   text: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
+  textBanded: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
 
   axis: horizontalLinearAxisFunctions
 }
@@ -119,6 +120,7 @@ interface verticalLinearElementFunctions {
   points: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   pointsBanded: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   text: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
+  textBanded: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
   axis: verticalLinearAxisFunctions
 }
 
@@ -257,6 +259,18 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           elements.push({ element, data })
           return element
         },
+        textBanded: (
+          data: QsTextData[],
+          customConfig?: QsTextConfig
+        ): QsText => {
+          const element = linearText.horizontalBanded(
+            canvas,
+            data,
+            customConfig
+          )
+          elements.push({ element, data })
+          return element
+        },
         pointsBanded: (
           data: QsPointData[],
           customConfig?: QsPointsConfig
@@ -346,6 +360,14 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         },
         text: (data: QsTextData[], customConfig?: QsTextConfig): QsText => {
           const element = linearText.vertical(canvas, data, customConfig)
+          elements.push({ element, data })
+          return element
+        },
+        textBanded: (
+          data: QsTextData[],
+          customConfig?: QsTextConfig
+        ): QsText => {
+          const element = linearText.verticalBanded(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },

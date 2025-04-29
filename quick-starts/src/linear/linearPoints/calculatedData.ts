@@ -16,6 +16,7 @@ import {
   getScaledColor,
 } from '../../core/color/color'
 import { QsPointData } from './qsTypes'
+import { toStrings } from '../../core/conversion'
 
 export interface CalculatedData {
   class: string
@@ -86,8 +87,8 @@ export const getCalculatedData = (
     spacingScale = scaleBand()
       .domain(
         isVertical
-          ? coordinates.map((d) => d.y.toString())
-          : coordinates.map((d) => d.x.toString())
+          ? toStrings(coordinates.map((d) => d.y))
+          : toStrings(coordinates.map((d) => d.x))
       )
       .range(isVertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
   } else {
@@ -99,16 +100,15 @@ export const getCalculatedData = (
       )
       .range(isVertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
   }
-
   const x = (d: QsCoordinate) => {
     const space = isBanded
-      ? spacingScale(d.x) + spacingScale.bandwidth() / 2
+      ? spacingScale(d.x.toString()) + spacingScale.bandwidth() / 2
       : spacingScale(d.x)
     return isVertical ? dataScale(d.x) : space
   }
   const y = (d: QsCoordinate) => {
     const space = isBanded
-      ? spacingScale(d.y) + spacingScale.bandwidth() / 2
+      ? spacingScale(d.y.toString()) + spacingScale.bandwidth() / 2
       : spacingScale(d.y)
     return isVertical ? space : dataScale(d.y)
   }

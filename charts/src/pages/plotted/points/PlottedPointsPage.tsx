@@ -1,8 +1,9 @@
 import { Box, Typography } from '@mui/material'
-import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { PlottedPointsElement } from '../../components/atoms/chart/plotted/PlottedPoints'
-import { PlottedPointsEnhancedElement } from '../../components/atoms/chart/plotted/PlottedPointsEnhanced'
+
 import { useState } from 'react'
+import { PlottedPointsElement } from './PlottedPoints'
+import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+import { PlottedPointsEnhancedElement } from './PlottedPointsEnhanced'
 
 export default function PlottedPointsPage() {
   const menuElements: JSX.Element[] = [

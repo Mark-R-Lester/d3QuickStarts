@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import { QsCanvas, qsCreateCanvas, QsPlottedPointData } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../common/chartProps'
+import { ChartProps } from '../../../common/chartProps'
 
 export const PlottedPointsElement: FunctionComponent<ChartProps> = ({
   canvasProps,

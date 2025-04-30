@@ -1,26 +1,28 @@
 import { Box, Typography } from '@mui/material'
-import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { PlottedLineElement } from '../../components/atoms/chart/plotted/PlottedLine'
-import { useState } from 'react'
 
-export default function PlottedLinePage() {
+import { useState } from 'react'
+import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+import { PlottedLegendElement } from './PlottedLegend'
+
+export default function PlottedLegendPage() {
   const menuElements: JSX.Element[] = [
-    <PlottedLineElement
+    <PlottedLegendElement
       canvasProps={{
-        chartName: 'plottedLine',
+        chartName: 'legendElement',
         width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 156,
+        highestViewableValue: 250,
       }}
     />,
   ]
+
   const charts: JSX.Element[] = [
-    <PlottedLineElement
+    <PlottedLegendElement
       canvasProps={{
         chartName: 'charts',
         width: 800,
         lowestViewableValue: 0,
-        highestViewableValue: 156,
+        highestViewableValue: 250,
       }}
     />,
   ]
@@ -33,7 +35,7 @@ export default function PlottedLinePage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Plotted Line
+        Plotted Legend
       </Typography>
       <ChartButtonGrid
         onClick={onClick}

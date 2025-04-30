@@ -1,8 +1,8 @@
 import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
-import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
 import { LinearBarsGroupedElement } from './LinearBarsGrouped'
+import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 
 export default function LinearBarGroupPage() {
   const menuElements: JSX.Element[] = [

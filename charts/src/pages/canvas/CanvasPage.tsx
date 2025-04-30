@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import { useState } from 'react'
 import { ConfigAndData } from '../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../components/atoms/chart/TryItYourSelf'
-import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
+import { ChartButtonGrid } from '../../components/molecules/ChartButtonGrid'
 import { SimpleCanvas } from './SimpleCanvas'
 import { SimpleCanvasWithArea } from './SimpleCanvasWithArea'
 import {

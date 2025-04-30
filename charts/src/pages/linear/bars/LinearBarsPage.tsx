@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { useState } from 'react'
 import {
   verticalBarContent,

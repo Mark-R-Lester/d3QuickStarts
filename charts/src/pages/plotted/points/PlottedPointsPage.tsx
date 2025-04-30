@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
 import { PlottedPointsElement } from './PlottedPoints'
-import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { PlottedPointsEnhancedElement } from './PlottedPointsEnhanced'
 
 export default function PlottedPointsPage() {

@@ -1,5 +1,4 @@
 import { Box, Typography } from '@mui/material'
-import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
 
 import {
   QsColorScaleData,
@@ -11,6 +10,7 @@ import { EnumRadialTextOrientation } from '../../common/enums'
 import { RadialTransition } from './arc/RadialTransition'
 import { useState } from 'react'
 import { RadialTextTransition } from './arcText/RadialTextTransition'
+import { ChartButtonGrid } from '../../components/molecules/ChartButtonGrid'
 
 export default function RadialTransitionsPage() {
   const data1: QsValuedText[] = [{ value: 25 }, { value: 10 }, { value: 15 }]

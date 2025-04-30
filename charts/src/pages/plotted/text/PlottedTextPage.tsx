@@ -1,8 +1,8 @@
 import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
-import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
 import { PlottedTextElement } from './PlottedText'
+import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 
 export default function PlottedTextPage() {
   const menuElements: JSX.Element[] = [

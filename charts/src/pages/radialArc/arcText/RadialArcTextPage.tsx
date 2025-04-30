@@ -1,11 +1,11 @@
 import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
-import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
 import { RadialTextFollowElement } from './RadialTextFollow'
 import { RadialTextHorizontalElement } from './RadialTextHorizontal'
 import { RadialTextRotatedElement } from './RadialTextRotated'
 import { RadialTextSpokeElement } from './RadialTextSpoke'
+import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 
 export default function RadialArcTextPage() {
   const menuElements: JSX.Element[] = [

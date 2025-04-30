@@ -2,7 +2,7 @@ import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
 import { EnumOrientation } from '../../../common/enums'
-import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { LinearLineElement } from './LinearLine'
 
 export default function LinearLinePage() {

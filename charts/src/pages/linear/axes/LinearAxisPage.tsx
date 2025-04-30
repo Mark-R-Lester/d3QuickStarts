@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
-import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
 import { LinearAxisElement } from './LinearAxis'
+import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 
 export default function LinearAxisPage() {
   const menuElements: JSX.Element[] = [

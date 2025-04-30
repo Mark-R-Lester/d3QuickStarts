@@ -1,6 +1,6 @@
 import { Grid2 as Grid } from '@mui/material'
 import { FunctionComponent, useState } from 'react'
-import { ChartButton, ChartButtonStyles } from './ChartButton'
+import { ChartButton, ChartButtonStyles } from '../atoms/ChartButton'
 
 export interface ElementGridProps {
   elements: JSX.Element[]

@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
-import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { PlottedLegendElement } from './PlottedLegend'
 
 export default function PlottedLegendPage() {

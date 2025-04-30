@@ -1,9 +1,10 @@
 import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
-import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+
 import { RadialDoughnutElement } from './RadialDoughnut'
 import { RadialPieElement } from './RadialPie'
+import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 
 export default function RadialArcPage() {
   const menuElements: JSX.Element[] = [

@@ -1,8 +1,9 @@
 import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import { EnumOrientation } from '../../../common/enums'
-import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+
 import { LinearPointsElement } from './LinearPoints'
+import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 
 export default function LinearPointsPage() {
   const menuElements: JSX.Element[] = [

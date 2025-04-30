@@ -1,4 +1,4 @@
-import { ApplicationLayout } from './components/molecules/ApplicationMenuSystem/ApplicationRootLayout'
+import { ApplicationLayout } from './components/organism/ApplicationRootLayout'
 
 export default function App() {
   return <ApplicationLayout />

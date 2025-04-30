@@ -13,17 +13,18 @@ import {
 import { makeStyles } from '@mui/styles'
 import { FunctionComponent, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { DropdownMenu } from '../../atoms/DropdownMenu'
-import { MenuRoute } from '../../types/atomicTypes'
+
+import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import { AppRoutes } from '../../AppRoutes'
+import { DropdownMenu } from '../atoms/DropdownMenu'
 import {
   menuCanvas,
   menuElementsLinear,
   menuElementsPlotted,
   menuElementsRadialArc,
   menuElementsRadialCentroid,
-} from './drawerMenuData'
-import { ExpandLess, ExpandMore } from '@mui/icons-material'
-import { AppRoutes } from '../../../AppRoutes'
+} from '../molecules/ApplicationMenuSystem/drawerMenuData'
+import { MenuRoute } from '../types/atomicTypes'
 
 const drawerWidth = '180px'
 const appBarHeight = '50px'

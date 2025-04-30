@@ -31,7 +31,7 @@ export const getCalculatedData = (
   const coordinates: QsCoordinate[] = []
   const lineData: [number, number][] = []
 
-  data.data.reverse().forEach((d, i) => {
+  data.data.forEach((d, i) => {
     coordinates.push({ x: d, y: yVals[i] })
     lineData.push([d, yVals[i]])
   })
@@ -51,10 +51,18 @@ export const getCalculatedData = (
     bandingAdjustment = 0
   }
 
-  const lineFunction = d3line()
-    .x((d) => xDataScale(d[0]))
-    .y((d) => spacingScale(d[1]) + bandingAdjustment)
-    .curve(constantsCurves[curve])
+  let lineFunction
+  if (scaleType === ScaleType.BANDED) {
+    lineFunction = d3line()
+      .x((d) => xDataScale(d[0]))
+      .y((d) => spacingScale(d[1].toString()) + bandingAdjustment)
+      .curve(constantsCurves[curve])
+  } else {
+    lineFunction = d3line()
+      .x((d) => xDataScale(d[0]))
+      .y((d) => spacingScale(d[1]) + bandingAdjustment)
+      .curve(constantsCurves[curve])
+  }
 
   return {
     class: 'line',

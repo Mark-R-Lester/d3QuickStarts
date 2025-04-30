@@ -7,6 +7,8 @@ import {
   QsTextData,
   QsText,
   QsPoints,
+  QsLineData,
+  QsLine,
 } from 'd3qs/d3QuickStart'
 import { OrienetedChartProps } from '../../common/chartProps'
 import { EnumOrientation } from '../../common/enums'
@@ -19,6 +21,7 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
   const [bars, setBars] = useState<QsBars>()
   const [text, setText] = useState<QsText>()
   const [points, setPoints] = useState<QsPoints>()
+  const [line, setLine] = useState<QsLine>()
 
   useEffect(() => {
     const createChart = () => {
@@ -66,18 +69,27 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
         { value: 35 },
         { value: 25 },
       ]
+      const lineData: QsLineData = {
+        data: [
+          25, 10, 35, 25, 35, 5, 25, 25, 25, 10, 35, 25, 35, 5, 25, 25, 25, 10,
+          35, 25,
+        ],
+      }
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
       let newBars: QsBars
       let newText: QsText
       let newPoints: QsPoints
+      let newLine: QsLine
 
       if (orientation === EnumOrientation.VERTICAL) {
         newBars = canvas.generate.linear.vertical.bars(data)
-        newPoints = canvas.generate.linear.horizontal.pointsBanded(textData)
-        newText = canvas.generate.linear.horizontal.textBanded(textData)
+        newPoints = canvas.generate.linear.vertical.pointsBanded(textData)
+        newLine = canvas.generate.linear.vertical.lineBanded(lineData)
+        newText = canvas.generate.linear.vertical.textBanded(textData)
       } else {
         newBars = canvas.generate.linear.horizontal.bars(data)
         newPoints = canvas.generate.linear.horizontal.pointsBanded(textData)
+        newLine = canvas.generate.linear.horizontal.lineBanded(lineData)
         newText = canvas.generate.linear.horizontal.textBanded(textData)
         canvas.generate.linear.vertical.axis.left([0, 35])
         canvas.generate.linear.horizontal.axis.bottomBanded([
@@ -87,15 +99,21 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
       setBars(newBars)
       setPoints(newPoints)
       setText(newText)
+      setLine(newLine)
     }
     createChart()
   }, [canvasProps, orientation])
 
   useEffect(
     function transitionData() {
-      const getData = (): { barData: QsBarData[]; textData: QsTextData[] } => {
+      const getData = (): {
+        barData: QsBarData[]
+        textData: QsTextData[]
+        lineData: number[]
+      } => {
         const barData = []
         const textData = []
+        const lineData = []
         for (let i = 0; i < 20; i++) {
           let num = (Math.random() * 100) / 2
           barData.push({
@@ -105,24 +123,26 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
           textData.push({
             value: num,
           })
+          lineData.push(num)
         }
-        return { barData, textData }
+        return { barData, textData, lineData }
       }
 
       const transitionData = getData()
-      if (orientation === EnumOrientation.VERTICAL) {
-        if (bars) bars.transition({ data: transitionData.barData })
-        if (points) points.transition({ data: transitionData.textData })
-        if (text) text.transition({ data: transitionData.textData })
-      } else {
-        if (bars) bars.transition({ data: transitionData.barData })
-        if (points) points.transition({ data: transitionData.textData })
-        if (text) text.transition({ data: transitionData.textData })
-      }
+
+      if (bars) bars.transition({ data: transitionData.barData })
+      if (points) points.transition({ data: transitionData.textData })
+      if (text) text.transition({ data: transitionData.textData })
+      if (line)
+        line.transition({
+          data: {
+            data: transitionData.lineData,
+          },
+        })
 
       setTimeout(() => setChanged(!changed), 2000)
     },
-    [bars, changed, orientation, points, text]
+    [bars, changed, line, orientation, points, text]
   )
 
   return (

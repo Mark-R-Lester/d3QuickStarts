@@ -51,10 +51,18 @@ export const getCalculatedData = (
     bandingAdjustment = 0
   }
 
-  const lineFunction = d3line()
-    .x((d) => spacingScale(d[0]) + bandingAdjustment)
-    .y((d) => yDataScale(d[1]))
-    .curve(constantsCurves[curve])
+  let lineFunction
+  if (scaleType === ScaleType.BANDED) {
+    lineFunction = d3line()
+      .x((d) => spacingScale(d[0].toString()) + bandingAdjustment)
+      .y((d) => yDataScale(d[1]))
+      .curve(constantsCurves[curve])
+  } else {
+    lineFunction = d3line()
+      .x((d) => spacingScale(d[0]))
+      .y((d) => yDataScale(d[1]))
+      .curve(constantsCurves[curve])
+  }
 
   return {
     class: 'line',

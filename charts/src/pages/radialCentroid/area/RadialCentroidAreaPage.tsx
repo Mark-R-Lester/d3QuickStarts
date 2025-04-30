@@ -1,27 +1,28 @@
 import { Box, Typography } from '@mui/material'
-import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { RadialAxisElement } from '../../components/atoms/chart/radial/RadialAxis'
-import { useState } from 'react'
 
-export default function RadialCentroidAxisPage() {
+import { useState } from 'react'
+import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+import { RadialAreaElement } from './RadialArea'
+
+export default function RadialCentroidAreaPage() {
   const menuElements: JSX.Element[] = [
-    <RadialAxisElement
+    <RadialAreaElement
       canvasProps={{
-        chartName: 'radialAxis',
+        chartName: 'radialArea',
         width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 50,
+        highestViewableValue: 25,
       }}
     />,
   ]
 
   const charts: JSX.Element[] = [
-    <RadialAxisElement
+    <RadialAreaElement
       canvasProps={{
-        chartName: 'charts',
+        chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,
-        highestViewableValue: 50,
+        highestViewableValue: 25,
       }}
     />,
   ]
@@ -34,7 +35,7 @@ export default function RadialCentroidAxisPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Radial Centroid Axis
+        Radial Centroid Area
       </Typography>
       <ChartButtonGrid
         onClick={onClick}

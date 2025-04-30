@@ -1,27 +1,28 @@
 import { Box, Typography } from '@mui/material'
-import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { RadialLineElement } from '../../components/atoms/chart/radial/RadialLine'
-import { useState } from 'react'
 
-export default function RadialCentroidLinePage() {
+import { useState } from 'react'
+import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+import { RadialSpokesElement } from './RadailSpokes'
+
+export default function RadialCentroidSpokesPage() {
   const menuElements: JSX.Element[] = [
-    <RadialLineElement
+    <RadialSpokesElement
       canvasProps={{
-        chartName: 'radialLine',
+        chartName: 'radialSpokes',
         width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 23,
+        highestViewableValue: 50,
       }}
     />,
   ]
 
   const charts: JSX.Element[] = [
-    <RadialLineElement
+    <RadialSpokesElement
       canvasProps={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,
-        highestViewableValue: 23,
+        highestViewableValue: 50,
       }}
     />,
   ]
@@ -34,7 +35,7 @@ export default function RadialCentroidLinePage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Radial Centroid Line
+        Radial Centroid Spokes
       </Typography>
       <ChartButtonGrid
         onClick={onClick}

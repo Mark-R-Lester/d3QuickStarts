@@ -1,13 +1,14 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { RadialAreaTransition } from '../../components/atoms/chart/radial/RadialAreaTransition'
-import { RadialLineTransition } from '../../components/atoms/chart/radial/RadialLineTransition'
-import { RadialPointTransition } from '../../components/atoms/chart/radial/RadialPointsTransition'
+
 import {
   QsColorScaleData,
   QsRadialPointData,
   QsEnumColorScale,
 } from 'd3qs/d3QuickStart'
+import { RadialAreaTransition } from './area/RadialAreaTransition'
+import { RadialLineTransition } from './line/RadialLineTransition'
+import { RadialPointTransition } from './points/RadialPointsTransition'
 
 export default function RadialTransitionsPage() {
   const radialPointsColouredData: QsRadialPointData[] = [

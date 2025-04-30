@@ -1,20 +1,16 @@
 import { FunctionComponent, useEffect } from 'react'
 import { QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../common/chartProps'
+import { ChartProps } from '../../../common/chartProps'
 
-export const RadialLineElement: FunctionComponent<ChartProps> = ({
+export const RadialSpokesElement: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const data: number[] = [
-        16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17, 18,
-        20, 17, 23, 23, 20, 17, 16, 16,
-      ]
-
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
-      canvas.generate.radialCentroid.line({ data, color: 'green' })
+      const numberOfSpokes = 6
+      canvas.generate.radialCentroid.spokes(numberOfSpokes)
     }
     createChart()
   }, [canvasProps])

@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import { QsCanvas, qsCreateCanvas, QsPointData } from 'd3qs/d3QuickStart'
-import { EnumOrientation } from '../../../../common/enums'
-import { OrienetedChartProps } from '../../../../common/chartProps'
+import { OrienetedChartProps } from '../../../common/chartProps'
+import { EnumOrientation } from '../../../common/enums'
 
 export const LinearPointsElement: FunctionComponent<OrienetedChartProps> = ({
   canvasProps,

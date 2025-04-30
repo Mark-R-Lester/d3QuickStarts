@@ -1,11 +1,6 @@
 import { FunctionComponent, useEffect, useState, useMemo } from 'react'
-import {
-  QsCanvas,
-  qsCreateCanvas,
-  QsBarGroups,
-  qsFindMaxSum,
-} from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../common/chartProps'
+import { QsCanvas, qsCreateCanvas, QsBarGroups } from 'd3qs/d3QuickStart'
+import { ChartProps } from '../../../common/chartProps'
 
 export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
   canvasProps,

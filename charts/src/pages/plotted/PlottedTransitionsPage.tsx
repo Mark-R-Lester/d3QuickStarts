@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
-import { LinearAreaElement } from '../../components/atoms/chart/linear/LinearArea'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
 import { useState } from 'react'
+import { LinearAreaElement } from '../linear/area/LinearArea'
 
 export default function PlottedTransitionPage() {
   const menuElements: JSX.Element[] = [

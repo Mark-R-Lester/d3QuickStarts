@@ -1,27 +1,28 @@
 import { Box, Typography } from '@mui/material'
-import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { LinearAxisElement } from '../../components/atoms/chart/linear/LinearAxis'
-import { useState } from 'react'
 
-export default function LinearAxisPage() {
+import { useState } from 'react'
+import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+import { LinearBarStacksElement } from './LinearBarStacks'
+
+export default function LinearBarStackPage() {
   const menuElements: JSX.Element[] = [
-    <LinearAxisElement
+    <LinearBarStacksElement
       canvasProps={{
-        chartName: 'linearAxis',
+        chartName: 'linearBarsStackedVertical',
         width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 200,
+        highestViewableValue: 50,
       }}
     />,
   ]
 
   const charts: JSX.Element[] = [
-    <LinearAxisElement
+    <LinearBarStacksElement
       canvasProps={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,
-        highestViewableValue: 200,
+        highestViewableValue: 50,
       }}
     />,
   ]
@@ -34,7 +35,7 @@ export default function LinearAxisPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Linear Axis
+        Linear Bar Stack
       </Typography>
       <ChartButtonGrid
         onClick={onClick}

@@ -5,8 +5,8 @@ import {
   QsPointData,
   QsPoints,
 } from 'd3qs/d3QuickStart'
-import { EnumOrientation } from '../../../../common/enums'
-import { PointChartProps } from '../../../../common/chartProps'
+import { PointChartProps } from '../../../common/chartProps'
+import { EnumOrientation } from '../../../common/enums'
 
 export const LinearTextTransition: FunctionComponent<PointChartProps> = ({
   canvasProps,

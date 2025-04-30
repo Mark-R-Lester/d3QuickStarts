@@ -1,27 +1,28 @@
 import { Box, Typography } from '@mui/material'
-import { LinearAreaElement } from '../../components/atoms/chart/linear/LinearArea'
-import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { useState } from 'react'
 
-export default function LinearAreaPage() {
+import { useState } from 'react'
+import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+import { LinearBarsGroupedElement } from './LinearBarsGrouped'
+
+export default function LinearBarGroupPage() {
   const menuElements: JSX.Element[] = [
-    <LinearAreaElement
+    <LinearBarsGroupedElement
       canvasProps={{
-        chartName: 'linearArea',
-        width: 150,
+        chartName: 'linearBarsGroupedVertical',
+        width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 250,
+        highestViewableValue: 50,
       }}
     />,
   ]
 
   const charts: JSX.Element[] = [
-    <LinearAreaElement
+    <LinearBarsGroupedElement
       canvasProps={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,
-        highestViewableValue: 250,
+        highestViewableValue: 50,
       }}
     />,
   ]
@@ -34,7 +35,7 @@ export default function LinearAreaPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Linear Area
+        Linear Bar Group
       </Typography>
       <ChartButtonGrid
         onClick={onClick}

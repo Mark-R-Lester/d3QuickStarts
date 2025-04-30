@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import { QsCanvas, qsCreateCanvas, QsEnumCurve } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../../common/chartProps'
+import { ChartProps } from '../../../common/chartProps'
 
 export const LinearAreaElement: FunctionComponent<ChartProps> = ({
   canvasProps,

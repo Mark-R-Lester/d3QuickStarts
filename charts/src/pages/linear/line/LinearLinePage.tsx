@@ -1,15 +1,15 @@
 import { Box, Typography } from '@mui/material'
 
-import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { EnumOrientation } from '../../common/enums'
-import { LinearPointsElement } from '../../components/atoms/chart/linear/LinearPoints'
 import { useState } from 'react'
+import { EnumOrientation } from '../../../common/enums'
+import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+import { LinearLineElement } from './LinearLine'
 
-export default function LinearPointsPage() {
+export default function LinearLinePage() {
   const menuElements: JSX.Element[] = [
-    <LinearPointsElement
+    <LinearLineElement
       canvasProps={{
-        chartName: 'linearPointsHorizontal',
+        chartName: 'linearLineHorizontal',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 35,
@@ -17,9 +17,9 @@ export default function LinearPointsPage() {
       orientation={EnumOrientation.HORIZONTAL}
     />,
 
-    <LinearPointsElement
+    <LinearLineElement
       canvasProps={{
-        chartName: 'linearPointsVertical',
+        chartName: 'linearLineVertical',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 35,
@@ -29,7 +29,7 @@ export default function LinearPointsPage() {
   ]
 
   const charts: JSX.Element[] = [
-    <LinearPointsElement
+    <LinearLineElement
       canvasProps={{
         chartName: 'chart',
         width: 800,
@@ -39,7 +39,7 @@ export default function LinearPointsPage() {
       orientation={EnumOrientation.HORIZONTAL}
     />,
 
-    <LinearPointsElement
+    <LinearLineElement
       canvasProps={{
         chartName: 'chart',
         width: 800,
@@ -58,7 +58,7 @@ export default function LinearPointsPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Linear Points
+        Linear Line
       </Typography>
       <ChartButtonGrid
         onClick={onClick}

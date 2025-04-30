@@ -1,8 +1,9 @@
 import { Box, Typography } from '@mui/material'
-import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { EnumOrientation } from '../../common/enums'
-import { LinearTextElement } from '../../components/atoms/chart/linear/LinearText'
+
 import { useState } from 'react'
+import { EnumOrientation } from '../../../common/enums'
+import { ChartButtonGrid } from '../../../components/atoms/ChartButtonGrid'
+import { LinearTextElement } from './LinearText'
 
 export default function LinearTextPage() {
   const menuElements: JSX.Element[] = [

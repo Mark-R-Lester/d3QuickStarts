@@ -1,15 +1,17 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { LinearBarsFloatingTransition } from '../../components/atoms/chart/linear/LinearBarsFloatingTransition'
-import { LinearBarsTransition } from '../../components/atoms/chart/linear/LinearBarsTransition'
+
 import { EnumOrientation } from '../../common/enums'
-import { LinearLineTransition } from '../../components/atoms/chart/linear/LinearLineTransition'
-import { LinearPointsTransition } from '../../components/atoms/chart/linear/LinearPointsTransition'
-import { LinearAreaTransition } from '../../components/atoms/chart/linear/LinearAreaTransition'
-import { LinearBarGroupTransition } from '../../components/atoms/chart/linear/LineaBarGroupTransition'
+
 import { QsColorScaleData, QsEnumColorScale } from 'd3qs/d3QuickStart'
-import { LinearTextTransition } from '../../components/atoms/chart/linear/LinearTextTransition'
+
 import { useState } from 'react'
+import { LinearBarsTransition } from '../home/LinearBarsTransition'
+import { LinearAreaTransition } from './area/LinearAreaTransition'
+import { LinearBarGroupTransition } from './barGroup/LineaBarGroupTransition'
+import { LinearLineTransition } from './line/LinearLineTransition'
+import { LinearPointsTransition } from './points/LinearPointsTransition'
+import { LinearTextTransition } from './text/LinearTextTransition'
 
 const pointData = [
   { value: 25, fillColor: 'red' },
@@ -45,15 +47,7 @@ export default function LinearTransitionsPage() {
       }}
       orientation={EnumOrientation.VERTICAL}
     />,
-    <LinearBarsFloatingTransition
-      canvasProps={{
-        chartName: 'verticalBarFloatingTransition',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 50,
-      }}
-      orientation={EnumOrientation.VERTICAL}
-    />,
+
     <LinearLineTransition
       canvasProps={{
         chartName: 'verticalLineTransition',
@@ -94,15 +88,6 @@ export default function LinearTransitionsPage() {
     <LinearBarsTransition
       canvasProps={{
         chartName: 'horizontalBarTransition',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 50,
-      }}
-      orientation={EnumOrientation.HORIZONTAL}
-    />,
-    <LinearBarsFloatingTransition
-      canvasProps={{
-        chartName: 'horizontalBarFloatingTransition',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 50,
@@ -176,15 +161,7 @@ export default function LinearTransitionsPage() {
       }}
       orientation={EnumOrientation.VERTICAL}
     />,
-    <LinearBarsFloatingTransition
-      canvasProps={{
-        chartName: 'verticalBarFloatingTransition',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 50,
-      }}
-      orientation={EnumOrientation.VERTICAL}
-    />,
+
     <LinearLineTransition
       canvasProps={{
         chartName: 'verticalLineTransition',
@@ -225,15 +202,6 @@ export default function LinearTransitionsPage() {
     <LinearBarsTransition
       canvasProps={{
         chartName: 'horizontalBarTransition',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 50,
-      }}
-      orientation={EnumOrientation.HORIZONTAL}
-    />,
-    <LinearBarsFloatingTransition
-      canvasProps={{
-        chartName: 'horizontalBarFloatingTransition',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 50,

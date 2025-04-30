@@ -2,7 +2,6 @@ import { Typography } from '@mui/material'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { ContentColumn } from '../../components/atoms/content/ContentColumn'
 import { ContentRow } from '../../components/atoms/content/ContentRow'
-import { ChartEditor } from '../linear/LinearBars/ChartEditor'
 import { SimpleCanvas } from './SimpleCanvas'
 import { SimpleCanvasWithArea } from './SimpleCanvasWithArea'
 import {
@@ -385,7 +384,7 @@ export const editorContent: JSX.Element = (
       elements={[<ContentTitle variant="h4">Try it for yourself</ContentTitle>]}
     />
 
-    <ChartEditor
+    {/* <ChartEditor
       initialCode={`
   const canvas: QsCanvas = qsCreateCanvas(canvasProps)
   const data: QsAreaData = {
@@ -393,6 +392,6 @@ export const editorContent: JSX.Element = (
   }
   canvas.generate.linear.horizontal.area(data)
 `}
-    />
+    /> */}
   </>
 )

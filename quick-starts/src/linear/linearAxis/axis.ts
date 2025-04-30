@@ -304,10 +304,8 @@ const draw = (
     const getScale = () => {
       if (scaleType === ScaleType.LINEAR) {
         if (data.length > 0) {
-          console.log('using point scale')
           return scalePoint().domain(toStrings(data)).range(range)
         } else {
-          console.log('using linear scale')
           return chartEdge === (ChartEdge.BOTTOM || ChartEdge.TOP)
             ? xDataScale
             : yDataScale

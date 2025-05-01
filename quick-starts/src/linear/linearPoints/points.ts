@@ -1,11 +1,10 @@
-import { Canvas } from '../../d3QuickStart'
+import { Canvas, QsScaleType } from '../../d3QuickStart'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { DrawArgs, PointsConfigStrict } from './types'
 import {
   GlobalDefaultColors,
   GlobalDefaultSettings,
   Orientation,
-  ScaleType,
 } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
@@ -45,7 +44,7 @@ export const linearPoint = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.HORIZONTAL,
-      scaleType: ScaleType.LINEAR,
+      scaleType: QsScaleType.LINEAR,
     }
     const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, args, config)
@@ -58,7 +57,7 @@ export const linearPoint = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.VERTICAL,
-      scaleType: ScaleType.LINEAR,
+      scaleType: QsScaleType.LINEAR,
     }
     const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, args, config)
@@ -71,7 +70,7 @@ export const linearPoint = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.HORIZONTAL,
-      scaleType: ScaleType.BANDED,
+      scaleType: QsScaleType.BANDED,
     }
     const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, args, config)
@@ -84,7 +83,7 @@ export const linearPoint = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.VERTICAL,
-      scaleType: ScaleType.BANDED,
+      scaleType: QsScaleType.BANDED,
     }
     const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, args, config)

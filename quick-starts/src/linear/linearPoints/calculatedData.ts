@@ -5,10 +5,10 @@ import {
   ScaleOrdinal,
   ScaleSequential,
 } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas, QsScaleType } from '../../d3QuickStart'
 import { DrawArgs, PointsConfigStrict } from './types'
 import { v4 as uuidv4 } from 'uuid'
-import { Orientation, ScaleType } from '../../core/enums/enums'
+import { Orientation } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import {
   getColorScale,
@@ -39,7 +39,7 @@ export const getCalculatedData = (
   const { xDataScale, yDataScale, genralPercentScale } = canvas.scales
   const { data, orientation, scaleType } = args
   const isVertical = orientation === Orientation.VERTICAL
-  const isBanded = scaleType === ScaleType.BANDED
+  const isBanded = scaleType === QsScaleType.BANDED
   const {
     defaultRadius,
     defaultFillColor,

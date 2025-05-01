@@ -9,6 +9,7 @@ import {
   QsPoints,
   QsLineData,
   QsLine,
+  QsScaleType,
 } from 'd3qs/d3QuickStart'
 import { OrienetedChartProps } from '../../common/chartProps'
 import { EnumOrientation } from '../../common/enums'
@@ -92,9 +93,13 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
         newLine = canvas.generate.linear.horizontal.lineBanded(lineData)
         newText = canvas.generate.linear.horizontal.textBanded(textData)
         canvas.generate.linear.vertical.axis.left([])
-        canvas.generate.linear.horizontal.axis.bottomBanded([
-          1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-        ])
+        canvas.generate.linear.horizontal.axis.bottom(
+          [
+            1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
+            20,
+          ],
+          { domainScale: QsScaleType.BANDED }
+        )
       }
       setBars(newBars)
       setPoints(newPoints)

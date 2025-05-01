@@ -6,6 +6,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
+  QsScaleType,
 } from '../../core/enums/qsEnums'
 
 export interface QsAxisConfig {
@@ -15,6 +16,7 @@ export interface QsAxisConfig {
   domainColor?: string
   domainOpacity?: number
   domainWidth?: number
+  domainScale?: QsScaleType
   tickColor?: string
   tickOpacity?: number
   tickWidth?: number

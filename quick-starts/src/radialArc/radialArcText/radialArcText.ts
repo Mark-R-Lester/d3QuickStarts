@@ -10,7 +10,6 @@ import {
   GlobalDefaultColors,
   GlobalDefaultSettings,
   RadialTextType,
-  ScaleType,
 } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
@@ -19,6 +18,7 @@ import {
   QsEnumTextFontWeight,
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
+  QsScaleType,
 } from '../../core/enums/qsEnums'
 import { getRotationFunction } from './textRotation'
 import { Canvas } from '../../d3QuickStart'
@@ -31,7 +31,7 @@ import {
 
 interface DrawArgs {
   data: QsValuedText[]
-  scaleType: ScaleType
+  scaleType: QsScaleType
   type: RadialTextType
 }
 
@@ -84,7 +84,7 @@ export const radialText = {
     )
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.LINEAR,
+      scaleType: QsScaleType.LINEAR,
       type: RadialTextType.SPOKE,
     }
     return draw(canvas, args, config)
@@ -100,7 +100,7 @@ export const radialText = {
     )
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.LINEAR,
+      scaleType: QsScaleType.LINEAR,
       type: RadialTextType.HORIZONTAL,
     }
     return draw(canvas, args, config)
@@ -116,7 +116,7 @@ export const radialText = {
     )
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.LINEAR,
+      scaleType: QsScaleType.LINEAR,
       type: RadialTextType.ROTATED,
     }
     return draw(canvas, args, config)
@@ -132,7 +132,7 @@ export const radialText = {
     )
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.LINEAR,
+      scaleType: QsScaleType.LINEAR,
       type: RadialTextType.FOLLOW,
     }
     return draw(canvas, args, config)
@@ -148,7 +148,7 @@ export const radialText = {
     )
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.BANDED,
+      scaleType: QsScaleType.BANDED,
       type: RadialTextType.SPOKE,
     }
     return draw(canvas, args, config)
@@ -164,7 +164,7 @@ export const radialText = {
     )
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.BANDED,
+      scaleType: QsScaleType.BANDED,
       type: RadialTextType.HORIZONTAL,
     }
     return draw(canvas, args, config)
@@ -180,7 +180,7 @@ export const radialText = {
     )
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.BANDED,
+      scaleType: QsScaleType.BANDED,
       type: RadialTextType.ROTATED,
     }
     return draw(canvas, args, config)
@@ -196,7 +196,7 @@ export const radialText = {
     )
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.BANDED,
+      scaleType: QsScaleType.BANDED,
       type: RadialTextType.FOLLOW,
     }
     return draw(canvas, args, config)

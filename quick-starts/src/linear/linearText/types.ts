@@ -1,4 +1,4 @@
-import { Orientation, ScaleType } from '../../core/enums/enums'
+import { Orientation } from '../../core/enums/enums'
 import {
   QsEnumTextFont,
   QsEnumTextFontStyle,
@@ -6,6 +6,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
+  QsScaleType,
 } from '../../core/enums/qsEnums'
 import { QsColorScaleData } from '../../d3QuickStart'
 import { QsTextData } from './qsTypes'
@@ -13,7 +14,7 @@ import { QsTextData } from './qsTypes'
 export interface DrawArgs {
   data: QsTextData[]
   orientation: Orientation
-  scaleType: ScaleType
+  scaleType: QsScaleType
 }
 
 export interface TextConfigStrict {

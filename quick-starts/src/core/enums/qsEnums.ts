@@ -102,3 +102,9 @@ export enum QsEnumLineCap {
   BUTT = 'butt',
   SQUARE = 'square',
 }
+
+export enum QsScaleType {
+  BANDED = 'banded',
+  LINEAR = 'linear',
+  POINT = 'point',
+}

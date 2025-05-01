@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { RadialTextConfigStrict } from './types'
-import { ScaleType } from '../../core/enums/enums'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas, QsScaleType } from '../../d3QuickStart'
 import { QsValuedText } from './qsTypes'
 
 export interface CalculatedData {
@@ -34,7 +33,7 @@ export const updateCalculatedData = (
   canvas: Canvas,
   data: QsValuedText[],
   config: RadialTextConfigStrict,
-  scaleType: ScaleType,
+  scaleType: QsScaleType,
   calculatedData: CalculatedData
 ): CalculatedData => {
   const newCalculatedData: CalculatedData = getCalculatedData(
@@ -61,7 +60,7 @@ export const getCalculatedData = (
   canvas: Canvas,
   data: QsValuedText[],
   config: RadialTextConfigStrict,
-  scaleType: ScaleType
+  scaleType: QsScaleType
 ): CalculatedData => {
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
   const { radius, x, y, textFontSize } = config
@@ -112,7 +111,7 @@ export const getCalculatedData = (
     arcClass: 'arc',
     textClass: 'text',
     textArcData:
-      scaleType === ScaleType.BANDED ? bandData(data) : pointData(data),
+      scaleType === QsScaleType.BANDED ? bandData(data) : pointData(data),
     x: xPercentScale(x),
     y: yPercentScale(y),
     textFontSize: genralPercentScale(textFontSize),

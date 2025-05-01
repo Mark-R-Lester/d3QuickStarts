@@ -9,7 +9,6 @@ import {
   GlobalDefaultColors,
   GlobalDefaultSettings,
   Orientation,
-  ScaleType,
 } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
@@ -25,6 +24,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
+  QsScaleType,
 } from '../../core/enums/qsEnums'
 import { interpolate } from 'd3'
 
@@ -59,7 +59,7 @@ export const linearText = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.HORIZONTAL,
-      scaleType: ScaleType.LINEAR,
+      scaleType: QsScaleType.LINEAR,
     }
     const config: TextConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, args, config)
@@ -72,7 +72,7 @@ export const linearText = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.VERTICAL,
-      scaleType: ScaleType.LINEAR,
+      scaleType: QsScaleType.LINEAR,
     }
     const config: TextConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, args, config)
@@ -85,7 +85,7 @@ export const linearText = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.HORIZONTAL,
-      scaleType: ScaleType.BANDED,
+      scaleType: QsScaleType.BANDED,
     }
     const config: TextConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, args, config)
@@ -98,7 +98,7 @@ export const linearText = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.VERTICAL,
-      scaleType: ScaleType.BANDED,
+      scaleType: QsScaleType.BANDED,
     }
     const config: TextConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, args, config)

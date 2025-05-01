@@ -9,11 +9,7 @@ import {
   ScaleLinear,
 } from 'd3'
 import { toStrings } from '../../core/conversion'
-import {
-  ChartEdge,
-  GlobalDefaultColors,
-  ScaleType,
-} from '../../core/enums/enums'
+import { ChartEdge, GlobalDefaultColors } from '../../core/enums/enums'
 import {
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
@@ -21,44 +17,11 @@ import {
   QsEnumTextFont,
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
+  QsScaleType,
 } from '../../core/enums/qsEnums'
 import { Canvas } from '../../d3QuickStart'
 import { QsAxis, QsAxisConfig } from './qsTypes'
-
-interface AxisConfigStrict {
-  [key: string]: number | boolean | string | undefined
-  percentageMovement: number
-
-  domainColor: string
-  domainOpacity: number
-  domainWidth: number
-  tickColor: string
-  tickOpacity: number
-  tickWidth: number
-  tickSizeInner: number
-  tickSizeOuter: number
-  tickPadding: number
-  numberOfTicks: number
-
-  textFont: QsEnumTextFont | string
-  textFontSize: number
-  textFontStyle: QsEnumTextFontStyle
-  textFontWeight: QsEnumTextFontWeight | number
-  textDecorationLine: QsEnumTextDecorationLine
-  textFill: string
-  textAngle: number
-  textAnchor: QsEnumTextAnchor
-  textStroke: string
-  textAlignmentBaseline: QsEnumAlignmentBaseline
-  textX: number
-  textY: number
-}
-
-interface DrawArgs {
-  data: string[] | number[]
-  chartEdge: ChartEdge
-  scaleType: ScaleType
-}
+import { AxisConfigStrict, DrawArgs } from './types'
 
 const addDefaultsToConfig = (
   chartEdge: ChartEdge,
@@ -88,6 +51,7 @@ const addDefaultsToConfig = (
     domainColor: GlobalDefaultColors.AXIS_COLOR,
     domainOpacity: 1,
     domainWidth: 2,
+    domainScale: QsScaleType.LINEAR,
     tickColor: GlobalDefaultColors.AXIS_COLOR,
     tickOpacity: 1,
     tickWidth: 2,
@@ -130,7 +94,6 @@ export const linearAxis = {
     const args: DrawArgs = {
       data,
       chartEdge: ChartEdge.TOP,
-      scaleType: ScaleType.LINEAR,
     }
     return draw(canvas, args, config)
   },
@@ -146,42 +109,10 @@ export const linearAxis = {
     const args: DrawArgs = {
       data,
       chartEdge: ChartEdge.BOTTOM,
-      scaleType: ScaleType.LINEAR,
     }
     return draw(canvas, args, config)
   },
-  xAxisBottomBanded: (
-    canvas: Canvas,
-    data: string[] | number[],
-    customConfig?: QsAxisConfig
-  ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(
-      ChartEdge.BOTTOM,
-      customConfig
-    )
-    const args: DrawArgs = {
-      data,
-      chartEdge: ChartEdge.BOTTOM,
-      scaleType: ScaleType.BANDED,
-    }
-    return draw(canvas, args, config)
-  },
-  xAxisTopBanded: (
-    canvas: Canvas,
-    data: string[] | number[],
-    customConfig?: QsAxisConfig
-  ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(
-      ChartEdge.TOP,
-      customConfig
-    )
-    const args: DrawArgs = {
-      data,
-      chartEdge: ChartEdge.TOP,
-      scaleType: ScaleType.BANDED,
-    }
-    return draw(canvas, args, config)
-  },
+
   yAxisLeft: (
     canvas: Canvas,
     data: string[] | number[],
@@ -194,7 +125,6 @@ export const linearAxis = {
     const args: DrawArgs = {
       data,
       chartEdge: ChartEdge.LEFT,
-      scaleType: ScaleType.LINEAR,
     }
     return draw(canvas, args, config)
   },
@@ -210,43 +140,11 @@ export const linearAxis = {
     const args: DrawArgs = {
       data,
       chartEdge: ChartEdge.RIGHT,
-      scaleType: ScaleType.LINEAR,
-    }
-    return draw(canvas, args, config)
-  },
-  yAxisLeftBanded: (
-    canvas: Canvas,
-    data: string[] | number[],
-    customConfig?: QsAxisConfig
-  ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(
-      ChartEdge.LEFT,
-      customConfig
-    )
-    const args: DrawArgs = {
-      data,
-      chartEdge: ChartEdge.LEFT,
-      scaleType: ScaleType.BANDED,
-    }
-    return draw(canvas, args, config)
-  },
-  yAxisRightBanded: (
-    canvas: Canvas,
-    data: string[] | number[],
-    customConfig?: QsAxisConfig
-  ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(
-      ChartEdge.RIGHT,
-      customConfig
-    )
-    const args: DrawArgs = {
-      data,
-      chartEdge: ChartEdge.RIGHT,
-      scaleType: ScaleType.BANDED,
     }
     return draw(canvas, args, config)
   },
 }
+///////////////////////////////////////////////////////////
 
 const draw = (
   canvas: Canvas,
@@ -268,6 +166,7 @@ const draw = (
     domainColor,
     domainOpacity,
     domainWidth,
+    domainScale,
     tickColor,
     tickOpacity,
     tickWidth,
@@ -288,29 +187,27 @@ const draw = (
     textX,
     textY,
   } = config
-  const { data, chartEdge, scaleType } = args
+  const { data, chartEdge } = args
 
-  interface AxisAndPercentScale {
+  interface AxisScales {
     axis: Axis<string>
     percentScale: ScaleLinear<number, number, never>
+    tickScale: ScaleLinear<number, number, never>
   }
 
-  const applyScaleToAxis = (): AxisAndPercentScale => {
+  const applyScaleToAxis = (): AxisScales => {
     const range: Iterable<number> =
       chartEdge === ChartEdge.BOTTOM || chartEdge === ChartEdge.TOP
         ? [0, displayAreaWidth]
         : [displayAreaHeight, 0]
 
     const getScale = () => {
-      if (scaleType === ScaleType.LINEAR) {
-        if (data.length > 0) {
-          return scalePoint().domain(toStrings(data)).range(range)
-        } else {
-          return chartEdge === (ChartEdge.BOTTOM || ChartEdge.TOP)
-            ? xDataScale
-            : yDataScale
-        }
-      }
+      if (domainScale === QsScaleType.LINEAR)
+        return chartEdge === (ChartEdge.BOTTOM || ChartEdge.TOP)
+          ? xDataScale
+          : yDataScale
+      if (domainScale === QsScaleType.POINT)
+        return scalePoint().domain(toStrings(data)).range(range)
       return scaleBand().domain(toStrings(data)).range(range)
     }
 
@@ -320,42 +217,55 @@ const draw = (
       return {
         axis: axisBottom(scale),
         percentScale: yPercentScale,
+        tickScale: yPercentScale,
       }
     if (chartEdge === ChartEdge.TOP)
       return {
         axis: axisTop(scale),
         percentScale: yPercentScaleInverted,
+        tickScale: yPercentScaleInverted,
       }
     if (chartEdge === ChartEdge.LEFT)
       return {
         axis: axisLeft(scale),
         percentScale: xPercentScale,
+        tickScale: xPercentScale,
       }
 
     return {
       axis: axisRight(scale),
       percentScale: xPercentScaleInverted,
+      tickScale: xPercentScaleInverted,
     }
   }
 
-  const result = applyScaleToAxis()
-  const axis: Axis<string> = result.axis
-  const percentScale: ScaleLinear<number, number, never> = result.percentScale
+  const { axis, percentScale, tickScale } = applyScaleToAxis()
 
-  const translation =
+  const translateAxis =
     chartEdge === ChartEdge.BOTTOM || chartEdge === ChartEdge.TOP
       ? `translate(0, ${displayAreaHeight - percentScale(percentageMovement)})`
       : `translate(${percentScale(percentageMovement)}, 0)`
-  axis.tickSizeInner(genralPercentScale(tickSizeInner))
-  axis.tickSizeOuter(genralPercentScale(tickSizeOuter))
+
+  axis.tickSizeInner(
+    tickSizeInner >= 0
+      ? genralPercentScale(tickSizeInner)
+      : tickScale(tickSizeInner)
+  )
+  axis.tickSizeOuter(
+    tickSizeOuter >= 0
+      ? genralPercentScale(tickSizeOuter)
+      : tickScale(tickSizeOuter)
+  )
   axis.tickPadding(tickPadding)
 
   if (numberOfTicks) axis.ticks(numberOfTicks)
 
+  ///////////////////////////////////////////////////////////////////////////
+
   const axisGroup = canvas.displayGroup
     .append('g')
     .attr('id', 'xAxis')
-    .attr('transform', translation)
+    .attr('transform', translateAxis)
     .call(axis)
 
   axisGroup

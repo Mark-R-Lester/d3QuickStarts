@@ -80,12 +80,7 @@ interface ElementWithData {
 
 interface horizontalLinearAxisFunctions {
   bottom: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
-  bottomBanded: (
-    data: number[] | string[],
-    customConfig?: QsAxisConfig
-  ) => QsAxis
   top: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
-  topBanded: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
 }
 
 interface horizontalLinearElementFunctions {
@@ -99,18 +94,12 @@ interface horizontalLinearElementFunctions {
   pointsBanded: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   text: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
   textBanded: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
-
   axis: horizontalLinearAxisFunctions
 }
 
 interface verticalLinearAxisFunctions {
   left: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
-  leftBanded: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
   right: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
-  rightBanded: (
-    data: number[] | string[],
-    customConfig?: QsAxisConfig
-  ) => QsAxis
 }
 
 interface verticalLinearElementFunctions {
@@ -292,35 +281,11 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
             elements.push({ element, data })
             return element
           },
-          bottomBanded: (
-            data: number[] | string[],
-            customConfig?: QsAxisConfig
-          ): QsAxis => {
-            const element = linearAxis.xAxisBottomBanded(
-              canvas,
-              data,
-              customConfig
-            )
-            elements.push({ element, data })
-            return element
-          },
           top: (
             data: number[] | string[],
             customConfig?: QsAxisConfig
           ): QsAxis => {
             const element = linearAxis.xAxisTop(canvas, data, customConfig)
-            elements.push({ element, data })
-            return element
-          },
-          topBanded: (
-            data: number[] | string[],
-            customConfig?: QsAxisConfig
-          ): QsAxis => {
-            const element = linearAxis.xAxisTopBanded(
-              canvas,
-              data,
-              customConfig
-            )
             elements.push({ element, data })
             return element
           },
@@ -380,35 +345,11 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
             elements.push({ element, data })
             return element
           },
-          leftBanded: (
-            data: number[] | string[],
-            customConfig?: QsAxisConfig
-          ): QsAxis => {
-            const element = linearAxis.yAxisLeftBanded(
-              canvas,
-              data,
-              customConfig
-            )
-            elements.push({ element, data })
-            return element
-          },
           right: (
             data: number[] | string[],
             customConfig?: QsAxisConfig
           ): QsAxis => {
             const element = linearAxis.yAxisRight(canvas, data, customConfig)
-            elements.push({ element, data })
-            return element
-          },
-          rightBanded: (
-            data: number[] | string[],
-            customConfig?: QsAxisConfig
-          ): QsAxis => {
-            const element = linearAxis.yAxisRightBanded(
-              canvas,
-              data,
-              customConfig
-            )
             elements.push({ element, data })
             return element
           },

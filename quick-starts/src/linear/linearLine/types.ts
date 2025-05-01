@@ -1,16 +1,17 @@
 import { Line } from 'd3'
-import { Orientation, ScaleType } from '../../core/enums/enums'
+import { Orientation } from '../../core/enums/enums'
 import {
   QsEnumCurve,
   QsEnumLineCap,
   QsEnumLineJoin,
+  QsScaleType,
 } from '../../core/enums/qsEnums'
 
 import { QsLineData } from './qsTypes'
 
 export interface DrawArgs {
   data: QsLineData
-  scaleType: ScaleType
+  scaleType: QsScaleType
   orientation: Orientation
 }
 

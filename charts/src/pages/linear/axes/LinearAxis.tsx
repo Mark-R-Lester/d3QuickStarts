@@ -8,6 +8,7 @@ import {
   QsEnumTextFont,
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
+  QsScaleType,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
@@ -27,7 +28,7 @@ export const LinearAxisElement: FunctionComponent<ChartProps> = ({
         tickColor: 'lightgrey',
         domainWidth: 3,
         numberOfTicks: 10,
-        hideAxisLine: false,
+        domainOpacity: 1,
         percentageMovement: 0,
         textFont: QsEnumTextFont.SERIF,
         textFontWeight: QsEnumTextFontWeight.NORMAL,
@@ -40,12 +41,13 @@ export const LinearAxisElement: FunctionComponent<ChartProps> = ({
         textX: -20,
         textY: 0,
       })
-      canvas.generate.linear.horizontal.axis.bottomBanded(data1, {
+      canvas.generate.linear.horizontal.axis.bottom(data1, {
         tickSizeInner: 2,
         tickSizeOuter: 0,
         tickPadding: 0,
         domainWidth: 3,
-        hideAxisLine: false,
+        domainOpacity: 1,
+        domainScale: QsScaleType.BANDED,
         percentageMovement: 0,
         textFont: QsEnumTextFont.SERIF,
         textFontWeight: QsEnumTextFontWeight.NORMAL,

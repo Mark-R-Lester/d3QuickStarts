@@ -2,12 +2,12 @@ import {
   GlobalDefaultColors,
   GlobalDefaultSettings,
   Orientation,
-  ScaleType,
 } from '../../core/enums/enums'
 import {
   QsEnumCurve,
   QsEnumLineCap,
   QsEnumLineJoin,
+  QsScaleType,
 } from '../../core/enums/qsEnums'
 import { Canvas } from '../../d3QuickStart'
 import { DrawArgs, LineConfigStrict, CalculatedData } from './types'
@@ -45,7 +45,7 @@ export const linearLine = {
   ): QsLine => {
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.LINEAR,
+      scaleType: QsScaleType.LINEAR,
       orientation: Orientation.VERTICAL,
     }
     const config: LineConfigStrict = addDefaultsToConfig(customConfig)
@@ -58,7 +58,7 @@ export const linearLine = {
   ): QsLine => {
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.BANDED,
+      scaleType: QsScaleType.BANDED,
       orientation: Orientation.VERTICAL,
     }
     const config: LineConfigStrict = addDefaultsToConfig(customConfig)
@@ -71,7 +71,7 @@ export const linearLine = {
   ): QsLine => {
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.LINEAR,
+      scaleType: QsScaleType.LINEAR,
       orientation: Orientation.HORIZONTAL,
     }
     const config: LineConfigStrict = addDefaultsToConfig(customConfig)
@@ -84,7 +84,7 @@ export const linearLine = {
   ): QsLine => {
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.BANDED,
+      scaleType: QsScaleType.BANDED,
       orientation: Orientation.HORIZONTAL,
     }
     const config: LineConfigStrict = addDefaultsToConfig(customConfig)

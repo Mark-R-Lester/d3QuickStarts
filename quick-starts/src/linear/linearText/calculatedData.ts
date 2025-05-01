@@ -2,7 +2,7 @@ import { scaleLinear, scaleBand, range } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { DrawArgs, TextConfigStrict } from './types'
 import { v4 as uuidv4 } from 'uuid'
-import { Orientation, ScaleType } from '../../core/enums/enums'
+import { Orientation } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { QsTextData } from './qsTypes'
 import {
@@ -12,6 +12,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
+  QsScaleType,
 } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
@@ -63,7 +64,7 @@ export const getCalculatedData = (
   const { xDataScale, yDataScale, genralPercentScale } = canvas.scales
   const { data, orientation, scaleType } = args
   const isVertical = orientation === Orientation.VERTICAL
-  const isBanded = scaleType === ScaleType.BANDED
+  const isBanded = scaleType === QsScaleType.BANDED
   const {
     defaultTextFont,
     defaultTextFontSize,

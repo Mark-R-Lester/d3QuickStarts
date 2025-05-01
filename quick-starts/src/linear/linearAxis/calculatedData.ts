@@ -10,7 +10,11 @@ import {
 } from 'd3'
 import { toStrings } from '../../core/conversion'
 import { ChartEdge } from '../../core/enums/enums'
-import { Canvas, QsScaleType } from '../../d3QuickStart'
+import {
+  Canvas,
+  QsEnumAxisScaleType,
+  QsEnumScaleType,
+} from '../../d3QuickStart'
 import { DrawArgs, AxisConfigStrict } from './types'
 
 export interface CalculatedData {
@@ -61,11 +65,11 @@ export const getCalculatedData = (
           ? [0, displayAreaWidth]
           : [displayAreaHeight, 0]
 
-      if (domainScale === QsScaleType.LINEAR)
+      if (domainScale === QsEnumAxisScaleType.LINEAR)
         return chartEdge === (ChartEdge.BOTTOM || ChartEdge.TOP)
           ? xDataScale
           : yDataScale
-      if (domainScale === QsScaleType.POINT)
+      if (domainScale === QsEnumAxisScaleType.POINT)
         return scalePoint().domain(toStrings(data)).range(range)
       return scaleBand().domain(toStrings(data)).range(range)
     }

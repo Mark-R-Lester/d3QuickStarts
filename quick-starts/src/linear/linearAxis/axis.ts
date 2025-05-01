@@ -1,12 +1,12 @@
 import { ChartEdge, GlobalDefaultColors } from '../../core/enums/enums'
 import {
+  QsEnumAxisScaleType,
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
   QsEnumTextDecorationLine,
   QsEnumTextFont,
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
-  QsScaleType,
 } from '../../core/enums/qsEnums'
 import { Canvas } from '../../d3QuickStart'
 import { QsAxis, QsAxisConfig } from './qsTypes'
@@ -41,7 +41,7 @@ const addDefaultsToConfig = (
     domainColor: GlobalDefaultColors.AXIS_COLOR,
     domainOpacity: 1,
     domainWidth: 2,
-    domainScale: QsScaleType.LINEAR,
+    domainScale: QsEnumAxisScaleType.LINEAR,
     tickColor: GlobalDefaultColors.AXIS_COLOR,
     tickOpacity: 1,
     tickWidth: 2,

@@ -5,7 +5,7 @@ import {
   ScaleOrdinal,
   ScaleSequential,
 } from 'd3'
-import { Canvas, QsScaleType } from '../../d3QuickStart'
+import { Canvas, QsEnumScaleType } from '../../d3QuickStart'
 import { DrawArgs, PointsConfigStrict } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation } from '../../core/enums/enums'
@@ -50,7 +50,7 @@ export const getCalculatedData = (
     fillColorScaleData,
     strokeColorScaleData,
   } = config
-  const isBanded = scaleType === QsScaleType.BANDED
+  const isBanded = scaleType === QsEnumScaleType.BANDED
 
   const pointSpacing = range(
     0,

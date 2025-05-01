@@ -24,13 +24,13 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
-  QsScaleType,
+  QsEnumScaleType,
 } from '../../core/enums/qsEnums'
 import { interpolate } from 'd3'
 
 const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
   const defaults: TextConfigStrict = {
-    scaleType: QsScaleType.LINEAR,
+    scaleType: QsEnumScaleType.LINEAR,
     defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
     defaultTextFont: QsEnumTextFont.SERIF,
     defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,

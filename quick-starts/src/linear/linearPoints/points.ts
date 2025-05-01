@@ -1,4 +1,4 @@
-import { Canvas, QsScaleType } from '../../d3QuickStart'
+import { Canvas, QsEnumScaleType } from '../../d3QuickStart'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { DrawArgs, PointsConfigStrict } from './types'
 import {
@@ -18,7 +18,7 @@ const addDefaultsToConfig = (
   customConfig?: QsPointsConfig
 ): PointsConfigStrict => {
   const defaults: PointsConfigStrict = {
-    scaleType: QsScaleType.LINEAR,
+    scaleType: QsEnumScaleType.LINEAR,
     defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
     defaultFillColor: GlobalDefaultColors.POINT_FILL,
     defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,

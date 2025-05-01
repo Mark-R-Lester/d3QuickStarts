@@ -4,7 +4,7 @@ import {
   QsEnumCurve,
   QsEnumLineCap,
   QsEnumLineJoin,
-  QsScaleType,
+  QsEnumScaleType,
 } from '../../core/enums/qsEnums'
 
 import { QsLineData } from './qsTypes'
@@ -16,7 +16,7 @@ export interface DrawArgs {
 
 export interface LineConfigStrict {
   [key: string]: QsEnumCurve | number | string | undefined
-  scaleType: QsScaleType
+  scaleType: QsEnumScaleType
   curve: QsEnumCurve
   defaultStrokeColor: string
   defaultStrokeWidth: number

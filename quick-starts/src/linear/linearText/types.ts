@@ -6,7 +6,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
-  QsScaleType,
+  QsEnumScaleType,
 } from '../../core/enums/qsEnums'
 import { QsColorScaleData } from '../../d3QuickStart'
 import { QsTextData } from './qsTypes'
@@ -18,7 +18,7 @@ export interface DrawArgs {
 
 export interface TextConfigStrict {
   [key: string]: number | QsColorScaleData | string | undefined
-  scaleType: QsScaleType
+  scaleType: QsEnumScaleType
   defaultDecimalPoints: number
   defaultTextFont: QsEnumTextFont | string
   defaultTextFontSize: number

@@ -2,7 +2,7 @@ import {
   QsEnumCurve,
   QsEnumLineCap,
   QsEnumLineJoin,
-  QsScaleType,
+  QsEnumScaleType,
 } from '../../core/enums/qsEnums'
 import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
@@ -17,7 +17,7 @@ export interface QsLineData {
 
 export interface QsLineConfig {
   [key: string]: QsEnumCurve | number | string | undefined
-  scaleType?: QsScaleType
+  scaleType?: QsEnumScaleType
   curve?: QsEnumCurve
   defaultStrokeColor?: string
   defaultStrokeWidth?: number

@@ -7,7 +7,7 @@ import {
   QsEnumCurve,
   QsEnumLineCap,
   QsEnumLineJoin,
-  QsScaleType,
+  QsEnumScaleType,
 } from '../../core/enums/qsEnums'
 import { Canvas } from '../../d3QuickStart'
 import { DrawArgs, LineConfigStrict, CalculatedData } from './types'
@@ -23,7 +23,7 @@ import {
 
 const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
   const defauls: LineConfigStrict = {
-    scaleType: QsScaleType.LINEAR,
+    scaleType: QsEnumScaleType.LINEAR,
     curve: QsEnumCurve.LINEAR,
     strokeLineJoin: QsEnumLineJoin.ROUND,
     strokeLineCap: QsEnumLineCap.ROUND,

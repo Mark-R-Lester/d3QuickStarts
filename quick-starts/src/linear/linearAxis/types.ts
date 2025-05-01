@@ -6,7 +6,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
-  QsScaleType,
+  QsEnumAxisScaleType,
 } from '../../d3QuickStart'
 
 export interface AxisConfigStrict {
@@ -16,7 +16,7 @@ export interface AxisConfigStrict {
   domainColor: string
   domainOpacity: number
   domainWidth: number
-  domainScale: QsScaleType
+  domainScale: QsEnumAxisScaleType
   tickColor: string
   tickOpacity: number
   tickWidth: number

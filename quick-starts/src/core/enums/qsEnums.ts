@@ -103,7 +103,12 @@ export enum QsEnumLineCap {
   SQUARE = 'square',
 }
 
-export enum QsScaleType {
+export enum QsEnumScaleType {
+  BANDED = 'banded',
+  LINEAR = 'linear',
+}
+
+export enum QsEnumAxisScaleType {
   BANDED = 'banded',
   LINEAR = 'linear',
   POINT = 'point',

@@ -12,7 +12,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
-  QsScaleType,
+  QsEnumScaleType,
 } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
@@ -75,7 +75,7 @@ export const getCalculatedData = (
     defaultTextStroke,
     defaultTextAlignmentBaseline,
   } = config
-  const isBanded = scaleType === QsScaleType.BANDED
+  const isBanded = scaleType === QsEnumScaleType.BANDED
 
   const pointSpacing = range(
     0,

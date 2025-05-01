@@ -1,5 +1,5 @@
 import { scaleLinear, scaleBand, range, line as d3line } from 'd3'
-import { Canvas, QsScaleType } from '../../d3QuickStart'
+import { Canvas, QsEnumScaleType } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { DrawArgs, LineConfigStrict, CalculatedData } from './types'
 import { QsCoordinate } from '../../core/types/qsTypes'
@@ -39,7 +39,7 @@ export const getCalculatedData = (
   let spacingScale: any
   let bandingAdjustment: number
 
-  if (scaleType === QsScaleType.BANDED) {
+  if (scaleType === QsEnumScaleType.BANDED) {
     spacingScale = scaleBand()
       .domain(coordinates.map((coordinate) => coordinate.x.toString()))
       .range([0, displayAreaWidth])
@@ -52,7 +52,7 @@ export const getCalculatedData = (
   }
 
   let lineFunction
-  if (scaleType === QsScaleType.BANDED) {
+  if (scaleType === QsEnumScaleType.BANDED) {
     lineFunction = d3line()
       .x((d) => spacingScale(d[0].toString()) + bandingAdjustment)
       .y((d) => yDataScale(d[1]))

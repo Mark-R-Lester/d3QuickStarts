@@ -23,6 +23,7 @@ import {
 
 const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
   const defauls: LineConfigStrict = {
+    scaleType: QsScaleType.LINEAR,
     curve: QsEnumCurve.LINEAR,
     strokeLineJoin: QsEnumLineJoin.ROUND,
     strokeLineCap: QsEnumLineCap.ROUND,
@@ -45,20 +46,6 @@ export const linearLine = {
   ): QsLine => {
     const args: DrawArgs = {
       data,
-      scaleType: QsScaleType.LINEAR,
-      orientation: Orientation.VERTICAL,
-    }
-    const config: LineConfigStrict = addDefaultsToConfig(customConfig)
-    return draw(canvas, args, config)
-  },
-  verticalBanded: (
-    canvas: Canvas,
-    data: QsLineData,
-    customConfig?: QsLineConfig
-  ): QsLine => {
-    const args: DrawArgs = {
-      data,
-      scaleType: QsScaleType.BANDED,
       orientation: Orientation.VERTICAL,
     }
     const config: LineConfigStrict = addDefaultsToConfig(customConfig)
@@ -71,20 +58,6 @@ export const linearLine = {
   ): QsLine => {
     const args: DrawArgs = {
       data,
-      scaleType: QsScaleType.LINEAR,
-      orientation: Orientation.HORIZONTAL,
-    }
-    const config: LineConfigStrict = addDefaultsToConfig(customConfig)
-    return draw(canvas, args, config)
-  },
-  horizontalBanded: (
-    canvas: Canvas,
-    data: QsLineData,
-    customConfig?: QsLineConfig
-  ): QsLine => {
-    const args: DrawArgs = {
-      data,
-      scaleType: QsScaleType.BANDED,
       orientation: Orientation.HORIZONTAL,
     }
     const config: LineConfigStrict = addDefaultsToConfig(customConfig)
@@ -97,7 +70,7 @@ export const draw = (
   args: DrawArgs,
   config: LineConfigStrict
 ): QsLine => {
-  const { scaleType, orientation } = args
+  const { orientation } = args
   const calculatedData: CalculatedData =
     orientation === Orientation.HORIZONTAL
       ? getHorizontalCalculatedData(canvas, args, config)
@@ -122,7 +95,6 @@ export const draw = (
     const args = addTransitionDefaults(data.transitionArgs)
     const drawArgs: DrawArgs = {
       data: data.data,
-      scaleType,
       orientation,
     }
     const calculatedData: CalculatedData =

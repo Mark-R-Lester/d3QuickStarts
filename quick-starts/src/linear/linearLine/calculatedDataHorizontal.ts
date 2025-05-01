@@ -12,9 +12,10 @@ export const getCalculatedData = (
 ): CalculatedData => {
   const { displayAreaWidth } = canvas.config
   const { yDataScale, genralPercentScale } = canvas.scales
-  const { data, scaleType } = args
+  const { data } = args
   const { strokeOpacity, strokeColor, strokeWidth } = data
   const {
+    scaleType,
     curve,
     defaultStrokeColor,
     defaultStrokeWidth,

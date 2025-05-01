@@ -89,7 +89,6 @@ interface horizontalLinearElementFunctions {
   barStack: (data: number[][], customConfig?: QsBarStackedConfig) => QsBarStack
   bars: (data: QsBarData[], customConfig?: QsBarConfig) => QsBars
   line: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
-  lineBanded: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
   points: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   text: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
   axis: horizontalLinearAxisFunctions
@@ -103,7 +102,6 @@ interface verticalLinearAxisFunctions {
 interface verticalLinearElementFunctions {
   bars: (data: QsBarData[], customConfig?: QsBarConfig) => QsBars
   line: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
-  lineBanded: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
   points: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   text: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
   axis: verticalLinearAxisFunctions
@@ -222,15 +220,6 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           elements.push({ element, data })
           return element
         },
-        lineBanded: (data: QsLineData, customConfig?: QsLineConfig): QsLine => {
-          const element = linearLine.horizontalBanded(
-            canvas,
-            data,
-            customConfig
-          )
-          elements.push({ element, data })
-          return element
-        },
         points: (
           data: QsPointData[],
           customConfig?: QsPointsConfig
@@ -271,11 +260,6 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         },
         line: (data: QsLineData, customConfig?: QsLineConfig): QsLine => {
           const element = linearLine.vertical(canvas, data, customConfig)
-          elements.push({ element, data })
-          return element
-        },
-        lineBanded: (data: QsLineData, customConfig?: QsLineConfig): QsLine => {
-          const element = linearLine.verticalBanded(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },

@@ -11,12 +11,12 @@ import { QsLineData } from './qsTypes'
 
 export interface DrawArgs {
   data: QsLineData
-  scaleType: QsScaleType
   orientation: Orientation
 }
 
 export interface LineConfigStrict {
   [key: string]: QsEnumCurve | number | string | undefined
+  scaleType: QsScaleType
   curve: QsEnumCurve
   defaultStrokeColor: string
   defaultStrokeWidth: number

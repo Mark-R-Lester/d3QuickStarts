@@ -61,7 +61,9 @@ export const LinearLine: FunctionComponent<OrienetedChartProps> = ({
           scaleType: QsScaleType.BANDED,
         })
         newLine = canvas.generate.linear.vertical.lineBanded(lineData)
-        newText = canvas.generate.linear.vertical.textBanded(textData)
+        newText = canvas.generate.linear.vertical.text(textData, {
+          scaleType: QsScaleType.BANDED,
+        })
       } else {
         newPoints = canvas.generate.linear.horizontal.points(textData)
         newLine = canvas.generate.linear.horizontal.line(lineData)

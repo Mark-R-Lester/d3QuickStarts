@@ -14,11 +14,11 @@ import { QsTextData } from './qsTypes'
 export interface DrawArgs {
   data: QsTextData[]
   orientation: Orientation
-  scaleType: QsScaleType
 }
 
 export interface TextConfigStrict {
   [key: string]: number | QsColorScaleData | string | undefined
+  scaleType: QsScaleType
   defaultDecimalPoints: number
   defaultTextFont: QsEnumTextFont | string
   defaultTextFontSize: number

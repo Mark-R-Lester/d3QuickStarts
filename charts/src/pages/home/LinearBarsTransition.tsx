@@ -88,14 +88,18 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
           scaleType: QsScaleType.BANDED,
         })
         newLine = canvas.generate.linear.vertical.lineBanded(lineData)
-        newText = canvas.generate.linear.vertical.textBanded(textData)
+        newText = canvas.generate.linear.vertical.text(textData, {
+          scaleType: QsScaleType.BANDED,
+        })
       } else {
         newBars = canvas.generate.linear.horizontal.bars(data)
         newPoints = canvas.generate.linear.horizontal.points(textData, {
           scaleType: QsScaleType.BANDED,
         })
         newLine = canvas.generate.linear.horizontal.lineBanded(lineData)
-        newText = canvas.generate.linear.horizontal.textBanded(textData)
+        newText = canvas.generate.linear.horizontal.text(textData, {
+          scaleType: QsScaleType.BANDED,
+        })
         canvas.generate.linear.vertical.axis.left([])
         canvas.generate.linear.horizontal.axis.bottom(
           [

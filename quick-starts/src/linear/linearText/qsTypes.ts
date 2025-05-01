@@ -5,6 +5,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
+  QsScaleType,
 } from '../../core/enums/qsEnums'
 import { QsColorScaleData, QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
@@ -26,6 +27,7 @@ export interface QsTextData {
 
 export interface QsTextConfig {
   [key: string]: number | QsColorScaleData | string | undefined
+  scaleType?: QsScaleType
   defaultDecimalPoints?: number
   defaultTextFont?: QsEnumTextFont | string
   defaultTextFontSize?: number

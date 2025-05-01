@@ -30,6 +30,7 @@ import { interpolate } from 'd3'
 
 const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
   const defaults: TextConfigStrict = {
+    scaleType: QsScaleType.LINEAR,
     defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
     defaultTextFont: QsEnumTextFont.SERIF,
     defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
@@ -59,7 +60,6 @@ export const linearText = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.HORIZONTAL,
-      scaleType: QsScaleType.LINEAR,
     }
     const config: TextConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, args, config)
@@ -72,33 +72,6 @@ export const linearText = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.VERTICAL,
-      scaleType: QsScaleType.LINEAR,
-    }
-    const config: TextConfigStrict = addDefaultsToConfig(customConfig)
-    return draw(canvas, args, config)
-  },
-  horizontalBanded: (
-    canvas: Canvas,
-    data: QsTextData[],
-    customConfig?: QsTextConfig
-  ): QsText => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.HORIZONTAL,
-      scaleType: QsScaleType.BANDED,
-    }
-    const config: TextConfigStrict = addDefaultsToConfig(customConfig)
-    return draw(canvas, args, config)
-  },
-  verticalBanded: (
-    canvas: Canvas,
-    data: QsTextData[],
-    customConfig?: QsTextConfig
-  ): QsText => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.VERTICAL,
-      scaleType: QsScaleType.BANDED,
     }
     const config: TextConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, args, config)
@@ -110,7 +83,8 @@ const draw = (
   args: DrawArgs,
   config: TextConfigStrict
 ): QsText => {
-  const { orientation, scaleType } = args
+  const { orientation } = args
+  const { scaleType } = config
 
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, args, config)
   const { defaultDecimalPoints } = config
@@ -140,7 +114,7 @@ const draw = (
 
   const transition = (data: QsTextTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
-    const drawArgs: DrawArgs = { data: data.data, orientation, scaleType }
+    const drawArgs: DrawArgs = { data: data.data, orientation }
     calculatedData = updateCalculatedData(
       canvas,
       drawArgs,

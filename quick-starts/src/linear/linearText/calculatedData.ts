@@ -46,12 +46,10 @@ export const updateCalculatedData = (
     args,
     config
   )
-
   for (let i = 0; i < calculatedData.length; i++) {
     newCalculatedData[i].text = calculatedData[i].text
     newCalculatedData[i].value = calculatedData[i].value
   }
-
   return newCalculatedData
 }
 
@@ -62,10 +60,10 @@ export const getCalculatedData = (
 ): CalculatedData[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { xDataScale, yDataScale, genralPercentScale } = canvas.scales
-  const { data, orientation, scaleType } = args
+  const { data, orientation } = args
   const isVertical = orientation === Orientation.VERTICAL
-  const isBanded = scaleType === QsScaleType.BANDED
   const {
+    scaleType,
     defaultTextFont,
     defaultTextFontSize,
     defaultTextFontStyle,
@@ -77,6 +75,7 @@ export const getCalculatedData = (
     defaultTextStroke,
     defaultTextAlignmentBaseline,
   } = config
+  const isBanded = scaleType === QsScaleType.BANDED
 
   const pointSpacing = range(
     0,

@@ -91,7 +91,6 @@ interface horizontalLinearElementFunctions {
   line: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
   lineBanded: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
   points: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
-  pointsBanded: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   text: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
   textBanded: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
   axis: horizontalLinearAxisFunctions
@@ -107,7 +106,6 @@ interface verticalLinearElementFunctions {
   line: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
   lineBanded: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
   points: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
-  pointsBanded: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   text: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
   textBanded: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
   axis: verticalLinearAxisFunctions
@@ -260,18 +258,6 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           elements.push({ element, data })
           return element
         },
-        pointsBanded: (
-          data: QsPointData[],
-          customConfig?: QsPointsConfig
-        ): QsPoints => {
-          const element = linearPoint.horizontalBanded(
-            canvas,
-            data,
-            customConfig
-          )
-          elements.push({ element, data })
-          return element
-        },
         axis: {
           bottom: (
             data: number[] | string[],
@@ -312,14 +298,6 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           customConfig?: QsPointsConfig
         ): QsPoints => {
           const element = linearPoint.vertical(canvas, data, customConfig)
-          elements.push({ element, data })
-          return element
-        },
-        pointsBanded: (
-          data: QsPointData[],
-          customConfig?: QsPointsConfig
-        ): QsPoints => {
-          const element = linearPoint.verticalBanded(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },

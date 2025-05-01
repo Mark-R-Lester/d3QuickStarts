@@ -37,10 +37,10 @@ export const getCalculatedData = (
 ): CalculatedData[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { xDataScale, yDataScale, genralPercentScale } = canvas.scales
-  const { data, orientation, scaleType } = args
+  const { data, orientation } = args
   const isVertical = orientation === Orientation.VERTICAL
-  const isBanded = scaleType === QsScaleType.BANDED
   const {
+    scaleType,
     defaultRadius,
     defaultFillColor,
     defaultFillOpacity,
@@ -50,6 +50,7 @@ export const getCalculatedData = (
     fillColorScaleData,
     strokeColorScaleData,
   } = config
+  const isBanded = scaleType === QsScaleType.BANDED
 
   const pointSpacing = range(
     0,

@@ -18,6 +18,7 @@ const addDefaultsToConfig = (
   customConfig?: QsPointsConfig
 ): PointsConfigStrict => {
   const defaults: PointsConfigStrict = {
+    scaleType: QsScaleType.LINEAR,
     defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
     defaultFillColor: GlobalDefaultColors.POINT_FILL,
     defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
@@ -44,7 +45,6 @@ export const linearPoint = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.HORIZONTAL,
-      scaleType: QsScaleType.LINEAR,
     }
     const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, args, config)
@@ -57,33 +57,6 @@ export const linearPoint = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.VERTICAL,
-      scaleType: QsScaleType.LINEAR,
-    }
-    const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
-    return draw(canvas, args, config)
-  },
-  horizontalBanded: (
-    canvas: Canvas,
-    data: QsPointData[],
-    customConfig?: QsPointsConfig
-  ): QsPoints => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.HORIZONTAL,
-      scaleType: QsScaleType.BANDED,
-    }
-    const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
-    return draw(canvas, args, config)
-  },
-  verticalBanded: (
-    canvas: Canvas,
-    data: QsPointData[],
-    customConfig?: QsPointsConfig
-  ): QsPoints => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.VERTICAL,
-      scaleType: QsScaleType.BANDED,
     }
     const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, args, config)
@@ -95,7 +68,8 @@ const draw = (
   args: DrawArgs,
   config: PointsConfigStrict
 ): QsPoints => {
-  const { orientation, scaleType } = args
+  const { scaleType } = config
+  const { orientation } = args
 
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
@@ -123,7 +97,7 @@ const draw = (
 
   const transition = (data: QsPointsTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
-    const drawArgs: DrawArgs = { data: data.data, orientation, scaleType }
+    const drawArgs: DrawArgs = { data: data.data, orientation }
     const calculatedData: CalculatedData[] = getCalculatedData(
       canvas,
       drawArgs,

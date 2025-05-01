@@ -84,12 +84,16 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
 
       if (orientation === EnumOrientation.VERTICAL) {
         newBars = canvas.generate.linear.vertical.bars(data)
-        newPoints = canvas.generate.linear.vertical.pointsBanded(textData)
+        newPoints = canvas.generate.linear.vertical.points(textData, {
+          scaleType: QsScaleType.BANDED,
+        })
         newLine = canvas.generate.linear.vertical.lineBanded(lineData)
         newText = canvas.generate.linear.vertical.textBanded(textData)
       } else {
         newBars = canvas.generate.linear.horizontal.bars(data)
-        newPoints = canvas.generate.linear.horizontal.pointsBanded(textData)
+        newPoints = canvas.generate.linear.horizontal.points(textData, {
+          scaleType: QsScaleType.BANDED,
+        })
         newLine = canvas.generate.linear.horizontal.lineBanded(lineData)
         newText = canvas.generate.linear.horizontal.textBanded(textData)
         canvas.generate.linear.vertical.axis.left([])

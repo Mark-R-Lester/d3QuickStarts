@@ -5,11 +5,11 @@ import { QsPointData } from './qsTypes'
 export interface DrawArgs {
   data: QsPointData[]
   orientation: Orientation
-  scaleType: QsScaleType
 }
 
 export interface PointsConfigStrict {
   [key: string]: number | QsColorScaleData | string | undefined
+  scaleType: QsScaleType
   defaultRadius: number
   defaultFillColor: string
   defaultFillOpacity: number

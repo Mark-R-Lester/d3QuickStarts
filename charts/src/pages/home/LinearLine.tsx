@@ -7,7 +7,7 @@ import {
   QsPoints,
   QsLineData,
   QsLine,
-  QsScaleType,
+  QsEnumScaleType,
 } from 'd3qs/d3QuickStart'
 import { OrienetedChartProps } from '../../common/chartProps'
 import { EnumOrientation } from '../../common/enums'
@@ -58,13 +58,13 @@ export const LinearLine: FunctionComponent<OrienetedChartProps> = ({
 
       if (orientation === EnumOrientation.VERTICAL) {
         newPoints = canvas.generate.linear.vertical.points(textData, {
-          scaleType: QsScaleType.BANDED,
+          scaleType: QsEnumScaleType.BANDED,
         })
         newLine = canvas.generate.linear.vertical.line(lineData, {
-          scaleType: QsScaleType.BANDED,
+          scaleType: QsEnumScaleType.BANDED,
         })
         newText = canvas.generate.linear.vertical.text(textData, {
-          scaleType: QsScaleType.BANDED,
+          scaleType: QsEnumScaleType.BANDED,
         })
       } else {
         newPoints = canvas.generate.linear.horizontal.points(textData)

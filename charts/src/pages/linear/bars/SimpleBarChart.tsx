@@ -3,7 +3,7 @@ import {
   QsBarData,
   QsCanvas,
   qsCreateCanvas,
-  QsScaleType,
+  QsEnumAxisScaleType,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../common/enums'
 import { OrienetedChartProps } from '../../../common/chartProps'
@@ -32,14 +32,14 @@ export const SimpleBarChart: FunctionComponent<OrienetedChartProps> = ({
         canvas.generate.linear.vertical.bars(data)
         canvas.generate.linear.horizontal.axis.bottom([])
         canvas.generate.linear.vertical.axis.left([1, 2, 3, 4, 5, 6, 7, 8], {
-          domainScale: QsScaleType.BANDED,
+          domainScale: QsEnumAxisScaleType.BANDED,
         })
       } else {
         canvas.generate.linear.horizontal.bars(data)
         canvas.generate.linear.vertical.axis.left([])
         canvas.generate.linear.horizontal.axis.bottom(
           [1, 2, 3, 4, 5, 6, 7, 8],
-          { domainScale: QsScaleType.BANDED }
+          { domainScale: QsEnumAxisScaleType.BANDED }
         )
       }
     }

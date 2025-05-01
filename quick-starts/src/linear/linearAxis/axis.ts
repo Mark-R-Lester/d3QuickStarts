@@ -192,7 +192,6 @@ const draw = (
   interface AxisScales {
     axis: Axis<string>
     percentScale: ScaleLinear<number, number, never>
-    tickScale: ScaleLinear<number, number, never>
   }
 
   const applyScaleToAxis = (): AxisScales => {
@@ -217,29 +216,25 @@ const draw = (
       return {
         axis: axisBottom(scale),
         percentScale: yPercentScale,
-        tickScale: yPercentScale,
       }
     if (chartEdge === ChartEdge.TOP)
       return {
         axis: axisTop(scale),
         percentScale: yPercentScaleInverted,
-        tickScale: yPercentScaleInverted,
       }
     if (chartEdge === ChartEdge.LEFT)
       return {
         axis: axisLeft(scale),
         percentScale: xPercentScale,
-        tickScale: xPercentScale,
       }
 
     return {
       axis: axisRight(scale),
       percentScale: xPercentScaleInverted,
-      tickScale: xPercentScaleInverted,
     }
   }
 
-  const { axis, percentScale, tickScale } = applyScaleToAxis()
+  const { axis, percentScale } = applyScaleToAxis()
 
   const translateAxis =
     chartEdge === ChartEdge.BOTTOM || chartEdge === ChartEdge.TOP
@@ -249,12 +244,12 @@ const draw = (
   axis.tickSizeInner(
     tickSizeInner >= 0
       ? genralPercentScale(tickSizeInner)
-      : tickScale(tickSizeInner)
+      : percentScale(tickSizeInner)
   )
   axis.tickSizeOuter(
     tickSizeOuter >= 0
       ? genralPercentScale(tickSizeOuter)
-      : tickScale(tickSizeOuter)
+      : percentScale(tickSizeOuter)
   )
   axis.tickPadding(tickPadding)
 

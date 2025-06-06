@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect, useState } from 'react'
+import { FunctionComponent, useEffect, useState } from 'react'
 import AceEditor from 'react-ace'
 import 'ace-builds/src-noconflict/mode-javascript'
 import 'ace-builds/src-noconflict/theme-monokai'
@@ -57,22 +57,39 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
   }, [])
 
   const ChartEditorTheme = styled('div')(({ theme }) => ({
-    '.chartEditor': {
-      marginTop: '30px',
-      display: 'flex',
-      flexDirection: 'row',
+    marginTop: '30px',
+    display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  }))
+
+  const AceTheme = styled('div')(({ theme }) => ({
+    borderRadius: '10px',
+    border: 'solid',
+    borderWidth: '10px',
+    borderColor: '#282c34',
+    flex: '0 0 40%',
+    minWidth: 0,
+    boxSizing: 'border-box',
+    '@media (max-width: 1700px)': {
+      flex: '0 0 95%',
     },
   }))
 
   const EditableChartTheme = styled('div')(({ theme }) => ({
-    paddingLeft: '100px',
-    flexDirection: 'row',
+    paddingLeft: '25px',
+    paddingTop: '10px',
+    flex: '0 0 40%',
+    justifyContent: 'flex-start',
+    '@media (max-width: 1700px)': {
+      paddingLeft: '0px',
+      paddingTop: '25px',
+    },
   }))
 
   return (
     <ChartEditorTheme>
-      {/* <Button onClick={executeJsCode}>Update Chart</Button> */}
-      <div className={'chartEditor'}>
+      <AceTheme>
         <AceEditor
           mode="javascript"
           theme="monokai"
@@ -80,16 +97,21 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
           onChange={executeJsCode}
           name="editor"
           editorProps={{ $blockScrolling: true }}
-          width="50%"
-          height="800px"
-          setOptions={{ showGutter: false, useWorker: false }}
+          width="100%"
+          height="600px"
+          setOptions={{
+            showGutter: false,
+            useWorker: false,
+            showLineNumbers: false,
+            showPrintMargin: false,
+          }}
         />
+      </AceTheme>
 
-        {error && <p className="mt-2 text-red-500 text-sm">{error}</p>}
-        <EditableChartTheme>
-          <div id="ChartEditable" />
-        </EditableChartTheme>
-      </div>
+      {error && <p className="mt-2 text-red-500 text-sm">{error}</p>}
+      <EditableChartTheme>
+        <div id="ChartEditable" />
+      </EditableChartTheme>
     </ChartEditorTheme>
   )
 }

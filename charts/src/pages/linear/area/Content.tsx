@@ -1,9 +1,7 @@
 import { Typography } from '@mui/material'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { ContentColumn } from '../../../components/atoms/content/ContentColumn'
-import { ChartEditor } from '../../../components/molecules/ChartEditor'
-import { EnumOrientation } from '../../../common/enums'
-import { SimpleBarChart } from './SimpleBarChart'
+import { LinearAreaChart } from './LinearAreaChart'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
@@ -12,36 +10,51 @@ import {
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
 import SyntaxHighlighter from 'react-syntax-highlighter'
+import { ChartEditor } from '../../../components/molecules/ChartEditor'
+import { LinearAreaStackedChart } from './LinearAreaStackedChart'
 
-const barDataAsString: string = `const barDataSimple: QsBarData[] =[
-  { upperBoundry: 35, lowerBoundry: 5 },
-  { upperBoundry: 35, lowerBoundry: 10 },
-  { upperBoundry: 30, lowerBoundry: 15 },
-  { upperBoundry: 25 },
-  { upperBoundry: 20 },
-  { upperBoundry: 15 },
-  { upperBoundry: 10 },
-  { upperBoundry: 5 },
-]`
+const canvasConfig: string = `const canvasConfig = {
+  chartName: 'linearArea',
+  width: 150,
+  lowestViewableValue: 0,
+  highestViewableValue: 190,
+}
+`
 
-const barsVerticalAsString: string = `${barDataAsString}
+const areaAsString: string = `${canvasConfig}
+const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
 
-const canvas: QsCanvas = qsCreateCanvas(canvasProps)
-canvas.generate.linear.vertical.bars(data, config)
-canvas.generate.linear.horizontal.axis.bottom([0, 35])
-canvas.generate.linear.vertical.axis.leftBanded((
-  1, 2, 3, 4, 5, 6, 7, 8,], 
-  { domainScale: QsEnumAxisScaleType.BANDED }
+const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+canvas.generate.linear.horizontal.area(
+  { higherData: data1 }
+)
+canvas.generate.linear.vertical.axis.left([])
+canvas.generate.linear.horizontal.axis.bottom(
+  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  {
+    domainScale: QsEnumAxisScaleType.POINT,
+  }
 )`
 
-const barsHorizontalAsString: string = `${barDataAsString}
+const areaStackedAsString: string = `${canvasConfig}
+const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
+const data2 = [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 170, 190]
 
-const canvas: QsCanvas = qsCreateCanvas(canvasProps)
-canvas.generate.linear.horizontal.bars(data, config)
-canvas.generate.linear.vertical.axis.left([0, 35])
-canvas.generate.linear.horizontal.axis.bottomBanded(
-  1, 2, 3, 4, 5, 6, 7, 8,], 
-  { domainScale: QsEnumAxisScaleType.BANDED }
+const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+canvas.generate.linear.horizontal.area(
+  { higherData: data1, fillColor: 'blue' },
+  { curve: QsEnumCurve.LINEAR }
+)
+canvas.generate.linear.horizontal.area(
+  { higherData: data2, lowerData: data1, fillColor: 'red' },
+  { curve: QsEnumCurve.LINEAR }
+)
+canvas.generate.linear.vertical.axis.left([])
+canvas.generate.linear.horizontal.axis.bottom(
+  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+  {
+    domainScale: QsEnumAxisScaleType.POINT,
+  }
 )`
 
 const qsBarData: string = `interface QsBarData {
@@ -96,31 +109,24 @@ const qsBarConfigExample: string = `interface QsBarConfig {
     }
 }`
 
-export const horizontalBarContent: JSX.Element = (
+export const areaContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Horizontal Bars</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">
-          Though it's clear the bars are vertical, the bars element when set to
-          horizontal lays the bars out along the horizontal axis. This makes
-          more sense when using other horizontal elements such as lines or
-          points in conjunction with bars.
-        </Typography>
-      </ContentBox>,
       <ContentBox>
         <ContentColumn
           elements={[
             <ContentRow
               elements={[
                 <ContentTextBox>
+                  <Typography variant="body1"></Typography>
                   <Typography variant="body1">
-                    Bars use the type QsBarData the only mandatory field is
-                    upperBoundry
+                    The area is generated uses default settings and requires
+                    just one line:
                   </Typography>
                   <Typography variant="body1">
-                    The simplest bar chart can be created in just four lines of
-                    code, excluding data.
+                    canvas.generate.linear.horizontal.area(&#123; higherData:
+                    data1 &#125;)
                   </Typography>
                 </ContentTextBox>,
                 <ContentSyntaxBox>
@@ -129,19 +135,18 @@ export const horizontalBarContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {barsHorizontalAsString}
+                    {areaAsString}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
             />,
-            <SimpleBarChart
+            <LinearAreaChart
               canvasProps={{
                 chartName: 'chartH',
                 width: 800,
                 lowestViewableValue: 0,
-                highestViewableValue: 35,
+                highestViewableValue: 190,
               }}
-              orientation={EnumOrientation.HORIZONTAL}
             />,
           ]}
         />
@@ -150,19 +155,10 @@ export const horizontalBarContent: JSX.Element = (
   />
 )
 
-export const verticalBarContent: JSX.Element = (
+export const areaStackedContent: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">Vertical Bars</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">
-          Though it's clear the bars are horizonal, the bars element when set to
-          vertical lays the bars out along the vertical axis. This makes more
-          sense when using other vertical elements such as lines or points in
-          conjunction with bars.
-        </Typography>
-      </ContentBox>,
-
+      <ContentTitle variant="h4">Horizontal Bars</ContentTitle>,
       <ContentBox>
         <ContentColumn
           elements={[
@@ -170,12 +166,8 @@ export const verticalBarContent: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body1">
-                    Bars use the type QsBarData the only mandatory field is
-                    upperBoundry
-                  </Typography>
-                  <Typography variant="body1">
-                    The simplest bar chart can be created in just four lines of
-                    code, excluding data.
+                    The area is generated uses default settings and requires
+                    just one line:
                   </Typography>
                 </ContentTextBox>,
                 <ContentSyntaxBox>
@@ -184,19 +176,18 @@ export const verticalBarContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {barsVerticalAsString}
+                    {areaStackedAsString}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
             />,
-            <SimpleBarChart
+            <LinearAreaStackedChart
               canvasProps={{
-                chartName: 'chartV',
+                chartName: 'chartH',
                 width: 800,
                 lowestViewableValue: 0,
-                highestViewableValue: 35,
+                highestViewableValue: 190,
               }}
-              orientation={EnumOrientation.VERTICAL}
             />,
           ]}
         />
@@ -254,6 +245,7 @@ export const configAndData: JSX.Element = (
               elements={[
                 <Typography variant="body1">Example:</Typography>,
                 <ContentSyntaxBox>
+                  {' '}
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
                     {qsBarConfigExample}
                   </SyntaxHighlighter>
@@ -282,10 +274,9 @@ export const editorContent: JSX.Element = (
   ]
   const canvasProps = {
     chartName: 'ChartEditable',
-    width: 600,
+    width: 800,
     lowestViewableValue: 0,
     highestViewableValue: 35,
-    borderColor: 'grey',
   }
   const canvas: QsCanvas = qsCreateCanvas(canvasProps)
   canvas.generate.linear.vertical.bars(data)

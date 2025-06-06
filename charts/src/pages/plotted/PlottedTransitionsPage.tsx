@@ -1,11 +1,11 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/molecules/ChartButtonGrid'
 import { useState } from 'react'
-import { LinearAreaElement } from '../linear/area/LinearArea'
+import { LinearAreaChart } from '../linear/area/LinearAreaChart'
 
 export default function PlottedTransitionPage() {
   const menuElements: JSX.Element[] = [
-    <LinearAreaElement
+    <LinearAreaChart
       canvasProps={{
         chartName: 'linearArea',
         width: 130,
@@ -16,7 +16,7 @@ export default function PlottedTransitionPage() {
   ]
 
   const charts: JSX.Element[] = [
-    <LinearAreaElement
+    <LinearAreaChart
       canvasProps={{
         chartName: 'chart',
         width: 800,

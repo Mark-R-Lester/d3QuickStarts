@@ -70,6 +70,36 @@ const qsBarConfig: string = `interface QsBarConfig {
   strokeColorScaleData?: QsColorScaleData
 }`
 
+const qsBarDataExample: string = `interface QsBarData {
+  lowerBoundry: 0
+  upperBoundry: 100
+  fillColor: 'blue'
+  fillOpacity: 1
+  strokeColor: 'blue'
+  strokeWidth: 0.1
+  strokeOpacity: 1
+}`
+
+const qsBarConfigExample: string = `interface QsBarConfig {
+  [key: string]: number | string | QsColorScaleData | undefined
+  padding: 0
+  defaultFillColor: 'blue'
+  defaultFillOpacity: 1
+  defaultStrokeColor: 'blue'
+  defaultStrokeWidth: 0.1
+  defaultStrokeOpacity: 1
+  fillColorScaleData: {
+      domain: [1, 100],
+      range: ['lightblue', 'darkblue'],
+      type: QsEnumColorScale.SEQUENTIAL,
+    }
+  strokeColorScaleData:{
+      domain: [1, 100],
+      range: ['lightblue', 'darkblue'],
+      type: QsEnumColorScale.SEQUENTIAL,
+    }
+}`
+
 export const horizontalBarContent: JSX.Element = (
   <ContentColumn
     elements={[
@@ -174,50 +204,64 @@ export const verticalBarContent: JSX.Element = (
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentRow
-        elements={[
-          <Typography variant="body1">QsBarData interface</Typography>,
-          <ContentSyntaxBox>
-            <SyntaxHighlighter language="typescript" style={atomOneDark}>
-              {qsBarData}
-            </SyntaxHighlighter>
-          </ContentSyntaxBox>,
-          <ContentSyntaxBox>
-            <SyntaxHighlighter language="typescript" style={atomOneDark}>
-              {qsBarConfig}
-            </SyntaxHighlighter>
-          </ContentSyntaxBox>,
-        ]}
-      />,
-
-      <ContentRow
-        elements={[
-          <Typography variant="body1">QsBarConfig interface</Typography>,
-          <ContentSyntaxBox>
-            {' '}
-            <SyntaxHighlighter language="typescript" style={atomOneDark}>
-              {qsBarConfig}
-            </SyntaxHighlighter>
-          </ContentSyntaxBox>,
-          <ContentSyntaxBox>
-            {' '}
-            <SyntaxHighlighter language="typescript" style={atomOneDark}>
-              {qsBarConfig}
-            </SyntaxHighlighter>
-          </ContentSyntaxBox>,
-        ]}
-      />,
-      <SimpleBarChart
-        canvasProps={{
-          chartName: 'chartV',
-          width: 800,
-          lowestViewableValue: 0,
-          highestViewableValue: 35,
-        }}
-        orientation={EnumOrientation.VERTICAL}
-      />,
+      <ContentTitle variant="h4">QsBarData interface</ContentTitle>,
+      <ContentBox>
+        <ContentRow
+          elements={[
+            <ContentColumn
+              elements={[
+                <Typography variant="body1">Interface:</Typography>,
+                <ContentSyntaxBox>
+                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
+                    {qsBarData}
+                  </SyntaxHighlighter>
+                </ContentSyntaxBox>,
+              ]}
+            />,
+            <ContentColumn
+              elements={[
+                <Typography variant="body1">Example:</Typography>,
+                <ContentSyntaxBox>
+                  {' '}
+                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
+                    {qsBarDataExample}
+                  </SyntaxHighlighter>
+                </ContentSyntaxBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+      <ContentTitle variant="h4">QsBarConfig interface</ContentTitle>,
+      <ContentBox>
+        <ContentRow
+          elements={[
+            <ContentColumn
+              elements={[
+                <Typography variant="body1">interface:</Typography>,
+                <ContentSyntaxBox>
+                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
+                    {qsBarConfig}
+                  </SyntaxHighlighter>
+                </ContentSyntaxBox>,
+              ]}
+            />,
+            <ContentColumn
+              elements={[
+                <Typography variant="body1">Example:</Typography>,
+                <ContentSyntaxBox>
+                  {' '}
+                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
+                    {qsBarConfigExample}
+                  </SyntaxHighlighter>
+                </ContentSyntaxBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
     ]}
-  ></ContentColumn>
+  />
 )
 
 export const editorContent: JSX.Element = (

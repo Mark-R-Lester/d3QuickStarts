@@ -36,7 +36,7 @@ export const ConfigAndData: FunctionComponent = () => {
         textAnchor: QsEnumTextAnchor.MIDDLE,
         textAlignmentBaseline: QsEnumAlignmentBaseline.CENTRAL,
         textFontWeight: QsEnumTextFontWeight.BOLD,
-        textFill: 'blue',
+        textFill: 'darkgrey',
         textAngle: 0,
       })
 
@@ -58,7 +58,7 @@ export const ConfigAndData: FunctionComponent = () => {
         textAnchor: QsEnumTextAnchor.MIDDLE,
         textAlignmentBaseline: QsEnumAlignmentBaseline.CENTRAL,
         textFontWeight: QsEnumTextFontWeight.BOLD,
-        textFill: 'blue',
+        textFill: 'darkgrey',
         textAngle: 0,
       })
     }

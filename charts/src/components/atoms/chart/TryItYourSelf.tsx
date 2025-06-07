@@ -40,7 +40,7 @@ export const TryItYourSelf: FunctionComponent = () => {
         textAnchor: QsEnumTextAnchor.MIDDLE,
         textAlignmentBaseline: QsEnumAlignmentBaseline.CENTRAL,
         textFontWeight: QsEnumTextFontWeight.BOLD,
-        textFill: 'blue',
+        textFill: 'darkgrey',
         textAngle: 0,
       })
     }

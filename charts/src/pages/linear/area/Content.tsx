@@ -253,24 +253,24 @@ export const configAndData: JSX.Element = (
 export const editorContent: JSX.Element = (
   <ChartEditor
     initialCode={`
-  const data: QsBarData[] = [
-    { upperBoundry: 25, lowerBoundry: 5},
-    { upperBoundry: 5 },
-    { upperBoundry: 35 },
-    { upperBoundry: 25 },
-    { upperBoundry: 35 },
-    { upperBoundry: 5 },
-    { upperBoundry: 25 },
-    { upperBoundry: 25 },
-  ]
-  const canvasProps = {
+  const canvasConfig = {
     chartName: 'ChartEditable',
-    width: 800,
+    width: 600,
     lowestViewableValue: 0,
-    highestViewableValue: 35,
+    highestViewableValue: 156,
+    borderColor: 'grey',
   }
-  const canvas: QsCanvas = qsCreateCanvas(canvasProps)
-  canvas.generate.linear.vertical.bars(data)
+  const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
+  
+  const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+  canvas.generate.linear.horizontal.area({ higherData: data1 })
+  canvas.generate.linear.vertical.axis.left([])
+  canvas.generate.linear.horizontal.axis.bottom(
+    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    {
+      domainScale: QsEnumAxisScaleType.POINT,
+    }
+  )
 `}
   ></ChartEditor>
 )

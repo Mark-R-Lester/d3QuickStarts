@@ -66,34 +66,33 @@ const qsBarConfig: string = `interface QsBarConfig {
   strokeColorScaleData?: QsColorScaleData
 }`
 
-const qsBarDataExample: string = `interface QsBarData {
-  lowerBoundry: 0
-  upperBoundry: 100
-  fillColor: 'blue'
-  fillOpacity: 1
-  strokeColor: 'blue'
-  strokeWidth: 0.1
-  strokeOpacity: 1
+const qsBarDataExample: string = `const data: QsBarData = {
+  lowerBoundry: 0,
+  upperBoundry: 100,
+  fillColor: 'blue',
+  fillOpacity: 1,
+  strokeColor: 'blue',
+  strokeWidth: 0.1,
+  strokeOpacity: 1,
 }`
 
-const qsBarConfigExample: string = `interface QsBarConfig {
-  [key: string]: number | string | QsColorScaleData | undefined
-  padding: 0
-  defaultFillColor: 'blue'
-  defaultFillOpacity: 1
-  defaultStrokeColor: 'blue'
-  defaultStrokeWidth: 0.1
-  defaultStrokeOpacity: 1
+const qsBarConfigExample: string = `const config: QsBarConfig = {
+  padding: 0,
+  defaultFillColor: 'blue',
+  defaultFillOpacity: 1,
+  defaultStrokeColor: 'blue',
+  defaultStrokeWidth: 0.1,
+  defaultStrokeOpacity: 1,
   fillColorScaleData: {
       domain: [1, 100],
       range: ['lightblue', 'darkblue'],
       type: QsEnumColorScale.SEQUENTIAL,
-    }
+    },
   strokeColorScaleData:{
       domain: [1, 100],
       range: ['lightblue', 'darkblue'],
       type: QsEnumColorScale.SEQUENTIAL,
-    }
+    },
 }`
 
 export const horizontalBarContent: JSX.Element = (

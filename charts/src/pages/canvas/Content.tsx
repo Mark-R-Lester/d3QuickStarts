@@ -58,7 +58,7 @@ const canvasConfig2: string = `const canvasConfig =  QsCanvasConfig {
   borderColor: 'black'
 }`
 
-const canvasConfig3: string = `const canvasConfig =  QsCanvasConfig {
+const canvasConfig3: string = `const canvasConfig: QsCanvasConfig = {
   chartName: 'chart2',
   width: 800,
   height: 250,
@@ -67,7 +67,7 @@ const canvasConfig3: string = `const canvasConfig =  QsCanvasConfig {
   borderColor: 'black'
 }`
 
-const canvasConfig4: string = `const canvasConfig =  QsCanvasConfig {
+const canvasConfig4: string = `const canvasConfig: QsCanvasConfig = {
   chartName: 'chart4',
   width: 800,
   height: 400,

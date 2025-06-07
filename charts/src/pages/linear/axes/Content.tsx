@@ -137,7 +137,7 @@ const axisConfigExample: string = `const axisConfig: QsAxisConfig = {
 export const axiesDefaults: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">A blank canvas</ContentTitle>,
+      <ContentTitle variant="h4">Axes with default settings</ContentTitle>,
       <ContentBox>
         <Typography variant="body1">Some content</Typography>
       </ContentBox>,
@@ -179,7 +179,7 @@ export const axiesDefaults: JSX.Element = (
 export const canvasWithVisibleDisplayArea: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">The canvas display area</ContentTitle>,
+      <ContentTitle variant="h4">Axes with with a large config</ContentTitle>,
 
       <ContentBox>
         <ContentColumn
@@ -223,7 +223,7 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsCanvasConfig</ContentTitle>,
+      <ContentTitle variant="h4">QsAxisConfig</ContentTitle>,
       <ContentBox>
         <ContentRow
           elements={[

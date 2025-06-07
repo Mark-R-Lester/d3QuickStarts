@@ -1,34 +1,47 @@
 import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
-import { LinearAxisElement } from './LinearAxis'
+import { LinearAxisChart } from './AxisConfigChart'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
+import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
+import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
+import {
+  axiesDefaults,
+  canvasWithVisibleDisplayArea,
+  configAndData,
+  editorContent,
+} from './Content'
+import { AxiesDefaultsChart } from './AxesDefaultsChart'
 
 export default function LinearAxisPage() {
   const menuElements: JSX.Element[] = [
-    <LinearAxisElement
+    <AxiesDefaultsChart
       canvasProps={{
         chartName: 'linearAxis',
         width: 130,
-        lowestViewableValue: 0,
         highestViewableValue: 200,
       }}
     />,
-  ]
-
-  const charts: JSX.Element[] = [
-    <LinearAxisElement
+    <LinearAxisChart
       canvasProps={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
+        chartName: 'linearAxis2',
+        width: 130,
         highestViewableValue: 200,
       }}
     />,
+
+    <ConfigAndData />,
+    <TryItYourSelf />,
   ]
 
-  const [chart, setChart] = useState<JSX.Element>(charts[0])
+  const contents: JSX.Element[] = [
+    axiesDefaults,
+    canvasWithVisibleDisplayArea,
+    configAndData,
+    editorContent,
+  ]
+  const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
-    setChart(charts[index])
+    setContent(contents[index])
   }
 
   return (
@@ -40,7 +53,7 @@ export default function LinearAxisPage() {
         onClick={onClick}
         elements={menuElements}
       ></ChartButtonGrid>
-      <Box>{chart}</Box>
+      <Box>{content}</Box>
     </>
   )
 }

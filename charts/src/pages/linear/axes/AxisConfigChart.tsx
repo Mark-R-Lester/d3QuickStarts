@@ -12,7 +12,7 @@ import {
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
-export const LinearAxisElement: FunctionComponent<ChartProps> = ({
+export const LinearAxisChart: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {
@@ -24,7 +24,7 @@ export const LinearAxisElement: FunctionComponent<ChartProps> = ({
       canvas.generate.linear.vertical.axis.left(data2, {
         tickSizeInner: -100,
         tickSizeOuter: 1,
-        tickPadding: 2,
+        tickPadding: -10,
         tickColor: 'lightgrey',
         domainWidth: 3,
         numberOfTicks: 10,

@@ -11,6 +11,7 @@ import {
   ContentTitle,
 } from '../../components/atoms/content/ContentStyled'
 import SyntaxHighlighter from 'react-syntax-highlighter'
+import { ChartEditor } from '../../components/molecules/ChartEditor'
 
 const areaDataAsString: string = `qsCreateCanvas(canvasConfig)
 const data: QsAreaData = {
@@ -384,19 +385,27 @@ export const configAndData: JSX.Element = (
 )
 
 export const editorContent: JSX.Element = (
-  <>
-    <ContentColumn
-      elements={[<ContentTitle variant="h4">Try it for yourself</ContentTitle>]}
-    />
-
-    {/* <ChartEditor
-      initialCode={`
-  const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+  <ChartEditor
+    initialCode={`
+  const canvasConfig = {
+    chartName: 'ChartEditable',
+    width: 600,
+    height: 300,
+    marginRight: 5,
+    marginLeft: 5,
+    marginTop: 10,
+    marginBottom: 10,
+    lowestViewableValue: 0,
+    highestViewableValue: 100,
+    borderColor: 'black',
+  }
   const data: QsAreaData = {
     higherData: [100, 100],
   }
+  const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
   canvas.generate.linear.horizontal.area(data)
+  canvas.generate.linear.vertical.axis.left([])
+  canvas.generate.linear.horizontal.axis.bottom([])
 `}
-    /> */}
-  </>
+  />
 )

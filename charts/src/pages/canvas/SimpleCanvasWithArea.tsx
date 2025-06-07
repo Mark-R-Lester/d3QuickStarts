@@ -13,7 +13,7 @@ export const SimpleCanvasWithArea: FunctionComponent<ChartProps> = ({
       }
       canvas.generate.linear.horizontal.area(data)
       canvas.generate.linear.vertical.axis.left([])
-      canvas.generate.linear.horizontal.axis.bottom(['0', '1'])
+      canvas.generate.linear.horizontal.axis.bottom([])
     }
     createChart()
   }, [canvasProps])

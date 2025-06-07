@@ -12,16 +12,13 @@ import {
 } from '../../components/atoms/content/ContentStyled'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 
-const areaDataAsString: string = `
-qsCreateCanvas(canvasConfig)
+const areaDataAsString: string = `qsCreateCanvas(canvasConfig)
 const data: QsAreaData = {
   higherData: [100, 100],
 }
 canvas.generate.linear.horizontal.area(data)
 canvas.generate.linear.vertical.axis.left([0, 100])
-canvas.generate.linear.horizontal.axis.bottom(['0', '1'])
-
-`
+canvas.generate.linear.horizontal.axis.bottom(['0', '1'])`
 
 const canvasConfig: string = `canvasConfig: QsCanvasConfig = {
   chartName: 'simpleCanvas',
@@ -30,9 +27,7 @@ const canvasConfig: string = `canvasConfig: QsCanvasConfig = {
   borderColor: 'black',
 }
 
-qsCreateCanvas(canvasConfig)
-
-`
+qsCreateCanvas(canvasConfig)`
 
 const qsCanvasConfig: string = `export interface QsCanvasConfig {
   [key: string]: string | number | undefined
@@ -46,45 +41,33 @@ const qsCanvasConfig: string = `export interface QsCanvasConfig {
   highestViewableValue: number
   lowestViewableValue?: number
   borderColor?: string
-}
+}`
 
-`
-
-const canvasConfig1: string = `
-const canvasConfig =  QsCanvasConfig {
+const canvasConfig1: string = `const canvasConfig =  QsCanvasConfig {
   chartName: 'chart1',
   width: 800,
   highestViewableValue: 100,
   borderColor: 'black'
-}
+}`
 
-`
-
-const canvasConfig2: string = `
-const canvasConfig =  QsCanvasConfig {
+const canvasConfig2: string = `const canvasConfig =  QsCanvasConfig {
   chartName: 'chart2',
   width: 800,
   height: 250,
   highestViewableValue: 100,
   borderColor: 'black'
-}
+}`
 
-`
-
-const canvasConfig3: string = `
-const canvasConfig =  QsCanvasConfig {
+const canvasConfig3: string = `const canvasConfig =  QsCanvasConfig {
   chartName: 'chart2',
   width: 800,
   height: 250,
   lowestViewableValue: -10,
   highestViewableValue: 110,
   borderColor: 'black'
-}
+}`
 
-`
-
-const canvasConfig4: string = `
-const canvasConfig =  QsCanvasConfig {
+const canvasConfig4: string = `const canvasConfig =  QsCanvasConfig {
   chartName: 'chart4',
   width: 800,
   height: 400,
@@ -95,9 +78,7 @@ const canvasConfig =  QsCanvasConfig {
   lowestViewableValue: 0,
   highestViewableValue: 100,
   borderColor: 'black',
-}
-
-`
+}`
 
 export const blankCanvasContent: JSX.Element = (
   <ContentColumn
@@ -122,7 +103,11 @@ export const blankCanvasContent: JSX.Element = (
                   </Typography>
                 </ContentTextBox>,
                 <ContentSyntaxBox>
-                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
+                  <SyntaxHighlighter
+                    language="typescript"
+                    style={atomOneDark}
+                    showLineNumbers={true}
+                  >
                     {canvasConfig}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
@@ -175,7 +160,11 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
               </Typography>
             </ContentTextBox>,
             <ContentSyntaxBox>
-              <SyntaxHighlighter language="typescript" style={atomOneDark}>
+              <SyntaxHighlighter
+                language="typescript"
+                style={atomOneDark}
+                showLineNumbers={true}
+              >
                 {areaDataAsString}
               </SyntaxHighlighter>
             </ContentSyntaxBox>,
@@ -212,7 +201,11 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
                   </Typography>
                 </ContentTextBox>,
                 <ContentSyntaxBox>
-                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
+                  <SyntaxHighlighter
+                    language="typescript"
+                    style={atomOneDark}
+                    showLineNumbers={true}
+                  >
                     {canvasConfig1}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
@@ -244,7 +237,11 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
                 </ContentTextBox>,
                 <ContentSyntaxBox>
                   {' '}
-                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
+                  <SyntaxHighlighter
+                    language="typescript"
+                    style={atomOneDark}
+                    showLineNumbers={true}
+                  >
                     {canvasConfig2}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
@@ -278,7 +275,11 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
                   </Typography>
                 </ContentTextBox>,
                 <ContentSyntaxBox>
-                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
+                  <SyntaxHighlighter
+                    language="typescript"
+                    style={atomOneDark}
+                    showLineNumbers={true}
+                  >
                     {canvasConfig3}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
@@ -316,7 +317,11 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
                 </ContentTextBox>,
                 <ContentSyntaxBox>
                   {' '}
-                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
+                  <SyntaxHighlighter
+                    language="typescript"
+                    style={atomOneDark}
+                    showLineNumbers={true}
+                  >
                     {canvasConfig4}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,

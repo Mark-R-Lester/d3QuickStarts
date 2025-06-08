@@ -8,10 +8,10 @@ export const menuCanvas: DropdownMenuProps = {
 export const menuElementsPlotted: DropdownMenuProps = {
   title: 'Plotted',
   routes: [
+    { title: 'Legend', route: '/plotted/legend' },
     { title: 'Line', route: '/plotted/line' },
     { title: 'Points', route: '/plotted/points' },
     { title: 'Text', route: '/plotted/text' },
-    { title: 'Legend', route: '/plotted/legend' },
   ],
 }
 
@@ -37,9 +37,9 @@ export const menuElementsRadialCentroid: DropdownMenuProps = {
 export const menuElementsLinear: DropdownMenuProps = {
   title: 'Linear',
   routes: [
-    { title: 'Bars', route: '/linear/bars' },
     { title: 'Area', route: '/linear/area' },
     { title: 'Axis', route: '/linear/axis' },
+    { title: 'Bars', route: '/linear/bars' },
     { title: 'Bar Group', route: '/linear/bargroup' },
     { title: 'Bar Stack', route: '/linear/barstack' },
     { title: 'Line', route: '/linear/line' },

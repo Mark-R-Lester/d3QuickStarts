@@ -2,34 +2,48 @@ import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import { LinearBarStacksElement } from './LinearBarStacks'
+import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
+import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
+import {
+  barStackedContent,
+  barStackedDetaultsContent,
+  configAndData,
+  editorContent,
+} from './Content'
+import { BarStackedDefaultsChart } from './BarStackedDefaultsChart'
+import { BarStackedChart } from './BarStackedChart'
 
 export default function LinearBarStackPage() {
   const menuElements: JSX.Element[] = [
-    <LinearBarStacksElement
+    <BarStackedDefaultsChart
       canvasProps={{
-        chartName: 'linearBarsStackedVertical',
+        chartName: 'barStackedDefaultsButton',
         width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 50,
+        highestViewableValue: 150,
       }}
     />,
-  ]
-
-  const charts: JSX.Element[] = [
-    <LinearBarStacksElement
+    <BarStackedChart
       canvasProps={{
-        chartName: 'chart',
-        width: 800,
+        chartName: 'barStackedButton',
+        width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 50,
+        highestViewableValue: 150,
       }}
     />,
+    <ConfigAndData />,
+    <TryItYourSelf />,
   ]
 
-  const [chart, setChart] = useState<JSX.Element>(charts[0])
+  const contents: JSX.Element[] = [
+    barStackedDetaultsContent,
+    barStackedContent,
+    configAndData,
+    editorContent,
+  ]
+  const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
-    setChart(charts[index])
+    setContent(contents[index])
   }
 
   return (
@@ -41,7 +55,7 @@ export default function LinearBarStackPage() {
         onClick={onClick}
         elements={menuElements}
       ></ChartButtonGrid>
-      <Box>{chart}</Box>
+      <Box>{content}</Box>
     </>
   )
 }

@@ -1,37 +1,50 @@
 import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
-import { LinearBarsGroupedElement } from './LinearBarsGrouped'
+import { LinearBarsGroupedDefaultsChart } from './LinearBarsGroupedDefaultsChart'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
+import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
+import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
+import {
+  barGroupContent,
+  barGroupDefaultsContent,
+  configAndData,
+  editorContent,
+} from './Content'
+import { LinearBarsGroupedChart } from './LinearBarsGroupedChart'
 
 export default function LinearBarGroupPage() {
   const menuElements: JSX.Element[] = [
-    <LinearBarsGroupedElement
+    <LinearBarsGroupedDefaultsChart
       canvasProps={{
-        chartName: 'linearBarsGroupedVertical',
+        chartName: 'barGroupDefaults',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 50,
       }}
     />,
-  ]
-
-  const charts: JSX.Element[] = [
-    <LinearBarsGroupedElement
+    <LinearBarsGroupedChart
       canvasProps={{
-        chartName: 'chart',
-        width: 800,
+        chartName: 'barGroup',
+        width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 50,
       }}
     />,
+    <ConfigAndData />,
+    <TryItYourSelf />,
   ]
 
-  const [chart, setChart] = useState<JSX.Element>(charts[0])
+  const contents: JSX.Element[] = [
+    barGroupDefaultsContent,
+    barGroupContent,
+    configAndData,
+    editorContent,
+  ]
+  const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
-    setChart(charts[index])
+    setContent(contents[index])
   }
-
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
@@ -41,7 +54,7 @@ export default function LinearBarGroupPage() {
         onClick={onClick}
         elements={menuElements}
       ></ChartButtonGrid>
-      <Box>{chart}</Box>
+      <Box>{content}</Box>
     </>
   )
 }

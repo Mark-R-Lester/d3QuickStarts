@@ -1,15 +1,23 @@
 import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import { EnumOrientation } from '../../../common/enums'
-
-import { LinearPointsElement } from './LinearPoints'
+import { LinearPointsDefaultsChart } from './LinearPointsDefaultsChart'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
+import { LinearPointsChart } from './LinearPointsChart'
+import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
+import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
+import {
+  linearPointsDefaultsContent,
+  linearPointsContent,
+  configAndData,
+  editorContent,
+} from './Content'
 
 export default function LinearPointsPage() {
   const menuElements: JSX.Element[] = [
-    <LinearPointsElement
+    <LinearPointsDefaultsChart
       canvasProps={{
-        chartName: 'linearPointsHorizontal',
+        chartName: 'linearPointsDefaultsChart',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 35,
@@ -17,42 +25,28 @@ export default function LinearPointsPage() {
       orientation={EnumOrientation.HORIZONTAL}
     />,
 
-    <LinearPointsElement
+    <LinearPointsChart
       canvasProps={{
-        chartName: 'linearPointsVertical',
+        chartName: 'linearPointsChart',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 35,
       }}
       orientation={EnumOrientation.VERTICAL}
     />,
+    <ConfigAndData />,
+    <TryItYourSelf />,
   ]
 
-  const charts: JSX.Element[] = [
-    <LinearPointsElement
-      canvasProps={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 35,
-      }}
-      orientation={EnumOrientation.HORIZONTAL}
-    />,
-
-    <LinearPointsElement
-      canvasProps={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 35,
-      }}
-      orientation={EnumOrientation.VERTICAL}
-    />,
+  const contents: JSX.Element[] = [
+    linearPointsDefaultsContent,
+    linearPointsContent,
+    configAndData,
+    editorContent,
   ]
-
-  const [chart, setChart] = useState<JSX.Element>(charts[0])
+  const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
-    setChart(charts[index])
+    setContent(contents[index])
   }
 
   return (
@@ -64,7 +58,7 @@ export default function LinearPointsPage() {
         onClick={onClick}
         elements={menuElements}
       ></ChartButtonGrid>
-      <Box>{chart}</Box>
+      <Box>{content}</Box>
     </>
   )
 }

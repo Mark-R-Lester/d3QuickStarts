@@ -1,9 +1,14 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas, QsTextData } from 'd3qs/d3QuickStart'
+import {
+  QsCanvas,
+  qsCreateCanvas,
+  QsEnumAxisScaleType,
+  QsTextData,
+} from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../common/enums'
 import { OrienetedChartProps } from '../../../common/chartProps'
 
-export const LinearTextElement: FunctionComponent<OrienetedChartProps> = ({
+export const LinearTextChart: FunctionComponent<OrienetedChartProps> = ({
   canvasProps,
   orientation,
 }) => {
@@ -23,8 +28,19 @@ export const LinearTextElement: FunctionComponent<OrienetedChartProps> = ({
 
       if (orientation === EnumOrientation.VERTICAL) {
         canvas.generate.linear.vertical.text(data, { defaultRadius: 3 })
+        canvas.generate.linear.vertical.axis.left([1, 2, 3, 4, 5, 6, 7, 8], {
+          domainScale: QsEnumAxisScaleType.POINT,
+        })
+        canvas.generate.linear.horizontal.axis.bottom([])
       } else {
         canvas.generate.linear.horizontal.text(data, { defaultRadius: 3 })
+        canvas.generate.linear.vertical.axis.left([])
+        canvas.generate.linear.horizontal.axis.bottom(
+          [1, 2, 3, 4, 5, 6, 7, 8],
+          {
+            domainScale: QsEnumAxisScaleType.POINT,
+          }
+        )
       }
     }
     createChart()

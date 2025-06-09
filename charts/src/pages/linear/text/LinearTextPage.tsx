@@ -3,11 +3,20 @@ import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import { EnumOrientation } from '../../../common/enums'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import { LinearTextElement } from './LinearText'
+import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
+import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
+import {
+  configAndData,
+  editorContent,
+  linearTextCustomisedContent,
+  linearTextDefaultsContent,
+} from './Content'
+import { LinearTextChart } from './LinearTextChart'
+import { LinearTextDefaultsChart } from './LinearTextDefaultsChart'
 
 export default function LinearTextPage() {
   const menuElements: JSX.Element[] = [
-    <LinearTextElement
+    <LinearTextDefaultsChart
       canvasProps={{
         chartName: 'linearTextHorizontal',
         width: 130,
@@ -17,7 +26,7 @@ export default function LinearTextPage() {
       orientation={EnumOrientation.HORIZONTAL}
     />,
 
-    <LinearTextElement
+    <LinearTextChart
       canvasProps={{
         chartName: 'linearTextVertical',
         width: 130,
@@ -26,45 +35,31 @@ export default function LinearTextPage() {
       }}
       orientation={EnumOrientation.VERTICAL}
     />,
+    <ConfigAndData />,
+    <TryItYourSelf />,
   ]
 
-  const charts: JSX.Element[] = [
-    <LinearTextElement
-      canvasProps={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 35,
-      }}
-      orientation={EnumOrientation.HORIZONTAL}
-    />,
-
-    <LinearTextElement
-      canvasProps={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 35,
-      }}
-      orientation={EnumOrientation.VERTICAL}
-    />,
+  const contents: JSX.Element[] = [
+    linearTextDefaultsContent,
+    linearTextCustomisedContent,
+    configAndData,
+    editorContent,
   ]
-
-  const [chart, setChart] = useState<JSX.Element>(charts[0])
+  const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
-    setChart(charts[index])
+    setContent(contents[index])
   }
 
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Linear Text
+        Linear Points
       </Typography>
       <ChartButtonGrid
         onClick={onClick}
         elements={menuElements}
       ></ChartButtonGrid>
-      <Box>{chart}</Box>
+      <Box>{content}</Box>
     </>
   )
 }

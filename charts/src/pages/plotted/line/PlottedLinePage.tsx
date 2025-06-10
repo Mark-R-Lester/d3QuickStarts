@@ -2,33 +2,48 @@ import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import { PlottedLineElement } from './PlottedLine'
+import { PlottedLineDefaultsChart } from './PlottedLineDefaultsChart'
+import { PlottedLineChart } from './PlottedLineChart'
+import {
+  defaultsContent,
+  configContent,
+  configAndData,
+  editorContent,
+} from './Content'
+import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
+import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 
 export default function PlottedLinePage() {
   const menuElements: JSX.Element[] = [
-    <PlottedLineElement
+    <PlottedLineDefaultsChart
       canvasProps={{
-        chartName: 'plottedLine',
+        chartName: 'plottedLineDefaultsChart',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 156,
       }}
     />,
-  ]
-  const charts: JSX.Element[] = [
-    <PlottedLineElement
+    <PlottedLineChart
       canvasProps={{
-        chartName: 'charts',
-        width: 800,
+        chartName: 'plottedLineChart',
+        width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 156,
       }}
     />,
+    <ConfigAndData />,
+    <TryItYourSelf />,
   ]
 
-  const [chart, setChart] = useState<JSX.Element>(charts[0])
+  const contents: JSX.Element[] = [
+    defaultsContent,
+    configContent,
+    configAndData,
+    editorContent,
+  ]
+  const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
-    setChart(charts[index])
+    setContent(contents[index])
   }
 
   return (
@@ -40,7 +55,7 @@ export default function PlottedLinePage() {
         onClick={onClick}
         elements={menuElements}
       ></ChartButtonGrid>
-      <Box>{chart}</Box>
+      <Box>{content}</Box>
     </>
   )
 }

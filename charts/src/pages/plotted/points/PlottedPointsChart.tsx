@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import { QsCanvas, QsPlottedPointData, qsCreateCanvas } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
-export const PlottedPointsEnhancedElement: FunctionComponent<ChartProps> = ({
+export const PlottedPointsChart: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {
@@ -30,8 +30,9 @@ export const PlottedPointsEnhancedElement: FunctionComponent<ChartProps> = ({
       ]
 
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
-
       canvas.generate.plotted.points(data)
+      canvas.generate.linear.vertical.axis.left([])
+      canvas.generate.linear.horizontal.axis.bottom([])
     }
     createChart()
   }, [canvasProps])

@@ -9,7 +9,7 @@ import {
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
-export const PlottedTextElement: FunctionComponent<ChartProps> = ({
+export const PlottedTextChart: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {
@@ -44,6 +44,8 @@ export const PlottedTextElement: FunctionComponent<ChartProps> = ({
         textFill: 'blue',
         textAngle: 10,
       })
+      canvas.generate.linear.vertical.axis.left([])
+      canvas.generate.linear.horizontal.axis.bottom([])
     }
     createChart()
   }, [canvasProps])

@@ -9,7 +9,7 @@ import {
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
-export const PlottedLineElement: FunctionComponent<ChartProps> = ({
+export const PlottedLineChart: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {
@@ -34,6 +34,8 @@ export const PlottedLineElement: FunctionComponent<ChartProps> = ({
         strokeLineJoin: QsEnumLineJoin.BEVEL,
         strokeLineCap: QsEnumLineCap.ROUND,
       })
+      canvas.generate.linear.vertical.axis.left([])
+      canvas.generate.linear.horizontal.axis.bottom([])
     }
     createChart()
   }, [canvasProps])

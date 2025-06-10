@@ -1,52 +1,48 @@
 import { Box, Typography } from '@mui/material'
-
 import { useState } from 'react'
-import { PlottedPointsElement } from './PlottedPoints'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import { PlottedPointsEnhancedElement } from './PlottedPointsEnhanced'
+import {
+  defaultsContent,
+  configContent,
+  configAndData,
+  editorContent,
+} from './Content'
+import { PlottedPointsDefaultsChart } from './PlottedPointsDefaultsChart'
+import { PlottedPointsChart } from './PlottedPointsChart'
+import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
+import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 
 export default function PlottedPointsPage() {
   const menuElements: JSX.Element[] = [
-    <PlottedPointsElement
+    <PlottedPointsDefaultsChart
       canvasProps={{
-        chartName: 'plottedPoints',
+        chartName: 'plottedPointsDefaultsChart',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 156,
       }}
     />,
-    <PlottedPointsEnhancedElement
+    <PlottedPointsChart
       canvasProps={{
-        chartName: 'PlottedPontsEnhanced',
+        chartName: 'PlottedPointsChart',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 156,
       }}
     />,
+    <ConfigAndData />,
+    <TryItYourSelf />,
   ]
 
-  const charts: JSX.Element[] = [
-    <PlottedPointsElement
-      canvasProps={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 156,
-      }}
-    />,
-    <PlottedPointsEnhancedElement
-      canvasProps={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 156,
-      }}
-    />,
+  const contents: JSX.Element[] = [
+    defaultsContent,
+    configContent,
+    configAndData,
+    editorContent,
   ]
-
-  const [chart, setChart] = useState<JSX.Element>(charts[0])
+  const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
-    setChart(charts[index])
+    setContent(contents[index])
   }
 
   return (
@@ -58,7 +54,7 @@ export default function PlottedPointsPage() {
         onClick={onClick}
         elements={menuElements}
       ></ChartButtonGrid>
-      <Box>{chart}</Box>
+      <Box>{content}</Box>
     </>
   )
 }

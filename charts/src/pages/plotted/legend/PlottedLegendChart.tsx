@@ -12,7 +12,7 @@ import {
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
-export const PlottedLegendElement: FunctionComponent<ChartProps> = ({
+export const PlottedLegendChart: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {

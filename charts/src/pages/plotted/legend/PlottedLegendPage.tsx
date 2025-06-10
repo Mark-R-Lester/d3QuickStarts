@@ -2,11 +2,20 @@ import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import { PlottedLegendElement } from './PlottedLegend'
+import { PlottedLegendDefaultsChart } from './PlottedLegendDefaultsChart'
+import { PlottedLegendChart } from './PlottedLegendChart'
+import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
+import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
+import {
+  configAndData,
+  editorContent,
+  defaultsContent,
+  configContent,
+} from './Content'
 
 export default function PlottedLegendPage() {
   const menuElements: JSX.Element[] = [
-    <PlottedLegendElement
+    <PlottedLegendDefaultsChart
       canvasProps={{
         chartName: 'legendElement',
         width: 130,
@@ -14,22 +23,27 @@ export default function PlottedLegendPage() {
         highestViewableValue: 250,
       }}
     />,
-  ]
-
-  const charts: JSX.Element[] = [
-    <PlottedLegendElement
+    <PlottedLegendChart
       canvasProps={{
         chartName: 'charts',
-        width: 800,
+        width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 250,
       }}
     />,
+    <ConfigAndData />,
+    <TryItYourSelf />,
   ]
 
-  const [chart, setChart] = useState<JSX.Element>(charts[0])
+  const contents: JSX.Element[] = [
+    defaultsContent,
+    configContent,
+    configAndData,
+    editorContent,
+  ]
+  const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
-    setChart(charts[index])
+    setContent(contents[index])
   }
 
   return (
@@ -41,7 +55,7 @@ export default function PlottedLegendPage() {
         onClick={onClick}
         elements={menuElements}
       ></ChartButtonGrid>
-      <Box>{chart}</Box>
+      <Box>{content}</Box>
     </>
   )
 }

@@ -13,7 +13,14 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import { PlottedLegendDefaultsChart } from './PlottedLegendDefaultsChart'
 import { PlottedLegendChart } from './PlottedLegendChart'
 
-const defaultsChart: string = `const data: QsLegendData[] = [
+const canvasConfig: string = `const canvasConfig = {
+  chartName: 'ChartEditable',
+  width: 600,
+  highestViewableValue: 35,
+}`
+
+const defaultsChart: string = `
+const data: QsLegendData[] = [
   { value: 'Red', fillColor: 'red' },
   { value: 'Blue', fillColor: 'blue' },
   { value: 'Green', fillColor: 'green' },
@@ -23,7 +30,8 @@ const defaultsChart: string = `const data: QsLegendData[] = [
 const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
 canvas.generate.plotted.legend(data)`
 
-const configChart: string = `const data: QsLegendData[] = [
+const configChart: string = `
+const data: QsLegendData[] = [
   { value: 'Red', fillColor: 'red' },
   { value: 'Blue', fillColor: 'blue' },
   { value: 'Green', fillColor: 'green' },
@@ -49,6 +57,9 @@ canvas.generate.plotted.legend(data, {
   textStroke: 'black',
   textFill: 'black',
 })`
+
+const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
+const configChartAll: string = `${canvasConfig}${configChart}`
 
 const data: string = `interface QsTextData {
   value: number
@@ -132,7 +143,7 @@ export const defaultsContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {defaultsChart}
+                    {defaultsChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -140,7 +151,7 @@ export const defaultsContent: JSX.Element = (
             <PlottedLegendDefaultsChart
               canvasProps={{
                 chartName: 'chartH',
-                width: 800,
+                width: 600,
                 lowestViewableValue: 0,
                 highestViewableValue: 35,
               }}
@@ -175,7 +186,7 @@ export const configContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {configChart}
+                    {configChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -183,7 +194,7 @@ export const configContent: JSX.Element = (
             <PlottedLegendChart
               canvasProps={{
                 chartName: 'chartV',
-                width: 800,
+                width: 600,
                 lowestViewableValue: 0,
                 highestViewableValue: 35,
               }}

@@ -7,9 +7,9 @@ import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import {
   configAndData,
+  configContent,
+  defaultsContent,
   editorContent,
-  linearTextCustomisedContent,
-  linearTextDefaultsContent,
 } from './Content'
 import { LinearTextChart } from './LinearTextChart'
 import { LinearTextDefaultsChart } from './LinearTextDefaultsChart'
@@ -40,8 +40,8 @@ export default function LinearTextPage() {
   ]
 
   const contents: JSX.Element[] = [
-    linearTextDefaultsContent,
-    linearTextCustomisedContent,
+    defaultsContent,
+    configContent,
     configAndData,
     editorContent,
   ]

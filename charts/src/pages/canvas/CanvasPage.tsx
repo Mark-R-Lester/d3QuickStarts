@@ -6,9 +6,9 @@ import { ChartButtonGrid } from '../../components/molecules/ChartButtonGrid'
 import { SimpleCanvas } from './SimpleCanvas'
 import { SimpleCanvasWithArea } from './SimpleCanvasWithArea'
 import {
-  blankCanvasContent,
-  canvasWithVisibleDisplayArea,
   configAndData,
+  configContent,
+  defaultsContent,
   editorContent,
 } from './Content'
 
@@ -33,8 +33,8 @@ export default function CanvasPage() {
   ]
 
   const contents: JSX.Element[] = [
-    blankCanvasContent,
-    canvasWithVisibleDisplayArea,
+    defaultsContent,
+    configContent,
     configAndData,
     editorContent,
   ]

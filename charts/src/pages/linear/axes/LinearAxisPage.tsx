@@ -5,8 +5,8 @@ import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import {
-  axiesDefaults,
-  canvasWithVisibleDisplayArea,
+  defaultsContent,
+  configContent,
   configAndData,
   editorContent,
 } from './Content'
@@ -34,8 +34,8 @@ export default function LinearAxisPage() {
   ]
 
   const contents: JSX.Element[] = [
-    axiesDefaults,
-    canvasWithVisibleDisplayArea,
+    defaultsContent,
+    configContent,
     configAndData,
     editorContent,
   ]

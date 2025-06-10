@@ -13,7 +13,14 @@ import {
 } from '../../../components/atoms/content/ContentStyled'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 
-const barDataAsString: string = `const barDataSimple: QsBarData[] =[
+const canvasConfig: string = `const canvasConfig = {
+  chartName: 'chart',
+  width: 600,
+  highestViewableValue: 40,
+} 
+`
+
+const barDataAsString: string = `const data: QsBarData[] = [
   { upperBoundry: 35, lowerBoundry: 5 },
   { upperBoundry: 35, lowerBoundry: 10 },
   { upperBoundry: 30, lowerBoundry: 15 },
@@ -24,27 +31,30 @@ const barDataAsString: string = `const barDataSimple: QsBarData[] =[
   { upperBoundry: 5 },
 ]`
 
-const barsVerticalAsString: string = `${barDataAsString}
+const defaultsChart: string = `${barDataAsString}
 
-const canvas: QsCanvas = qsCreateCanvas(canvasProps)
-canvas.generate.linear.vertical.bars(data, config)
+const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+canvas.generate.linear.vertical.bars(data)
 canvas.generate.linear.horizontal.axis.bottom([])
-canvas.generate.linear.vertical.axis.leftBanded((
-  1, 2, 3, 4, 5, 6, 7, 8,], 
+canvas.generate.linear.vertical.axis.left(
+  [ 1, 2, 3, 4, 5, 6, 7, 8,], 
   { domainScale: QsEnumAxisScaleType.BANDED }
 )`
 
-const barsHorizontalAsString: string = `${barDataAsString}
+const configChart: string = `${barDataAsString}
 
-const canvas: QsCanvas = qsCreateCanvas(canvasProps)
-canvas.generate.linear.horizontal.bars(data, config)
-canvas.generate.linear.vertical.axis.left([0, 35])
-canvas.generate.linear.horizontal.axis.bottomBanded(
-  1, 2, 3, 4, 5, 6, 7, 8,], 
+const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+canvas.generate.linear.horizontal.bars(data)
+canvas.generate.linear.vertical.axis.left([])
+canvas.generate.linear.horizontal.axis.bottom(
+  [ 1, 2, 3, 4, 5, 6, 7, 8,], 
   { domainScale: QsEnumAxisScaleType.BANDED }
 )`
 
-const qsBarData: string = `interface QsBarData {
+const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
+const configChartAll: string = `${canvasConfig}${configChart}`
+
+const data: string = `interface QsBarData {
   lowerBoundry?: number
   upperBoundry: number
   fillColor?: string
@@ -54,7 +64,7 @@ const qsBarData: string = `interface QsBarData {
   strokeOpacity?: number
 }`
 
-const qsBarConfig: string = `interface QsBarConfig {
+const config: string = `interface QsBarConfig {
   [key: string]: number | string | QsColorScaleData | undefined
   padding?: number
   defaultFillColor?: string
@@ -66,7 +76,7 @@ const qsBarConfig: string = `interface QsBarConfig {
   strokeColorScaleData?: QsColorScaleData
 }`
 
-const qsBarDataExample: string = `const data: QsBarData = {
+const dataExample: string = `const data: QsBarData = {
   lowerBoundry: 0,
   upperBoundry: 100,
   fillColor: 'blue',
@@ -76,7 +86,7 @@ const qsBarDataExample: string = `const data: QsBarData = {
   strokeOpacity: 1,
 }`
 
-const qsBarConfigExample: string = `const config: QsBarConfig = {
+const configExample: string = `const config: QsBarConfig = {
   padding: 0,
   defaultFillColor: 'blue',
   defaultFillOpacity: 1,
@@ -95,7 +105,7 @@ const qsBarConfigExample: string = `const config: QsBarConfig = {
     },
 }`
 
-export const horizontalBarContent: JSX.Element = (
+export const defaultsContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Horizontal Bars</ContentTitle>,
@@ -128,7 +138,7 @@ export const horizontalBarContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {barsHorizontalAsString}
+                    {defaultsChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -136,7 +146,7 @@ export const horizontalBarContent: JSX.Element = (
             <SimpleBarChart
               canvasProps={{
                 chartName: 'chartH',
-                width: 800,
+                width: 600,
                 lowestViewableValue: 0,
                 highestViewableValue: 35,
               }}
@@ -149,7 +159,7 @@ export const horizontalBarContent: JSX.Element = (
   />
 )
 
-export const verticalBarContent: JSX.Element = (
+export const configContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Vertical Bars</ContentTitle>,
@@ -183,7 +193,7 @@ export const verticalBarContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {barsVerticalAsString}
+                    {configChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -191,7 +201,7 @@ export const verticalBarContent: JSX.Element = (
             <SimpleBarChart
               canvasProps={{
                 chartName: 'chartV',
-                width: 800,
+                width: 600,
                 lowestViewableValue: 0,
                 highestViewableValue: 35,
               }}
@@ -216,7 +226,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsBarData}
+                    {data}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -227,7 +237,7 @@ export const configAndData: JSX.Element = (
                 <ContentSyntaxBox>
                   {' '}
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsBarDataExample}
+                    {dataExample}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -244,7 +254,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsBarConfig}
+                    {config}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -254,7 +264,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Example:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsBarConfigExample}
+                    {configExample}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -269,26 +279,13 @@ export const configAndData: JSX.Element = (
 export const editorContent: JSX.Element = (
   <ChartEditor
     initialCode={`
-  const canvasConfig = {
-    chartName: 'ChartEditable',
-    width: 600,
-    lowestViewableValue: 0,
-    highestViewableValue: 35,
-    borderColor: 'grey',
-  }
-  const data: QsBarData[] = [
-    { upperBoundry: 25, lowerBoundry: 5},
-    { upperBoundry: 5 },
-    { upperBoundry: 35 },
-    { upperBoundry: 25 },
-    { upperBoundry: 35 },
-    { upperBoundry: 5 },
-    { upperBoundry: 25 },
-    { upperBoundry: 25 },
-  ]
-  
-  const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-  canvas.generate.linear.vertical.bars(data)
-`}
+const canvasConfig = {
+  chartName: 'ChartEditable',
+  width: 600,
+  lowestViewableValue: 0,
+  highestViewableValue: 35,
+  borderColor: 'grey',
+}
+${defaultsChart}`}
   ></ChartEditor>
 )

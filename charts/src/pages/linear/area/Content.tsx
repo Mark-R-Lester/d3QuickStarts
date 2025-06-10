@@ -15,13 +15,12 @@ import { LinearAreaStackedChart } from './LinearAreaStackedChart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'linearArea',
-  width: 150,
-  lowestViewableValue: 0,
+  width: 600,
   highestViewableValue: 190,
-}
+} 
 `
 
-const areaAsString: string = `${canvasConfig}
+const defaultsChart: string = `
 const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
 
 const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
@@ -36,7 +35,7 @@ canvas.generate.linear.horizontal.axis.bottom(
   }
 )`
 
-const areaStackedAsString: string = `${canvasConfig}
+const configChart: string = `
 const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
 const data2 = [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 170, 190]
 
@@ -57,7 +56,10 @@ canvas.generate.linear.horizontal.axis.bottom(
   }
 )`
 
-const qsBarData: string = `interface QsAreaData {
+const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
+const configChartAll: string = `${canvasConfig}${configChart}`
+
+const data: string = `interface QsAreaData {
   lowerData?: number[]
   higherData: number[]
   fillColor?: string
@@ -67,7 +69,7 @@ const qsBarData: string = `interface QsAreaData {
   strokeOpacity?: number
 }`
 
-const qsBarConfig: string = `interface QsAreaConfig {
+const config: string = `interface QsAreaConfig {
   [key: string]: CurveFactory | string | number | undefined
   curve?: QsEnumCurve
   defaultFillColor?: string
@@ -79,7 +81,7 @@ const qsBarConfig: string = `interface QsAreaConfig {
   strokeLineCap?: QsEnumLineCap
 }`
 
-const qsBarDataExample: string = `const data: QsAreaData = {
+const dataExample: string = `const data: QsAreaData = {
   lowerData: [1, 2, 3, 4, 5, 6, 7, 8],
   higherData: number[2, 3, 4, 5, 6, 7, 8, 9],
   fillColor: 'blue',
@@ -89,7 +91,7 @@ const qsBarDataExample: string = `const data: QsAreaData = {
   strokeOpacity: 1,
 }`
 
-const qsBarConfigExample: string = `const config: QsAreaConfig = {
+const configExample: string = `const config: QsAreaConfig = {
   curve: QsEnumCurve.LINEAR,
   defaultFillColor: 'blue',
   defaultFillOpacity: 1,
@@ -100,7 +102,7 @@ const qsBarConfigExample: string = `const config: QsAreaConfig = {
   strokeLineCap: QsEnumLineCap.ROUND,
 }`
 
-export const areaContent: JSX.Element = (
+export const defaultsContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Horizontal Bars</ContentTitle>,
@@ -126,7 +128,7 @@ export const areaContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {areaAsString}
+                    {defaultsChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -134,7 +136,7 @@ export const areaContent: JSX.Element = (
             <LinearAreaChart
               canvasProps={{
                 chartName: 'chartH',
-                width: 800,
+                width: 600,
                 lowestViewableValue: 0,
                 highestViewableValue: 190,
               }}
@@ -146,7 +148,7 @@ export const areaContent: JSX.Element = (
   />
 )
 
-export const areaStackedContent: JSX.Element = (
+export const configContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Horizontal Bars</ContentTitle>,
@@ -167,7 +169,7 @@ export const areaStackedContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {areaStackedAsString}
+                    {configChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -175,7 +177,7 @@ export const areaStackedContent: JSX.Element = (
             <LinearAreaStackedChart
               canvasProps={{
                 chartName: 'chartH',
-                width: 800,
+                width: 600,
                 lowestViewableValue: 0,
                 highestViewableValue: 190,
               }}
@@ -199,7 +201,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsBarData}
+                    {data}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -210,7 +212,7 @@ export const configAndData: JSX.Element = (
                 <ContentSyntaxBox>
                   {' '}
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsBarDataExample}
+                    {dataExample}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -227,7 +229,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsBarConfig}
+                    {config}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -238,7 +240,7 @@ export const configAndData: JSX.Element = (
                 <ContentSyntaxBox>
                   {' '}
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsBarConfigExample}
+                    {configExample}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -260,17 +262,8 @@ export const editorContent: JSX.Element = (
     highestViewableValue: 156,
     borderColor: 'grey',
   }
-  const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
-  
-  const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-  canvas.generate.linear.horizontal.area({ higherData: data1 })
-  canvas.generate.linear.vertical.axis.left([])
-  canvas.generate.linear.horizontal.axis.bottom(
-    [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-    {
-      domainScale: QsEnumAxisScaleType.POINT,
-    }
-  )
+
+  ${configChart}
 `}
   ></ChartEditor>
 )

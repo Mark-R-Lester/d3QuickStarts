@@ -3,9 +3,9 @@ import { useState } from 'react'
 import { LinearAreaChart } from './LinearAreaChart'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import {
-  areaContent,
-  areaStackedContent,
   configAndData,
+  configContent,
+  defaultsContent,
   editorContent,
 } from './Content'
 import { LinearAreaStackedChart } from './LinearAreaStackedChart'
@@ -35,8 +35,8 @@ export default function LinearAreaPage() {
   ]
 
   const contents: JSX.Element[] = [
-    areaContent,
-    areaStackedContent,
+    defaultsContent,
+    configContent,
     configAndData,
     editorContent,
   ]

@@ -14,7 +14,14 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import { LinearPointsChart } from './LinearPointsChart'
 import { LinearPointsDefaultsChart } from './LinearPointsDefaultsChart'
 
-const linearLineDefaultsAsString: string = `const data: QsPointData[] = [
+const canvasConfig: string = `const canvasConfig = {
+  chartName: 'chart',
+  width: 600,
+  highestViewableValue: 40,
+} 
+`
+
+const defaultsChart: string = `const data: QsPointData[] = [
   { value: 25 },
   { value: 10 },
   { value: 35 },
@@ -24,7 +31,7 @@ const linearLineDefaultsAsString: string = `const data: QsPointData[] = [
   { value: 25 },
   { value: 25 },
 ]
-const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
 canvas.generate.linear.horizontal.points(data, { defaultRadius: 3 })
 canvas.generate.linear.vertical.axis.left([])
 canvas.generate.linear.horizontal.axis.bottom(
@@ -32,7 +39,7 @@ canvas.generate.linear.horizontal.axis.bottom(
   { domainScale: QsEnumAxisScaleType.POINT }
 )`
 
-const linearLineCustomisedAsString: string = `const data: QsPointData[] = [
+const configChart: string = `const data: QsPointData[] = [
   {
     value: 25,
     fillColor: 'green',
@@ -50,7 +57,7 @@ const linearLineCustomisedAsString: string = `const data: QsPointData[] = [
   { value: 25, fillColor: 'red' },
   { value: 25 },
 ]
-const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
 canvas.generate.linear.vertical.points(data, { defaultRadius: 3 })
 canvas.generate.linear.vertical.axis.left(
   [1, 2, 3, 4, 5, 6, 7, 8],
@@ -58,7 +65,10 @@ canvas.generate.linear.vertical.axis.left(
  )
 canvas.generate.linear.horizontal.axis.bottom([])`
 
-const qsPointData: string = `interface QsPointData {
+const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
+const configChartAll: string = `${canvasConfig}${configChart}`
+
+const data: string = `interface QsPointData {
   value: number
   radius?: number
   fillColor?: string
@@ -68,7 +78,7 @@ const qsPointData: string = `interface QsPointData {
   strokeOpacity?: number
 }`
 
-const qsPointConfig: string = `interface QsPointsConfig {
+const config: string = `interface QsPointsConfig {
   [key: string]: number | QsColorScaleData | string | undefined
   scaleType?: QsEnumScaleType
   defaultRadius?: number
@@ -81,7 +91,7 @@ const qsPointConfig: string = `interface QsPointsConfig {
   strokeColorScaleData?: QsColorScaleData
 }`
 
-const qsPointDataExample: string = `const config: QsPointData {
+const dataExample: string = `const config: QsPointData {
   [key: string]: number | QsColorScaleData | string | undefined
   value: 3,
   radius: 3,
@@ -92,7 +102,7 @@ const qsPointDataExample: string = `const config: QsPointData {
   strokeOpacity: 1,
 }`
 
-const qsPointConfigExample: string = `const config: QsBarConfig = {
+const configExample: string = `const config: QsBarConfig = {
   scaleType: QsEnumScaleType.BANDED,
   defaultRadius: 3,
   defaultFillColor: 'blue',
@@ -112,7 +122,7 @@ const qsPointConfigExample: string = `const config: QsBarConfig = {
   },
 }`
 
-export const linearPointsDefaultsContent: JSX.Element = (
+export const defaultsContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Points generated with defaults</ContentTitle>,
@@ -134,7 +144,7 @@ export const linearPointsDefaultsContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {linearLineDefaultsAsString}
+                    {defaultsChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -142,7 +152,7 @@ export const linearPointsDefaultsContent: JSX.Element = (
             <LinearPointsDefaultsChart
               canvasProps={{
                 chartName: 'chartH',
-                width: 800,
+                width: 600,
                 lowestViewableValue: 0,
                 highestViewableValue: 35,
               }}
@@ -155,7 +165,7 @@ export const linearPointsDefaultsContent: JSX.Element = (
   />
 )
 
-export const linearPointsContent: JSX.Element = (
+export const configContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Points customised</ContentTitle>,
@@ -178,7 +188,7 @@ export const linearPointsContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {linearLineCustomisedAsString}
+                    {configChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -186,7 +196,7 @@ export const linearPointsContent: JSX.Element = (
             <LinearPointsChart
               canvasProps={{
                 chartName: 'chartV',
-                width: 800,
+                width: 600,
                 lowestViewableValue: 0,
                 highestViewableValue: 35,
               }}
@@ -211,7 +221,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsPointData}
+                    {data}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -222,7 +232,7 @@ export const configAndData: JSX.Element = (
                 <ContentSyntaxBox>
                   {' '}
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsPointDataExample}
+                    {dataExample}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -239,7 +249,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsPointConfig}
+                    {config}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -249,7 +259,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Example:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsPointConfigExample}
+                    {configExample}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -271,30 +281,6 @@ const canvasConfig = {
   highestViewableValue: 35,
   borderColor: 'grey',
 }
-const data: QsPointData[] = [
-  {
-    value: 25,
-    fillColor: 'green',
-    radius: 10,
-    strokeWidth: 5,
-    strokeColor: 'red',
-    strokeOpacity: 0.4,
-    fillOpacity: 0.5,
-  },
-  { value: 10 },
-  { value: 35, fillColor: 'red' },
-  { value: 25 },
-  { value: 35, fillColor: 'red' },
-  { value: 5 },
-  { value: 25, fillColor: 'red' },
-  { value: 25 },
-]
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-canvas.generate.linear.vertical.points(data, { defaultRadius: 3 })
-canvas.generate.linear.vertical.axis.left(
-  [1, 2, 3, 4, 5, 6, 7, 8], 
-  { domainScale: QsEnumAxisScaleType.POINT }
-)
-canvas.generate.linear.horizontal.axis.bottom([])`}
+${configChart}`}
   ></ChartEditor>
 )

@@ -14,23 +14,24 @@ import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import { LinearAxisChart } from './AxisConfigChart'
 import { AxiesDefaultsChart } from './AxesDefaultsChart'
 
-const axisDefaults: string = `canvasConfig: QsCanvasConfig = {
-  chartName: 'axesDefaults',
+const canvasConfig: string = `const canvasConfig = {
+  chartName: 'chart',
   width: 600,
   highestViewableValue: 100,
-  borderColor: 'black',
-}
+  borderColor: 'grey',
+} 
+`
 
+const defaultsChart: string = `
 const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
 canvas.generate.linear.vertical.axis.left([])
 canvas.generate.linear.horizontal.axis.bottom([])`
 
-const axisConfig: string = `const canvasConfig =  QsCanvasConfig {
+const configChart: string = `
   const data1 = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']
-  const data2 = [0, 20, 20, 30, 20, 35, 0, 20, 15, 30, 10, 50]
-  const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+  const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
-  canvas.generate.linear.vertical.axis.left(data2, {
+  canvas.generate.linear.vertical.axis.left([], {
     tickSizeInner: -100,
     tickSizeOuter: 1,
     tickPadding: 2,
@@ -75,7 +76,10 @@ const axisConfig: string = `const canvasConfig =  QsCanvasConfig {
   })
 }`
 
-const qsAxisConfig: string = `export interface QsAxisConfig {
+const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
+const configChartAll: string = `${canvasConfig}${configChart}`
+
+const config: string = `export interface QsAxisConfig {
   [key: string]: number | boolean | string | undefined
   percentageMovement?: number
 
@@ -105,7 +109,7 @@ const qsAxisConfig: string = `export interface QsAxisConfig {
   textY?: number
 }`
 
-const axisConfigExample: string = `const axisConfig: QsAxisConfig = {
+const configExample: string = `const axisConfig: QsAxisConfig = {
   percentageMovement: 0,
 
   domainColor: 'blue',
@@ -134,7 +138,7 @@ const axisConfigExample: string = `const axisConfig: QsAxisConfig = {
   textY: 0,
 }`
 
-export const axiesDefaults: JSX.Element = (
+export const defaultsContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Axes with default settings</ContentTitle>,
@@ -155,7 +159,7 @@ export const axiesDefaults: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {axisDefaults}
+                    {defaultsChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -176,7 +180,7 @@ export const axiesDefaults: JSX.Element = (
   ></ContentColumn>
 )
 
-export const canvasWithVisibleDisplayArea: JSX.Element = (
+export const configContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Axes with with a large config</ContentTitle>,
@@ -199,7 +203,7 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {axisConfig}
+                    {configChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -232,7 +236,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsAxisConfig}
+                    {config}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -243,7 +247,7 @@ export const configAndData: JSX.Element = (
                 <ContentSyntaxBox>
                   {' '}
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {axisConfigExample}
+                    {configExample}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -263,52 +267,8 @@ export const editorContent: JSX.Element = (
     width: 600,
     highestViewableValue: 100,
     marginBottom: 20,
-    borderColor: 'black',
+    borderColor: 'grey',
   }
-  const data1 = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']
-  const data2 = [0, 20, 20, 30, 20, 35, 0, 20, 15, 30, 10, 50]
-  const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-
-  canvas.generate.linear.vertical.axis.left(data2, {
-    tickSizeInner: -100,
-    tickSizeOuter: 1,
-    tickPadding: 2,
-    tickColor: 'lightgrey',
-    domainWidth: 3,
-    numberOfTicks: 10,
-    domainOpacity: 1,
-    percentageMovement: 0,
-    textFont: QsEnumTextFont.SERIF,
-    textFontWeight: QsEnumTextFontWeight.NORMAL,
-    textFontStyle: QsEnumTextFontStyle.ITALIC,
-    textFontSize: 3,
-    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textAngle: 0,
-    textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-    textAnchor: QsEnumTextAnchor.END,
-    textX: -20,
-    textY: 0,
-  })
-  canvas.generate.linear.horizontal.axis.bottom(data1, {
-    tickSizeInner: 2,
-    tickSizeOuter: 0,
-    tickPadding: 0,
-    domainWidth: 3,
-    domainOpacity: 1,
-    domainScale: QsEnumAxisScaleType.BANDED,
-    percentageMovement: 0,
-    textFont: QsEnumTextFont.SERIF,
-    textFontWeight: QsEnumTextFontWeight.NORMAL,
-    textFontStyle: QsEnumTextFontStyle.NORMAL,
-    textFontSize: 6,
-    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textAngle: 90,
-    textAlignmentBaseline: QsEnumAlignmentBaseline.BASELINE,
-    textAnchor: QsEnumTextAnchor.START,
-    textStroke: 'blue',
-    textFill: 'green',
-    textX: 20,
-    textY: 0,
-  })`}
+  ${configChart}`}
   />
 )

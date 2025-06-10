@@ -6,9 +6,9 @@ import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import {
-  barGroupContent,
-  barGroupDefaultsContent,
   configAndData,
+  configContent,
+  defaultsContent,
   editorContent,
 } from './Content'
 import { LinearBarsGroupedChart } from './LinearBarsGroupedChart'
@@ -36,8 +36,8 @@ export default function LinearBarGroupPage() {
   ]
 
   const contents: JSX.Element[] = [
-    barGroupDefaultsContent,
-    barGroupContent,
+    defaultsContent,
+    configContent,
     configAndData,
     editorContent,
   ]

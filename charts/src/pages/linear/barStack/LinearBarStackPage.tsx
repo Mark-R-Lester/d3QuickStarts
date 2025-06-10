@@ -5,9 +5,9 @@ import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import {
-  barStackedContent,
-  barStackedDetaultsContent,
   configAndData,
+  configContent,
+  defaultsContent,
   editorContent,
 } from './Content'
 import { BarStackedDefaultsChart } from './BarStackedDefaultsChart'
@@ -36,8 +36,8 @@ export default function LinearBarStackPage() {
   ]
 
   const contents: JSX.Element[] = [
-    barStackedDetaultsContent,
-    barStackedContent,
+    defaultsContent,
+    configContent,
     configAndData,
     editorContent,
   ]

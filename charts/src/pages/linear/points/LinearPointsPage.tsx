@@ -7,9 +7,9 @@ import { LinearPointsChart } from './LinearPointsChart'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import {
-  linearPointsDefaultsContent,
-  linearPointsContent,
   configAndData,
+  configContent,
+  defaultsContent,
   editorContent,
 } from './Content'
 
@@ -39,8 +39,8 @@ export default function LinearPointsPage() {
   ]
 
   const contents: JSX.Element[] = [
-    linearPointsDefaultsContent,
-    linearPointsContent,
+    defaultsContent,
+    configContent,
     configAndData,
     editorContent,
   ]

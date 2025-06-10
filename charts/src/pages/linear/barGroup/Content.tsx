@@ -13,6 +13,13 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import { LinearBarsGroupedChart } from './LinearBarsGroupedChart'
 import { LinearBarsGroupedDefaultsChart } from './LinearBarsGroupedDefaultsChart'
 
+const canvasConfig: string = `const canvasConfig = {
+  chartName: 'chart',
+  width: 600,
+  highestViewableValue: 40,
+} 
+`
+
 const barDataAsString: string = `const data = [
   [10, 20, 16, 23],
   [16, 32, 30, 26],
@@ -25,7 +32,7 @@ const barDataAsString: string = `const data = [
   [10, 4, 13, 32],
 ]`
 
-const barsVerticalAsString: string = `${barDataAsString}
+const defaultsChart: string = `${canvasConfig}${barDataAsString}
 
 const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
@@ -38,7 +45,7 @@ canvas.generate.linear.horizontal.axis.bottom(
   }
 )`
 
-const barsHorizontalAsString: string = `${barDataAsString}
+const configChart: string = `${canvasConfig}${barDataAsString}
 
 const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
@@ -50,6 +57,9 @@ canvas.generate.linear.horizontal.axis.bottom(
     domainScale: QsEnumAxisScaleType.BANDED,
   }
 )`
+
+const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
+const configChartAll: string = `${canvasConfig}${configChart}`
 
 const qsBarGroupData: string = `number[][]`
 
@@ -76,7 +86,7 @@ const qsBarGroupConfigExample: string = `const defaults: BarGroupConfigStrict = 
   padding: 20,
 }`
 
-export const barGroupDefaultsContent: JSX.Element = (
+export const defaultsContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Bar group defaults</ContentTitle>,
@@ -98,7 +108,7 @@ export const barGroupDefaultsContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {barsHorizontalAsString}
+                    {defaultsChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -118,7 +128,7 @@ export const barGroupDefaultsContent: JSX.Element = (
   />
 )
 
-export const barGroupContent: JSX.Element = (
+export const configContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Bar group</ContentTitle>,
@@ -141,7 +151,7 @@ export const barGroupContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {barsVerticalAsString}
+                    {configChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -233,27 +243,6 @@ export const editorContent: JSX.Element = (
   borderColor: 'grey',
 }
 
-const data = [
-  [10, 20, 16, 23],
-  [16, 32, 30, 26],
-  [40, 16, 12, 16],
-  [10, 4, 13, 32],
-  [10, 37, 21, 8],
-  [10, 20, 16, 23],
-  [10, 32, 30, 26],
-  [15, 16, 12, 16],
-  [10, 4, 13, 32],
-]
-
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-
-canvas.generate.linear.horizontal.barGroup(data)
-canvas.generate.linear.vertical.axis.left([])
-canvas.generate.linear.horizontal.axis.bottom(
-  [1, 2, 3, 4, 5, 6, 7, 8, 9],
-  {
-    domainScale: QsEnumAxisScaleType.BANDED,
-  }
-)`}
+${configChart}`}
   ></ChartEditor>
 )

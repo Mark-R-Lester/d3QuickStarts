@@ -13,7 +13,18 @@ import {
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { ChartEditor } from '../../components/molecules/ChartEditor'
 
-const areaDataAsString: string = `qsCreateCanvas(canvasConfig)
+const canvasConfig: string = `const canvasConfig = {
+  chartName: 'chart',
+  width: 600,
+  highestViewableValue: 100,
+  borderColor: 'grey',
+} 
+`
+
+const defaultsChart: string = `
+qsCreateCanvas(canvasConfig)`
+
+const configChart: string = `const canvas = qsCreateCanvas(canvasConfig)
 const data: QsAreaData = {
   higherData: [100, 100],
 }
@@ -21,14 +32,8 @@ canvas.generate.linear.horizontal.area(data)
 canvas.generate.linear.vertical.axis.left([0, 100])
 canvas.generate.linear.horizontal.axis.bottom(['0', '1'])`
 
-const canvasConfig: string = `canvasConfig: QsCanvasConfig = {
-  chartName: 'simpleCanvas',
-  width: 130,
-  highestViewableValue: 100,
-  borderColor: 'black',
-}
-
-qsCreateCanvas(canvasConfig)`
+const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
+const configChartAll: string = `${canvasConfig}${configChart}`
 
 const qsCanvasConfig: string = `export interface QsCanvasConfig {
   [key: string]: string | number | undefined
@@ -44,33 +49,33 @@ const qsCanvasConfig: string = `export interface QsCanvasConfig {
   borderColor?: string
 }`
 
-const canvasConfig1: string = `const canvasConfig =  QsCanvasConfig {
+const configExample1: string = `const canvasConfig =  QsCanvasConfig {
   chartName: 'chart1',
-  width: 800,
+  width: 600,
   highestViewableValue: 100,
   borderColor: 'black'
 }`
 
-const canvasConfig2: string = `const canvasConfig =  QsCanvasConfig {
+const configExample2: string = `const canvasConfig =  QsCanvasConfig {
   chartName: 'chart2',
-  width: 800,
+  width: 600,
   height: 250,
   highestViewableValue: 100,
   borderColor: 'black'
 }`
 
-const canvasConfig3: string = `const canvasConfig: QsCanvasConfig = {
+const configExample3: string = `const canvasConfig: QsCanvasConfig = {
   chartName: 'chart2',
-  width: 800,
+  width: 600,
   height: 250,
   lowestViewableValue: -10,
   highestViewableValue: 110,
   borderColor: 'black'
 }`
 
-const canvasConfig4: string = `const canvasConfig: QsCanvasConfig = {
+const configExample4: string = `const canvasConfig: QsCanvasConfig = {
   chartName: 'chart4',
-  width: 800,
+  width: 600,
   height: 400,
   marginRight: 45,
   marginLeft: 45,
@@ -81,7 +86,7 @@ const canvasConfig4: string = `const canvasConfig: QsCanvasConfig = {
   borderColor: 'black',
 }`
 
-export const blankCanvasContent: JSX.Element = (
+export const defaultsContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">A blank canvas</ContentTitle>,
@@ -109,7 +114,7 @@ export const blankCanvasContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {canvasConfig}
+                    {defaultsChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -117,7 +122,7 @@ export const blankCanvasContent: JSX.Element = (
             <SimpleCanvas
               canvasProps={{
                 chartName: 'chart',
-                width: 800,
+                width: 600,
                 lowestViewableValue: 0,
                 highestViewableValue: 100,
                 borderColor: 'black',
@@ -130,7 +135,7 @@ export const blankCanvasContent: JSX.Element = (
   ></ContentColumn>
 )
 
-export const canvasWithVisibleDisplayArea: JSX.Element = (
+export const configContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">The canvas display area</ContentTitle>,
@@ -166,7 +171,7 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
                 style={atomOneDark}
                 showLineNumbers={true}
               >
-                {areaDataAsString}
+                {configChartAll}
               </SyntaxHighlighter>
             </ContentSyntaxBox>,
           ]}
@@ -207,7 +212,7 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {canvasConfig1}
+                    {configExample1}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -215,7 +220,7 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
             <SimpleCanvasWithArea
               canvasProps={{
                 chartName: 'chart1',
-                width: 800,
+                width: 600,
                 highestViewableValue: 100,
                 borderColor: 'black',
               }}
@@ -243,7 +248,7 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {canvasConfig2}
+                    {configExample2}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -251,7 +256,7 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
             <SimpleCanvasWithArea
               canvasProps={{
                 chartName: 'chart2',
-                width: 800,
+                width: 600,
                 height: 250,
                 highestViewableValue: 100,
                 borderColor: 'black',
@@ -281,7 +286,7 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {canvasConfig3}
+                    {configExample3}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -289,7 +294,7 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
             <SimpleCanvasWithArea
               canvasProps={{
                 chartName: 'chart3',
-                width: 800,
+                width: 600,
                 height: 250,
                 lowestViewableValue: -10,
                 highestViewableValue: 110,
@@ -323,7 +328,7 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {canvasConfig4}
+                    {configExample4}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -331,7 +336,7 @@ export const canvasWithVisibleDisplayArea: JSX.Element = (
             <SimpleCanvasWithArea
               canvasProps={{
                 chartName: 'chart4',
-                width: 800,
+                width: 600,
                 height: 250,
                 marginRight: 45,
                 marginLeft: 45,
@@ -372,7 +377,7 @@ export const configAndData: JSX.Element = (
                 <ContentSyntaxBox>
                   {' '}
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {canvasConfig4}
+                    {configExample4}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -399,13 +404,7 @@ export const editorContent: JSX.Element = (
     highestViewableValue: 100,
     borderColor: 'black',
   }
-  const data: QsAreaData = {
-    higherData: [100, 100],
-  }
-  const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-  canvas.generate.linear.horizontal.area(data)
-  canvas.generate.linear.vertical.axis.left([])
-  canvas.generate.linear.horizontal.axis.bottom([])
+  ${configChart}
 `}
   />
 )

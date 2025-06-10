@@ -2,8 +2,8 @@ import { Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { useState } from 'react'
 import {
-  verticalBarContent,
-  horizontalBarContent,
+  defaultsContent,
+  configContent,
   editorContent,
   configAndData,
 } from './Content'
@@ -37,8 +37,8 @@ export default function LinearBarsPage() {
   ]
 
   const contents: JSX.Element[] = [
-    horizontalBarContent,
-    verticalBarContent,
+    defaultsContent,
+    configContent,
     configAndData,
     editorContent,
   ]

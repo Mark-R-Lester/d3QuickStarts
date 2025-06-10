@@ -14,7 +14,14 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import { LinearTextChart } from './LinearTextChart'
 import { LinearTextDefaultsChart } from './LinearTextDefaultsChart'
 
-const linearTextDefaultsChart: string = `const data: QsTextData[] = [
+const canvasConfig: string = `const canvasConfig = {
+  chartName: 'chart',
+  width: 600,
+  highestViewableValue: 35,
+} 
+`
+
+const defaultsChart: string = `const data: QsTextData[] = [
   { value: 25 },
   { value: 10 },
   { value: 35 },
@@ -34,7 +41,7 @@ canvas.generate.linear.horizontal.axis.bottom(
   }
 )`
 
-const linearTextCustomChart: string = `const data: QsTextData[] = [
+const configChart: string = `const data: QsTextData[] = [
   { value: 25 },
   { value: 10 },
   { value: 35 },
@@ -54,7 +61,10 @@ canvas.generate.linear.horizontal.axis.bottom(
   }
 )`
 
-const qsTextData: string = `interface QsTextData {
+const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
+const configChartAll: string = `${canvasConfig}${configChart}`
+
+const data: string = `interface QsTextData {
   value: number
   text?: string
   textFont?: QsEnumTextFont | string
@@ -69,7 +79,7 @@ const qsTextData: string = `interface QsTextData {
   textAlignmentBaseline?: QsEnumAlignmentBaseline
 }`
 
-const qsTextConfig: string = `interface QsTextConfig {
+const config: string = `interface QsTextConfig {
   [key: string]: number | QsColorScaleData | string | undefined
   scaleType?: QsEnumScaleType
   defaultDecimalPoints?: number
@@ -85,7 +95,7 @@ const qsTextConfig: string = `interface QsTextConfig {
   defaultTextAlignmentBaseline?: QsEnumAlignmentBaseline
 }`
 
-const qsTextDataExample: string = `const data: QsTextData = {
+const dataExample: string = `const data: QsTextData = {
   value: 27,
   text: 'this is what you will see if added',
   textFont: QsEnumTextFont.SERIF,
@@ -100,7 +110,7 @@ const qsTextDataExample: string = `const data: QsTextData = {
   textAlignmentBaseline: QsEnumAlignmentBaseline.CENTER,
 }`
 
-const qsTextConfigExample: string = `const config: QsTextConfig = {
+const configExample: string = `const config: QsTextConfig = {
   scaleType: QsEnumScaleType.BANDED,
   defaultDecimalPoints: 3,
   defaultTextFontSize: 10,
@@ -114,7 +124,7 @@ const qsTextConfigExample: string = `const config: QsTextConfig = {
   defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.CENTER,
 }`
 
-export const linearTextDefaultsContent: JSX.Element = (
+export const defaultsContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Text generated with defaults</ContentTitle>,
@@ -136,7 +146,7 @@ export const linearTextDefaultsContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {linearTextDefaultsChart}
+                    {defaultsChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -144,7 +154,7 @@ export const linearTextDefaultsContent: JSX.Element = (
             <LinearTextDefaultsChart
               canvasProps={{
                 chartName: 'chartH',
-                width: 800,
+                width: 600,
                 lowestViewableValue: 0,
                 highestViewableValue: 35,
               }}
@@ -157,7 +167,7 @@ export const linearTextDefaultsContent: JSX.Element = (
   />
 )
 
-export const linearTextCustomisedContent: JSX.Element = (
+export const configContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Text customised</ContentTitle>,
@@ -180,7 +190,7 @@ export const linearTextCustomisedContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {linearTextCustomChart}
+                    {configChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -188,7 +198,7 @@ export const linearTextCustomisedContent: JSX.Element = (
             <LinearTextChart
               canvasProps={{
                 chartName: 'chartV',
-                width: 800,
+                width: 600,
                 lowestViewableValue: 0,
                 highestViewableValue: 35,
               }}
@@ -213,7 +223,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsTextData}
+                    {data}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -224,7 +234,7 @@ export const configAndData: JSX.Element = (
                 <ContentSyntaxBox>
                   {' '}
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsTextDataExample}
+                    {dataExample}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -241,7 +251,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsTextConfig}
+                    {config}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -251,7 +261,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Example:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsTextConfigExample}
+                    {configExample}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -273,6 +283,6 @@ const canvasConfig = {
   highestViewableValue: 35,
   borderColor: 'grey',
 }
-${linearTextCustomChart}`}
+${configChart}`}
   ></ChartEditor>
 )

@@ -13,6 +13,13 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import { BarStackedDefaultsChart } from './BarStackedDefaultsChart'
 import { BarStackedChart } from './BarStackedChart'
 
+const canvasConfig: string = `const canvasConfig = {
+  chartName: 'chart',
+  width: 600,
+  highestViewableValue: 150,
+} 
+`
+
 const barDataAsString: string = `const data = [
   [10, 20, 16, 23],
   [16, 32, 30, 26],
@@ -25,22 +32,9 @@ const barDataAsString: string = `const data = [
   [10, 4, 13, 32],
 ]`
 
-const barsVerticalAsString: string = `${barDataAsString}
+const defaultsChart: string = `${barDataAsString}
 
-const canvas: QsCanvas = qsCreateCanvas(canvasProps)
-
-canvas.generate.linear.horizontal.barStack(data)
-canvas.generate.linear.vertical.axis.left([])
-canvas.generate.linear.horizontal.axis.bottom(
-  [1, 2, 3, 4, 5, 6, 7, 8, 9],
-  {
-    domainScale: QsEnumAxisScaleType.BANDED,
-  }
-)`
-
-const barsHorizontalAsString: string = `${barDataAsString}
-
-const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
 canvas.generate.linear.horizontal.barStack(data)
 canvas.generate.linear.vertical.axis.left([])
@@ -51,15 +45,31 @@ canvas.generate.linear.horizontal.axis.bottom(
   }
 )`
 
-const qsBarStackData: string = `number[][]`
+const configChart: string = `${barDataAsString}
 
-const qsBarStackConfig: string = `export interface QsBarGroupConfig {
+const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+
+canvas.generate.linear.horizontal.barStack(data)
+canvas.generate.linear.vertical.axis.left([])
+canvas.generate.linear.horizontal.axis.bottom(
+  [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  {
+    domainScale: QsEnumAxisScaleType.BANDED,
+  }
+)`
+
+const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
+const configChartAll: string = `${canvasConfig}${configChart}`
+
+const data: string = `number[][]`
+
+const config: string = `export interface QsBarGroupConfig {
   [key: string]: number | Iterable<String> | undefined
   padding?: number
   colorRange?: Iterable<String>
 }`
 
-const qsBarStackDataExample: string = `const data = [
+const dataExample: string = `const data = [
   [10, 20, 16, 23],
   [16, 32, 30, 26],
   [40, 16, 12, 16],
@@ -71,12 +81,12 @@ const qsBarStackDataExample: string = `const data = [
   [10, 4, 13, 32],
 ]`
 
-const qsBarStackConfigExample: string = `const defaults: BarGroupConfigStrict = {
+const configExample: string = `const defaults: BarGroupConfigStrict = {
   colorRange: schemePurples[4],
   padding: 20,
 }`
 
-export const barStackedDetaultsContent: JSX.Element = (
+export const defaultsContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Bar stack with defaults</ContentTitle>,
@@ -98,7 +108,7 @@ export const barStackedDetaultsContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {barsHorizontalAsString}
+                    {defaultsChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -118,7 +128,7 @@ export const barStackedDetaultsContent: JSX.Element = (
   />
 )
 
-export const barStackedContent: JSX.Element = (
+export const configContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Bar Stack</ContentTitle>,
@@ -141,7 +151,7 @@ export const barStackedContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {barsVerticalAsString}
+                    {configChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -173,7 +183,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsBarStackData}
+                    {data}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -184,7 +194,7 @@ export const configAndData: JSX.Element = (
                 <ContentSyntaxBox>
                   {' '}
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsBarStackDataExample}
+                    {dataExample}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -201,7 +211,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsBarStackConfig}
+                    {config}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -211,7 +221,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Example:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsBarStackConfigExample}
+                    {configExample}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -233,28 +243,7 @@ export const editorContent: JSX.Element = (
   borderColor: 'grey',
 }
 
-const data = [
-  [10, 20, 16, 23],
-  [16, 32, 30, 26],
-  [40, 16, 12, 16],
-  [10, 4, 13, 32],
-  [10, 37, 21, 8],
-  [10, 20, 16, 23],
-  [10, 32, 30, 26],
-  [15, 16, 12, 16],
-  [10, 4, 13, 32],
-]
-
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-
-canvas.generate.linear.horizontal.barStack(data)
-canvas.generate.linear.vertical.axis.left([])
-canvas.generate.linear.horizontal.axis.bottom(
-  [1, 2, 3, 4, 5, 6, 7, 8, 9],
-  {
-    domainScale: QsEnumAxisScaleType.BANDED,
-  }
-)
+${configChart}
 `}
   ></ChartEditor>
 )

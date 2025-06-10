@@ -14,8 +14,15 @@ import SyntaxHighlighter from 'react-syntax-highlighter'
 import { LinearLineDefaultsChart } from './LinearLineDefaultsChart'
 import { LinearLineChart } from './LinearLineChart'
 
-const linearLineDefaultsChartString: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
-const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+const canvasConfig: string = `const canvasConfig = {
+  chartName: 'chart',
+  width: 600,
+  highestViewableValue: 40,
+} 
+`
+
+const defaultsChart: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
+const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
  canvas.generate.linear.horizontal.line({
   data,
 })
@@ -27,8 +34,8 @@ canvas.generate.linear.horizontal.axis.bottom(
   }
 )`
 
-const linearLineChartString: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
-const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+const configChart: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
+const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
 canvas.generate.linear.vertical.line({
   data,
   strokeColor: 'red',
@@ -39,7 +46,10 @@ canvas.generate.linear.vertical.axis.left([1, 2, 3, 4, 5, 6, 7, 8], {
 })
 canvas.generate.linear.horizontal.axis.bottom([])`
 
-const qsLineData: string = `interface QsLineData {
+const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
+const configChartAll: string = `${canvasConfig}${configChart}`
+
+const data: string = `interface QsLineData {
   [key: string]: number[] | string | number | undefined
   data: number[]
   strokeOpacity?: number
@@ -47,7 +57,7 @@ const qsLineData: string = `interface QsLineData {
   strokeWidth?: number
 }`
 
-const qsLineConfig: string = `interface QsLineConfig {
+const config: string = `interface QsLineConfig {
   [key: string]: QsEnumCurve | number | string | undefined
   scaleType?: QsEnumScaleType
   curve?: QsEnumCurve
@@ -58,14 +68,14 @@ const qsLineConfig: string = `interface QsLineConfig {
   strokeLineCap?: QsEnumLineCap
 }`
 
-const qsLineDataExample: string = `const data: QsLineData = {
+const dataExample: string = `const data: QsLineData = {
   data: number[1, 2, 3, 4, 5],
   strokeOpacity?: number,
   strokeColor?: 'blue',
   strokeWidth?: 1
 }`
 
-const qsLineConfigExample: string = `const config: QsLineConfig = {
+const configExample: string = `const config: QsLineConfig = {
   scaleType: QsEnumScaleType.BANDED,
   curve: QsEnumCurve.NATURAL,
   defaultStrokeColor: 'blue',
@@ -75,7 +85,7 @@ const qsLineConfigExample: string = `const config: QsLineConfig = {
   strokeLineCap: QsEnumLineCap.ROUND,
 }`
 
-export const lineDefaultsContent: JSX.Element = (
+export const defaultsContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Line generated with defaults</ContentTitle>,
@@ -97,7 +107,7 @@ export const lineDefaultsContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {linearLineChartString}
+                    {defaultsChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -105,7 +115,7 @@ export const lineDefaultsContent: JSX.Element = (
             <LinearLineDefaultsChart
               canvasProps={{
                 chartName: 'chartH',
-                width: 800,
+                width: 600,
                 lowestViewableValue: 0,
                 highestViewableValue: 35,
               }}
@@ -118,7 +128,7 @@ export const lineDefaultsContent: JSX.Element = (
   />
 )
 
-export const lineContent: JSX.Element = (
+export const configContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle variant="h4">Line customised</ContentTitle>,
@@ -141,7 +151,7 @@ export const lineContent: JSX.Element = (
                     style={atomOneDark}
                     showLineNumbers={true}
                   >
-                    {linearLineDefaultsChartString}
+                    {configChartAll}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -149,7 +159,7 @@ export const lineContent: JSX.Element = (
             <LinearLineChart
               canvasProps={{
                 chartName: 'chartV',
-                width: 800,
+                width: 600,
                 lowestViewableValue: 0,
                 highestViewableValue: 35,
               }}
@@ -174,7 +184,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsLineData}
+                    {data}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -185,7 +195,7 @@ export const configAndData: JSX.Element = (
                 <ContentSyntaxBox>
                   {' '}
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsLineDataExample}
+                    {dataExample}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -202,7 +212,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsLineConfig}
+                    {config}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -212,7 +222,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Example:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsLineConfigExample}
+                    {configExample}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}
@@ -234,17 +244,6 @@ const canvasConfig = {
   highestViewableValue: 35,
   borderColor: 'grey',
 }
-const data = [25, 10, 35, 25, 35, 5, 25, 25]
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-canvas.generate.linear.vertical.line({
-  data,
-  strokeColor: 'red',
-  strokeWidth: 1,
-})
-canvas.generate.linear.vertical.axis.left([1, 2, 3, 4, 5, 6, 7, 8], {
-  domainScale: QsEnumAxisScaleType.POINT,
-})
-canvas.generate.linear.horizontal.axis.bottom([])
-`}
+${configChart}`}
   ></ChartEditor>
 )

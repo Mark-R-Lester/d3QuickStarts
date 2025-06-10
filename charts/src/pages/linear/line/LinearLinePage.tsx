@@ -8,9 +8,9 @@ import { LinearLineChart } from './LinearLineChart'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import {
-  lineDefaultsContent,
-  lineContent,
   configAndData,
+  configContent,
+  defaultsContent,
   editorContent,
 } from './Content'
 
@@ -40,8 +40,8 @@ export default function LinearLinePage() {
   ]
 
   const contents: JSX.Element[] = [
-    lineDefaultsContent,
-    lineContent,
+    defaultsContent,
+    configContent,
     configAndData,
     editorContent,
   ]

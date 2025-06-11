@@ -7,7 +7,7 @@ import {
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
-export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
+export const RadialConfigChart: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {
@@ -18,25 +18,15 @@ export const RadialDoughnutElement: FunctionComponent<ChartProps> = ({
           fillColor: 'salmon',
           fillOpacity: 0.5,
           strokeWidth: 1,
-          strokeColor: 'red',
+          strokeColor: 'grey',
         },
         { value: 1, fillColor: 'salmon' },
-        { value: 1, fillColor: 'hotpink' },
-        { value: 1, fillColor: 'hotpink' },
         { value: 1, fillColor: 'hotpink' },
         { value: 1, fillColor: 'hotpink' },
         { value: 1, fillColor: 'maroon' },
         { value: 1, fillColor: 'darksalmon' },
         { value: 1, fillColor: 'brown' },
-        { value: 1, fillColor: 'magenta' },
-        { value: 1, fillColor: 'hotpink' },
-        { value: 1, fillColor: 'hotpink' },
         { value: 1, fillColor: 'purple' },
-        { value: 1, fillColor: 'purple' },
-        { value: 1, fillColor: 'purple' },
-        { value: 1, fillColor: 'salmon' },
-        { value: 1, fillColor: 'salmon' },
-        { value: 1, fillColor: 'maroon' },
         { value: 1, fillColor: 'salmon' },
       ]
 

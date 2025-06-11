@@ -1,14 +1,20 @@
 import { Box, Typography } from '@mui/material'
-
 import { useState } from 'react'
-
-import { RadialDoughnutElement } from './RadialDoughnut'
-import { RadialPieElement } from './RadialPie'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
+import {
+  defaultsContent,
+  configContent,
+  configAndData,
+  editorContent,
+} from './Content'
+import { RadialConfigChart } from './RadialConfigChart'
+import { RadialDefaultsChart } from './RadialDefaultsChart'
+import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
+import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 
 export default function RadialArcPage() {
   const menuElements: JSX.Element[] = [
-    <RadialDoughnutElement
+    <RadialDefaultsChart
       canvasProps={{
         chartName: 'radialDoughnut',
         width: 130,
@@ -16,7 +22,7 @@ export default function RadialArcPage() {
         highestViewableValue: 60,
       }}
     />,
-    <RadialPieElement
+    <RadialConfigChart
       canvasProps={{
         chartName: 'radialPie',
         width: 130,
@@ -24,42 +30,31 @@ export default function RadialArcPage() {
         highestViewableValue: 250,
       }}
     />,
+    <ConfigAndData />,
+    <TryItYourSelf />,
   ]
 
-  const charts: JSX.Element[] = [
-    <RadialDoughnutElement
-      canvasProps={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 60,
-      }}
-    />,
-    <RadialPieElement
-      canvasProps={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      }}
-    />,
+  const contents: JSX.Element[] = [
+    defaultsContent,
+    configContent,
+    configAndData,
+    editorContent,
   ]
-
-  const [chart, setChart] = useState<JSX.Element>(charts[0])
+  const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
-    setChart(charts[index])
+    setContent(contents[index])
   }
 
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Radial Arc
+        Radial
       </Typography>
       <ChartButtonGrid
         onClick={onClick}
         elements={menuElements}
       ></ChartButtonGrid>
-      <Box>{chart}</Box>
+      <Box>{content}</Box>
     </>
   )
 }

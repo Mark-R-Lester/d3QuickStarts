@@ -1,15 +1,21 @@
 import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
-import { RadialTextFollowElement } from './RadialTextFollow'
-import { RadialTextHorizontalElement } from './RadialTextHorizontal'
-import { RadialTextRotatedElement } from './RadialTextRotated'
-import { RadialTextSpokeElement } from './RadialTextSpoke'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
+import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
+import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
+import {
+  defaultsContent,
+  configContent,
+  configAndData,
+  editorContent,
+} from './Content'
+import { RadialTextDefaultsChart } from './RadialTextDefaultsChart'
+import { RadialTextConfigChart } from './RadialTextConfigChart'
 
 export default function RadialArcTextPage() {
   const menuElements: JSX.Element[] = [
-    <RadialTextFollowElement
+    <RadialTextDefaultsChart
       canvasProps={{
         chartName: 'radialFollowText',
         width: 130,
@@ -17,7 +23,7 @@ export default function RadialArcTextPage() {
         highestViewableValue: 250,
       }}
     />,
-    <RadialTextSpokeElement
+    <RadialTextConfigChart
       canvasProps={{
         chartName: 'radialSpokeText',
         width: 130,
@@ -25,74 +31,31 @@ export default function RadialArcTextPage() {
         highestViewableValue: 250,
       }}
     />,
-    <RadialTextHorizontalElement
-      canvasProps={{
-        chartName: 'radialHorizontalText',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      }}
-    />,
-    <RadialTextRotatedElement
-      canvasProps={{
-        chartName: 'radialRotatedText',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      }}
-    />,
+    <ConfigAndData />,
+    <TryItYourSelf />,
   ]
 
-  const charts: JSX.Element[] = [
-    <RadialTextFollowElement
-      canvasProps={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      }}
-    />,
-    <RadialTextSpokeElement
-      canvasProps={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      }}
-    />,
-    <RadialTextHorizontalElement
-      canvasProps={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      }}
-    />,
-    <RadialTextRotatedElement
-      canvasProps={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      }}
-    />,
+  const contents: JSX.Element[] = [
+    defaultsContent,
+    configContent,
+    configAndData,
+    editorContent,
   ]
-
-  const [chart, setChart] = useState<JSX.Element>(charts[0])
+  const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
-    setChart(charts[index])
+    setContent(contents[index])
   }
 
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Radial Arc Text
+        Radial Text
       </Typography>
       <ChartButtonGrid
         onClick={onClick}
         elements={menuElements}
       ></ChartButtonGrid>
-      <Box>{chart}</Box>
+      <Box>{content}</Box>
     </>
   )
 }

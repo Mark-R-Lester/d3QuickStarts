@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import { QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
-export const RadialLineElement: FunctionComponent<ChartProps> = ({
+export const RadialLineDefaultsChart: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {
@@ -14,7 +14,7 @@ export const RadialLineElement: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
-      canvas.generate.radialCentroid.line({ data, color: 'green' })
+      canvas.generate.radialCentroid.line({ data })
     }
     createChart()
   }, [canvasProps])

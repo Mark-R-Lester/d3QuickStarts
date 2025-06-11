@@ -1,46 +1,60 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { useState } from 'react'
-import { RadialLineElement } from './RadialLine'
+import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
+import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
+import {
+  defaultsContent,
+  configContent,
+  configAndData,
+  editorContent,
+} from './Content'
+import { RadialLineDefaultsChart } from './RadialLineDefaultsChart'
+import { RadialLineChart } from './RadialLineChart'
 
 export default function RadialCentroidLinePage() {
   const menuElements: JSX.Element[] = [
-    <RadialLineElement
+    <RadialLineDefaultsChart
       canvasProps={{
-        chartName: 'radialLine',
+        chartName: 'radialLineDefaultsChart',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 23,
       }}
     />,
-  ]
-
-  const charts: JSX.Element[] = [
-    <RadialLineElement
+    <RadialLineChart
       canvasProps={{
-        chartName: 'chart',
-        width: 800,
+        chartName: 'radialLineChart',
+        width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 23,
       }}
     />,
+    <ConfigAndData />,
+    <TryItYourSelf />,
   ]
 
-  const [chart, setChart] = useState<JSX.Element>(charts[0])
+  const contents: JSX.Element[] = [
+    defaultsContent,
+    configContent,
+    configAndData,
+    editorContent,
+  ]
+  const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
-    setChart(charts[index])
+    setContent(contents[index])
   }
 
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Radial Centroid Line
+        Radial
       </Typography>
       <ChartButtonGrid
         onClick={onClick}
         elements={menuElements}
       ></ChartButtonGrid>
-      <Box>{chart}</Box>
+      <Box>{content}</Box>
     </>
   )
 }

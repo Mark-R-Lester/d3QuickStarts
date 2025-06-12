@@ -11,7 +11,7 @@ import {
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
-export const RadialAxisElement: FunctionComponent<ChartProps> = ({
+export const RadialAxisChart: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {
@@ -19,7 +19,6 @@ export const RadialAxisElement: FunctionComponent<ChartProps> = ({
       const data: number[] = [5, 10, 15, 50]
 
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
-
       canvas.generate.radialCentroid.axis(data, {
         radius: 100,
         x: 50,

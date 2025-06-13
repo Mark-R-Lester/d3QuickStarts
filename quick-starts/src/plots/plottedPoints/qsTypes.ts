@@ -1,7 +1,7 @@
 import { Selection } from 'd3'
 import { QsCoordinate } from '../../d3QuickStart'
 
-export interface QsScatterPlotConfig {
+export interface QsPlottedPointsConfig {
   [key: string]: number | string | undefined
   defaultRadius?: number
   defaultFillColor?: string
@@ -11,7 +11,7 @@ export interface QsScatterPlotConfig {
   defaultStrokeOpacity?: number
 }
 
-export interface QsPlottedPointData extends QsCoordinate {
+export interface QsPlottedPointsData extends QsCoordinate {
   [key: string]: number | string | undefined
   radius?: number
   opacity?: number
@@ -22,7 +22,7 @@ export interface QsPlottedPointData extends QsCoordinate {
   strokeOpacity?: number
 }
 
-export interface QsScatterPlot {
+export interface QsPlottedPoints {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>

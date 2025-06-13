@@ -1,6 +1,6 @@
-import { Canvas, QsPlottedPointData } from '../../d3QuickStart'
+import { Canvas, QsPlottedPointsData } from '../../d3QuickStart'
 
-export interface ScatterPlotConfigStrict {
+export interface PlottedPointsConfigStrict {
   [key: string]: number | string | undefined
   defaultRadius: number
   defaultFillColor: string
@@ -23,8 +23,8 @@ export interface CalculatedData {
 
 export const getCalculatedData = (
   canvas: Canvas,
-  data: QsPlottedPointData[],
-  config: ScatterPlotConfigStrict
+  data: QsPlottedPointsData[],
+  config: PlottedPointsConfigStrict
 ): CalculatedData[] => {
   const { xDataScalePlotted, yDataScalePlotted, genralPercentScale } =
     canvas.scales

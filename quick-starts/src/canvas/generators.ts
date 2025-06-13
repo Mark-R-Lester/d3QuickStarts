@@ -41,9 +41,9 @@ import {
   QsRadialSpokesConfig,
   QsRadialText,
   QsRadialTextConfig,
-  QsScatterPlot,
-  QsScatterPlotConfig,
-  QsPlottedPointData,
+  QsPlottedPoints,
+  QsPlottedPointsConfig,
+  QsPlottedPointsData,
   QsPlottedText,
   QsPlottedTextArgs,
   QsPlottedTextConfig,
@@ -116,7 +116,10 @@ interface plottedElementFunctions {
   legend: (data: QsLegendData[], customConfig?: QsLegendConfig) => {}
   line: (data: QsPlottedLineData, customConfig?: QsLinePlotConfig) => {}
   text: (data: QsPlottedTextArgs[], customConfig?: QsPlottedTextConfig) => {}
-  points: (data: QsPlottedPointData[], customConfig?: QsScatterPlotConfig) => {}
+  points: (
+    data: QsPlottedPointsData[],
+    customConfig?: QsPlottedPointsConfig
+  ) => {}
 }
 
 interface radialArcTextElementFunctions {
@@ -322,9 +325,9 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         return element
       },
       points: (
-        data: QsPlottedPointData[],
-        customConfig?: QsScatterPlotConfig
-      ): QsScatterPlot => {
+        data: QsPlottedPointsData[],
+        customConfig?: QsPlottedPointsConfig
+      ): QsPlottedPoints => {
         const element = plottedPoint.points(canvas, data, customConfig)
         elements.push({ element, data })
         return element

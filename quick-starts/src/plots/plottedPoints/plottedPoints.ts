@@ -6,18 +6,18 @@ import { Canvas } from '../../d3QuickStart'
 import {
   CalculatedData,
   getCalculatedData,
-  ScatterPlotConfigStrict,
+  PlottedPointsConfigStrict,
 } from './calculatedData'
 import {
-  QsScatterPlotConfig,
-  QsScatterPlot,
-  QsPlottedPointData,
+  QsPlottedPointsConfig,
+  QsPlottedPoints,
+  QsPlottedPointsData,
 } from './qsTypes'
 
 const addDefaultsToConfig = (
-  customConfig?: QsScatterPlotConfig
-): ScatterPlotConfigStrict => {
-  const defaults: ScatterPlotConfigStrict = {
+  customConfig?: QsPlottedPointsConfig
+): PlottedPointsConfigStrict => {
+  const defaults: PlottedPointsConfigStrict = {
     defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
     defaultFillColor: GlobalDefaultColors.POINT_FILL,
     defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
@@ -36,19 +36,19 @@ const addDefaultsToConfig = (
 export const plottedPoint = {
   points: (
     canvas: Canvas,
-    data: QsPlottedPointData[],
-    customConfig?: QsScatterPlotConfig
-  ): QsScatterPlot => {
-    const config: ScatterPlotConfigStrict = addDefaultsToConfig(customConfig)
+    data: QsPlottedPointsData[],
+    customConfig?: QsPlottedPointsConfig
+  ): QsPlottedPoints => {
+    const config: PlottedPointsConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, data, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  data: QsPlottedPointData[],
-  config: ScatterPlotConfigStrict
-): QsScatterPlot => {
+  data: QsPlottedPointsData[],
+  config: PlottedPointsConfigStrict
+): QsPlottedPoints => {
   const dataPoints = canvas.displayGroup.append('g')
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,

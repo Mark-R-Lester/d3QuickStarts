@@ -65,7 +65,7 @@ canvas.generate.linear.horizontal.axis.bottom([])`
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`
 
-const data: string = `interface QsPlottedPointData {
+const data: string = `interface QsPlottedPointsData {
   x: number
   y: number
   radius?: number
@@ -77,7 +77,7 @@ const data: string = `interface QsPlottedPointData {
   strokeOpacity?: number
 }`
 
-const config: string = `interface QsScatterPlotConfig {
+const config: string = `interface QsPlottedPointsConfig {
   defaultRadius?: number
   defaultFillColor?: string
   defaultFillOpacity?: number
@@ -86,7 +86,7 @@ const config: string = `interface QsScatterPlotConfig {
   defaultStrokeOpacity?: number
 }`
 
-const dataExample: string = `const data: QsPlottedPointData = {
+const dataExample: string = `const data: QsPlottedPointsData = {
   x: 10,
   y: 20,
   radius: 3,
@@ -98,7 +98,7 @@ const dataExample: string = `const data: QsPlottedPointData = {
   strokeOpacity: 1,
 }`
 
-const configExample: string = `const config: QsScatterPlotConfig = {
+const configExample: string = `const config: QsPlottedPointsConfig = {
   defaultRadius: 2,
   defaultFillColor: 'blue',
   defaultFillOpacity: 1,

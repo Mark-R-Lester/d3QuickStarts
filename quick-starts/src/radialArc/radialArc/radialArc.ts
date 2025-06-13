@@ -6,10 +6,6 @@ import {
   updateCalculatedData,
 } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
 import {
   QsRadialConfig,
@@ -17,7 +13,7 @@ import {
   QsRadialTransitionData,
   QsRadialData,
 } from './qsTypes'
-import { radialArcConfig } from '../../canvas/config'
+import { radialArcConfig } from '../../core/config'
 
 interface DrawArgs {
   data: QsRadialData[]
@@ -26,7 +22,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsRadialConfig
 ): RadialConfigStrict => {
-  const defaults: RadialConfigStrict = radialArcConfig
+  const defaults: RadialConfigStrict = { ...radialArcConfig }
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

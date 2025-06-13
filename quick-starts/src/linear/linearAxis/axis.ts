@@ -8,7 +8,7 @@ import {
   linearAxisConfigBottom,
   linearAxisConfigLeft,
   linearAxisConfigRight,
-} from '../../canvas/config'
+} from '../../core/config'
 
 const addDefaultsToConfig = (
   chartEdge: ChartEdge,
@@ -16,10 +16,10 @@ const addDefaultsToConfig = (
 ): AxisConfigStrict => {
   const getConfig = (chartEdge: ChartEdge): AxisConfigStrict => {
     const configs = {
-      [ChartEdge.TOP]: linearAxisConfigTop,
-      [ChartEdge.BOTTOM]: linearAxisConfigBottom,
-      [ChartEdge.LEFT]: linearAxisConfigLeft,
-      [ChartEdge.RIGHT]: linearAxisConfigRight,
+      [ChartEdge.TOP]: { ...linearAxisConfigTop },
+      [ChartEdge.BOTTOM]: { ...linearAxisConfigBottom },
+      [ChartEdge.LEFT]: { ...linearAxisConfigLeft },
+      [ChartEdge.RIGHT]: { ...linearAxisConfigRight },
     }
     return configs[chartEdge]
   }

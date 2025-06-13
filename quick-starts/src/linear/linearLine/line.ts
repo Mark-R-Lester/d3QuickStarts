@@ -10,10 +10,10 @@ import {
   QsLine,
   QsLineTransitionData,
 } from './qsTypes'
-import { linearLineConfig } from '../../canvas/config'
+import { linearLineConfig } from '../../core/config'
 
 const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
-  const defaults: LineConfigStrict = linearLineConfig
+  const defaults: LineConfigStrict = { ...linearLineConfig }
 
   if (!customConfig) return defaults
 

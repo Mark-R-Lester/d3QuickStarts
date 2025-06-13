@@ -11,14 +11,14 @@ import {
   QsAreaTransitionData,
 } from './qsTypes'
 import { AreaConfigStrict, AreaData, CalculatedData } from './types'
-import { linearAreaConfig } from '../../canvas/config'
+import { linearAreaConfig } from '../../core/config'
 
 interface DrawArgs {
   data: QsAreaData
 }
 
 const addDefaultsToConfig = (customConfig?: QsAreaConfig): AreaConfigStrict => {
-  const defaults: AreaConfigStrict = linearAreaConfig
+  const defaults: AreaConfigStrict = { ...linearAreaConfig }
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

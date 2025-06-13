@@ -14,10 +14,10 @@ import {
   QsTextTransitionData,
 } from './qsTypes'
 import { interpolate } from 'd3'
-import { linearTextConfig } from '../../canvas/config'
+import { linearTextConfig } from '../../core/config'
 
 const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
-  const defaults: TextConfigStrict = linearTextConfig
+  const defaults: TextConfigStrict = { ...linearTextConfig }
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

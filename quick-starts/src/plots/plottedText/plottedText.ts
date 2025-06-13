@@ -5,7 +5,7 @@ import {
   QsPlottedText,
 } from './qsTypes'
 import { PlottedTextConfigStrict } from './types'
-import { plottedTextConfig } from '../../canvas/config'
+import { plottedTextConfig } from '../../core/config'
 
 interface DrawArgs {
   data: QsPlottedTextArgs[]
@@ -14,7 +14,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsPlottedTextConfig
 ): PlottedTextConfigStrict => {
-  const defaults: PlottedTextConfigStrict = plottedTextConfig
+  const defaults: PlottedTextConfigStrict = { ...plottedTextConfig }
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

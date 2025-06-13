@@ -9,12 +9,12 @@ import {
   QsPointsConfig,
   QsPointsTransitionData,
 } from './qsTypes'
-import { linearPointsConfig } from '../../canvas/config'
+import { linearPointsConfig } from '../../core/config'
 
 const addDefaultsToConfig = (
   customConfig?: QsPointsConfig
 ): PointsConfigStrict => {
-  const defaults: PointsConfigStrict = linearPointsConfig
+  const defaults: PointsConfigStrict = { ...linearPointsConfig }
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

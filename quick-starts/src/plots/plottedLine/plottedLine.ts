@@ -6,14 +6,14 @@ import {
   QsPlottedLineData,
 } from '../../d3QuickStart'
 import { LinePlotConfigStrict } from './types'
-import { plottedLineConfig } from '../../canvas/config'
+import { plottedLineConfig } from '../../core/config'
 import { constantsCurves } from '../../core/constants/constants'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 
 const addDefaultsToConfig = (
   customConfig?: QsLinePlotConfig
 ): LinePlotConfigStrict => {
-  const defaults: LinePlotConfigStrict = plottedLineConfig
+  const defaults: LinePlotConfigStrict = { ...plottedLineConfig }
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

@@ -1,7 +1,7 @@
 import { arc as d3arc } from 'd3'
 import { getCalculatedData } from './calculatedData'
 import { RadialAxisConfigStrict, CalculatedData } from './types'
-import { radialCentroidAxisConfig } from '../../canvas/config'
+import { radialCentroidAxisConfig } from '../../core/config'
 import { Canvas } from '../../d3QuickStart'
 import { QsRadialAxisConfig, QsRadialAxis } from './qsTypes'
 
@@ -12,7 +12,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsRadialAxisConfig
 ): RadialAxisConfigStrict => {
-  const defaults: RadialAxisConfigStrict = radialCentroidAxisConfig
+  const defaults: RadialAxisConfigStrict = { ...radialCentroidAxisConfig }
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

@@ -8,7 +8,7 @@ import {
   QsRadialPoints,
   QsRadialPointsTransitionData,
 } from './qsTypes'
-import { radialCentroidPointsConfig } from '../../canvas/config'
+import { radialCentroidPointsConfig } from '../../core/config'
 
 interface DrawArgs {
   data: QsRadialPointData[]
@@ -17,7 +17,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsRadialPointsConfig
 ): RadialPointsConfigStrict => {
-  const defaults: RadialPointsConfigStrict = radialCentroidPointsConfig
+  const defaults: RadialPointsConfigStrict = { ...radialCentroidPointsConfig }
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

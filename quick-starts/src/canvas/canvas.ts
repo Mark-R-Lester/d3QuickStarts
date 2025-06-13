@@ -3,7 +3,7 @@ import { getGenerators, QsGenerator } from './generators'
 import { CanvasConfigStrict } from './types'
 import { Selection, select } from 'd3'
 import { QsCanvas, QsCanvasConfig } from './qsTypes'
-import { canvasConfig } from './config'
+import { canvasConfig } from '../core/config'
 
 export interface Canvas {
   displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
@@ -14,7 +14,7 @@ export interface Canvas {
 const addDefaultsToConfig = (
   customConfig?: QsCanvasConfig
 ): CanvasConfigStrict => {
-  const defaults: CanvasConfigStrict = canvasConfig
+  const defaults: CanvasConfigStrict = { ...canvasConfig }
   if (!customConfig) return defaults
   if (customConfig.width) {
     defaults.height = (customConfig.width * 70) / 100

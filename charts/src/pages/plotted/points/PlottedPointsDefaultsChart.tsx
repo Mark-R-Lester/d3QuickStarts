@@ -1,5 +1,9 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas, QsPlottedPointData } from 'd3qs/d3QuickStart'
+import {
+  QsCanvas,
+  qsCreateCanvas,
+  QsPlottedPointsData,
+} from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
 export const PlottedPointsDefaultsChart: FunctionComponent<ChartProps> = ({
@@ -7,7 +11,7 @@ export const PlottedPointsDefaultsChart: FunctionComponent<ChartProps> = ({
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const data: QsPlottedPointData[] = [
+      const data: QsPlottedPointsData[] = [
         { x: 15, y: 10 },
         { x: 20, y: 30 },
         { x: 40, y: 26 },

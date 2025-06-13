@@ -22,7 +22,7 @@ import {
   radialArcTextConfigHorizontal,
   radialArcTextConfigRotated,
   radialArcTextConfigSpoke,
-} from '../../canvas/config'
+} from '../../core/config'
 
 interface DrawArgs {
   data: QsValuedText[]
@@ -36,10 +36,10 @@ const addDefaultsToConfig = (
 ): RadialTextConfigStrict => {
   const getConfig = (type: RadialTextType): RadialTextConfigStrict => {
     const configs = {
-      [RadialTextType.ROTATED]: radialArcTextConfigRotated,
-      [RadialTextType.HORIZONTAL]: radialArcTextConfigHorizontal,
-      [RadialTextType.FOLLOW]: radialArcTextConfigFollow,
-      [RadialTextType.SPOKE]: radialArcTextConfigSpoke,
+      [RadialTextType.ROTATED]: { ...radialArcTextConfigRotated },
+      [RadialTextType.HORIZONTAL]: { ...radialArcTextConfigHorizontal },
+      [RadialTextType.FOLLOW]: { ...radialArcTextConfigFollow },
+      [RadialTextType.SPOKE]: { ...radialArcTextConfigSpoke },
     }
     return configs[type]
   }

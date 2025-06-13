@@ -3,7 +3,7 @@ import { getCalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
 import { QsRadialSpokesConfig, QsRadialSpokes } from './qsTypes'
 import { CalculatedData, RadialSpokesConfigStrict } from './types'
-import { radialCentroidSpokesConfig } from '../../canvas/config'
+import { radialCentroidSpokesConfig } from '../../core/config'
 
 interface DrawArgs {
   data: number
@@ -12,7 +12,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsRadialSpokesConfig
 ): RadialSpokesConfigStrict => {
-  const defaults: RadialSpokesConfigStrict = radialCentroidSpokesConfig
+  const defaults: RadialSpokesConfigStrict = { ...radialCentroidSpokesConfig }
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

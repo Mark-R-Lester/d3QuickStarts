@@ -15,7 +15,7 @@ import {
   QsRadialAreaData,
   QsRadialAreaTransitionData,
 } from './qsTypes'
-import { radialCentroidAreaConfig } from '../../canvas/config'
+import { radialCentroidAreaConfig } from '../../core/config'
 
 interface DrawArgs {
   data: QsRadialAreaData
@@ -24,7 +24,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsRadialAreaConfig
 ): RadialAreaConfigStrict => {
-  const defaults: RadialAreaConfigStrict = radialCentroidAreaConfig
+  const defaults: RadialAreaConfigStrict = { ...radialCentroidAreaConfig }
 
   if (!customConfig) return defaults
 

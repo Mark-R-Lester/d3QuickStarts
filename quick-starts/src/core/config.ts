@@ -1,18 +1,6 @@
 import { schemePurples } from 'd3'
-import { GlobalDefaultColors, GlobalDefaultSettings } from '../core/enums/enums'
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-  QsEnumAlignmentBaseline,
-  QsEnumLineJoin,
-  QsEnumCurve,
-  QsEnumLineCap,
-  QsEnumAxisScaleType,
-  QsEnumScaleType,
-} from '../d3QuickStart'
+import { GlobalDefaultColors, GlobalDefaultSettings } from './enums/enums'
+
 import { LegendConfigStrict } from '../legend/types'
 import { AreaConfigStrict } from '../linear/linearArea/types'
 import {
@@ -21,7 +9,7 @@ import {
 } from '../linear/linearAxis/types'
 import { BarConfigStrict } from '../linear/linearBar/types'
 import { BarGroupConfigStrict } from '../linear/linearBarGroup/types'
-import { CanvasConfigStrict } from './types'
+import { CanvasConfigStrict } from '../canvas/types'
 import { BarStackedConfigStrict } from '../linear/linearBarStack/types'
 import { LineConfigStrict } from '../linear/linearLine/types'
 import { PointsConfigStrict } from '../linear/linearPoints/types'
@@ -39,6 +27,19 @@ import { RadialAxisConfigStrict } from '../radialCentroid/radialCentroidAxis/typ
 import { RadialLineConfigStrict } from '../radialCentroid/radialCentroidLine/types'
 import { RadialPointsConfigStrict } from '../radialCentroid/radialCentroidPoints/types'
 import { RadialSpokesConfigStrict } from '../radialCentroid/radialCentroidSpokes/types'
+import {
+  QsEnumAlignmentBaseline,
+  QsEnumAxisScaleType,
+  QsEnumCurve,
+  QsEnumLineCap,
+  QsEnumLineJoin,
+  QsEnumScaleType,
+  QsEnumTextAnchor,
+  QsEnumTextDecorationLine,
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+} from './enums/qsEnums'
 
 export const canvasConfig: CanvasConfigStrict = {
   chartName: '',

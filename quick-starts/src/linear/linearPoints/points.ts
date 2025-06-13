@@ -1,11 +1,7 @@
-import { Canvas, QsEnumScaleType } from '../../d3QuickStart'
+import { Canvas } from '../../d3QuickStart'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { DrawArgs, PointsConfigStrict } from './types'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-  Orientation,
-} from '../../core/enums/enums'
+import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
   QsPointData,
@@ -13,21 +9,12 @@ import {
   QsPointsConfig,
   QsPointsTransitionData,
 } from './qsTypes'
+import { linearPointsConfig } from '../../canvas/config'
 
 const addDefaultsToConfig = (
   customConfig?: QsPointsConfig
 ): PointsConfigStrict => {
-  const defaults: PointsConfigStrict = {
-    scaleType: QsEnumScaleType.LINEAR,
-    defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
-    defaultFillColor: GlobalDefaultColors.POINT_FILL,
-    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
-    defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
-    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-    fillColorScaleData: undefined,
-    strokeColorScaleData: undefined,
-  }
+  const defaults: PointsConfigStrict = linearPointsConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

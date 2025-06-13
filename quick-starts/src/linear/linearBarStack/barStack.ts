@@ -1,4 +1,3 @@
-import { schemePurples } from 'd3'
 import { BarStackedConfigStrict } from './types'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
@@ -8,6 +7,7 @@ import {
   QsBarStack,
   QsBarStackedTransitionData,
 } from './qsTypes'
+import { linearBarStackConfig } from '../../canvas/config'
 
 interface DrawArgs {
   data: number[][]
@@ -16,10 +16,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsBarStackedConfig
 ): BarStackedConfigStrict => {
-  const defaults: BarStackedConfigStrict = {
-    colorRange: schemePurples[4],
-    padding: 20,
-  }
+  const defaults: BarStackedConfigStrict = linearBarStackConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

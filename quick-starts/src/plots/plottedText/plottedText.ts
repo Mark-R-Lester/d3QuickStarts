@@ -1,22 +1,11 @@
 import { Canvas } from '../../d3QuickStart'
 import {
-  QsEnumAlignmentBaseline,
-  QsEnumTextAnchor,
-  QsEnumTextDecorationLine,
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-} from '../../core/enums/qsEnums'
-import {
   QsPlottedTextArgs,
   QsPlottedTextConfig,
   QsPlottedText,
 } from './qsTypes'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
 import { PlottedTextConfigStrict } from './types'
+import { plottedTextConfig } from '../../canvas/config'
 
 interface DrawArgs {
   data: QsPlottedTextArgs[]
@@ -25,18 +14,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsPlottedTextConfig
 ): PlottedTextConfigStrict => {
-  const defaults: PlottedTextConfigStrict = {
-    textFont: QsEnumTextFont.SERIF,
-    textFontSize: GlobalDefaultSettings.FONT_SIZE,
-    textFontStyle: QsEnumTextFontStyle.NORMAL,
-    textFontWeight: QsEnumTextFontWeight.NORMAL,
-    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textFill: GlobalDefaultColors.TEXT_FILL_COLOR,
-    textAngle: GlobalDefaultSettings.TEXT_ANGLE,
-    textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
-    textAnchor: QsEnumTextAnchor.START,
-    textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-  }
+  const defaults: PlottedTextConfigStrict = plottedTextConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

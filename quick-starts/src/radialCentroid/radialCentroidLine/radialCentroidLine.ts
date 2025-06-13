@@ -15,24 +15,12 @@ import {
   QsRadialLineData,
 } from './qsTypes'
 import { RadialLineConfigStrict } from './types'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
+import { radialCentroidLineConfig } from '../../canvas/config'
 
 const addDefaultsToConfig = (
   customConfig?: QsRadialLineConfig
 ): RadialLineConfigStrict => {
-  const defaults: RadialLineConfigStrict = {
-    curve: QsEnumCurve.LINEAR,
-    strokeLineJoin: QsEnumLineJoin.ROUND,
-    strokeLineCap: QsEnumLineCap.ROUND,
-    defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
-    defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
-    x: GlobalDefaultSettings.RADIAL_X,
-    y: GlobalDefaultSettings.RADIAL_Y,
-  }
+  const defaults: RadialLineConfigStrict = radialCentroidLineConfig
 
   if (!customConfig) return defaults
 

@@ -2,11 +2,8 @@ import { line } from 'd3'
 import { getCalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
 import { QsRadialSpokesConfig, QsRadialSpokes } from './qsTypes'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
 import { CalculatedData, RadialSpokesConfigStrict } from './types'
+import { radialCentroidSpokesConfig } from '../../canvas/config'
 
 interface DrawArgs {
   data: number
@@ -15,15 +12,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsRadialSpokesConfig
 ): RadialSpokesConfigStrict => {
-  const defaults: RadialSpokesConfigStrict = {
-    radius: 100,
-    innerRadius: 0,
-    x: GlobalDefaultSettings.RADIAL_X,
-    y: GlobalDefaultSettings.RADIAL_Y,
-    strokeColor: GlobalDefaultColors.AXIS_COLOR,
-    strokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-    strokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
-  }
+  const defaults: RadialSpokesConfigStrict = radialCentroidSpokesConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

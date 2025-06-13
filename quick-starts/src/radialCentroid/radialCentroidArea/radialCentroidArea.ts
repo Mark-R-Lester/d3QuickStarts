@@ -15,10 +15,7 @@ import {
   QsRadialAreaData,
   QsRadialAreaTransitionData,
 } from './qsTypes'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
+import { radialCentroidAreaConfig } from '../../canvas/config'
 
 interface DrawArgs {
   data: QsRadialAreaData
@@ -27,18 +24,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsRadialAreaConfig
 ): RadialAreaConfigStrict => {
-  const defaults: RadialAreaConfigStrict = {
-    curve: QsEnumCurve.LINEAR,
-    x: 50,
-    y: 50,
-    strokeLineJoin: QsEnumLineJoin.ROUND,
-    strokeLineCap: QsEnumLineCap.ROUND,
-    defaultFillColor: GlobalDefaultColors.AREA_FILL_COLOR,
-    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
-    defaultStrokeColor: GlobalDefaultColors.AREA_STROKE_COLOR,
-    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-  }
+  const defaults: RadialAreaConfigStrict = radialCentroidAreaConfig
 
   if (!customConfig) return defaults
 

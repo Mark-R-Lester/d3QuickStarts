@@ -5,11 +5,7 @@ import {
   updateCalculatedData,
 } from './calculatedData'
 import { DrawArgs, TextConfigStrict } from './types'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-  Orientation,
-} from '../../core/enums/enums'
+import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
   QsTextData,
@@ -17,32 +13,11 @@ import {
   QsTextConfig,
   QsTextTransitionData,
 } from './qsTypes'
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-  QsEnumAlignmentBaseline,
-  QsEnumScaleType,
-} from '../../core/enums/qsEnums'
 import { interpolate } from 'd3'
+import { linearTextConfig } from '../../canvas/config'
 
 const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
-  const defaults: TextConfigStrict = {
-    scaleType: QsEnumScaleType.LINEAR,
-    defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
-    defaultTextFont: QsEnumTextFont.SERIF,
-    defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
-    defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
-    defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
-    defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    defaultTextFill: GlobalDefaultColors.TEXT_FILL_COLOR,
-    defaultTextAngle: GlobalDefaultSettings.TEXT_ANGLE,
-    defaultTextStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
-    defaultTextAnchor: QsEnumTextAnchor.START,
-    defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-  }
+  const defaults: TextConfigStrict = linearTextConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

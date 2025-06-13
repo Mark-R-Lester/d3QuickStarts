@@ -1,19 +1,9 @@
 import { arc as d3arc } from 'd3'
 import { getCalculatedData } from './calculatedData'
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-  QsEnumAlignmentBaseline,
-} from '../../core/enums/qsEnums'
-import { Canvas, QsRadialAxis, QsRadialAxisConfig } from '../../d3QuickStart'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
 import { RadialAxisConfigStrict, CalculatedData } from './types'
+import { radialCentroidAxisConfig } from '../../canvas/config'
+import { Canvas } from '../../d3QuickStart'
+import { QsRadialAxisConfig, QsRadialAxis } from './qsTypes'
 
 interface DrawArgs {
   data: number[]
@@ -22,25 +12,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsRadialAxisConfig
 ): RadialAxisConfigStrict => {
-  const defaults: RadialAxisConfigStrict = {
-    radius: 100,
-    x: GlobalDefaultSettings.RADIAL_X,
-    y: GlobalDefaultSettings.RADIAL_Y,
-    axisAngle: 0,
-    gap: 15,
-    strokeColor: GlobalDefaultColors.AXIS_COLOR,
-    strokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-    strokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
-    textFont: QsEnumTextFont.SERIF,
-    textFontSize: GlobalDefaultSettings.FONT_SIZE,
-    textFontStyle: QsEnumTextFontStyle.NORMAL,
-    textFontWeight: QsEnumTextFontWeight.NORMAL,
-    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textFill: GlobalDefaultColors.TEXT_FILL_COLOR,
-    textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
-    textAnchor: QsEnumTextAnchor.MIDDLE,
-    textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-  }
+  const defaults: RadialAxisConfigStrict = radialCentroidAxisConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

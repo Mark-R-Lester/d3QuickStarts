@@ -6,20 +6,9 @@ import {
   getCalculatedData,
   updateCalculatedData,
 } from './calculatedData'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-  RadialTextType,
-} from '../../core/enums/enums'
+import { RadialTextType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-  QsEnumScaleType,
-} from '../../core/enums/qsEnums'
+import { QsEnumScaleType } from '../../core/enums/qsEnums'
 import { getRotationFunction } from './textRotation'
 import { Canvas } from '../../d3QuickStart'
 import {
@@ -28,6 +17,12 @@ import {
   QsRadialTextTransitionData,
   QsValuedText,
 } from './qsTypes'
+import {
+  radialArcTextConfigFollow,
+  radialArcTextConfigHorizontal,
+  radialArcTextConfigRotated,
+  radialArcTextConfigSpoke,
+} from '../../canvas/config'
 
 interface DrawArgs {
   data: QsValuedText[]
@@ -39,31 +34,17 @@ const addDefaultsToConfig = (
   type: RadialTextType,
   customConfig?: QsRadialTextConfig
 ): RadialTextConfigStrict => {
-  const getTextAnchor = (): QsEnumTextAnchor => {
-    return type === RadialTextType.SPOKE
-      ? QsEnumTextAnchor.START
-      : QsEnumTextAnchor.MIDDLE
+  const getConfig = (type: RadialTextType): RadialTextConfigStrict => {
+    const configs = {
+      [RadialTextType.ROTATED]: radialArcTextConfigRotated,
+      [RadialTextType.HORIZONTAL]: radialArcTextConfigHorizontal,
+      [RadialTextType.FOLLOW]: radialArcTextConfigFollow,
+      [RadialTextType.SPOKE]: radialArcTextConfigSpoke,
+    }
+    return configs[type]
   }
-  const getRadius = (): number => {
-    return type === RadialTextType.ROTATED || type === RadialTextType.HORIZONTAL
-      ? 107
-      : 103
-  }
-  const defaults: RadialTextConfigStrict = {
-    radius: getRadius(),
-    x: GlobalDefaultSettings.RADIAL_X,
-    y: GlobalDefaultSettings.RADIAL_Y,
-    defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
-    textFont: QsEnumTextFont.SERIF,
-    textFontSize: GlobalDefaultSettings.FONT_SIZE,
-    textFontStyle: QsEnumTextFontStyle.NORMAL,
-    textFontWeight: QsEnumTextFontWeight.NORMAL,
-    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textFill: GlobalDefaultColors.TEXT_FILL_COLOR,
-    textAngle: GlobalDefaultSettings.TEXT_ANGLE,
-    textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
-    textAnchor: getTextAnchor(),
-  }
+
+  const defaults: RadialTextConfigStrict = getConfig(type)
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

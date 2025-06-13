@@ -1,16 +1,9 @@
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { LegendConfigStrict } from './types'
 import { QsTransitionArgs } from '../core/types/qsTypes'
-import {
-  QsEnumAlignmentBaseline,
-  QsEnumTextAnchor,
-  QsEnumTextDecorationLine,
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-} from '../core/enums/qsEnums'
 import { Canvas } from '../d3QuickStart'
 import { QsLegendData, QsLegendConfig, QsLegend } from './qsTypes'
+import { legendConfig } from '../canvas/config'
 
 interface DrawArgs {
   data: QsLegendData[]
@@ -19,23 +12,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsLegendConfig
 ): LegendConfigStrict => {
-  const defaults: LegendConfigStrict = {
-    height: 2,
-    width: 6,
-    space: 10,
-    x: 0,
-    y: 0,
-    textFont: QsEnumTextFont.SERIF,
-    textFontSize: 10,
-    textFontStyle: QsEnumTextFontStyle.NORMAL,
-    textFontWeight: QsEnumTextFontWeight.NORMAL,
-    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textFill: 'black',
-    textAngle: 0,
-    textStroke: '',
-    textAnchor: QsEnumTextAnchor.START,
-    textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-  }
+  const defaults: LegendConfigStrict = legendConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

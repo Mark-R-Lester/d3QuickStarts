@@ -17,6 +17,7 @@ import {
   QsRadialTransitionData,
   QsRadialData,
 } from './qsTypes'
+import { radialArcConfig } from '../../canvas/config'
 
 interface DrawArgs {
   data: QsRadialData[]
@@ -25,21 +26,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsRadialConfig
 ): RadialConfigStrict => {
-  const defaults: RadialConfigStrict = {
-    outerRadius: 100,
-    innerRadius: 0,
-    padAngle: 0,
-    cornerRadius: 0,
-    x: GlobalDefaultSettings.RADIAL_X,
-    y: GlobalDefaultSettings.RADIAL_Y,
-    defaultFillColor: GlobalDefaultColors.POINT_FILL,
-    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
-    defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
-    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-    fillColorScaleData: undefined,
-    strokeColorScaleData: undefined,
-  }
+  const defaults: RadialConfigStrict = radialArcConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

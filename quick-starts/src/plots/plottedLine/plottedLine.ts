@@ -1,30 +1,19 @@
 import { line as d3line } from 'd3'
-import { Canvas } from '../../d3QuickStart'
 import {
-  QsEnumCurve,
-  QsEnumLineCap,
-  QsEnumLineJoin,
-} from '../../core/enums/qsEnums'
-import { constantsCurves } from '../../core/constants/constants'
-import { QsLinePlotConfig, QsLinePlot, QsPlottedLineData } from './qsTypes'
-import { CalculatedData, getCalculatedData } from './calculatedData'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
+  Canvas,
+  QsLinePlot,
+  QsLinePlotConfig,
+  QsPlottedLineData,
+} from '../../d3QuickStart'
 import { LinePlotConfigStrict } from './types'
+import { plottedLineConfig } from '../../canvas/config'
+import { constantsCurves } from '../../core/constants/constants'
+import { CalculatedData, getCalculatedData } from './calculatedData'
 
 const addDefaultsToConfig = (
   customConfig?: QsLinePlotConfig
 ): LinePlotConfigStrict => {
-  const defaults: LinePlotConfigStrict = {
-    curve: QsEnumCurve.LINEAR,
-    strokeLineJoin: QsEnumLineJoin.ROUND,
-    strokeLineCap: QsEnumLineCap.ROUND,
-    defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
-    defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
-  }
+  const defaults: LinePlotConfigStrict = plottedLineConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

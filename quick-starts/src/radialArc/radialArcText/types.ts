@@ -6,9 +6,8 @@ import {
   QsEnumTextAnchor,
 } from '../../core/enums/qsEnums'
 
-export interface RadialTextConfigStrict {
+export interface RadialTextConfigStrictBase {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
-  radius: number
   x: number
   y: number
   defaultDecimalPoints: number
@@ -18,6 +17,11 @@ export interface RadialTextConfigStrict {
   textFontWeight: QsEnumTextFontWeight | number
   textDecorationLine: QsEnumTextDecorationLine
   textFill: string
-  textAnchor: QsEnumTextAnchor
   textStroke: string
+}
+
+export interface RadialTextConfigStrict extends RadialTextConfigStrictBase {
+  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
+  radius: number
+  textAnchor: QsEnumTextAnchor
 }

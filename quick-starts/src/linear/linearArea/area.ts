@@ -3,38 +3,22 @@ import { getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { constantsCurves } from '../../core/constants/constants'
 import { Canvas } from '../../d3QuickStart'
-import {
-  QsEnumCurve,
-  QsEnumLineCap,
-  QsEnumLineJoin,
-} from '../../core/enums/qsEnums'
+import { QsEnumLineCap, QsEnumLineJoin } from '../../core/enums/qsEnums'
 import {
   QsArea,
   QsAreaConfig,
   QsAreaData,
   QsAreaTransitionData,
 } from './qsTypes'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
 import { AreaConfigStrict, AreaData, CalculatedData } from './types'
+import { linearAreaConfig } from '../../canvas/config'
 
 interface DrawArgs {
   data: QsAreaData
 }
 
 const addDefaultsToConfig = (customConfig?: QsAreaConfig): AreaConfigStrict => {
-  const defaults: AreaConfigStrict = {
-    curve: QsEnumCurve.LINEAR,
-    strokeLineJoin: QsEnumLineJoin.ROUND,
-    strokeLineCap: QsEnumLineCap.ROUND,
-    defaultFillColor: GlobalDefaultColors.AREA_FILL_COLOR,
-    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
-    defaultStrokeColor: GlobalDefaultColors.AREA_STROKE_COLOR,
-    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-  }
+  const defaults: AreaConfigStrict = linearAreaConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

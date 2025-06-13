@@ -3,6 +3,7 @@ import { getGenerators, QsGenerator } from './generators'
 import { CanvasConfigStrict } from './types'
 import { Selection, select } from 'd3'
 import { QsCanvas, QsCanvasConfig } from './qsTypes'
+import { canvasConfig } from './config'
 
 export interface Canvas {
   displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
@@ -13,20 +14,7 @@ export interface Canvas {
 const addDefaultsToConfig = (
   customConfig?: QsCanvasConfig
 ): CanvasConfigStrict => {
-  const defaults: CanvasConfigStrict = {
-    chartName: '',
-    width: 500,
-    height: 350,
-    marginRight: 7,
-    marginLeft: 7,
-    marginTop: 12,
-    marginBottom: 12,
-    highestViewableValue: 0,
-    lowestViewableValue: 0,
-    borderColor: 'transparent',
-    displayAreaHeight: 0,
-    displayAreaWidth: 0,
-  }
+  const defaults: CanvasConfigStrict = canvasConfig
   if (!customConfig) return defaults
   if (customConfig.width) {
     defaults.height = (customConfig.width * 70) / 100

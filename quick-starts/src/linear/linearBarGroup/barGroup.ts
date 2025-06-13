@@ -8,6 +8,7 @@ import {
   QsBarGroups,
   QsBarGroupTransitionData,
 } from './qsTypes'
+import { linearBarGroupConfig } from '../../canvas/config'
 
 interface DrawArgs {
   data: number[][]
@@ -16,10 +17,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsBarGroupConfig
 ): BarGroupConfigStrict => {
-  const defaults: BarGroupConfigStrict = {
-    colorRange: schemePurples[4],
-    padding: 20,
-  }
+  const defaults: BarGroupConfigStrict = linearBarGroupConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

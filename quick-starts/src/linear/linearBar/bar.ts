@@ -2,25 +2,13 @@ import { Selection } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { getCalculatedData, CalculatedData } from './calculatedData'
 import { BarConfigStrict, DrawArgs } from './types'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-  Orientation,
-} from '../../core/enums/enums'
+import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsBarConfig, QsBarData, QsBars, QsBarTransitionData } from './qsTypes'
+import { linearBarConfig } from '../../canvas/config'
 
 const addDefaultsToConfig = (customConfig?: QsBarConfig): BarConfigStrict => {
-  const defauls: BarConfigStrict = {
-    padding: 8,
-    defaultFillColor: GlobalDefaultColors.BAR_FILL,
-    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
-    defaultStrokeColor: GlobalDefaultColors.BAR_STROKE,
-    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-    fillColorScaleData: undefined,
-    strokeColorScaleData: undefined,
-  }
+  const defauls: BarConfigStrict = linearBarConfig
   if (!customConfig) return defauls
 
   Object.keys(customConfig).forEach((key) => (defauls[key] = customConfig[key]))

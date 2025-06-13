@@ -3,15 +3,12 @@ import { Canvas } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { RadialPointsConfigStrict } from './types'
 import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
-import {
   QsRadialPointData,
   QsRadialPointsConfig,
   QsRadialPoints,
   QsRadialPointsTransitionData,
 } from './qsTypes'
+import { radialCentroidPointsConfig } from '../../canvas/config'
 
 interface DrawArgs {
   data: QsRadialPointData[]
@@ -20,18 +17,7 @@ interface DrawArgs {
 const addDefaultsToConfig = (
   customConfig?: QsRadialPointsConfig
 ): RadialPointsConfigStrict => {
-  const defaults: RadialPointsConfigStrict = {
-    x: GlobalDefaultSettings.RADIAL_X,
-    y: GlobalDefaultSettings.RADIAL_Y,
-    defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
-    defaultFillColor: GlobalDefaultColors.POINT_FILL,
-    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
-    defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
-    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-    fillColorScaleData: undefined,
-    strokeColorScaleData: undefined,
-  }
+  const defaults: RadialPointsConfigStrict = radialCentroidPointsConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

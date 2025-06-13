@@ -1,68 +1,30 @@
-import { ChartEdge, GlobalDefaultColors } from '../../core/enums/enums'
-import {
-  QsEnumAxisScaleType,
-  QsEnumAlignmentBaseline,
-  QsEnumTextAnchor,
-  QsEnumTextDecorationLine,
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-} from '../../core/enums/qsEnums'
+import { ChartEdge } from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
 import { QsAxis, QsAxisConfig } from './qsTypes'
 import { AxisConfigStrict, DrawArgs } from './types'
 import { CalculatedData, getCalculatedData } from './calculatedData'
+import {
+  linearAxisConfigTop,
+  linearAxisConfigBottom,
+  linearAxisConfigLeft,
+  linearAxisConfigRight,
+} from '../../canvas/config'
 
 const addDefaultsToConfig = (
   chartEdge: ChartEdge,
   customConfig?: QsAxisConfig
 ): AxisConfigStrict => {
-  const getTextAnchor = (chartEdge: ChartEdge): QsEnumTextAnchor => {
-    let anchor = QsEnumTextAnchor.MIDDLE
-    if (chartEdge === ChartEdge.LEFT) anchor = QsEnumTextAnchor.END
-    if (chartEdge === ChartEdge.RIGHT) anchor = QsEnumTextAnchor.START
-
-    return anchor
+  const getConfig = (chartEdge: ChartEdge): AxisConfigStrict => {
+    const configs = {
+      [ChartEdge.TOP]: linearAxisConfigTop,
+      [ChartEdge.BOTTOM]: linearAxisConfigBottom,
+      [ChartEdge.LEFT]: linearAxisConfigLeft,
+      [ChartEdge.RIGHT]: linearAxisConfigRight,
+    }
+    return configs[chartEdge]
   }
 
-  const getTextAlignmentBaseline = (
-    chartEdge: ChartEdge
-  ): QsEnumAlignmentBaseline => {
-    let baseline = QsEnumAlignmentBaseline.MIDDLE
-    if (chartEdge === ChartEdge.BOTTOM)
-      baseline = QsEnumAlignmentBaseline.HANGING
-    if (chartEdge === ChartEdge.TOP) baseline = QsEnumAlignmentBaseline.BASELINE
-
-    return baseline
-  }
-  const defaults: AxisConfigStrict = {
-    percentageMovement: 0,
-
-    domainColor: GlobalDefaultColors.AXIS_COLOR,
-    domainOpacity: 1,
-    domainWidth: 2,
-    domainScale: QsEnumAxisScaleType.LINEAR,
-    tickColor: GlobalDefaultColors.AXIS_COLOR,
-    tickOpacity: 1,
-    tickWidth: 2,
-    tickSizeInner: 2,
-    tickSizeOuter: 2,
-    tickPadding: 1,
-    numberOfTicks: 0,
-
-    textFont: QsEnumTextFont.SERIF,
-    textFontSize: 6,
-    textFontStyle: QsEnumTextFontStyle.NORMAL,
-    textFontWeight: QsEnumTextFontWeight.NORMAL,
-    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textFill: GlobalDefaultColors.AXIS_COLOR,
-    textAngle: 0,
-    textStroke: '',
-    textAnchor: getTextAnchor(chartEdge),
-    textAlignmentBaseline: getTextAlignmentBaseline(chartEdge),
-    textX: 0,
-    textY: 0,
-  }
+  const defaults: AxisConfigStrict = getConfig(chartEdge)
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

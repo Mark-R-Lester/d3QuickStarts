@@ -1,14 +1,4 @@
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-  Orientation,
-} from '../../core/enums/enums'
-import {
-  QsEnumCurve,
-  QsEnumLineCap,
-  QsEnumLineJoin,
-  QsEnumScaleType,
-} from '../../core/enums/qsEnums'
+import { Orientation } from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
 import { DrawArgs, LineConfigStrict, CalculatedData } from './types'
 import { getCalculatedData as getVerticalCalculatedData } from './calculatedDataVertical'
@@ -20,22 +10,17 @@ import {
   QsLine,
   QsLineTransitionData,
 } from './qsTypes'
+import { linearLineConfig } from '../../canvas/config'
 
 const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
-  const defauls: LineConfigStrict = {
-    scaleType: QsEnumScaleType.LINEAR,
-    curve: QsEnumCurve.LINEAR,
-    strokeLineJoin: QsEnumLineJoin.ROUND,
-    strokeLineCap: QsEnumLineCap.ROUND,
-    defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
-    defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
-  }
+  const defaults: LineConfigStrict = linearLineConfig
 
-  if (!customConfig) return defauls
+  if (!customConfig) return defaults
 
-  Object.keys(customConfig).forEach((key) => (defauls[key] = customConfig[key]))
-  return defauls
+  Object.keys(customConfig).forEach(
+    (key) => (defaults[key] = customConfig[key])
+  )
+  return defaults
 }
 
 export const linearLine = {

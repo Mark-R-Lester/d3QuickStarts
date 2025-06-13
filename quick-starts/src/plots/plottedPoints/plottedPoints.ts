@@ -1,7 +1,4 @@
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
+import { plottedPointsConfig } from '../../canvas/config'
 import { Canvas } from '../../d3QuickStart'
 import {
   CalculatedData,
@@ -17,14 +14,7 @@ import {
 const addDefaultsToConfig = (
   customConfig?: QsPlottedPointsConfig
 ): PlottedPointsConfigStrict => {
-  const defaults: PlottedPointsConfigStrict = {
-    defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
-    defaultFillColor: GlobalDefaultColors.POINT_FILL,
-    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
-    defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
-    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-  }
+  const defaults: PlottedPointsConfigStrict = plottedPointsConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(

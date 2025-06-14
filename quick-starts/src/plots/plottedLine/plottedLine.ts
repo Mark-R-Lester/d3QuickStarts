@@ -2,16 +2,16 @@ import { line as d3line } from 'd3'
 import {
   Canvas,
   QsLinePlot,
-  QsLinePlotConfig,
+  QsPlottedLineConfig,
   QsPlottedLineData,
 } from '../../d3QuickStart'
 import { LinePlotConfigStrict } from './types'
-import { plottedLineConfig } from '../../core/config'
+import { plottedLineConfig } from '../../core/config/configDefaults'
 import { constantsCurves } from '../../core/constants/constants'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 
 const addDefaultsToConfig = (
-  customConfig?: QsLinePlotConfig
+  customConfig?: QsPlottedLineConfig
 ): LinePlotConfigStrict => {
   const defaults: LinePlotConfigStrict = { ...plottedLineConfig }
   if (!customConfig) return defaults
@@ -26,7 +26,7 @@ export const plottedLine = {
   line: (
     canvas: Canvas,
     data: QsPlottedLineData,
-    customConfig?: QsLinePlotConfig
+    customConfig?: QsPlottedLineConfig
   ): QsLinePlot => {
     const config: LinePlotConfigStrict = addDefaultsToConfig(customConfig)
     return draw(canvas, data, config)

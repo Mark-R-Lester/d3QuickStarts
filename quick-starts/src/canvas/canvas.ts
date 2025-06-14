@@ -3,7 +3,8 @@ import { getGenerators, QsGenerator } from './generators'
 import { CanvasConfigStrict } from './types'
 import { Selection, select } from 'd3'
 import { QsCanvas, QsCanvasConfig } from './qsTypes'
-import { canvasConfig } from '../core/config'
+import { canvasConfig } from '../core/config/configDefaults'
+import { ConfigSetters, getConfigOverrides } from './setConfigs'
 
 export interface Canvas {
   displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
@@ -83,5 +84,6 @@ const draw = (chartName: string, config: CanvasConfigStrict): QsCanvas => {
   const scales = getScales(config)
   const canvas: Canvas = { displayGroup, config, scales }
   const generate: QsGenerator = getGenerators(canvas)
-  return { displayGroup, config, generate }
+  const configOverrides: ConfigSetters = getConfigOverrides()
+  return { displayGroup, config, generate, configOverrides }
 }

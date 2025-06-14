@@ -15,7 +15,7 @@ import {
   QsRadialLineData,
 } from './qsTypes'
 import { RadialLineConfigStrict } from './types'
-import { radialCentroidLineConfig } from '../../core/config'
+import { radialCentroidLineConfig } from '../../core/config/configDefaults'
 
 const addDefaultsToConfig = (
   customConfig?: QsRadialLineConfig

@@ -11,7 +11,7 @@ import {
   QsAreaTransitionData,
 } from './qsTypes'
 import { AreaConfigStrict, AreaData, CalculatedData } from './types'
-import { linearAreaConfig } from '../../core/config'
+import { linearAreaConfig } from '../../core/config/configDefaults'
 
 interface DrawArgs {
   data: QsAreaData

@@ -3,7 +3,7 @@ import { getCalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
 import { QsRadialSpokesConfig, QsRadialSpokes } from './qsTypes'
 import { CalculatedData, RadialSpokesConfigStrict } from './types'
-import { radialCentroidSpokesConfig } from '../../core/config'
+import { radialCentroidSpokesConfig } from '../../core/config/configDefaults'
 
 interface DrawArgs {
   data: number

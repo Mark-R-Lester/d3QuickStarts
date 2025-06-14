@@ -13,7 +13,7 @@ import {
   QsRadialTransitionData,
   QsRadialData,
 } from './qsTypes'
-import { radialArcConfig } from '../../core/config'
+import { radialArcConfig } from '../../core/config/configDefaults'
 
 interface DrawArgs {
   data: QsRadialData[]

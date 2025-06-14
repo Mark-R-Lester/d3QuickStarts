@@ -8,7 +8,7 @@ import {
   linearAxisConfigBottom,
   linearAxisConfigLeft,
   linearAxisConfigRight,
-} from '../../core/config'
+} from '../../core/config/configDefaults'
 
 const addDefaultsToConfig = (
   chartEdge: ChartEdge,

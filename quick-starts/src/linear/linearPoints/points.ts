@@ -9,7 +9,7 @@ import {
   QsPointsConfig,
   QsPointsTransitionData,
 } from './qsTypes'
-import { linearPointsConfig } from '../../core/config'
+import { linearPointsConfig } from '../../core/config/configDefaults'
 
 const addDefaultsToConfig = (
   customConfig?: QsPointsConfig

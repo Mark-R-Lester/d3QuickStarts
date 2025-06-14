@@ -6,7 +6,7 @@ import {
 } from '../../core/enums/qsEnums'
 import { QsCoordinate } from '../../d3QuickStart'
 
-export interface QsLinePlotConfig {
+export interface QsPlottedLineConfig {
   [key: string]: QsEnumCurve | number | string | undefined
   curve?: QsEnumCurve
   defaultStrokeColor?: string

@@ -15,7 +15,7 @@ import {
   QsRadialAreaData,
   QsRadialAreaTransitionData,
 } from './qsTypes'
-import { radialCentroidAreaConfig } from '../../core/config'
+import { radialCentroidAreaConfig } from '../../core/config/configDefaults'
 
 interface DrawArgs {
   data: QsRadialAreaData

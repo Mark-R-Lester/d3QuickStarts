@@ -7,7 +7,7 @@ import {
   QsBarStack,
   QsBarStackedTransitionData,
 } from './qsTypes'
-import { linearBarStackConfig } from '../../core/config'
+import { linearBarStackConfig } from '../../core/config/configDefaults'
 
 interface DrawArgs {
   data: number[][]

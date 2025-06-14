@@ -1,7 +1,7 @@
 import { arc as d3arc } from 'd3'
 import { getCalculatedData } from './calculatedData'
 import { RadialAxisConfigStrict, CalculatedData } from './types'
-import { radialCentroidAxisConfig } from '../../core/config'
+import { radialCentroidAxisConfig } from '../../core/config/configDefaults'
 import { Canvas } from '../../d3QuickStart'
 import { QsRadialAxisConfig, QsRadialAxis } from './qsTypes'
 

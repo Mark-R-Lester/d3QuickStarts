@@ -22,7 +22,7 @@ import {
   radialArcTextConfigHorizontal,
   radialArcTextConfigRotated,
   radialArcTextConfigSpoke,
-} from '../../core/config'
+} from '../../core/config/configDefaults'
 
 interface DrawArgs {
   data: QsValuedText[]

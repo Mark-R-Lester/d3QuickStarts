@@ -3,7 +3,7 @@ import { LegendConfigStrict } from './types'
 import { QsTransitionArgs } from '../core/types/qsTypes'
 import { Canvas } from '../d3QuickStart'
 import { QsLegendData, QsLegendConfig, QsLegend } from './qsTypes'
-import { legendConfig } from '../core/config'
+import { legendConfig } from '../core/config/configDefaults'
 
 interface DrawArgs {
   data: QsLegendData[]

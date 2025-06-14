@@ -5,7 +5,7 @@ import {
   QsPlottedText,
 } from './qsTypes'
 import { PlottedTextConfigStrict } from './types'
-import { plottedTextConfig } from '../../core/config'
+import { plottedTextConfig } from '../../core/config/configDefaults'
 
 interface DrawArgs {
   data: QsPlottedTextArgs[]

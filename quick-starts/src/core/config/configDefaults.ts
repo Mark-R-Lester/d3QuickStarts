@@ -1,32 +1,32 @@
 import { schemePurples } from 'd3'
-import { GlobalDefaultColors, GlobalDefaultSettings } from './enums/enums'
+import { GlobalDefaultColors, GlobalDefaultSettings } from '../enums/enums'
 
-import { LegendConfigStrict } from '../legend/types'
-import { AreaConfigStrict } from '../linear/linearArea/types'
+import { LegendConfigStrict } from '../../legend/types'
+import { AreaConfigStrict } from '../../linear/linearArea/types'
 import {
   AxisConfigStrict,
   AxisConfigStrictBase,
-} from '../linear/linearAxis/types'
-import { BarConfigStrict } from '../linear/linearBar/types'
-import { BarGroupConfigStrict } from '../linear/linearBarGroup/types'
-import { CanvasConfigStrict } from '../canvas/types'
-import { BarStackedConfigStrict } from '../linear/linearBarStack/types'
-import { LineConfigStrict } from '../linear/linearLine/types'
-import { PointsConfigStrict } from '../linear/linearPoints/types'
-import { TextConfigStrict } from '../linear/linearText/types'
-import { LinePlotConfigStrict } from '../plots/plottedLine/types'
-import { PlottedPointsConfigStrict } from '../plots/plottedPoints/calculatedData'
-import { PlottedTextConfigStrict } from '../plots/plottedText/types'
-import { RadialConfigStrict } from '../radialArc/radialArc/types'
+} from '../../linear/linearAxis/types'
+import { BarConfigStrict } from '../../linear/linearBar/types'
+import { BarGroupConfigStrict } from '../../linear/linearBarGroup/types'
+import { CanvasConfigStrict } from '../../canvas/types'
+import { BarStackedConfigStrict } from '../../linear/linearBarStack/types'
+import { LineConfigStrict } from '../../linear/linearLine/types'
+import { PointsConfigStrict } from '../../linear/linearPoints/types'
+import { TextConfigStrict } from '../../linear/linearText/types'
+import { LinePlotConfigStrict } from '../../plots/plottedLine/types'
+import { PlottedPointsConfigStrict } from '../../plots/plottedPoints/calculatedData'
+import { PlottedTextConfigStrict } from '../../plots/plottedText/types'
+import { RadialConfigStrict } from '../../radialArc/radialArc/types'
 import {
   RadialTextConfigStrict,
   RadialTextConfigStrictBase,
-} from '../radialArc/radialArcText/types'
-import { RadialAreaConfigStrict } from '../radialCentroid/radialCentroidArea/types'
-import { RadialAxisConfigStrict } from '../radialCentroid/radialCentroidAxis/types'
-import { RadialLineConfigStrict } from '../radialCentroid/radialCentroidLine/types'
-import { RadialPointsConfigStrict } from '../radialCentroid/radialCentroidPoints/types'
-import { RadialSpokesConfigStrict } from '../radialCentroid/radialCentroidSpokes/types'
+} from '../../radialArc/radialArcText/types'
+import { RadialAreaConfigStrict } from '../../radialCentroid/radialCentroidArea/types'
+import { RadialAxisConfigStrict } from '../../radialCentroid/radialCentroidAxis/types'
+import { RadialLineConfigStrict } from '../../radialCentroid/radialCentroidLine/types'
+import { RadialPointsConfigStrict } from '../../radialCentroid/radialCentroidPoints/types'
+import { RadialSpokesConfigStrict } from '../../radialCentroid/radialCentroidSpokes/types'
 import {
   QsEnumAlignmentBaseline,
   QsEnumAxisScaleType,
@@ -39,7 +39,7 @@ import {
   QsEnumTextFont,
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
-} from './enums/qsEnums'
+} from '../enums/qsEnums'
 
 export const canvasConfig: CanvasConfigStrict = {
   chartName: '',

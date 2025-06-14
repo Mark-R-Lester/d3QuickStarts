@@ -1,4 +1,5 @@
 import { QsGenerator } from './generators'
+import { ConfigSetters } from './setConfigs'
 import { CanvasConfigStrict } from './types'
 import { Selection } from 'd3'
 
@@ -22,4 +23,5 @@ export interface QsCanvas {
   displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
   config: CanvasConfigStrict
   generate: QsGenerator
+  configOverrides: ConfigSetters
 }

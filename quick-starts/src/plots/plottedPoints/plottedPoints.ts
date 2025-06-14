@@ -1,4 +1,4 @@
-import { plottedPointsConfig } from '../../core/config'
+import { plottedPointsConfig } from '../../core/config/configDefaults'
 import { Canvas } from '../../d3QuickStart'
 import {
   CalculatedData,

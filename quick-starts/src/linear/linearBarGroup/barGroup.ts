@@ -8,7 +8,7 @@ import {
   QsBarGroups,
   QsBarGroupTransitionData,
 } from './qsTypes'
-import { linearBarGroupConfig } from '../../core/config'
+import { linearBarGroupConfig } from '../../core/config/configDefaults'
 
 interface DrawArgs {
   data: number[][]

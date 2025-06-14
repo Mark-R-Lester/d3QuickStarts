@@ -10,7 +10,7 @@ import {
   QsLine,
   QsLineTransitionData,
 } from './qsTypes'
-import { linearLineConfig } from '../../core/config'
+import { linearLineConfig } from '../../core/config/configDefaults'
 
 const addDefaultsToConfig = (customConfig?: QsLineConfig): LineConfigStrict => {
   const defaults: LineConfigStrict = { ...linearLineConfig }

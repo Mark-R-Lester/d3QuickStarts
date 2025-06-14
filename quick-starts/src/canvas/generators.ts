@@ -19,7 +19,7 @@ import {
   QsLineConfig,
   QsLineData,
   QsLinePlot,
-  QsLinePlotConfig,
+  QsPlottedLineConfig,
   QsPointData,
   QsPoints,
   QsPointsConfig,
@@ -114,7 +114,7 @@ interface linearElementFunctions {
 
 interface plottedElementFunctions {
   legend: (data: QsLegendData[], customConfig?: QsLegendConfig) => {}
-  line: (data: QsPlottedLineData, customConfig?: QsLinePlotConfig) => {}
+  line: (data: QsPlottedLineData, customConfig?: QsPlottedLineConfig) => {}
   text: (data: QsPlottedTextArgs[], customConfig?: QsPlottedTextConfig) => {}
   points: (
     data: QsPlottedPointsData[],
@@ -310,7 +310,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
       },
       line: (
         data: QsPlottedLineData,
-        customConfig?: QsLinePlotConfig
+        customConfig?: QsPlottedLineConfig
       ): QsLinePlot => {
         const element = plottedLine.line(canvas, data, customConfig)
         elements.push({ element, data })

@@ -8,7 +8,7 @@ import {
   QsRadialPoints,
   QsRadialPointsTransitionData,
 } from './qsTypes'
-import { radialCentroidPointsConfig } from '../../core/config'
+import { radialCentroidPointsConfig } from '../../core/config/configDefaults'
 
 interface DrawArgs {
   data: QsRadialPointData[]

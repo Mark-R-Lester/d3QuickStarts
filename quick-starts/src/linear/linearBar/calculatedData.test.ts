@@ -11,6 +11,7 @@ import { getCalculatedData } from './calculatedData'
 import { QsBarData } from './qsTypes'
 import { BarConfigStrict, DrawArgs } from './types'
 import { JSDOM } from 'jsdom'
+import { ConfigStoreManager } from '../../core/config/configStore.class'
 
 const dom = new JSDOM()
 global.document = dom.window.document
@@ -85,6 +86,7 @@ describe('Linear Bars calculatedData', () => {
           displayGroup: qsCanvas.displayGroup,
           config: qsCanvas.config,
           scales,
+          configStore: new ConfigStoreManager().getters,
         }
         const calculatedData = getCalculatedData(canvas, args, config)
         expect(calculatedData[0].barData.y).toEqual(zeroY)
@@ -135,6 +137,7 @@ describe('Linear Bars calculatedData', () => {
           displayGroup: qsCanvas.displayGroup,
           config: qsCanvas.config,
           scales,
+          configStore: new ConfigStoreManager().getters,
         }
         const calculatedData = getCalculatedData(canvas, args, config)
         expect(calculatedData[0].barData.y).toEqual(zeroY)
@@ -188,6 +191,7 @@ describe('Linear Bars calculatedData', () => {
           displayGroup: qsCanvas.displayGroup,
           config: qsCanvas.config,
           scales,
+          configStore: new ConfigStoreManager().getters,
         }
         const calculatedData = getCalculatedData(canvas, args, config)
         expect(calculatedData[0].barData.x).toEqual(zeroY)
@@ -238,6 +242,7 @@ describe('Linear Bars calculatedData', () => {
           displayGroup: qsCanvas.displayGroup,
           config: qsCanvas.config,
           scales,
+          configStore: new ConfigStoreManager().getters,
         }
         const calculatedData = getCalculatedData(canvas, args, config)
         expect(calculatedData[0].barData.x).toEqual(zeroY)

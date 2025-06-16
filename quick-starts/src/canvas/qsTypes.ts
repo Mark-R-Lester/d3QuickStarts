@@ -23,5 +23,5 @@ export interface QsCanvas {
   displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
   config: CanvasConfigStrict
   generate: QsGenerator
-  configOverrides: ConfigSetters
+  configStore: ConfigSetters
 }

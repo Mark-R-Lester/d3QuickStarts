@@ -4,12 +4,16 @@ import { CanvasConfigStrict } from './types'
 import { Selection, select } from 'd3'
 import { QsCanvas, QsCanvasConfig } from './qsTypes'
 import { canvasConfig } from '../core/config/configDefaults'
-import { ConfigSetters, getConfigOverrides } from './setConfigs'
+import {
+  ConfigGetters,
+  ConfigStoreManager,
+} from '../core/config/configStore.class'
 
 export interface Canvas {
   displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
   config: CanvasConfigStrict
   scales: CanvasScales
+  configStore: ConfigGetters
 }
 
 const addDefaultsToConfig = (
@@ -80,10 +84,15 @@ const draw = (chartName: string, config: CanvasConfigStrict): QsCanvas => {
     return displayGroup
   }
 
+  const configManager = new ConfigStoreManager()
   const displayGroup = createDisplayGroup(createSVG(chartName))
   const scales = getScales(config)
-  const canvas: Canvas = { displayGroup, config, scales }
+  const canvas: Canvas = {
+    displayGroup,
+    config,
+    scales,
+    configStore: configManager.getters,
+  }
   const generate: QsGenerator = getGenerators(canvas)
-  const configOverrides: ConfigSetters = getConfigOverrides()
-  return { displayGroup, config, generate, configOverrides }
+  return { displayGroup, config, generate, configStore: configManager.setters }
 }

@@ -1,144 +1,87 @@
 import {
-  setCanvasConfig,
-  setLegendConfig,
-  setLinearAreaConfig,
-  setLinearAxisConfigTop,
-  setLinearAxisConfigBottom,
-  setLinearAxisConfigLeft,
-  setLinearAxisConfigRight,
-  setLinearBarConfig,
-  setLinearBarGroupConfig,
-  setLinearBarStackConfig,
-  setLinearLineConfig,
-  setLinearPointsConfig,
-  setLinearTextConfig,
-  setPlottedLineConfig,
-  setPlottedPointsConfig,
-  setPlottedTextConfig,
-  setRadialArcConfig,
-  setRadialArcTextConfigRotated,
-  setRadialArcTextConfigHorizontal,
-  setRadialArcTextConfigSpoke,
-  setRadialArcTextConfigFollow,
-  setRadialCentroidAreaConfig,
-  setRadialCentroidAxisConfig,
-  setRadialCentroidLineConfig,
-  setRadialCentroidPointsConfig,
-  setRadialCentroidSpokesConfig,
-} from '../core/config/configOverrides'
-import { QsLegendConfig } from '../legend/qsTypes'
-import { QsAreaConfig } from '../linear/linearArea/qsTypes'
-import { QsAxisConfig } from '../linear/linearAxis/qsTypes'
-import { QsBarConfig } from '../linear/linearBar/qsTypes'
-import { QsBarGroupConfig } from '../linear/linearBarGroup/qsTypes'
-import { QsBarStackedConfig } from '../linear/linearBarStack/qsTypes'
-import { QsLineConfig } from '../linear/linearLine/qsTypes'
-import { QsPointsConfig } from '../linear/linearPoints/qsTypes'
-import { QsTextConfig } from '../linear/linearText/qsTypes'
-import { QsPlottedLineConfig } from '../plots/plottedLine/qsTypes'
-import { QsPlottedPointsConfig } from '../plots/plottedPoints/qsTypes'
-import { QsPlottedTextConfig } from '../plots/plottedText/qsTypes'
-import { QsRadialConfig } from '../radialArc/radialArc/qsTypes'
-import { QsRadialTextConfig } from '../radialArc/radialArcText/qsTypes'
-import { QsRadialAreaConfig } from '../radialCentroid/radialCentroidArea/qsTypes'
-import { QsRadialAxisConfig } from '../radialCentroid/radialCentroidAxis/qsTypes'
-import { QsRadialLineConfig } from '../radialCentroid/radialCentroidLine/qsTypes'
-import { QsRadialPointsConfig } from '../radialCentroid/radialCentroidPoints/qsTypes'
-import { QsRadialSpokesConfig } from '../radialCentroid/radialCentroidSpokes/qsTypes'
-import { QsCanvasConfig } from './qsTypes'
-
-interface CanvasConfigSetters {
-  canvasConfig: (value: QsCanvasConfig) => void
-}
-
-interface LegendConfigSetters {
-  legendConfig: (value: QsLegendConfig) => void
-}
-
-interface LinearConfigSetters {
-  areaConfig: (value: QsAreaConfig) => void
-  axisConfigTop: (value: QsAxisConfig) => void
-  axisConfigBottom: (value: QsAxisConfig) => void
-  axisConfigLeft: (value: QsAxisConfig) => void
-  axisConfigRight: (value: QsAxisConfig) => void
-  barConfig: (value: QsBarConfig) => void
-  barGroupConfig: (value: QsBarGroupConfig) => void
-  barStackConfig: (value: QsBarStackedConfig) => void
-  lineConfig: (value: QsLineConfig) => void
-  pointsConfig: (value: QsPointsConfig) => void
-  textConfig: (value: QsTextConfig) => void
-}
-
-interface PlottedConfigSetters {
-  lineConfig: (value: QsPlottedLineConfig) => void
-  pointsConfig: (value: QsPlottedPointsConfig) => void
-  textConfig: (value: QsPlottedTextConfig) => void
-}
-
-interface RadialArcConfigSetters {
-  arcConfig: (value: QsRadialConfig) => void
-  textConfigRotated: (value: QsRadialTextConfig) => void
-  textConfigHorizontal: (value: QsRadialTextConfig) => void
-  textConfigSpoke: (value: QsRadialTextConfig) => void
-  textConfigFollow: (value: QsRadialTextConfig) => void
-}
-
-interface RadialCentroidConfigSetters {
-  areaConfig: (value: QsRadialAreaConfig) => void
-  axisConfig: (value: QsRadialAxisConfig) => void
-  lineConfig: (value: QsRadialLineConfig) => void
-  pointsConfig: (value: QsRadialPointsConfig) => void
-  spokesConfig: (value: QsRadialSpokesConfig) => void
-}
+  ConfigStoreAccessors,
+  createConfigStore,
+} from '../core/config/configStore'
 
 export interface ConfigSetters {
-  canvas: CanvasConfigSetters
-  legend: LegendConfigSetters
-  linear: LinearConfigSetters
-  plotted: PlottedConfigSetters
-  radialArc: RadialArcConfigSetters
-  radialCentroid: RadialCentroidConfigSetters
+  legend: {
+    legendConfig: ConfigStoreAccessors['setLegendConfig']
+  }
+  linear: {
+    areaConfig: ConfigStoreAccessors['setLinearAreaConfig']
+    axisConfigTop: ConfigStoreAccessors['setLinearAxisConfigTop']
+    axisConfigBottom: ConfigStoreAccessors['setLinearAxisConfigBottom']
+    axisConfigLeft: ConfigStoreAccessors['setLinearAxisConfigLeft']
+    axisConfigRight: ConfigStoreAccessors['setLinearAxisConfigRight']
+    barConfig: ConfigStoreAccessors['setLinearBarConfig']
+    barGroupConfig: ConfigStoreAccessors['setLinearBarGroupConfig']
+    barStackConfig: ConfigStoreAccessors['setLinearBarStackConfig']
+    lineConfig: ConfigStoreAccessors['setLinearLineConfig']
+    pointsConfig: ConfigStoreAccessors['setLinearPointsConfig']
+    textConfig: ConfigStoreAccessors['setLinearTextConfig']
+  }
+  plotted: {
+    lineConfig: ConfigStoreAccessors['setPlottedLineConfig']
+    pointsConfig: ConfigStoreAccessors['setPlottedPointsConfig']
+    textConfig: ConfigStoreAccessors['setPlottedTextConfig']
+  }
+  radialArc: {
+    arcConfig: ConfigStoreAccessors['setRadialArcConfig']
+    textConfigRotated: ConfigStoreAccessors['setRadialArcTextConfigRotated']
+    textConfigHorizontal: ConfigStoreAccessors['setRadialArcTextConfigHorizontal']
+    textConfigSpoke: ConfigStoreAccessors['setRadialArcTextConfigSpoke']
+    textConfigFollow: ConfigStoreAccessors['setRadialArcTextConfigFollow']
+  }
+  radialCentroid: {
+    areaConfig: ConfigStoreAccessors['setRadialCentroidAreaConfig']
+    axisConfig: ConfigStoreAccessors['setRadialCentroidAxisConfig']
+    lineConfig: ConfigStoreAccessors['setRadialCentroidLineConfig']
+    pointsConfig: ConfigStoreAccessors['setRadialCentroidPointsConfig']
+    spokesConfig: ConfigStoreAccessors['setRadialCentroidSpokesConfig']
+  }
 }
 
-export const getConfigOverrides = (): ConfigSetters => {
+export const configStoreSetters = (): ConfigSetters => {
+  const configStore = createConfigStore()
   return {
-    canvas: {
-      canvasConfig: setCanvasConfig,
-    },
     legend: {
-      legendConfig: setLegendConfig,
+      legendConfig: configStore.setLegendConfig.bind(configStore),
     },
     linear: {
-      areaConfig: setLinearAreaConfig,
-      axisConfigTop: setLinearAxisConfigTop,
-      axisConfigBottom: setLinearAxisConfigBottom,
-      axisConfigLeft: setLinearAxisConfigLeft,
-      axisConfigRight: setLinearAxisConfigRight,
-      barConfig: setLinearBarConfig,
-      barGroupConfig: setLinearBarGroupConfig,
-      barStackConfig: setLinearBarStackConfig,
-      lineConfig: setLinearLineConfig,
-      pointsConfig: setLinearPointsConfig,
-      textConfig: setLinearTextConfig,
+      areaConfig: configStore.setLinearAreaConfig.bind(configStore),
+      axisConfigTop: configStore.setLinearAxisConfigTop.bind(configStore),
+      axisConfigBottom: configStore.setLinearAxisConfigBottom.bind(configStore),
+      axisConfigLeft: configStore.setLinearAxisConfigLeft.bind(configStore),
+      axisConfigRight: configStore.setLinearAxisConfigRight.bind(configStore),
+      barConfig: configStore.setLinearBarConfig.bind(configStore),
+      barGroupConfig: configStore.setLinearBarGroupConfig.bind(configStore),
+      barStackConfig: configStore.setLinearBarStackConfig.bind(configStore),
+      lineConfig: configStore.setLinearLineConfig.bind(configStore),
+      pointsConfig: configStore.setLinearPointsConfig.bind(configStore),
+      textConfig: configStore.setLinearTextConfig.bind(configStore),
     },
     plotted: {
-      lineConfig: setPlottedLineConfig,
-      pointsConfig: setPlottedPointsConfig,
-      textConfig: setPlottedTextConfig,
+      lineConfig: configStore.setPlottedLineConfig.bind(configStore),
+      pointsConfig: configStore.setPlottedPointsConfig.bind(configStore),
+      textConfig: configStore.setPlottedTextConfig.bind(configStore),
     },
     radialArc: {
-      arcConfig: setRadialArcConfig,
-      textConfigRotated: setRadialArcTextConfigRotated,
-      textConfigHorizontal: setRadialArcTextConfigHorizontal,
-      textConfigSpoke: setRadialArcTextConfigSpoke,
-      textConfigFollow: setRadialArcTextConfigFollow,
+      arcConfig: configStore.setRadialArcConfig.bind(configStore),
+      textConfigRotated:
+        configStore.setRadialArcTextConfigRotated.bind(configStore),
+      textConfigHorizontal:
+        configStore.setRadialArcTextConfigHorizontal.bind(configStore),
+      textConfigSpoke:
+        configStore.setRadialArcTextConfigSpoke.bind(configStore),
+      textConfigFollow:
+        configStore.setRadialArcTextConfigFollow.bind(configStore),
     },
     radialCentroid: {
-      areaConfig: setRadialCentroidAreaConfig,
-      axisConfig: setRadialCentroidAxisConfig,
-      lineConfig: setRadialCentroidLineConfig,
-      pointsConfig: setRadialCentroidPointsConfig,
-      spokesConfig: setRadialCentroidSpokesConfig,
+      areaConfig: configStore.setRadialCentroidAreaConfig.bind(configStore),
+      axisConfig: configStore.setRadialCentroidAxisConfig.bind(configStore),
+      lineConfig: configStore.setRadialCentroidLineConfig.bind(configStore),
+      pointsConfig: configStore.setRadialCentroidPointsConfig.bind(configStore),
+      spokesConfig: configStore.setRadialCentroidSpokesConfig.bind(configStore),
     },
   }
 }

@@ -3,7 +3,7 @@ import {
   QsCanvas,
   qsCreateCanvas,
   QsRadialData,
-  QsRadialConfig,
+  QsRadialArcConfig,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
@@ -30,7 +30,7 @@ export const RadialConfigChart: FunctionComponent<ChartProps> = ({
         { value: 1, fillColor: 'salmon' },
       ]
 
-      const config: QsRadialConfig = {
+      const config: QsRadialArcConfig = {
         outerRadius: 90,
         innerRadius: 50,
         padAngle: 0.03,

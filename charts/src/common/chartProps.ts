@@ -12,7 +12,7 @@ import {
   QsRadialAreaData,
   QsRadialData,
   QsRadialAxisConfig,
-  QsRadialConfig,
+  QsRadialArcConfig,
   QsRadialLineConfig,
   QsRadialPointsConfig,
   QsRadialSpokesConfig,
@@ -75,7 +75,7 @@ export interface PointChartProps extends ChartProps {
   orientation: EnumOrientation
 }
 export interface RadialChartProps extends ChartProps {
-  config?: QsRadialConfig
+  config?: QsRadialArcConfig
   data: QsRadialData[]
 }
 export interface RadialAreaChartProps extends ChartProps {

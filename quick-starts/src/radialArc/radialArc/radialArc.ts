@@ -1,5 +1,5 @@
 import { interpolate, arc as d3arc } from 'd3'
-import { RadialConfigStrict } from './types'
+import { RadialArcConfigStrict } from './types'
 import {
   CalculatedData,
   getCalculatedData,
@@ -8,7 +8,7 @@ import {
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { Canvas } from '../../d3QuickStart'
 import {
-  QsRadialConfig,
+  QsRadialArcConfig,
   QsRadial,
   QsRadialTransitionData,
   QsRadialData,
@@ -20,13 +20,19 @@ interface DrawArgs {
 }
 
 const addDefaultsToConfig = (
-  customConfig?: QsRadialConfig
-): RadialConfigStrict => {
-  const defaults: RadialConfigStrict = { ...radialArcConfig }
-  if (!customConfig) return defaults
+  canvas: Canvas,
+  customConfig?: QsRadialArcConfig
+): RadialArcConfigStrict => {
+  const defaults: RadialArcConfigStrict = { ...radialArcConfig }
+  const configOverride: QsRadialArcConfig =
+    customConfig !== undefined
+      ? customConfig
+      : { ...canvas.configStore.radialArc.arcConfig() }
 
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
+  if (!configOverride) return defaults
+
+  Object.keys(configOverride).forEach(
+    (key) => (defaults[key] = configOverride[key])
   )
   return defaults
 }
@@ -35,10 +41,13 @@ export const radialArc = {
   radial: (
     canvas: Canvas,
     data: QsRadialData[],
-    customConfig?: QsRadialConfig
+    customConfig?: QsRadialArcConfig
   ): QsRadial => {
     const args: DrawArgs = { data }
-    const config: RadialConfigStrict = addDefaultsToConfig(customConfig)
+    const config: RadialArcConfigStrict = addDefaultsToConfig(
+      canvas,
+      customConfig
+    )
     return draw(canvas, args, config)
   },
 }
@@ -46,7 +55,7 @@ export const radialArc = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: RadialConfigStrict
+  config: RadialArcConfigStrict
 ): QsRadial => {
   const { data } = args
 

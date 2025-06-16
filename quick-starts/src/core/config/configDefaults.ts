@@ -17,7 +17,7 @@ import { TextConfigStrict } from '../../linear/linearText/types'
 import { LinePlotConfigStrict } from '../../plots/plottedLine/types'
 import { PlottedPointsConfigStrict } from '../../plots/plottedPoints/calculatedData'
 import { PlottedTextConfigStrict } from '../../plots/plottedText/types'
-import { RadialConfigStrict } from '../../radialArc/radialArc/types'
+import { RadialArcConfigStrict } from '../../radialArc/radialArc/types'
 import {
   RadialTextConfigStrict,
   RadialTextConfigStrictBase,
@@ -225,7 +225,7 @@ export const plottedTextConfig: PlottedTextConfigStrict = {
   textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
-export const radialArcConfig: RadialConfigStrict = {
+export const radialArcConfig: RadialArcConfigStrict = {
   outerRadius: 100,
   innerRadius: 0,
   padAngle: 0,

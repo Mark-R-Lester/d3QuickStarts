@@ -1,7 +1,7 @@
 import { QsColorScaleData, QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
 
-export interface QsRadialConfig {
+export interface QsRadialArcConfig {
   [key: string]: number | string | QsColorScaleData | undefined
   outerRadius?: number
   innerRadius?: number

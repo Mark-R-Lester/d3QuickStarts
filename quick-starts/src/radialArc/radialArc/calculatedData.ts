@@ -1,6 +1,6 @@
 import { ScaleOrdinal, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { RadialConfigStrict } from './types'
+import { RadialArcConfigStrict } from './types'
 import {
   getColorScale,
   getPrecidendedColor,
@@ -38,7 +38,7 @@ export interface ArcData {
 export const updateCalculatedData = (
   canvas: Canvas,
   data: QsRadialData[],
-  config: RadialConfigStrict,
+  config: RadialArcConfigStrict,
   calculatedData: CalculatedData[]
 ): CalculatedData[] => {
   const newCalculatedData: CalculatedData[] = getCalculatedData(
@@ -59,7 +59,7 @@ export const updateCalculatedData = (
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsRadialData[],
-  config: RadialConfigStrict
+  config: RadialArcConfigStrict
 ): CalculatedData[] => {
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
   const {

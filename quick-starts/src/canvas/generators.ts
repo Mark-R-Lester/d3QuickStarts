@@ -29,7 +29,7 @@ import {
   QsRadialAreaData,
   QsRadialAxis,
   QsRadialAxisConfig,
-  QsRadialConfig,
+  QsRadialArcConfig,
   QsRadialData,
   QsRadialLine,
   QsRadialLineConfig,
@@ -158,7 +158,7 @@ interface radialArcTextElementFunctions {
 }
 
 interface radialArcElementFunctions {
-  radial: (data: QsRadialData[], customConfig?: QsRadialConfig) => QsRadial
+  radial: (data: QsRadialData[], customConfig?: QsRadialArcConfig) => QsRadial
   text: radialArcTextElementFunctions
 }
 
@@ -336,7 +336,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
     radialArc: {
       radial: (
         data: QsRadialData[],
-        customConfig?: QsRadialConfig
+        customConfig?: QsRadialArcConfig
       ): QsRadial => {
         const element = radialArc.radial(canvas, data, customConfig)
         elements.push({ element, data })

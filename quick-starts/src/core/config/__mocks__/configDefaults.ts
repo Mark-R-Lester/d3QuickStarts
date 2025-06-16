@@ -21,7 +21,7 @@ import { QsRadialAxisConfig } from '../../../radialCentroid/radialCentroidAxis/q
 import { QsRadialLineConfig } from '../../../radialCentroid/radialCentroidLine/qsTypes'
 import { QsRadialPointsConfig } from '../../../radialCentroid/radialCentroidPoints/qsTypes'
 import { QsRadialSpokesConfig } from '../../../radialCentroid/radialCentroidSpokes/qsTypes'
-import { QsRadialConfig } from '../../../radialArc/radialArc/qsTypes'
+import { QsRadialArcConfig } from '../../../radialArc/radialArc/qsTypes'
 import { QsPlottedTextConfig } from '../../../plots/plottedText/qsTypes'
 import { QsPlottedPointsConfig } from '../../../plots/plottedPoints/qsTypes'
 import { QsPlottedLineConfig } from '../../../plots/plottedLine/qsTypes'
@@ -219,7 +219,7 @@ export const plottedTextConfig: QsPlottedTextConfig = {
   textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
-export const radialArcConfig: QsRadialConfig = {
+export const radialArcConfig: QsRadialArcConfig = {
   outerRadius: 100,
   innerRadius: 0,
   padAngle: 0,

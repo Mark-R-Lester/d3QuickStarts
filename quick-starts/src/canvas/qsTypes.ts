@@ -1,5 +1,6 @@
+import { ConfigSetters } from '../core/config/configStore.class'
 import { QsGenerator } from './generators'
-import { ConfigSetters } from './setConfigs'
+
 import { CanvasConfigStrict } from './types'
 import { Selection } from 'd3'
 

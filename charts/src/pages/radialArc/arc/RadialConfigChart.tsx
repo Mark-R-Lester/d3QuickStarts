@@ -37,7 +37,8 @@ export const RadialConfigChart: FunctionComponent<ChartProps> = ({
       }
 
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
-      canvas.generate.radialArc.radial(data, config)
+      canvas.configStore.radialArc.arcConfig(config)
+      canvas.generate.radialArc.radial(data)
     }
     createChart()
   }, [canvasProps])

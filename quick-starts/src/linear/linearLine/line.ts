@@ -11,25 +11,7 @@ import {
   QsLineTransitionData,
 } from './qsTypes'
 import { linearLineConfig } from '../../core/config/configDefaults'
-
-const addDefaultsToConfig = (
-  canvas: Canvas,
-  customConfig?: QsLineConfig
-): LineConfigStrict => {
-  const defaults: LineConfigStrict = { ...linearLineConfig }
-
-  const configOverride: QsLineConfig =
-    customConfig !== undefined
-      ? customConfig
-      : { ...canvas.configStore.linear.lineConfig() }
-
-  if (!configOverride) return defaults
-
-  Object.keys(configOverride).forEach(
-    (key) => (defaults[key] = configOverride[key])
-  )
-  return defaults
-}
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 export const linearLine = {
   vertical: (
@@ -41,7 +23,11 @@ export const linearLine = {
       data,
       orientation: Orientation.VERTICAL,
     }
-    const config: LineConfigStrict = addDefaultsToConfig(canvas, customConfig)
+    const config: LineConfigStrict = addDefaultsToConfig<LineConfigStrict>(
+      { ...linearLineConfig },
+      customConfig,
+      { ...canvas.configStore.linear.lineConfig() }
+    )
     return draw(canvas, args, config)
   },
   horizontal: (
@@ -53,7 +39,11 @@ export const linearLine = {
       data,
       orientation: Orientation.HORIZONTAL,
     }
-    const config: LineConfigStrict = addDefaultsToConfig(canvas, customConfig)
+    const config: LineConfigStrict = addDefaultsToConfig<LineConfigStrict>(
+      { ...linearLineConfig },
+      customConfig,
+      { ...canvas.configStore.linear.lineConfig() }
+    )
     return draw(canvas, args, config)
   },
 }

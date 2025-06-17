@@ -14,27 +14,10 @@ import {
   QsRadialData,
 } from './qsTypes'
 import { radialArcConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 interface DrawArgs {
   data: QsRadialData[]
-}
-
-const addDefaultsToConfig = (
-  canvas: Canvas,
-  customConfig?: QsRadialArcConfig
-): RadialArcConfigStrict => {
-  const defaults: RadialArcConfigStrict = { ...radialArcConfig }
-  const configOverride: QsRadialArcConfig =
-    customConfig !== undefined
-      ? customConfig
-      : { ...canvas.configStore.radialArc.arcConfig() }
-
-  if (!configOverride) return defaults
-
-  Object.keys(configOverride).forEach(
-    (key) => (defaults[key] = configOverride[key])
-  )
-  return defaults
 }
 
 export const radialArc = {
@@ -44,10 +27,12 @@ export const radialArc = {
     customConfig?: QsRadialArcConfig
   ): QsRadial => {
     const args: DrawArgs = { data }
-    const config: RadialArcConfigStrict = addDefaultsToConfig(
-      canvas,
-      customConfig
-    )
+    const config: RadialArcConfigStrict =
+      addDefaultsToConfig<RadialArcConfigStrict>(
+        { ...radialArcConfig },
+        customConfig,
+        { ...canvas.configStore.radialArc.arcConfig() }
+      )
     return draw(canvas, args, config)
   },
 }

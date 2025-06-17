@@ -1,4 +1,3 @@
-import { schemePurples } from 'd3'
 import { BarGroupConfigStrict } from './types'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'

@@ -2,11 +2,6 @@ import { lineRadial } from 'd3'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import {
-  QsEnumCurve,
-  QsEnumLineCap,
-  QsEnumLineJoin,
-} from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
 import {
   QsRadialLineConfig,
@@ -16,19 +11,7 @@ import {
 } from './qsTypes'
 import { RadialLineConfigStrict } from './types'
 import { radialCentroidLineConfig } from '../../core/config/configDefaults'
-
-const addDefaultsToConfig = (
-  customConfig?: QsRadialLineConfig
-): RadialLineConfigStrict => {
-  const defaults: RadialLineConfigStrict = { ...radialCentroidLineConfig }
-
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
-}
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 export const radialLine = {
   line: (
@@ -36,7 +19,12 @@ export const radialLine = {
     data: QsRadialLineData,
     customConfig?: QsRadialLineConfig
   ): QsRadialLine => {
-    const config: RadialLineConfigStrict = addDefaultsToConfig(customConfig)
+    const config: RadialLineConfigStrict =
+      addDefaultsToConfig<RadialLineConfigStrict>(
+        { ...radialCentroidLineConfig },
+        customConfig,
+        { ...canvas.configStore.radialCentroid.lineConfig() }
+      )
     return draw(canvas, data, config)
   },
 }

@@ -3,22 +3,16 @@ import { getCalculatedData } from './calculatedData'
 import { RadialAxisConfigStrict, CalculatedData } from './types'
 import { radialCentroidAxisConfig } from '../../core/config/configDefaults'
 import { Canvas } from '../../d3QuickStart'
-import { QsRadialAxisConfig, QsRadialAxis } from './qsTypes'
+import {
+  QsRadialAxisConfig,
+  QsRadialAxis,
+  QsRadialCentroidAxisTransitionData,
+} from './qsTypes'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 interface DrawArgs {
   data: number[]
-}
-
-const addDefaultsToConfig = (
-  customConfig?: QsRadialAxisConfig
-): RadialAxisConfigStrict => {
-  const defaults: RadialAxisConfigStrict = { ...radialCentroidAxisConfig }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
 }
 
 export const radialAxis = {
@@ -27,7 +21,12 @@ export const radialAxis = {
     data: number[],
     customConfig?: QsRadialAxisConfig
   ): QsRadialAxis => {
-    const config: RadialAxisConfigStrict = addDefaultsToConfig(customConfig)
+    const config: RadialAxisConfigStrict =
+      addDefaultsToConfig<RadialAxisConfigStrict>(
+        { ...radialCentroidAxisConfig },
+        customConfig,
+        { ...canvas.configStore.radialCentroid.axisConfig() }
+      )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)
   },
@@ -101,25 +100,28 @@ const draw = (
   return {
     textElement: group.selectAll('text'),
     ringsElement: group.selectAll('ring'),
-    transition: (data: number[], config: QsRadialAxisConfig) => {
-      const transitionConfig = addDefaultsToConfig(config)
+    transition: (data: QsRadialCentroidAxisTransitionData) => {
+      const args = addTransitionDefaults(data.transitionArgs)
+
       const calculatedData: CalculatedData[] = getCalculatedData(
         canvas,
-        data,
-        transitionConfig
+        data.data,
+        config
       )
       group
         .selectAll(`.${calculatedData[0].ringClass}`)
         .data(calculatedData)
         .transition()
-        .duration(3000)
+        .delay(args.delayInMiliSeconds)
+        .duration(args.durationInMiliSeconds)
         .attr('stroke-width', (d) => d.strokeWidth)
         .attr('d', (d) => arc(d.ringData))
       group
         .selectAll(`.${calculatedData[0].textClass}`)
         .data(calculatedData)
         .transition()
-        .duration(3000)
+        .delay(args.delayInMiliSeconds)
+        .duration(args.durationInMiliSeconds)
         .attr('font-size', (d) => `${d.textFontSize}px`)
         .attr('transform', (d) => {
           return `translate(${d.ringData.textLocation})`

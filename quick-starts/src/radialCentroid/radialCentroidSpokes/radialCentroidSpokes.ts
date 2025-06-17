@@ -4,21 +4,10 @@ import { Canvas } from '../../d3QuickStart'
 import { QsRadialSpokesConfig, QsRadialSpokes } from './qsTypes'
 import { CalculatedData, RadialSpokesConfigStrict } from './types'
 import { radialCentroidSpokesConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 interface DrawArgs {
   data: number
-}
-
-const addDefaultsToConfig = (
-  customConfig?: QsRadialSpokesConfig
-): RadialSpokesConfigStrict => {
-  const defaults: RadialSpokesConfigStrict = { ...radialCentroidSpokesConfig }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
 }
 
 export const radialSpokes = {
@@ -27,7 +16,12 @@ export const radialSpokes = {
     data: number,
     customConfig?: QsRadialSpokesConfig
   ): QsRadialSpokes => {
-    const config: RadialSpokesConfigStrict = addDefaultsToConfig(customConfig)
+    const config: RadialSpokesConfigStrict =
+      addDefaultsToConfig<RadialSpokesConfigStrict>(
+        { ...radialCentroidSpokesConfig },
+        customConfig,
+        { ...canvas.configStore.radialCentroid.spokesConfig() }
+      )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)
   },

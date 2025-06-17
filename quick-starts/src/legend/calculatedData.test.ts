@@ -13,12 +13,14 @@ import {
   QsEnumTextAnchor,
 } from '../core/enums/qsEnums'
 import { QsLegendData } from './qsTypes'
+import { ConfigStoreManager } from '../core/config/configStore.class'
 
 const scales = getScales(mockCanvasConfigStrict)
 const canvas: Canvas = {
   config: mockCanvasConfigStrict,
   displayGroup: mockSelection,
   scales,
+  configStore: new ConfigStoreManager().getters,
 }
 
 const legendConfig: LegendConfigStrict = {

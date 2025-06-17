@@ -1,9 +1,6 @@
-import {
-  QsColorScaleData,
-  QsEnumScaleType,
-  QsTransitionArgs,
-} from '../../d3QuickStart'
+import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
+import { PointsConfigStrict } from './types'
 
 export interface QsPointData {
   value: number
@@ -15,18 +12,7 @@ export interface QsPointData {
   strokeOpacity?: number
 }
 
-export interface QsPointsConfig {
-  [key: string]: number | QsColorScaleData | string | undefined
-  scaleType?: QsEnumScaleType
-  defaultRadius?: number
-  defaultFillColor?: string
-  defaultFillOpacity?: number
-  defaultStrokeColor?: string
-  defaultStrokeWidth?: number
-  defaultStrokeOpacity?: number
-  fillColorScaleData?: QsColorScaleData
-  strokeColorScaleData?: QsColorScaleData
-}
+export type QsPointsConfig = Partial<PointsConfigStrict>
 
 export interface QsPointsTransitionData {
   data: QsPointData[]

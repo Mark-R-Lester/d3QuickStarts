@@ -1,10 +1,6 @@
-import { CurveFactory, Selection } from 'd3'
-import {
-  QsEnumCurve,
-  QsEnumLineCap,
-  QsEnumLineJoin,
-} from '../../core/enums/qsEnums'
+import { Selection } from 'd3'
 import { QsTransitionArgs } from '../../d3QuickStart'
+import { AreaConfigStrict } from './types'
 
 export interface QsAreaData {
   lowerData?: number[]
@@ -16,17 +12,7 @@ export interface QsAreaData {
   strokeOpacity?: number
 }
 
-export interface QsAreaConfig {
-  [key: string]: CurveFactory | string | number | undefined
-  curve?: QsEnumCurve
-  defaultFillColor?: string
-  defaultFillOpacity?: number
-  defaultStrokeColor?: string
-  defaultStrokeWidth?: number
-  defaultStrokeOpacity?: number
-  strokeLineJoin?: QsEnumLineJoin
-  strokeLineCap?: QsEnumLineCap
-}
+export type QsAreaConfig = Partial<AreaConfigStrict>
 
 export interface QsAreaTransitionData {
   data: QsAreaData

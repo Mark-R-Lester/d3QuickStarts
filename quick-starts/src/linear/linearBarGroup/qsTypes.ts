@@ -1,11 +1,8 @@
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { Selection } from 'd3'
+import { BarGroupConfigStrict } from './types'
 
-export interface QsBarGroupConfig {
-  [key: string]: number | Iterable<String> | undefined
-  padding?: number
-  colorRange?: Iterable<String>
-}
+export type QsBarGroupConfig = Partial<BarGroupConfigStrict>
 
 export interface QsBarGroupTransitionData {
   data: number[][]

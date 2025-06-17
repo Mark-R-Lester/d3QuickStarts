@@ -1,22 +1,8 @@
-import { QsColorScaleData, QsTransitionArgs } from '../../d3QuickStart'
+import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
+import { RadialArcConfigStrict } from './types'
 
-export interface QsRadialArcConfig {
-  [key: string]: number | string | QsColorScaleData | undefined
-  outerRadius?: number
-  innerRadius?: number
-  padAngle?: number
-  cornerRadius?: number
-  x?: number
-  y?: number
-  defaultFillColor?: string
-  defaultFillOpacity?: number
-  defaultStrokeColor?: string
-  defaultStrokeWidth?: number
-  defaultStrokeOpacity?: number
-  fillColorScaleData?: QsColorScaleData
-  strokeColorScaleData?: QsColorScaleData
-}
+export type QsRadialArcConfig = Partial<RadialArcConfigStrict>
 
 export interface QsRadialTransitionData {
   data: QsRadialData[]

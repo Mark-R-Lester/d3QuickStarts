@@ -1,11 +1,6 @@
-import {
-  QsEnumCurve,
-  QsEnumLineCap,
-  QsEnumLineJoin,
-  QsEnumScaleType,
-} from '../../core/enums/qsEnums'
 import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
+import { LineConfigStrict } from './types'
 
 export interface QsLineData {
   [key: string]: number[] | string | number | undefined
@@ -15,16 +10,7 @@ export interface QsLineData {
   strokeWidth?: number
 }
 
-export interface QsLineConfig {
-  [key: string]: QsEnumCurve | number | string | undefined
-  scaleType?: QsEnumScaleType
-  curve?: QsEnumCurve
-  defaultStrokeColor?: string
-  defaultStrokeWidth?: number
-  defaultStrokeOpacity?: number
-  strokeLineJoin?: QsEnumLineJoin
-  strokeLineCap?: QsEnumLineCap
-}
+export type QsLineConfig = Partial<LineConfigStrict>
 
 export interface QsLineTransitionData {
   data: QsLineData

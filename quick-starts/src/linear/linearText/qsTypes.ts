@@ -5,10 +5,10 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
-  QsEnumScaleType,
 } from '../../core/enums/qsEnums'
-import { QsColorScaleData, QsTransitionArgs } from '../../d3QuickStart'
+import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
+import { TextConfigStrict } from './types'
 
 export interface QsTextData {
   value: number
@@ -25,21 +25,7 @@ export interface QsTextData {
   textAlignmentBaseline?: QsEnumAlignmentBaseline
 }
 
-export interface QsTextConfig {
-  [key: string]: number | QsColorScaleData | string | undefined
-  scaleType?: QsEnumScaleType
-  defaultDecimalPoints?: number
-  defaultTextFont?: QsEnumTextFont | string
-  defaultTextFontSize?: number
-  defaultTextFontStyle?: QsEnumTextFontStyle
-  defaultTextFontWeight?: QsEnumTextFontWeight | number
-  defaultTextDecorationLine?: QsEnumTextDecorationLine
-  defaultTextFill?: string
-  defaultTextAngle?: number
-  defaultTextAnchor?: QsEnumTextAnchor
-  defaultTextStroke?: string
-  defaultTextAlignmentBaseline?: QsEnumAlignmentBaseline
-}
+export type QsTextConfig = Partial<TextConfigStrict>
 
 export interface QsTextTransitionData {
   data: QsTextData[]

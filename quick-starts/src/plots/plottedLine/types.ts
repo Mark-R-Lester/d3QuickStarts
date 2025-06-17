@@ -4,7 +4,7 @@ import {
   QsEnumLineCap,
 } from '../../core/enums/qsEnums'
 
-export interface LinePlotConfigStrict {
+export interface PlottedLineConfigStrict {
   [key: string]: QsEnumCurve | number | string | undefined
   curve: QsEnumCurve
   defaultStrokeColor: string

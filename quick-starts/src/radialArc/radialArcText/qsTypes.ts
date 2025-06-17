@@ -1,28 +1,8 @@
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-} from '../../core/enums/qsEnums'
 import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
+import { RadialTextConfigStrict } from './types'
 
-export interface QsRadialTextConfig {
-  [key: string]: string | number | undefined
-  radius?: number
-  x?: number
-  y?: number
-  defaultDecimalPoints?: number
-  textFont?: QsEnumTextFont | string
-  textFontSize?: number
-  textFontStyle?: QsEnumTextFontStyle
-  textFontWeight?: QsEnumTextFontWeight | number
-  textDecorationLine?: QsEnumTextDecorationLine
-  textFill?: string
-  textAnchor?: QsEnumTextAnchor
-  textStroke?: string
-}
+export type QsRadialTextConfig = Partial<RadialTextConfigStrict>
 
 export interface QsRadialTextTransitionArgs extends QsTransitionArgs {}
 

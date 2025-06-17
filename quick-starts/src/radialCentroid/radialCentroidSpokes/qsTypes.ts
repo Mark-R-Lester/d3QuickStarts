@@ -1,14 +1,7 @@
 import { Selection } from 'd3'
+import { RadialSpokesConfigStrict } from './types'
 
-export interface QsRadialSpokesConfig {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
-  radius?: number
-  innerRadius?: number
-  x?: number
-  y?: number
-  fillColor?: string
-  strokeWidth?: number
-}
+export type QsRadialSpokesConfig = Partial<RadialSpokesConfigStrict>
 
 export interface QsRadialSpokes {
   element:

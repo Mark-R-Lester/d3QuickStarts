@@ -14,7 +14,7 @@ import { BarStackedConfigStrict } from '../../linear/linearBarStack/types'
 import { LineConfigStrict } from '../../linear/linearLine/types'
 import { PointsConfigStrict } from '../../linear/linearPoints/types'
 import { TextConfigStrict } from '../../linear/linearText/types'
-import { LinePlotConfigStrict } from '../../plots/plottedLine/types'
+import { PlottedLineConfigStrict } from '../../plots/plottedLine/types'
 import { PlottedPointsConfigStrict } from '../../plots/plottedPoints/calculatedData'
 import { PlottedTextConfigStrict } from '../../plots/plottedText/types'
 import { RadialArcConfigStrict } from '../../radialArc/radialArc/types'
@@ -194,7 +194,7 @@ export const linearTextConfig: TextConfigStrict = {
   defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
-export const plottedLineConfig: LinePlotConfigStrict = {
+export const plottedLineConfig: PlottedLineConfigStrict = {
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,

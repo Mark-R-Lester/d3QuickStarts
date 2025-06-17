@@ -1,15 +1,8 @@
 import { Selection } from 'd3'
 import { QsCoordinate } from '../../d3QuickStart'
+import { PlottedPointsConfigStrict } from './calculatedData'
 
-export interface QsPlottedPointsConfig {
-  [key: string]: number | string | undefined
-  defaultRadius?: number
-  defaultFillColor?: string
-  defaultFillOpacity?: number
-  defaultStrokeColor?: string
-  defaultStrokeWidth?: number
-  defaultStrokeOpacity?: number
-}
+export type QsPlottedPointsConfig = Partial<PlottedPointsConfigStrict>
 
 export interface QsPlottedPointsData extends QsCoordinate {
   [key: string]: number | string | undefined

@@ -1,33 +1,7 @@
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-  QsEnumAlignmentBaseline,
-} from '../../core/enums/qsEnums'
 import { Selection } from 'd3'
+import { RadialAxisConfigStrict } from './types'
 
-export interface QsRadialAxisConfig {
-  [key: string]: number | string | undefined
-  radius?: number
-  x?: number
-  y?: number
-  axisAngle?: number
-  gap?: number
-  strokeColor?: string
-  strokeWidth?: number
-  strokeOpacity?: number
-  textFont?: QsEnumTextFont | string
-  textFontSize?: number
-  textFontStyle?: QsEnumTextFontStyle
-  textFontWeight?: QsEnumTextFontWeight | number
-  textDecorationLine?: QsEnumTextDecorationLine
-  textFill?: string
-  textAnchor?: QsEnumTextAnchor
-  textStroke?: string
-  textAlignmentBaseline?: QsEnumAlignmentBaseline
-}
+export type QsRadialAxisConfig = Partial<RadialAxisConfigStrict>
 
 export interface QsRadialAxis {
   textElement:

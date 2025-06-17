@@ -1,27 +1,8 @@
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-  QsEnumAlignmentBaseline,
-} from '../../core/enums/qsEnums'
 import { Selection } from 'd3'
 import { QsCoordinate } from '../../d3QuickStart'
+import { PlottedTextConfigStrict } from './types'
 
-export interface QsPlottedTextConfig {
-  [key: string]: number | string | undefined
-  textFont?: QsEnumTextFont | string
-  textFontSize?: number
-  textFontStyle?: QsEnumTextFontStyle
-  textFontWeight?: QsEnumTextFontWeight | number
-  textDecorationLine?: QsEnumTextDecorationLine
-  textFill?: string
-  textAngle?: number
-  textAnchor?: QsEnumTextAnchor
-  textStroke?: string
-  textAlignmentBaseline?: QsEnumAlignmentBaseline
-}
+export type QsPlottedTextConfig = Partial<PlottedTextConfigStrict>
 
 export interface QsPlottedText {
   element:

@@ -1,20 +1,8 @@
 import { Selection } from 'd3'
-import {
-  QsEnumCurve,
-  QsEnumLineCap,
-  QsEnumLineJoin,
-} from '../../core/enums/qsEnums'
 import { QsCoordinate } from '../../d3QuickStart'
+import { PlottedLineConfigStrict } from './types'
 
-export interface QsPlottedLineConfig {
-  [key: string]: QsEnumCurve | number | string | undefined
-  curve?: QsEnumCurve
-  defaultStrokeColor?: string
-  defaultStrokeWidth?: number
-  defaultStrokeOpacity?: number
-  strokeLineJoin?: QsEnumLineJoin
-  strokeLineCap?: QsEnumLineCap
-}
+export type QsPlottedLineConfig = Partial<PlottedLineConfigStrict>
 
 export interface QsPlottedLineData {
   [key: string]: number | string | QsCoordinate[] | undefined

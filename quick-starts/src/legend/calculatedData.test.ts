@@ -1,7 +1,7 @@
 import { getCalculatedData, CalculatedData } from './calculatedData'
 import { getScales } from '../canvas/getScales'
 import { mockSelection } from '../testObjects/mockSelection'
-import { mockCanvasConfig } from '../testObjects/mockCanvasConfigStrict'
+import { mockCanvasConfig } from '../testObjects/mockCanvasConfig'
 import { LegendConfig } from './types'
 import { Canvas } from '../d3QuickStart'
 import {

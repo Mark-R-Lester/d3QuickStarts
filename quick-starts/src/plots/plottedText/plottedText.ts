@@ -6,21 +6,10 @@ import {
 } from './qsTypes'
 import { PlottedTextConfigStrict } from './types'
 import { plottedTextConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 interface DrawArgs {
   data: QsPlottedTextArgs[]
-}
-
-const addDefaultsToConfig = (
-  customConfig?: QsPlottedTextConfig
-): PlottedTextConfigStrict => {
-  const defaults: PlottedTextConfigStrict = { ...plottedTextConfig }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
 }
 
 export const plottedText = {
@@ -30,7 +19,12 @@ export const plottedText = {
     customConfig?: QsPlottedTextConfig
   ): QsPlottedText => {
     const args: DrawArgs = { data }
-    const config: PlottedTextConfigStrict = addDefaultsToConfig(customConfig)
+    const config: PlottedTextConfigStrict =
+      addDefaultsToConfig<PlottedTextConfigStrict>(
+        { ...plottedTextConfig },
+        customConfig,
+        { ...canvas.configStore.plotted.pointsConfig() }
+      )
     return draw(canvas, args, config)
   },
 }

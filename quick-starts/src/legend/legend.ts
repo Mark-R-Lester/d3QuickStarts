@@ -4,22 +4,10 @@ import { QsTransitionArgs } from '../core/types/qsTypes'
 import { Canvas } from '../d3QuickStart'
 import { QsLegendData, QsLegendConfig, QsLegend } from './qsTypes'
 import { legendConfig } from '../core/config/configDefaults'
+import { addDefaultsToConfig } from '../core/config/addDefaultsToConfig'
 
 interface DrawArgs {
   data: QsLegendData[]
-}
-
-const addDefaultsToConfig = (
-  customConfig?: QsLegendConfig
-): LegendConfigStrict => {
-  const defaults: LegendConfigStrict = { ...legendConfig }
-
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
 }
 
 const legend = (
@@ -27,7 +15,11 @@ const legend = (
   data: QsLegendData[],
   customConfig?: QsLegendConfig
 ): QsLegend => {
-  const config: LegendConfigStrict = addDefaultsToConfig(customConfig)
+  const config: LegendConfigStrict = addDefaultsToConfig<LegendConfigStrict>(
+    { ...legendConfig },
+    customConfig,
+    { ...canvas.configStore.legend.legendConfig() }
+  )
   const args: DrawArgs = { data }
   return draw(canvas, args, config)
 }

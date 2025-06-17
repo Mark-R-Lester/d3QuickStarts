@@ -9,18 +9,7 @@ import { PlottedLineConfigStrict } from './types'
 import { plottedLineConfig } from '../../core/config/configDefaults'
 import { constantsCurves } from '../../core/constants/constants'
 import { CalculatedData, getCalculatedData } from './calculatedData'
-
-const addDefaultsToConfig = (
-  customConfig?: QsPlottedLineConfig
-): PlottedLineConfigStrict => {
-  const defaults: PlottedLineConfigStrict = { ...plottedLineConfig }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
-}
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 export const plottedLine = {
   line: (
@@ -28,7 +17,12 @@ export const plottedLine = {
     data: QsPlottedLineData,
     customConfig?: QsPlottedLineConfig
   ): QsLinePlot => {
-    const config: PlottedLineConfigStrict = addDefaultsToConfig(customConfig)
+    const config: PlottedLineConfigStrict =
+      addDefaultsToConfig<PlottedLineConfigStrict>(
+        { ...plottedLineConfig },
+        customConfig,
+        { ...canvas.configStore.plotted.lineConfig() }
+      )
     return draw(canvas, data, config)
   },
 }

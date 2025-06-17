@@ -3,6 +3,8 @@ import { getScales } from './getScales'
 import { CanvasConfig } from './types'
 
 let canvasConfig: CanvasConfig = {
+  ry: 0,
+  rx: 0,
   chartName: 'myChart',
   width: 100,
   height: 100,
@@ -15,10 +17,14 @@ let canvasConfig: CanvasConfig = {
   borderColor: 'lightgrey',
   displayAreaHeight: 100,
   displayAreaWidth: 100,
+  fillColor: 'none',
+  borderWidth: 2,
 }
 
 beforeEach(() => {
   canvasConfig = {
+    ry: 0,
+    rx: 0,
     chartName: 'myChart',
     width: 100,
     height: 100,
@@ -31,6 +37,8 @@ beforeEach(() => {
     borderColor: 'lightgrey',
     displayAreaHeight: 100,
     displayAreaWidth: 100,
+    fillColor: 'none',
+    borderWidth: 2,
   }
 })
 

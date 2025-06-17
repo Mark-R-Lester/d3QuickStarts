@@ -1,5 +1,7 @@
 export interface CanvasConfig {
   [key: string]: string | number | undefined
+  ry: number
+  rx: number
   chartName: string
   width: number
   height: number
@@ -10,6 +12,8 @@ export interface CanvasConfig {
   highestViewableValue: number
   lowestViewableValue: number
   borderColor: string
+  borderWidth: number
+  fillColor: string
   displayAreaHeight: number
   displayAreaWidth: number
 }

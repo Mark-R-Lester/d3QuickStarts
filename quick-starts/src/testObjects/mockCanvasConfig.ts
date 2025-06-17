@@ -1,6 +1,8 @@
 import { CanvasConfig } from '../canvas/types'
 
 export const mockCanvasConfig: CanvasConfig = {
+  ry: 0,
+  rx: 0,
   chartName: '',
   width: 1000,
   height: 1000,
@@ -11,6 +13,8 @@ export const mockCanvasConfig: CanvasConfig = {
   highestViewableValue: 100,
   lowestViewableValue: 0,
   borderColor: 'lightgray',
+  fillColor: 'none',
+  borderWidth: 2,
   displayAreaHeight: 100,
   displayAreaWidth: 100,
 }

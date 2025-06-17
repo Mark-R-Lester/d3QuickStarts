@@ -29,6 +29,8 @@ describe('Linear Bars calculatedData', () => {
   }
 
   const canvasConfig: CanvasConfig = {
+    ry: 0,
+    rx: 0,
     chartName: 'myChart',
     width: 100,
     height: 100,
@@ -39,6 +41,8 @@ describe('Linear Bars calculatedData', () => {
     highestViewableValue: 100,
     lowestViewableValue: 0,
     borderColor: 'lightgrey',
+    borderWidth: 2,
+    fillColor: 'none',
     displayAreaHeight: 100,
     displayAreaWidth: 100,
   }

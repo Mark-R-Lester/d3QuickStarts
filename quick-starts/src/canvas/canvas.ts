@@ -59,11 +59,13 @@ const draw = (chartName: string, config: CanvasConfig): QsCanvas => {
       .append('rect')
       .attr('x', 0)
       .attr('y', 0)
+      .attr('rx', config.rx)
+      .attr('ry', config.ry)
       .attr('width', config.width)
       .attr('height', config.height)
       .style('stroke', config.borderColor)
-      .style('fill', 'none')
-      .style('stroke-width', '2')
+      .style('fill', config.fillColor)
+      .style('stroke-width', config.borderWidth)
     return svg
   }
 

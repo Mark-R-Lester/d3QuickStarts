@@ -16,6 +16,9 @@ export default function LinearBarsPage() {
           width: 1000,
           lowestViewableValue: 0,
           highestViewableValue: 50,
+          fillColor: 'lightgrey',
+          ry: 30,
+          rx: 30,
         }}
         orientation={EnumOrientation.HORIZONTAL}
       />
@@ -26,6 +29,9 @@ export default function LinearBarsPage() {
           width: 1000,
           lowestViewableValue: 0,
           highestViewableValue: 50,
+          fillColor: 'lightGrey',
+          ry: 30,
+          rx: 30,
         }}
         orientation={EnumOrientation.HORIZONTAL}
       />

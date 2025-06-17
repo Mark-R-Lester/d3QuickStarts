@@ -39,6 +39,8 @@ import {
 } from '../enums/qsEnums'
 
 export const canvasConfig: CanvasConfig = {
+  ry: 0,
+  rx: 0,
   chartName: '',
   width: 500,
   height: 350,
@@ -51,6 +53,8 @@ export const canvasConfig: CanvasConfig = {
   borderColor: 'transparent',
   displayAreaHeight: 0,
   displayAreaWidth: 0,
+  fillColor: 'none',
+  borderWidth: 2,
 }
 
 export const legendConfig: LegendConfig = {

@@ -24,6 +24,8 @@ const canvas: Canvas = {
 }
 
 const legendConfig: LegendConfig = {
+  ry: 0,
+  rx: 0,
   height: 10,
   width: 10,
   space: 5,

@@ -105,12 +105,7 @@ describe('ConfigStoreManager', () => {
     })
   })
 
-  describe('Setters and Getters Integration', () => {
-    it('sets and gets legend config', () => {
-      configManager.setters.legend.legendConfig(legendConfig)
-      expect(configManager.getters.legend.legendConfig()).toEqual(legendConfig)
-    })
-
+  describe('Linear Configurations', () => {
     it('sets and gets linear area config', () => {
       configManager.setters.linear.areaConfig(linearAreaConfig)
       expect(configManager.getters.linear.areaConfig()).toEqual(
@@ -185,7 +180,9 @@ describe('ConfigStoreManager', () => {
         linearTextConfig
       )
     })
+  })
 
+  describe('Plotted Configurations', () => {
     it('sets and gets plotted line config', () => {
       configManager.setters.plotted.lineConfig(plottedLineConfig)
       expect(configManager.getters.plotted.lineConfig()).toEqual(
@@ -206,7 +203,9 @@ describe('ConfigStoreManager', () => {
         plottedTextConfig
       )
     })
+  })
 
+  describe('RadialArc Configurations', () => {
     it('sets and gets radial arc config', () => {
       configManager.setters.radialArc.arcConfig(radialArcConfig)
       expect(configManager.getters.radialArc.arcConfig()).toEqual(
@@ -247,7 +246,9 @@ describe('ConfigStoreManager', () => {
         radialArcTextConfigFollow
       )
     })
+  })
 
+  describe('RadialCentroid Configurations', () => {
     it('sets and gets radial centroid area config', () => {
       configManager.setters.radialCentroid.areaConfig(radialCentroidAreaConfig)
       expect(configManager.getters.radialCentroid.areaConfig()).toEqual(
@@ -288,10 +289,12 @@ describe('ConfigStoreManager', () => {
     })
   })
 
-  it('maintains single store instance across getters and setters', () => {
-    configManager.setters.legend.legendConfig(legendConfig)
-    expect(configManager.getters.legend.legendConfig()).toBe(
-      (configManager as any).store.legendConfig
-    )
+  describe('Store Consistency', () => {
+    it('maintains single store instance across getters and setters', () => {
+      configManager.setters.legend.legendConfig(legendConfig)
+      expect(configManager.getters.legend.legendConfig()).toBe(
+        (configManager as any).store.legendConfig
+      )
+    })
   })
 })

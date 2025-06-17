@@ -8,21 +8,10 @@ import {
   QsBarGroupTransitionData,
 } from './qsTypes'
 import { linearBarGroupConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 interface DrawArgs {
   data: number[][]
-}
-
-const addDefaultsToConfig = (
-  customConfig?: QsBarGroupConfig
-): BarGroupConfigStrict => {
-  const defaults: BarGroupConfigStrict = { ...linearBarGroupConfig }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
 }
 
 export const linearBarGroup = {
@@ -31,7 +20,12 @@ export const linearBarGroup = {
     data: number[][],
     customConfig?: QsBarGroupConfig
   ): QsBarGroups => {
-    const config: BarGroupConfigStrict = addDefaultsToConfig(customConfig)
+    const config: BarGroupConfigStrict =
+      addDefaultsToConfig<BarGroupConfigStrict>(
+        { ...linearBarGroupConfig },
+        customConfig,
+        { ...canvas.configStore.linear.barGroupConfig() }
+      )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)
   },

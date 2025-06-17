@@ -6,16 +6,7 @@ import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsBarConfig, QsBarData, QsBars, QsBarTransitionData } from './qsTypes'
 import { linearBarConfig } from '../../core/config/configDefaults'
-
-const addDefaultsToConfig = (customConfig?: QsBarConfig): BarConfigStrict => {
-  const defaults: BarConfigStrict = { ...linearBarConfig }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
-}
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 export const linearBar = {
   horizontal: (
@@ -24,7 +15,11 @@ export const linearBar = {
     customConfig?: QsBarConfig
   ): QsBars => {
     const args: DrawArgs = { data, orientation: Orientation.HORIZONTAL }
-    const config: BarConfigStrict = addDefaultsToConfig(customConfig)
+    const config: BarConfigStrict = addDefaultsToConfig<BarConfigStrict>(
+      { ...linearBarConfig },
+      customConfig,
+      { ...canvas.configStore.linear.barConfig() }
+    )
     return draw(canvas, args, config)
   },
   vertical: (
@@ -33,7 +28,11 @@ export const linearBar = {
     customConfig?: QsBarConfig
   ): QsBars => {
     const args: DrawArgs = { data, orientation: Orientation.VERTICAL }
-    const config: BarConfigStrict = addDefaultsToConfig(customConfig)
+    const config: BarConfigStrict = addDefaultsToConfig<BarConfigStrict>(
+      { ...linearBarConfig },
+      customConfig,
+      { ...canvas.configStore.linear.barConfig() }
+    )
     return draw(canvas, args, config)
   },
 }

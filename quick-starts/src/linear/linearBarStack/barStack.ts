@@ -8,21 +8,10 @@ import {
   QsBarStackedTransitionData,
 } from './qsTypes'
 import { linearBarStackConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 interface DrawArgs {
   data: number[][]
-}
-
-const addDefaultsToConfig = (
-  customConfig?: QsBarStackedConfig
-): BarStackedConfigStrict => {
-  const defaults: BarStackedConfigStrict = { ...linearBarStackConfig }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
 }
 
 export const linearBarStack = {
@@ -31,7 +20,12 @@ export const linearBarStack = {
     data: number[][],
     customConfig?: QsBarStackedConfig
   ): QsBarStack => {
-    const config: BarStackedConfigStrict = addDefaultsToConfig(customConfig)
+    const config: BarStackedConfigStrict =
+      addDefaultsToConfig<BarStackedConfigStrict>(
+        { ...linearBarStackConfig },
+        customConfig,
+        { ...canvas.configStore.linear.barStackConfig() }
+      )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)
   },

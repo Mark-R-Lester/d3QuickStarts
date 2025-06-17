@@ -15,16 +15,7 @@ import {
 } from './qsTypes'
 import { interpolate } from 'd3'
 import { linearTextConfig } from '../../core/config/configDefaults'
-
-const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
-  const defaults: TextConfigStrict = { ...linearTextConfig }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
-}
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 export const linearText = {
   horizontal: (
@@ -36,7 +27,11 @@ export const linearText = {
       data,
       orientation: Orientation.HORIZONTAL,
     }
-    const config: TextConfigStrict = addDefaultsToConfig(customConfig)
+    const config: TextConfigStrict = addDefaultsToConfig<TextConfigStrict>(
+      { ...linearTextConfig },
+      customConfig,
+      { ...canvas.configStore.linear.textConfig() }
+    )
     return draw(canvas, args, config)
   },
   vertical: (
@@ -48,7 +43,11 @@ export const linearText = {
       data,
       orientation: Orientation.VERTICAL,
     }
-    const config: TextConfigStrict = addDefaultsToConfig(customConfig)
+    const config: TextConfigStrict = addDefaultsToConfig<TextConfigStrict>(
+      { ...linearTextConfig },
+      customConfig,
+      { ...canvas.configStore.linear.textConfig() }
+    )
     return draw(canvas, args, config)
   },
 }

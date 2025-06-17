@@ -10,18 +10,7 @@ import {
   QsPointsTransitionData,
 } from './qsTypes'
 import { linearPointsConfig } from '../../core/config/configDefaults'
-
-const addDefaultsToConfig = (
-  customConfig?: QsPointsConfig
-): PointsConfigStrict => {
-  const defaults: PointsConfigStrict = { ...linearPointsConfig }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
-}
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 export const linearPoint = {
   horizontal: (
@@ -33,7 +22,11 @@ export const linearPoint = {
       data,
       orientation: Orientation.HORIZONTAL,
     }
-    const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
+    const config: PointsConfigStrict = addDefaultsToConfig<PointsConfigStrict>(
+      { ...linearPointsConfig },
+      customConfig,
+      { ...canvas.configStore.linear.pointsConfig() }
+    )
     return draw(canvas, args, config)
   },
   vertical: (
@@ -45,7 +38,11 @@ export const linearPoint = {
       data,
       orientation: Orientation.VERTICAL,
     }
-    const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
+    const config: PointsConfigStrict = addDefaultsToConfig<PointsConfigStrict>(
+      { ...linearPointsConfig },
+      customConfig,
+      { ...canvas.configStore.linear.pointsConfig() }
+    )
     return draw(canvas, args, config)
   },
 }

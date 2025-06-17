@@ -9,29 +9,7 @@ import {
   linearAxisConfigLeft,
   linearAxisConfigRight,
 } from '../../core/config/configDefaults'
-
-const addDefaultsToConfig = (
-  chartEdge: ChartEdge,
-  customConfig?: QsAxisConfig
-): AxisConfigStrict => {
-  const getConfig = (chartEdge: ChartEdge): AxisConfigStrict => {
-    const configs = {
-      [ChartEdge.TOP]: { ...linearAxisConfigTop },
-      [ChartEdge.BOTTOM]: { ...linearAxisConfigBottom },
-      [ChartEdge.LEFT]: { ...linearAxisConfigLeft },
-      [ChartEdge.RIGHT]: { ...linearAxisConfigRight },
-    }
-    return configs[chartEdge]
-  }
-
-  const defaults: AxisConfigStrict = getConfig(chartEdge)
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
-}
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 export const linearAxis = {
   xAxisTop: (
@@ -39,9 +17,10 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(
-      ChartEdge.TOP,
-      customConfig
+    const config: AxisConfigStrict = addDefaultsToConfig<AxisConfigStrict>(
+      { ...linearAxisConfigTop },
+      customConfig,
+      { ...canvas.configStore.linear.axisConfigTop() }
     )
     const args: DrawArgs = {
       data,
@@ -54,9 +33,10 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(
-      ChartEdge.BOTTOM,
-      customConfig
+    const config: AxisConfigStrict = addDefaultsToConfig<AxisConfigStrict>(
+      { ...linearAxisConfigBottom },
+      customConfig,
+      { ...canvas.configStore.linear.axisConfigBottom() }
     )
     const args: DrawArgs = {
       data,
@@ -70,9 +50,10 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(
-      ChartEdge.LEFT,
-      customConfig
+    const config: AxisConfigStrict = addDefaultsToConfig<AxisConfigStrict>(
+      { ...linearAxisConfigLeft },
+      customConfig,
+      { ...canvas.configStore.linear.axisConfigLeft() }
     )
     const args: DrawArgs = {
       data,
@@ -85,9 +66,10 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig(
-      ChartEdge.RIGHT,
-      customConfig
+    const config: AxisConfigStrict = addDefaultsToConfig<AxisConfigStrict>(
+      { ...linearAxisConfigRight },
+      customConfig,
+      { ...canvas.configStore.linear.axisConfigRight() }
     )
     const args: DrawArgs = {
       data,

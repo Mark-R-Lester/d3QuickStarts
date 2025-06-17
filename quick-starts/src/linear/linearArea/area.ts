@@ -12,19 +12,10 @@ import {
 } from './qsTypes'
 import { AreaConfigStrict, AreaData, CalculatedData } from './types'
 import { linearAreaConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 interface DrawArgs {
   data: QsAreaData
-}
-
-const addDefaultsToConfig = (customConfig?: QsAreaConfig): AreaConfigStrict => {
-  const defaults: AreaConfigStrict = { ...linearAreaConfig }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
 }
 
 export const linearArea = {
@@ -36,7 +27,11 @@ export const linearArea = {
     const args: DrawArgs = {
       data,
     }
-    const config: AreaConfigStrict = addDefaultsToConfig(customConfig)
+    const config: AreaConfigStrict = addDefaultsToConfig<AreaConfigStrict>(
+      { ...linearAreaConfig },
+      customConfig,
+      { ...canvas.configStore.linear.areaConfig() }
+    )
     return draw(canvas, args, config)
   },
 }

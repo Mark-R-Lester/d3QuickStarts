@@ -25,15 +25,13 @@ export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       if (orientation === EnumRadialTextOrientation.FOLLOW)
-        setElement1(canvas.generate.radialArc.text.followBanded(data, config))
+        setElement1(canvas.generate.radialArc.text.follow(data, config))
       if (orientation === EnumRadialTextOrientation.SPOKE)
-        setElement1(canvas.generate.radialArc.text.spokeBanded(data, config))
+        setElement1(canvas.generate.radialArc.text.spoke(data, config))
       if (orientation === EnumRadialTextOrientation.HORIZONTAL)
-        setElement1(
-          canvas.generate.radialArc.text.horizontalBanded(data, config)
-        )
+        setElement1(canvas.generate.radialArc.text.horizontal(data, config))
       if (orientation === EnumRadialTextOrientation.ROTATED)
-        setElement1(canvas.generate.radialArc.text.rotatedBanded(data, config))
+        setElement1(canvas.generate.radialArc.text.rotated(data, config))
 
       const radialArgs: QsRadialData[] = [
         { value: 0, fillColor: 'red' },

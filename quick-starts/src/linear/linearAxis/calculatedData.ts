@@ -10,11 +10,7 @@ import {
 } from 'd3'
 import { toStrings } from '../../core/conversion'
 import { ChartEdge } from '../../core/enums/enums'
-import {
-  Canvas,
-  QsEnumAxisScaleType,
-  QsEnumScaleType,
-} from '../../d3QuickStart'
+import { Canvas, QsEnumAxisScaleType } from '../../d3QuickStart'
 import { DrawArgs, AxisConfig } from './types'
 
 export interface CalculatedData {

@@ -16,26 +16,11 @@ export const RadialTextHorizontalElement: FunctionComponent<ChartProps> = ({
   useEffect(() => {
     const createChart = () => {
       const data: QsValuedText[] = [
-        {
-          value: 10,
-          text: 'Ten',
-        },
-        {
-          value: 20,
-          text: 'Twenty',
-        },
-        {
-          value: 30,
-          text: 'Thirty',
-        },
-        {
-          value: 40,
-          text: 'Forty',
-        },
-        {
-          value: 50,
-          text: 'Fifty',
-        },
+        { value: 10, text: 'Ten' },
+        { value: 20, text: 'Twenty' },
+        { value: 30, text: 'Thirty' },
+        { value: 40, text: 'Forty' },
+        { value: 50, text: 'Fifty' },
       ]
 
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)

@@ -243,6 +243,7 @@ export const radialArcConfig: RadialArcConfig = {
 }
 
 const radialArcTextConfigBase: RadialTextConfigBase = {
+  scaleType: QsEnumScaleType.LINEAR,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,

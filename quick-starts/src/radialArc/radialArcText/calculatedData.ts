@@ -33,14 +33,12 @@ export const updateCalculatedData = (
   canvas: Canvas,
   data: QsValuedText[],
   config: RadialTextConfig,
-  scaleType: QsEnumScaleType,
   calculatedData: CalculatedData
 ): CalculatedData => {
   const newCalculatedData: CalculatedData = getCalculatedData(
     canvas,
     data,
-    config,
-    scaleType
+    config
   )
 
   for (let i = 0; i < calculatedData.textArcData.length; i++) {
@@ -59,11 +57,10 @@ export const updateCalculatedData = (
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsValuedText[],
-  config: RadialTextConfig,
-  scaleType: QsEnumScaleType
+  config: RadialTextConfig
 ): CalculatedData => {
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
-  const { radius, x, y, textFontSize } = config
+  const { radius, x, y, textFontSize, scaleType } = config
 
   const bandData = (data: QsValuedText[], min?: boolean): TextArcData[] => {
     let totalValue = 0

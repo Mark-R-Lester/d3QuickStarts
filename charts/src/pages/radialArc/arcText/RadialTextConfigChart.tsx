@@ -8,6 +8,7 @@ import {
   QsEnumTextFont,
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
+  QsEnumScaleType,
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
@@ -37,6 +38,7 @@ export const RadialTextConfigChart: FunctionComponent<ChartProps> = ({
         textFill: 'orange',
         textStroke: 'purple',
         textAnchor: QsEnumTextAnchor.MIDDLE,
+        scaleType: QsEnumScaleType.BANDED,
       })
     }
     createChart()

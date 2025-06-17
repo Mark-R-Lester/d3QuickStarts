@@ -127,15 +127,7 @@ interface radialArcTextElementFunctions {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ) => QsRadialText
-  followBanded: (
-    data: QsValuedText[],
-    customConfig?: QsRadialTextConfig
-  ) => QsRadialText
   horizontal: (
-    data: QsValuedText[],
-    customConfig?: QsRadialTextConfig
-  ) => QsRadialText
-  horizontalBanded: (
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ) => QsRadialText
@@ -143,15 +135,7 @@ interface radialArcTextElementFunctions {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ) => QsRadialText
-  rotatedBanded: (
-    data: QsValuedText[],
-    customConfig?: QsRadialTextConfig
-  ) => QsRadialText
   spoke: (
-    data: QsValuedText[],
-    customConfig?: QsRadialTextConfig
-  ) => QsRadialText
-  spokeBanded: (
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ) => QsRadialText
@@ -351,31 +335,11 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           elements.push({ element, data })
           return element
         },
-        followBanded: (
-          data: QsValuedText[],
-          customConfig?: QsRadialTextConfig
-        ): QsRadialText => {
-          const element = radialText.followBanded(canvas, data, customConfig)
-          elements.push({ element, data })
-          return element
-        },
         horizontal: (
           data: QsValuedText[],
           customConfig?: QsRadialTextConfig
         ): QsRadialText => {
           const element = radialText.horizontal(canvas, data, customConfig)
-          elements.push({ element, data })
-          return element
-        },
-        horizontalBanded: (
-          data: QsValuedText[],
-          customConfig?: QsRadialTextConfig
-        ): QsRadialText => {
-          const element = radialText.horizontalBanded(
-            canvas,
-            data,
-            customConfig
-          )
           elements.push({ element, data })
           return element
         },
@@ -387,27 +351,11 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           elements.push({ element, data })
           return element
         },
-        rotatedBanded: (
-          data: QsValuedText[],
-          customConfig?: QsRadialTextConfig
-        ): QsRadialText => {
-          const element = radialText.rotatedBanded(canvas, data, customConfig)
-          elements.push({ element, data })
-          return element
-        },
         spoke: (
           data: QsValuedText[],
           customConfig?: QsRadialTextConfig
         ): QsRadialText => {
           const element = radialText.spoke(canvas, data, customConfig)
-          elements.push({ element, data })
-          return element
-        },
-        spokeBanded: (
-          data: QsValuedText[],
-          customConfig?: QsRadialTextConfig
-        ): QsRadialText => {
-          const element = radialText.spokeBanded(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },

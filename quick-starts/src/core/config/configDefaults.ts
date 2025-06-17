@@ -1,32 +1,29 @@
 import { schemePurples } from 'd3'
 import { GlobalDefaultColors, GlobalDefaultSettings } from '../enums/enums'
 
-import { LegendConfigStrict } from '../../legend/types'
-import { AreaConfigStrict } from '../../linear/linearArea/types'
+import { LegendConfig } from '../../legend/types'
+import { AreaConfig } from '../../linear/linearArea/types'
+import { AxisConfig, AxisConfigBase } from '../../linear/linearAxis/types'
+import { BarConfig } from '../../linear/linearBar/types'
+import { BarGroupConfig } from '../../linear/linearBarGroup/types'
+import { CanvasConfig } from '../../canvas/types'
+import { BarStackedConfig } from '../../linear/linearBarStack/types'
+import { LineConfig } from '../../linear/linearLine/types'
+import { PointsConfig } from '../../linear/linearPoints/types'
+import { TextConfig } from '../../linear/linearText/types'
+import { PlottedLineConfig } from '../../plots/plottedLine/types'
+import { PlottedPointsConfig } from '../../plots/plottedPoints/calculatedData'
+import { PlottedTextConfig } from '../../plots/plottedText/types'
+import { RadialArcConfig } from '../../radialArc/radialArc/types'
 import {
-  AxisConfigStrict,
-  AxisConfigStrictBase,
-} from '../../linear/linearAxis/types'
-import { BarConfigStrict } from '../../linear/linearBar/types'
-import { BarGroupConfigStrict } from '../../linear/linearBarGroup/types'
-import { CanvasConfigStrict } from '../../canvas/types'
-import { BarStackedConfigStrict } from '../../linear/linearBarStack/types'
-import { LineConfigStrict } from '../../linear/linearLine/types'
-import { PointsConfigStrict } from '../../linear/linearPoints/types'
-import { TextConfigStrict } from '../../linear/linearText/types'
-import { PlottedLineConfigStrict } from '../../plots/plottedLine/types'
-import { PlottedPointsConfigStrict } from '../../plots/plottedPoints/calculatedData'
-import { PlottedTextConfigStrict } from '../../plots/plottedText/types'
-import { RadialArcConfigStrict } from '../../radialArc/radialArc/types'
-import {
-  RadialTextConfigStrict,
-  RadialTextConfigStrictBase,
+  RadialTextConfig,
+  RadialTextConfigBase,
 } from '../../radialArc/radialArcText/types'
-import { RadialAreaConfigStrict } from '../../radialCentroid/radialCentroidArea/types'
-import { RadialAxisConfigStrict } from '../../radialCentroid/radialCentroidAxis/types'
-import { RadialLineConfigStrict } from '../../radialCentroid/radialCentroidLine/types'
-import { RadialPointsConfigStrict } from '../../radialCentroid/radialCentroidPoints/types'
-import { RadialSpokesConfigStrict } from '../../radialCentroid/radialCentroidSpokes/types'
+import { RadialAreaConfig } from '../../radialCentroid/radialCentroidArea/types'
+import { RadialAxisConfig } from '../../radialCentroid/radialCentroidAxis/types'
+import { RadialLineConfig } from '../../radialCentroid/radialCentroidLine/types'
+import { RadialPointsConfig } from '../../radialCentroid/radialCentroidPoints/types'
+import { RadialSpokesConfig } from '../../radialCentroid/radialCentroidSpokes/types'
 import {
   QsEnumAlignmentBaseline,
   QsEnumAxisScaleType,
@@ -41,7 +38,7 @@ import {
   QsEnumTextFontWeight,
 } from '../enums/qsEnums'
 
-export const canvasConfig: CanvasConfigStrict = {
+export const canvasConfig: CanvasConfig = {
   chartName: '',
   width: 500,
   height: 350,
@@ -56,7 +53,7 @@ export const canvasConfig: CanvasConfigStrict = {
   displayAreaWidth: 0,
 }
 
-export const legendConfig: LegendConfigStrict = {
+export const legendConfig: LegendConfig = {
   height: 2,
   width: 6,
   space: 10,
@@ -74,7 +71,7 @@ export const legendConfig: LegendConfigStrict = {
   textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
-export const linearAreaConfig: AreaConfigStrict = {
+export const linearAreaConfig: AreaConfig = {
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
@@ -85,7 +82,7 @@ export const linearAreaConfig: AreaConfigStrict = {
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
 }
 
-const linearAxisConfigBase: AxisConfigStrictBase = {
+const linearAxisConfigBase: AxisConfigBase = {
   percentageMovement: 0,
 
   domainColor: GlobalDefaultColors.AXIS_COLOR,
@@ -112,31 +109,31 @@ const linearAxisConfigBase: AxisConfigStrictBase = {
   textY: 0,
 }
 
-export const linearAxisConfigTop: AxisConfigStrict = {
+export const linearAxisConfigTop: AxisConfig = {
   ...linearAxisConfigBase,
   textAnchor: QsEnumTextAnchor.MIDDLE,
   textAlignmentBaseline: QsEnumAlignmentBaseline.BASELINE,
 }
 
-export const linearAxisConfigBottom: AxisConfigStrict = {
+export const linearAxisConfigBottom: AxisConfig = {
   ...linearAxisConfigBase,
   textAnchor: QsEnumTextAnchor.MIDDLE,
   textAlignmentBaseline: QsEnumAlignmentBaseline.HANGING,
 }
 
-export const linearAxisConfigLeft: AxisConfigStrict = {
+export const linearAxisConfigLeft: AxisConfig = {
   ...linearAxisConfigBase,
   textAnchor: QsEnumTextAnchor.END,
   textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
-export const linearAxisConfigRight: AxisConfigStrict = {
+export const linearAxisConfigRight: AxisConfig = {
   ...linearAxisConfigBase,
   textAnchor: QsEnumTextAnchor.START,
   textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
-export const linearBarConfig: BarConfigStrict = {
+export const linearBarConfig: BarConfig = {
   padding: 8,
   defaultFillColor: GlobalDefaultColors.BAR_FILL,
   defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
@@ -147,17 +144,17 @@ export const linearBarConfig: BarConfigStrict = {
   strokeColorScaleData: undefined,
 }
 
-export const linearBarGroupConfig: BarGroupConfigStrict = {
+export const linearBarGroupConfig: BarGroupConfig = {
   colorRange: schemePurples[4],
   padding: 20,
 }
 
-export const linearBarStackConfig: BarStackedConfigStrict = {
+export const linearBarStackConfig: BarStackedConfig = {
   colorRange: schemePurples[4],
   padding: 20,
 }
 
-export const linearLineConfig: LineConfigStrict = {
+export const linearLineConfig: LineConfig = {
   scaleType: QsEnumScaleType.LINEAR,
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
@@ -167,7 +164,7 @@ export const linearLineConfig: LineConfigStrict = {
   defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
 }
 
-export const linearPointsConfig: PointsConfigStrict = {
+export const linearPointsConfig: PointsConfig = {
   scaleType: QsEnumScaleType.LINEAR,
   defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
   defaultFillColor: GlobalDefaultColors.POINT_FILL,
@@ -179,7 +176,7 @@ export const linearPointsConfig: PointsConfigStrict = {
   strokeColorScaleData: undefined,
 }
 
-export const linearTextConfig: TextConfigStrict = {
+export const linearTextConfig: TextConfig = {
   scaleType: QsEnumScaleType.LINEAR,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
   defaultTextFont: QsEnumTextFont.SERIF,
@@ -194,7 +191,7 @@ export const linearTextConfig: TextConfigStrict = {
   defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
-export const plottedLineConfig: PlottedLineConfigStrict = {
+export const plottedLineConfig: PlottedLineConfig = {
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
@@ -203,7 +200,7 @@ export const plottedLineConfig: PlottedLineConfigStrict = {
   defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
 }
 
-export const plottedPointsConfig: PlottedPointsConfigStrict = {
+export const plottedPointsConfig: PlottedPointsConfig = {
   defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
   defaultFillColor: GlobalDefaultColors.POINT_FILL,
   defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
@@ -212,7 +209,7 @@ export const plottedPointsConfig: PlottedPointsConfigStrict = {
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
 }
 
-export const plottedTextConfig: PlottedTextConfigStrict = {
+export const plottedTextConfig: PlottedTextConfig = {
   textFont: QsEnumTextFont.SERIF,
   textFontSize: GlobalDefaultSettings.FONT_SIZE,
   textFontStyle: QsEnumTextFontStyle.NORMAL,
@@ -225,7 +222,7 @@ export const plottedTextConfig: PlottedTextConfigStrict = {
   textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
-export const radialArcConfig: RadialArcConfigStrict = {
+export const radialArcConfig: RadialArcConfig = {
   outerRadius: 100,
   innerRadius: 0,
   padAngle: 0,
@@ -241,7 +238,7 @@ export const radialArcConfig: RadialArcConfigStrict = {
   strokeColorScaleData: undefined,
 }
 
-const radialArcTextConfigBase: RadialTextConfigStrictBase = {
+const radialArcTextConfigBase: RadialTextConfigBase = {
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
@@ -255,31 +252,31 @@ const radialArcTextConfigBase: RadialTextConfigStrictBase = {
   textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
 }
 
-export const radialArcTextConfigRotated: RadialTextConfigStrict = {
+export const radialArcTextConfigRotated: RadialTextConfig = {
   ...radialArcTextConfigBase,
   radius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
-export const radialArcTextConfigHorizontal: RadialTextConfigStrict = {
+export const radialArcTextConfigHorizontal: RadialTextConfig = {
   ...radialArcTextConfigBase,
   radius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
-export const radialArcTextConfigSpoke: RadialTextConfigStrict = {
+export const radialArcTextConfigSpoke: RadialTextConfig = {
   ...radialArcTextConfigBase,
   radius: 103,
   textAnchor: QsEnumTextAnchor.START,
 }
 
-export const radialArcTextConfigFollow: RadialTextConfigStrict = {
+export const radialArcTextConfigFollow: RadialTextConfig = {
   ...radialArcTextConfigBase,
   radius: 103,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
-export const radialCentroidAreaConfig: RadialAreaConfigStrict = {
+export const radialCentroidAreaConfig: RadialAreaConfig = {
   curve: QsEnumCurve.LINEAR,
   x: 50,
   y: 50,
@@ -292,7 +289,7 @@ export const radialCentroidAreaConfig: RadialAreaConfigStrict = {
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
 }
 
-export const radialCentroidAxisConfig: RadialAxisConfigStrict = {
+export const radialCentroidAxisConfig: RadialAxisConfig = {
   radius: 100,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
@@ -312,7 +309,7 @@ export const radialCentroidAxisConfig: RadialAxisConfigStrict = {
   textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
-export const radialCentroidLineConfig: RadialLineConfigStrict = {
+export const radialCentroidLineConfig: RadialLineConfig = {
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
@@ -323,7 +320,7 @@ export const radialCentroidLineConfig: RadialLineConfigStrict = {
   y: GlobalDefaultSettings.RADIAL_Y,
 }
 
-export const radialCentroidPointsConfig: RadialPointsConfigStrict = {
+export const radialCentroidPointsConfig: RadialPointsConfig = {
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
@@ -336,7 +333,7 @@ export const radialCentroidPointsConfig: RadialPointsConfigStrict = {
   strokeColorScaleData: undefined,
 }
 
-export const radialCentroidSpokesConfig: RadialSpokesConfigStrict = {
+export const radialCentroidSpokesConfig: RadialSpokesConfig = {
   radius: 100,
   innerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,

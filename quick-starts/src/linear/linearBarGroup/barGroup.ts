@@ -1,4 +1,4 @@
-import { BarGroupConfigStrict } from './types'
+import { BarGroupConfig } from './types'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { Canvas } from '../../d3QuickStart'
@@ -20,12 +20,11 @@ export const linearBarGroup = {
     data: number[][],
     customConfig?: QsBarGroupConfig
   ): QsBarGroups => {
-    const config: BarGroupConfigStrict =
-      addDefaultsToConfig<BarGroupConfigStrict>(
-        { ...linearBarGroupConfig },
-        customConfig,
-        { ...canvas.configStore.linear.barGroupConfig() }
-      )
+    const config: BarGroupConfig = addDefaultsToConfig<BarGroupConfig>(
+      { ...linearBarGroupConfig },
+      customConfig,
+      { ...canvas.configStore.linear.barGroupConfig() }
+    )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)
   },
@@ -34,7 +33,7 @@ export const linearBarGroup = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: BarGroupConfigStrict
+  config: BarGroupConfig
 ): QsBarGroups => {
   const { data } = args
   const calculatedData: CalculatedData[] = getCalculatedData(

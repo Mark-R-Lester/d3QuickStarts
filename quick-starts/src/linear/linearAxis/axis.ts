@@ -1,7 +1,7 @@
 import { ChartEdge } from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
 import { QsAxis, QsAxisConfig } from './qsTypes'
-import { AxisConfigStrict, DrawArgs } from './types'
+import { AxisConfig, DrawArgs } from './types'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import {
   linearAxisConfigTop,
@@ -17,7 +17,7 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig<AxisConfigStrict>(
+    const config: AxisConfig = addDefaultsToConfig<AxisConfig>(
       { ...linearAxisConfigTop },
       customConfig,
       { ...canvas.configStore.linear.axisConfigTop() }
@@ -33,7 +33,7 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig<AxisConfigStrict>(
+    const config: AxisConfig = addDefaultsToConfig<AxisConfig>(
       { ...linearAxisConfigBottom },
       customConfig,
       { ...canvas.configStore.linear.axisConfigBottom() }
@@ -50,7 +50,7 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig<AxisConfigStrict>(
+    const config: AxisConfig = addDefaultsToConfig<AxisConfig>(
       { ...linearAxisConfigLeft },
       customConfig,
       { ...canvas.configStore.linear.axisConfigLeft() }
@@ -66,7 +66,7 @@ export const linearAxis = {
     data: string[] | number[],
     customConfig?: QsAxisConfig
   ): QsAxis => {
-    const config: AxisConfigStrict = addDefaultsToConfig<AxisConfigStrict>(
+    const config: AxisConfig = addDefaultsToConfig<AxisConfig>(
       { ...linearAxisConfigRight },
       customConfig,
       { ...canvas.configStore.linear.axisConfigRight() }
@@ -79,11 +79,7 @@ export const linearAxis = {
   },
 }
 
-const draw = (
-  canvas: Canvas,
-  args: DrawArgs,
-  config: AxisConfigStrict
-): QsAxis => {
+const draw = (canvas: Canvas, args: DrawArgs, config: AxisConfig): QsAxis => {
   const {
     domainColor,
     domainOpacity,

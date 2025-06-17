@@ -81,7 +81,7 @@ const dataExample: string = `const data = [
   [10, 4, 13, 32],
 ]`
 
-const configExample: string = `const defaults: BarGroupConfigStrict = {
+const configExample: string = `const defaults: BarGroupConfig = {
   colorRange: schemePurples[4],
   padding: 20,
 }`

@@ -1,5 +1,5 @@
 import { areaRadial } from 'd3'
-import { AreaData, CalculatedData, RadialAreaConfigStrict } from './types'
+import { AreaData, CalculatedData, RadialAreaConfig } from './types'
 import { getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsEnumLineCap, QsEnumLineJoin } from '../../core/enums/qsEnums'
@@ -24,12 +24,11 @@ export const radialArea = {
     data: QsRadialAreaData,
     customConfig?: QsRadialAreaConfig
   ): QsRadialArea => {
-    const config: RadialAreaConfigStrict =
-      addDefaultsToConfig<RadialAreaConfigStrict>(
-        { ...radialCentroidAreaConfig },
-        customConfig,
-        { ...canvas.configStore.radialCentroid.areaConfig() }
-      )
+    const config: RadialAreaConfig = addDefaultsToConfig<RadialAreaConfig>(
+      { ...radialCentroidAreaConfig },
+      customConfig,
+      { ...canvas.configStore.radialCentroid.areaConfig() }
+    )
     const args: DrawArgs = {
       data,
     }
@@ -40,7 +39,7 @@ export const radialArea = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: RadialAreaConfigStrict
+  config: RadialAreaConfig
 ): QsRadialArea => {
   const { data } = args
   const { curve } = config

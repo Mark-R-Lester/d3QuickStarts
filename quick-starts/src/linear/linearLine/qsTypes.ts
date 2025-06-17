@@ -1,6 +1,6 @@
 import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
-import { LineConfigStrict } from './types'
+import { LineConfig } from './types'
 
 export interface QsLineData {
   [key: string]: number[] | string | number | undefined
@@ -10,7 +10,7 @@ export interface QsLineData {
   strokeWidth?: number
 }
 
-export type QsLineConfig = Partial<LineConfigStrict>
+export type QsLineConfig = Partial<LineConfig>
 
 export interface QsLineTransitionData {
   data: QsLineData

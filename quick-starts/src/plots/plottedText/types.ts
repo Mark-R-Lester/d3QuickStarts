@@ -7,7 +7,7 @@ import {
   QsEnumAlignmentBaseline,
 } from '../../core/enums/qsEnums'
 
-export interface PlottedTextConfigStrict {
+export interface PlottedTextConfig {
   [key: string]: number | string | undefined
   textFont: QsEnumTextFont | string
   textFontSize: number

@@ -1,8 +1,8 @@
 import { Selection } from 'd3'
 import { QsCoordinate } from '../../d3QuickStart'
-import { PlottedLineConfigStrict } from './types'
+import { PlottedLineConfig } from './types'
 
-export type QsPlottedLineConfig = Partial<PlottedLineConfigStrict>
+export type QsPlottedLineConfig = Partial<PlottedLineConfig>
 
 export interface QsPlottedLineData {
   [key: string]: number | string | QsCoordinate[] | undefined

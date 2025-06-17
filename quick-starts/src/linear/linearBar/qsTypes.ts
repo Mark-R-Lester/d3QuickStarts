@@ -1,6 +1,6 @@
 import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
-import { BarConfigStrict } from './types'
+import { BarConfig } from './types'
 
 export interface QsBarData {
   lowerBoundry?: number
@@ -12,7 +12,7 @@ export interface QsBarData {
   strokeOpacity?: number
 }
 
-export type QsBarConfig = Partial<BarConfigStrict>
+export type QsBarConfig = Partial<BarConfig>
 
 export interface QsBarTransitionArgs extends QsTransitionArgs {}
 

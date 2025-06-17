@@ -1,7 +1,7 @@
 import { Selection } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { getCalculatedData, CalculatedData } from './calculatedData'
-import { BarConfigStrict, DrawArgs } from './types'
+import { BarConfig, DrawArgs } from './types'
 import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsBarConfig, QsBarData, QsBars, QsBarTransitionData } from './qsTypes'
@@ -15,7 +15,7 @@ export const linearBar = {
     customConfig?: QsBarConfig
   ): QsBars => {
     const args: DrawArgs = { data, orientation: Orientation.HORIZONTAL }
-    const config: BarConfigStrict = addDefaultsToConfig<BarConfigStrict>(
+    const config: BarConfig = addDefaultsToConfig<BarConfig>(
       { ...linearBarConfig },
       customConfig,
       { ...canvas.configStore.linear.barConfig() }
@@ -28,7 +28,7 @@ export const linearBar = {
     customConfig?: QsBarConfig
   ): QsBars => {
     const args: DrawArgs = { data, orientation: Orientation.VERTICAL }
-    const config: BarConfigStrict = addDefaultsToConfig<BarConfigStrict>(
+    const config: BarConfig = addDefaultsToConfig<BarConfig>(
       { ...linearBarConfig },
       customConfig,
       { ...canvas.configStore.linear.barConfig() }
@@ -37,11 +37,7 @@ export const linearBar = {
   },
 }
 
-const draw = (
-  canvas: Canvas,
-  args: DrawArgs,
-  config: BarConfigStrict
-): QsBars => {
+const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
   const { orientation } = args
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,

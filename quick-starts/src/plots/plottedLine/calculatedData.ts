@@ -1,6 +1,6 @@
 import { Canvas } from '../../d3QuickStart'
 import { QsPlottedLineData } from './qsTypes'
-import { PlottedLineConfigStrict } from './types'
+import { PlottedLineConfig } from './types'
 
 export interface CalculatedData {
   coordinates: [number, number][]
@@ -12,7 +12,7 @@ export interface CalculatedData {
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsPlottedLineData,
-  config: PlottedLineConfigStrict
+  config: PlottedLineConfig
 ): CalculatedData => {
   const { xDataScalePlotted, yDataScalePlotted, genralPercentScale } =
     canvas.scales

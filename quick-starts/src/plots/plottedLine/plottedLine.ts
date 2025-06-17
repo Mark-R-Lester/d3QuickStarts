@@ -5,7 +5,7 @@ import {
   QsPlottedLineConfig,
   QsPlottedLineData,
 } from '../../d3QuickStart'
-import { PlottedLineConfigStrict } from './types'
+import { PlottedLineConfig } from './types'
 import { plottedLineConfig } from '../../core/config/configDefaults'
 import { constantsCurves } from '../../core/constants/constants'
 import { CalculatedData, getCalculatedData } from './calculatedData'
@@ -17,12 +17,11 @@ export const plottedLine = {
     data: QsPlottedLineData,
     customConfig?: QsPlottedLineConfig
   ): QsLinePlot => {
-    const config: PlottedLineConfigStrict =
-      addDefaultsToConfig<PlottedLineConfigStrict>(
-        { ...plottedLineConfig },
-        customConfig,
-        { ...canvas.configStore.plotted.lineConfig() }
-      )
+    const config: PlottedLineConfig = addDefaultsToConfig<PlottedLineConfig>(
+      { ...plottedLineConfig },
+      customConfig,
+      { ...canvas.configStore.plotted.lineConfig() }
+    )
     return draw(canvas, data, config)
   },
 }
@@ -30,7 +29,7 @@ export const plottedLine = {
 const draw = (
   canvas: Canvas,
   data: QsPlottedLineData,
-  config: PlottedLineConfigStrict
+  config: PlottedLineConfig
 ): QsLinePlot => {
   const { curve, strokeLineJoin, strokeLineCap } = config
 

@@ -1,7 +1,7 @@
 import { scaleLinear } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { QsRadialLineData } from './qsTypes'
-import { RadialLineConfigStrict } from './types'
+import { RadialLineConfig } from './types'
 import { GlobalDefaultSettings } from '../../core/enums/enums'
 
 export interface CalculatedData {
@@ -18,7 +18,7 @@ export interface CalculatedData {
 export const getCalculatedData = (
   canvas: Canvas,
   lineData: QsRadialLineData,
-  config: RadialLineConfigStrict
+  config: RadialLineConfig
 ): CalculatedData => {
   const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
     canvas.config

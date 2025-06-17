@@ -1,4 +1,4 @@
-import { BarStackedConfigStrict } from './types'
+import { BarStackedConfig } from './types'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
@@ -20,12 +20,11 @@ export const linearBarStack = {
     data: number[][],
     customConfig?: QsBarStackedConfig
   ): QsBarStack => {
-    const config: BarStackedConfigStrict =
-      addDefaultsToConfig<BarStackedConfigStrict>(
-        { ...linearBarStackConfig },
-        customConfig,
-        { ...canvas.configStore.linear.barStackConfig() }
-      )
+    const config: BarStackedConfig = addDefaultsToConfig<BarStackedConfig>(
+      { ...linearBarStackConfig },
+      customConfig,
+      { ...canvas.configStore.linear.barStackConfig() }
+    )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)
   },
@@ -34,7 +33,7 @@ export const linearBarStack = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: BarStackedConfigStrict
+  config: BarStackedConfig
 ): QsBarStack => {
   const { data } = args
 

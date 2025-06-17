@@ -9,7 +9,7 @@ import {
   QsRadialLineTransitionData,
   QsRadialLineData,
 } from './qsTypes'
-import { RadialLineConfigStrict } from './types'
+import { RadialLineConfig } from './types'
 import { radialCentroidLineConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
@@ -19,12 +19,11 @@ export const radialLine = {
     data: QsRadialLineData,
     customConfig?: QsRadialLineConfig
   ): QsRadialLine => {
-    const config: RadialLineConfigStrict =
-      addDefaultsToConfig<RadialLineConfigStrict>(
-        { ...radialCentroidLineConfig },
-        customConfig,
-        { ...canvas.configStore.radialCentroid.lineConfig() }
-      )
+    const config: RadialLineConfig = addDefaultsToConfig<RadialLineConfig>(
+      { ...radialCentroidLineConfig },
+      customConfig,
+      { ...canvas.configStore.radialCentroid.lineConfig() }
+    )
     return draw(canvas, data, config)
   },
 }
@@ -32,7 +31,7 @@ export const radialLine = {
 const draw = (
   canvas: Canvas,
   data: QsRadialLineData,
-  config: RadialLineConfigStrict
+  config: RadialLineConfig
 ): QsRadialLine => {
   const { curve, strokeLineJoin, strokeLineCap } = config
   const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)

@@ -1,8 +1,8 @@
 import { getScales } from './getScales'
 
-import { CanvasConfigStrict } from './types'
+import { CanvasConfig } from './types'
 
-let canvasConfig: CanvasConfigStrict = {
+let canvasConfig: CanvasConfig = {
   chartName: 'myChart',
   width: 100,
   height: 100,

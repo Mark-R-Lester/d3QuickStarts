@@ -1,5 +1,5 @@
 import { getScales } from '../../canvas/getScales'
-import { CanvasConfigStrict } from '../../canvas/types'
+import { CanvasConfig } from '../../canvas/types'
 import {
   GlobalDefaultColors,
   GlobalDefaultSettings,
@@ -9,7 +9,7 @@ import { Canvas, qsCreateCanvas } from '../../canvas/canvas'
 import { QsCanvas } from '../../canvas/qsTypes'
 import { getCalculatedData } from './calculatedData'
 import { QsBarData } from './qsTypes'
-import { BarConfigStrict, DrawArgs } from './types'
+import { BarConfig, DrawArgs } from './types'
 import { JSDOM } from 'jsdom'
 import { ConfigStoreManager } from '../../core/config/configStore.class'
 
@@ -17,7 +17,7 @@ const dom = new JSDOM()
 global.document = dom.window.document
 
 describe('Linear Bars calculatedData', () => {
-  const config: BarConfigStrict = {
+  const config: BarConfig = {
     padding: 8,
     defaultFillColor: GlobalDefaultColors.BAR_FILL,
     defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
@@ -28,7 +28,7 @@ describe('Linear Bars calculatedData', () => {
     strokeColorScaleData: undefined,
   }
 
-  const canvasConfig: CanvasConfigStrict = {
+  const canvasConfig: CanvasConfig = {
     chartName: 'myChart',
     width: 100,
     height: 100,

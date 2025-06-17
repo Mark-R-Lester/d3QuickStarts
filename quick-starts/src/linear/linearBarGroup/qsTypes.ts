@@ -1,8 +1,8 @@
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { Selection } from 'd3'
-import { BarGroupConfigStrict } from './types'
+import { BarGroupConfig } from './types'
 
-export type QsBarGroupConfig = Partial<BarGroupConfigStrict>
+export type QsBarGroupConfig = Partial<BarGroupConfig>
 
 export interface QsBarGroupTransitionData {
   data: number[][]

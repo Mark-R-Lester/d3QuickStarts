@@ -1,6 +1,6 @@
-import { CanvasConfigStrict } from '../canvas/types'
+import { CanvasConfig } from '../canvas/types'
 
-export const mockCanvasConfigStrict: CanvasConfigStrict = {
+export const mockCanvasConfig: CanvasConfig = {
   chartName: '',
   width: 1000,
   height: 1000,

@@ -15,7 +15,7 @@ import {
   QsEnumAxisScaleType,
   QsEnumScaleType,
 } from '../../d3QuickStart'
-import { DrawArgs, AxisConfigStrict } from './types'
+import { DrawArgs, AxisConfig } from './types'
 
 export interface CalculatedData {
   translation: string
@@ -28,7 +28,7 @@ export interface CalculatedData {
 export const getCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
-  config: AxisConfigStrict
+  config: AxisConfig
 ): CalculatedData => {
   const {
     genralPercentScale,

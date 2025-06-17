@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../d3QuickStart'
 
-import { CalculatedData, RadialSpokesConfigStrict } from './types'
+import { CalculatedData, RadialSpokesConfig } from './types'
 
 export const getCalculatedData = (
   canvas: Canvas,
   data: number,
-  config: RadialSpokesConfigStrict
+  config: RadialSpokesConfig
 ) => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { x, y, radius, innerRadius, strokeWidth } = config

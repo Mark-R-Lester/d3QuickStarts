@@ -1,8 +1,8 @@
 import { getCalculatedData, CalculatedData } from './calculatedData'
 import { getScales } from '../canvas/getScales'
 import { mockSelection } from '../testObjects/mockSelection'
-import { mockCanvasConfigStrict } from '../testObjects/mockCanvasConfigStrict'
-import { LegendConfigStrict } from './types'
+import { mockCanvasConfig } from '../testObjects/mockCanvasConfigStrict'
+import { LegendConfig } from './types'
 import { Canvas } from '../d3QuickStart'
 import {
   QsEnumTextFontWeight,
@@ -15,15 +15,15 @@ import {
 import { QsLegendData } from './qsTypes'
 import { ConfigStoreManager } from '../core/config/configStore.class'
 
-const scales = getScales(mockCanvasConfigStrict)
+const scales = getScales(mockCanvasConfig)
 const canvas: Canvas = {
-  config: mockCanvasConfigStrict,
+  config: mockCanvasConfig,
   displayGroup: mockSelection,
   scales,
   configStore: new ConfigStoreManager().getters,
 }
 
-const legendConfig: LegendConfigStrict = {
+const legendConfig: LegendConfig = {
   height: 10,
   width: 10,
   space: 5,

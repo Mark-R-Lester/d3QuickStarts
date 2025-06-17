@@ -1,8 +1,8 @@
 import { Selection } from 'd3'
-import { RadialAxisConfigStrict } from './types'
+import { RadialAxisConfig } from './types'
 import { QsTransitionArgs } from '../../d3QuickStart'
 
-export type QsRadialAxisConfig = Partial<RadialAxisConfigStrict>
+export type QsRadialAxisConfig = Partial<RadialAxisConfig>
 
 export interface QsRadialCentroidAxisTransitionData {
   data: number[]

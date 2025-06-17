@@ -1,8 +1,8 @@
 import { QsTransitionArgs } from '../d3QuickStart'
 import { BaseType, Selection } from 'd3'
-import { LegendConfigStrict } from './types'
+import { LegendConfig } from './types'
 
-export type QsLegendConfig = Partial<LegendConfigStrict>
+export type QsLegendConfig = Partial<LegendConfig>
 
 export interface QsLegendData {
   value: string

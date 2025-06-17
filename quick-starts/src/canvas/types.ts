@@ -1,4 +1,4 @@
-export interface CanvasConfigStrict {
+export interface CanvasConfig {
   [key: string]: string | number | undefined
   chartName: string
   width: number

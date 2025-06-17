@@ -1,5 +1,5 @@
 import { interpolate, arc as d3arc } from 'd3'
-import { RadialArcConfigStrict } from './types'
+import { RadialArcConfig } from './types'
 import {
   CalculatedData,
   getCalculatedData,
@@ -27,12 +27,11 @@ export const radialArc = {
     customConfig?: QsRadialArcConfig
   ): QsRadial => {
     const args: DrawArgs = { data }
-    const config: RadialArcConfigStrict =
-      addDefaultsToConfig<RadialArcConfigStrict>(
-        { ...radialArcConfig },
-        customConfig,
-        { ...canvas.configStore.radialArc.arcConfig() }
-      )
+    const config: RadialArcConfig = addDefaultsToConfig<RadialArcConfig>(
+      { ...radialArcConfig },
+      customConfig,
+      { ...canvas.configStore.radialArc.arcConfig() }
+    )
     return draw(canvas, args, config)
   },
 }
@@ -40,7 +39,7 @@ export const radialArc = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: RadialArcConfigStrict
+  config: RadialArcConfig
 ): QsRadial => {
   const { data } = args
 

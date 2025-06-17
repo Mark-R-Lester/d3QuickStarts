@@ -1,8 +1,8 @@
 import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
-import { RadialTextConfigStrict } from './types'
+import { RadialTextConfig } from './types'
 
-export type QsRadialTextConfig = Partial<RadialTextConfigStrict>
+export type QsRadialTextConfig = Partial<RadialTextConfig>
 
 export interface QsRadialTextTransitionArgs extends QsTransitionArgs {}
 

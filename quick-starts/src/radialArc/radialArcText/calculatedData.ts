@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { RadialTextConfigStrict } from './types'
+import { RadialTextConfig } from './types'
 import { Canvas, QsEnumScaleType } from '../../d3QuickStart'
 import { QsValuedText } from './qsTypes'
 
@@ -32,7 +32,7 @@ export interface TextArcData {
 export const updateCalculatedData = (
   canvas: Canvas,
   data: QsValuedText[],
-  config: RadialTextConfigStrict,
+  config: RadialTextConfig,
   scaleType: QsEnumScaleType,
   calculatedData: CalculatedData
 ): CalculatedData => {
@@ -59,7 +59,7 @@ export const updateCalculatedData = (
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsValuedText[],
-  config: RadialTextConfigStrict,
+  config: RadialTextConfig,
   scaleType: QsEnumScaleType
 ): CalculatedData => {
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales

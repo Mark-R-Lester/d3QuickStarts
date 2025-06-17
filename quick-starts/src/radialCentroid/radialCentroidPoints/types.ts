@@ -1,6 +1,6 @@
 import { QsColorScaleData } from '../../d3QuickStart'
 
-export interface RadialPointsConfigStrict {
+export interface RadialPointsConfig {
   [key: string]: number | QsColorScaleData | string | undefined
   x: number
   y: number

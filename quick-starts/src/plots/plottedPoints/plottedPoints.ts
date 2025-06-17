@@ -3,7 +3,7 @@ import { Canvas } from '../../d3QuickStart'
 import {
   CalculatedData,
   getCalculatedData,
-  PlottedPointsConfigStrict,
+  PlottedPointsConfig,
 } from './calculatedData'
 import {
   QsPlottedPointsConfig,
@@ -13,8 +13,8 @@ import {
 
 const addDefaultsToConfig = (
   customConfig?: QsPlottedPointsConfig
-): PlottedPointsConfigStrict => {
-  const defaults: PlottedPointsConfigStrict = plottedPointsConfig
+): PlottedPointsConfig => {
+  const defaults: PlottedPointsConfig = plottedPointsConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(
@@ -29,7 +29,7 @@ export const plottedPoint = {
     data: QsPlottedPointsData[],
     customConfig?: QsPlottedPointsConfig
   ): QsPlottedPoints => {
-    const config: PlottedPointsConfigStrict = addDefaultsToConfig(customConfig)
+    const config: PlottedPointsConfig = addDefaultsToConfig(customConfig)
     return draw(canvas, data, config)
   },
 }
@@ -37,7 +37,7 @@ export const plottedPoint = {
 const draw = (
   canvas: Canvas,
   data: QsPlottedPointsData[],
-  config: PlottedPointsConfigStrict
+  config: PlottedPointsConfig
 ): QsPlottedPoints => {
   const dataPoints = canvas.displayGroup.append('g')
   const calculatedData: CalculatedData[] = getCalculatedData(

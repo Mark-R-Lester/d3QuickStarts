@@ -1,6 +1,6 @@
 import { Canvas } from '../../d3QuickStart'
 import { CalculatedData, getCalculatedData } from './calculatedData'
-import { DrawArgs, PointsConfigStrict } from './types'
+import { DrawArgs, PointsConfig } from './types'
 import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
@@ -22,7 +22,7 @@ export const linearPoint = {
       data,
       orientation: Orientation.HORIZONTAL,
     }
-    const config: PointsConfigStrict = addDefaultsToConfig<PointsConfigStrict>(
+    const config: PointsConfig = addDefaultsToConfig<PointsConfig>(
       { ...linearPointsConfig },
       customConfig,
       { ...canvas.configStore.linear.pointsConfig() }
@@ -38,7 +38,7 @@ export const linearPoint = {
       data,
       orientation: Orientation.VERTICAL,
     }
-    const config: PointsConfigStrict = addDefaultsToConfig<PointsConfigStrict>(
+    const config: PointsConfig = addDefaultsToConfig<PointsConfig>(
       { ...linearPointsConfig },
       customConfig,
       { ...canvas.configStore.linear.pointsConfig() }
@@ -50,7 +50,7 @@ export const linearPoint = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: PointsConfigStrict
+  config: PointsConfig
 ): QsPoints => {
   const { scaleType } = config
   const { orientation } = args

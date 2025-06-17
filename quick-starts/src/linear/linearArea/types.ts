@@ -22,7 +22,7 @@ export interface CalculatedData {
   strokeOpacity: number
 }
 
-export interface AreaConfigStrict {
+export interface AreaConfig {
   [key: string]: CurveFactory | string | number | undefined
   curve: QsEnumCurve
   defaultFillColor: string

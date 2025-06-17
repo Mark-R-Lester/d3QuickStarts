@@ -19,7 +19,7 @@ export interface DrawArgs {
   orientation: Orientation
 }
 
-export interface BarConfigStrict {
+export interface BarConfig {
   [key: string]: number | string | QsColorScaleData | undefined
   padding: number
   defaultFillColor: string

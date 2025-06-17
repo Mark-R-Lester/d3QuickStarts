@@ -1,6 +1,6 @@
 import { arc as d3arc } from 'd3'
 import { getCalculatedData } from './calculatedData'
-import { RadialAxisConfigStrict, CalculatedData } from './types'
+import { RadialAxisConfig, CalculatedData } from './types'
 import { radialCentroidAxisConfig } from '../../core/config/configDefaults'
 import { Canvas } from '../../d3QuickStart'
 import {
@@ -21,12 +21,11 @@ export const radialAxis = {
     data: number[],
     customConfig?: QsRadialAxisConfig
   ): QsRadialAxis => {
-    const config: RadialAxisConfigStrict =
-      addDefaultsToConfig<RadialAxisConfigStrict>(
-        { ...radialCentroidAxisConfig },
-        customConfig,
-        { ...canvas.configStore.radialCentroid.axisConfig() }
-      )
+    const config: RadialAxisConfig = addDefaultsToConfig<RadialAxisConfig>(
+      { ...radialCentroidAxisConfig },
+      customConfig,
+      { ...canvas.configStore.radialCentroid.axisConfig() }
+    )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)
   },
@@ -35,7 +34,7 @@ export const radialAxis = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: RadialAxisConfigStrict
+  config: RadialAxisConfig
 ): QsRadialAxis => {
   const {
     strokeColor,

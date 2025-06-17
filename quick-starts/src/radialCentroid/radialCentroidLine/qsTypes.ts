@@ -1,8 +1,8 @@
 import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
-import { RadialLineConfigStrict } from './types'
+import { RadialLineConfig } from './types'
 
-export type QsRadialLineConfig = Partial<RadialLineConfigStrict>
+export type QsRadialLineConfig = Partial<RadialLineConfig>
 
 export interface QsRadialLineTransitionData {
   data: QsRadialLineData

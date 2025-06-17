@@ -1,6 +1,6 @@
 import { scaleLinear, ScaleOrdinal, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { RadialPointsConfigStrict } from './types'
+import { RadialPointsConfig } from './types'
 import {
   getColorScale,
   getPrecidendedColor,
@@ -26,7 +26,7 @@ export interface CalculatedData {
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsRadialPointData[],
-  config: RadialPointsConfigStrict
+  config: RadialPointsConfig
 ): CalculatedData[] => {
   const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
     canvas.config

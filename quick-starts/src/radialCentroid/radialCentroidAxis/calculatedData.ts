@@ -2,12 +2,12 @@ import { scaleLinear, scaleOrdinal, ScaleOrdinal, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
 import { Canvas } from '../../d3QuickStart'
-import { RadialAxisConfigStrict, CalculatedData } from './types'
+import { RadialAxisConfig, CalculatedData } from './types'
 
 export const getCalculatedData = (
   canvas: Canvas,
   data: number[],
-  config: RadialAxisConfigStrict
+  config: RadialAxisConfig
 ): CalculatedData[] => {
   const {
     displayAreaHeight,

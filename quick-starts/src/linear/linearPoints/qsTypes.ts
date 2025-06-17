@@ -1,6 +1,6 @@
 import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
-import { PointsConfigStrict } from './types'
+import { PointsConfig } from './types'
 
 export interface QsPointData {
   value: number
@@ -12,7 +12,7 @@ export interface QsPointData {
   strokeOpacity?: number
 }
 
-export type QsPointsConfig = Partial<PointsConfigStrict>
+export type QsPointsConfig = Partial<PointsConfig>
 
 export interface QsPointsTransitionData {
   data: QsPointData[]

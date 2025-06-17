@@ -1,14 +1,14 @@
 import { scaleLinear, scaleBand, range, line as d3line } from 'd3'
 import { Canvas, QsEnumScaleType } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
-import { DrawArgs, LineConfigStrict, CalculatedData } from './types'
+import { DrawArgs, LineConfig, CalculatedData } from './types'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { constantsCurves } from '../../core/constants/constants'
 
 export const getCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
-  config: LineConfigStrict
+  config: LineConfig
 ): CalculatedData => {
   const { displayAreaWidth } = canvas.config
   const { yDataScale, genralPercentScale } = canvas.scales

@@ -9,7 +9,7 @@ import {
   QsEnumAxisScaleType,
 } from '../../d3QuickStart'
 
-export interface AxisConfigStrictBase {
+export interface AxisConfigBase {
   [key: string]: number | boolean | string | undefined
   percentageMovement: number
 
@@ -37,7 +37,7 @@ export interface AxisConfigStrictBase {
   textY: number
 }
 
-export interface AxisConfigStrict extends AxisConfigStrictBase {
+export interface AxisConfig extends AxisConfigBase {
   [key: string]: number | boolean | string | undefined
   textAnchor: QsEnumTextAnchor
   textAlignmentBaseline: QsEnumAlignmentBaseline

@@ -1,6 +1,6 @@
 import { Selection } from 'd3'
 import { QsTransitionArgs } from '../../d3QuickStart'
-import { AreaConfigStrict } from './types'
+import { AreaConfig } from './types'
 
 export interface QsAreaData {
   lowerData?: number[]
@@ -12,7 +12,7 @@ export interface QsAreaData {
   strokeOpacity?: number
 }
 
-export type QsAreaConfig = Partial<AreaConfigStrict>
+export type QsAreaConfig = Partial<AreaConfig>
 
 export interface QsAreaTransitionData {
   data: QsAreaData

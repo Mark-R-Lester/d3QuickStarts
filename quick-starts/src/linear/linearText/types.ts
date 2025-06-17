@@ -16,7 +16,7 @@ export interface DrawArgs {
   orientation: Orientation
 }
 
-export interface TextConfigStrict {
+export interface TextConfig {
   [key: string]: number | QsColorScaleData | string | undefined
   scaleType: QsEnumScaleType
   defaultDecimalPoints: number

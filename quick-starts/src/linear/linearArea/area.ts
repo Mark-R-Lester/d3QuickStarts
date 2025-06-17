@@ -10,7 +10,7 @@ import {
   QsAreaData,
   QsAreaTransitionData,
 } from './qsTypes'
-import { AreaConfigStrict, AreaData, CalculatedData } from './types'
+import { AreaConfig, AreaData, CalculatedData } from './types'
 import { linearAreaConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
@@ -27,7 +27,7 @@ export const linearArea = {
     const args: DrawArgs = {
       data,
     }
-    const config: AreaConfigStrict = addDefaultsToConfig<AreaConfigStrict>(
+    const config: AreaConfig = addDefaultsToConfig<AreaConfig>(
       { ...linearAreaConfig },
       customConfig,
       { ...canvas.configStore.linear.areaConfig() }
@@ -36,11 +36,7 @@ export const linearArea = {
   },
 }
 
-function draw(
-  canvas: Canvas,
-  args: DrawArgs,
-  config: AreaConfigStrict
-): QsArea {
+function draw(canvas: Canvas, args: DrawArgs, config: AreaConfig): QsArea {
   const { curve } = config
   const calculatedData: CalculatedData = getCalculatedData(
     canvas,

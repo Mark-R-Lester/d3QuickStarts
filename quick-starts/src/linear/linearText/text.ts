@@ -4,7 +4,7 @@ import {
   getCalculatedData,
   updateCalculatedData,
 } from './calculatedData'
-import { DrawArgs, TextConfigStrict } from './types'
+import { DrawArgs, TextConfig } from './types'
 import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
@@ -27,7 +27,7 @@ export const linearText = {
       data,
       orientation: Orientation.HORIZONTAL,
     }
-    const config: TextConfigStrict = addDefaultsToConfig<TextConfigStrict>(
+    const config: TextConfig = addDefaultsToConfig<TextConfig>(
       { ...linearTextConfig },
       customConfig,
       { ...canvas.configStore.linear.textConfig() }
@@ -43,7 +43,7 @@ export const linearText = {
       data,
       orientation: Orientation.VERTICAL,
     }
-    const config: TextConfigStrict = addDefaultsToConfig<TextConfigStrict>(
+    const config: TextConfig = addDefaultsToConfig<TextConfig>(
       { ...linearTextConfig },
       customConfig,
       { ...canvas.configStore.linear.textConfig() }
@@ -52,11 +52,7 @@ export const linearText = {
   },
 }
 
-const draw = (
-  canvas: Canvas,
-  args: DrawArgs,
-  config: TextConfigStrict
-): QsText => {
+const draw = (canvas: Canvas, args: DrawArgs, config: TextConfig): QsText => {
   const { orientation } = args
   const { scaleType } = config
 

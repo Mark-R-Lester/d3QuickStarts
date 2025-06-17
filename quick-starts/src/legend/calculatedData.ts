@@ -1,5 +1,5 @@
 import { Canvas } from '../d3QuickStart'
-import { LegendConfigStrict } from './types'
+import { LegendConfig } from './types'
 import { QsLegendData } from './qsTypes'
 
 export interface CalculatedData {
@@ -17,7 +17,7 @@ export interface CalculatedData {
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsLegendData[],
-  config: LegendConfigStrict
+  config: LegendConfig
 ): CalculatedData[] => {
   const { xPercentScale, yPercentScaleInverted, genralPercentScale } =
     canvas.scales

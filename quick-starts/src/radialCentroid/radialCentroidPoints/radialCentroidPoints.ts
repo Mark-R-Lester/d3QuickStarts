@@ -1,7 +1,7 @@
 import { getCalculatedData, CalculatedData } from './calculatedData'
 import { Canvas } from '../../d3QuickStart'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { RadialPointsConfigStrict } from './types'
+import { RadialPointsConfig } from './types'
 import {
   QsRadialPointData,
   QsRadialPointsConfig,
@@ -21,12 +21,11 @@ export const radialPoint = {
     data: QsRadialPointData[],
     customConfig?: QsRadialPointsConfig
   ): QsRadialPoints => {
-    const config: RadialPointsConfigStrict =
-      addDefaultsToConfig<RadialPointsConfigStrict>(
-        { ...radialCentroidPointsConfig },
-        customConfig,
-        { ...canvas.configStore.radialCentroid.pointsConfig() }
-      )
+    const config: RadialPointsConfig = addDefaultsToConfig<RadialPointsConfig>(
+      { ...radialCentroidPointsConfig },
+      customConfig,
+      { ...canvas.configStore.radialCentroid.pointsConfig() }
+    )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)
   },
@@ -35,7 +34,7 @@ export const radialPoint = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: RadialPointsConfigStrict
+  config: RadialPointsConfig
 ): QsRadialPoints => {
   const { data } = args
   const calculatedData: CalculatedData[] = getCalculatedData(

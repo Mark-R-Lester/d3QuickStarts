@@ -1,6 +1,6 @@
 import { QsColorScaleData } from '../../core/types/qsTypes'
 
-export interface RadialArcConfigStrict {
+export interface RadialArcConfig {
   [key: string]: number | QsColorScaleData | string | undefined
   outerRadius: number
   innerRadius: number

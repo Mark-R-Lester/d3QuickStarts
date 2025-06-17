@@ -29,7 +29,7 @@ export interface CalculatedData {
   strokeWidth: number
 }
 
-export interface RadialAxisConfigStrict {
+export interface RadialAxisConfig {
   [key: string]: number | undefined | string
   radius: number
   x: number

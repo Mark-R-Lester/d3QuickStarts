@@ -1,6 +1,6 @@
 import { Orientation } from '../../core/enums/enums'
 import { Canvas } from '../../d3QuickStart'
-import { DrawArgs, LineConfigStrict, CalculatedData } from './types'
+import { DrawArgs, LineConfig, CalculatedData } from './types'
 import { getCalculatedData as getVerticalCalculatedData } from './calculatedDataVertical'
 import { getCalculatedData as getHorizontalCalculatedData } from './calculatedDataHorizontal'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
@@ -23,7 +23,7 @@ export const linearLine = {
       data,
       orientation: Orientation.VERTICAL,
     }
-    const config: LineConfigStrict = addDefaultsToConfig<LineConfigStrict>(
+    const config: LineConfig = addDefaultsToConfig<LineConfig>(
       { ...linearLineConfig },
       customConfig,
       { ...canvas.configStore.linear.lineConfig() }
@@ -39,7 +39,7 @@ export const linearLine = {
       data,
       orientation: Orientation.HORIZONTAL,
     }
-    const config: LineConfigStrict = addDefaultsToConfig<LineConfigStrict>(
+    const config: LineConfig = addDefaultsToConfig<LineConfig>(
       { ...linearLineConfig },
       customConfig,
       { ...canvas.configStore.linear.lineConfig() }
@@ -51,7 +51,7 @@ export const linearLine = {
 export const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: LineConfigStrict
+  config: LineConfig
 ): QsLine => {
   const { orientation } = args
   const calculatedData: CalculatedData =

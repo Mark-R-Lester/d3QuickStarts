@@ -8,7 +8,7 @@ import {
 } from '../../core/enums/qsEnums'
 import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
-import { TextConfigStrict } from './types'
+import { TextConfig } from './types'
 
 export interface QsTextData {
   value: number
@@ -25,7 +25,7 @@ export interface QsTextData {
   textAlignmentBaseline?: QsEnumAlignmentBaseline
 }
 
-export type QsTextConfig = Partial<TextConfigStrict>
+export type QsTextConfig = Partial<TextConfig>
 
 export interface QsTextTransitionData {
   data: QsTextData[]

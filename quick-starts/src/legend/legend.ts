@@ -1,5 +1,5 @@
 import { CalculatedData, getCalculatedData } from './calculatedData'
-import { LegendConfigStrict } from './types'
+import { LegendConfig } from './types'
 import { QsTransitionArgs } from '../core/types/qsTypes'
 import { Canvas } from '../d3QuickStart'
 import { QsLegendData, QsLegendConfig, QsLegend } from './qsTypes'
@@ -15,7 +15,7 @@ const legend = (
   data: QsLegendData[],
   customConfig?: QsLegendConfig
 ): QsLegend => {
-  const config: LegendConfigStrict = addDefaultsToConfig<LegendConfigStrict>(
+  const config: LegendConfig = addDefaultsToConfig<LegendConfig>(
     { ...legendConfig },
     customConfig,
     { ...canvas.configStore.legend.legendConfig() }
@@ -28,7 +28,7 @@ export const plottedLegend = {
   legend,
 }
 
-const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfigStrict) => {
+const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfig) => {
   const { data } = args
   const {
     textFont,

@@ -2,7 +2,7 @@ import { scaleBand, ScaleOrdinal, range, ScaleSequential } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import { BarConfigStrict, CalculatedDataBarData, DrawArgs } from './types'
+import { BarConfig, CalculatedDataBarData, DrawArgs } from './types'
 import { Orientation } from '../../core/enums/enums'
 
 import {
@@ -37,7 +37,7 @@ export const calculateDataWidth = (
 export const getCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
-  config: BarConfigStrict
+  config: BarConfig
 ): CalculatedData[] => {
   const {
     padding,

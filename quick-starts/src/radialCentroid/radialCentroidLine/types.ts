@@ -4,7 +4,7 @@ import {
   QsEnumLineJoin,
 } from '../../core/enums/qsEnums'
 
-export interface RadialLineConfigStrict {
+export interface RadialLineConfig {
   [key: string]: number | QsEnumCurve | string | undefined
   x: number
   y: number

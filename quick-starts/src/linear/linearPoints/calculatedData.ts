@@ -6,7 +6,7 @@ import {
   ScaleSequential,
 } from 'd3'
 import { Canvas, QsEnumScaleType } from '../../d3QuickStart'
-import { DrawArgs, PointsConfigStrict } from './types'
+import { DrawArgs, PointsConfig } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
@@ -33,7 +33,7 @@ export interface CalculatedData {
 export const getCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
-  config: PointsConfigStrict
+  config: PointsConfig
 ): CalculatedData[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { xDataScale, yDataScale, genralPercentScale } = canvas.scales

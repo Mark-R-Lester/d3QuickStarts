@@ -7,7 +7,7 @@ import {
   QsEnumTextFontWeight,
 } from '../core/enums/qsEnums'
 
-export interface LegendConfigStrict {
+export interface LegendConfig {
   [key: string]: number | string | undefined
   height: number
   width: number

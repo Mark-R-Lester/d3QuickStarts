@@ -5,7 +5,7 @@ export interface CalculatedData {
   strokeWidth: number
 }
 
-export interface RadialSpokesConfigStrict {
+export interface RadialSpokesConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   radius: number
   innerRadius: number

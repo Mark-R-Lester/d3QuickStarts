@@ -7,7 +7,7 @@ export interface DrawArgs {
   orientation: Orientation
 }
 
-export interface PointsConfigStrict {
+export interface PointsConfig {
   [key: string]: number | QsColorScaleData | string | undefined
   scaleType: QsEnumScaleType
   defaultRadius: number

@@ -2,7 +2,7 @@ import { scaleBand, scaleOrdinal, range, stack, ScaleOrdinal, Series } from 'd3'
 import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
-import { BarData, BarGroupConfigStrict } from './types'
+import { BarData, BarGroupConfig } from './types'
 
 export interface CalculatedData {
   groupId: string
@@ -13,7 +13,7 @@ export interface CalculatedData {
 export const getCalculatedData = (
   canvas: Canvas,
   data: number[][],
-  config: BarGroupConfigStrict
+  config: BarGroupConfig
 ): CalculatedData[] => {
   const { displayAreaWidth } = canvas.config
   const { yDataScale } = canvas.scales

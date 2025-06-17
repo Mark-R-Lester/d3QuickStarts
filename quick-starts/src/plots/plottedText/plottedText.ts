@@ -4,7 +4,7 @@ import {
   QsPlottedTextConfig,
   QsPlottedText,
 } from './qsTypes'
-import { PlottedTextConfigStrict } from './types'
+import { PlottedTextConfig } from './types'
 import { plottedTextConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
@@ -19,12 +19,11 @@ export const plottedText = {
     customConfig?: QsPlottedTextConfig
   ): QsPlottedText => {
     const args: DrawArgs = { data }
-    const config: PlottedTextConfigStrict =
-      addDefaultsToConfig<PlottedTextConfigStrict>(
-        { ...plottedTextConfig },
-        customConfig,
-        { ...canvas.configStore.plotted.pointsConfig() }
-      )
+    const config: PlottedTextConfig = addDefaultsToConfig<PlottedTextConfig>(
+      { ...plottedTextConfig },
+      customConfig,
+      { ...canvas.configStore.plotted.pointsConfig() }
+    )
     return draw(canvas, args, config)
   },
 }
@@ -32,7 +31,7 @@ export const plottedText = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: PlottedTextConfigStrict
+  config: PlottedTextConfig
 ): QsPlottedText => {
   const {
     textFont,

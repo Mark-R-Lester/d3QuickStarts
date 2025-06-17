@@ -1,5 +1,5 @@
 import { ScaleLinear, scaleLinear } from 'd3'
-import { CanvasConfigStrict } from '../canvas/types'
+import { CanvasConfig } from '../canvas/types'
 
 export interface CanvasScales {
   genralPercentScale: ScaleLinear<number, number, never>
@@ -19,7 +19,7 @@ export interface CanvasScales {
   yDataScaleInverted: ScaleLinear<number, number, never>
 }
 
-export const getScales = (config: CanvasConfigStrict): CanvasScales => {
+export const getScales = (config: CanvasConfig): CanvasScales => {
   const {
     displayAreaWidth,
     displayAreaHeight,

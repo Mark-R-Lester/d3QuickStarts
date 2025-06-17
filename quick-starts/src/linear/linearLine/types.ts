@@ -14,7 +14,7 @@ export interface DrawArgs {
   orientation: Orientation
 }
 
-export interface LineConfigStrict {
+export interface LineConfig {
   [key: string]: QsEnumCurve | number | string | undefined
   scaleType: QsEnumScaleType
   curve: QsEnumCurve

@@ -1,5 +1,5 @@
 import { QsLineConfig } from '../../linear/linearLine/qsTypes'
-import { LineConfigStrict } from '../../linear/linearLine/types'
+import { LineConfig } from '../../linear/linearLine/types'
 import {
   QsEnumCurve,
   QsEnumLineCap,
@@ -9,7 +9,7 @@ import {
 import { addDefaultsToConfig } from './addDefaultsToConfig'
 
 describe('addDefaultsToConfig', () => {
-  const defaultConfig: LineConfigStrict = {
+  const defaultConfig: LineConfig = {
     scaleType: QsEnumScaleType.LINEAR,
     curve: QsEnumCurve.LINEAR,
     defaultStrokeColor: 'black',
@@ -29,7 +29,7 @@ describe('addDefaultsToConfig', () => {
       scaleType: QsEnumScaleType.BANDED,
     }
 
-    const result = addDefaultsToConfig<LineConfigStrict>(
+    const result = addDefaultsToConfig<LineConfig>(
       { ...defaultConfig },
       customConfig,
       storeConfig
@@ -52,7 +52,7 @@ describe('addDefaultsToConfig', () => {
       defaultStrokeWidth: 2,
     }
 
-    const result = addDefaultsToConfig<LineConfigStrict>(
+    const result = addDefaultsToConfig<LineConfig>(
       { ...defaultConfig },
       undefined,
       storeConfig
@@ -75,7 +75,7 @@ describe('addDefaultsToConfig', () => {
       scaleType: QsEnumScaleType.LINEAR,
     }
 
-    const result = addDefaultsToConfig<LineConfigStrict>(
+    const result = addDefaultsToConfig<LineConfig>(
       { ...defaultConfig },
       customConfig,
       undefined
@@ -93,7 +93,7 @@ describe('addDefaultsToConfig', () => {
   })
 
   it('returns defaults unchanged when both storeConfig and customConfig are undefined', () => {
-    const result = addDefaultsToConfig<LineConfigStrict>(
+    const result = addDefaultsToConfig<LineConfig>(
       { ...defaultConfig },
       undefined,
       undefined
@@ -110,7 +110,7 @@ describe('addDefaultsToConfig', () => {
       anotherProperty: 123,
     }
 
-    const result = addDefaultsToConfig<LineConfigStrict>(
+    const result = addDefaultsToConfig<LineConfig>(
       { ...defaultConfig },
       customConfig,
       storeConfig
@@ -133,7 +133,7 @@ describe('addDefaultsToConfig', () => {
       defaultStrokeWidth: 3,
     }
 
-    const result = addDefaultsToConfig<LineConfigStrict>(
+    const result = addDefaultsToConfig<LineConfig>(
       { ...defaultConfig },
       customConfig,
       storeConfig

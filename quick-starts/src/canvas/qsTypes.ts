@@ -1,16 +1,16 @@
 import { ConfigSetters } from '../core/config/configStore.class'
 import { QsGenerator } from './generators'
 
-import { CanvasConfigStrict } from './types'
+import { CanvasConfig } from './types'
 import { Selection } from 'd3'
 
 export { QsGenerator } from './generators'
 
-export type QsCanvasConfig = Partial<CanvasConfigStrict>
+export type QsCanvasConfig = Partial<CanvasConfig>
 
 export interface QsCanvas {
   displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>
-  config: CanvasConfigStrict
+  config: CanvasConfig
   generate: QsGenerator
   configStore: ConfigSetters
 }

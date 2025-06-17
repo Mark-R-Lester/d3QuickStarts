@@ -1,5 +1,5 @@
 import { arc as d3arc, interpolate } from 'd3'
-import { RadialTextConfigStrict } from './types'
+import { RadialTextConfig } from './types'
 import {
   TextArcData,
   CalculatedData,
@@ -37,12 +37,11 @@ export const radialText = {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
-    const config: RadialTextConfigStrict =
-      addDefaultsToConfig<RadialTextConfigStrict>(
-        { ...radialArcTextConfigSpoke },
-        customConfig,
-        { ...canvas.configStore.radialArc.textConfigSpoke() }
-      )
+    const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
+      { ...radialArcTextConfigSpoke },
+      customConfig,
+      { ...canvas.configStore.radialArc.textConfigSpoke() }
+    )
     const args: DrawArgs = {
       data,
       scaleType: QsEnumScaleType.LINEAR,
@@ -55,12 +54,11 @@ export const radialText = {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
-    const config: RadialTextConfigStrict =
-      addDefaultsToConfig<RadialTextConfigStrict>(
-        { ...radialArcTextConfigHorizontal },
-        customConfig,
-        { ...canvas.configStore.radialArc.textConfigHorizontal() }
-      )
+    const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
+      { ...radialArcTextConfigHorizontal },
+      customConfig,
+      { ...canvas.configStore.radialArc.textConfigHorizontal() }
+    )
     const args: DrawArgs = {
       data,
       scaleType: QsEnumScaleType.LINEAR,
@@ -73,12 +71,11 @@ export const radialText = {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
-    const config: RadialTextConfigStrict =
-      addDefaultsToConfig<RadialTextConfigStrict>(
-        { ...radialArcTextConfigRotated },
-        customConfig,
-        { ...canvas.configStore.radialArc.textConfigRotated() }
-      )
+    const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
+      { ...radialArcTextConfigRotated },
+      customConfig,
+      { ...canvas.configStore.radialArc.textConfigRotated() }
+    )
     const args: DrawArgs = {
       data,
       scaleType: QsEnumScaleType.LINEAR,
@@ -91,12 +88,11 @@ export const radialText = {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
-    const config: RadialTextConfigStrict =
-      addDefaultsToConfig<RadialTextConfigStrict>(
-        { ...radialArcTextConfigFollow },
-        customConfig,
-        { ...canvas.configStore.radialArc.textConfigFollow() }
-      )
+    const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
+      { ...radialArcTextConfigFollow },
+      customConfig,
+      { ...canvas.configStore.radialArc.textConfigFollow() }
+    )
     const args: DrawArgs = {
       data,
       scaleType: QsEnumScaleType.LINEAR,
@@ -109,12 +105,11 @@ export const radialText = {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
-    const config: RadialTextConfigStrict =
-      addDefaultsToConfig<RadialTextConfigStrict>(
-        { ...radialArcTextConfigSpoke },
-        customConfig,
-        { ...canvas.configStore.radialArc.textConfigSpoke() }
-      )
+    const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
+      { ...radialArcTextConfigSpoke },
+      customConfig,
+      { ...canvas.configStore.radialArc.textConfigSpoke() }
+    )
     const args: DrawArgs = {
       data,
       scaleType: QsEnumScaleType.BANDED,
@@ -127,12 +122,11 @@ export const radialText = {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
-    const config: RadialTextConfigStrict =
-      addDefaultsToConfig<RadialTextConfigStrict>(
-        { ...radialArcTextConfigHorizontal },
-        customConfig,
-        { ...canvas.configStore.radialArc.textConfigHorizontal() }
-      )
+    const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
+      { ...radialArcTextConfigHorizontal },
+      customConfig,
+      { ...canvas.configStore.radialArc.textConfigHorizontal() }
+    )
 
     const args: DrawArgs = {
       data,
@@ -146,12 +140,11 @@ export const radialText = {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
-    const config: RadialTextConfigStrict =
-      addDefaultsToConfig<RadialTextConfigStrict>(
-        { ...radialArcTextConfigRotated },
-        customConfig,
-        { ...canvas.configStore.radialArc.textConfigRotated() }
-      )
+    const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
+      { ...radialArcTextConfigRotated },
+      customConfig,
+      { ...canvas.configStore.radialArc.textConfigRotated() }
+    )
     const args: DrawArgs = {
       data,
       scaleType: QsEnumScaleType.BANDED,
@@ -164,12 +157,11 @@ export const radialText = {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
-    const config: RadialTextConfigStrict =
-      addDefaultsToConfig<RadialTextConfigStrict>(
-        { ...radialArcTextConfigFollow },
-        customConfig,
-        { ...canvas.configStore.radialArc.textConfigFollow() }
-      )
+    const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
+      { ...radialArcTextConfigFollow },
+      customConfig,
+      { ...canvas.configStore.radialArc.textConfigFollow() }
+    )
     const args: DrawArgs = {
       data,
       scaleType: QsEnumScaleType.BANDED,
@@ -182,7 +174,7 @@ export const radialText = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: RadialTextConfigStrict
+  config: RadialTextConfig
 ): QsRadialText => {
   const { data, scaleType, type } = args
   const {

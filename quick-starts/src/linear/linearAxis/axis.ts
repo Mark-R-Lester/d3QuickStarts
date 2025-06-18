@@ -1,5 +1,5 @@
 import { ChartEdge } from '../../core/enums/enums'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../canvas/canvas'
 import { QsAxis, QsAxisConfig } from './qsTypes'
 import { AxisConfig, DrawArgs } from './types'
 import { CalculatedData, getCalculatedData } from './calculatedData'

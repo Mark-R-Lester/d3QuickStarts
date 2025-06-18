@@ -1,6 +1,6 @@
 import { Selection } from 'd3'
-import { QsCoordinate } from '../../d3QuickStart'
 import { PlottedLineConfig } from './types'
+import { QsCoordinate } from '../../core/types/qsTypes'
 
 export type QsPlottedLineConfig = Partial<PlottedLineConfig>
 

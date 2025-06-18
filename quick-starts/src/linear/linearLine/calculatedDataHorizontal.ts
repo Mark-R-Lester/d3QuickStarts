@@ -1,9 +1,10 @@
 import { scaleLinear, scaleBand, range, line as d3line } from 'd3'
-import { Canvas, QsEnumScaleType } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { DrawArgs, LineConfig, CalculatedData } from './types'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { constantsCurves } from '../../core/constants/constants'
+import { Canvas } from '../../canvas/canvas'
+import { QsEnumScaleType } from '../../core/enums/qsEnums'
 
 export const getCalculatedData = (
   canvas: Canvas,

@@ -1,5 +1,5 @@
 import { scaleLinear } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../canvas/canvas'
 import { QsRadialLineData } from './qsTypes'
 import { RadialLineConfig } from './types'
 import { GlobalDefaultSettings } from '../../core/enums/enums'

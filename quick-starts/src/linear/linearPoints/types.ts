@@ -1,5 +1,6 @@
 import { Orientation } from '../../core/enums/enums'
-import { QsColorScaleData, QsEnumScaleType } from '../../d3QuickStart'
+import { QsEnumScaleType } from '../../core/enums/qsEnums'
+import { QsColorScaleData } from '../../core/types/qsTypes'
 import { QsPointData } from './qsTypes'
 
 export interface DrawArgs {

@@ -3,7 +3,6 @@ import { getScales } from '../canvas/getScales'
 import { mockSelection } from '../testObjects/mockSelection'
 import { mockCanvasConfig } from '../testObjects/mockCanvasConfig'
 import { LegendConfig } from './types'
-import { Canvas } from '../d3QuickStart'
 import {
   QsEnumTextFontWeight,
   QsEnumTextFontStyle,
@@ -14,6 +13,7 @@ import {
 } from '../core/enums/qsEnums'
 import { QsLegendData } from './qsTypes'
 import { ConfigStoreManager } from '../core/config/configStore.class'
+import { Canvas } from '../canvas/canvas'
 
 const scales = getScales(mockCanvasConfig)
 const canvas: Canvas = {

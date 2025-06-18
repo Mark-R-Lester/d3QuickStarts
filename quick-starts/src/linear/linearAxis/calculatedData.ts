@@ -10,8 +10,9 @@ import {
 } from 'd3'
 import { toStrings } from '../../core/conversion'
 import { ChartEdge } from '../../core/enums/enums'
-import { Canvas, QsEnumAxisScaleType } from '../../d3QuickStart'
 import { DrawArgs, AxisConfig } from './types'
+import { Canvas } from '../../canvas/canvas'
+import { QsEnumAxisScaleType } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
   translation: string

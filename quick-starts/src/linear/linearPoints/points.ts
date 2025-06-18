@@ -1,4 +1,4 @@
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../canvas/canvas'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { DrawArgs, PointsConfig } from './types'
 import { Orientation } from '../../core/enums/enums'

@@ -8,7 +8,7 @@ import {
   QsEnumAlignmentBaseline,
   QsEnumScaleType,
 } from '../../core/enums/qsEnums'
-import { QsColorScaleData } from '../../d3QuickStart'
+import { QsColorScaleData } from '../../core/types/qsTypes'
 import { QsTextData } from './qsTypes'
 
 export interface DrawArgs {

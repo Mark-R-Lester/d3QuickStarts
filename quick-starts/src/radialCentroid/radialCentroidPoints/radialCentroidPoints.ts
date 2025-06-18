@@ -1,5 +1,5 @@
 import { getCalculatedData, CalculatedData } from './calculatedData'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../canvas/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { RadialPointsConfig } from './types'
 import {

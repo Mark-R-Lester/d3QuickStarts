@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../canvas/canvas'
 
 import { CalculatedData, RadialSpokesConfig } from './types'
 

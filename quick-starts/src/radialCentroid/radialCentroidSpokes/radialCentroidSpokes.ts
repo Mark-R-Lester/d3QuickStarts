@@ -1,6 +1,6 @@
 import { line } from 'd3'
 import { getCalculatedData } from './calculatedData'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../canvas/canvas'
 import { QsRadialSpokesConfig, QsRadialSpokes } from './qsTypes'
 import { CalculatedData, RadialSpokesConfig } from './types'
 import { radialCentroidSpokesConfig } from '../../core/config/configDefaults'

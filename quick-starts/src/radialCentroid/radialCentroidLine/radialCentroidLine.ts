@@ -1,6 +1,6 @@
 import { lineRadial } from 'd3'
 import { CalculatedData, getCalculatedData } from './calculatedData'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../canvas/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { constantsCurves } from '../../core/constants/constants'
 import {

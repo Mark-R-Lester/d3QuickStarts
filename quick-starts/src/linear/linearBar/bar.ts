@@ -1,5 +1,5 @@
 import { Selection } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../canvas/canvas'
 import { getCalculatedData, CalculatedData } from './calculatedData'
 import { BarConfig, DrawArgs } from './types'
 import { Orientation } from '../../core/enums/enums'

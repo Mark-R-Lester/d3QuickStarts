@@ -1,4 +1,5 @@
-import { Canvas, QsPlottedPointsData } from '../../d3QuickStart'
+import { Canvas } from '../../canvas/canvas'
+import { QsPlottedPointsData } from './qsTypes'
 
 export interface PlottedPointsConfig {
   [key: string]: number | string | undefined

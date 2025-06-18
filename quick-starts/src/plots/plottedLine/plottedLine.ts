@@ -1,15 +1,11 @@
 import { line as d3line } from 'd3'
-import {
-  Canvas,
-  QsLinePlot,
-  QsPlottedLineConfig,
-  QsPlottedLineData,
-} from '../../d3QuickStart'
 import { PlottedLineConfig } from './types'
 import { plottedLineConfig } from '../../core/config/configDefaults'
 import { constantsCurves } from '../../core/constants/constants'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { QsLinePlot, QsPlottedLineConfig, QsPlottedLineData } from './qsTypes'
+import { Canvas } from '../../canvas/canvas'
 
 export const plottedLine = {
   line: (

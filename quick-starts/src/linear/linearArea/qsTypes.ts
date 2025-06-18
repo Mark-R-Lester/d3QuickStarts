@@ -1,6 +1,6 @@
 import { Selection } from 'd3'
-import { QsTransitionArgs } from '../../d3QuickStart'
 import { AreaConfig } from './types'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 
 export interface QsAreaData {
   lowerData?: number[]

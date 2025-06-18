@@ -1,6 +1,6 @@
 import { BarStackedConfig } from './types'
 import { CalculatedData, getCalculatedData } from './calculatedData'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../canvas/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
   QsBarStackedConfig,

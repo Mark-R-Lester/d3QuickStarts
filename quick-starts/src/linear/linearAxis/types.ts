@@ -1,13 +1,13 @@
 import { ChartEdge } from '../../core/enums/enums'
 import {
+  QsEnumAlignmentBaseline,
+  QsEnumAxisScaleType,
+  QsEnumTextAnchor,
+  QsEnumTextDecorationLine,
   QsEnumTextFont,
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-  QsEnumAlignmentBaseline,
-  QsEnumAxisScaleType,
-} from '../../d3QuickStart'
+} from '../../core/enums/qsEnums'
 
 export interface AxisConfigBase {
   [key: string]: number | boolean | string | undefined

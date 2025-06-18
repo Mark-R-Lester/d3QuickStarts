@@ -1,6 +1,6 @@
-import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
 import { LineConfig } from './types'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 
 export interface QsLineData {
   [key: string]: number[] | string | number | undefined

@@ -1,6 +1,6 @@
-import { Canvas } from '../d3QuickStart'
 import { LegendConfig } from './types'
 import { QsLegendData } from './qsTypes'
+import { Canvas } from '../canvas/canvas'
 
 export interface CalculatedData {
   x: number

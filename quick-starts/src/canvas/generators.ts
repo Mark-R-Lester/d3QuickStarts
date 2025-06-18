@@ -1,77 +1,87 @@
+import { plottedLegend } from '../legend/legend'
+import { QsLegend, QsLegendConfig, QsLegendData } from '../legend/qsTypes'
+import { linearArea } from '../linear/linearArea/area'
+import { QsArea, QsAreaConfig, QsAreaData } from '../linear/linearArea/qsTypes'
+import { linearAxis } from '../linear/linearAxis/axis'
+import { QsAxis, QsAxisConfig } from '../linear/linearAxis/qsTypes'
+import { linearBar } from '../linear/linearBar/bar'
+import { QsBarConfig, QsBarData, QsBars } from '../linear/linearBar/qsTypes'
+import { linearBarGroup } from '../linear/linearBarGroup/barGroup'
+import { QsBarGroupConfig, QsBarGroups } from '../linear/linearBarGroup/qsTypes'
+import { linearBarStack } from '../linear/linearBarStack/barStack'
 import {
-  Canvas,
-  QsArea,
-  QsAreaConfig,
-  QsAreaData,
-  QsAxis,
-  QsAxisConfig,
-  QsBarConfig,
-  QsBarData,
-  QsBarGroupConfig,
-  QsBarGroups,
-  QsBars,
   QsBarStack,
   QsBarStackedConfig,
-  QsLegend,
-  QsLegendConfig,
-  QsLegendData,
-  QsLine,
-  QsLineConfig,
-  QsLineData,
-  QsLinePlot,
-  QsPlottedLineConfig,
+} from '../linear/linearBarStack/qsTypes'
+import { linearLine } from '../linear/linearLine/line'
+import { QsLine, QsLineConfig, QsLineData } from '../linear/linearLine/qsTypes'
+import { linearPoint } from '../linear/linearPoints/points'
+import {
   QsPointData,
   QsPoints,
   QsPointsConfig,
-  QsRadial,
-  QsRadialArea,
-  QsRadialAreaConfig,
-  QsRadialAreaData,
-  QsRadialAxis,
-  QsRadialAxisConfig,
-  QsRadialArcConfig,
-  QsRadialData,
-  QsRadialLine,
-  QsRadialLineConfig,
-  QsRadialLineData,
-  QsRadialPointData,
-  QsRadialPoints,
-  QsRadialPointsConfig,
-  QsRadialSpokes,
-  QsRadialSpokesConfig,
-  QsRadialText,
-  QsRadialTextConfig,
+} from '../linear/linearPoints/qsTypes'
+import { QsText, QsTextConfig, QsTextData } from '../linear/linearText/qsTypes'
+import { linearText } from '../linear/linearText/text'
+import { plottedLine } from '../plots/plottedLine/plottedLine'
+import {
+  QsLinePlot,
+  QsPlottedLineConfig,
+  QsPlottedLineData,
+} from '../plots/plottedLine/qsTypes'
+import { plottedPoint } from '../plots/plottedPoints/plottedPoints'
+import {
   QsPlottedPoints,
   QsPlottedPointsConfig,
   QsPlottedPointsData,
+} from '../plots/plottedPoints/qsTypes'
+import { plottedText } from '../plots/plottedText/plottedText'
+import {
   QsPlottedText,
   QsPlottedTextArgs,
   QsPlottedTextConfig,
-  QsValuedText,
-  QsPlottedLineData,
-  QsText,
-  QsTextConfig,
-  QsTextData,
-} from '../d3QuickStart'
-import { plottedLegend } from '../legend/legend'
-import { linearArea } from '../linear/linearArea/area'
-import { linearAxis } from '../linear/linearAxis/axis'
-import { linearBar } from '../linear/linearBar/bar'
-import { linearBarGroup } from '../linear/linearBarGroup/barGroup'
-import { linearBarStack } from '../linear/linearBarStack/barStack'
-import { linearLine } from '../linear/linearLine/line'
-import { linearPoint } from '../linear/linearPoints/points'
-import { linearText } from '../linear/linearText/text'
-import { plottedLine } from '../plots/plottedLine/plottedLine'
-import { plottedPoint } from '../plots/plottedPoints/plottedPoints'
-import { plottedText } from '../plots/plottedText/plottedText'
+} from '../plots/plottedText/qsTypes'
+import {
+  QsRadial,
+  QsRadialArcConfig,
+  QsRadialData,
+} from '../radialArc/radialArc/qsTypes'
 import { radialArc } from '../radialArc/radialArc/radialArc'
+import {
+  QsRadialText,
+  QsRadialTextConfig,
+  QsValuedText,
+} from '../radialArc/radialArcText/qsTypes'
 import { radialText } from '../radialArc/radialArcText/radialArcText'
+import {
+  QsRadialArea,
+  QsRadialAreaConfig,
+  QsRadialAreaData,
+} from '../radialCentroid/radialCentroidArea/qsTypes'
 import { radialArea } from '../radialCentroid/radialCentroidArea/radialCentroidArea'
+import {
+  QsRadialAxis,
+  QsRadialAxisConfig,
+} from '../radialCentroid/radialCentroidAxis/qsTypes'
 import { radialAxis } from '../radialCentroid/radialCentroidAxis/radialCentroidAxis'
+import {
+  QsRadialLine,
+  QsRadialLineConfig,
+  QsRadialLineData,
+} from '../radialCentroid/radialCentroidLine/qsTypes'
 import { radialLine } from '../radialCentroid/radialCentroidLine/radialCentroidLine'
+import {
+  QsRadialPointData,
+  QsRadialPoints,
+  QsRadialPointsConfig,
+} from '../radialCentroid/radialCentroidPoints/qsTypes'
 import { radialPoint } from '../radialCentroid/radialCentroidPoints/radialCentroidPoints'
+import {
+  QsRadialSpokes,
+  QsRadialSpokesConfig,
+} from '../radialCentroid/radialCentroidSpokes/qsTypes'
 import { radialSpokes } from '../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
+import { Canvas } from './canvas'
 
 interface ElementWithData {
   element: any

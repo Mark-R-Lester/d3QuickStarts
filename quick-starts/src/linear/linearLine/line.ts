@@ -1,5 +1,5 @@
 import { Orientation } from '../../core/enums/enums'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../canvas/canvas'
 import { DrawArgs, LineConfig, CalculatedData } from './types'
 import { getCalculatedData as getVerticalCalculatedData } from './calculatedDataVertical'
 import { getCalculatedData as getHorizontalCalculatedData } from './calculatedDataHorizontal'

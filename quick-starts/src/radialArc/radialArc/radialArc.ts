@@ -6,7 +6,7 @@ import {
   updateCalculatedData,
 } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../canvas/canvas'
 import {
   QsRadialArcConfig,
   QsRadial,

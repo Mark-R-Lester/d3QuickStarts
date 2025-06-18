@@ -1,4 +1,4 @@
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../canvas/canvas'
 import { QsPlottedLineData } from './qsTypes'
 import { PlottedLineConfig } from './types'
 

@@ -1,8 +1,9 @@
 import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { Canvas } from '../../d3QuickStart'
+
 import { QsAreaData } from './qsTypes'
 import { AreaConfig, CalculatedData } from './types'
+import { Canvas } from '../../canvas/canvas'
 
 export const getCalculatedData = (
   canvas: Canvas,

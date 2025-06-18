@@ -1,6 +1,6 @@
 import { Selection } from 'd3'
-import { QsCoordinate } from '../../d3QuickStart'
 import { PlottedPointsConfig } from './calculatedData'
+import { QsCoordinate } from '../../core/types/qsTypes'
 
 export type QsPlottedPointsConfig = Partial<PlottedPointsConfig>
 

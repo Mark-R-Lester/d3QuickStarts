@@ -25,7 +25,6 @@ const pointData = [
 ]
 
 const colorScaleOrdinal: QsColorScaleData = {
-  domain: [1, 100],
   range: ['lightblue', 'darkblue'],
   type: QsEnumColorScale.ORDINAL,
 }

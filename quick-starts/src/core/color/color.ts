@@ -7,8 +7,8 @@ import {
 } from 'd3'
 import { GlobalDefaultColors } from '../enums/enums'
 import { QsEnumColorScale } from '../enums/qsEnums'
-import { toStrings } from '../conversion'
 import { QsColorScaleData } from '../types/qsTypes'
+import { OrdinalColorScaleData } from '../types/types'
 
 export const getPrecidendedColor = (
   color?: string,
@@ -32,6 +32,13 @@ export const getScaledColor = (
   if (colorScale) return colorScale(value)
 }
 
+export const findOrdinalValue = (
+  index: number,
+  data: OrdinalColorScaleData
+): number => {
+  return (index % data.range.length) + 1
+}
+
 export const getColorScale = (
   colorScaleData: QsColorScaleData
 ):
@@ -43,13 +50,17 @@ export const getColorScale = (
   const createSequentialColorScale = ():
     | ScaleSequential<string, never>
     | undefined => {
-    return scaleSequential(domain, interpolateRgbBasis(range))
+    if (domain) return scaleSequential(domain, interpolateRgbBasis(range))
+    else
+      console.error(
+        'Domain was not supplied for colorScale QsEnumColorScale.SEQUENTIAL'
+      )
   }
 
   const createOridinalColorScale = ():
     | ScaleOrdinal<string, unknown, never>
     | undefined => {
-    return scaleOrdinal().domain(toStrings(domain)).range(range)
+    return scaleOrdinal().domain(range).range(range)
   }
 
   return type === QsEnumColorScale.SEQUENTIAL

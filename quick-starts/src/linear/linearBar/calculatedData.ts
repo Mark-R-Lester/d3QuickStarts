@@ -1,16 +1,17 @@
 import { scaleBand, ScaleOrdinal, range, ScaleSequential } from 'd3'
-import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/conversion'
 import { BarConfig, CalculatedDataBarData, DrawArgs } from './types'
 import { Orientation } from '../../core/enums/enums'
-
 import {
   getPrecidendedColor,
   getScaledColor,
   getColorScale,
+  findOrdinalValue,
 } from '../../core/color/color'
 import { QsBarData } from './qsTypes'
+import { Canvas } from '../../canvas/canvas'
+import { QsEnumColorScale } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
   class: string
@@ -151,12 +152,20 @@ export const getCalculatedData = (
 
   data.forEach((d, i) => {
     d.lowerBoundry = findLowerBoundry(d.lowerBoundry)
+
+    const value = d.upperBoundry - d.lowerBoundry!
+
+    console.log('-----------ordinal', QsEnumColorScale.ORDINAL)
     const scaledFillColor: string | unknown | undefined = getScaledColor(
-      d.upperBoundry - d.lowerBoundry!,
+      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+        ? findOrdinalValue(i, fillColorScaleData)
+        : value,
       fillColorScale
     )
     const scaledStrokeColor: string | unknown | undefined = getScaledColor(
-      d.upperBoundry - d.lowerBoundry!,
+      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+        ? findOrdinalValue(i, fillColorScaleData)
+        : value,
       strokeColorScale
     )
 

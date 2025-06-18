@@ -5,18 +5,20 @@ import {
   ScaleOrdinal,
   ScaleSequential,
 } from 'd3'
-import { Canvas, QsEnumScaleType } from '../../d3QuickStart'
 import { DrawArgs, PointsConfig } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import {
+  findOrdinalValue,
   getColorScale,
   getPrecidendedColor,
   getScaledColor,
 } from '../../core/color/color'
 import { QsPointData } from './qsTypes'
 import { toStrings } from '../../core/conversion'
+import { Canvas } from '../../canvas/canvas'
+import { QsEnumColorScale, QsEnumScaleType } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
   class: string
@@ -130,12 +132,17 @@ export const getCalculatedData = (
     strokeColorScale = getColorScale(strokeColorScaleData)
 
   const calculatedData: CalculatedData[] = coordinates.map((d, i) => {
+    const value = orientation === Orientation.HORIZONTAL ? d.y : d.x
     const scaledFillColor: string | unknown | undefined = getScaledColor(
-      orientation === Orientation.HORIZONTAL ? d.y : d.x,
+      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+        ? findOrdinalValue(i, fillColorScaleData)
+        : value,
       fillColorScale
     )
     const scaledStrokeColor: string | unknown | undefined = getScaledColor(
-      orientation === Orientation.HORIZONTAL ? d.y : d.x,
+      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+        ? findOrdinalValue(i, fillColorScaleData)
+        : value,
       strokeColorScale
     )
     return {

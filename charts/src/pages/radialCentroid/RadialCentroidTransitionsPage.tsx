@@ -58,7 +58,6 @@ export default function RadialTransitionsPage() {
   ]
 
   const colorScaleOrdinal: QsColorScaleData = {
-    domain: [1, 100],
     range: ['lightblue', 'darkblue'],
     type: QsEnumColorScale.ORDINAL,
   }

@@ -2,12 +2,15 @@ import { scaleLinear, ScaleOrdinal, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { RadialPointsConfig } from './types'
 import {
+  findOrdinalValue,
   getColorScale,
   getPrecidendedColor,
   getScaledColor,
 } from '../../core/color/color'
-import { Canvas, QsCoordinate } from '../../d3QuickStart'
 import { QsRadialPointData } from './qsTypes'
+import { QsCoordinate } from '../../core/types/qsTypes'
+import { Canvas } from '../../canvas/canvas'
+import { QsEnumColorScale } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
   id: string
@@ -76,12 +79,15 @@ export const getCalculatedData = (
     }
 
     const scaledFillColor: string | unknown | undefined = getScaledColor(
-      d.value,
+      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+        ? findOrdinalValue(i, fillColorScaleData)
+        : d.value,
       fillColorScale
     )
-
     const scaledStrokeColor: string | unknown | undefined = getScaledColor(
-      d.value,
+      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+        ? findOrdinalValue(i, fillColorScaleData)
+        : d.value,
       strokeColorScale
     )
 

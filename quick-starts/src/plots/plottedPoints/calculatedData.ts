@@ -1,15 +1,6 @@
 import { Canvas } from '../../canvas/canvas'
 import { QsPlottedPointsData } from './qsTypes'
-
-export interface PlottedPointsConfig {
-  [key: string]: number | string | undefined
-  defaultRadius: number
-  defaultFillColor: string
-  defaultFillOpacity: number
-  defaultStrokeColor: string
-  defaultStrokeWidth: number
-  defaultStrokeOpacity: number
-}
+import { PlottedPointsConfig } from './types'
 
 export interface CalculatedData {
   x: number
@@ -53,3 +44,4 @@ export const getCalculatedData = (
 
   return calculatedData
 }
+export { PlottedPointsConfig }

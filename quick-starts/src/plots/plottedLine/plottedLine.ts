@@ -46,7 +46,7 @@ const draw = (
   lineGroup
     .append('path')
     .datum(calculatedData)
-    .attr('class', 'line')
+    .attr('class', 'plottedLline')
     .attr('d', (d) => line(d.coordinates))
     .attr('fill', 'none')
     .attr('stroke', (d) => d.strokeColor)
@@ -64,7 +64,7 @@ const draw = (
     )
 
     lineGroup
-      .selectAll(`.${calculatedData.class}`)
+      .selectAll('.plottedLline')
       .datum(calculatedData)
       .transition()
       .delay(args.delayInMiliSeconds)

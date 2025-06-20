@@ -1,15 +1,14 @@
+import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { plottedPointsConfig } from '../../core/config/configDefaults'
-import { Canvas } from '../../canvas/canvas'
-import {
-  CalculatedData,
-  getCalculatedData,
-  PlottedPointsConfig,
-} from './calculatedData'
+import { Canvas } from '../../d3QuickStart'
+import { CalculatedData, getCalculatedData } from './calculatedData'
 import {
   QsPlottedPointsConfig,
   QsPlottedPoints,
   QsPlottedPointsData,
+  QsPlottedPointsTransitionData,
 } from './qsTypes'
+import { PlottedPointsConfig } from './types'
 
 const addDefaultsToConfig = (
   customConfig?: QsPlottedPointsConfig
@@ -39,19 +38,19 @@ const draw = (
   data: QsPlottedPointsData[],
   config: PlottedPointsConfig
 ): QsPlottedPoints => {
-  const dataPoints = canvas.displayGroup.append('g')
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
     data,
     config
   )
 
+  const dataPoints = canvas.displayGroup.append('g')
   dataPoints
     .selectAll('circle')
     .data(calculatedData)
     .enter()
     .append('circle')
-    .attr('class', 'linePoint')
+    .attr('class', 'plottedPoint')
     .attr('cx', (d) => d.x)
     .attr('cy', (d) => d.y)
     .attr('r', (d) => d.radius)
@@ -61,5 +60,29 @@ const draw = (
     .attr('stroke-opacity', (d) => d.strokeOpacity)
     .attr('stroke-width', (d) => d.strokeWidth)
 
-  return { element: dataPoints }
+  const transition = (data: QsPlottedPointsTransitionData) => {
+    const args = addTransitionDefaults(data.transitionArgs)
+    const calculatedData: CalculatedData[] = getCalculatedData(
+      canvas,
+      data.data,
+      config
+    )
+
+    dataPoints
+      .selectAll(`.plottedPoint`)
+      .data(calculatedData)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('cx', (d) => d.x)
+      .attr('cy', (d) => d.y)
+      .attr('r', (d) => d.radius)
+      .attr('fill', (d) => d.fillColor)
+      .attr('fill-opacity', (d) => d.fillOpacity)
+      .attr('stroke', (d) => d.strokeColor)
+      .attr('stroke-opacity', (d) => d.strokeOpacity)
+      .attr('stroke-width', (d) => d.strokeWidth)
+  }
+
+  return { element: dataPoints, transition }
 }

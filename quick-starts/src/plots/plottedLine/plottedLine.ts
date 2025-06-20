@@ -4,8 +4,14 @@ import { plottedLineConfig } from '../../core/config/configDefaults'
 import { constantsCurves } from '../../core/constants/constants'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
-import { QsLinePlot, QsPlottedLineConfig, QsPlottedLineData } from './qsTypes'
+import {
+  QsLinePlot,
+  QsPlottedLineConfig,
+  QsPlottedLineData,
+  QsPlottedLineTransitionData,
+} from './qsTypes'
 import { Canvas } from '../../canvas/canvas'
+import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export const plottedLine = {
   line: (
@@ -49,5 +55,25 @@ const draw = (
     .attr('stroke-linejoin', strokeLineJoin)
     .attr('stroke-linecap', strokeLineCap)
 
-  return { element: lineGroup.select('.line') }
+  const transition = (data: QsPlottedLineTransitionData) => {
+    const args = addTransitionDefaults(data.transitionArgs)
+    const calculatedData: CalculatedData = getCalculatedData(
+      canvas,
+      data.data,
+      config
+    )
+
+    lineGroup
+      .selectAll(`.${calculatedData.class}`)
+      .datum(calculatedData)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('d', (d) => line(d.coordinates))
+      .attr('stroke', (d) => d.strokeColor)
+      .attr('stroke-width', (d) => d.strokeWidth)
+      .attr('stroke-opacity', (d) => d.strokeOpacity)
+  }
+
+  return { element: lineGroup.select('.line'), transition }
 }

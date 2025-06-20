@@ -9,14 +9,15 @@ import {
 
 export interface PlottedTextConfig {
   [key: string]: number | string | undefined
-  textFont: QsEnumTextFont | string
-  textFontSize: number
-  textFontStyle: QsEnumTextFontStyle
-  textFontWeight: QsEnumTextFontWeight | number
-  textDecorationLine: QsEnumTextDecorationLine
-  textFill: string
-  textAngle: number
-  textAnchor: QsEnumTextAnchor
-  textStroke: string
-  textAlignmentBaseline: QsEnumAlignmentBaseline
+  defaultDecimalPoints: number
+  defaultTextFont: QsEnumTextFont | string
+  defaultTextFontSize: number
+  defaultTextFontStyle: QsEnumTextFontStyle
+  defaultTextFontWeight: QsEnumTextFontWeight | number
+  defaultTextDecorationLine: QsEnumTextDecorationLine
+  defaultTextFill: string
+  defaultTextAngle: number
+  defaultTextAnchor: QsEnumTextAnchor
+  defaultTextStroke: string
+  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline
 }

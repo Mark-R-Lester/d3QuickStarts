@@ -54,7 +54,6 @@ export const linearText = {
 
 const draw = (canvas: Canvas, args: DrawArgs, config: TextConfig): QsText => {
   const { orientation } = args
-  const { scaleType } = config
 
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, args, config)
   const { defaultDecimalPoints } = config

@@ -38,7 +38,7 @@ import {
 import { plottedText } from '../plots/plottedText/plottedText'
 import {
   QsPlottedText,
-  QsPlottedTextArgs,
+  QsPlottedTextData,
   QsPlottedTextConfig,
 } from '../plots/plottedText/qsTypes'
 import {
@@ -125,7 +125,7 @@ interface linearElementFunctions {
 interface plottedElementFunctions {
   legend: (data: QsLegendData[], customConfig?: QsLegendConfig) => {}
   line: (data: QsPlottedLineData, customConfig?: QsPlottedLineConfig) => {}
-  text: (data: QsPlottedTextArgs[], customConfig?: QsPlottedTextConfig) => {}
+  text: (data: QsPlottedTextData[], customConfig?: QsPlottedTextConfig) => {}
   points: (
     data: QsPlottedPointsData[],
     customConfig?: QsPlottedPointsConfig
@@ -311,7 +311,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         return element
       },
       text: (
-        data: QsPlottedTextArgs[],
+        data: QsPlottedTextData[],
         customConfig?: QsPlottedTextConfig
       ): QsPlottedText => {
         const element = plottedText.text(canvas, data, customConfig)

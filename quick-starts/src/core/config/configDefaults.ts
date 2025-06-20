@@ -214,16 +214,17 @@ export const plottedPointsConfig: PlottedPointsConfig = {
 }
 
 export const plottedTextConfig: PlottedTextConfig = {
-  textFont: QsEnumTextFont.SERIF,
-  textFontSize: GlobalDefaultSettings.FONT_SIZE,
-  textFontStyle: QsEnumTextFontStyle.NORMAL,
-  textFontWeight: QsEnumTextFontWeight.NORMAL,
-  textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-  textFill: GlobalDefaultColors.TEXT_FILL_COLOR,
-  textAngle: GlobalDefaultSettings.TEXT_ANGLE,
-  textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
-  textAnchor: QsEnumTextAnchor.START,
-  textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+  defaultDecimalPoints: 0,
+  defaultTextFont: QsEnumTextFont.SERIF,
+  defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
+  defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
+  defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
+  defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
+  defaultTextFill: GlobalDefaultColors.TEXT_FILL_COLOR,
+  defaultTextAngle: GlobalDefaultSettings.TEXT_ANGLE,
+  defaultTextAnchor: QsEnumTextAnchor.START,
+  defaultTextStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
+  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
 export const radialArcConfig: RadialArcConfig = {

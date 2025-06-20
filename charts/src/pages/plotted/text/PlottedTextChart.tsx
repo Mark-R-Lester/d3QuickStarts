@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   qsCreateCanvas,
-  QsPlottedTextArgs,
+  QsPlottedTextData,
   QsEnumTextFont,
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
@@ -16,33 +16,33 @@ export const PlottedTextChart: FunctionComponent<ChartProps> = ({
     const createChart = () => {
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
-      const data: QsPlottedTextArgs[] = [
-        { x: 0, y: 0, text: 'Text with no config uses defaults' },
+      const data: QsPlottedTextData[] = [
+        { x: 10, y: 100, text: 'Text with no config uses defaults' },
       ]
       canvas.generate.plotted.text(data)
 
-      const data1: QsPlottedTextArgs[] = [
-        { x: 0, y: 10, text: 'Three pieces of' },
-        { x: 15, y: 20, text: 'text in one call' },
-        { x: 30, y: 30, text: 'utilise on the same config' },
+      const data1: QsPlottedTextData[] = [
+        { x: 0, y: 90, text: 'Three pieces of' },
+        { x: 15, y: 80, text: 'text in one call' },
+        { x: 30, y: 70, text: 'utilise on the same config' },
       ]
 
       canvas.generate.plotted.text(data1, {
-        textFont: QsEnumTextFont.FANTASY,
-        textFontSize: 10,
-        textFontStyle: QsEnumTextFontStyle.ITALIC,
-        textStroke: 'red',
+        defaultTextFont: QsEnumTextFont.FANTASY,
+        defaultTextFontSize: 10,
+        defaultTextFontStyle: QsEnumTextFontStyle.ITALIC,
+        defaultTextStroke: 'red',
       })
 
-      const data2: QsPlottedTextArgs[] = [
+      const data2: QsPlottedTextData[] = [
         { x: 0, y: 50, text: 'Text in separate call uses separate config' },
       ]
       canvas.generate.plotted.text(data2, {
-        textFont: QsEnumTextFont.HELVETICA,
-        textFontSize: 7,
-        textFontWeight: QsEnumTextFontWeight.BOLD,
-        textFill: 'blue',
-        textAngle: 10,
+        defaultTextFont: QsEnumTextFont.HELVETICA,
+        defaultTextFontSize: 7,
+        defaultTextFontWeight: QsEnumTextFontWeight.BOLD,
+        defaultTextFill: 'blue',
+        defaultTextAngle: 10,
       })
       canvas.generate.linear.vertical.axis.left([])
       canvas.generate.linear.horizontal.axis.bottom([])

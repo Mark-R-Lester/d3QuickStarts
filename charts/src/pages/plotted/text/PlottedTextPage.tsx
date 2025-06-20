@@ -19,7 +19,7 @@ export default function PlottedTextPage() {
         chartName: 'plottedTextDefaultsChart',
         width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 250,
+        highestViewableValue: 100,
       }}
     />,
     <PlottedTextChart
@@ -27,7 +27,7 @@ export default function PlottedTextPage() {
         chartName: 'plottedTextChart',
         width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 250,
+        highestViewableValue: 100,
       }}
     />,
     <ConfigAndData />,

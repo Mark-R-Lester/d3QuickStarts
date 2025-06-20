@@ -3,7 +3,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   qsCreateCanvas,
-  QsPlottedTextArgs,
+  QsPlottedTextData,
   QsEnumTextFont,
   QsEnumTextFontWeight,
   QsEnumAlignmentBaseline,
@@ -22,7 +22,7 @@ export const TryItYourSelf: FunctionComponent = () => {
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-      const data2: QsPlottedTextArgs[] = [
+      const data2: QsPlottedTextData[] = [
         {
           x: 50,
           y: 30,
@@ -35,13 +35,13 @@ export const TryItYourSelf: FunctionComponent = () => {
         },
       ]
       canvas.generate.plotted.text(data2, {
-        textFont: QsEnumTextFont.HELVETICA,
-        textFontSize: 30,
-        textAnchor: QsEnumTextAnchor.MIDDLE,
-        textAlignmentBaseline: QsEnumAlignmentBaseline.CENTRAL,
-        textFontWeight: QsEnumTextFontWeight.BOLD,
-        textFill: 'darkgrey',
-        textAngle: 0,
+        defaultTextFont: QsEnumTextFont.HELVETICA,
+        defaultTextFontSize: 30,
+        defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
+        defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.CENTRAL,
+        defaultTextFontWeight: QsEnumTextFontWeight.BOLD,
+        defaultTextFill: 'darkgrey',
+        defaultTextAngle: 0,
       })
     }
     createChart()

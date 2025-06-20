@@ -3,11 +3,11 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   qsCreateCanvas,
-  QsPlottedTextArgs,
   QsEnumTextFont,
   QsEnumTextFontWeight,
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
+  QsPlottedTextData,
 } from 'd3qs/d3QuickStart'
 
 export const ConfigAndData: FunctionComponent = () => {
@@ -23,7 +23,7 @@ export const ConfigAndData: FunctionComponent = () => {
     const createChart = () => {
       const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
-      const data1: QsPlottedTextArgs[] = [
+      const data1: QsPlottedTextData[] = [
         {
           x: 50,
           y: 47.5,
@@ -31,16 +31,16 @@ export const ConfigAndData: FunctionComponent = () => {
         },
       ]
       canvas.generate.plotted.text(data1, {
-        textFont: QsEnumTextFont.HELVETICA,
-        textFontSize: 20,
-        textAnchor: QsEnumTextAnchor.MIDDLE,
-        textAlignmentBaseline: QsEnumAlignmentBaseline.CENTRAL,
-        textFontWeight: QsEnumTextFontWeight.BOLD,
-        textFill: 'darkgrey',
-        textAngle: 0,
+        defaultTextFont: QsEnumTextFont.HELVETICA,
+        defaultTextFontSize: 20,
+        defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
+        defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.CENTRAL,
+        defaultTextFontWeight: QsEnumTextFontWeight.BOLD,
+        defaultTextFill: 'darkgrey',
+        defaultTextAngle: 0,
       })
 
-      const data2: QsPlottedTextArgs[] = [
+      const data2: QsPlottedTextData[] = [
         {
           x: 50,
           y: 75,
@@ -53,13 +53,13 @@ export const ConfigAndData: FunctionComponent = () => {
         },
       ]
       canvas.generate.plotted.text(data2, {
-        textFont: QsEnumTextFont.HELVETICA,
-        textFontSize: 30,
-        textAnchor: QsEnumTextAnchor.MIDDLE,
-        textAlignmentBaseline: QsEnumAlignmentBaseline.CENTRAL,
-        textFontWeight: QsEnumTextFontWeight.BOLD,
-        textFill: 'darkgrey',
-        textAngle: 0,
+        defaultTextFont: QsEnumTextFont.HELVETICA,
+        defaultTextFontSize: 30,
+        defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
+        defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.CENTRAL,
+        defaultTextFontWeight: QsEnumTextFontWeight.BOLD,
+        defaultTextFill: 'darkgrey',
+        defaultTextAngle: 0,
       })
     }
     createChart()

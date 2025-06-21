@@ -65,6 +65,12 @@ describe('getGenerators', () => {
     jest.clearAllMocks()
   })
 
+  /*Since all functions called by the generator are mocked the types are unimportant
+    What is important is that: 
+      The correct function is called
+      It adds the result to the canvas element array
+      Returns the result
+   */
   describe('linear', () => {
     describe('horizontal', () => {
       test.each`

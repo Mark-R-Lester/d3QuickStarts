@@ -1,6 +1,6 @@
 import { CanvasScales, getScales } from './getScales'
 import { getGenerators, QsGenerator } from './generators'
-import { CanvasConfig } from './types'
+import { CanvasConfig, ElementWithData } from './types'
 import { Selection, select } from 'd3'
 import { QsCanvas, QsCanvasConfig } from './qsTypes'
 import { canvasConfig } from '../core/config/configDefaults'
@@ -14,6 +14,7 @@ export interface Canvas {
   config: CanvasConfig
   scales: CanvasScales
   configStore: ConfigGetters
+  elements: ElementWithData[]
 }
 
 const addDefaultsToConfig = (customConfig?: QsCanvasConfig): CanvasConfig => {
@@ -29,7 +30,7 @@ const addDefaultsToConfig = (customConfig?: QsCanvasConfig): CanvasConfig => {
   return defaults
 }
 
-export function qsCreateCanvas(customConfig?: QsCanvasConfig): QsCanvas {
+export const qsCreateCanvas = (customConfig?: QsCanvasConfig): QsCanvas => {
   const config: CanvasConfig = addDefaultsToConfig(customConfig)
 
   const element = document.getElementById(config.chartName)
@@ -87,12 +88,16 @@ const draw = (chartName: string, config: CanvasConfig): QsCanvas => {
   const configManager = new ConfigStoreManager()
   const displayGroup = createDisplayGroup(createSVG(chartName))
   const scales = getScales(config)
+
+  const elements: ElementWithData[] = []
   const canvas: Canvas = {
     displayGroup,
     config,
     scales,
     configStore: configManager.getters,
+    elements,
   }
   const generate: QsGenerator = getGenerators(canvas)
+
   return { displayGroup, config, generate, configStore: configManager.setters }
 }

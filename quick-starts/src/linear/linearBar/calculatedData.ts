@@ -154,8 +154,6 @@ export const getCalculatedData = (
     d.lowerBoundry = findLowerBoundry(d.lowerBoundry)
 
     const value = d.upperBoundry - d.lowerBoundry!
-
-    console.log('-----------ordinal', QsEnumColorScale.ORDINAL)
     const scaledFillColor: string | unknown | undefined = getScaledColor(
       fillColorScaleData?.type === QsEnumColorScale.ORDINAL
         ? findOrdinalValue(i, fillColorScaleData)

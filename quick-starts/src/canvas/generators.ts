@@ -83,11 +83,6 @@ import {
 import { radialSpokes } from '../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
 import { Canvas } from './canvas'
 
-interface ElementWithData {
-  element: any
-  data: any
-}
-
 interface horizontalLinearAxisFunctions {
   bottom: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
   top: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
@@ -180,9 +175,9 @@ export interface QsGenerator {
   plotted: plottedElementFunctions
 }
 
-const elements: ElementWithData[] = []
-
 export const getGenerators = (canvas: Canvas): QsGenerator => {
+  const { elements } = canvas
+
   return {
     linear: {
       horizontal: {

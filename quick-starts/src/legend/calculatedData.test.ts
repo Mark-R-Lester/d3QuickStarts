@@ -21,6 +21,7 @@ const canvas: Canvas = {
   displayGroup: mockSelection,
   scales,
   configStore: new ConfigStoreManager().getters,
+  elements: [],
 }
 
 const legendConfig: LegendConfig = {

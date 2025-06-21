@@ -17,3 +17,8 @@ export interface CanvasConfig {
   displayAreaHeight: number
   displayAreaWidth: number
 }
+
+export interface ElementWithData {
+  element: any
+  data: any
+}

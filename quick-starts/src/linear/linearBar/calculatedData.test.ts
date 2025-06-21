@@ -91,6 +91,7 @@ describe('Linear Bars calculatedData', () => {
           config: qsCanvas.config,
           scales,
           configStore: new ConfigStoreManager().getters,
+          elements: [],
         }
         const calculatedData = getCalculatedData(canvas, args, config)
         expect(calculatedData[0].barData.y).toEqual(zeroY)
@@ -142,6 +143,7 @@ describe('Linear Bars calculatedData', () => {
           config: qsCanvas.config,
           scales,
           configStore: new ConfigStoreManager().getters,
+          elements: [],
         }
         const calculatedData = getCalculatedData(canvas, args, config)
         expect(calculatedData[0].barData.y).toEqual(zeroY)
@@ -196,6 +198,7 @@ describe('Linear Bars calculatedData', () => {
           config: qsCanvas.config,
           scales,
           configStore: new ConfigStoreManager().getters,
+          elements: [],
         }
         const calculatedData = getCalculatedData(canvas, args, config)
         expect(calculatedData[0].barData.x).toEqual(zeroY)
@@ -247,6 +250,7 @@ describe('Linear Bars calculatedData', () => {
           config: qsCanvas.config,
           scales,
           configStore: new ConfigStoreManager().getters,
+          elements: [],
         }
         const calculatedData = getCalculatedData(canvas, args, config)
         expect(calculatedData[0].barData.x).toEqual(zeroY)

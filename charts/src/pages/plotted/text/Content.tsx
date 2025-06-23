@@ -23,7 +23,7 @@ const defaultsChart: string = `
 const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
 const data: QsPlottedTextData[] = [
-  { x: 0, y: 0, text: 'Text with no config uses defaults' },
+  { x: 10, y: 100, text: 'Text with no config uses defaults' },
 ]
 canvas.generate.plotted.text(data)
 canvas.generate.linear.vertical.axis.left([])
@@ -33,14 +33,14 @@ const configChart: string = `
 const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
 const data: QsPlottedTextData[] = [
-  { x: 0, y: 0, text: 'Text with no config uses defaults' },
+  { x: 10, y: 100, text: 'Text with no config uses defaults' },
 ]
 canvas.generate.plotted.text(data)
 
 const data1: QsPlottedTextData[] = [
-  { x: 0, y: 10, text: 'Three pieces of' },
-  { x: 15, y: 20, text: 'text in one call' },
-  { x: 30, y: 30, text: 'utilise on the same config' },
+  { x: 0, y: 90, text: 'Three pieces of' },
+  { x: 15, y: 80, text: 'text in one call' },
+  { x: 30, y: 70, text: 'utilise on the same config' },
 ]
 
 canvas.generate.plotted.text(data1, {
@@ -135,7 +135,7 @@ export const defaultsContent: JSX.Element = (
               canvasProps={{
                 chartName: 'chartH',
                 width: 600,
-                highestViewableValue: 35,
+                highestViewableValue: 100,
               }}
             />,
           ]}

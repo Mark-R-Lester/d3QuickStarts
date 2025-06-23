@@ -26,7 +26,7 @@ export const PlottedLegendChart: FunctionComponent<ChartProps> = ({
 
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
-      canvas.generate.plotted.legend(data, {
+      canvas.generate.unbound.legend(data, {
         x: 0,
         y: 0,
         height: 1,

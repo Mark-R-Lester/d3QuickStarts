@@ -28,7 +28,7 @@ const data: QsLegendData[] = [
 ]
 
 const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-canvas.generate.plotted.legend(data)`
+canvas.generate.unbound.legend(data)`
 
 const configChart: string = `
 const data: QsLegendData[] = [
@@ -40,7 +40,7 @@ const data: QsLegendData[] = [
 
 const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
-canvas.generate.plotted.legend(data, {
+canvas.generate.unbound.legend(data, {
   x: 0,
   y: 0,
   height: 1,

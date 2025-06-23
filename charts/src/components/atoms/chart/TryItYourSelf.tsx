@@ -9,6 +9,7 @@ import {
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
 } from 'd3qs/d3QuickStart'
+import { QsUnboundTextData } from 'd3qs/unbound/text/qsTypes'
 
 export const TryItYourSelf: FunctionComponent = () => {
   const canvasConfig = {
@@ -22,7 +23,7 @@ export const TryItYourSelf: FunctionComponent = () => {
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-      const data2: QsPlottedTextData[] = [
+      const data2: QsUnboundTextData[] = [
         {
           x: 50,
           y: 30,
@@ -34,7 +35,7 @@ export const TryItYourSelf: FunctionComponent = () => {
           text: `yourself`,
         },
       ]
-      canvas.generate.plotted.text(data2, {
+      canvas.generate.unbound.text(data2, {
         defaultTextFont: QsEnumTextFont.HELVETICA,
         defaultTextFontSize: 30,
         defaultTextAnchor: QsEnumTextAnchor.MIDDLE,

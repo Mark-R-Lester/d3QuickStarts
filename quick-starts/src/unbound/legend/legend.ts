@@ -10,7 +10,7 @@ interface DrawArgs {
   data: QsLegendData[]
 }
 
-const legend = (
+export const legend = (
   canvas: Canvas,
   data: QsLegendData[],
   customConfig?: QsLegendConfig
@@ -22,10 +22,6 @@ const legend = (
   )
   const args: DrawArgs = { data }
   return draw(canvas, args, config)
-}
-
-export const plottedLegend = {
-  legend,
 }
 
 const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfig) => {

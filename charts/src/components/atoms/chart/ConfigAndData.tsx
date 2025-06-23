@@ -7,8 +7,8 @@ import {
   QsEnumTextFontWeight,
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
-  QsPlottedTextData,
 } from 'd3qs/d3QuickStart'
+import { QsUnboundTextData } from 'd3qs/unbound/text/qsTypes'
 
 export const ConfigAndData: FunctionComponent = () => {
   const canvasConfig = {
@@ -23,14 +23,14 @@ export const ConfigAndData: FunctionComponent = () => {
     const createChart = () => {
       const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
-      const data1: QsPlottedTextData[] = [
+      const data1: QsUnboundTextData[] = [
         {
           x: 50,
           y: 47.5,
           text: `and`,
         },
       ]
-      canvas.generate.plotted.text(data1, {
+      canvas.generate.unbound.text(data1, {
         defaultTextFont: QsEnumTextFont.HELVETICA,
         defaultTextFontSize: 20,
         defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
@@ -40,7 +40,7 @@ export const ConfigAndData: FunctionComponent = () => {
         defaultTextAngle: 0,
       })
 
-      const data2: QsPlottedTextData[] = [
+      const data2: QsUnboundTextData[] = [
         {
           x: 50,
           y: 75,
@@ -52,7 +52,7 @@ export const ConfigAndData: FunctionComponent = () => {
           text: `Config`,
         },
       ]
-      canvas.generate.plotted.text(data2, {
+      canvas.generate.unbound.text(data2, {
         defaultTextFont: QsEnumTextFont.HELVETICA,
         defaultTextFontSize: 30,
         defaultTextAnchor: QsEnumTextAnchor.MIDDLE,

@@ -1,5 +1,6 @@
 import { QsGenerator } from './generators'
-import * as plottedLegend from '../../unbound/legend/legend'
+import * as legend from '../../unbound/legend/legend'
+import * as text from '../../unbound/text/text'
 import * as linearArea from '../../linear/linearArea/area'
 import * as linearAxis from '../../linear/linearAxis/axis'
 import * as linearBar from '../../linear/linearBar/bar'
@@ -35,6 +36,7 @@ jest.mock('./canvas', () => ({
 
 // Mock all imported modules
 jest.mock('../../unbound/legend/legend')
+jest.mock('../../unbound/text/text')
 jest.mock('../../linear/linearArea/area')
 jest.mock('../../linear/linearAxis/axis')
 jest.mock('../../linear/linearBar/bar')
@@ -464,7 +466,7 @@ describe('getGenerators', () => {
         `(
           `When data is $data and customConfig is $customConfig
             it should call generators.linear.vertical.axis.right and add to elements
-           expectedElement = $expectedElement`,
+            expectedElement = $expectedElement`,
           ({ data, customConfig, expectedElement }) => {
             ;(linearAxis.linearAxis.yAxisRight as jest.Mock).mockReturnValue(
               expectedElement
@@ -489,21 +491,19 @@ describe('getGenerators', () => {
     })
   })
 
-  describe('plotted', () => {
+  describe('unbound', () => {
     test.each`
       data                | customConfig           | expectedElement
       ${[{ label: 'A' }]} | ${{ position: 'top' }} | ${{ id: 'legend1' }}
       ${[{ label: 'B' }]} | ${undefined}           | ${{ id: 'legend2' }}
     `(
       `When data is $data and customConfig is $customConfig
-        it should call generators.plotted.legend and add to elements
+        it should call generators.unbound.legend and add to elements
         expectedElement = $expectedElement`,
       ({ data, customConfig, expectedElement }) => {
-        ;(plottedLegend.plottedLegend.legend as jest.Mock).mockReturnValue(
-          expectedElement
-        )
-        const result = generators.plotted.legend(data, customConfig)
-        expect(plottedLegend.plottedLegend.legend).toHaveBeenCalledWith(
+        ;(legend.legend as jest.Mock).mockReturnValue(expectedElement)
+        const result = generators.unbound.legend(data, customConfig)
+        expect(legend.legend).toHaveBeenCalledWith(
           expect.anything(),
           data,
           customConfig
@@ -512,7 +512,29 @@ describe('getGenerators', () => {
         expect(result).toEqual(expectedElement)
       }
     )
+    test.each`
+      data               | customConfig        | expectedElement
+      ${[{ text: 'A' }]} | ${{ fontSize: 12 }} | ${{ id: 'text1' }}
+      ${[{ text: 'B' }]} | ${undefined}        | ${{ id: 'text2' }}
+    `(
+      `When data is $data and customConfig is $customConfig
+        it should call generators.unbound.text and add to elements
+        expectedElement = $expectedElement`,
+      ({ data, customConfig, expectedElement }) => {
+        ;(text.unboundText as jest.Mock).mockReturnValue(expectedElement)
+        const result = generators.unbound.text(data, customConfig)
+        expect(text.unboundText).toHaveBeenCalledWith(
+          expect.anything(),
+          data,
+          customConfig
+        )
+        expect(testElements).toContainEqual({ element: expectedElement, data })
+        expect(result).toEqual(expectedElement)
+      }
+    )
+  })
 
+  describe('plotted', () => {
     test.each`
       data                  | customConfig         | expectedElement
       ${{ points: [1, 2] }} | ${{ color: 'blue' }} | ${{ id: 'line1' }}
@@ -531,7 +553,10 @@ describe('getGenerators', () => {
           data,
           customConfig
         )
-        expect(testElements).toContainEqual({ element: expectedElement, data })
+        expect(testElements).toContainEqual({
+          element: expectedElement,
+          data,
+        })
         expect(result).toEqual(expectedElement)
       }
     )
@@ -542,8 +567,8 @@ describe('getGenerators', () => {
       ${[{ text: 'B' }]} | ${undefined}        | ${{ id: 'text2' }}
     `(
       `When data is $data and customConfig is $customConfig
-       it should call generators.plotted.text and add to elements
-       expectedElement = $expectedElement`,
+        it should call generators.plotted.text and add to elements
+        expectedElement = $expectedElement`,
       ({ data, customConfig, expectedElement }) => {
         ;(plottedText.plottedText.text as jest.Mock).mockReturnValue(
           expectedElement

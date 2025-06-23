@@ -1,4 +1,4 @@
-import { plottedLegend } from '../../unbound/legend/legend'
+import { legend } from '../../unbound/legend/legend'
 import {
   QsLegend,
   QsLegendConfig,
@@ -36,11 +36,6 @@ import {
   QsPoints,
   QsPointsConfig,
 } from '../../linear/linearPoints/qsTypes'
-import {
-  QsText,
-  QsTextConfig,
-  QsTextData,
-} from '../../linear/linearText/qsTypes'
 import { linearText } from '../../linear/linearText/text'
 import { plottedLine } from '../../plots/plottedLine/plottedLine'
 import {
@@ -101,13 +96,24 @@ import {
 } from '../../radialCentroid/radialCentroidSpokes/qsTypes'
 import { radialSpokes } from '../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
 import { Canvas } from './canvas'
+import {
+  QsUnboundText,
+  QsUnboundTextConfig,
+  QsUnboundTextData,
+} from '../../unbound/text/qsTypes'
+import { unboundText } from '../../unbound/text/text'
+import {
+  QsText,
+  QsTextConfig,
+  QsTextData,
+} from '../../linear/linearText/qsTypes'
 
-interface horizontalLinearAxisFunctions {
+interface HorizontalLinearAxisFunctions {
   bottom: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
   top: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
 }
 
-interface horizontalLinearElementFunctions {
+interface HorizontalLinearElementFunctions {
   area: (data: QsAreaData, customConfig?: QsAreaConfig) => QsArea
   barGroup: (data: number[][], customConfig?: QsBarGroupConfig) => QsBarGroups
   barStack: (data: number[][], customConfig?: QsBarStackedConfig) => QsBarStack
@@ -115,29 +121,33 @@ interface horizontalLinearElementFunctions {
   line: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
   points: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   text: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
-  axis: horizontalLinearAxisFunctions
+  axis: HorizontalLinearAxisFunctions
 }
 
-interface verticalLinearAxisFunctions {
+interface VerticalLinearAxisFunctions {
   left: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
   right: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
 }
 
-interface verticalLinearElementFunctions {
+interface VerticalLinearElementFunctions {
   bars: (data: QsBarData[], customConfig?: QsBarConfig) => QsBars
   line: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
   points: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
   text: (data: QsTextData[], customConfig?: QsTextConfig) => QsText
-  axis: verticalLinearAxisFunctions
+  axis: VerticalLinearAxisFunctions
 }
 
-interface linearElementFunctions {
-  horizontal: horizontalLinearElementFunctions
-  vertical: verticalLinearElementFunctions
+interface LinearElementFunctions {
+  horizontal: HorizontalLinearElementFunctions
+  vertical: VerticalLinearElementFunctions
 }
 
-interface plottedElementFunctions {
+interface UnboundElementFunctions {
   legend: (data: QsLegendData[], customConfig?: QsLegendConfig) => {}
+  text: (data: QsUnboundTextData[], customConfig?: QsUnboundTextConfig) => {}
+}
+
+interface PlottedElementFunctions {
   line: (data: QsPlottedLineData, customConfig?: QsPlottedLineConfig) => {}
   text: (data: QsPlottedTextData[], customConfig?: QsPlottedTextConfig) => {}
   points: (
@@ -146,7 +156,7 @@ interface plottedElementFunctions {
   ) => {}
 }
 
-interface radialArcTextElementFunctions {
+interface RadialArcTextElementFunctions {
   follow: (
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
@@ -165,12 +175,12 @@ interface radialArcTextElementFunctions {
   ) => QsRadialText
 }
 
-interface radialArcElementFunctions {
+interface RadialArcElementFunctions {
   radial: (data: QsRadialData[], customConfig?: QsRadialArcConfig) => QsRadial
-  text: radialArcTextElementFunctions
+  text: RadialArcTextElementFunctions
 }
 
-interface radialCentroidElementFunctions {
+interface RadialCentroidElementFunctions {
   area: (
     data: QsRadialAreaData,
     customConfig?: QsRadialAreaConfig
@@ -188,10 +198,11 @@ interface radialCentroidElementFunctions {
 }
 
 export interface QsGenerator {
-  linear: linearElementFunctions
-  radialArc: radialArcElementFunctions
-  radialCentroid: radialCentroidElementFunctions
-  plotted: plottedElementFunctions
+  linear: LinearElementFunctions
+  radialArc: RadialArcElementFunctions
+  radialCentroid: RadialCentroidElementFunctions
+  plotted: PlottedElementFunctions
+  unbound: UnboundElementFunctions
 }
 
 export const getGenerators = (canvas: Canvas): QsGenerator => {
@@ -308,14 +319,6 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
       },
     },
     plotted: {
-      legend: (
-        data: QsLegendData[],
-        customConfig?: QsLegendConfig
-      ): QsLegend => {
-        const element = plottedLegend.legend(canvas, data, customConfig)
-        elements.push({ element, data })
-        return element
-      },
       line: (
         data: QsPlottedLineData,
         customConfig?: QsPlottedLineConfig
@@ -337,6 +340,24 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         customConfig?: QsPlottedPointsConfig
       ): QsPlottedPoints => {
         const element = plottedPoint.points(canvas, data, customConfig)
+        elements.push({ element, data })
+        return element
+      },
+    },
+    unbound: {
+      legend: (
+        data: QsLegendData[],
+        customConfig?: QsLegendConfig
+      ): QsLegend => {
+        const element = legend(canvas, data, customConfig)
+        elements.push({ element, data })
+        return element
+      },
+      text: (
+        data: QsUnboundTextData[],
+        customConfig?: QsUnboundTextConfig
+      ): QsUnboundText => {
+        const element = unboundText(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },

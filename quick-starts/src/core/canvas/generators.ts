@@ -1,5 +1,9 @@
-import { plottedLegend } from '../../legend/legend'
-import { QsLegend, QsLegendConfig, QsLegendData } from '../../legend/qsTypes'
+import { plottedLegend } from '../../unbound/legend/legend'
+import {
+  QsLegend,
+  QsLegendConfig,
+  QsLegendData,
+} from '../../unbound/legend/qsTypes'
 import { linearArea } from '../../linear/linearArea/area'
 import {
   QsArea,

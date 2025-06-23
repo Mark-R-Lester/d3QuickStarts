@@ -1,7 +1,7 @@
 import { getCalculatedData, CalculatedData } from './calculatedData'
-import { getScales } from '../core/canvas/getScales'
-import { mockSelection } from '../testObjects/mockSelection'
-import { mockCanvasConfig } from '../testObjects/mockCanvasConfig'
+import { getScales } from '../../core/canvas/getScales'
+import { mockSelection } from '../../testObjects/mockSelection'
+import { mockCanvasConfig } from '../../testObjects/mockCanvasConfig'
 import { LegendConfig } from './types'
 import {
   QsEnumTextFontWeight,
@@ -10,10 +10,10 @@ import {
   QsEnumTextDecorationLine,
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
-} from '../core/enums/qsEnums'
+} from '../../core/enums/qsEnums'
 import { QsLegendData } from './qsTypes'
-import { ConfigStoreManager } from '../core/config/configStore.class'
-import { Canvas } from '../core/canvas/canvas'
+import { ConfigStoreManager } from '../../core/config/configStore.class'
+import { Canvas } from '../../core/canvas/canvas'
 
 const scales = getScales(mockCanvasConfig)
 const canvas: Canvas = {

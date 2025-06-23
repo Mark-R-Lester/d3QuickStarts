@@ -1,10 +1,10 @@
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { LegendConfig } from './types'
-import { QsTransitionArgs } from '../core/types/qsTypes'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { QsLegendData, QsLegendConfig, QsLegend } from './qsTypes'
-import { legendConfig } from '../core/config/configDefaults'
-import { addDefaultsToConfig } from '../core/config/addDefaultsToConfig'
-import { Canvas } from '../core/canvas/canvas'
+import { legendConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { Canvas } from '../../core/canvas/canvas'
 
 interface DrawArgs {
   data: QsLegendData[]

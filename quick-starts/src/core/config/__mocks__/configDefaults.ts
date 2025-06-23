@@ -33,7 +33,7 @@ import { QsBarGroupConfig } from '../../../linear/linearBarGroup/qsTypes'
 import { QsBarConfig } from '../../../linear/linearBar/qsTypes'
 import { QsAxisConfig } from '../../../linear/linearAxis/qsTypes'
 import { QsAreaConfig } from '../../../linear/linearArea/qsTypes'
-import { QsLegendConfig } from '../../../legend/qsTypes'
+import { QsLegendConfig } from '../../../unbound/legend/qsTypes'
 
 export const canvasConfig: QsCanvasConfig = {
   chartName: '',

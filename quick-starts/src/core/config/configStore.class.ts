@@ -1,4 +1,4 @@
-import { QsLegendConfig } from '../../legend/qsTypes'
+import { QsLegendConfig } from '../../unbound/legend/qsTypes'
 import { QsAreaConfig } from '../../linear/linearArea/qsTypes'
 import { QsAxisConfig } from '../../linear/linearAxis/qsTypes'
 import { QsBarConfig } from '../../linear/linearBar/qsTypes'

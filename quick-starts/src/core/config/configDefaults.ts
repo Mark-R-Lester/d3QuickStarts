@@ -1,7 +1,7 @@
 import { schemePurples } from 'd3'
 import { GlobalDefaultColors, GlobalDefaultSettings } from '../enums/enums'
 
-import { LegendConfig } from '../../legend/types'
+import { LegendConfig } from '../../unbound/legend/types'
 import { AreaConfig } from '../../linear/linearArea/types'
 import { AxisConfig, AxisConfigBase } from '../../linear/linearAxis/types'
 import { BarConfig } from '../../linear/linearBar/types'

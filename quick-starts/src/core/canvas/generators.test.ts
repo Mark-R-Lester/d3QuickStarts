@@ -1,5 +1,5 @@
 import { QsGenerator } from './generators'
-import * as plottedLegend from '../../legend/legend'
+import * as plottedLegend from '../../unbound/legend/legend'
 import * as linearArea from '../../linear/linearArea/area'
 import * as linearAxis from '../../linear/linearAxis/axis'
 import * as linearBar from '../../linear/linearBar/bar'
@@ -34,7 +34,7 @@ jest.mock('./canvas', () => ({
 }))
 
 // Mock all imported modules
-jest.mock('../../legend/legend')
+jest.mock('../../unbound/legend/legend')
 jest.mock('../../linear/linearArea/area')
 jest.mock('../../linear/linearAxis/axis')
 jest.mock('../../linear/linearBar/bar')

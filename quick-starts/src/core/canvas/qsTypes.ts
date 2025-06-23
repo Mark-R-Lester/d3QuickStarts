@@ -1,4 +1,4 @@
-import { ConfigSetters } from '../core/config/configStore.class'
+import { ConfigSetters } from '../config/configStore.class'
 import { QsGenerator } from './generators'
 
 import { CanvasConfig } from './types'

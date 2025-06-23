@@ -1,5 +1,5 @@
-export * from './canvas/canvas'
-export * from './canvas/qsTypes'
+export * from './core/canvas/canvas'
+export * from './core/canvas/qsTypes'
 
 export * from './legend/qsTypes'
 

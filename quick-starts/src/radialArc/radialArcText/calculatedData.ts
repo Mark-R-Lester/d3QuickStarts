@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import { RadialTextConfig } from './types'
 import { QsValuedText } from './qsTypes'
-import { Canvas } from '../../canvas/canvas'
+import { Canvas } from '../../core/canvas/canvas'
 import { QsEnumScaleType } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {

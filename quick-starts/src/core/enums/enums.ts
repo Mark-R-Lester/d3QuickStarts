@@ -50,3 +50,33 @@ export enum GlobalDefaultSettings {
   DECIMAL_POINTS = 1,
   TEXT_ANGLE = 0,
 }
+
+export enum Selection {
+  BAR_GROUP = 'barGroup',
+  BAR_GROUPED = 'barGrouped',
+  BAR = 'bar',
+  BAR_STACK = 'barStack',
+  BAR_STACKED = 'barStacked',
+  CIRCLE = 'circle',
+  TEXT = 'text',
+  ARC = 'arc',
+  PATH = 'path',
+  RING = 'ring',
+  TICK = 'tick',
+  LEGEND = 'legend',
+}
+
+export enum SelectionClass {
+  BAR_GROUP_CLASS = '.barGroup',
+  BAR_GROUPED_CLASS = '.barGrouped',
+  BAR_CLASS = '.bar',
+  BAR_STACK_CLASS = '.barStack',
+  BAR_STACKED_CLASS = '.barStacked',
+  CIRCLE_CLASS = '.circle',
+  TEXT_CLASS = '.text',
+  ARC_CLASS = '.arc',
+  PATH_CLASS = '.path',
+  RING_CLASS = '.ring',
+  TICK_CLASS = '.tick',
+  LEGEND_CLASS = '.legend',
+}

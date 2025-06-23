@@ -10,7 +10,7 @@ import {
   QsPlottedLineData,
   QsPlottedLineTransitionData,
 } from './qsTypes'
-import { Canvas } from '../../canvas/canvas'
+import { Canvas } from '../../core/canvas/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 
 export const plottedLine = {

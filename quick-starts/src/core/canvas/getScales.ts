@@ -1,5 +1,5 @@
 import { ScaleLinear, scaleLinear } from 'd3'
-import { CanvasConfig } from '../canvas/types'
+import { CanvasConfig } from './types'
 
 export interface CanvasScales {
   genralPercentScale: ScaleLinear<number, number, never>

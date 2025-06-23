@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/canvas'
+import { Canvas } from '../../core/canvas/canvas'
 import { QsPlottedLineData } from './qsTypes'
 import { PlottedLineConfig } from './types'
 

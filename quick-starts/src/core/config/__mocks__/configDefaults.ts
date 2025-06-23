@@ -14,7 +14,7 @@ import {
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from '../../enums/qsEnums'
-import { QsCanvasConfig } from '../../../canvas/qsTypes'
+import { QsCanvasConfig } from '../../canvas/qsTypes'
 import { QsRadialTextConfig } from '../../../radialArc/radialArcText/qsTypes'
 import { QsRadialAreaConfig } from '../../../radialCentroid/radialCentroidArea/qsTypes'
 import { QsRadialAxisConfig } from '../../../radialCentroid/radialCentroidAxis/qsTypes'

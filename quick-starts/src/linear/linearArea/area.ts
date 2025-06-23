@@ -12,7 +12,7 @@ import {
 import { AreaConfig, AreaData, CalculatedData } from './types'
 import { linearAreaConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
-import { Canvas } from '../../canvas/canvas'
+import { Canvas } from '../../core/canvas/canvas'
 
 interface DrawArgs {
   data: QsAreaData

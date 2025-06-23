@@ -10,7 +10,7 @@ import { RadialTextType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsEnumScaleType } from '../../core/enums/qsEnums'
 import { getRotationFunction } from './textRotation'
-import { Canvas } from '../../canvas/canvas'
+import { Canvas } from '../../core/canvas/canvas'
 import {
   QsRadialTextConfig,
   QsRadialText,

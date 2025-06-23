@@ -1,12 +1,12 @@
-import { getScales } from '../../canvas/getScales'
-import { CanvasConfig } from '../../canvas/types'
+import { getScales } from '../../core/canvas/getScales'
+import { CanvasConfig } from '../../core/canvas/types'
 import {
   GlobalDefaultColors,
   GlobalDefaultSettings,
   Orientation,
 } from '../../core/enums/enums'
-import { Canvas, qsCreateCanvas } from '../../canvas/canvas'
-import { QsCanvas } from '../../canvas/qsTypes'
+import { Canvas, qsCreateCanvas } from '../../core/canvas/canvas'
+import { QsCanvas } from '../../core/canvas/qsTypes'
 import { getCalculatedData } from './calculatedData'
 import { QsBarData } from './qsTypes'
 import { BarConfig, DrawArgs } from './types'

@@ -1,23 +1,23 @@
 import { QsGenerator } from './generators'
-import * as plottedLegend from '../legend/legend'
-import * as linearArea from '../linear/linearArea/area'
-import * as linearAxis from '../linear/linearAxis/axis'
-import * as linearBar from '../linear/linearBar/bar'
-import * as linearBarGroup from '../linear/linearBarGroup/barGroup'
-import * as linearBarStack from '../linear/linearBarStack/barStack'
-import * as linearLine from '../linear/linearLine/line'
-import * as linearPoint from '../linear/linearPoints/points'
-import * as linearText from '../linear/linearText/text'
-import * as plottedLine from '../plots/plottedLine/plottedLine'
-import * as plottedPoint from '../plots/plottedPoints/plottedPoints'
-import * as plottedText from '../plots/plottedText/plottedText'
-import * as radialArc from '../radialArc/radialArc/radialArc'
-import * as radialText from '../radialArc/radialArcText/radialArcText'
-import * as radialArea from '../radialCentroid/radialCentroidArea/radialCentroidArea'
-import * as radialAxis from '../radialCentroid/radialCentroidAxis/radialCentroidAxis'
-import * as radialLine from '../radialCentroid/radialCentroidLine/radialCentroidLine'
-import * as radialPoint from '../radialCentroid/radialCentroidPoints/radialCentroidPoints'
-import * as radialSpokes from '../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
+import * as plottedLegend from '../../legend/legend'
+import * as linearArea from '../../linear/linearArea/area'
+import * as linearAxis from '../../linear/linearAxis/axis'
+import * as linearBar from '../../linear/linearBar/bar'
+import * as linearBarGroup from '../../linear/linearBarGroup/barGroup'
+import * as linearBarStack from '../../linear/linearBarStack/barStack'
+import * as linearLine from '../../linear/linearLine/line'
+import * as linearPoint from '../../linear/linearPoints/points'
+import * as linearText from '../../linear/linearText/text'
+import * as plottedLine from '../../plots/plottedLine/plottedLine'
+import * as plottedPoint from '../../plots/plottedPoints/plottedPoints'
+import * as plottedText from '../../plots/plottedText/plottedText'
+import * as radialArc from '../../radialArc/radialArc/radialArc'
+import * as radialText from '../../radialArc/radialArcText/radialArcText'
+import * as radialArea from '../../radialCentroid/radialCentroidArea/radialCentroidArea'
+import * as radialAxis from '../../radialCentroid/radialCentroidAxis/radialCentroidAxis'
+import * as radialLine from '../../radialCentroid/radialCentroidLine/radialCentroidLine'
+import * as radialPoint from '../../radialCentroid/radialCentroidPoints/radialCentroidPoints'
+import * as radialSpokes from '../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
 import { QsCanvas } from './qsTypes'
 import { qsCreateCanvas } from './canvas'
 
@@ -34,25 +34,25 @@ jest.mock('./canvas', () => ({
 }))
 
 // Mock all imported modules
-jest.mock('../legend/legend')
-jest.mock('../linear/linearArea/area')
-jest.mock('../linear/linearAxis/axis')
-jest.mock('../linear/linearBar/bar')
-jest.mock('../linear/linearBarGroup/barGroup')
-jest.mock('../linear/linearBarStack/barStack')
-jest.mock('../linear/linearLine/line')
-jest.mock('../linear/linearPoints/points')
-jest.mock('../linear/linearText/text')
-jest.mock('../plots/plottedLine/plottedLine')
-jest.mock('../plots/plottedPoints/plottedPoints')
-jest.mock('../plots/plottedText/plottedText')
-jest.mock('../radialArc/radialArc/radialArc')
-jest.mock('../radialArc/radialArcText/radialArcText')
-jest.mock('../radialCentroid/radialCentroidArea/radialCentroidArea')
-jest.mock('../radialCentroid/radialCentroidAxis/radialCentroidAxis')
-jest.mock('../radialCentroid/radialCentroidLine/radialCentroidLine')
-jest.mock('../radialCentroid/radialCentroidPoints/radialCentroidPoints')
-jest.mock('../radialCentroid/radialCentroidSpokes/radialCentroidSpokes')
+jest.mock('../../legend/legend')
+jest.mock('../../linear/linearArea/area')
+jest.mock('../../linear/linearAxis/axis')
+jest.mock('../../linear/linearBar/bar')
+jest.mock('../../linear/linearBarGroup/barGroup')
+jest.mock('../../linear/linearBarStack/barStack')
+jest.mock('../../linear/linearLine/line')
+jest.mock('../../linear/linearPoints/points')
+jest.mock('../../linear/linearText/text')
+jest.mock('../../plots/plottedLine/plottedLine')
+jest.mock('../../plots/plottedPoints/plottedPoints')
+jest.mock('../../plots/plottedText/plottedText')
+jest.mock('../../radialArc/radialArc/radialArc')
+jest.mock('../../radialArc/radialArcText/radialArcText')
+jest.mock('../../radialCentroid/radialCentroidArea/radialCentroidArea')
+jest.mock('../../radialCentroid/radialCentroidAxis/radialCentroidAxis')
+jest.mock('../../radialCentroid/radialCentroidLine/radialCentroidLine')
+jest.mock('../../radialCentroid/radialCentroidPoints/radialCentroidPoints')
+jest.mock('../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes')
 
 describe('getGenerators', () => {
   let canvas: QsCanvas

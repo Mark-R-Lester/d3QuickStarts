@@ -1,6 +1,6 @@
 import { LegendConfig } from './types'
 import { QsLegendData } from './qsTypes'
-import { Canvas } from '../canvas/canvas'
+import { Canvas } from '../core/canvas/canvas'
 
 export interface CalculatedData {
   x: number

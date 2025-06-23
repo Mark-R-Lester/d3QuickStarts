@@ -1,5 +1,5 @@
 import { getCalculatedData, CalculatedData } from './calculatedData'
-import { getScales } from '../canvas/getScales'
+import { getScales } from '../core/canvas/getScales'
 import { mockSelection } from '../testObjects/mockSelection'
 import { mockCanvasConfig } from '../testObjects/mockCanvasConfig'
 import { LegendConfig } from './types'
@@ -13,7 +13,7 @@ import {
 } from '../core/enums/qsEnums'
 import { QsLegendData } from './qsTypes'
 import { ConfigStoreManager } from '../core/config/configStore.class'
-import { Canvas } from '../canvas/canvas'
+import { Canvas } from '../core/canvas/canvas'
 
 const scales = getScales(mockCanvasConfig)
 const canvas: Canvas = {

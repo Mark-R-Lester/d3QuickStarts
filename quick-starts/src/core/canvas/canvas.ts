@@ -3,11 +3,8 @@ import { getGenerators, QsGenerator } from './generators'
 import { CanvasConfig, ElementWithData } from './types'
 import { Selection, select } from 'd3'
 import { QsCanvas, QsCanvasConfig } from './qsTypes'
-import { canvasConfig } from '../core/config/configDefaults'
-import {
-  ConfigGetters,
-  ConfigStoreManager,
-} from '../core/config/configStore.class'
+import { canvasConfig } from '../config/configDefaults'
+import { ConfigGetters, ConfigStoreManager } from '../config/configStore.class'
 
 export interface Canvas {
   displayGroup: Selection<SVGGElement, unknown, HTMLElement, any>

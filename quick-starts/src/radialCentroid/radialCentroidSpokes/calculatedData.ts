@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid'
-import { Canvas } from '../../canvas/canvas'
+import { Canvas } from '../../core/canvas/canvas'
 
 import { CalculatedData, RadialSpokesConfig } from './types'
 

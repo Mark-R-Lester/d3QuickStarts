@@ -11,7 +11,7 @@ import {
 import { toStrings } from '../../core/conversion'
 import { ChartEdge } from '../../core/enums/enums'
 import { DrawArgs, AxisConfig } from './types'
-import { Canvas } from '../../canvas/canvas'
+import { Canvas } from '../../core/canvas/canvas'
 import { QsEnumAxisScaleType } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {

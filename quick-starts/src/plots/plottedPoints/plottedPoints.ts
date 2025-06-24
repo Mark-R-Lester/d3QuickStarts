@@ -1,5 +1,6 @@
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { plottedPointsConfig } from '../../core/config/configDefaults'
+import { generateClassName } from '../../core/generateClassName'
 import { Canvas } from '../../d3QuickStart'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import {
@@ -44,13 +45,15 @@ const draw = (
     config
   )
 
-  const dataPoints = canvas.displayGroup.append('g')
-  dataPoints
+  const { className, dotClassName } = generateClassName('plottedPoints')
+  const group = canvas.displayGroup.append('g')
+
+  group
     .selectAll('circle')
     .data(calculatedData)
     .enter()
     .append('circle')
-    .attr('class', 'plottedPoint')
+    .attr('class', className)
     .attr('cx', (d) => d.x)
     .attr('cy', (d) => d.y)
     .attr('r', (d) => d.radius)
@@ -68,8 +71,8 @@ const draw = (
       config
     )
 
-    dataPoints
-      .selectAll(`.plottedPoint`)
+    group
+      .selectAll(dotClassName)
       .data(calculatedData)
       .transition()
       .delay(args.delayInMiliSeconds)
@@ -84,5 +87,5 @@ const draw = (
       .attr('stroke-width', (d) => d.strokeWidth)
   }
 
-  return { element: dataPoints, transition }
+  return { element: group.selectAll(dotClassName), transition }
 }

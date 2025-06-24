@@ -21,7 +21,6 @@ import { Canvas } from '../../core/canvas/canvas'
 import { QsEnumColorScale, QsEnumScaleType } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
-  class: string
   id: string
   radius: number
   pointData: QsCoordinate
@@ -146,7 +145,6 @@ export const getCalculatedData = (
       strokeColorScale
     )
     return {
-      class: 'point',
       id: `point${uuidv4()}`,
       pointData: { x: x(d), y: y(d) },
       fillColor: getPrecidendedColor(

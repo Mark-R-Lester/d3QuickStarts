@@ -14,7 +14,6 @@ import { QsEnumColorScale } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
   id: string
-  class: string
   coordinate: QsCoordinate
   x: number
   y: number
@@ -93,7 +92,6 @@ export const getCalculatedData = (
 
     calculatedData.push({
       id: `radialPoint${uuidv4()}`,
-      class: 'radialPoint',
       coordinate,
       fillColor: getPrecidendedColor(
         d.fillColor,

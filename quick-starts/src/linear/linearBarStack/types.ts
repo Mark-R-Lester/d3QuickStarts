@@ -6,7 +6,6 @@ export interface BarStackedConfig {
 
 export interface BarData {
   id: string
-  class: string
   x: number
   y: number
   height: number

@@ -13,6 +13,7 @@ import {
 } from './qsTypes'
 import { radialCentroidAreaConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 interface DrawArgs {
   data: QsRadialAreaData
@@ -51,11 +52,12 @@ const draw = (
     .innerRadius((d) => d.inner)
     .curve(constantsCurves[curve])
 
+  const { className, dotClassName } = generateClassName('radialCentroidArea')
   const group = canvas.displayGroup.append('g')
   group
     .append('path')
     .datum(calculatedData)
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('d', (d) => radialArea(d.areaData))
     .attr('fill', (d) => d.fillColor)
@@ -67,13 +69,13 @@ const draw = (
     .attr('stroke-linecap', QsEnumLineCap.ROUND)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   return {
-    element: group.selectAll('path'),
+    element: group.selectAll(dotClassName),
     transition: (data: QsRadialAreaTransitionData) => {
       const calculatedData = getCalculatedData(canvas, data.data, config)
       const args = addTransitionDefaults(data.transitionArgs)
 
       group
-        .selectAll(`.${calculatedData.class}`)
+        .selectAll(dotClassName)
         .datum(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)

@@ -10,6 +10,7 @@ import {
 } from './qsTypes'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { generateClassName } from '../../core/generateClassName'
 
 interface DrawArgs {
   data: number[]
@@ -61,13 +62,17 @@ const draw = (
     .outerRadius((d) => d.outerRadius)
     .startAngle((d) => d.startAngle)
     .endAngle((d) => d.endAngle)
+
+  const { className, dotClassName } = generateClassName('radialCentroidAxis')
+  const { className: classNameText, dotClassName: dotClassNameText } =
+    generateClassName('radialCentroidAxisText')
   const group = canvas.displayGroup.append('g')
   group
-    .selectAll(`.${calculatedData[0].ringClass}`)
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('path')
-    .attr('class', (d) => d.ringClass)
+    .attr('class', className)
     .attr('id', (d) => d.ringId)
     .attr('d', (d) => arc(d.ringData))
     .attr('stroke', strokeColor)
@@ -79,7 +84,7 @@ const draw = (
     .data(calculatedData)
     .enter()
     .append('text')
-    .attr('class', (d) => d.textClass)
+    .attr('class', classNameText)
     .attr('id', (d) => d.textId)
     .attr('font-family', textFont)
     .attr('font-style', textFontStyle)
@@ -97,8 +102,8 @@ const draw = (
     .text((d) => d.ringData.text)
 
   return {
-    textElement: group.selectAll('text'),
-    ringsElement: group.selectAll('ring'),
+    textElement: group.selectAll(dotClassNameText),
+    ringsElement: group.selectAll(dotClassName),
     transition: (data: QsRadialCentroidAxisTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
 
@@ -108,7 +113,7 @@ const draw = (
         config
       )
       group
-        .selectAll(`.${calculatedData[0].ringClass}`)
+        .selectAll(dotClassName)
         .data(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)
@@ -116,7 +121,7 @@ const draw = (
         .attr('stroke-width', (d) => d.strokeWidth)
         .attr('d', (d) => arc(d.ringData))
       group
-        .selectAll(`.${calculatedData[0].textClass}`)
+        .selectAll(dotClassNameText)
         .data(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)

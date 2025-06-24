@@ -20,8 +20,6 @@ export interface CalculatedData {
   [key: string]: string | RingData | number
   ringId: string
   textId: string
-  ringClass: string
-  textClass: string
   ringData: RingData
   x: number
   y: number

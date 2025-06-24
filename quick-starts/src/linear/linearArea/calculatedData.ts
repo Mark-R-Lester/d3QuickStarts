@@ -34,7 +34,6 @@ export const getCalculatedData = (
     .range([0, displayAreaWidth])
 
   const calculatedData: CalculatedData = {
-    class: 'area',
     id: `area-${uuidv4()}`,
     areaData: higherData.map((d, i) => ({
       x: xDataScale(i),

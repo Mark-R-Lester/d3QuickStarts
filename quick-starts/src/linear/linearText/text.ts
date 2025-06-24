@@ -16,6 +16,7 @@ import {
 import { interpolate } from 'd3'
 import { linearTextConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 export const linearText = {
   horizontal: (
@@ -58,6 +59,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: TextConfig): QsText => {
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, args, config)
   const { defaultDecimalPoints } = config
 
+  const { className, dotClassName } = generateClassName('linearText')
   const group = canvas.displayGroup.append('g')
 
   group
@@ -65,7 +67,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: TextConfig): QsText => {
     .data(calculatedData)
     .enter()
     .append('text')
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('font-family', (d) => d.textFont)
     .attr('font-style', (d) => d.textFontStyle)
@@ -92,7 +94,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: TextConfig): QsText => {
     )
 
     group
-      .selectAll(`.${calculatedData[0].class}`)
+      .selectAll(dotClassName)
       .data(calculatedData)
       .transition()
       .delay(args.delayInMiliSeconds)
@@ -116,7 +118,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: TextConfig): QsText => {
       })
   }
   return {
-    element: group.selectAll(`.${calculatedData[0].class}`),
+    element: group.selectAll(dotClassName),
     transition: (data: QsTextTransitionData) => transition(data),
   }
 }

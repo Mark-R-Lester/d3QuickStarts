@@ -16,7 +16,6 @@ import {
 } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
-  class: string
   id: string
   coordinate: QsCoordinate
   text?: string
@@ -154,7 +153,6 @@ export const getCalculatedData = (
 
   const calculatedData: CalculatedData[] = coordinates.map((d, i) => {
     return {
-      class: 'linearText',
       id: `linearText${uuidv4()}`,
       coordinate: { x: x(d), y: y(d) },
       text: d.text,

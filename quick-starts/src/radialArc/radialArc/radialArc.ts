@@ -15,6 +15,7 @@ import {
 } from './qsTypes'
 import { radialArcConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 interface DrawArgs {
   data: QsRadialData[]
@@ -45,14 +46,15 @@ const draw = (
 
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
   const arc: any = d3arc()
-  const group = canvas.displayGroup.append('g')
 
+  const { className, dotClassName } = generateClassName('radialCentroidArea')
+  const group = canvas.displayGroup.append('g')
   group
-    .selectAll('.arc')
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('path')
-    .attr('class', (d) => d.class)
+    .attr('class', (d) => className)
     .attr('id', (d) => d.id)
     .attr('stroke', 'none')
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
@@ -64,7 +66,7 @@ const draw = (
     .attr('stroke-width', (d) => d.arcData.strokeWidth)
 
   return {
-    element: group.selectAll('.arc'),
+    element: group.selectAll(dotClassName),
     transition: (data: QsRadialTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       calculatedData = updateCalculatedData(
@@ -75,7 +77,7 @@ const draw = (
       )
 
       group
-        .selectAll(`.${calculatedData[0].class}`)
+        .selectAll(dotClassName)
         .data(calculatedData)
         .attr('d', (d) => arc(d.arcData))
         .transition()

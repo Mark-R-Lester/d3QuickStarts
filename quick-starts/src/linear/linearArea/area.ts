@@ -13,6 +13,7 @@ import { AreaConfig, AreaData, CalculatedData } from './types'
 import { linearAreaConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { Canvas } from '../../core/canvas/canvas'
+import { generateClassName } from '../../core/generateClassName'
 
 interface DrawArgs {
   data: QsAreaData
@@ -44,6 +45,8 @@ function draw(canvas: Canvas, args: DrawArgs, config: AreaConfig): QsArea {
     config
   )
 
+  const { className, dotClassName } = generateClassName('linearArea')
+
   const area = d3area<AreaData>()
     .x((d) => d.x)
     .y1((d) => d.y1)
@@ -54,7 +57,7 @@ function draw(canvas: Canvas, args: DrawArgs, config: AreaConfig): QsArea {
   group
     .append('path')
     .datum(calculatedData)
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('d', (d) => area(d.areaData))
     .attr('fill', (d) => d.fillColor)
@@ -65,7 +68,7 @@ function draw(canvas: Canvas, args: DrawArgs, config: AreaConfig): QsArea {
     .attr('stroke-linejoin', QsEnumLineJoin.ROUND)
     .attr('stroke-linecap', QsEnumLineCap.ROUND)
   return {
-    element: group.select(`.${calculatedData.class}`),
+    element: group.select(dotClassName),
     transition: (data: QsAreaTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       const calculatedData: CalculatedData = getCalculatedData(
@@ -75,7 +78,7 @@ function draw(canvas: Canvas, args: DrawArgs, config: AreaConfig): QsArea {
       )
 
       group
-        .selectAll(`.${calculatedData.class}`)
+        .selectAll(dotClassName)
         .datum(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)

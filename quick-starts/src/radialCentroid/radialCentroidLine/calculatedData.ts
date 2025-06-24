@@ -5,7 +5,6 @@ import { RadialLineConfig } from './types'
 import { GlobalDefaultSettings } from '../../core/enums/enums'
 
 export interface CalculatedData {
-  class: string
   id: string
   lineData: Iterable<[number, number]>
   x: number
@@ -37,7 +36,6 @@ export const getCalculatedData = (
 
   dataCopy.push(data[0])
   return {
-    class: 'radialLine',
     id: 'radialLine',
     lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d)]),
     x: xPercentScale(x),

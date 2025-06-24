@@ -26,7 +26,6 @@ export const getCalculatedData = (
     const innerX = Math.sin(angle) * innerHypotenuse + xCenter
     const innerY = Math.cos(angle) * innerHypotenuse + yCenter
     calculatedData[i] = {
-      class: 'axisSpoke',
       id: `axisSpoke${uuidv4()}`,
       lineData: [
         [innerX, innerY],

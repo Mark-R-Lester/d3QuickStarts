@@ -12,6 +12,7 @@ import {
 } from './qsTypes'
 import { Canvas } from '../../core/canvas/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { generateClassName } from '../../core/generateClassName'
 
 export const plottedLine = {
   line: (
@@ -36,17 +37,18 @@ const draw = (
   const { curve, strokeLineJoin, strokeLineCap } = config
 
   const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
+  const { className, dotClassName } = generateClassName('plottedLine')
 
   let line = d3line()
     .x((d) => d[0])
     .y((d) => d[1])
     .curve(constantsCurves[curve])
 
-  let lineGroup = canvas.displayGroup.append('g')
-  lineGroup
+  let group = canvas.displayGroup.append('g')
+  group
     .append('path')
     .datum(calculatedData)
-    .attr('class', 'plottedLline')
+    .attr('class', className)
     .attr('d', (d) => line(d.coordinates))
     .attr('fill', 'none')
     .attr('stroke', (d) => d.strokeColor)
@@ -63,8 +65,8 @@ const draw = (
       config
     )
 
-    lineGroup
-      .selectAll('.plottedLline')
+    group
+      .selectAll(dotClassName)
       .datum(calculatedData)
       .transition()
       .delay(args.delayInMiliSeconds)
@@ -75,5 +77,5 @@ const draw = (
       .attr('stroke-opacity', (d) => d.strokeOpacity)
   }
 
-  return { element: lineGroup.select('.line'), transition }
+  return { element: group.select(dotClassName), transition }
 }

@@ -11,6 +11,7 @@ import {
 } from './qsTypes'
 import { linearPointsConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 export const linearPoint = {
   horizontal: (
@@ -61,6 +62,7 @@ const draw = (
     config
   )
 
+  const { className, dotClassName } = generateClassName('linearPoints')
   const group = canvas.displayGroup.append('g')
 
   group
@@ -68,7 +70,7 @@ const draw = (
     .data(calculatedData)
     .enter()
     .append('circle')
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('cy', (d) => d.pointData.y)
     .attr('cx', (d) => d.pointData.x)
@@ -89,7 +91,7 @@ const draw = (
     )
 
     group
-      .selectAll(`.${calculatedData[0].class}`)
+      .selectAll(dotClassName)
       .data(calculatedData)
       .transition()
       .delay(args.delayInMiliSeconds)
@@ -105,7 +107,7 @@ const draw = (
       .attr('stroke-width', (d) => d.strokeWidth)
   }
   return {
-    element: group.selectAll(`.${calculatedData[0].class}`),
+    element: group.selectAll(dotClassName),
     transition: (data: QsPointsTransitionData) => transition(data),
   }
 }

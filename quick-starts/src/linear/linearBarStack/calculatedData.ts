@@ -6,7 +6,6 @@ import { BarData, BarStackedConfig } from './types'
 
 export interface CalculatedData {
   groupId: string
-  stackClass: string
   barData: BarData[]
 }
 
@@ -60,7 +59,6 @@ export const getCalculatedData = (
     const data: BarData[] = d.map((d, inner): BarData => {
       return {
         id: barIds[inner],
-        class: `${'barStacked'}`,
         x: x(inner.toString()),
         y: y(d),
         height: height(d),
@@ -70,7 +68,6 @@ export const getCalculatedData = (
     })
     calculatedData.push({
       groupId: `stack${outer}`,
-      stackClass: `${'barStack'}`,
       barData: data,
     })
   })

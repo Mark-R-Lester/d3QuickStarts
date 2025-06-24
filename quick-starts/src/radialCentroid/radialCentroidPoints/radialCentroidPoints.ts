@@ -10,6 +10,7 @@ import {
 } from './qsTypes'
 import { radialCentroidPointsConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 interface DrawArgs {
   data: QsRadialPointData[]
@@ -43,13 +44,14 @@ const draw = (
     config
   )
 
-  const dataPoints = canvas.displayGroup.append('g')
-  dataPoints
+  const { className, dotClassName } = generateClassName('radialCentroidPoints')
+  const group = canvas.displayGroup.append('g')
+  group
     .selectAll('circle')
     .data(calculatedData)
     .enter()
     .append('circle')
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('cx', (d) => d.coordinate.x)
     .attr('cy', (d) => d.coordinate.y)
@@ -61,7 +63,7 @@ const draw = (
     .attr('stroke-width', (d) => d.strokeWidth)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   return {
-    element: dataPoints.selectAll('circle'),
+    element: group.selectAll(dotClassName),
     transition: (data: QsRadialPointsTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       const calculatedData: CalculatedData[] = getCalculatedData(
@@ -69,8 +71,8 @@ const draw = (
         data.data,
         config
       )
-      dataPoints
-        .selectAll(`.${calculatedData[0].class}`)
+      group
+        .selectAll(dotClassName)
         .data(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)

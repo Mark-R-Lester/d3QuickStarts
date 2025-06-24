@@ -5,6 +5,7 @@ import { QsLegendData, QsLegendConfig, QsLegend } from './qsTypes'
 import { legendConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { Canvas } from '../../core/canvas/canvas'
+import { generateClassName } from '../../core/generateClassName'
 
 interface DrawArgs {
   data: QsLegendData[]
@@ -43,13 +44,17 @@ const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfig) => {
     data,
     config
   )
+
+  const { className, dotClassName } = generateClassName('unboundLegend')
+  const { className: classNameText, dotClassName: dotClassNameText } =
+    generateClassName('unboundLegendText')
   const group = canvas.displayGroup.append('g')
   group
-    .selectAll('.legend')
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('rect')
-    .attr('class', 'legend')
+    .attr('class', className)
     .attr('x', (d) => d.x)
     .attr('y', (d) => d.y)
     .attr('width', (d) => d.width)
@@ -61,6 +66,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfig) => {
     .data(calculatedData)
     .enter()
     .append('text')
+    .attr('class', classNameText)
     .attr('font-family', textFont)
     .attr('font-style', textFontStyle)
     .attr('font-weight', textFontWeight)

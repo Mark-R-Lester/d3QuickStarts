@@ -10,6 +10,7 @@ import {
   linearAxisConfigRight,
 } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 export const linearAxis = {
   xAxisTop: (
@@ -100,9 +101,11 @@ const draw = (canvas: Canvas, args: DrawArgs, config: AxisConfig): QsAxis => {
 
   const calculatedData: CalculatedData = getCalculatedData(canvas, args, config)
 
+  const { className, dotClassName } = generateClassName('linearAxis')
   const axisGroup = canvas.displayGroup
     .append('g')
-    .attr('id', 'xAxis')
+    .attr('id', className)
+    .attr('class', className)
     .attr('transform', calculatedData.translation)
     .call(calculatedData.axis)
 

@@ -12,6 +12,7 @@ import {
 } from './qsTypes'
 import { linearLineConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 export const linearLine = {
   vertical: (
@@ -60,11 +61,13 @@ export const draw = (
       : getVerticalCalculatedData(canvas, args, config)
   const { strokeLineJoin, strokeLineCap } = config
 
+  const { className, dotClassName } = generateClassName('linearLine')
+
   const group = canvas.displayGroup.append('g')
   group
     .append('path')
     .datum(calculatedData)
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('d', (d) => d.lineFunction(d.lineData))
     .attr('fill', 'none')
@@ -86,7 +89,7 @@ export const draw = (
         : getVerticalCalculatedData(canvas, drawArgs, config)
 
     group
-      .selectAll(`.${calculatedData.class}`)
+      .selectAll(dotClassName)
       .datum(calculatedData)
       .transition()
       .delay(args.delayInMiliSeconds)
@@ -97,7 +100,7 @@ export const draw = (
       .attr('stroke-opacity', (d) => d.strokeOpacity)
   }
   return {
-    element: group.select(`.${calculatedData.class}`),
+    element: group.select(dotClassName),
     transition: (data: QsLineTransitionData) => transition(data),
   }
 }

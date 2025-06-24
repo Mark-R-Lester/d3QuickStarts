@@ -14,7 +14,6 @@ import { Canvas } from '../../core/canvas/canvas'
 import { QsEnumColorScale } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
-  class: string
   id: string
   barData: CalculatedDataBarData
 }
@@ -187,7 +186,6 @@ export const getCalculatedData = (
       strokeOpacity: d.strokeOpacity ?? defaultStrokeOpacity,
     }
     calculatedData.push({
-      class: 'bar',
       id: `bar-${uuidv4()}`,
       barData,
     })

@@ -49,7 +49,6 @@ export const getCalculatedData = (
     dataInnerCopy.push(innerData[0])
   }
   return {
-    class: 'radialArea',
     id: `radialArea${uuidv4()}`,
     areaData: dataOuterCopy.map((d, i) => {
       return {

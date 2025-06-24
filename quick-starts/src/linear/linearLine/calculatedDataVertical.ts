@@ -66,7 +66,6 @@ export const getCalculatedData = (
   }
 
   return {
-    class: 'line',
     id: `line${uuidv4()}`,
     lineData,
     lineFunction,

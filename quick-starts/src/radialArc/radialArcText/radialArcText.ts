@@ -8,7 +8,6 @@ import {
 } from './calculatedData'
 import { RadialTextType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { QsEnumScaleType } from '../../core/enums/qsEnums'
 import { getRotationFunction } from './textRotation'
 import { Canvas } from '../../core/canvas/canvas'
 import {
@@ -24,6 +23,7 @@ import {
   radialArcTextConfigSpoke,
 } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 interface DrawArgs {
   data: QsValuedText[]
@@ -122,15 +122,19 @@ const draw = (
   const arcs = group.append('g')
   const text = group.append('g')
 
+  const { className, dotClassName } = generateClassName('radialArcText')
+  const { className: classNameArc, dotClassName: dotClassNameArc } =
+    generateClassName('radialArcTextArc')
+
   if (type !== RadialTextType.FOLLOW) {
     text
-      .selectAll(`.${calculatedData.textClass}`)
+      .selectAll(dotClassName)
       .data(calculatedData.textArcData)
       .enter()
       .append('g')
       .attr('transform', `translate(${calculatedData.x}, ${calculatedData.y})`)
       .append('text')
-      .attr('class', (d) => d.textClass)
+      .attr('class', className)
       .attr('id', (d) => d.textId)
       .attr('font-family', textFont)
       .attr('font-style', textFontStyle)
@@ -150,22 +154,22 @@ const draw = (
       )
   } else {
     arcs
-      .selectAll(`.${calculatedData.arcClass}`)
+      .selectAll(dotClassNameArc)
       .data(calculatedData.textArcData)
       .enter()
       .append('path')
-      .attr('class', (d) => d.arcClass)
+      .attr('class', classNameArc)
       .attr('id', (d) => d.arcId)
       .attr('d', arc)
       .attr('stroke-width', 0)
       .attr('fill', 'none')
       .attr('transform', `translate(${calculatedData.x}, ${calculatedData.y})`)
     text
-      .selectAll(`.${calculatedData.textClass}`)
+      .selectAll(dotClassName)
       .data(calculatedData.textArcData)
       .enter()
       .append('text')
-      .attr('class', (d) => d.textClass)
+      .attr('class', className)
       .attr('id', (d) => d.textId)
       .attr('font-family', textFont)
       .attr('font-style', textFontStyle)
@@ -183,8 +187,8 @@ const draw = (
       )
   }
   return {
-    elementText: text.selectAll('.text'),
-    elementArcs: arcs.selectAll('.arc'),
+    elementText: text.selectAll(dotClassName),
+    elementArcs: arcs.selectAll(dotClassNameArc),
     transition: (data: QsRadialTextTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       calculatedData = updateCalculatedData(
@@ -196,7 +200,7 @@ const draw = (
 
       if (type !== RadialTextType.FOLLOW) {
         text
-          .selectAll('.text')
+          .selectAll(dotClassName)
           .data(calculatedData.textArcData)
           .transition()
           .delay(args.delayInMiliSeconds)
@@ -221,7 +225,7 @@ const draw = (
           })
       } else {
         arcs
-          .selectAll('.arc')
+          .selectAll(dotClassNameArc)
           .data(calculatedData.textArcData)
           .transition()
           .delay(args.delayInMiliSeconds)
@@ -237,7 +241,7 @@ const draw = (
           })
 
         calculatedData.textArcData.forEach((d, i) => {
-          const t = text.select(`#${d.textId}`)
+          const t = text.select(dotClassName)
           t.selection().selectChildren().remove()
           t.append('textPath')
             .datum(d)

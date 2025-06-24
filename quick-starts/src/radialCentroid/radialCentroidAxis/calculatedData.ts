@@ -60,8 +60,6 @@ export const getCalculatedData = (
     calculatedData.push({
       ringId: `ring${uuidv4()}`,
       textId: `ringText${uuidv4()}`,
-      ringClass: `ring`,
-      textClass: `ringText`,
 
       ringData: {
         innerRadius: bandWidth * i,

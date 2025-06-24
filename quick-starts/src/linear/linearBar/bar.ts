@@ -7,6 +7,7 @@ import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsBarConfig, QsBarData, QsBars, QsBarTransitionData } from './qsTypes'
 import { linearBarConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 export const linearBar = {
   horizontal: (
@@ -44,6 +45,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
     args,
     config
   )
+  const { className, dotClassName } = generateClassName('linearBars')
 
   const group: Selection<SVGGElement, unknown, HTMLElement, any> =
     canvas.displayGroup.append('g')
@@ -52,7 +54,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
     .data(calculatedData)
     .enter()
     .append('rect')
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('x', (d) => d.barData.x)
     .attr('y', (d) => d.barData.y)
@@ -75,7 +77,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
 
     if (orientation === Orientation.VERTICAL)
       group
-        .selectAll(`.${calculatedData[0].class}`)
+        .selectAll(dotClassName)
         .data(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)
@@ -89,7 +91,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
         .attr('stroke-width', (d) => d.barData.strokeWidth)
     else
       group
-        .selectAll(`.${calculatedData[0].class}`)
+        .selectAll(dotClassName)
         .data(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)
@@ -103,7 +105,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
         .attr('stroke-width', (d) => d.barData.strokeWidth)
   }
   return {
-    element: group.selectAll(`.${calculatedData[0].class}`),
+    element: group.selectAll(dotClassName),
     transition: (data: QsBarTransitionData) => transition(data),
   }
 }

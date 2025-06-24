@@ -26,7 +26,6 @@ export interface LineConfig {
 }
 
 export interface CalculatedData {
-  class: string
   id: string
   lineData: [number, number][]
   lineFunction: Line<[number, number]>

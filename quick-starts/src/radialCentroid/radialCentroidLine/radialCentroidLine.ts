@@ -12,6 +12,7 @@ import {
 import { RadialLineConfig } from './types'
 import { radialCentroidLineConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 export const radialLine = {
   line: (
@@ -37,11 +38,13 @@ const draw = (
   const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
 
   const radialLine = lineRadial().curve(constantsCurves[curve])
+
+  const { className, dotClassName } = generateClassName('radialCentroidLine')
   const group = canvas.displayGroup.append('g')
   group
     .append('path')
     .datum(calculatedData)
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('d', (d) => radialLine(d.lineData))
     .attr('fill', 'none')
@@ -52,7 +55,7 @@ const draw = (
     .attr('stroke-linecap', strokeLineCap)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   return {
-    element: group.selectAll(`.${calculatedData.class}`),
+    element: group.selectAll(dotClassName),
     transition: (data: QsRadialLineTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       const calculatedData: CalculatedData = getCalculatedData(
@@ -61,7 +64,7 @@ const draw = (
         config
       )
       group
-        .selectAll(`.${calculatedData.class}`)
+        .selectAll(dotClassName)
         .datum(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)

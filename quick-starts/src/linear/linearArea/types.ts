@@ -12,7 +12,6 @@ export interface AreaData {
 }
 
 export interface CalculatedData {
-  class: string
   id: string
   areaData: AreaData[]
   fillColor: string

@@ -13,7 +13,6 @@ import { Canvas } from '../../core/canvas/canvas'
 import { QsEnumColorScale } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
-  class: string
   id: string
   arcData: ArcData
   x: number
@@ -126,7 +125,6 @@ export const getCalculatedData = (
     )
 
     calculatedData.push({
-      class: `arc`,
       id: `arc${uuidv4()}`,
 
       arcData: {

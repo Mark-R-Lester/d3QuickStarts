@@ -5,6 +5,7 @@ import { QsRadialSpokesConfig, QsRadialSpokes } from './qsTypes'
 import { CalculatedData, RadialSpokesConfig } from './types'
 import { radialCentroidSpokesConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 interface DrawArgs {
   data: number
@@ -44,13 +45,14 @@ const draw = (
     .x((d) => d[0])
     .y((d) => d[1])
 
+  const { className, dotClassName } = generateClassName('radialCentroidSpoke')
   const group = canvas.displayGroup.append('g')
   group
     .selectAll('path')
     .data(calculatedData)
     .enter()
     .append('path')
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('d', (d) => radialLine(d.lineData))
     .attr('fill', 'none')
@@ -59,7 +61,7 @@ const draw = (
     .attr('stroke-opacity', strokeOpacity)
 
   return {
-    element: group.selectAll(`.${calculatedData[0].class}`),
+    element: group.selectAll(dotClassName),
     transition: (data: number) => {
       const calculatedData: CalculatedData[] = getCalculatedData(
         canvas,
@@ -67,7 +69,7 @@ const draw = (
         config
       )
       group
-        .selectAll(`.${calculatedData[0].class}`)
+        .selectAll(dotClassName)
         .data(calculatedData.map((d) => d.lineData))
         .transition()
         .duration(3000)

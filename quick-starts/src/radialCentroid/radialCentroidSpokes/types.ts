@@ -1,5 +1,4 @@
 export interface CalculatedData {
-  class: string
   id: string
   lineData: [number, number][]
   strokeWidth: number

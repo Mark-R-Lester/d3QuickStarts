@@ -15,6 +15,7 @@ import {
 } from './calculatedData'
 import { interpolate } from 'd3'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { generateClassName } from '../../core/generateClassName'
 
 export const unboundText = (
   canvas: Canvas,
@@ -36,13 +37,14 @@ const draw = (
 ): QsUnboundText => {
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
 
-  const text = canvas.displayGroup.append('g')
-  text
+  const { className, dotClassName } = generateClassName('radialCentroidArea')
+  const group = canvas.displayGroup.append('g')
+  group
     .selectAll('text')
     .data(calculatedData)
     .enter()
     .append('text')
-    .attr('class', 'text')
+    .attr('class', className)
     .attr('font-family', (d) => d.textFont)
     .attr('font-style', (d) => d.textFontStyle)
     .attr('font-weight', (d) => d.textFontWeight)
@@ -70,8 +72,8 @@ const draw = (
       calculatedData
     )
 
-    text
-      .selectAll('.text')
+    group
+      .selectAll(dotClassName)
       .data(calculatedData)
       .transition()
       .delay(args.delayInMiliSeconds)
@@ -100,5 +102,5 @@ const draw = (
       })
   }
 
-  return { element: text.selectAll('.text'), transition }
+  return { element: group.selectAll(dotClassName), transition }
 }

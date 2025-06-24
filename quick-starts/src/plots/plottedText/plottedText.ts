@@ -15,6 +15,7 @@ import {
 } from './calculatedData'
 import { interpolate } from 'd3'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { generateClassName } from '../../core/generateClassName'
 
 export const plottedText = {
   text: (
@@ -38,13 +39,14 @@ const draw = (
 ): QsPlottedText => {
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
 
-  const text = canvas.displayGroup.append('g')
-  text
+  const { className, dotClassName } = generateClassName('plottedText')
+  const group = canvas.displayGroup.append('g')
+  group
     .selectAll('text')
     .data(calculatedData)
     .enter()
     .append('text')
-    .attr('class', 'plottedText')
+    .attr('class', className)
     .attr('font-family', (d) => d.textFont)
     .attr('font-style', (d) => d.textFontStyle)
     .attr('font-weight', (d) => d.textFontWeight)
@@ -72,8 +74,8 @@ const draw = (
       calculatedData
     )
 
-    text
-      .selectAll('.plottedText')
+    group
+      .selectAll(dotClassName)
       .data(calculatedData)
       .transition()
       .delay(args.delayInMiliSeconds)
@@ -102,5 +104,5 @@ const draw = (
       })
   }
 
-  return { element: text.selectAll('text'), transition }
+  return { element: group.selectAll(dotClassName), transition }
 }

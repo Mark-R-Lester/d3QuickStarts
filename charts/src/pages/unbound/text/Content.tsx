@@ -10,8 +10,8 @@ import {
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { PlottedLegendDefaultsChart } from './PlottedLegendDefaultsChart'
-import { PlottedLegendChart } from './PlottedLegendChart'
+import { UnboundTextChart } from './UnboundTextChart'
+import { UnboundTextDefaultsChart } from './UnboundTextDefaultsChart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
@@ -20,105 +20,88 @@ const canvasConfig: string = `const canvasConfig = {
 }`
 
 const defaultsChart: string = `
-const data: QsLegendData[] = [
-  { value: 'Red', fillColor: 'red' },
-  { value: 'Blue', fillColor: 'blue' },
-  { value: 'Green', fillColor: 'green' },
-  { value: 'Purple', fillColor: 'purple' },
-]
-
 const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-canvas.generate.unbound.legend(data)`
+
+const data: QsUnboundTextData[] = [
+  { x: 10, y: 100, text: 'Text with no config uses defaults' },
+]
+canvas.generate.unbound.text(data)
+canvas.generate.linear.vertical.axis.left([])
+canvas.generate.linear.horizontal.axis.bottom([])`
 
 const configChart: string = `
-const data: QsLegendData[] = [
-  { value: 'Red', fillColor: 'red' },
-  { value: 'Blue', fillColor: 'blue' },
-  { value: 'Green', fillColor: 'green' },
-  { value: 'Purple', fillColor: 'purple' },
-]
-
 const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
-canvas.generate.unbound.legend(data, {
-  x: 0,
-  y: 0,
-  height: 1,
-  width: 7,
-  space: 10,
-  textFont: QsEnumTextFont.SERIF,
-  textFontWeight: QsEnumTextFontWeight.NORMAL,
-  textFontStyle: QsEnumTextFontStyle.ITALIC,
-  textFontSize: 5,
-  textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-  textAngle: 0,
-  textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-  textAnchor: QsEnumTextAnchor.START,
-  textStroke: 'black',
-  textFill: 'black',
-})`
+const data: QsUnboundTextData[] = [
+  { x: 10, y: 100, text: 'Text with no config uses defaults' },
+]
+canvas.generate.unbound.text(data)
+
+const data1: QsUnboundTextData[] = [
+  { x: 0, y: 90, text: 'Three pieces of' },
+  { x: 15, y: 80, text: 'text in one call' },
+  { x: 30, y: 70, text: 'utilise on the same config' },
+]
+
+canvas.generate.unbound.text(data1, {
+  defualtTextFont: QsEnumTextFont.FANTASY,
+  defualtTextFontSize: 10,
+  defualtTextFontStyle: QsEnumTextFontStyle.ITALIC,
+  defualtTextStroke: 'red',
+})
+
+const data2: QsUnboundTextData[] = [
+  { x: 0, y: 50, text: 'Text in separate call uses separate config' },
+]
+canvas.generate.unbound.text(data2, {
+  defualtTextFont: QsEnumTextFont.HELVETICA,
+  defualtTextFontSize: 7,
+  defualtTextFontWeight: QsEnumTextFontWeight.BOLD,
+  defualtTextFill: 'blue',
+  defualtTextAngle: 10,
+})
+canvas.generate.linear.vertical.axis.left([])
+canvas.generate.linear.horizontal.axis.bottom([])`
 
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`
 
-const data: string = `interface QsTextData {
-  value: number
-  text?: string
-  textFont?: QsEnumTextFont | string
-  textFontSize?: number
-  textFontStyle?: QsEnumTextFontStyle
-  textFontWeight?: QsEnumTextFontWeight | number
-  textDecorationLine?: QsEnumTextDecorationLine
-  textFill?: string
-  textAngle?: number
-  textAnchor?: QsEnumTextAnchor
-  textStroke?: string
-  textAlignmentBaseline?: QsEnumAlignmentBaseline
+const data: string = `interface QsUnboundTextData {
+  x: number,
+  y: number,
+  text: string
 }`
 
-const config: string = `interface QsTextConfig {
-  [key: string]: number | QsColorScaleData | string | undefined
-  scaleType?: QsEnumScaleType
-  defaultDecimalPoints?: number
-  defaultTextFont?: QsEnumTextFont | string
-  defaultTextFontSize?: number
-  defaultTextFontStyle?: QsEnumTextFontStyle
-  defaultTextFontWeight?: QsEnumTextFontWeight | number
-  defaultTextDecorationLine?: QsEnumTextDecorationLine
-  defaultTextFill?: string
-  defaultTextAngle?: number
-  defaultTextAnchor?: QsEnumTextAnchor
-  defaultTextStroke?: string
-  defaultTextAlignmentBaseline?: QsEnumAlignmentBaseline
+const config: string = `interface QsUnboundTextConfig {
+  defualtTextFont?: QsEnumTextFont | string
+  defualtTextFontSize?: number
+  defualtTextFontStyle?: QsEnumTextFontStyle
+  defualtTextFontWeight?: QsEnumTextFontWeight | number
+  defualtTextDecorationLine?: QsEnumTextDecorationLine
+  defualtTextFill?: string
+  defualtTextAngle?: number
+  defualtTextAnchor?: QsEnumTextAnchor
+  defualtTextStroke?: string
+  defualtTextAlignmentBaseline?: QsEnumAlignmentBaseline
 }`
 
-const dataExample: string = `const data: QsTextData = {
-  value: 27,
-  text: 'this is what you will see if added',
-  textFont: QsEnumTextFont.SERIF,
-  textFontSize: 10,
-  textFontStyle: QsEnumTextFontStyle.ITALIC,
-  textFontWeight: QsEnumTextFontWeight.BOLD,
-  textDecorationLine: QsEnumTextDecorationLine.OVERLINE,
-  textFill: 'blue',
-  textAngle: 45,
-  textAnchor: QsEnumTextAnchor.START,
-  textStroke:  'blue',
-  textAlignmentBaseline: QsEnumAlignmentBaseline.CENTER,
+const dataExample: string = `const data: QsUnboundTextData = {
+  x: 10,
+  y: 20,
+  text: 'hello world'
 }`
 
-const configExample: string = `const config: QsTextConfig = {
-  scaleType: QsEnumScaleType.BANDED,
-  defaultDecimalPoints: 3,
-  defaultTextFontSize: 10,
-  defaultTextFontStyle: QsEnumTextFontStyle.ITALIC,
-  defaultTextFontWeight: QsEnumTextFontWeight.BOLD,
-  defaultTextDecorationLine: QsEnumTextDecorationLine.OVERLINE,
-  defaultTextFill: 'blue',
-  defaultTextAngle: 45,
-  defaultTextAnchor: QsEnumTextAnchor.START,
-  defaultTextStroke:  'blue',
-  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.CENTER,
+const configExample: string = `const config: QsUnboundTextConfig = {
+  defualtTextFont?: QsEnumTextFont.SANS_SERIF
+  defualtTextFontSize: 10,
+  defualtTextFontStyle: QsEnumTextFontStyle.ITALIC,
+  defualtTextFontWeight: QsEnumTextFontWeight.BOLD,
+  defualtTextDecorationLine: QsEnumTextDecorationLine.OVERLINE,
+  defualtTextFill: 'blue',
+  defualtTextAngle: 45,
+  defualtTextAnchor: QsEnumTextAnchor.START,
+  defualtTextStroke:  'blue',
+  defualtTextAlignmentBaseline: QsEnumAlignmentBaseline.CENTER,
 }`
 
 export const defaultsContent: JSX.Element = (
@@ -148,12 +131,12 @@ export const defaultsContent: JSX.Element = (
                 </ContentSyntaxBox>,
               ]}
             />,
-            <PlottedLegendDefaultsChart
+            <UnboundTextDefaultsChart
               canvasProps={{
                 chartName: 'chartH',
                 width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 35,
+                highestViewableValue: 100,
+                fillColor: 'lightBlue',
               }}
             />,
           ]}
@@ -191,12 +174,12 @@ export const configContent: JSX.Element = (
                 </ContentSyntaxBox>,
               ]}
             />,
-            <PlottedLegendChart
+            <UnboundTextChart
               canvasProps={{
                 chartName: 'chartV',
                 width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 35,
+                highestViewableValue: 100,
+                fillColor: 'lightBlue',
               }}
             />,
           ]}

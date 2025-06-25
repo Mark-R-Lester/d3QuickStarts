@@ -2,8 +2,8 @@ import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import { PlottedLegendDefaultsChart } from './PlottedLegendDefaultsChart'
-import { PlottedLegendChart } from './PlottedLegendChart'
+import { UnboundLegendDefaultsChart } from './UnboundLegendDefaultsChart'
+import { UnboundLegendChart } from './UnboundLegendChart'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import {
@@ -13,9 +13,9 @@ import {
   configContent,
 } from './Content'
 
-export default function PlottedLegendPage() {
+export default function UnboundLegendPage() {
   const menuElements: JSX.Element[] = [
-    <PlottedLegendDefaultsChart
+    <UnboundLegendDefaultsChart
       canvasProps={{
         chartName: 'legendElement',
         width: 130,
@@ -23,7 +23,7 @@ export default function PlottedLegendPage() {
         highestViewableValue: 250,
       }}
     />,
-    <PlottedLegendChart
+    <UnboundLegendChart
       canvasProps={{
         chartName: 'charts',
         width: 130,
@@ -49,7 +49,7 @@ export default function PlottedLegendPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Plotted Legend
+        Unbound Legend
       </Typography>
       <ChartButtonGrid
         onClick={onClick}

@@ -23,6 +23,7 @@ import {
   menuElementsPlotted,
   menuElementsRadialArc,
   menuElementsRadialCentroid,
+  menuElementsUnbound,
 } from '../molecules/ApplicationMenuSystem/drawerMenuData'
 import { MenuRoute } from '../types/atomicTypes'
 
@@ -141,6 +142,7 @@ export const ApplicationLayout: FunctionComponent = () => {
             <DropdownMenu {...menuElementsPlotted} />
             <DropdownMenu {...menuElementsRadialArc} />
             <DropdownMenu {...menuElementsRadialCentroid} />
+            <DropdownMenu {...menuElementsUnbound} />
           </Collapse>
         </List>
       </Drawer>

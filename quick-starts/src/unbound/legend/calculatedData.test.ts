@@ -53,12 +53,12 @@ const data: QsLegendData[] = [
 
 const calculatedDataResult: CalculatedData[] = [
   {
-    x: 10,
-    y: 80,
-    textX: 23,
-    textY: 90,
-    width: 10,
-    height: 10,
+    x: 90,
+    y: 790,
+    textX: 220.00000000000003,
+    textY: 890,
+    width: 890,
+    height: 890,
     fillColor: 'red',
     value: 'description',
     textFontSize: 10,

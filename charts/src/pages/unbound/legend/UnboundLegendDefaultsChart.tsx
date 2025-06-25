@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import { QsCanvas, qsCreateCanvas, QsLegendData } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
-export const PlottedLegendDefaultsChart: FunctionComponent<ChartProps> = ({
+export const UnboundLegendDefaultsChart: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {

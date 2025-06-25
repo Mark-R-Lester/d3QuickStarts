@@ -19,20 +19,25 @@ export const getCalculatedData = (
   data: QsLegendData[],
   config: LegendConfig
 ): CalculatedData[] => {
-  const { xPercentScale, yPercentScaleInverted, genralPercentScale } =
-    canvas.scales
+  const {
+    xCanvasPercentScale,
+    yCanvasPercentScale,
+    yCanvasPercentScaleInverted,
+    xCanvasPercentScaleInverted,
+    genralPercentScale,
+  } = canvas.scales
   const { textFontSize, height, width, space, x, y } = config
 
   const invertIndex = (data: any[], index: number) => data.length - (index + 1)
 
   const calculatedData: CalculatedData[] = data.map((d, i) => {
     return {
-      x: xPercentScale(x),
-      y: yPercentScaleInverted(y + height + space * invertIndex(data, i)),
-      textX: xPercentScale(x + width * 1.3),
-      textY: yPercentScaleInverted(y + space * invertIndex(data, i)),
-      width: xPercentScale(width),
-      height: xPercentScale(height),
+      x: xCanvasPercentScale(x),
+      y: yCanvasPercentScaleInverted(y + height + space * invertIndex(data, i)),
+      textX: xCanvasPercentScale(x + width * 1.3),
+      textY: yCanvasPercentScaleInverted(y + space * invertIndex(data, i)),
+      width: xCanvasPercentScale(width),
+      height: xCanvasPercentScale(height),
       fillColor: d.fillColor,
       value: d.value,
       textFontSize: genralPercentScale(textFontSize),

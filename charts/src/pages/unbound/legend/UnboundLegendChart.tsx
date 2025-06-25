@@ -12,7 +12,7 @@ import {
 } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
-export const PlottedLegendChart: FunctionComponent<ChartProps> = ({
+export const UnboundLegendChart: FunctionComponent<ChartProps> = ({
   canvasProps,
 }) => {
   useEffect(() => {
@@ -27,10 +27,10 @@ export const PlottedLegendChart: FunctionComponent<ChartProps> = ({
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       canvas.generate.unbound.legend(data, {
-        x: 0,
-        y: 0,
-        height: 1,
-        width: 7,
+        x: 10,
+        y: 50,
+        height: 10,
+        width: 20,
         space: 10,
         textFont: QsEnumTextFont.SERIF,
         textFontWeight: QsEnumTextFontWeight.NORMAL,

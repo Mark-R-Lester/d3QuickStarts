@@ -52,8 +52,11 @@ export const getCalculatedData = (
   data: QsUnboundTextData[],
   config: UnboundTextConfig
 ): CalculatedData[] => {
-  const { xPercentScale, yPercentScaleInverted, genralPercentScale } =
-    canvas.scales
+  const {
+    xCanvasPercentScale,
+    yCanvasPercentScaleInverted,
+    genralPercentScale,
+  } = canvas.scales
   const {
     defaultDecimalPoints,
     defaultTextFont,
@@ -71,8 +74,14 @@ export const getCalculatedData = (
   const calculatedData: CalculatedData[] = data.map((d) => ({
     text: d.text,
     newText: d.text,
-    coordinate: { x: xPercentScale(d.x), y: yPercentScaleInverted(d.y) },
-    newCoordinate: { x: xPercentScale(d.x), y: yPercentScaleInverted(d.y) },
+    coordinate: {
+      x: xCanvasPercentScale(d.x),
+      y: yCanvasPercentScaleInverted(d.y),
+    },
+    newCoordinate: {
+      x: xCanvasPercentScale(d.x),
+      y: yCanvasPercentScaleInverted(d.y),
+    },
     defaultDecimalPoints,
     textFont: d.textFont ?? defaultTextFont,
     textFontSize: genralPercentScale(d.textFontSize ?? defaultTextFontSize),

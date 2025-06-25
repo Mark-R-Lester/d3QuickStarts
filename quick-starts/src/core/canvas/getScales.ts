@@ -2,6 +2,11 @@ import { ScaleLinear, scaleLinear } from 'd3'
 import { CanvasConfig } from './types'
 
 export interface CanvasScales {
+  xCanvasPercentScaleInverted: ScaleLinear<number, number, never>
+  xCanvasPercentScale: ScaleLinear<number, number, never>
+  yCanvasPercentScaleInverted: ScaleLinear<number, number, never>
+  yCanvasPercentScale: ScaleLinear<number, number, never>
+
   genralPercentScale: ScaleLinear<number, number, never>
 
   xPercentScale: ScaleLinear<number, number, never>
@@ -21,12 +26,32 @@ export interface CanvasScales {
 
 export const getScales = (config: CanvasConfig): CanvasScales => {
   const {
+    marginLeft,
+    marginRight,
+    marginTop,
+    marginBottom,
     displayAreaWidth,
     displayAreaHeight,
     lowestViewableValue,
     highestViewableValue,
+    height,
+    width,
   } = config
   return {
+    xCanvasPercentScaleInverted: scaleLinear()
+      .domain([0, 100])
+      .range([width - marginRight, 0 - marginLeft]),
+    xCanvasPercentScale: scaleLinear()
+      .domain([0, 100])
+      .range([0 - marginLeft, width - marginRight]),
+
+    yCanvasPercentScaleInverted: scaleLinear()
+      .domain([0, 100])
+      .range([height - marginBottom, 0 - marginTop]),
+    yCanvasPercentScale: scaleLinear()
+      .domain([0, 100])
+      .range([0 - marginTop, height - marginBottom]),
+
     genralPercentScale: scaleLinear()
       .domain([0, 100])
       .range([0, Math.min(displayAreaHeight, displayAreaWidth)]),

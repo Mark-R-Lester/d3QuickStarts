@@ -15,7 +15,6 @@ import LinearBarStackPage from './pages/linear/barStack/LinearBarStackPage'
 import LinearLinePage from './pages/linear/line/LinearLinePage'
 import LinearPointsPage from './pages/linear/points/LinearPointsPage'
 import LinearTextPage from './pages/linear/text/LinearTextPage'
-import PlottedLegendPage from './pages/plotted/legend/PlottedLegendPage'
 import PlottedLinePage from './pages/plotted/line/PlottedLinePage'
 import PlottedPointsPage from './pages/plotted/points/PlottedPointsPage'
 import PlottedTextPage from './pages/plotted/text/PlottedTextPage'
@@ -24,6 +23,8 @@ import RadialArcTextPage from './pages/radialArc/arcText/RadialArcTextPage'
 import RadialCentroidAreaPage from './pages/radialCentroid/area/RadialCentroidAreaPage'
 import RadialCentroidAxisPage from './pages/radialCentroid/axis/RadialCentroidAxisPage'
 import RadialCentroidSpokesPage from './pages/radialCentroid/spokes/RadialCentroidSpokesPage'
+import UnboundLegendPage from './pages/unbound/legend/UnboundLegendPage'
+import UnboundTextPage from './pages/unbound/text/UnboundTextPage'
 
 export const AppRoutes: FunctionComponent = () => {
   return (
@@ -31,6 +32,9 @@ export const AppRoutes: FunctionComponent = () => {
       <Route path="/" Component={HomePage} />
 
       <Route path="/canvas" Component={CanvasPage} />
+
+      <Route path="/unbound/legend" Component={UnboundLegendPage} />
+      <Route path="/unbound/text" Component={UnboundTextPage} />
 
       <Route path="/linear/bars" Component={LinearBarsPage} />
       <Route path="/linear/area" Component={LinearAreaPage} />
@@ -44,7 +48,6 @@ export const AppRoutes: FunctionComponent = () => {
       <Route path="/plotted/points" Component={PlottedPointsPage} />
       <Route path="/plotted/line" Component={PlottedLinePage} />
       <Route path="/plotted/text" Component={PlottedTextPage} />
-      <Route path="/plotted/legend" Component={PlottedLegendPage} />
 
       <Route path="/radialarc/arc" Component={RadialArcPage} />
       <Route path="/radialarc/text" Component={RadialArcTextPage} />

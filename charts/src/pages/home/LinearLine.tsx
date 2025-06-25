@@ -45,12 +45,35 @@ export const LinearLine: FunctionComponent<OrienetedChartProps> = ({
         { value: 35 },
         { value: 25 },
       ]
+      const pointData: QsTextData[] = [
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+        { value: 10 },
+      ]
       const lineData: QsLineData = {
         data: [
           25, 10, 35, 25, 35, 5, 25, 25, 25, 10, 35, 25, 35, 5, 25, 25, 25, 10,
           35, 25,
         ],
       }
+
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
       let newText: QsText
       let newPoints: QsPoints
@@ -58,6 +81,9 @@ export const LinearLine: FunctionComponent<OrienetedChartProps> = ({
 
       if (orientation === EnumOrientation.VERTICAL) {
         newPoints = canvas.generate.linear.vertical.points(textData, {
+          scaleType: QsEnumScaleType.BANDED,
+        })
+        canvas.generate.linear.vertical.points(pointData, {
           scaleType: QsEnumScaleType.BANDED,
         })
         newLine = canvas.generate.linear.vertical.line(lineData, {
@@ -68,6 +94,7 @@ export const LinearLine: FunctionComponent<OrienetedChartProps> = ({
         })
       } else {
         newPoints = canvas.generate.linear.horizontal.points(textData)
+        canvas.generate.linear.horizontal.points(pointData)
         newLine = canvas.generate.linear.horizontal.line(lineData)
         newText = canvas.generate.linear.horizontal.text(textData)
         canvas.generate.linear.vertical.axis.left([])

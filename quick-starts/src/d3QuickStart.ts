@@ -6,7 +6,7 @@ export * from './core/types/qsTypes'
 export * from './core/enums/qsEnums'
 
 export * from './unbound/legend/qsTypes'
-export * from './unbound/text/text'
+export * from './unbound/text/qsTypes'
 
 export * from './linear/linearAxis/qsTypes'
 export * from './linear/linearBar/qsTypes'

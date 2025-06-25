@@ -1,14 +1,21 @@
 import { DropdownMenuProps } from '../../atoms/DropdownMenu'
 
 export const menuCanvas: DropdownMenuProps = {
-  title: 'Canvas',
+  title: 'Core',
   routes: [{ title: 'Canvas', route: '/canvas' }],
+}
+
+export const menuElementsUnbound: DropdownMenuProps = {
+  title: 'Unbound',
+  routes: [
+    { title: 'Legend', route: '/unbound/legend' },
+    { title: 'Text', route: '/unbound/text' },
+  ],
 }
 
 export const menuElementsPlotted: DropdownMenuProps = {
   title: 'Plotted',
   routes: [
-    { title: 'Legend', route: '/plotted/legend' },
     { title: 'Line', route: '/plotted/line' },
     { title: 'Points', route: '/plotted/points' },
     { title: 'Text', route: '/plotted/text' },

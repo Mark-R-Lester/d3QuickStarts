@@ -11,7 +11,9 @@ export interface LegendConfig {
   [key: string]: number | string | undefined
   height: number
   width: number
-  space: number
+  verticalSpacing: number
+  relativeTextX: number
+  relativeTextY: number
   x: number
   y: number
   textFont: QsEnumTextFont | string

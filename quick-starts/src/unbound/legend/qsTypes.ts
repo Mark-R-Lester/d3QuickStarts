@@ -10,6 +10,7 @@ export interface QsLegendData {
 }
 
 export interface QsLegend {
-  element: Selection<BaseType, unknown, SVGGElement, unknown>
+  elementShape: Selection<BaseType, unknown, SVGGElement, unknown>
+  elementText: Selection<BaseType, unknown, SVGGElement, unknown>
   transition: (data: QsLegendData[], transisionArgs?: QsTransitionArgs) => void
 }

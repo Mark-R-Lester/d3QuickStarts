@@ -194,7 +194,7 @@ export const configContent: JSX.Element = (
             <UnboundLegendChart
               canvasProps={{
                 chartName: 'chartV',
-                width: 600,
+                width: 1000,
                 lowestViewableValue: 0,
                 highestViewableValue: 35,
                 borderColor: 'black',

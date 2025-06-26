@@ -62,7 +62,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfig) => {
     .attr('fill', (d) => d.fillColor)
 
   group
-    .selectAll('text')
+    .selectAll(dotClassNameText)
     .data(calculatedData)
     .enter()
     .append('text')
@@ -82,7 +82,8 @@ const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfig) => {
     .text((d) => d.value)
 
   return {
-    element: group.selectAll('.element'),
+    elementShape: group.selectAll(dotClassName),
+    elementText: group.selectAll(dotClassNameText),
     transition: (data: QsLegendData[], transisionArgs?: QsTransitionArgs) => {},
   }
 }

@@ -1,29 +1,12 @@
 import { Selection } from 'd3'
 import { UnboundTextConfig } from './types'
-import {
-  QsEnumAlignmentBaseline,
-  QsEnumTextAnchor,
-  QsEnumTextDecorationLine,
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-} from '../../core/enums/qsEnums'
 import { QsCoordinate, QsTransitionArgs } from '../../core/types/qsTypes'
+import { TextData } from '../../core/types/types'
 
 export type QsUnboundTextConfig = Partial<UnboundTextConfig>
 
-export interface QsUnboundTextData extends QsCoordinate {
+export interface QsUnboundTextData extends QsCoordinate, Partial<TextData> {
   text: string
-  textFont?: QsEnumTextFont | string
-  textFontSize?: number
-  textFontStyle?: QsEnumTextFontStyle
-  textFontWeight?: QsEnumTextFontWeight | number
-  textDecorationLine?: QsEnumTextDecorationLine
-  textFill?: string
-  textAngle?: number
-  textAnchor?: QsEnumTextAnchor
-  textStroke?: string
-  textAlignmentBaseline?: QsEnumAlignmentBaseline
 }
 
 export interface QsUnboundTextTransitionData {

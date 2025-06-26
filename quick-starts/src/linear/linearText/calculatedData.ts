@@ -14,24 +14,15 @@ import {
   QsEnumAlignmentBaseline,
   QsEnumScaleType,
 } from '../../core/enums/qsEnums'
+import { TextData } from '../../core/types/types'
 
-export interface CalculatedData {
+export interface CalculatedData extends TextData {
   id: string
   coordinate: QsCoordinate
   text?: string
   newText?: string
   value: number
   newValue: number
-  textFont: QsEnumTextFont | string
-  textFontSize: number
-  textFontStyle: QsEnumTextFontStyle
-  textFontWeight: QsEnumTextFontWeight | number
-  textDecorationLine: QsEnumTextDecorationLine
-  textFill: string
-  textAngle: number
-  textAnchor: QsEnumTextAnchor
-  textStroke: string
-  textAlignmentBaseline: QsEnumAlignmentBaseline
 }
 
 export const updateCalculatedData = (

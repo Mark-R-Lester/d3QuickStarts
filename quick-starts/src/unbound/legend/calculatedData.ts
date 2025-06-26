@@ -1,8 +1,9 @@
 import { LegendConfig } from './types'
 import { QsLegendData } from './qsTypes'
 import { Canvas } from '../../core/canvas/canvas'
+import { TextData } from '../../core/types/types'
 
-export interface CalculatedData {
+export interface CalculatedData extends TextData {
   x: number
   y: number
   width: number
@@ -25,7 +26,6 @@ export const getCalculatedData = (
     genralPercentScale,
   } = canvas.scales
   const {
-    textFontSize,
     height,
     width,
     verticalSpacing,
@@ -33,6 +33,16 @@ export const getCalculatedData = (
     relativeTextY,
     x,
     y,
+    defaultTextFont,
+    defaultTextFontSize,
+    defaultTextFontStyle,
+    defaultTextFontWeight,
+    defaultTextDecorationLine,
+    defaultTextFill,
+    defaultTextAngle,
+    defaultTextAnchor,
+    defaultTextStroke,
+    defaultTextAlignmentBaseline,
   } = config
 
   const invertIndex = (data: any[], index: number) => data.length - (index + 1)
@@ -54,7 +64,17 @@ export const getCalculatedData = (
         genralPercentScale(relativeTextY),
       fillColor: d.fillColor,
       value: d.value,
-      textFontSize: genralPercentScale(textFontSize),
+      textFont: d.textFont ?? defaultTextFont,
+      textFontSize: genralPercentScale(d.textFontSize ?? defaultTextFontSize),
+      textFontStyle: d.textFontStyle ?? defaultTextFontStyle,
+      textFontWeight: d.textFontWeight ?? defaultTextFontWeight,
+      textDecorationLine: d.textDecorationLine ?? defaultTextDecorationLine,
+      textFill: d.textFill ?? defaultTextFill,
+      textAngle: d.textAngle ?? defaultTextAngle,
+      textAnchor: d.textAnchor ?? defaultTextAnchor,
+      textStroke: d.textStroke ?? defaultTextStroke,
+      textAlignmentBaseline:
+        d.textAlignmentBaseline ?? defaultTextAlignmentBaseline,
     }
   })
   return calculatedData

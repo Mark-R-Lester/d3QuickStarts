@@ -1,13 +1,6 @@
-import {
-  QsEnumAlignmentBaseline,
-  QsEnumTextAnchor,
-  QsEnumTextDecorationLine,
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-} from '../../core/enums/qsEnums'
+import { ConfigTextDefaults } from '../../core/types/types'
 
-export interface LegendConfig {
+export interface LegendConfig extends ConfigTextDefaults {
   [key: string]: number | string | undefined
   height: number
   width: number
@@ -16,14 +9,4 @@ export interface LegendConfig {
   relativeTextY: number
   x: number
   y: number
-  textFont: QsEnumTextFont | string
-  textFontSize: number
-  textFontStyle: QsEnumTextFontStyle
-  textFontWeight: QsEnumTextFontWeight | number
-  textDecorationLine: QsEnumTextDecorationLine
-  textFill: string
-  textAngle: number
-  textAnchor: QsEnumTextAnchor
-  textStroke: string
-  textAlignmentBaseline: QsEnumAlignmentBaseline
 }

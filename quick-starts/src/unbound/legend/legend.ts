@@ -27,18 +27,6 @@ export const legend = (
 
 const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfig) => {
   const { data } = args
-  const {
-    textFont,
-    textFontStyle,
-    textFontWeight,
-    textDecorationLine,
-    textFill,
-    textStroke,
-    textAlignmentBaseline,
-    textAnchor,
-    textAngle,
-  } = config
-
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
     data,
@@ -67,17 +55,17 @@ const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfig) => {
     .enter()
     .append('text')
     .attr('class', classNameText)
-    .attr('font-family', textFont)
-    .attr('font-style', textFontStyle)
-    .attr('font-weight', textFontWeight)
+    .attr('font-family', (d) => d.textFont)
+    .attr('font-style', (d) => d.textFontStyle)
+    .attr('font-weight', (d) => d.textFontWeight)
     .attr('font-size', (d) => `${d.textFontSize}px`)
-    .attr('text-decoration', textDecorationLine)
-    .attr('fill', textFill)
-    .attr('stroke', textStroke)
-    .style('text-anchor', textAnchor)
-    .style('alignment-baseline', textAlignmentBaseline)
+    .attr('text-decoration', (d) => d.textDecorationLine)
+    .attr('fill', (d) => d.textFill)
+    .attr('stroke', (d) => d.textStroke)
+    .style('text-anchor', (d) => d.textAnchor)
+    .style('alignment-baseline', (d) => d.textAlignmentBaseline)
     .attr('transform', (d) => {
-      return `translate(${d.textX}, ${d.textY})rotate(${textAngle})`
+      return `translate(${d.textX}, ${d.textY})rotate(${d.textAngle})`
     })
     .text((d) => d.value)
 

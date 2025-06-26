@@ -25,8 +25,6 @@ const canvas: Canvas = {
 }
 
 const legendConfig: LegendConfig = {
-  ry: 0,
-  rx: 0,
   height: 10,
   width: 10,
   verticalSpacing: 6,
@@ -34,16 +32,16 @@ const legendConfig: LegendConfig = {
   relativeTextY: 0,
   x: 10,
   y: 10,
-  textFontWeight: QsEnumTextFontWeight.NORMAL,
-  textFontStyle: QsEnumTextFontStyle.NORMAL,
-  textFontSize: 10,
-  textFont: QsEnumTextFont.SERIF,
-  textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-  textFill: '',
-  textStroke: '',
-  textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-  textAnchor: QsEnumTextAnchor.MIDDLE,
-  textAngle: 0,
+  defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
+  defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
+  defaultTextFontSize: 10,
+  defaultTextFont: QsEnumTextFont.SERIF,
+  defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
+  defaultTextFill: 'black',
+  defaultTextStroke: '',
+  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+  defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
+  defaultTextAngle: 0,
 }
 
 const data: QsLegendData[] = [
@@ -64,6 +62,15 @@ const calculatedDataResult: CalculatedData[] = [
     fillColor: 'red',
     value: 'description',
     textFontSize: 10,
+    textFont: QsEnumTextFont.SERIF,
+    textFontStyle: QsEnumTextFontStyle.NORMAL,
+    textFontWeight: QsEnumTextFontWeight.NORMAL,
+    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
+    textFill: 'black',
+    textAngle: 0,
+    textStroke: '',
+    textAnchor: QsEnumTextAnchor.MIDDLE,
+    textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
   },
 ]
 

@@ -1,32 +1,15 @@
 import { Canvas } from '../../core/canvas/canvas'
-import {
-  QsEnumAlignmentBaseline,
-  QsEnumTextAnchor,
-  QsEnumTextDecorationLine,
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-} from '../../core/enums/qsEnums'
+import { TextData } from '../../core/types/types'
 import { QsCoordinate } from '../../d3QuickStart'
 import { QsUnboundTextData } from './qsTypes'
 import { UnboundTextConfig } from './types'
 
-export interface CalculatedData {
+export interface CalculatedData extends TextData {
   text?: string
   newText?: string
   coordinate: QsCoordinate
   newCoordinate: QsCoordinate
   defaultDecimalPoints: number
-  textFont: QsEnumTextFont | string
-  textFontSize: number
-  textFontStyle: QsEnumTextFontStyle
-  textFontWeight: QsEnumTextFontWeight | number
-  textDecorationLine: QsEnumTextDecorationLine
-  textFill: string
-  textAngle: number
-  textAnchor: QsEnumTextAnchor
-  textStroke: string
-  textAlignmentBaseline: QsEnumAlignmentBaseline
 }
 
 export const updateCalculatedData = (

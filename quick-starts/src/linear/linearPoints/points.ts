@@ -63,7 +63,7 @@ const draw = (
   )
 
   const { className, dotClassName } = generateClassName('linearPoints')
-  const group = canvas.displayGroup.append('g')
+  const group = canvas.canvasDataGroup.append('g')
 
   group
     .selectAll('circle')

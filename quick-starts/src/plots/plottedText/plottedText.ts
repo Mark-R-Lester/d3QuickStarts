@@ -40,7 +40,7 @@ const draw = (
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
 
   const { className, dotClassName } = generateClassName('plottedText')
-  const group = canvas.displayGroup.append('g')
+  const group = canvas.canvasDataGroup.append('g')
   group
     .selectAll('text')
     .data(calculatedData)

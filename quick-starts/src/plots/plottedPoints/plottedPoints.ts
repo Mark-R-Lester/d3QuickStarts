@@ -46,7 +46,7 @@ const draw = (
   )
 
   const { className, dotClassName } = generateClassName('plottedPoints')
-  const group = canvas.displayGroup.append('g')
+  const group = canvas.canvasDataGroup.append('g')
 
   group
     .selectAll('circle')

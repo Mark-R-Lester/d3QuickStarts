@@ -53,7 +53,7 @@ function draw(canvas: Canvas, args: DrawArgs, config: AreaConfig): QsArea {
     .y0((d) => d.y0)
     .curve(constantsCurves[curve])
 
-  const group = canvas.displayGroup.append('g')
+  const group = canvas.canvasDataGroup.append('g')
   group
     .append('path')
     .datum(calculatedData)

@@ -48,7 +48,7 @@ const draw = (
   const { className: classNameStack, dotClassName: dotClassNameStack } =
     generateClassName('linearBarStack')
 
-  const group = canvas.displayGroup.append('g')
+  const group = canvas.canvasDataGroup.append('g')
   const barStacks = group
     .selectAll(dotClassNameStack)
     .data(calculatedData)
@@ -79,7 +79,7 @@ const draw = (
         config
       )
 
-      const bars = canvas.displayGroup
+      const bars = canvas.canvasGroup
         .selectAll(dotClassName)
         .data(calculatedData)
       bars

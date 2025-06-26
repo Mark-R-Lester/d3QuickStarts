@@ -87,7 +87,8 @@ describe('Linear Bars calculatedData', () => {
         const qsCanvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
         const canvas: Canvas = {
-          displayGroup: qsCanvas.displayGroup,
+          canvasGroup: qsCanvas.canvasGroup,
+          canvasDataGroup: qsCanvas.canvasDataGroup,
           config: qsCanvas.config,
           scales,
           configStore: new ConfigStoreManager().getters,
@@ -139,7 +140,8 @@ describe('Linear Bars calculatedData', () => {
         const qsCanvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
         const canvas: Canvas = {
-          displayGroup: qsCanvas.displayGroup,
+          canvasGroup: qsCanvas.canvasGroup,
+          canvasDataGroup: qsCanvas.canvasDataGroup,
           config: qsCanvas.config,
           scales,
           configStore: new ConfigStoreManager().getters,
@@ -194,7 +196,8 @@ describe('Linear Bars calculatedData', () => {
         const qsCanvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
         const canvas: Canvas = {
-          displayGroup: qsCanvas.displayGroup,
+          canvasGroup: qsCanvas.canvasGroup,
+          canvasDataGroup: qsCanvas.canvasDataGroup,
           config: qsCanvas.config,
           scales,
           configStore: new ConfigStoreManager().getters,
@@ -246,7 +249,8 @@ describe('Linear Bars calculatedData', () => {
         const qsCanvas: QsCanvas = qsCreateCanvas(canvasConfig)
 
         const canvas: Canvas = {
-          displayGroup: qsCanvas.displayGroup,
+          canvasGroup: qsCanvas.canvasGroup,
+          canvasDataGroup: qsCanvas.canvasDataGroup,
           config: qsCanvas.config,
           scales,
           configStore: new ConfigStoreManager().getters,

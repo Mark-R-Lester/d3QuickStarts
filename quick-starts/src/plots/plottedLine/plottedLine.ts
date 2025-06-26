@@ -44,7 +44,7 @@ const draw = (
     .y((d) => d[1])
     .curve(constantsCurves[curve])
 
-  let group = canvas.displayGroup.append('g')
+  let group = canvas.canvasDataGroup.append('g')
   group
     .append('path')
     .datum(calculatedData)

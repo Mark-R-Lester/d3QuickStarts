@@ -48,7 +48,7 @@ const draw = (
   const arc: any = d3arc()
 
   const { className, dotClassName } = generateClassName('radialCentroidArea')
-  const group = canvas.displayGroup.append('g')
+  const group = canvas.canvasDataGroup.append('g')
   group
     .selectAll(dotClassName)
     .data(calculatedData)

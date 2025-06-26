@@ -18,7 +18,8 @@ import { Canvas } from '../../core/canvas/canvas'
 const scales = getScales(mockCanvasConfig)
 const canvas: Canvas = {
   config: mockCanvasConfig,
-  displayGroup: mockSelection,
+  canvasGroup: mockSelection,
+  canvasDataGroup: mockSelection,
   scales,
   configStore: new ConfigStoreManager().getters,
   elements: [],

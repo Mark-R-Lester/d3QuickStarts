@@ -63,7 +63,7 @@ export const draw = (
 
   const { className, dotClassName } = generateClassName('linearLine')
 
-  const group = canvas.displayGroup.append('g')
+  const group = canvas.canvasDataGroup.append('g')
   group
     .append('path')
     .datum(calculatedData)

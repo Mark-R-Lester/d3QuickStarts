@@ -66,7 +66,7 @@ const draw = (
   const { className, dotClassName } = generateClassName('radialCentroidAxis')
   const { className: classNameText, dotClassName: dotClassNameText } =
     generateClassName('radialCentroidAxisText')
-  const group = canvas.displayGroup.append('g')
+  const group = canvas.canvasDataGroup.append('g')
   group
     .selectAll(dotClassName)
     .data(calculatedData)

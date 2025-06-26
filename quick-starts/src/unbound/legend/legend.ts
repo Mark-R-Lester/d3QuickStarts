@@ -36,7 +36,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfig) => {
   const { className, dotClassName } = generateClassName('unboundLegend')
   const { className: classNameText, dotClassName: dotClassNameText } =
     generateClassName('unboundLegendText')
-  const group = canvas.displayGroup.append('g')
+  const group = canvas.canvasDataGroup.append('g')
   group
     .selectAll(dotClassName)
     .data(calculatedData)

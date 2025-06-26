@@ -102,7 +102,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: AxisConfig): QsAxis => {
   const calculatedData: CalculatedData = getCalculatedData(canvas, args, config)
 
   const { className, dotClassName } = generateClassName('linearAxis')
-  const axisGroup = canvas.displayGroup
+  const axisGroup = canvas.canvasGroup
     .append('g')
     .attr('id', className)
     .attr('class', className)

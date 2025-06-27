@@ -58,7 +58,7 @@ const draw = (
     .attr('id', (d) => d.groupId)
     .attr('fill', (d, i) => d.barData[i].fillColor)
   barStacks
-    .selectAll('rect')
+    .selectAll(dotClassName)
     .data((d) => d.barData)
     .enter()
     .append('rect')

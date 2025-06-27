@@ -47,7 +47,7 @@ const draw = (
   const { className, dotClassName } = generateClassName('radialCentroidPoints')
   const group = canvas.canvasDataGroup.append('g')
   group
-    .selectAll('circle')
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('circle')

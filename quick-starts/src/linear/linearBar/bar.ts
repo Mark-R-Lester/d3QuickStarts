@@ -50,7 +50,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
   const group: Selection<SVGGElement, unknown, HTMLElement, any> =
     canvas.canvasDataGroup.append('g')
   group
-    .selectAll('.bar')
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('rect')

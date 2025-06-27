@@ -48,7 +48,7 @@ const draw = (
   const { className, dotClassName } = generateClassName('radialCentroidSpoke')
   const group = canvas.canvasDataGroup.append('g')
   group
-    .selectAll('path')
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('path')

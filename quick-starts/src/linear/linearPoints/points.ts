@@ -53,9 +53,7 @@ const draw = (
   args: DrawArgs,
   config: PointsConfig
 ): QsPoints => {
-  const { scaleType } = config
   const { orientation } = args
-
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
     args,
@@ -66,7 +64,7 @@ const draw = (
   const group = canvas.canvasDataGroup.append('g')
 
   group
-    .selectAll('circle')
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('circle')

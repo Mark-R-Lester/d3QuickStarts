@@ -49,7 +49,7 @@ const draw = (
   const group = canvas.canvasDataGroup.append('g')
 
   group
-    .selectAll('circle')
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('circle')

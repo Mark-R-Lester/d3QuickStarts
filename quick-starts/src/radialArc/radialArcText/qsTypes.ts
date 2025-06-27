@@ -15,6 +15,13 @@ export interface QsRadialText {
   elementText:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  transition: (data: QsRadialTextTransitionData) => void
+}
+
+export interface QsRadialTextFollow {
+  elementText:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
   elementArcs:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>

@@ -4,5 +4,7 @@ import { AxisConfig } from './types'
 export type QsAxisConfig = Partial<AxisConfig>
 
 export interface QsAxis {
-  element: Selection<BaseType, unknown, SVGGElement, unknown>
+  elementDomain: Selection<BaseType, unknown, HTMLElement, any>
+  elementTicks: Selection<BaseType, unknown, SVGGElement, unknown>
+  elementText: Selection<BaseType, unknown, SVGGElement, unknown>
 }

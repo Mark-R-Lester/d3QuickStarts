@@ -38,7 +38,7 @@ const draw = (
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
 
   const { className, dotClassName } = generateClassName('radialCentroidArea')
-  const group = canvas.canvasDataGroup.append('g')
+  const group = canvas.canvasGroup.append('g')
   group
     .selectAll('text')
     .data(calculatedData)

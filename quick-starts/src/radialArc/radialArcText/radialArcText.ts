@@ -15,6 +15,7 @@ import {
   QsRadialText,
   QsRadialTextTransitionData,
   QsValuedText,
+  QsRadialTextFollow,
 } from './qsTypes'
 import {
   radialArcTextConfigFollow,
@@ -101,7 +102,7 @@ const draw = (
   canvas: Canvas,
   args: DrawArgs,
   config: RadialTextConfig
-): QsRadialText => {
+): QsRadialText | QsRadialTextFollow => {
   const { data, type } = args
   const {
     defaultDecimalPoints,
@@ -186,36 +187,68 @@ const draw = (
         d.data.text ? d.data.text : d.data.value.toFixed(defaultDecimalPoints)
       )
   }
-  return {
-    elementText: text.selectAll(dotClassName),
-    elementArcs: arcs.selectAll(dotClassNameArc),
-    transition: (data: QsRadialTextTransitionData) => {
-      const args = addTransitionDefaults(data.transitionArgs)
-      calculatedData = updateCalculatedData(
-        canvas,
-        data.data,
-        config,
-        calculatedData
-      )
 
-      if (type !== RadialTextType.FOLLOW) {
-        text
-          .selectAll(dotClassName)
-          .data(calculatedData.textArcData)
+  const transition = (data: QsRadialTextTransitionData) => {
+    const args = addTransitionDefaults(data.transitionArgs)
+    calculatedData = updateCalculatedData(
+      canvas,
+      data.data,
+      config,
+      calculatedData
+    )
+
+    if (type !== RadialTextType.FOLLOW) {
+      text
+        .selectAll(dotClassName)
+        .data(calculatedData.textArcData)
+        .transition()
+        .delay(args.delayInMiliSeconds)
+        .duration(args.durationInMiliSeconds)
+        .attrTween('transform', (d) => {
+          const tweenStart = interpolate(d.startAngle, d.newStartAngle)
+          const tweenEnd = interpolate(d.endAngle, d.newEndAngle)
+
+          return function (t: number) {
+            d.startAngle = tweenStart(t)
+            d.endAngle = tweenEnd(t)
+
+            return `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
+          }
+        })
+        .textTween((d) => {
+          const tweenText = interpolate(d.data.value, d.newData.value)
+          return (t: number) => {
+            d.data.value = tweenText(t)
+            return d.data.value.toFixed(defaultDecimalPoints)
+          }
+        })
+    } else {
+      arcs
+        .selectAll(dotClassNameArc)
+        .data(calculatedData.textArcData)
+        .transition()
+        .delay(args.delayInMiliSeconds)
+        .duration(args.durationInMiliSeconds)
+        .attrTween('d', (d) => {
+          const tweenStart = interpolate(d.startAngle, d.newStartAngle)
+          const tweenEnd = interpolate(d.endAngle, d.newEndAngle)
+          return function (t: number) {
+            d.startAngle = tweenStart(t)
+            d.endAngle = tweenEnd(t)
+            return arc(d)
+          }
+        })
+
+      calculatedData.textArcData.forEach((d, i) => {
+        const t = text.select(dotClassName)
+        t.selection().selectChildren().remove()
+        t.append('textPath')
+          .datum(d)
           .transition()
           .delay(args.delayInMiliSeconds)
           .duration(args.durationInMiliSeconds)
-          .attrTween('transform', (d) => {
-            const tweenStart = interpolate(d.startAngle, d.newStartAngle)
-            const tweenEnd = interpolate(d.endAngle, d.newEndAngle)
-
-            return function (t: number) {
-              d.startAngle = tweenStart(t)
-              d.endAngle = tweenEnd(t)
-
-              return `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
-            }
-          })
+          .attr('startOffset', '25%')
+          .attr('xlink:href', `#${d.arcId}`)
           .textTween((d) => {
             const tweenText = interpolate(d.data.value, d.newData.value)
             return (t: number) => {
@@ -223,42 +256,17 @@ const draw = (
               return d.data.value.toFixed(defaultDecimalPoints)
             }
           })
-      } else {
-        arcs
-          .selectAll(dotClassNameArc)
-          .data(calculatedData.textArcData)
-          .transition()
-          .delay(args.delayInMiliSeconds)
-          .duration(args.durationInMiliSeconds)
-          .attrTween('d', (d) => {
-            const tweenStart = interpolate(d.startAngle, d.newStartAngle)
-            const tweenEnd = interpolate(d.endAngle, d.newEndAngle)
-            return function (t: number) {
-              d.startAngle = tweenStart(t)
-              d.endAngle = tweenEnd(t)
-              return arc(d)
-            }
-          })
-
-        calculatedData.textArcData.forEach((d, i) => {
-          const t = text.select(dotClassName)
-          t.selection().selectChildren().remove()
-          t.append('textPath')
-            .datum(d)
-            .transition()
-            .delay(args.delayInMiliSeconds)
-            .duration(args.durationInMiliSeconds)
-            .attr('startOffset', '25%')
-            .attr('xlink:href', `#${d.arcId}`)
-            .textTween((d) => {
-              const tweenText = interpolate(d.data.value, d.newData.value)
-              return (t: number) => {
-                d.data.value = tweenText(t)
-                return d.data.value.toFixed(defaultDecimalPoints)
-              }
-            })
-        })
-      }
-    },
+      })
+    }
   }
+  return type === RadialTextType.FOLLOW
+    ? {
+        elementText: text.selectAll(dotClassName),
+        elementArcs: arcs.selectAll(dotClassNameArc),
+        transition,
+      }
+    : {
+        elementText: text.selectAll(dotClassName),
+        transition,
+      }
 }

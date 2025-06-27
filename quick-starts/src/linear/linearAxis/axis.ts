@@ -102,6 +102,12 @@ const draw = (canvas: Canvas, args: DrawArgs, config: AxisConfig): QsAxis => {
   const calculatedData: CalculatedData = getCalculatedData(canvas, args, config)
 
   const { className, dotClassName } = generateClassName('linearAxis')
+  const { className: classNameDomain, dotClassName: dotClassNameDomian } =
+    generateClassName('linearAxisDomain')
+  const { className: classNameTick, dotClassName: dotClassNameTick } =
+    generateClassName('linearAxisTick')
+  const { className: classNameText, dotClassName: dotClassNameText } =
+    generateClassName('linearAxisText')
   const axisGroup = canvas.canvasGroup
     .append('g')
     .attr('id', className)
@@ -111,18 +117,20 @@ const draw = (canvas: Canvas, args: DrawArgs, config: AxisConfig): QsAxis => {
 
   axisGroup
     .select('.domain')
+    .attr('class', classNameDomain)
     .attr('stroke', domainColor)
     .attr('stroke-width', calculatedData.domainWidth)
     .attr('opacity', domainOpacity)
   axisGroup
     .selectAll('.tick')
+    .attr('class', classNameTick)
     .select('line')
     .attr('stroke', tickColor)
     .attr('stroke-width', calculatedData.tickWidth)
     .attr('opacity', tickOpacity)
-
-  const axisText = axisGroup.selectAll('text')
-  axisText
+  axisGroup
+    .selectAll('text')
+    .attr('class', classNameText)
     .attr('font-family', textFont)
     .attr('font-style', textFontStyle)
     .attr('font-weight', textFontWeight)
@@ -137,5 +145,9 @@ const draw = (canvas: Canvas, args: DrawArgs, config: AxisConfig): QsAxis => {
     .attr('dy', textY)
     .attr('dx', textX)
 
-  return { element: axisText }
+  return {
+    elementDomain: axisGroup.select('.domain'),
+    elementTicks: axisGroup.selectAll('.tick'),
+    elementText: axisGroup.selectAll('text'),
+  }
 }

@@ -26,8 +26,8 @@ export const ConfigAndData: FunctionComponent = () => {
       const data1: QsUnboundTextData[] = [
         {
           x: 50,
-          y: 47.5,
-          text: `and`,
+          y: 51.5,
+          text: `&`,
         },
       ]
       canvas.generate.unbound.text(data1, {
@@ -43,12 +43,12 @@ export const ConfigAndData: FunctionComponent = () => {
       const data2: QsUnboundTextData[] = [
         {
           x: 50,
-          y: 75,
+          y: 74,
           text: `Data`,
         },
         {
           x: 50,
-          y: 20,
+          y: 32.5,
           text: `Config`,
         },
       ]

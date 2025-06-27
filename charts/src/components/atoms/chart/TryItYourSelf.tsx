@@ -3,7 +3,6 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvas,
   qsCreateCanvas,
-  QsPlottedTextData,
   QsEnumTextFont,
   QsEnumTextFontWeight,
   QsEnumAlignmentBaseline,
@@ -26,12 +25,12 @@ export const TryItYourSelf: FunctionComponent = () => {
       const data2: QsUnboundTextData[] = [
         {
           x: 50,
-          y: 30,
+          y: 70,
           text: `Try it`,
         },
         {
           x: 50,
-          y: 66,
+          y: 40,
           text: `yourself`,
         },
       ]

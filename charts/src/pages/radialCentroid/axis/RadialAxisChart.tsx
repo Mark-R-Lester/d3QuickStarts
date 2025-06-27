@@ -24,7 +24,7 @@ export const RadialAxisChart: FunctionComponent<ChartProps> = ({
         x: 50,
         y: 50,
         axisAngle: 45,
-        gap: 40,
+        gap: 20,
         color: 'black',
         textFont: QsEnumTextFont.VERDANA,
         textFontWeight: QsEnumTextFontWeight.NORMAL,

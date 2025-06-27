@@ -48,7 +48,7 @@ export const getCalculatedData = (
     dataInnerCopy = innerData.slice()
     dataInnerCopy.push(innerData[0])
   }
-  return {
+  const calculatedData: CalculatedData = {
     id: `radialArea${uuidv4()}`,
     areaData: dataOuterCopy.map((d, i) => {
       return {
@@ -67,4 +67,6 @@ export const getCalculatedData = (
     strokeColor: strokeColor ?? defaultStrokeColor,
     strokeWidth: genralPercentScale(strokeWidth ?? defaultStrokeWidth),
   }
+
+  return calculatedData
 }

@@ -5,12 +5,20 @@ import {
   hypotenuseFromOpposite,
 } from '../math/trigonometricFunctions'
 
-export interface CustomArcArgs {
+export interface ParalelPaddedArcArgs {
   outerRadius: number
   innerRadius: number
   startAngle: number
   endAngle: number
   padding: number
+}
+export interface CustomArcArgs {
+  outerRadius: number
+  innerRadius: number
+  outerStartAngle: number
+  outerEndAngle: number
+  innerStartAngle: number
+  innerEndAngle: number
 }
 
 const degreesToRadians = (degrees: number): number => degrees * (Math.PI / 180)
@@ -42,25 +50,45 @@ const calculateCentralAngle = (radius: number, gap: number): number => {
   return Number(thetaDegrees.toFixed(2))
 }
 
-export const customArc = (args: CustomArcArgs): string => {
-  console.log('args', args)
-  const { outerRadius, startAngle, endAngle, padding } = args
-  let { innerRadius } = args
+export const parallelPaddedArc = (args: ParalelPaddedArcArgs): string => {
+  const { innerRadius, outerRadius, startAngle, endAngle, padding } = args
+  let outInnerRadius: number = innerRadius
+  if (innerRadius < padding)
+    outInnerRadius = calculateInnerRadius(padding, startAngle, endAngle)
+
   const nintyDegrees = degreesToRadians(90)
-
-  if (innerRadius < padding) {
-    innerRadius = calculateInnerRadius(padding, startAngle, endAngle)
-  }
-
   const outerPad =
     degreesToRadians(calculateCentralAngle(outerRadius, padding / 2)) / 2
   const innerPad =
-    degreesToRadians(calculateCentralAngle(innerRadius, padding / 2)) / 2
+    degreesToRadians(calculateCentralAngle(outInnerRadius, padding / 2)) / 2
 
   const outerStartAngle = startAngle - nintyDegrees + outerPad
   const outerEndAngle = endAngle - nintyDegrees - outerPad
   const innerStartAngle = startAngle - nintyDegrees + innerPad
   const innerEndAngle = endAngle - nintyDegrees - innerPad
+
+  const out: CustomArcArgs = {
+    innerRadius: outInnerRadius,
+    outerRadius,
+    outerStartAngle,
+    outerEndAngle,
+    innerStartAngle,
+    innerEndAngle,
+  }
+  return customArc(out)
+}
+
+export const customArc = (args: CustomArcArgs): string => {
+  console.log('args', args)
+  const {
+    innerRadius,
+    outerRadius,
+    outerStartAngle,
+    outerEndAngle,
+    innerStartAngle,
+    innerEndAngle,
+  } = args
+
   const path = d3.path()
 
   const outerStart: QsCoordinate = {

@@ -18,7 +18,7 @@ export const RadialDefaultsChart: FunctionComponent<ChartProps> = ({
       canvas.generate.radialArc.radial(data, {
         outerRadius: 100,
         innerRadius: 0,
-        padding: 0.5,
+        padding: 2,
       })
     }
     createChart()

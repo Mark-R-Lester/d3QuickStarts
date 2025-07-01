@@ -16,7 +16,7 @@ import {
 import { radialArcConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
-import { customArc } from '../../core/customShapes/customArc'
+import { parallelPaddedArc } from '../../core/customShapes/customArc'
 
 interface DrawArgs {
   data: QsRadialData[]
@@ -58,7 +58,7 @@ const draw = (
     .attr('id', (d) => d.id)
     .attr('stroke', 'none')
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
-    .attr('d', (d) => customArc(d.arcData))
+    .attr('d', (d) => parallelPaddedArc(d.arcData))
     .attr('fill', (d) => d.arcData.fillColor)
     .attr('fill-opacity', (d) => d.arcData.fillOpacity)
     .attr('stroke', (d) => d.arcData.strokeColor)
@@ -79,7 +79,7 @@ const draw = (
       group
         .selectAll(dotClassName)
         .data(calculatedData)
-        .attr('d', (d) => customArc(d.arcData))
+        .attr('d', (d) => parallelPaddedArc(d.arcData))
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
@@ -102,7 +102,7 @@ const draw = (
             d.arcData.startAngle = tweenStart(t)
             d.arcData.endAngle = tweenEnd(t)
 
-            return customArc(d.arcData)
+            return parallelPaddedArc(d.arcData)
           }
         })
     },

@@ -16,7 +16,7 @@ import {
 import { radialArcConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
-import { parallelPaddedArc } from '../../core/customShapes/customArc'
+import { parallelPaddedArc } from '../../core/customShapes/parallelPaddedArc'
 
 interface DrawArgs {
   data: QsRadialData[]

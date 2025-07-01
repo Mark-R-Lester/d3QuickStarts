@@ -1,3 +1,4 @@
+import { degreesToRadians } from '../conversion'
 import {
   hypotenuseFromAdjacent,
   hypotenuseFromOpposite,
@@ -12,16 +13,13 @@ export interface ParalelPaddedArcArgs {
   padding: number
 }
 
-const degreesToRadians = (degrees: number): number => degrees * (Math.PI / 180)
-const radiansToDegrees = (radians: number): number => radians * (180 / Math.PI)
-
 /*
  * The function assumes 2 arcs equal and opposite each other
  * It then calculates the distance between them due to adding padding
  * Occasionally this generates a value slightly less than the actual distance
  * 0.1 is added ensuring elements are always drawn as desired
  */
-const calculateInnerRadius = (
+export const calculateInnerRadius = (
   padding: number,
   startAngle: number,
   endAngle: number
@@ -34,14 +32,16 @@ const calculateInnerRadius = (
   return radius + 0.1
 }
 
-const calculateCentralAngle = (radius: number, gap: number): number => {
+export const calculateCentralAngle = (radius: number, gap: number): number => {
   const thetaHalf = Math.asin((gap / radius) * 2)
   const theta = 2 * thetaHalf
   const thetaDegrees = theta * (180 / Math.PI)
   return Number(thetaDegrees.toFixed(2))
 }
 
-export const parallelPaddedArc = (args: ParalelPaddedArcArgs): string => {
+export const adjustForParallelPadding = (
+  args: ParalelPaddedArcArgs
+): CustomArcArgs => {
   const { innerRadius, outerRadius, startAngle, endAngle, padding } = args
   let outInnerRadius: number = innerRadius
   if (innerRadius < padding)
@@ -58,7 +58,7 @@ export const parallelPaddedArc = (args: ParalelPaddedArcArgs): string => {
   const innerStartAngle = startAngle - nintyDegrees + innerPad
   const innerEndAngle = endAngle - nintyDegrees - innerPad
 
-  const out: CustomArcArgs = {
+  return {
     innerRadius: outInnerRadius,
     outerRadius,
     outerStartAngle,
@@ -66,5 +66,8 @@ export const parallelPaddedArc = (args: ParalelPaddedArcArgs): string => {
     innerStartAngle,
     innerEndAngle,
   }
-  return customArc(out)
+}
+
+export const parallelPaddedArc = (args: ParalelPaddedArcArgs): string => {
+  return customArc(adjustForParallelPadding(args))
 }

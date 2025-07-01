@@ -30,18 +30,18 @@ describe('calculateInnerRadius testing', () => {
 describe('calculateCentralAngle testing', () => {
   test.each`
     radius | gap   | expected | matcher
-    ${100} | ${5}  | ${11.48} | ${'toBeCloseTo'}
+    ${100} | ${5}  | ${0.2}   | ${'toBeCloseTo'}
     ${100} | ${0}  | ${0}     | ${'toBe'}
-    ${100} | ${50} | ${180}   | ${'toBe'}
+    ${100} | ${50} | ${3.142} | ${'toBeCloseTo'}
     ${0}   | ${5}  | ${NaN}   | ${'toBe'}
   `(
-    'calculates central angle with radius=$radius, gap=$gap to $expected degrees',
+    'calculates central angle with radius=$radius, gap=$gap to $expected radians',
     ({ radius, gap, expected, matcher }) => {
       const result = calculateCentralAngle(radius, gap)
       if (matcher === 'toBe') {
         expect(result).toBe(expected)
       } else {
-        expect(result).toBeCloseTo(expected, 2)
+        expect(result).toBeCloseTo(expected, 3)
       }
     }
   )

@@ -31,12 +31,15 @@ export const calculateInnerRadius = (
       : hypotenuseFromOpposite({ opposite: padding, angle })
   return radius + 0.1
 }
-
+/**
+ * This calculates an angle required such that:
+ * given any radius the gap in the cirle when drawn
+ * will always be the same no matter the radius
+ */
 export const calculateCentralAngle = (radius: number, gap: number): number => {
   const thetaHalf = Math.asin((gap / radius) * 2)
   const theta = 2 * thetaHalf
-  const thetaDegrees = theta * (180 / Math.PI)
-  return Number(thetaDegrees.toFixed(2))
+  return theta
 }
 
 export const adjustForParallelPadding = (
@@ -48,10 +51,8 @@ export const adjustForParallelPadding = (
     outInnerRadius = calculateInnerRadius(padding, startAngle, endAngle)
 
   const nintyDegrees = degreesToRadians(90)
-  const outerPad =
-    degreesToRadians(calculateCentralAngle(outerRadius, padding / 2)) / 2
-  const innerPad =
-    degreesToRadians(calculateCentralAngle(outInnerRadius, padding / 2)) / 2
+  const outerPad = calculateCentralAngle(outerRadius, padding / 2) / 2
+  const innerPad = calculateCentralAngle(outInnerRadius, padding / 2) / 2
 
   const outerStartAngle = startAngle - nintyDegrees + outerPad
   const outerEndAngle = endAngle - nintyDegrees - outerPad

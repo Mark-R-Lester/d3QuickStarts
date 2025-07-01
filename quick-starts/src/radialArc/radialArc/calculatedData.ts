@@ -35,6 +35,7 @@ export interface ArcData {
   strokeOpacity: number
   index?: number
   value?: number
+  padding: number
 }
 
 export const updateCalculatedData = (
@@ -79,7 +80,8 @@ export const getCalculatedData = (
     fillColorScaleData,
     strokeColorScaleData,
   } = config
-  let { padAngle } = config
+
+  let padding = genralPercentScale(config.padding)
 
   const calculatedData: CalculatedData[] = []
 
@@ -87,7 +89,6 @@ export const getCalculatedData = (
   data.forEach((d) => {
     totalValue = totalValue + d.value
   })
-  if (data.length < 2) padAngle = 0
 
   let fillColorScale:
     | ScaleSequential<string, never>
@@ -109,7 +110,6 @@ export const getCalculatedData = (
 
   data.forEach((d, i) => {
     const endAngle = startAngle + radiansDividedByTotalValue * d.value
-    startAngle = startAngle + padAngle / 2
 
     const scaledFillColor: string | unknown | undefined = getScaledColor(
       fillColorScaleData?.type === QsEnumColorScale.ORDINAL
@@ -126,6 +126,8 @@ export const getCalculatedData = (
 
     calculatedData.push({
       id: `arc${uuidv4()}`,
+      x: xPercentScale(x),
+      y: yPercentScale(y),
 
       arcData: {
         data: d.value,
@@ -147,13 +149,12 @@ export const getCalculatedData = (
         startAngle,
         newStartAngle: startAngle,
         endAngle,
+        padding,
         newEndAngle: endAngle,
         fillOpacity: d.fillOpacity ?? defaultFillOpacity,
         strokeWidth: genralPercentScale(d.strokeWidth ?? defaultStrokeWidth),
         strokeOpacity: d.strokeOpacity ?? defaultStrokeOpacity,
       },
-      x: xPercentScale(x),
-      y: yPercentScale(y),
     })
     startAngle = endAngle
   })

@@ -91,7 +91,7 @@ export default function RadialTransitionsPage() {
       data={radialData}
       config={{
         innerRadius: 80,
-        padAngle: 0.03,
+        padding: 0.03,
         fillColorScaleData: colorScaleSequential,
       }}
     />,
@@ -161,7 +161,7 @@ export default function RadialTransitionsPage() {
       data={radialData}
       config={{
         innerRadius: 80,
-        padAngle: 0.03,
+        padding: 0.03,
         fillColorScaleData: colorScaleSequential,
       }}
     />,

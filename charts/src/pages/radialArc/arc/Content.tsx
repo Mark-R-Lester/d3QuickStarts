@@ -52,7 +52,7 @@ const data: QsRadialData[] = [
 const config: QsRadialConfig = {
   outerRadius: 90,
   innerRadius: 50,
-  padAngle: 0.03,
+  padding: 0.03,
 }
 
 const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
@@ -73,7 +73,7 @@ const data: string = `interface QsRadialData {
 const config: string = `interface QsRadialConfig {
   outerRadius?: number
   innerRadius?: number
-  padAngle?: number
+  padding?: number
   cornerRadius?: number
   x?: number
   y?: number
@@ -98,7 +98,7 @@ const dataExample: string = `const data: QsRadialData = {
 const configExample: string = `const config: QsRadialConfig = {
   outerRadius: 90,
   innerRadius: 0,
-  padAngle: 3,
+  padding: 3,
   cornerRadius: 3,
   x: 50,
   y: 50,

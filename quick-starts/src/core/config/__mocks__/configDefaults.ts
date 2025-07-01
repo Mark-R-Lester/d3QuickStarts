@@ -222,7 +222,7 @@ export const plottedTextConfig: QsPlottedTextConfig = {
 export const radialArcConfig: QsRadialArcConfig = {
   outerRadius: 100,
   innerRadius: 0,
-  padAngle: 0,
+  padding: 0,
   cornerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,

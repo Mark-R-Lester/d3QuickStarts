@@ -33,7 +33,7 @@ export const RadialConfigChart: FunctionComponent<ChartProps> = ({
       const config: QsRadialArcConfig = {
         outerRadius: 90,
         innerRadius: 50,
-        padAngle: 0.03,
+        padding: 0.9,
       }
 
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)

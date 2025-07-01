@@ -232,7 +232,7 @@ export const plottedTextConfig: PlottedTextConfig = {
 export const radialArcConfig: RadialArcConfig = {
   outerRadius: 100,
   innerRadius: 0,
-  padAngle: 0,
+  padding: 0,
   cornerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,

@@ -8,14 +8,18 @@ export const RadialDefaultsChart: FunctionComponent<ChartProps> = ({
   useEffect(() => {
     const createChart = () => {
       const data: QsRadialData[] = [
-        { value: 15 },
-        { value: 45 },
-        { value: 60 },
-        { value: 15 },
+        { value: 100 },
+        { value: 70 },
+        { value: 40 },
+        { value: 70 },
       ]
 
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
-      canvas.generate.radialArc.radial(data)
+      canvas.generate.radialArc.radial(data, {
+        outerRadius: 100,
+        innerRadius: 0,
+        padding: 0.5,
+      })
     }
     createChart()
   }, [canvasProps])

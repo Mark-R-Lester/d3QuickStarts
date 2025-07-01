@@ -1,4 +1,4 @@
-import { interpolate, arc as d3arc } from 'd3'
+import { interpolate } from 'd3'
 import { RadialArcConfig } from './types'
 import {
   CalculatedData,
@@ -16,6 +16,7 @@ import {
 import { radialArcConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
+import { customArc } from '../../core/customShapes/customArc'
 
 interface DrawArgs {
   data: QsRadialData[]
@@ -45,7 +46,6 @@ const draw = (
   const { data } = args
 
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
-  const arc: any = d3arc()
 
   const { className, dotClassName } = generateClassName('radialCentroidArea')
   const group = canvas.canvasDataGroup.append('g')
@@ -58,7 +58,7 @@ const draw = (
     .attr('id', (d) => d.id)
     .attr('stroke', 'none')
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
-    .attr('d', (d) => arc(d.arcData))
+    .attr('d', (d) => customArc(d.arcData))
     .attr('fill', (d) => d.arcData.fillColor)
     .attr('fill-opacity', (d) => d.arcData.fillOpacity)
     .attr('stroke', (d) => d.arcData.strokeColor)
@@ -79,7 +79,7 @@ const draw = (
       group
         .selectAll(dotClassName)
         .data(calculatedData)
-        .attr('d', (d) => arc(d.arcData))
+        .attr('d', (d) => customArc(d.arcData))
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
@@ -102,7 +102,7 @@ const draw = (
             d.arcData.startAngle = tweenStart(t)
             d.arcData.endAngle = tweenEnd(t)
 
-            return arc(d.arcData)
+            return customArc(d.arcData)
           }
         })
     },

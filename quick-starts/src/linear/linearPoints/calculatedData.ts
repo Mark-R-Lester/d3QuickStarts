@@ -16,7 +16,7 @@ import {
   getScaledColor,
 } from '../../core/color/color'
 import { QsPointData } from './qsTypes'
-import { toStrings } from '../../core/conversion'
+import { toStrings } from '../../core/math/conversion'
 import { Canvas } from '../../core/canvas/canvas'
 import { QsEnumColorScale, QsEnumScaleType } from '../../core/enums/qsEnums'
 

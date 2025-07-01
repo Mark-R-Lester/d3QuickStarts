@@ -1,6 +1,6 @@
 import { scaleLinear, scaleOrdinal, ScaleOrdinal, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { toStrings } from '../../core/conversion'
+import { toStrings } from '../../core/math/conversion'
 import { Canvas } from '../../core/canvas/canvas'
 import { RadialAxisConfig, CalculatedData } from './types'
 

@@ -1,4 +1,4 @@
-import { degreesToRadians } from '../conversion'
+import { degreesToRadians } from '../math/conversion'
 import {
   hypotenuseFromAdjacent,
   hypotenuseFromOpposite,

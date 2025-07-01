@@ -8,7 +8,7 @@ import {
   Axis,
   ScaleLinear,
 } from 'd3'
-import { toStrings } from '../../core/conversion'
+import { toStrings } from '../../core/math/conversion'
 import { ChartEdge } from '../../core/enums/enums'
 import { DrawArgs, AxisConfig } from './types'
 import { Canvas } from '../../core/canvas/canvas'

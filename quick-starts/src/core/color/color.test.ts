@@ -5,7 +5,7 @@ import {
   ScaleOrdinal,
   scaleOrdinal,
 } from 'd3'
-import { toStrings } from '../../core/conversion'
+import { toStrings } from '../math/conversion'
 import { GlobalDefaultColors } from '../../core/enums/enums'
 import { findOrdinalValue, getPrecidendedColor, getScaledColor } from './color'
 import { OrdinalColorScaleData } from '../types/types'

@@ -1,61 +1,39 @@
-import { interpolate, arc as d3arc } from 'd3'
-import { RadialConfigStrict } from './types'
+import { interpolate } from 'd3'
+import { RadialArcConfig } from './types'
 import {
   CalculatedData,
   getCalculatedData,
   updateCalculatedData,
 } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { Canvas } from '../../core/canvas/canvas'
 import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
-import { Canvas } from '../../d3QuickStart'
-import {
-  QsRadialConfig,
+  QsRadialArcConfig,
   QsRadial,
   QsRadialTransitionData,
   QsRadialData,
 } from './qsTypes'
+import { radialArcConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
+import { parallelPaddedArc } from '../../core/customShapes/parallelPaddedArc'
 
 interface DrawArgs {
   data: QsRadialData[]
-}
-
-const addDefaultsToConfig = (
-  customConfig?: QsRadialConfig
-): RadialConfigStrict => {
-  const defaults: RadialConfigStrict = {
-    outerRadius: 100,
-    innerRadius: 0,
-    padAngle: 0,
-    cornerRadius: 0,
-    x: GlobalDefaultSettings.RADIAL_X,
-    y: GlobalDefaultSettings.RADIAL_Y,
-    defaultFillColor: GlobalDefaultColors.POINT_FILL,
-    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
-    defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
-    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-    fillColorScaleData: undefined,
-    strokeColorScaleData: undefined,
-  }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
 }
 
 export const radialArc = {
   radial: (
     canvas: Canvas,
     data: QsRadialData[],
-    customConfig?: QsRadialConfig
+    customConfig?: QsRadialArcConfig
   ): QsRadial => {
     const args: DrawArgs = { data }
-    const config: RadialConfigStrict = addDefaultsToConfig(customConfig)
+    const config: RadialArcConfig = addDefaultsToConfig<RadialArcConfig>(
+      { ...radialArcConfig },
+      customConfig,
+      { ...canvas.configStore.radialArc.arcConfig() }
+    )
     return draw(canvas, args, config)
   },
 }
@@ -63,24 +41,24 @@ export const radialArc = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: RadialConfigStrict
+  config: RadialArcConfig
 ): QsRadial => {
   const { data } = args
 
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
-  const arc: any = d3arc()
-  const group = canvas.displayGroup.append('g')
 
+  const { className, dotClassName } = generateClassName('radialCentroidArea')
+  const group = canvas.canvasDataGroup.append('g')
   group
-    .selectAll('.arc')
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('path')
-    .attr('class', (d) => d.class)
+    .attr('class', (d) => className)
     .attr('id', (d) => d.id)
     .attr('stroke', 'none')
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
-    .attr('d', (d) => arc(d.arcData))
+    .attr('d', (d) => parallelPaddedArc(d.arcData))
     .attr('fill', (d) => d.arcData.fillColor)
     .attr('fill-opacity', (d) => d.arcData.fillOpacity)
     .attr('stroke', (d) => d.arcData.strokeColor)
@@ -88,7 +66,7 @@ const draw = (
     .attr('stroke-width', (d) => d.arcData.strokeWidth)
 
   return {
-    element: group.selectAll('.arc'),
+    element: group.selectAll(dotClassName),
     transition: (data: QsRadialTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       calculatedData = updateCalculatedData(
@@ -99,9 +77,9 @@ const draw = (
       )
 
       group
-        .selectAll(`.${calculatedData[0].class}`)
+        .selectAll(dotClassName)
         .data(calculatedData)
-        .attr('d', (d) => arc(d.arcData))
+        .attr('d', (d) => parallelPaddedArc(d.arcData))
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
@@ -124,7 +102,7 @@ const draw = (
             d.arcData.startAngle = tweenStart(t)
             d.arcData.endAngle = tweenEnd(t)
 
-            return arc(d.arcData)
+            return parallelPaddedArc(d.arcData)
           }
         })
     },

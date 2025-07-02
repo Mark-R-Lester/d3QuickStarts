@@ -1,12 +1,13 @@
 import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { CalculatedData, RadialAreaConfigStrict } from './types'
-import { Canvas, QsRadialAreaData } from '../../d3QuickStart'
+import { CalculatedData, RadialAreaConfig } from './types'
+import { Canvas } from '../../core/canvas/canvas'
+import { QsRadialAreaData } from './qsTypes'
 
 export const getCalculatedData = (
   canvas: Canvas,
   areaData: QsRadialAreaData,
-  config: RadialAreaConfigStrict
+  config: RadialAreaConfig
 ): CalculatedData => {
   const {
     x,
@@ -47,8 +48,7 @@ export const getCalculatedData = (
     dataInnerCopy = innerData.slice()
     dataInnerCopy.push(innerData[0])
   }
-  return {
-    class: 'radialArea',
+  const calculatedData: CalculatedData = {
     id: `radialArea${uuidv4()}`,
     areaData: dataOuterCopy.map((d, i) => {
       return {
@@ -67,4 +67,6 @@ export const getCalculatedData = (
     strokeColor: strokeColor ?? defaultStrokeColor,
     strokeWidth: genralPercentScale(strokeWidth ?? defaultStrokeWidth),
   }
+
+  return calculatedData
 }

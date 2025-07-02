@@ -1,8 +1,8 @@
 import { v4 as uuidv4 } from 'uuid'
-import { RadialTextConfigStrict } from './types'
-import { ScaleType } from '../../core/enums/enums'
-import { Canvas } from '../../d3QuickStart'
+import { RadialTextConfig } from './types'
 import { QsValuedText } from './qsTypes'
+import { Canvas } from '../../core/canvas/canvas'
+import { QsEnumScaleType } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
   arcClass: string
@@ -33,15 +33,13 @@ export interface TextArcData {
 export const updateCalculatedData = (
   canvas: Canvas,
   data: QsValuedText[],
-  config: RadialTextConfigStrict,
-  scaleType: ScaleType,
+  config: RadialTextConfig,
   calculatedData: CalculatedData
 ): CalculatedData => {
   const newCalculatedData: CalculatedData = getCalculatedData(
     canvas,
     data,
-    config,
-    scaleType
+    config
   )
 
   for (let i = 0; i < calculatedData.textArcData.length; i++) {
@@ -60,11 +58,10 @@ export const updateCalculatedData = (
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsValuedText[],
-  config: RadialTextConfigStrict,
-  scaleType: ScaleType
+  config: RadialTextConfig
 ): CalculatedData => {
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
-  const { radius, x, y, textFontSize } = config
+  const { radius, x, y, textFontSize, scaleType } = config
 
   const bandData = (data: QsValuedText[], min?: boolean): TextArcData[] => {
     let totalValue = 0
@@ -112,7 +109,7 @@ export const getCalculatedData = (
     arcClass: 'arc',
     textClass: 'text',
     textArcData:
-      scaleType === ScaleType.BANDED ? bandData(data) : pointData(data),
+      scaleType === QsEnumScaleType.BANDED ? bandData(data) : pointData(data),
     x: xPercentScale(x),
     y: yPercentScale(y),
     textFontSize: genralPercentScale(textFontSize),

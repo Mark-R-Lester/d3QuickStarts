@@ -1,34 +1,22 @@
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-  QsEnumAlignmentBaseline,
-} from '../../core/enums/qsEnums'
 import { Selection } from 'd3'
-import { QsCoordinate } from '../../d3QuickStart'
+import { PlottedTextConfig } from './types'
+import { QsCoordinate, QsTransitionArgs } from '../../core/types/qsTypes'
+import { TextData } from '../../core/types/types'
 
-export interface QsPlottedTextConfig {
-  [key: string]: number | string | undefined
-  textFont?: QsEnumTextFont | string
-  textFontSize?: number
-  textFontStyle?: QsEnumTextFontStyle
-  textFontWeight?: QsEnumTextFontWeight | number
-  textDecorationLine?: QsEnumTextDecorationLine
-  textFill?: string
-  textAngle?: number
-  textAnchor?: QsEnumTextAnchor
-  textStroke?: string
-  textAlignmentBaseline?: QsEnumAlignmentBaseline
+export type QsPlottedTextConfig = Partial<PlottedTextConfig>
+
+export interface QsPlottedTextData extends QsCoordinate, Partial<TextData> {
+  text?: string
+}
+
+export interface QsPlottedTextTransitionData {
+  data: QsPlottedTextData[]
+  transitionArgs?: QsTransitionArgs
 }
 
 export interface QsPlottedText {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-}
-
-export interface QsPlottedTextArgs extends QsCoordinate {
-  text: string
+  transition: (data: QsPlottedTextTransitionData) => void
 }

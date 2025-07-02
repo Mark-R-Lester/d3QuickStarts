@@ -1,13 +1,14 @@
 import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { Canvas } from '../../d3QuickStart'
+
 import { QsAreaData } from './qsTypes'
-import { AreaConfigStrict, CalculatedData } from './types'
+import { AreaConfig, CalculatedData } from './types'
+import { Canvas } from '../../core/canvas/canvas'
 
 export const getCalculatedData = (
   canvas: Canvas,
   areaData: QsAreaData,
-  config: AreaConfigStrict
+  config: AreaConfig
 ) => {
   const { displayAreaWidth } = canvas.config
   const { yDataScale, genralPercentScale } = canvas.scales
@@ -33,7 +34,6 @@ export const getCalculatedData = (
     .range([0, displayAreaWidth])
 
   const calculatedData: CalculatedData = {
-    class: 'area',
     id: `area-${uuidv4()}`,
     areaData: higherData.map((d, i) => ({
       x: xDataScale(i),

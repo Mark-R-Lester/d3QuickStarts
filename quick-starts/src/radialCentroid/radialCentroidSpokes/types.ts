@@ -1,11 +1,10 @@
 export interface CalculatedData {
-  class: string
   id: string
   lineData: [number, number][]
   strokeWidth: number
 }
 
-export interface RadialSpokesConfigStrict {
+export interface RadialSpokesConfig {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   radius: number
   innerRadius: number

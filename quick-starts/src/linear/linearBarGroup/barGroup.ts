@@ -1,31 +1,18 @@
-import { schemePurples } from 'd3'
-import { BarGroupConfigStrict } from './types'
+import { BarGroupConfig } from './types'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../core/canvas/canvas'
 import {
   QsBarGroupConfig,
   QsBarGroups,
   QsBarGroupTransitionData,
 } from './qsTypes'
+import { linearBarGroupConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 interface DrawArgs {
   data: number[][]
-}
-
-const addDefaultsToConfig = (
-  customConfig?: QsBarGroupConfig
-): BarGroupConfigStrict => {
-  const defaults: BarGroupConfigStrict = {
-    colorRange: schemePurples[4],
-    padding: 20,
-  }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
 }
 
 export const linearBarGroup = {
@@ -34,7 +21,11 @@ export const linearBarGroup = {
     data: number[][],
     customConfig?: QsBarGroupConfig
   ): QsBarGroups => {
-    const config: BarGroupConfigStrict = addDefaultsToConfig(customConfig)
+    const config: BarGroupConfig = addDefaultsToConfig<BarGroupConfig>(
+      { ...linearBarGroupConfig },
+      customConfig,
+      { ...canvas.configStore.linear.barGroupConfig() }
+    )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)
   },
@@ -43,7 +34,7 @@ export const linearBarGroup = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: BarGroupConfigStrict
+  config: BarGroupConfig
 ): QsBarGroups => {
   const { data } = args
   const calculatedData: CalculatedData[] = getCalculatedData(
@@ -51,22 +42,25 @@ const draw = (
     data,
     config
   )
+  const { className, dotClassName } = generateClassName('linearBarGrouped')
+  const { className: classNameGroup, dotClassName: dotClassNameGroup } =
+    generateClassName('linearBarGroup')
 
-  const group = canvas.displayGroup.append('g')
+  const group = canvas.canvasDataGroup.append('g')
   const barGroups = group
-    .selectAll('.barGroup')
+    .selectAll(dotClassNameGroup)
     .data(calculatedData)
     .enter()
     .append('g')
-    .attr('class', (d) => d.groupClass)
+    .attr('class', classNameGroup)
     .attr('id', (d) => d.groupId)
     .attr('fill', (d, i) => d.barData[i].fillColor)
   barGroups
-    .selectAll('rect')
+    .selectAll(dotClassName)
     .data((d) => d.barData)
     .enter()
     .append('rect')
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('x', (d) => d.x)
     .attr('y', (d) => d.y)
@@ -74,7 +68,7 @@ const draw = (
     .attr('width', (d) => d.width)
 
   return {
-    element: barGroups.selectAll('.barGrouped'),
+    element: barGroups.selectAll(dotClassName),
     transition: (data: QsBarGroupTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       const calculatedData: CalculatedData[] = getCalculatedData(
@@ -82,11 +76,11 @@ const draw = (
         data.data,
         config
       )
-      const bars = canvas.displayGroup
-        .selectAll('.barGroup')
+      const bars = canvas.canvasGroup
+        .selectAll(dotClassNameGroup)
         .data(calculatedData)
       bars
-        .selectAll('.barGrouped')
+        .selectAll(dotClassName)
         .data((d) => d.barData)
         .attr('x', (d) => d.x)
         .attr('width', (d) => d.width)

@@ -1,19 +1,18 @@
 import { scaleBand, scaleOrdinal, range, stack, ScaleOrdinal, Series } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../core/canvas/canvas'
 import { v4 as uuidv4 } from 'uuid'
-import { toStrings } from '../../core/conversion'
-import { BarData, BarGroupConfigStrict } from './types'
+import { toStrings } from '../../core/math/conversion'
+import { BarData, BarGroupConfig } from './types'
 
 export interface CalculatedData {
   groupId: string
-  groupClass: string
   barData: BarData[]
 }
 
 export const getCalculatedData = (
   canvas: Canvas,
   data: number[][],
-  config: BarGroupConfigStrict
+  config: BarGroupConfig
 ): CalculatedData[] => {
   const { displayAreaWidth } = canvas.config
   const { yDataScale } = canvas.scales
@@ -60,7 +59,6 @@ export const getCalculatedData = (
     const data: BarData[] = d.map((d, inner): BarData => {
       return {
         id: barIds[inner],
-        class: 'barGrouped',
         x: x(outer, inner.toString()),
         y: y(d),
         height: height(d),
@@ -70,7 +68,6 @@ export const getCalculatedData = (
     })
     calculatedData.push({
       groupId: `group${outer}`,
-      groupClass: 'barGroup',
       barData: data,
     })
   })

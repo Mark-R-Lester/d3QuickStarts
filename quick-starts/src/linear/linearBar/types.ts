@@ -1,5 +1,5 @@
 import { Orientation } from '../../core/enums/enums'
-import { QsColorScaleData } from '../../d3QuickStart'
+import { QsColorScaleData } from '../../core/types/qsTypes'
 import { QsBarData } from './qsTypes'
 
 export interface CalculatedDataBarData {
@@ -19,7 +19,7 @@ export interface DrawArgs {
   orientation: Orientation
 }
 
-export interface BarConfigStrict {
+export interface BarConfig {
   [key: string]: number | string | QsColorScaleData | undefined
   padding: number
   defaultFillColor: string

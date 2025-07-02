@@ -1,22 +1,8 @@
-import {
-  QsEnumCurve,
-  QsEnumLineCap,
-  QsEnumLineJoin,
-} from '../../core/enums/qsEnums'
-import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
+import { RadialLineConfig } from './types'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 
-export interface QsRadialLineConfig {
-  [key: string]: number | QsEnumCurve | string | undefined
-  x?: number
-  y?: number
-  defaultStrokeColor?: string
-  defaultStrokeWidth?: number
-  defaultStrokeOpacity?: number
-  curve?: QsEnumCurve
-  strokeLineJoin?: QsEnumLineJoin
-  strokeLineCap?: QsEnumLineCap
-}
+export type QsRadialLineConfig = Partial<RadialLineConfig>
 
 export interface QsRadialLineTransitionData {
   data: QsRadialLineData

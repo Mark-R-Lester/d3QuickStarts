@@ -1,12 +1,7 @@
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../core/canvas/canvas'
 import { CalculatedData, getCalculatedData } from './calculatedData'
-import { DrawArgs, PointsConfigStrict } from './types'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-  Orientation,
-  ScaleType,
-} from '../../core/enums/enums'
+import { DrawArgs, PointsConfig } from './types'
+import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
   QsPointData,
@@ -14,27 +9,9 @@ import {
   QsPointsConfig,
   QsPointsTransitionData,
 } from './qsTypes'
-
-const addDefaultsToConfig = (
-  customConfig?: QsPointsConfig
-): PointsConfigStrict => {
-  const defaults: PointsConfigStrict = {
-    defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
-    defaultFillColor: GlobalDefaultColors.POINT_FILL,
-    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
-    defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
-    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-    fillColorScaleData: undefined,
-    strokeColorScaleData: undefined,
-  }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
-}
+import { linearPointsConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 export const linearPoint = {
   horizontal: (
@@ -45,9 +22,12 @@ export const linearPoint = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.HORIZONTAL,
-      scaleType: ScaleType.LINEAR,
     }
-    const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
+    const config: PointsConfig = addDefaultsToConfig<PointsConfig>(
+      { ...linearPointsConfig },
+      customConfig,
+      { ...canvas.configStore.linear.pointsConfig() }
+    )
     return draw(canvas, args, config)
   },
   vertical: (
@@ -58,35 +38,12 @@ export const linearPoint = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.VERTICAL,
-      scaleType: ScaleType.LINEAR,
     }
-    const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
-    return draw(canvas, args, config)
-  },
-  horizontalBanded: (
-    canvas: Canvas,
-    data: QsPointData[],
-    customConfig?: QsPointsConfig
-  ): QsPoints => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.HORIZONTAL,
-      scaleType: ScaleType.BANDED,
-    }
-    const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
-    return draw(canvas, args, config)
-  },
-  verticalBanded: (
-    canvas: Canvas,
-    data: QsPointData[],
-    customConfig?: QsPointsConfig
-  ): QsPoints => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.VERTICAL,
-      scaleType: ScaleType.BANDED,
-    }
-    const config: PointsConfigStrict = addDefaultsToConfig(customConfig)
+    const config: PointsConfig = addDefaultsToConfig<PointsConfig>(
+      { ...linearPointsConfig },
+      customConfig,
+      { ...canvas.configStore.linear.pointsConfig() }
+    )
     return draw(canvas, args, config)
   },
 }
@@ -94,24 +51,24 @@ export const linearPoint = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: PointsConfigStrict
+  config: PointsConfig
 ): QsPoints => {
-  const { orientation, scaleType } = args
-
+  const { orientation } = args
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
     args,
     config
   )
 
-  const group = canvas.displayGroup.append('g')
+  const { className, dotClassName } = generateClassName('linearPoints')
+  const group = canvas.canvasDataGroup.append('g')
 
   group
-    .selectAll('circle')
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('circle')
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('cy', (d) => d.pointData.y)
     .attr('cx', (d) => d.pointData.x)
@@ -124,7 +81,7 @@ const draw = (
 
   const transition = (data: QsPointsTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
-    const drawArgs: DrawArgs = { data: data.data, orientation, scaleType }
+    const drawArgs: DrawArgs = { data: data.data, orientation }
     const calculatedData: CalculatedData[] = getCalculatedData(
       canvas,
       drawArgs,
@@ -132,7 +89,7 @@ const draw = (
     )
 
     group
-      .selectAll(`.${calculatedData[0].class}`)
+      .selectAll(dotClassName)
       .data(calculatedData)
       .transition()
       .delay(args.delayInMiliSeconds)
@@ -148,7 +105,7 @@ const draw = (
       .attr('stroke-width', (d) => d.strokeWidth)
   }
   return {
-    element: group.selectAll(`.${calculatedData[0].class}`),
+    element: group.selectAll(dotClassName),
     transition: (data: QsPointsTransitionData) => transition(data),
   }
 }

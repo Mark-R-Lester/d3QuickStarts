@@ -1,8 +1,8 @@
 import { scaleLinear, scaleBand, range } from 'd3'
-import { Canvas } from '../../d3QuickStart'
-import { DrawArgs, TextConfigStrict } from './types'
+import { Canvas } from '../../core/canvas/canvas'
+import { DrawArgs, TextConfig } from './types'
 import { v4 as uuidv4 } from 'uuid'
-import { Orientation, ScaleType } from '../../core/enums/enums'
+import { Orientation } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { QsTextData } from './qsTypes'
 import {
@@ -12,32 +12,23 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumAlignmentBaseline,
+  QsEnumScaleType,
 } from '../../core/enums/qsEnums'
+import { TextData } from '../../core/types/types'
 
-export interface CalculatedData {
-  class: string
+export interface CalculatedData extends TextData {
   id: string
   coordinate: QsCoordinate
   text?: string
   newText?: string
   value: number
   newValue: number
-  textFont: QsEnumTextFont | string
-  textFontSize: number
-  textFontStyle: QsEnumTextFontStyle
-  textFontWeight: QsEnumTextFontWeight | number
-  textDecorationLine: QsEnumTextDecorationLine
-  textFill: string
-  textAngle: number
-  textAnchor: QsEnumTextAnchor
-  textStroke: string
-  textAlignmentBaseline: QsEnumAlignmentBaseline
 }
 
 export const updateCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
-  config: TextConfigStrict,
+  config: TextConfig,
   calculatedData: CalculatedData[]
 ): CalculatedData[] => {
   const newCalculatedData: CalculatedData[] = getCalculatedData(
@@ -45,26 +36,24 @@ export const updateCalculatedData = (
     args,
     config
   )
-
   for (let i = 0; i < calculatedData.length; i++) {
     newCalculatedData[i].text = calculatedData[i].text
     newCalculatedData[i].value = calculatedData[i].value
   }
-
   return newCalculatedData
 }
 
 export const getCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
-  config: TextConfigStrict
+  config: TextConfig
 ): CalculatedData[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { xDataScale, yDataScale, genralPercentScale } = canvas.scales
-  const { data, orientation, scaleType } = args
+  const { data, orientation } = args
   const isVertical = orientation === Orientation.VERTICAL
-  const isBanded = scaleType === ScaleType.BANDED
   const {
+    scaleType,
     defaultTextFont,
     defaultTextFontSize,
     defaultTextFontStyle,
@@ -76,6 +65,7 @@ export const getCalculatedData = (
     defaultTextStroke,
     defaultTextAlignmentBaseline,
   } = config
+  const isBanded = scaleType === QsEnumScaleType.BANDED
 
   const pointSpacing = range(
     0,
@@ -141,20 +131,19 @@ export const getCalculatedData = (
 
   const x = (d: QsCoordinate) => {
     const space = isBanded
-      ? spacingScale(d.x) + spacingScale.bandwidth() / 2
+      ? spacingScale(d.x.toString()) + spacingScale.bandwidth() / 2
       : spacingScale(d.x)
     return isVertical ? dataScale(d.x) : space
   }
   const y = (d: QsCoordinate) => {
     const space = isBanded
-      ? spacingScale(d.y) + spacingScale.bandwidth() / 2
+      ? spacingScale(d.y.toString()) + spacingScale.bandwidth() / 2
       : spacingScale(d.y)
     return isVertical ? space : dataScale(d.y)
   }
 
   const calculatedData: CalculatedData[] = coordinates.map((d, i) => {
     return {
-      class: 'linearText',
       id: `linearText${uuidv4()}`,
       coordinate: { x: x(d), y: y(d) },
       text: d.text,

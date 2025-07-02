@@ -1,45 +1,30 @@
 import { line as d3line } from 'd3'
-import { Canvas } from '../../d3QuickStart'
-import {
-  QsEnumCurve,
-  QsEnumLineCap,
-  QsEnumLineJoin,
-} from '../../core/enums/qsEnums'
+import { PlottedLineConfig } from './types'
+import { plottedLineConfig } from '../../core/config/configDefaults'
 import { constantsCurves } from '../../core/constants/constants'
-import { QsLinePlotConfig, QsLinePlot, QsPlottedLineData } from './qsTypes'
 import { CalculatedData, getCalculatedData } from './calculatedData'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
-import { LinePlotConfigStrict } from './types'
-
-const addDefaultsToConfig = (
-  customConfig?: QsLinePlotConfig
-): LinePlotConfigStrict => {
-  const defaults: LinePlotConfigStrict = {
-    curve: QsEnumCurve.LINEAR,
-    strokeLineJoin: QsEnumLineJoin.ROUND,
-    strokeLineCap: QsEnumLineCap.ROUND,
-    defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
-    defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
-  }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
-}
+  QsLinePlot,
+  QsPlottedLineConfig,
+  QsPlottedLineData,
+  QsPlottedLineTransitionData,
+} from './qsTypes'
+import { Canvas } from '../../core/canvas/canvas'
+import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { generateClassName } from '../../core/generateClassName'
 
 export const plottedLine = {
   line: (
     canvas: Canvas,
     data: QsPlottedLineData,
-    customConfig?: QsLinePlotConfig
+    customConfig?: QsPlottedLineConfig
   ): QsLinePlot => {
-    const config: LinePlotConfigStrict = addDefaultsToConfig(customConfig)
+    const config: PlottedLineConfig = addDefaultsToConfig<PlottedLineConfig>(
+      { ...plottedLineConfig },
+      customConfig,
+      { ...canvas.configStore.plotted.lineConfig() }
+    )
     return draw(canvas, data, config)
   },
 }
@@ -47,22 +32,23 @@ export const plottedLine = {
 const draw = (
   canvas: Canvas,
   data: QsPlottedLineData,
-  config: LinePlotConfigStrict
+  config: PlottedLineConfig
 ): QsLinePlot => {
   const { curve, strokeLineJoin, strokeLineCap } = config
 
   const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
+  const { className, dotClassName } = generateClassName('plottedLine')
 
   let line = d3line()
     .x((d) => d[0])
     .y((d) => d[1])
     .curve(constantsCurves[curve])
 
-  let lineGroup = canvas.displayGroup.append('g')
-  lineGroup
+  let group = canvas.canvasDataGroup.append('g')
+  group
     .append('path')
     .datum(calculatedData)
-    .attr('class', 'line')
+    .attr('class', className)
     .attr('d', (d) => line(d.coordinates))
     .attr('fill', 'none')
     .attr('stroke', (d) => d.strokeColor)
@@ -71,5 +57,25 @@ const draw = (
     .attr('stroke-linejoin', strokeLineJoin)
     .attr('stroke-linecap', strokeLineCap)
 
-  return { element: lineGroup.select('.line') }
+  const transition = (data: QsPlottedLineTransitionData) => {
+    const args = addTransitionDefaults(data.transitionArgs)
+    const calculatedData: CalculatedData = getCalculatedData(
+      canvas,
+      data.data,
+      config
+    )
+
+    group
+      .selectAll(dotClassName)
+      .datum(calculatedData)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('d', (d) => line(d.coordinates))
+      .attr('stroke', (d) => d.strokeColor)
+      .attr('stroke-width', (d) => d.strokeWidth)
+      .attr('stroke-opacity', (d) => d.strokeOpacity)
+  }
+
+  return { element: group.select(dotClassName), transition }
 }

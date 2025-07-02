@@ -1,11 +1,10 @@
 import { scaleLinear } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../core/canvas/canvas'
 import { QsRadialLineData } from './qsTypes'
-import { RadialLineConfigStrict } from './types'
+import { RadialLineConfig } from './types'
 import { GlobalDefaultSettings } from '../../core/enums/enums'
 
 export interface CalculatedData {
-  class: string
   id: string
   lineData: Iterable<[number, number]>
   x: number
@@ -18,7 +17,7 @@ export interface CalculatedData {
 export const getCalculatedData = (
   canvas: Canvas,
   lineData: QsRadialLineData,
-  config: RadialLineConfigStrict
+  config: RadialLineConfig
 ): CalculatedData => {
   const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
     canvas.config
@@ -37,7 +36,6 @@ export const getCalculatedData = (
 
   dataCopy.push(data[0])
   return {
-    class: 'radialLine',
     id: 'radialLine',
     lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d)]),
     x: xPercentScale(x),

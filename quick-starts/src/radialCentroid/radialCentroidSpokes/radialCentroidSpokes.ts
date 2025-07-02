@@ -1,35 +1,14 @@
 import { line } from 'd3'
 import { getCalculatedData } from './calculatedData'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../core/canvas/canvas'
 import { QsRadialSpokesConfig, QsRadialSpokes } from './qsTypes'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
-import { CalculatedData, RadialSpokesConfigStrict } from './types'
+import { CalculatedData, RadialSpokesConfig } from './types'
+import { radialCentroidSpokesConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 interface DrawArgs {
   data: number
-}
-
-const addDefaultsToConfig = (
-  customConfig?: QsRadialSpokesConfig
-): RadialSpokesConfigStrict => {
-  const defaults: RadialSpokesConfigStrict = {
-    radius: 100,
-    innerRadius: 0,
-    x: GlobalDefaultSettings.RADIAL_X,
-    y: GlobalDefaultSettings.RADIAL_Y,
-    strokeColor: GlobalDefaultColors.AXIS_COLOR,
-    strokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-    strokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
-  }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
 }
 
 export const radialSpokes = {
@@ -38,7 +17,11 @@ export const radialSpokes = {
     data: number,
     customConfig?: QsRadialSpokesConfig
   ): QsRadialSpokes => {
-    const config: RadialSpokesConfigStrict = addDefaultsToConfig(customConfig)
+    const config: RadialSpokesConfig = addDefaultsToConfig<RadialSpokesConfig>(
+      { ...radialCentroidSpokesConfig },
+      customConfig,
+      { ...canvas.configStore.radialCentroid.spokesConfig() }
+    )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)
   },
@@ -47,7 +30,7 @@ export const radialSpokes = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: RadialSpokesConfigStrict
+  config: RadialSpokesConfig
 ): QsRadialSpokes => {
   const { strokeColor, strokeOpacity } = config
   const { data } = args
@@ -62,13 +45,14 @@ const draw = (
     .x((d) => d[0])
     .y((d) => d[1])
 
-  const group = canvas.displayGroup.append('g')
+  const { className, dotClassName } = generateClassName('radialCentroidSpoke')
+  const group = canvas.canvasDataGroup.append('g')
   group
-    .selectAll('path')
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('path')
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('d', (d) => radialLine(d.lineData))
     .attr('fill', 'none')
@@ -77,7 +61,7 @@ const draw = (
     .attr('stroke-opacity', strokeOpacity)
 
   return {
-    element: group.selectAll(`.${calculatedData[0].class}`),
+    element: group.selectAll(dotClassName),
     transition: (data: number) => {
       const calculatedData: CalculatedData[] = getCalculatedData(
         canvas,
@@ -85,7 +69,7 @@ const draw = (
         config
       )
       group
-        .selectAll(`.${calculatedData[0].class}`)
+        .selectAll(dotClassName)
         .data(calculatedData.map((d) => d.lineData))
         .transition()
         .duration(3000)

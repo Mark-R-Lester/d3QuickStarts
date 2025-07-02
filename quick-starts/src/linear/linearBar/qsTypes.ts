@@ -1,5 +1,6 @@
-import { QsColorScaleData, QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
+import { BarConfig } from './types'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 
 export interface QsBarData {
   lowerBoundry?: number
@@ -11,17 +12,7 @@ export interface QsBarData {
   strokeOpacity?: number
 }
 
-export interface QsBarConfig {
-  [key: string]: number | string | QsColorScaleData | undefined
-  padding?: number
-  defaultFillColor?: string
-  defaultFillOpacity?: number
-  defaultStrokeColor?: string
-  defaultStrokeWidth?: number
-  defaultStrokeOpacity?: number
-  fillColorScaleData?: QsColorScaleData
-  strokeColorScaleData?: QsColorScaleData
-}
+export type QsBarConfig = Partial<BarConfig>
 
 export interface QsBarTransitionArgs extends QsTransitionArgs {}
 

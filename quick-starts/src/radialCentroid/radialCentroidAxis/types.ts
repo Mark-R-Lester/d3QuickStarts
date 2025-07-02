@@ -20,8 +20,6 @@ export interface CalculatedData {
   [key: string]: string | RingData | number
   ringId: string
   textId: string
-  ringClass: string
-  textClass: string
   ringData: RingData
   x: number
   y: number
@@ -29,7 +27,7 @@ export interface CalculatedData {
   strokeWidth: number
 }
 
-export interface RadialAxisConfigStrict {
+export interface RadialAxisConfig {
   [key: string]: number | undefined | string
   radius: number
   x: number

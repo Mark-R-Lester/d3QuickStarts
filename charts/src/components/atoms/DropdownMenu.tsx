@@ -25,7 +25,16 @@ export const DropdownMenu: FunctionComponent<DropdownMenuProps> = ({
   return (
     <>
       <ListItemButton onClick={handleClick}>
-        <ListItemText primary={title} sx={{ color: 'black' }} />
+        <ListItemText
+          primary={title}
+          sx={{
+            '& .MuiListItemText-primary': {
+              marginLeft: '5%',
+              color: 'grey',
+              fontWeight: 400,
+            },
+          }}
+        />
         {open ? <ExpandLess /> : <ExpandMore />}
       </ListItemButton>
 
@@ -34,7 +43,13 @@ export const DropdownMenu: FunctionComponent<DropdownMenuProps> = ({
           {routes.map((route) => (
             <ListItemButton
               key={route.title}
-              sx={{ pl: 4, pt: 0, pb: 0 }}
+              sx={{
+                '& .MuiListItemText-primary': {
+                  marginLeft: '10%',
+                  color: 'steelBlue',
+                  fontWeight: 400,
+                },
+              }}
               onClick={() => {
                 handleNavigate(route.route)
               }}

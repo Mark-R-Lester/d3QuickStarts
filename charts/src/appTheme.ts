@@ -9,7 +9,10 @@ export const appTheme = createTheme({
   },
   typography: {
     body1: {
-      fontSize: 25,
+      fontSize: 20,
+    },
+    body2: {
+      fontSize: 18,
     },
   },
   components: {

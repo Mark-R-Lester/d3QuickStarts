@@ -1,32 +1,12 @@
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-  QsEnumAlignmentBaseline,
-} from '../../core/enums/qsEnums'
 import { Selection } from 'd3'
+import { RadialAxisConfig } from './types'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 
-export interface QsRadialAxisConfig {
-  [key: string]: number | string | undefined
-  radius?: number
-  x?: number
-  y?: number
-  axisAngle?: number
-  gap?: number
-  strokeColor?: string
-  strokeWidth?: number
-  strokeOpacity?: number
-  textFont?: QsEnumTextFont | string
-  textFontSize?: number
-  textFontStyle?: QsEnumTextFontStyle
-  textFontWeight?: QsEnumTextFontWeight | number
-  textDecorationLine?: QsEnumTextDecorationLine
-  textFill?: string
-  textAnchor?: QsEnumTextAnchor
-  textStroke?: string
-  textAlignmentBaseline?: QsEnumAlignmentBaseline
+export type QsRadialAxisConfig = Partial<RadialAxisConfig>
+
+export interface QsRadialCentroidAxisTransitionData {
+  data: number[]
+  transitionArgs?: QsTransitionArgs
 }
 
 export interface QsRadialAxis {
@@ -36,5 +16,5 @@ export interface QsRadialAxis {
   ringsElement:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: number[], config: QsRadialAxisConfig) => void
+  transition: (data: QsRadialCentroidAxisTransitionData) => void
 }

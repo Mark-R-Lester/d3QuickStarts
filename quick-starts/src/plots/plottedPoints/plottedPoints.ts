@@ -1,30 +1,20 @@
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
+import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { plottedPointsConfig } from '../../core/config/configDefaults'
+import { generateClassName } from '../../core/generateClassName'
 import { Canvas } from '../../d3QuickStart'
+import { CalculatedData, getCalculatedData } from './calculatedData'
 import {
-  CalculatedData,
-  getCalculatedData,
-  ScatterPlotConfigStrict,
-} from './calculatedData'
-import {
-  QsScatterPlotConfig,
-  QsScatterPlot,
-  QsPlottedPointData,
+  QsPlottedPointsConfig,
+  QsPlottedPoints,
+  QsPlottedPointsData,
+  QsPlottedPointsTransitionData,
 } from './qsTypes'
+import { PlottedPointsConfig } from './types'
 
 const addDefaultsToConfig = (
-  customConfig?: QsScatterPlotConfig
-): ScatterPlotConfigStrict => {
-  const defaults: ScatterPlotConfigStrict = {
-    defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
-    defaultFillColor: GlobalDefaultColors.POINT_FILL,
-    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
-    defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
-    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-  }
+  customConfig?: QsPlottedPointsConfig
+): PlottedPointsConfig => {
+  const defaults: PlottedPointsConfig = plottedPointsConfig
   if (!customConfig) return defaults
 
   Object.keys(customConfig).forEach(
@@ -36,32 +26,34 @@ const addDefaultsToConfig = (
 export const plottedPoint = {
   points: (
     canvas: Canvas,
-    data: QsPlottedPointData[],
-    customConfig?: QsScatterPlotConfig
-  ): QsScatterPlot => {
-    const config: ScatterPlotConfigStrict = addDefaultsToConfig(customConfig)
+    data: QsPlottedPointsData[],
+    customConfig?: QsPlottedPointsConfig
+  ): QsPlottedPoints => {
+    const config: PlottedPointsConfig = addDefaultsToConfig(customConfig)
     return draw(canvas, data, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  data: QsPlottedPointData[],
-  config: ScatterPlotConfigStrict
-): QsScatterPlot => {
-  const dataPoints = canvas.displayGroup.append('g')
+  data: QsPlottedPointsData[],
+  config: PlottedPointsConfig
+): QsPlottedPoints => {
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
     data,
     config
   )
 
-  dataPoints
-    .selectAll('circle')
+  const { className, dotClassName } = generateClassName('plottedPoints')
+  const group = canvas.canvasDataGroup.append('g')
+
+  group
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('circle')
-    .attr('class', 'linePoint')
+    .attr('class', className)
     .attr('cx', (d) => d.x)
     .attr('cy', (d) => d.y)
     .attr('r', (d) => d.radius)
@@ -71,5 +63,29 @@ const draw = (
     .attr('stroke-opacity', (d) => d.strokeOpacity)
     .attr('stroke-width', (d) => d.strokeWidth)
 
-  return { element: dataPoints }
+  const transition = (data: QsPlottedPointsTransitionData) => {
+    const args = addTransitionDefaults(data.transitionArgs)
+    const calculatedData: CalculatedData[] = getCalculatedData(
+      canvas,
+      data.data,
+      config
+    )
+
+    group
+      .selectAll(dotClassName)
+      .data(calculatedData)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('cx', (d) => d.x)
+      .attr('cy', (d) => d.y)
+      .attr('r', (d) => d.radius)
+      .attr('fill', (d) => d.fillColor)
+      .attr('fill-opacity', (d) => d.fillOpacity)
+      .attr('stroke', (d) => d.strokeColor)
+      .attr('stroke-opacity', (d) => d.strokeOpacity)
+      .attr('stroke-width', (d) => d.strokeWidth)
+  }
+
+  return { element: group.selectAll(dotClassName), transition }
 }

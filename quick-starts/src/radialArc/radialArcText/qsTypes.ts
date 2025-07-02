@@ -1,28 +1,8 @@
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-} from '../../core/enums/qsEnums'
-import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
+import { RadialTextConfig } from './types'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 
-export interface QsRadialTextConfig {
-  [key: string]: string | number | undefined
-  radius?: number
-  x?: number
-  y?: number
-  defaultDecimalPoints?: number
-  textFont?: QsEnumTextFont | string
-  textFontSize?: number
-  textFontStyle?: QsEnumTextFontStyle
-  textFontWeight?: QsEnumTextFontWeight | number
-  textDecorationLine?: QsEnumTextDecorationLine
-  textFill?: string
-  textAnchor?: QsEnumTextAnchor
-  textStroke?: string
-}
+export type QsRadialTextConfig = Partial<RadialTextConfig>
 
 export interface QsRadialTextTransitionArgs extends QsTransitionArgs {}
 
@@ -32,6 +12,13 @@ export interface QsRadialTextTransitionData {
 }
 
 export interface QsRadialText {
+  elementText:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  transition: (data: QsRadialTextTransitionData) => void
+}
+
+export interface QsRadialTextFollow {
   elementText:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>

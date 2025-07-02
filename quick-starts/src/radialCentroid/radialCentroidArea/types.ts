@@ -11,7 +11,6 @@ export interface AreaData {
 }
 
 export interface CalculatedData {
-  class: string
   id: string
   areaData: AreaData[]
   fillColor: string
@@ -23,7 +22,7 @@ export interface CalculatedData {
   y: number
 }
 
-export interface RadialAreaConfigStrict {
+export interface RadialAreaConfig {
   [key: string]: QsEnumCurve | number | undefined | string
   curve: QsEnumCurve
   x: number

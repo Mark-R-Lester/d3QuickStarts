@@ -8,11 +8,6 @@ export enum Grouping {
   STACKED = 'stacked',
 }
 
-export enum ScaleType {
-  BANDED = 'banded',
-  LINEAR = 'linear',
-}
-
 export enum ChartEdge {
   TOP = 'top',
   BOTTOM = 'bottom',

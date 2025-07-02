@@ -1,16 +1,18 @@
 import { ScaleOrdinal, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { RadialConfigStrict } from './types'
+import { RadialArcConfig } from './types'
 import {
+  findOrdinalValue,
   getColorScale,
   getPrecidendedColor,
   getScaledColor,
 } from '../../core/color/color'
-import { Canvas } from '../../d3QuickStart'
+
 import { QsRadialData } from './qsTypes'
+import { Canvas } from '../../core/canvas/canvas'
+import { QsEnumColorScale } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
-  class: string
   id: string
   arcData: ArcData
   x: number
@@ -33,12 +35,13 @@ export interface ArcData {
   strokeOpacity: number
   index?: number
   value?: number
+  padding: number
 }
 
 export const updateCalculatedData = (
   canvas: Canvas,
   data: QsRadialData[],
-  config: RadialConfigStrict,
+  config: RadialArcConfig,
   calculatedData: CalculatedData[]
 ): CalculatedData[] => {
   const newCalculatedData: CalculatedData[] = getCalculatedData(
@@ -59,7 +62,7 @@ export const updateCalculatedData = (
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsRadialData[],
-  config: RadialConfigStrict
+  config: RadialArcConfig
 ): CalculatedData[] => {
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
   const {
@@ -77,7 +80,8 @@ export const getCalculatedData = (
     fillColorScaleData,
     strokeColorScaleData,
   } = config
-  let { padAngle } = config
+
+  let padding = genralPercentScale(config.padding)
 
   const calculatedData: CalculatedData[] = []
 
@@ -85,7 +89,6 @@ export const getCalculatedData = (
   data.forEach((d) => {
     totalValue = totalValue + d.value
   })
-  if (data.length < 2) padAngle = 0
 
   let fillColorScale:
     | ScaleSequential<string, never>
@@ -107,21 +110,24 @@ export const getCalculatedData = (
 
   data.forEach((d, i) => {
     const endAngle = startAngle + radiansDividedByTotalValue * d.value
-    startAngle = startAngle + padAngle / 2
 
     const scaledFillColor: string | unknown | undefined = getScaledColor(
-      d.value,
+      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+        ? findOrdinalValue(i, fillColorScaleData)
+        : d.value,
       fillColorScale
     )
-
     const scaledStrokeColor: string | unknown | undefined = getScaledColor(
-      d.value,
+      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+        ? findOrdinalValue(i, fillColorScaleData)
+        : d.value,
       strokeColorScale
     )
 
     calculatedData.push({
-      class: `arc`,
       id: `arc${uuidv4()}`,
+      x: xPercentScale(x),
+      y: yPercentScale(y),
 
       arcData: {
         data: d.value,
@@ -143,13 +149,12 @@ export const getCalculatedData = (
         startAngle,
         newStartAngle: startAngle,
         endAngle,
+        padding,
         newEndAngle: endAngle,
         fillOpacity: d.fillOpacity ?? defaultFillOpacity,
         strokeWidth: genralPercentScale(d.strokeWidth ?? defaultStrokeWidth),
         strokeOpacity: d.strokeOpacity ?? defaultStrokeOpacity,
       },
-      x: xPercentScale(x),
-      y: yPercentScale(y),
     })
     startAngle = endAngle
   })

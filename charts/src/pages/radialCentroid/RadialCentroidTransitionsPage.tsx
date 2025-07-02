@@ -1,13 +1,14 @@
-import { Typography } from '@mui/material'
-import { ChartButtonGrid } from '../../components/atoms/ChartButtonGrid'
-import { RadialAreaTransition } from '../../components/atoms/chart/radial/transitions/RadialAreaTransition'
-import { RadialLineTransition } from '../../components/atoms/chart/radial/transitions/RadialLineTransition'
-import { RadialPointTransition } from '../../components/atoms/chart/radial/transitions/RadialPointsTransition'
+import { Box, Typography } from '@mui/material'
+import { ChartButtonGrid } from '../../components/molecules/ChartButtonGrid'
+
 import {
   QsColorScaleData,
   QsRadialPointData,
   QsEnumColorScale,
 } from 'd3qs/d3QuickStart'
+import { RadialAreaTransition } from './area/RadialAreaTransition'
+import { RadialLineTransition } from './line/RadialLineTransition'
+import { RadialPointTransition } from './points/RadialPointsTransition'
 
 export default function RadialTransitionsPage() {
   const radialPointsColouredData: QsRadialPointData[] = [
@@ -57,7 +58,6 @@ export default function RadialTransitionsPage() {
   ]
 
   const colorScaleOrdinal: QsColorScaleData = {
-    domain: [1, 100],
     range: ['lightblue', 'darkblue'],
     type: QsEnumColorScale.ORDINAL,
   }
@@ -68,11 +68,11 @@ export default function RadialTransitionsPage() {
     type: QsEnumColorScale.SEQUENTIAL,
   }
 
-  const elements: JSX.Element[] = [
+  const menuElements: JSX.Element[] = [
     <RadialAreaTransition
       canvasProps={{
         chartName: 'radialAreaTransition',
-        width: 150,
+        width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 100,
       }}
@@ -80,7 +80,7 @@ export default function RadialTransitionsPage() {
     <RadialLineTransition
       canvasProps={{
         chartName: 'radialLineTransition',
-        width: 150,
+        width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 50,
       }}
@@ -88,7 +88,7 @@ export default function RadialTransitionsPage() {
     <RadialPointTransition
       canvasProps={{
         chartName: 'radialPointsTransition',
-        width: 150,
+        width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 2.5,
       }}
@@ -97,7 +97,7 @@ export default function RadialTransitionsPage() {
     <RadialPointTransition
       canvasProps={{
         chartName: 'radialPointsOridinalTransition',
-        width: 150,
+        width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 2.5,
       }}
@@ -109,7 +109,7 @@ export default function RadialTransitionsPage() {
     <RadialPointTransition
       canvasProps={{
         chartName: 'radialPointsSerialTransition',
-        width: 150,
+        width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 2.5,
       }}
@@ -120,12 +120,76 @@ export default function RadialTransitionsPage() {
     />,
   ]
 
+  const charts: JSX.Element[] = [
+    <RadialAreaTransition
+      canvasProps={{
+        chartName: 'chart',
+        width: 800,
+        lowestViewableValue: 0,
+        highestViewableValue: 100,
+      }}
+    />,
+    <RadialLineTransition
+      canvasProps={{
+        chartName: 'chart',
+        width: 800,
+        lowestViewableValue: 0,
+        highestViewableValue: 50,
+      }}
+    />,
+    <RadialPointTransition
+      canvasProps={{
+        chartName: 'chart',
+        width: 800,
+        lowestViewableValue: 0,
+        highestViewableValue: 2.5,
+      }}
+      data={radialPointsColouredData}
+    />,
+    <RadialPointTransition
+      canvasProps={{
+        chartName: 'chart',
+        width: 800,
+        lowestViewableValue: 0,
+        highestViewableValue: 2.5,
+      }}
+      data={radialPointsData}
+      config={{
+        fillColorScaleData: colorScaleOrdinal,
+      }}
+    />,
+    <RadialPointTransition
+      canvasProps={{
+        chartName: 'chart',
+        width: 800,
+        lowestViewableValue: 0,
+        highestViewableValue: 2.5,
+      }}
+      data={radialPointsData}
+      config={{
+        fillColorScaleData: colorScaleSequentialPoints,
+      }}
+    />,
+  ]
+
+  const [chart, setChart] = useState<JSX.Element>(charts[0])
+  const onClick = (index: number) => {
+    setChart(charts[index])
+  }
+
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
         Radial Centroid Transitions
       </Typography>
-      {/* <ChartButtonGrid elements={elements}></ChartButtonGrid> */}
+      <ChartButtonGrid
+        onClick={onClick}
+        elements={menuElements}
+      ></ChartButtonGrid>
+      <Box>{chart}</Box>
     </>
   )
+}
+function useState<T>(arg0: JSX.Element): [any, any] {
+  throw new Error('Function not implemented.')
 }

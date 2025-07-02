@@ -1,21 +1,22 @@
 import { scaleLinear, scaleBand, range, line as d3line } from 'd3'
-import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
-import { DrawArgs, LineConfigStrict, CalculatedData } from './types'
-import { ScaleType } from '../../core/enums/enums'
+import { DrawArgs, LineConfig, CalculatedData } from './types'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { constantsCurves } from '../../core/constants/constants'
+import { Canvas } from '../../core/canvas/canvas'
+import { QsEnumScaleType } from '../../core/enums/qsEnums'
 
 export const getCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
-  config: LineConfigStrict
+  config: LineConfig
 ): CalculatedData => {
   const { displayAreaHeight } = canvas.config
   const { xDataScale, genralPercentScale } = canvas.scales
-  const { data, scaleType } = args
+  const { data } = args
   const { strokeOpacity, strokeColor, strokeWidth } = data
   const {
+    scaleType,
     curve,
     defaultStrokeColor,
     defaultStrokeWidth,
@@ -31,7 +32,7 @@ export const getCalculatedData = (
   const coordinates: QsCoordinate[] = []
   const lineData: [number, number][] = []
 
-  data.data.reverse().forEach((d, i) => {
+  data.data.forEach((d, i) => {
     coordinates.push({ x: d, y: yVals[i] })
     lineData.push([d, yVals[i]])
   })
@@ -39,7 +40,7 @@ export const getCalculatedData = (
   let spacingScale: any
   let bandingAdjustment: number
 
-  if (scaleType === ScaleType.BANDED) {
+  if (scaleType === QsEnumScaleType.BANDED) {
     spacingScale = scaleBand()
       .domain(coordinates.map((coordinate) => coordinate.y.toString()))
       .range([displayAreaHeight, 0])
@@ -51,13 +52,20 @@ export const getCalculatedData = (
     bandingAdjustment = 0
   }
 
-  const lineFunction = d3line()
-    .x((d) => xDataScale(d[0]))
-    .y((d) => spacingScale(d[1]) + bandingAdjustment)
-    .curve(constantsCurves[curve])
+  let lineFunction
+  if (scaleType === QsEnumScaleType.BANDED) {
+    lineFunction = d3line()
+      .x((d) => xDataScale(d[0]))
+      .y((d) => spacingScale(d[1].toString()) + bandingAdjustment)
+      .curve(constantsCurves[curve])
+  } else {
+    lineFunction = d3line()
+      .x((d) => xDataScale(d[0]))
+      .y((d) => spacingScale(d[1]) + bandingAdjustment)
+      .curve(constantsCurves[curve])
+  }
 
   return {
-    class: 'line',
     id: `line${uuidv4()}`,
     lineData,
     lineFunction,

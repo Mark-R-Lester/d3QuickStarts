@@ -1,31 +1,18 @@
-import { schemePurples } from 'd3'
-import { BarStackedConfigStrict } from './types'
+import { BarStackedConfig } from './types'
 import { CalculatedData, getCalculatedData } from './calculatedData'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../core/canvas/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
   QsBarStackedConfig,
   QsBarStack,
   QsBarStackedTransitionData,
 } from './qsTypes'
+import { linearBarStackConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 interface DrawArgs {
   data: number[][]
-}
-
-const addDefaultsToConfig = (
-  customConfig?: QsBarStackedConfig
-): BarStackedConfigStrict => {
-  const defaults: BarStackedConfigStrict = {
-    colorRange: schemePurples[4],
-    padding: 20,
-  }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
 }
 
 export const linearBarStack = {
@@ -34,7 +21,11 @@ export const linearBarStack = {
     data: number[][],
     customConfig?: QsBarStackedConfig
   ): QsBarStack => {
-    const config: BarStackedConfigStrict = addDefaultsToConfig(customConfig)
+    const config: BarStackedConfig = addDefaultsToConfig<BarStackedConfig>(
+      { ...linearBarStackConfig },
+      customConfig,
+      { ...canvas.configStore.linear.barStackConfig() }
+    )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)
   },
@@ -43,7 +34,7 @@ export const linearBarStack = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: BarStackedConfigStrict
+  config: BarStackedConfig
 ): QsBarStack => {
   const { data } = args
 
@@ -53,21 +44,25 @@ const draw = (
     config
   )
 
-  const group = canvas.displayGroup.append('g')
+  const { className, dotClassName } = generateClassName('linearBarStacked')
+  const { className: classNameStack, dotClassName: dotClassNameStack } =
+    generateClassName('linearBarStack')
+
+  const group = canvas.canvasDataGroup.append('g')
   const barStacks = group
-    .selectAll(`${'.barStack'}`)
+    .selectAll(dotClassNameStack)
     .data(calculatedData)
     .enter()
     .append('g')
-    .attr('class', (d) => d.stackClass)
+    .attr('class', classNameStack)
     .attr('id', (d) => d.groupId)
     .attr('fill', (d, i) => d.barData[i].fillColor)
   barStacks
-    .selectAll('rect')
+    .selectAll(dotClassName)
     .data((d) => d.barData)
     .enter()
     .append('rect')
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('x', (d) => d.x)
     .attr('y', (d) => d.y)
@@ -75,7 +70,7 @@ const draw = (
     .attr('width', (d) => d.width)
 
   return {
-    element: barStacks.selectAll(`${'.barStacked'}`),
+    element: barStacks.selectAll(dotClassName),
     transition: (data: QsBarStackedTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       const calculatedData: CalculatedData[] = getCalculatedData(
@@ -84,11 +79,11 @@ const draw = (
         config
       )
 
-      const bars = canvas.displayGroup
-        .selectAll(`${'.barStack'}`)
+      const bars = canvas.canvasGroup
+        .selectAll(dotClassName)
         .data(calculatedData)
       bars
-        .selectAll(`${'.barStacked'}`)
+        .selectAll(dotClassNameStack)
         .data((d) => d.barData)
         .attr('x', (d) => d.x)
         .attr('width', (d) => d.width)

@@ -1,16 +1,11 @@
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../core/canvas/canvas'
 import {
   CalculatedData,
   getCalculatedData,
   updateCalculatedData,
 } from './calculatedData'
-import { DrawArgs, TextConfigStrict } from './types'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-  Orientation,
-  ScaleType,
-} from '../../core/enums/enums'
+import { DrawArgs, TextConfig } from './types'
+import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
   QsTextData,
@@ -18,37 +13,10 @@ import {
   QsTextConfig,
   QsTextTransitionData,
 } from './qsTypes'
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-  QsEnumAlignmentBaseline,
-} from '../../core/enums/qsEnums'
 import { interpolate } from 'd3'
-
-const addDefaultsToConfig = (customConfig?: QsTextConfig): TextConfigStrict => {
-  const defaults: TextConfigStrict = {
-    defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
-    defaultTextFont: QsEnumTextFont.SERIF,
-    defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
-    defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
-    defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
-    defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    defaultTextFill: GlobalDefaultColors.TEXT_FILL_COLOR,
-    defaultTextAngle: GlobalDefaultSettings.TEXT_ANGLE,
-    defaultTextStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
-    defaultTextAnchor: QsEnumTextAnchor.START,
-    defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-  }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
-}
+import { linearTextConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 export const linearText = {
   horizontal: (
@@ -59,9 +27,12 @@ export const linearText = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.HORIZONTAL,
-      scaleType: ScaleType.LINEAR,
     }
-    const config: TextConfigStrict = addDefaultsToConfig(customConfig)
+    const config: TextConfig = addDefaultsToConfig<TextConfig>(
+      { ...linearTextConfig },
+      customConfig,
+      { ...canvas.configStore.linear.textConfig() }
+    )
     return draw(canvas, args, config)
   },
   vertical: (
@@ -72,57 +43,31 @@ export const linearText = {
     const args: DrawArgs = {
       data,
       orientation: Orientation.VERTICAL,
-      scaleType: ScaleType.LINEAR,
     }
-    const config: TextConfigStrict = addDefaultsToConfig(customConfig)
-    return draw(canvas, args, config)
-  },
-  horizontalBanded: (
-    canvas: Canvas,
-    data: QsTextData[],
-    customConfig?: QsTextConfig
-  ): QsText => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.HORIZONTAL,
-      scaleType: ScaleType.BANDED,
-    }
-    const config: TextConfigStrict = addDefaultsToConfig(customConfig)
-    return draw(canvas, args, config)
-  },
-  verticalBanded: (
-    canvas: Canvas,
-    data: QsTextData[],
-    customConfig?: QsTextConfig
-  ): QsText => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.VERTICAL,
-      scaleType: ScaleType.BANDED,
-    }
-    const config: TextConfigStrict = addDefaultsToConfig(customConfig)
+    const config: TextConfig = addDefaultsToConfig<TextConfig>(
+      { ...linearTextConfig },
+      customConfig,
+      { ...canvas.configStore.linear.textConfig() }
+    )
     return draw(canvas, args, config)
   },
 }
 
-const draw = (
-  canvas: Canvas,
-  args: DrawArgs,
-  config: TextConfigStrict
-): QsText => {
-  const { orientation, scaleType } = args
+const draw = (canvas: Canvas, args: DrawArgs, config: TextConfig): QsText => {
+  const { orientation } = args
 
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, args, config)
   const { defaultDecimalPoints } = config
 
-  const group = canvas.displayGroup.append('g')
+  const { className, dotClassName } = generateClassName('linearText')
+  const group = canvas.canvasDataGroup.append('g')
 
   group
-    .selectAll('text')
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('text')
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('font-family', (d) => d.textFont)
     .attr('font-style', (d) => d.textFontStyle)
@@ -140,7 +85,7 @@ const draw = (
 
   const transition = (data: QsTextTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
-    const drawArgs: DrawArgs = { data: data.data, orientation, scaleType }
+    const drawArgs: DrawArgs = { data: data.data, orientation }
     calculatedData = updateCalculatedData(
       canvas,
       drawArgs,
@@ -149,7 +94,7 @@ const draw = (
     )
 
     group
-      .selectAll(`.${calculatedData[0].class}`)
+      .selectAll(dotClassName)
       .data(calculatedData)
       .transition()
       .delay(args.delayInMiliSeconds)
@@ -173,7 +118,7 @@ const draw = (
       })
   }
   return {
-    element: group.selectAll(`.${calculatedData[0].class}`),
+    element: group.selectAll(dotClassName),
     transition: (data: QsTextTransitionData) => transition(data),
   }
 }

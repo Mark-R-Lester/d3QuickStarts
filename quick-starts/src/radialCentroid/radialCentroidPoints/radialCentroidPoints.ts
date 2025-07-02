@@ -1,43 +1,19 @@
 import { getCalculatedData, CalculatedData } from './calculatedData'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../core/canvas/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { RadialPointsConfigStrict } from './types'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
+import { RadialPointsConfig } from './types'
 import {
   QsRadialPointData,
   QsRadialPointsConfig,
   QsRadialPoints,
   QsRadialPointsTransitionData,
 } from './qsTypes'
+import { radialCentroidPointsConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 interface DrawArgs {
   data: QsRadialPointData[]
-}
-
-const addDefaultsToConfig = (
-  customConfig?: QsRadialPointsConfig
-): RadialPointsConfigStrict => {
-  const defaults: RadialPointsConfigStrict = {
-    x: GlobalDefaultSettings.RADIAL_X,
-    y: GlobalDefaultSettings.RADIAL_Y,
-    defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
-    defaultFillColor: GlobalDefaultColors.POINT_FILL,
-    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
-    defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
-    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-    fillColorScaleData: undefined,
-    strokeColorScaleData: undefined,
-  }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
 }
 
 export const radialPoint = {
@@ -46,7 +22,11 @@ export const radialPoint = {
     data: QsRadialPointData[],
     customConfig?: QsRadialPointsConfig
   ): QsRadialPoints => {
-    const config: RadialPointsConfigStrict = addDefaultsToConfig(customConfig)
+    const config: RadialPointsConfig = addDefaultsToConfig<RadialPointsConfig>(
+      { ...radialCentroidPointsConfig },
+      customConfig,
+      { ...canvas.configStore.radialCentroid.pointsConfig() }
+    )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)
   },
@@ -55,7 +35,7 @@ export const radialPoint = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: RadialPointsConfigStrict
+  config: RadialPointsConfig
 ): QsRadialPoints => {
   const { data } = args
   const calculatedData: CalculatedData[] = getCalculatedData(
@@ -64,13 +44,14 @@ const draw = (
     config
   )
 
-  const dataPoints = canvas.displayGroup.append('g')
-  dataPoints
-    .selectAll('circle')
+  const { className, dotClassName } = generateClassName('radialCentroidPoints')
+  const group = canvas.canvasDataGroup.append('g')
+  group
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('circle')
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('cx', (d) => d.coordinate.x)
     .attr('cy', (d) => d.coordinate.y)
@@ -82,7 +63,7 @@ const draw = (
     .attr('stroke-width', (d) => d.strokeWidth)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   return {
-    element: dataPoints.selectAll('circle'),
+    element: group.selectAll(dotClassName),
     transition: (data: QsRadialPointsTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       const calculatedData: CalculatedData[] = getCalculatedData(
@@ -90,8 +71,8 @@ const draw = (
         data.data,
         config
       )
-      dataPoints
-        .selectAll(`.${calculatedData[0].class}`)
+      group
+        .selectAll(dotClassName)
         .data(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)

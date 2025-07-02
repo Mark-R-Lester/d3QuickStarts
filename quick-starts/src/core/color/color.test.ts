@@ -5,9 +5,11 @@ import {
   ScaleOrdinal,
   scaleOrdinal,
 } from 'd3'
-import { toStrings } from '../../core/conversion'
+import { toStrings } from '../math/conversion'
 import { GlobalDefaultColors } from '../../core/enums/enums'
-import { getPrecidendedColor, getScaledColor } from './color'
+import { findOrdinalValue, getPrecidendedColor, getScaledColor } from './color'
+import { OrdinalColorScaleData } from '../types/types'
+import { QsEnumColorScale } from '../enums/qsEnums'
 
 describe('color functions', () => {
   describe('getPrecidendedColor', () => {
@@ -26,6 +28,33 @@ describe('color functions', () => {
         expect(getPrecidendedColor(color, defaultColor, scaledColor)).toEqual(
           expectedColor
         )
+      }
+    )
+  })
+
+  describe('findOrdinalValue', () => {
+    test.each`
+      index | rangeLength | range                       | expected | description
+      ${0}  | ${3}        | ${['red', 'blue', 'green']} | ${1}     | ${'index 0 with range length 3 returns 1'}
+      ${1}  | ${3}        | ${['red', 'blue', 'green']} | ${2}     | ${'index 1 with range length 3 returns 2'}
+      ${2}  | ${3}        | ${['red', 'blue', 'green']} | ${3}     | ${'index 2 with range length 3 returns 3'}
+      ${3}  | ${3}        | ${['red', 'blue', 'green']} | ${1}     | ${'index 3 with range length 3 returns 1 (cycles)'}
+      ${4}  | ${3}        | ${['red', 'blue', 'green']} | ${2}     | ${'index 4 with range length 3 returns 2 (cycles)'}
+      ${0}  | ${1}        | ${['red']}                  | ${1}     | ${'index 0 with range length 1 returns 1'}
+      ${1}  | ${1}        | ${['red']}                  | ${1}     | ${'index 1 with range length 1 returns 1'}
+      ${0}  | ${2}        | ${['red', 'blue']}          | ${1}     | ${'index 0 with range length 2 returns 1'}
+      ${1}  | ${2}        | ${['red', 'blue']}          | ${2}     | ${'index 1 with range length 2 returns 2'}
+      ${2}  | ${2}        | ${['red', 'blue']}          | ${1}     | ${'index 2 with range length 2 returns 1 (cycles)'}
+      ${0}  | ${0}        | ${[]}                       | ${NaN}   | ${'index 0 with empty range returns NaN'}
+      ${1}  | ${0}        | ${[]}                       | ${NaN}   | ${'index 1 with empty range returns NaN'}
+    `(
+      'When index is $index and range is $description, the result should be $expected',
+      ({ index, range, expected }) => {
+        const data: OrdinalColorScaleData = {
+          type: QsEnumColorScale.ORDINAL,
+          range,
+        }
+        expect(findOrdinalValue(index, data)).toEqual(expected)
       }
     )
   })

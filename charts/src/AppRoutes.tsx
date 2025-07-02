@@ -4,30 +4,37 @@ import HomePage from './pages/home/HomePage'
 import PlottedTransitionsPage from './pages/plotted/PlottedTransitionsPage'
 import LinearTransitionsPage from './pages/linear/LinearTransitionsPage'
 import RadialTransitionsPage from './pages/radialArc/RadialArcTransitionsPage'
-import LinearBarsPage from './pages/linear/LinearBarChart/LinearBarsPage'
-import LinearAreaPage from './pages/linear/LinearAreaPage'
-import LinearAxisPage from './pages/linear/LinearAxisPage'
-import LinearBarGroupPage from './pages/linear/LinearBarGroupPage'
-import LinearBarStackPage from './pages/linear/LinearBarStackPage'
-import LinearLinePage from './pages/linear/LinearLinePage'
-import LinearPointsPage from './pages/linear/LinearPointsPage'
-import LinearTextPage from './pages/linear/LinearTextPage'
-import PlottedLegendPage from './pages/plotted/PlottedLegendPage'
-import PlottedLinePage from './pages/plotted/PlottedLinePage'
-import PlottedPointsPage from './pages/plotted/PlottedPointsPage'
-import PlottedTextPage from './pages/plotted/PlottedTextPage'
-import RadialArcPage from './pages/radialArc/RadialArcPage'
-import RadialArcTextPage from './pages/radialArc/RadialArcTextPage'
-import RadialCentroidAreaPage from './pages/radialCentroid/RadialCentroidAreaPage'
-import RadialCentroidAxisPage from './pages/radialCentroid/RadialCentroidAxisPage'
-import RadialCentroidLinePage from './pages/radialCentroid/RadialCentroidLinePage'
-import RadialCentroidPointsPage from './pages/radialCentroid/RadialCentroidPointsPage'
-import RadialCentroidSpokesPage from './pages/radialCentroid/RadialCentroidSpokesPage'
+import LinearBarsPage from './pages/linear/bars/LinearBarsPage'
+import RadialCentroidLinePage from './pages/radialCentroid/line/RadialCentroidLinePage'
+import RadialCentroidPointsPage from './pages/radialCentroid/points/RadialCentroidPointsPage'
+import CanvasPage from './pages/canvas/CanvasPage'
+import LinearAreaPage from './pages/linear/area/LinearAreaPage'
+import LinearAxisPage from './pages/linear/axes/LinearAxisPage'
+import LinearBarGroupPage from './pages/linear/barGroup/LinearBarGroupPage'
+import LinearBarStackPage from './pages/linear/barStack/LinearBarStackPage'
+import LinearLinePage from './pages/linear/line/LinearLinePage'
+import LinearPointsPage from './pages/linear/points/LinearPointsPage'
+import LinearTextPage from './pages/linear/text/LinearTextPage'
+import PlottedLinePage from './pages/plotted/line/PlottedLinePage'
+import PlottedPointsPage from './pages/plotted/points/PlottedPointsPage'
+import PlottedTextPage from './pages/plotted/text/PlottedTextPage'
+import RadialArcPage from './pages/radialArc/arc/RadialArcPage'
+import RadialArcTextPage from './pages/radialArc/arcText/RadialArcTextPage'
+import RadialCentroidAreaPage from './pages/radialCentroid/area/RadialCentroidAreaPage'
+import RadialCentroidAxisPage from './pages/radialCentroid/axis/RadialCentroidAxisPage'
+import RadialCentroidSpokesPage from './pages/radialCentroid/spokes/RadialCentroidSpokesPage'
+import UnboundLegendPage from './pages/unbound/legend/UnboundLegendPage'
+import UnboundTextPage from './pages/unbound/text/UnboundTextPage'
 
 export const AppRoutes: FunctionComponent = () => {
   return (
     <Routes>
       <Route path="/" Component={HomePage} />
+
+      <Route path="/canvas" Component={CanvasPage} />
+
+      <Route path="/unbound/legend" Component={UnboundLegendPage} />
+      <Route path="/unbound/text" Component={UnboundTextPage} />
 
       <Route path="/linear/bars" Component={LinearBarsPage} />
       <Route path="/linear/area" Component={LinearAreaPage} />
@@ -41,7 +48,6 @@ export const AppRoutes: FunctionComponent = () => {
       <Route path="/plotted/points" Component={PlottedPointsPage} />
       <Route path="/plotted/line" Component={PlottedLinePage} />
       <Route path="/plotted/text" Component={PlottedTextPage} />
-      <Route path="/plotted/legend" Component={PlottedLegendPage} />
 
       <Route path="/radialarc/arc" Component={RadialArcPage} />
       <Route path="/radialarc/text" Component={RadialArcTextPage} />

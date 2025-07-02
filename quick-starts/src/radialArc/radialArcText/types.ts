@@ -4,13 +4,14 @@ import {
   QsEnumTextFontWeight,
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
+  QsEnumScaleType,
 } from '../../core/enums/qsEnums'
 
-export interface RadialTextConfigStrict {
+export interface RadialTextConfigBase {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
-  radius: number
   x: number
   y: number
+  scaleType: QsEnumScaleType
   defaultDecimalPoints: number
   textFont: QsEnumTextFont | string
   textFontSize: number
@@ -18,6 +19,11 @@ export interface RadialTextConfigStrict {
   textFontWeight: QsEnumTextFontWeight | number
   textDecorationLine: QsEnumTextDecorationLine
   textFill: string
-  textAnchor: QsEnumTextAnchor
   textStroke: string
+}
+
+export interface RadialTextConfig extends RadialTextConfigBase {
+  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
+  radius: number
+  textAnchor: QsEnumTextAnchor
 }

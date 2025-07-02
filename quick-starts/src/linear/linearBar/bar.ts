@@ -1,31 +1,13 @@
 import { Selection } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../core/canvas/canvas'
 import { getCalculatedData, CalculatedData } from './calculatedData'
-import { BarConfigStrict, DrawArgs } from './types'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-  Orientation,
-} from '../../core/enums/enums'
+import { BarConfig, DrawArgs } from './types'
+import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsBarConfig, QsBarData, QsBars, QsBarTransitionData } from './qsTypes'
-
-const addDefaultsToConfig = (customConfig?: QsBarConfig): BarConfigStrict => {
-  const defauls: BarConfigStrict = {
-    padding: 8,
-    defaultFillColor: GlobalDefaultColors.BAR_FILL,
-    defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
-    defaultStrokeColor: GlobalDefaultColors.BAR_STROKE,
-    defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-    fillColorScaleData: undefined,
-    strokeColorScaleData: undefined,
-  }
-  if (!customConfig) return defauls
-
-  Object.keys(customConfig).forEach((key) => (defauls[key] = customConfig[key]))
-  return defauls
-}
+import { linearBarConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 export const linearBar = {
   horizontal: (
@@ -34,7 +16,11 @@ export const linearBar = {
     customConfig?: QsBarConfig
   ): QsBars => {
     const args: DrawArgs = { data, orientation: Orientation.HORIZONTAL }
-    const config: BarConfigStrict = addDefaultsToConfig(customConfig)
+    const config: BarConfig = addDefaultsToConfig<BarConfig>(
+      { ...linearBarConfig },
+      customConfig,
+      { ...canvas.configStore.linear.barConfig() }
+    )
     return draw(canvas, args, config)
   },
   vertical: (
@@ -43,31 +29,32 @@ export const linearBar = {
     customConfig?: QsBarConfig
   ): QsBars => {
     const args: DrawArgs = { data, orientation: Orientation.VERTICAL }
-    const config: BarConfigStrict = addDefaultsToConfig(customConfig)
+    const config: BarConfig = addDefaultsToConfig<BarConfig>(
+      { ...linearBarConfig },
+      customConfig,
+      { ...canvas.configStore.linear.barConfig() }
+    )
     return draw(canvas, args, config)
   },
 }
 
-const draw = (
-  canvas: Canvas,
-  args: DrawArgs,
-  config: BarConfigStrict
-): QsBars => {
+const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
   const { orientation } = args
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
     args,
     config
   )
+  const { className, dotClassName } = generateClassName('linearBars')
 
   const group: Selection<SVGGElement, unknown, HTMLElement, any> =
-    canvas.displayGroup.append('g')
+    canvas.canvasDataGroup.append('g')
   group
-    .selectAll('.bar')
+    .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
     .append('rect')
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('x', (d) => d.barData.x)
     .attr('y', (d) => d.barData.y)
@@ -90,7 +77,7 @@ const draw = (
 
     if (orientation === Orientation.VERTICAL)
       group
-        .selectAll(`.${calculatedData[0].class}`)
+        .selectAll(dotClassName)
         .data(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)
@@ -104,7 +91,7 @@ const draw = (
         .attr('stroke-width', (d) => d.barData.strokeWidth)
     else
       group
-        .selectAll(`.${calculatedData[0].class}`)
+        .selectAll(dotClassName)
         .data(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)
@@ -118,7 +105,7 @@ const draw = (
         .attr('stroke-width', (d) => d.barData.strokeWidth)
   }
   return {
-    element: group.selectAll(`.${calculatedData[0].class}`),
+    element: group.selectAll(dotClassName),
     transition: (data: QsBarTransitionData) => transition(data),
   }
 }

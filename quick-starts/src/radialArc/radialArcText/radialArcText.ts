@@ -1,75 +1,34 @@
 import { arc as d3arc, interpolate } from 'd3'
-import { RadialTextConfigStrict } from './types'
+import { RadialTextConfig } from './types'
 import {
   TextArcData,
   CalculatedData,
   getCalculatedData,
   updateCalculatedData,
 } from './calculatedData'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-  RadialTextType,
-  ScaleType,
-} from '../../core/enums/enums'
+import { RadialTextType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-} from '../../core/enums/qsEnums'
 import { getRotationFunction } from './textRotation'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../core/canvas/canvas'
 import {
   QsRadialTextConfig,
   QsRadialText,
   QsRadialTextTransitionData,
   QsValuedText,
+  QsRadialTextFollow,
 } from './qsTypes'
+import {
+  radialArcTextConfigFollow,
+  radialArcTextConfigHorizontal,
+  radialArcTextConfigRotated,
+  radialArcTextConfigSpoke,
+} from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 interface DrawArgs {
   data: QsValuedText[]
-  scaleType: ScaleType
   type: RadialTextType
-}
-
-const addDefaultsToConfig = (
-  type: RadialTextType,
-  customConfig?: QsRadialTextConfig
-): RadialTextConfigStrict => {
-  const getTextAnchor = (): QsEnumTextAnchor => {
-    return type === RadialTextType.SPOKE
-      ? QsEnumTextAnchor.START
-      : QsEnumTextAnchor.MIDDLE
-  }
-  const getRadius = (): number => {
-    return type === RadialTextType.ROTATED || type === RadialTextType.HORIZONTAL
-      ? 107
-      : 103
-  }
-  const defaults: RadialTextConfigStrict = {
-    radius: getRadius(),
-    x: GlobalDefaultSettings.RADIAL_X,
-    y: GlobalDefaultSettings.RADIAL_Y,
-    defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
-    textFont: QsEnumTextFont.SERIF,
-    textFontSize: GlobalDefaultSettings.FONT_SIZE,
-    textFontStyle: QsEnumTextFontStyle.NORMAL,
-    textFontWeight: QsEnumTextFontWeight.NORMAL,
-    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-    textFill: GlobalDefaultColors.TEXT_FILL_COLOR,
-    textAngle: GlobalDefaultSettings.TEXT_ANGLE,
-    textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
-    textAnchor: getTextAnchor(),
-  }
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
 }
 
 export const radialText = {
@@ -78,13 +37,13 @@ export const radialText = {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
-    const config: RadialTextConfigStrict = addDefaultsToConfig(
-      RadialTextType.SPOKE,
-      customConfig
+    const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
+      { ...radialArcTextConfigSpoke },
+      customConfig,
+      { ...canvas.configStore.radialArc.textConfigSpoke() }
     )
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.LINEAR,
       type: RadialTextType.SPOKE,
     }
     return draw(canvas, args, config)
@@ -94,13 +53,13 @@ export const radialText = {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
-    const config: RadialTextConfigStrict = addDefaultsToConfig(
-      RadialTextType.HORIZONTAL,
-      customConfig
+    const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
+      { ...radialArcTextConfigHorizontal },
+      customConfig,
+      { ...canvas.configStore.radialArc.textConfigHorizontal() }
     )
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.LINEAR,
       type: RadialTextType.HORIZONTAL,
     }
     return draw(canvas, args, config)
@@ -110,13 +69,13 @@ export const radialText = {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
-    const config: RadialTextConfigStrict = addDefaultsToConfig(
-      RadialTextType.ROTATED,
-      customConfig
+    const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
+      { ...radialArcTextConfigRotated },
+      customConfig,
+      { ...canvas.configStore.radialArc.textConfigRotated() }
     )
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.LINEAR,
       type: RadialTextType.ROTATED,
     }
     return draw(canvas, args, config)
@@ -126,77 +85,13 @@ export const radialText = {
     data: QsValuedText[],
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
-    const config: RadialTextConfigStrict = addDefaultsToConfig(
-      RadialTextType.FOLLOW,
-      customConfig
+    const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
+      { ...radialArcTextConfigFollow },
+      customConfig,
+      { ...canvas.configStore.radialArc.textConfigFollow() }
     )
     const args: DrawArgs = {
       data,
-      scaleType: ScaleType.LINEAR,
-      type: RadialTextType.FOLLOW,
-    }
-    return draw(canvas, args, config)
-  },
-  spokeBanded: (
-    canvas: Canvas,
-    data: QsValuedText[],
-    customConfig?: QsRadialTextConfig
-  ): QsRadialText => {
-    const config: RadialTextConfigStrict = addDefaultsToConfig(
-      RadialTextType.SPOKE,
-      customConfig
-    )
-    const args: DrawArgs = {
-      data,
-      scaleType: ScaleType.BANDED,
-      type: RadialTextType.SPOKE,
-    }
-    return draw(canvas, args, config)
-  },
-  horizontalBanded: (
-    canvas: Canvas,
-    data: QsValuedText[],
-    customConfig?: QsRadialTextConfig
-  ): QsRadialText => {
-    const config: RadialTextConfigStrict = addDefaultsToConfig(
-      RadialTextType.HORIZONTAL,
-      customConfig
-    )
-    const args: DrawArgs = {
-      data,
-      scaleType: ScaleType.BANDED,
-      type: RadialTextType.HORIZONTAL,
-    }
-    return draw(canvas, args, config)
-  },
-  rotatedBanded: (
-    canvas: Canvas,
-    data: QsValuedText[],
-    customConfig?: QsRadialTextConfig
-  ): QsRadialText => {
-    const config: RadialTextConfigStrict = addDefaultsToConfig(
-      RadialTextType.ROTATED,
-      customConfig
-    )
-    const args: DrawArgs = {
-      data,
-      scaleType: ScaleType.BANDED,
-      type: RadialTextType.ROTATED,
-    }
-    return draw(canvas, args, config)
-  },
-  followBanded: (
-    canvas: Canvas,
-    data: QsValuedText[],
-    customConfig?: QsRadialTextConfig
-  ): QsRadialText => {
-    const config: RadialTextConfigStrict = addDefaultsToConfig(
-      RadialTextType.FOLLOW,
-      customConfig
-    )
-    const args: DrawArgs = {
-      data,
-      scaleType: ScaleType.BANDED,
       type: RadialTextType.FOLLOW,
     }
     return draw(canvas, args, config)
@@ -206,9 +101,9 @@ export const radialText = {
 const draw = (
   canvas: Canvas,
   args: DrawArgs,
-  config: RadialTextConfigStrict
-): QsRadialText => {
-  const { data, scaleType, type } = args
+  config: RadialTextConfig
+): QsRadialText | QsRadialTextFollow => {
+  const { data, type } = args
   const {
     defaultDecimalPoints,
     textFont,
@@ -222,26 +117,25 @@ const draw = (
 
   let rotate: (angles: TextArcData) => number = getRotationFunction(type)
 
-  let calculatedData: CalculatedData = getCalculatedData(
-    canvas,
-    data,
-    config,
-    scaleType
-  )
+  let calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
   const arc: any = d3arc()
-  const group = canvas.displayGroup.append('g')
+  const group = canvas.canvasDataGroup.append('g')
   const arcs = group.append('g')
   const text = group.append('g')
 
+  const { className, dotClassName } = generateClassName('radialArcText')
+  const { className: classNameArc, dotClassName: dotClassNameArc } =
+    generateClassName('radialArcTextArc')
+
   if (type !== RadialTextType.FOLLOW) {
     text
-      .selectAll(`.${calculatedData.textClass}`)
+      .selectAll(dotClassName)
       .data(calculatedData.textArcData)
       .enter()
       .append('g')
       .attr('transform', `translate(${calculatedData.x}, ${calculatedData.y})`)
       .append('text')
-      .attr('class', (d) => d.textClass)
+      .attr('class', className)
       .attr('id', (d) => d.textId)
       .attr('font-family', textFont)
       .attr('font-style', textFontStyle)
@@ -261,22 +155,22 @@ const draw = (
       )
   } else {
     arcs
-      .selectAll(`.${calculatedData.arcClass}`)
+      .selectAll(dotClassNameArc)
       .data(calculatedData.textArcData)
       .enter()
       .append('path')
-      .attr('class', (d) => d.arcClass)
+      .attr('class', classNameArc)
       .attr('id', (d) => d.arcId)
       .attr('d', arc)
       .attr('stroke-width', 0)
       .attr('fill', 'none')
       .attr('transform', `translate(${calculatedData.x}, ${calculatedData.y})`)
     text
-      .selectAll(`.${calculatedData.textClass}`)
+      .selectAll(dotClassName)
       .data(calculatedData.textArcData)
       .enter()
       .append('text')
-      .attr('class', (d) => d.textClass)
+      .attr('class', className)
       .attr('id', (d) => d.textId)
       .attr('font-family', textFont)
       .attr('font-style', textFontStyle)
@@ -293,37 +187,68 @@ const draw = (
         d.data.text ? d.data.text : d.data.value.toFixed(defaultDecimalPoints)
       )
   }
-  return {
-    elementText: text.selectAll('.text'),
-    elementArcs: arcs.selectAll('.arc'),
-    transition: (data: QsRadialTextTransitionData) => {
-      const args = addTransitionDefaults(data.transitionArgs)
-      calculatedData = updateCalculatedData(
-        canvas,
-        data.data,
-        config,
-        scaleType,
-        calculatedData
-      )
 
-      if (type !== RadialTextType.FOLLOW) {
-        text
-          .selectAll('.text')
-          .data(calculatedData.textArcData)
+  const transition = (data: QsRadialTextTransitionData) => {
+    const args = addTransitionDefaults(data.transitionArgs)
+    calculatedData = updateCalculatedData(
+      canvas,
+      data.data,
+      config,
+      calculatedData
+    )
+
+    if (type !== RadialTextType.FOLLOW) {
+      text
+        .selectAll(dotClassName)
+        .data(calculatedData.textArcData)
+        .transition()
+        .delay(args.delayInMiliSeconds)
+        .duration(args.durationInMiliSeconds)
+        .attrTween('transform', (d) => {
+          const tweenStart = interpolate(d.startAngle, d.newStartAngle)
+          const tweenEnd = interpolate(d.endAngle, d.newEndAngle)
+
+          return function (t: number) {
+            d.startAngle = tweenStart(t)
+            d.endAngle = tweenEnd(t)
+
+            return `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
+          }
+        })
+        .textTween((d) => {
+          const tweenText = interpolate(d.data.value, d.newData.value)
+          return (t: number) => {
+            d.data.value = tweenText(t)
+            return d.data.value.toFixed(defaultDecimalPoints)
+          }
+        })
+    } else {
+      arcs
+        .selectAll(dotClassNameArc)
+        .data(calculatedData.textArcData)
+        .transition()
+        .delay(args.delayInMiliSeconds)
+        .duration(args.durationInMiliSeconds)
+        .attrTween('d', (d) => {
+          const tweenStart = interpolate(d.startAngle, d.newStartAngle)
+          const tweenEnd = interpolate(d.endAngle, d.newEndAngle)
+          return function (t: number) {
+            d.startAngle = tweenStart(t)
+            d.endAngle = tweenEnd(t)
+            return arc(d)
+          }
+        })
+
+      calculatedData.textArcData.forEach((d, i) => {
+        const t = text.select(dotClassName)
+        t.selection().selectChildren().remove()
+        t.append('textPath')
+          .datum(d)
           .transition()
           .delay(args.delayInMiliSeconds)
           .duration(args.durationInMiliSeconds)
-          .attrTween('transform', (d) => {
-            const tweenStart = interpolate(d.startAngle, d.newStartAngle)
-            const tweenEnd = interpolate(d.endAngle, d.newEndAngle)
-
-            return function (t: number) {
-              d.startAngle = tweenStart(t)
-              d.endAngle = tweenEnd(t)
-
-              return `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
-            }
-          })
+          .attr('startOffset', '25%')
+          .attr('xlink:href', `#${d.arcId}`)
           .textTween((d) => {
             const tweenText = interpolate(d.data.value, d.newData.value)
             return (t: number) => {
@@ -331,42 +256,17 @@ const draw = (
               return d.data.value.toFixed(defaultDecimalPoints)
             }
           })
-      } else {
-        arcs
-          .selectAll('.arc')
-          .data(calculatedData.textArcData)
-          .transition()
-          .delay(args.delayInMiliSeconds)
-          .duration(args.durationInMiliSeconds)
-          .attrTween('d', (d) => {
-            const tweenStart = interpolate(d.startAngle, d.newStartAngle)
-            const tweenEnd = interpolate(d.endAngle, d.newEndAngle)
-            return function (t: number) {
-              d.startAngle = tweenStart(t)
-              d.endAngle = tweenEnd(t)
-              return arc(d)
-            }
-          })
-
-        calculatedData.textArcData.forEach((d, i) => {
-          const t = text.select(`#${d.textId}`)
-          t.selection().selectChildren().remove()
-          t.append('textPath')
-            .datum(d)
-            .transition()
-            .delay(args.delayInMiliSeconds)
-            .duration(args.durationInMiliSeconds)
-            .attr('startOffset', '25%')
-            .attr('xlink:href', `#${d.arcId}`)
-            .textTween((d) => {
-              const tweenText = interpolate(d.data.value, d.newData.value)
-              return (t: number) => {
-                d.data.value = tweenText(t)
-                return d.data.value.toFixed(defaultDecimalPoints)
-              }
-            })
-        })
-      }
-    },
+      })
+    }
   }
+  return type === RadialTextType.FOLLOW
+    ? {
+        elementText: text.selectAll(dotClassName),
+        elementArcs: arcs.selectAll(dotClassNameArc),
+        transition,
+      }
+    : {
+        elementText: text.selectAll(dotClassName),
+        transition,
+      }
 }

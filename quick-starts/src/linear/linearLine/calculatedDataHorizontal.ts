@@ -1,21 +1,22 @@
 import { scaleLinear, scaleBand, range, line as d3line } from 'd3'
-import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
-import { DrawArgs, LineConfigStrict, CalculatedData } from './types'
-import { ScaleType } from '../../core/enums/enums'
+import { DrawArgs, LineConfig, CalculatedData } from './types'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { constantsCurves } from '../../core/constants/constants'
+import { Canvas } from '../../core/canvas/canvas'
+import { QsEnumScaleType } from '../../core/enums/qsEnums'
 
 export const getCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
-  config: LineConfigStrict
+  config: LineConfig
 ): CalculatedData => {
   const { displayAreaWidth } = canvas.config
   const { yDataScale, genralPercentScale } = canvas.scales
-  const { data, scaleType } = args
+  const { data } = args
   const { strokeOpacity, strokeColor, strokeWidth } = data
   const {
+    scaleType,
     curve,
     defaultStrokeColor,
     defaultStrokeWidth,
@@ -39,7 +40,7 @@ export const getCalculatedData = (
   let spacingScale: any
   let bandingAdjustment: number
 
-  if (scaleType === ScaleType.BANDED) {
+  if (scaleType === QsEnumScaleType.BANDED) {
     spacingScale = scaleBand()
       .domain(coordinates.map((coordinate) => coordinate.x.toString()))
       .range([0, displayAreaWidth])
@@ -51,13 +52,20 @@ export const getCalculatedData = (
     bandingAdjustment = 0
   }
 
-  const lineFunction = d3line()
-    .x((d) => spacingScale(d[0]) + bandingAdjustment)
-    .y((d) => yDataScale(d[1]))
-    .curve(constantsCurves[curve])
+  let lineFunction
+  if (scaleType === QsEnumScaleType.BANDED) {
+    lineFunction = d3line()
+      .x((d) => spacingScale(d[0].toString()) + bandingAdjustment)
+      .y((d) => yDataScale(d[1]))
+      .curve(constantsCurves[curve])
+  } else {
+    lineFunction = d3line()
+      .x((d) => spacingScale(d[0]))
+      .y((d) => yDataScale(d[1]))
+      .curve(constantsCurves[curve])
+  }
 
   return {
-    class: 'line',
     id: `line${uuidv4()}`,
     lineData,
     lineFunction,

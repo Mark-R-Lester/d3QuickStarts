@@ -1,19 +1,18 @@
 import { scaleBand, scaleOrdinal, range, stack, ScaleOrdinal, Series } from 'd3'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../core/canvas/canvas'
 import { v4 as uuidv4 } from 'uuid'
-import { toStrings } from '../../core/conversion'
-import { BarData, BarStackedConfigStrict } from './types'
+import { toStrings } from '../../core/math/conversion'
+import { BarData, BarStackedConfig } from './types'
 
 export interface CalculatedData {
   groupId: string
-  stackClass: string
   barData: BarData[]
 }
 
 export const getCalculatedData = (
   canvas: Canvas,
   data: number[][],
-  config: BarStackedConfigStrict
+  config: BarStackedConfig
 ): CalculatedData[] => {
   const { displayAreaWidth } = canvas.config
   const { yDataScale } = canvas.scales
@@ -60,7 +59,6 @@ export const getCalculatedData = (
     const data: BarData[] = d.map((d, inner): BarData => {
       return {
         id: barIds[inner],
-        class: `${'barStacked'}`,
         x: x(inner.toString()),
         y: y(d),
         height: height(d),
@@ -70,7 +68,6 @@ export const getCalculatedData = (
     })
     calculatedData.push({
       groupId: `stack${outer}`,
-      stackClass: `${'barStack'}`,
       barData: data,
     })
   })

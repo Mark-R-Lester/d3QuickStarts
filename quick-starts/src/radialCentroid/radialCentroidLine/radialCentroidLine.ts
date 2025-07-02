@@ -1,12 +1,7 @@
 import { lineRadial } from 'd3'
 import { CalculatedData, getCalculatedData } from './calculatedData'
-import { Canvas } from '../../d3QuickStart'
+import { Canvas } from '../../core/canvas/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import {
-  QsEnumCurve,
-  QsEnumLineCap,
-  QsEnumLineJoin,
-} from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
 import {
   QsRadialLineConfig,
@@ -14,33 +9,10 @@ import {
   QsRadialLineTransitionData,
   QsRadialLineData,
 } from './qsTypes'
-import { RadialLineConfigStrict } from './types'
-import {
-  GlobalDefaultColors,
-  GlobalDefaultSettings,
-} from '../../core/enums/enums'
-
-const addDefaultsToConfig = (
-  customConfig?: QsRadialLineConfig
-): RadialLineConfigStrict => {
-  const defaults: RadialLineConfigStrict = {
-    curve: QsEnumCurve.LINEAR,
-    strokeLineJoin: QsEnumLineJoin.ROUND,
-    strokeLineCap: QsEnumLineCap.ROUND,
-    defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
-    defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-    defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
-    x: GlobalDefaultSettings.RADIAL_X,
-    y: GlobalDefaultSettings.RADIAL_Y,
-  }
-
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
-}
+import { RadialLineConfig } from './types'
+import { radialCentroidLineConfig } from '../../core/config/configDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
+import { generateClassName } from '../../core/generateClassName'
 
 export const radialLine = {
   line: (
@@ -48,7 +20,11 @@ export const radialLine = {
     data: QsRadialLineData,
     customConfig?: QsRadialLineConfig
   ): QsRadialLine => {
-    const config: RadialLineConfigStrict = addDefaultsToConfig(customConfig)
+    const config: RadialLineConfig = addDefaultsToConfig<RadialLineConfig>(
+      { ...radialCentroidLineConfig },
+      customConfig,
+      { ...canvas.configStore.radialCentroid.lineConfig() }
+    )
     return draw(canvas, data, config)
   },
 }
@@ -56,17 +32,19 @@ export const radialLine = {
 const draw = (
   canvas: Canvas,
   data: QsRadialLineData,
-  config: RadialLineConfigStrict
+  config: RadialLineConfig
 ): QsRadialLine => {
   const { curve, strokeLineJoin, strokeLineCap } = config
   const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
 
   const radialLine = lineRadial().curve(constantsCurves[curve])
-  const group = canvas.displayGroup.append('g')
+
+  const { className, dotClassName } = generateClassName('radialCentroidLine')
+  const group = canvas.canvasDataGroup.append('g')
   group
     .append('path')
     .datum(calculatedData)
-    .attr('class', (d) => d.class)
+    .attr('class', className)
     .attr('id', (d) => d.id)
     .attr('d', (d) => radialLine(d.lineData))
     .attr('fill', 'none')
@@ -77,7 +55,7 @@ const draw = (
     .attr('stroke-linecap', strokeLineCap)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   return {
-    element: group.selectAll(`.${calculatedData.class}`),
+    element: group.selectAll(dotClassName),
     transition: (data: QsRadialLineTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
       const calculatedData: CalculatedData = getCalculatedData(
@@ -86,7 +64,7 @@ const draw = (
         config
       )
       group
-        .selectAll(`.${calculatedData.class}`)
+        .selectAll(dotClassName)
         .datum(calculatedData)
         .transition()
         .delay(args.delayInMiliSeconds)

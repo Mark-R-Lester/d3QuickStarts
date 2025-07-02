@@ -1,11 +1,8 @@
-import { QsTransitionArgs } from '../../d3QuickStart'
 import { Selection } from 'd3'
+import { BarStackedConfig } from './types'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 
-export interface QsBarStackedConfig {
-  [key: string]: number | Iterable<String> | undefined
-  padding?: number
-  colorRange?: Iterable<String>
-}
+export type QsBarStackedConfig = Partial<BarStackedConfig>
 
 export interface QsBarStackedTransitionData {
   data: number[][]

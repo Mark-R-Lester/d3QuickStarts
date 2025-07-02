@@ -12,7 +12,7 @@ import {
   QsRadialAreaData,
   QsRadialData,
   QsRadialAxisConfig,
-  QsRadialConfig,
+  QsRadialArcConfig,
   QsRadialLineConfig,
   QsRadialPointsConfig,
   QsRadialSpokesConfig,
@@ -21,6 +21,8 @@ import {
   QsRadialPointData,
   QsPointData,
   QsCanvasConfig,
+  QsPlottedTextData,
+  QsPlottedTextConfig,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation, EnumRadialTextOrientation } from './enums'
 
@@ -73,7 +75,7 @@ export interface PointChartProps extends ChartProps {
   orientation: EnumOrientation
 }
 export interface RadialChartProps extends ChartProps {
-  config?: QsRadialConfig
+  config?: QsRadialArcConfig
   data: QsRadialData[]
 }
 export interface RadialAreaChartProps extends ChartProps {
@@ -97,4 +99,9 @@ export interface RadialPointsChartProps extends ChartProps {
 export interface RadialSpokesChartProps extends ChartProps {
   config?: QsRadialSpokesConfig
   data: number
+}
+
+export interface PlottedTextChartProps extends ChartProps {
+  config?: QsPlottedTextConfig
+  data: QsPlottedTextData
 }

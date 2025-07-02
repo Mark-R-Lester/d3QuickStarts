@@ -1,5 +1,5 @@
-import { QsTransitionArgs } from '../d3QuickStart'
 import { addTransitionDefaults } from './addTransitionDefaults'
+import { QsTransitionArgs } from './types/qsTypes'
 
 describe('addTransitionDefaults', () => {
   test('empty transition args is populated with defaults', () => {

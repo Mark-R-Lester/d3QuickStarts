@@ -1,27 +1,43 @@
 import { scaleBand, ScaleOrdinal, range, ScaleSequential } from 'd3'
-import { Canvas } from '../../d3QuickStart'
 import { v4 as uuidv4 } from 'uuid'
-import { toStrings } from '../../core/conversion'
-import { BarConfigStrict, CalculatedDataBarData, DrawArgs } from './types'
+import { toStrings } from '../../core/math/conversion'
+import { BarConfig, CalculatedDataBarData, DrawArgs } from './types'
 import { Orientation } from '../../core/enums/enums'
-
 import {
   getPrecidendedColor,
   getScaledColor,
   getColorScale,
+  findOrdinalValue,
 } from '../../core/color/color'
 import { QsBarData } from './qsTypes'
+import { Canvas } from '../../core/canvas/canvas'
+import { QsEnumColorScale } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
-  class: string
   id: string
   barData: CalculatedDataBarData
+}
+
+export const calculateDataWidth = (
+  lowestViewableValue: number,
+  lowerBoundry: number,
+  upperBoundry: number
+) => {
+  const theBarIsShrinkingOffTheChart =
+    lowerBoundry + (upperBoundry - lowerBoundry) <= lowestViewableValue
+  const theBarIsMovingAcrossTheChart =
+    lowerBoundry <= lowestViewableValue && upperBoundry > lowestViewableValue
+
+  if (theBarIsShrinkingOffTheChart) return lowestViewableValue
+  if (theBarIsMovingAcrossTheChart) return upperBoundry
+
+  return lowestViewableValue + upperBoundry - lowerBoundry
 }
 
 export const getCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
-  config: BarConfigStrict
+  config: BarConfig
 ): CalculatedData[] => {
   const {
     padding,
@@ -34,22 +50,44 @@ export const getCalculatedData = (
     strokeColorScaleData,
   } = config
   const { data, orientation } = args
-
-  const isVertical = orientation === Orientation.VERTICAL
-  const findLowerBoundry = (lowerBoundry: number | undefined) =>
-    lowerBoundry ?? 0
-
-  const { displayAreaWidth, displayAreaHeight, lowestViewableValue } =
-    canvas.config
+  const {
+    displayAreaWidth,
+    displayAreaHeight,
+    lowestViewableValue,
+    highestViewableValue,
+  } = canvas.config
   const { xDataScale, yDataScaleInverted, genralPercentScale } = canvas.scales
   const calculatedData: CalculatedData[] = []
 
-  const getOffset = (offset: number) => {
+  const isVertical = orientation === Orientation.VERTICAL
+
+  const findLowerBoundry = (lowerBoundry: number | undefined) =>
+    lowerBoundry ?? 0
+
+  const ensureIsNotGreaterThanZero = (
+    lowestViewableValue: number,
+    lowerBoundry: number
+  ) => {
+    const offset = lowerBoundry - lowestViewableValue
+    const theLowestViewableValueExceedsTheHighest =
+      lowestViewableValue >= highestViewableValue
+    if (theLowestViewableValueExceedsTheHighest) return 0
+
     return offset >= 0 ? offset : 0
   }
 
+  const getCorrectValueForX = (
+    lowerBoundry: number,
+    lowestViewableValue: number
+  ) => {
+    if (lowerBoundry - lowestViewableValue < 0) return lowestViewableValue
+    return lowerBoundry
+  }
+
   const bandStepScale = scaleBand()
-    .domain(toStrings(range(data.length)))
+    .domain(
+      toStrings(isVertical ? range(data.length).reverse() : range(data.length))
+    )
     .range([0, isVertical ? displayAreaHeight : displayAreaWidth])
   const bandWidthScale = scaleBand()
     .domain(toStrings(range(data.length)))
@@ -59,18 +97,29 @@ export const getCalculatedData = (
   const height = (d: QsBarData) =>
     isVertical
       ? bandWidthScale.bandwidth()
-      : yDataScaleInverted(
-          d.upperBoundry - getOffset(d.lowerBoundry! - lowestViewableValue)
-        )
+      : lowestViewableValue >= highestViewableValue
+        ? 0
+        : yDataScaleInverted(
+            d.upperBoundry -
+              ensureIsNotGreaterThanZero(lowestViewableValue, d.lowerBoundry!)
+          )
   const width = (d: QsBarData) =>
     isVertical
-      ? xDataScale(
-          d.upperBoundry - getOffset(d.lowerBoundry! - lowestViewableValue)
-        )
+      ? lowestViewableValue >= highestViewableValue
+        ? 0
+        : xDataScale(
+            calculateDataWidth(
+              lowestViewableValue,
+              d.lowerBoundry!,
+              d.upperBoundry
+            )
+          )
       : bandWidthScale.bandwidth()
 
   const x = (d: QsBarData, i: number) =>
-    isVertical ? xDataScale(d.upperBoundry!) : barSpaceing(d, i)
+    isVertical
+      ? xDataScale(getCorrectValueForX(d.lowerBoundry!, lowestViewableValue))
+      : barSpaceing(d, i)
   const y = (d: QsBarData, i: number) =>
     isVertical
       ? barSpaceing(d, i)
@@ -82,7 +131,7 @@ export const getCalculatedData = (
     //TODO requires error handling
     const bandStep = bandStepScale(i.toString())
     if (bandStep) return bandStep + adjustmentToCorrectD3
-    return 0
+    return adjustmentToCorrectD3
   }
 
   let fillColorScale:
@@ -102,12 +151,18 @@ export const getCalculatedData = (
 
   data.forEach((d, i) => {
     d.lowerBoundry = findLowerBoundry(d.lowerBoundry)
+
+    const value = d.upperBoundry - d.lowerBoundry!
     const scaledFillColor: string | unknown | undefined = getScaledColor(
-      d.upperBoundry - d.lowerBoundry!,
+      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+        ? findOrdinalValue(i, fillColorScaleData)
+        : value,
       fillColorScale
     )
     const scaledStrokeColor: string | unknown | undefined = getScaledColor(
-      d.upperBoundry - d.lowerBoundry!,
+      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+        ? findOrdinalValue(i, fillColorScaleData)
+        : value,
       strokeColorScale
     )
 
@@ -131,7 +186,6 @@ export const getCalculatedData = (
       strokeOpacity: d.strokeOpacity ?? defaultStrokeOpacity,
     }
     calculatedData.push({
-      class: 'bar',
       id: `bar-${uuidv4()}`,
       barData,
     })

@@ -1,13 +1,13 @@
 import { scaleLinear, scaleOrdinal, ScaleOrdinal, ScaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { toStrings } from '../../core/conversion'
-import { Canvas } from '../../d3QuickStart'
-import { RadialAxisConfigStrict, CalculatedData } from './types'
+import { toStrings } from '../../core/math/conversion'
+import { Canvas } from '../../core/canvas/canvas'
+import { RadialAxisConfig, CalculatedData } from './types'
 
 export const getCalculatedData = (
   canvas: Canvas,
   data: number[],
-  config: RadialAxisConfigStrict
+  config: RadialAxisConfig
 ): CalculatedData[] => {
   const {
     displayAreaHeight,
@@ -32,20 +32,21 @@ export const getCalculatedData = (
   }
 
   const nunberOfArcs = data.length
-  const bandWidth = yPercentScale(radius / 2 / (nunberOfArcs - 1))
+  const bandWidth = genralPercentScale(radius / 2 / (nunberOfArcs - 1))
 
   data.forEach((d, i) => {
-    const radians = axisAngle * (Math.PI / 180)
+    const radians = Math.PI * 2
+
     const calculateTextPosition = () => {
       const hypotenuse: number = bandWidth * i
-      const relativeX: number = Math.sin(radians) * hypotenuse
-      const relativeY: number = Math.cos(radians) * hypotenuse * -1
+      const relativeX: number = Math.sin(radianAngle) * hypotenuse
+      const relativeY: number = Math.cos(radianAngle) * hypotenuse * -1
       return [
         relativeX + displayAreaWidth / 2 + xPercentScale(-50 + x),
         relativeY + displayAreaHeight / 2 + yPercentScale(-50 + y),
       ]
     }
-    const sin: number = gap / (bandWidth * (i + 1))
+
     let text: unknown
     if (ordinal) text = ordialScale(d.toString())
     else text = linearScale(i + 1)
@@ -57,17 +58,18 @@ export const getCalculatedData = (
       else return ''
     }
 
+    const radianAngle = axisAngle * (Math.PI / 180)
+    const halfGap = genralPercentScale(gap / 2) / (bandWidth * i)
+
     calculatedData.push({
       ringId: `ring${uuidv4()}`,
       textId: `ringText${uuidv4()}`,
-      ringClass: `ring`,
-      textClass: `ringText`,
 
       ringData: {
         innerRadius: bandWidth * i,
         outerRadius: bandWidth * i,
-        startAngle: radians + Math.asin(sin),
-        endAngle: radians + Math.PI * 2 - Math.asin(sin),
+        startAngle: radianAngle + halfGap,
+        endAngle: radianAngle + radians - halfGap,
         textLocation: calculateTextPosition(),
         text: handleText(text),
       },
@@ -77,5 +79,6 @@ export const getCalculatedData = (
       strokeWidth: genralPercentScale(strokeWidth),
     })
   })
+
   return calculatedData
 }

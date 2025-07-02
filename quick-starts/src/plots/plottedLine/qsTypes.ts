@@ -1,20 +1,8 @@
 import { Selection } from 'd3'
-import {
-  QsEnumCurve,
-  QsEnumLineCap,
-  QsEnumLineJoin,
-} from '../../core/enums/qsEnums'
-import { QsCoordinate } from '../../d3QuickStart'
+import { PlottedLineConfig } from './types'
+import { QsCoordinate, QsTransitionArgs } from '../../core/types/qsTypes'
 
-export interface QsLinePlotConfig {
-  [key: string]: QsEnumCurve | number | string | undefined
-  curve?: QsEnumCurve
-  defaultStrokeColor?: string
-  defaultStrokeWidth?: number
-  defaultStrokeOpacity?: number
-  strokeLineJoin?: QsEnumLineJoin
-  strokeLineCap?: QsEnumLineCap
-}
+export type QsPlottedLineConfig = Partial<PlottedLineConfig>
 
 export interface QsPlottedLineData {
   [key: string]: number | string | QsCoordinate[] | undefined
@@ -24,8 +12,14 @@ export interface QsPlottedLineData {
   strokeWidth?: number
 }
 
+export interface QsPlottedLineTransitionData {
+  data: QsPlottedLineData
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsLinePlot {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  transition: (data: QsPlottedLineTransitionData) => void
 }

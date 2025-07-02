@@ -5,20 +5,22 @@ import {
   ScaleOrdinal,
   ScaleSequential,
 } from 'd3'
-import { Canvas } from '../../d3QuickStart'
-import { DrawArgs, PointsConfigStrict } from './types'
+import { DrawArgs, PointsConfig } from './types'
 import { v4 as uuidv4 } from 'uuid'
-import { Orientation, ScaleType } from '../../core/enums/enums'
+import { Orientation } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import {
+  findOrdinalValue,
   getColorScale,
   getPrecidendedColor,
   getScaledColor,
 } from '../../core/color/color'
 import { QsPointData } from './qsTypes'
+import { toStrings } from '../../core/math/conversion'
+import { Canvas } from '../../core/canvas/canvas'
+import { QsEnumColorScale, QsEnumScaleType } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
-  class: string
   id: string
   radius: number
   pointData: QsCoordinate
@@ -32,14 +34,14 @@ export interface CalculatedData {
 export const getCalculatedData = (
   canvas: Canvas,
   args: DrawArgs,
-  config: PointsConfigStrict
+  config: PointsConfig
 ): CalculatedData[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { xDataScale, yDataScale, genralPercentScale } = canvas.scales
-  const { data, orientation, scaleType } = args
+  const { data, orientation } = args
   const isVertical = orientation === Orientation.VERTICAL
-  const isBanded = scaleType === ScaleType.BANDED
   const {
+    scaleType,
     defaultRadius,
     defaultFillColor,
     defaultFillOpacity,
@@ -49,6 +51,7 @@ export const getCalculatedData = (
     fillColorScaleData,
     strokeColorScaleData,
   } = config
+  const isBanded = scaleType === QsEnumScaleType.BANDED
 
   const pointSpacing = range(
     0,
@@ -86,8 +89,8 @@ export const getCalculatedData = (
     spacingScale = scaleBand()
       .domain(
         isVertical
-          ? coordinates.map((d) => d.y.toString())
-          : coordinates.map((d) => d.x.toString())
+          ? toStrings(coordinates.map((d) => d.y))
+          : toStrings(coordinates.map((d) => d.x))
       )
       .range(isVertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
   } else {
@@ -99,16 +102,15 @@ export const getCalculatedData = (
       )
       .range(isVertical ? [displayAreaHeight, 0] : [0, displayAreaWidth])
   }
-
   const x = (d: QsCoordinate) => {
     const space = isBanded
-      ? spacingScale(d.x) + spacingScale.bandwidth() / 2
+      ? spacingScale(d.x.toString()) + spacingScale.bandwidth() / 2
       : spacingScale(d.x)
     return isVertical ? dataScale(d.x) : space
   }
   const y = (d: QsCoordinate) => {
     const space = isBanded
-      ? spacingScale(d.y) + spacingScale.bandwidth() / 2
+      ? spacingScale(d.y.toString()) + spacingScale.bandwidth() / 2
       : spacingScale(d.y)
     return isVertical ? space : dataScale(d.y)
   }
@@ -129,16 +131,20 @@ export const getCalculatedData = (
     strokeColorScale = getColorScale(strokeColorScaleData)
 
   const calculatedData: CalculatedData[] = coordinates.map((d, i) => {
+    const value = orientation === Orientation.HORIZONTAL ? d.y : d.x
     const scaledFillColor: string | unknown | undefined = getScaledColor(
-      orientation === Orientation.HORIZONTAL ? d.y : d.x,
+      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+        ? findOrdinalValue(i, fillColorScaleData)
+        : value,
       fillColorScale
     )
     const scaledStrokeColor: string | unknown | undefined = getScaledColor(
-      orientation === Orientation.HORIZONTAL ? d.y : d.x,
+      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+        ? findOrdinalValue(i, fillColorScaleData)
+        : value,
       strokeColorScale
     )
     return {
-      class: 'point',
       id: `point${uuidv4()}`,
       pointData: { x: x(d), y: y(d) },
       fillColor: getPrecidendedColor(

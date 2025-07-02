@@ -8,6 +8,7 @@ import { QsBarConfig, QsBarData, QsBars, QsBarTransitionData } from './qsTypes'
 import { linearBarConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
+import { customRectangle } from '../../core/customShapes/customRectangle'
 
 export const linearBar = {
   horizontal: (
@@ -53,13 +54,10 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
     .selectAll(dotClassName)
     .data(calculatedData)
     .enter()
-    .append('rect')
+    .append('path')
+    .attr('d', (d) => customRectangle(d.barData.rectangleParams))
     .attr('class', className)
     .attr('id', (d) => d.id)
-    .attr('x', (d) => d.barData.x)
-    .attr('y', (d) => d.barData.y)
-    .attr('width', (d) => d.barData.width)
-    .attr('height', (d) => d.barData.height)
     .attr('fill', (d) => d.barData.fillColor)
     .attr('fill-opacity', (d) => d.barData.fillOpacity)
     .attr('stroke', (d) => d.barData.strokeColor)
@@ -82,8 +80,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
-        .attr('width', (d) => d.barData.width)
-        .attr('x', (d) => d.barData.x)
+        .attr('d', (d) => customRectangle(d.barData.rectangleParams))
         .attr('fill', (d) => d.barData.fillColor)
         .attr('fill-opacity', (d) => d.barData.fillOpacity)
         .attr('stroke', (d) => d.barData.strokeColor)
@@ -96,8 +93,7 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
-        .attr('height', (d) => d.barData.height)
-        .attr('y', (d) => d.barData.y)
+        .attr('d', (d) => customRectangle(d.barData.rectangleParams))
         .attr('fill', (d) => d.barData.fillColor)
         .attr('fill-opacity', (d) => d.barData.fillOpacity)
         .attr('stroke', (d) => d.barData.strokeColor)

@@ -10,6 +10,14 @@ export interface QsBarData {
   strokeColor?: string
   strokeWidth?: number
   strokeOpacity?: number
+  topLeftCornerRadiusCx?: number
+  topLeftCornerRadiusCy?: number
+  topRightCornerRadiusCy?: number
+  topRightCornerRadiusCx?: number
+  bottomLeftCornerRadiusCx?: number
+  bottomLeftCornerRadiusCy?: number
+  bottomRightCornerRadiusCx?: number
+  bottomRightCornerRadiusCy?: number
 }
 
 export type QsBarConfig = Partial<BarConfig>

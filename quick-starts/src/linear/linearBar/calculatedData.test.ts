@@ -95,14 +95,22 @@ describe('Linear Bars calculatedData', () => {
           elements: [],
         }
         const calculatedData = getCalculatedData(canvas, args, config)
-        expect(calculatedData[0].barData.y).toEqual(zeroY)
-        expect(calculatedData[0].barData.height).toEqual(zeroHeight)
-        expect(calculatedData[1].barData.y).toEqual(oneY)
-        expect(calculatedData[1].barData.height).toEqual(oneHeight)
-        expect(calculatedData[2].barData.y).toEqual(twoY)
-        expect(calculatedData[2].barData.height).toEqual(twoHeight)
-        expect(calculatedData[3].barData.y).toEqual(threeY)
-        expect(calculatedData[3].barData.height).toEqual(threeHeight)
+        expect(calculatedData[0].barData.rectangleParams.y).toEqual(zeroY)
+        expect(calculatedData[0].barData.rectangleParams.height).toEqual(
+          zeroHeight
+        )
+        expect(calculatedData[1].barData.rectangleParams.y).toEqual(oneY)
+        expect(calculatedData[1].barData.rectangleParams.height).toEqual(
+          oneHeight
+        )
+        expect(calculatedData[2].barData.rectangleParams.y).toEqual(twoY)
+        expect(calculatedData[2].barData.rectangleParams.height).toEqual(
+          twoHeight
+        )
+        expect(calculatedData[3].barData.rectangleParams.y).toEqual(threeY)
+        expect(calculatedData[3].barData.rectangleParams.height).toEqual(
+          threeHeight
+        )
       }
     )
 
@@ -148,10 +156,14 @@ describe('Linear Bars calculatedData', () => {
           elements: [],
         }
         const calculatedData = getCalculatedData(canvas, args, config)
-        expect(calculatedData[0].barData.y).toEqual(zeroY)
-        expect(calculatedData[0].barData.height).toEqual(zeroHeight)
-        expect(calculatedData[1].barData.y).toEqual(oneY)
-        expect(calculatedData[1].barData.height).toEqual(oneHeight)
+        expect(calculatedData[0].barData.rectangleParams.y).toEqual(zeroY)
+        expect(calculatedData[0].barData.rectangleParams.height).toEqual(
+          zeroHeight
+        )
+        expect(calculatedData[1].barData.rectangleParams.y).toEqual(oneY)
+        expect(calculatedData[1].barData.rectangleParams.height).toEqual(
+          oneHeight
+        )
       }
     )
   })
@@ -204,14 +216,22 @@ describe('Linear Bars calculatedData', () => {
           elements: [],
         }
         const calculatedData = getCalculatedData(canvas, args, config)
-        expect(calculatedData[0].barData.x).toEqual(zeroY)
-        expect(calculatedData[0].barData.width).toEqual(zeroHeight)
-        expect(calculatedData[1].barData.x).toEqual(oneY)
-        expect(calculatedData[1].barData.width).toEqual(oneHeight)
-        expect(calculatedData[2].barData.x).toEqual(twoY)
-        expect(calculatedData[2].barData.width).toEqual(twoHeight)
-        expect(calculatedData[3].barData.x).toEqual(threeY)
-        expect(calculatedData[3].barData.width).toEqual(threeHeight)
+        expect(calculatedData[0].barData.rectangleParams.x).toEqual(zeroY)
+        expect(calculatedData[0].barData.rectangleParams.width).toEqual(
+          zeroHeight
+        )
+        expect(calculatedData[1].barData.rectangleParams.x).toEqual(oneY)
+        expect(calculatedData[1].barData.rectangleParams.width).toEqual(
+          oneHeight
+        )
+        expect(calculatedData[2].barData.rectangleParams.x).toEqual(twoY)
+        expect(calculatedData[2].barData.rectangleParams.width).toEqual(
+          twoHeight
+        )
+        expect(calculatedData[3].barData.rectangleParams.x).toEqual(threeY)
+        expect(calculatedData[3].barData.rectangleParams.width).toEqual(
+          threeHeight
+        )
       }
     )
 
@@ -257,10 +277,14 @@ describe('Linear Bars calculatedData', () => {
           elements: [],
         }
         const calculatedData = getCalculatedData(canvas, args, config)
-        expect(calculatedData[0].barData.x).toEqual(zeroY)
-        expect(calculatedData[0].barData.width).toEqual(zeroHeight)
-        expect(calculatedData[1].barData.x).toEqual(oneY)
-        expect(calculatedData[1].barData.width).toEqual(oneHeight)
+        expect(calculatedData[0].barData.rectangleParams.x).toEqual(zeroY)
+        expect(calculatedData[0].barData.rectangleParams.width).toEqual(
+          zeroHeight
+        )
+        expect(calculatedData[1].barData.rectangleParams.x).toEqual(oneY)
+        expect(calculatedData[1].barData.rectangleParams.width).toEqual(
+          oneHeight
+        )
       }
     )
   })

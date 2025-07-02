@@ -1,17 +1,15 @@
+import { RectangleParams } from '../../core/customShapes/customRectangle'
 import { Orientation } from '../../core/enums/enums'
 import { QsColorScaleData } from '../../core/types/qsTypes'
 import { QsBarData } from './qsTypes'
 
 export interface CalculatedDataBarData {
-  x: number
-  y: number
-  height: number
-  width: number
   fillColor: string
   fillOpacity: number
   strokeColor: string
   strokeWidth: number
   strokeOpacity: number
+  rectangleParams: RectangleParams
 }
 
 export interface DrawArgs {
@@ -29,4 +27,12 @@ export interface BarConfig {
   defaultStrokeOpacity: number
   fillColorScaleData?: QsColorScaleData
   strokeColorScaleData?: QsColorScaleData
+  defaultTopLeftCornerRadiusCx?: number
+  defaultTopLeftCornerRadiusCy?: number
+  defaultTopRightCornerRadiusCx?: number
+  defaultTopRightCornerRadiusCy?: number
+  defaultTBottomLeftCornerRadiusCx?: number
+  defaultTBottomLeftCornerRadiusCy?: number
+  defaultTBottomRightCornerRadiusCx?: number
+  defaultTBottomRightCornerRadiusCy?: number
 }

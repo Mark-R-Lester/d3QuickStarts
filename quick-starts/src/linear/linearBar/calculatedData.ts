@@ -12,6 +12,8 @@ import {
 import { QsBarData } from './qsTypes'
 import { Canvas } from '../../core/canvas/canvas'
 import { QsEnumColorScale } from '../../core/enums/qsEnums'
+import { RectangleParams } from '../../core/customShapes/customRectangle'
+import { rotateCorners } from './rotateCorners'
 
 export interface CalculatedData {
   id: string
@@ -48,6 +50,14 @@ export const getCalculatedData = (
     defaultStrokeOpacity,
     fillColorScaleData,
     strokeColorScaleData,
+    defaultTopLeftCornerRadiusCx,
+    defaultTopLeftCornerRadiusCy,
+    defaultTopRightCornerRadiusCx,
+    defaultTopRightCornerRadiusCy,
+    defaultTBottomLeftCornerRadiusCx,
+    defaultTBottomLeftCornerRadiusCy,
+    defaultTBottomRightCornerRadiusCx,
+    defaultTBottomRightCornerRadiusCy,
   } = config
   const { data, orientation } = args
   const {
@@ -116,6 +126,12 @@ export const getCalculatedData = (
           )
       : bandWidthScale.bandwidth()
 
+  const scaleRadius = (radius?: number): number | undefined => {
+    return radius === undefined
+      ? radius
+      : (bandWidthScale.bandwidth() / 100) * radius
+  }
+
   const x = (d: QsBarData, i: number) =>
     isVertical
       ? xDataScale(getCorrectValueForX(d.lowerBoundry!, lowestViewableValue))
@@ -166,11 +182,41 @@ export const getCalculatedData = (
       strokeColorScale
     )
 
-    const barData: CalculatedDataBarData = {
-      x: x(d, i),
-      y: y(d, i),
+    let rectangleParams: RectangleParams = {
       height: height(d),
       width: width(d),
+      x: x(d, i),
+      y: y(d, i),
+      topLeftCornerRadiusCx: scaleRadius(
+        d.topLeftCornerRadiusCx ?? defaultTopLeftCornerRadiusCx
+      ),
+      topLeftCornerRadiusCy: scaleRadius(
+        d.topLeftCornerRadiusCy ?? defaultTopLeftCornerRadiusCy
+      ),
+      topRightCornerRadiusCx: scaleRadius(
+        d.topRightCornerRadiusCx ?? defaultTopRightCornerRadiusCx
+      ),
+      topRightCornerRadiusCy: scaleRadius(
+        d.topRightCornerRadiusCy ?? defaultTopRightCornerRadiusCy
+      ),
+      bottomLeftCornerRadiusCx: scaleRadius(
+        d.bottomLeftCornerRadiusCx ?? defaultTBottomLeftCornerRadiusCx
+      ),
+      bottomLeftCornerRadiusCy: scaleRadius(
+        d.bottomLeftCornerRadiusCy ?? defaultTBottomLeftCornerRadiusCy
+      ),
+      bottomRightCornerRadiusCx: scaleRadius(
+        d.bottomRightCornerRadiusCx ?? defaultTBottomRightCornerRadiusCx
+      ),
+      bottomRightCornerRadiusCy: scaleRadius(
+        d.bottomRightCornerRadiusCy ?? defaultTBottomRightCornerRadiusCy
+      ),
+    }
+
+    if (isVertical) rectangleParams = rotateCorners(rectangleParams)
+
+    const barData: CalculatedDataBarData = {
+      rectangleParams,
       fillColor: getPrecidendedColor(
         d.fillColor,
         defaultFillColor,

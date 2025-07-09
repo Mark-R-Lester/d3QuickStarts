@@ -9,6 +9,7 @@ export { QsGenerator } from './generators'
 export type QsCanvasConfig = Partial<CanvasConfig>
 
 export interface QsCanvas {
+  canvasSVG: Selection<SVGSVGElement, unknown, HTMLElement, any>
   canvasGroup: Selection<SVGGElement, unknown, HTMLElement, any>
   canvasDataGroup: Selection<SVGGElement, unknown, HTMLElement, any>
   config: CanvasConfig

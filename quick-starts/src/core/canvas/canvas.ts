@@ -55,9 +55,9 @@ const draw = (chartName: string, config: CanvasConfig): QsCanvas => {
   const displayAreaHeight =
     config.height - (config.marginTop + config.marginBottom)
 
-  const canvasOuter = select(chartName).append('svg')
-  canvasOuter.attr('width', config.width).attr('height', config.height)
-  canvasOuter
+  const canvasSVG = select(chartName).append('svg')
+  canvasSVG.attr('width', config.width).attr('height', config.height)
+  canvasSVG
     .append('rect')
     .attr('x', 0)
     .attr('y', 0)
@@ -69,7 +69,7 @@ const draw = (chartName: string, config: CanvasConfig): QsCanvas => {
     .style('fill', config.fillColor)
     .style('stroke-width', config.borderWidth)
 
-  const canvasGroup = canvasOuter.append('g')
+  const canvasGroup = canvasSVG.append('g')
   canvasGroup
     .attr('class', 'displayGroup')
     .attr(
@@ -79,7 +79,7 @@ const draw = (chartName: string, config: CanvasConfig): QsCanvas => {
     .attr('width', displayAreaWidth)
     .attr('height', displayAreaHeight)
 
-  const canvasDataArea = canvasOuter
+  const canvasDataArea = canvasSVG
     .append('svg')
     .attr('width', displayAreaWidth)
     .attr('height', displayAreaHeight)
@@ -109,6 +109,7 @@ const draw = (chartName: string, config: CanvasConfig): QsCanvas => {
   const generate: QsGenerator = getGenerators(canvas)
 
   return {
+    canvasSVG: canvasSVG,
     canvasGroup,
     canvasDataGroup,
     config,

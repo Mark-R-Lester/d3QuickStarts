@@ -4,6 +4,7 @@ export * from './core/max'
 export * from './core/min'
 export * from './core/types/qsTypes'
 export * from './core/enums/qsEnums'
+export * from './core/gradients/gradients'
 
 export * from './unbound/legend/qsTypes'
 export * from './unbound/text/qsTypes'

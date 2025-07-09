@@ -81,7 +81,6 @@ export const linearAreaConfig: QsAreaConfig = {
 
 const linearAxisConfigBase: QsAxisConfig = {
   percentageMovement: 0,
-
   domainColor: GlobalDefaultColors.AXIS_COLOR,
   domainOpacity: 1,
   domainWidth: 2,
@@ -93,7 +92,6 @@ const linearAxisConfigBase: QsAxisConfig = {
   tickSizeOuter: 2,
   tickPadding: 1,
   numberOfTicks: 0,
-
   textFont: QsEnumTextFont.SERIF,
   textFontSize: 6,
   textFontStyle: QsEnumTextFontStyle.NORMAL,

@@ -3,13 +3,11 @@ import {
   QsEnumLineJoin,
   QsEnumLineCap,
 } from '../../core/enums/qsEnums'
+import { ConfigStrokeDefaults } from '../../core/types/types'
 
-export interface PlottedLineConfig {
+export interface PlottedLineConfig extends ConfigStrokeDefaults {
   [key: string]: QsEnumCurve | number | string | undefined
   curve: QsEnumCurve
-  defaultStrokeColor: string
-  defaultStrokeWidth: number
-  defaultStrokeOpacity: number
   strokeLineJoin: QsEnumLineJoin
   strokeLineCap: QsEnumLineCap
 }

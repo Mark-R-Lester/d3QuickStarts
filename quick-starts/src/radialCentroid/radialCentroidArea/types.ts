@@ -3,6 +3,7 @@ import {
   QsEnumLineCap,
   QsEnumLineJoin,
 } from '../../core/enums/qsEnums'
+import { ConfigStrokeDefaults } from '../../core/types/types'
 
 export interface AreaData {
   angle: number
@@ -22,16 +23,13 @@ export interface CalculatedData {
   y: number
 }
 
-export interface RadialAreaConfig {
+export interface RadialAreaConfig extends ConfigStrokeDefaults {
   [key: string]: QsEnumCurve | number | undefined | string
   curve: QsEnumCurve
   x: number
   y: number
   defaultFillColor: string
   defaultFillOpacity: number
-  defaultStrokeColor: string
-  defaultStrokeWidth: number
-  defaultStrokeOpacity: number
   strokeLineJoin: QsEnumLineJoin
   strokeLineCap: QsEnumLineCap
 }

@@ -31,6 +31,12 @@ export interface SequentialColorScaleData extends ColorScale {
   domain: number[]
 }
 
+export interface ConfigStrokeDefaults {
+  defaultStrokeColor: string
+  defaultStrokeWidth: number
+  defaultStrokeOpacity: number
+}
+
 export interface ConfigTextDefaults {
   defaultTextFont: QsEnumTextFont | string
   defaultTextFontSize: number

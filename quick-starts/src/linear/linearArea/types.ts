@@ -4,6 +4,7 @@ import {
   QsEnumLineJoin,
   QsEnumLineCap,
 } from '../../core/enums/qsEnums'
+import { ConfigStrokeDefaults } from '../../core/types/types'
 
 export interface AreaData {
   x: number
@@ -21,14 +22,11 @@ export interface CalculatedData {
   strokeOpacity: number
 }
 
-export interface AreaConfig {
+export interface AreaConfig extends ConfigStrokeDefaults {
   [key: string]: CurveFactory | string | number | undefined
   curve: QsEnumCurve
   defaultFillColor: string
   defaultFillOpacity: number
-  defaultStrokeColor: string
-  defaultStrokeWidth: number
-  defaultStrokeOpacity: number
   strokeLineJoin: QsEnumLineJoin
   strokeLineCap: QsEnumLineCap
 }

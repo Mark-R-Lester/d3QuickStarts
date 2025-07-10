@@ -3,14 +3,12 @@ import {
   QsEnumLineCap,
   QsEnumLineJoin,
 } from '../../core/enums/qsEnums'
+import { ConfigStrokeDefaults } from '../../core/types/types'
 
-export interface RadialLineConfig {
+export interface RadialLineConfig extends ConfigStrokeDefaults {
   [key: string]: number | QsEnumCurve | string | undefined
   x: number
   y: number
-  defaultStrokeColor: string
-  defaultStrokeWidth: number
-  defaultStrokeOpacity: number
   curve: QsEnumCurve
   strokeLineJoin: QsEnumLineJoin
   strokeLineCap: QsEnumLineCap

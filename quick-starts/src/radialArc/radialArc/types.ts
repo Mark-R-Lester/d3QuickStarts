@@ -1,6 +1,7 @@
 import { QsColorScaleData } from '../../core/types/qsTypes'
+import { ConfigStrokeDefaults } from '../../core/types/types'
 
-export interface RadialArcConfig {
+export interface RadialArcConfig extends ConfigStrokeDefaults {
   [key: string]: number | QsColorScaleData | string | undefined
   outerRadius: number
   innerRadius: number
@@ -10,9 +11,6 @@ export interface RadialArcConfig {
   y: number
   defaultFillColor: string
   defaultFillOpacity: number
-  defaultStrokeColor: string
-  defaultStrokeWidth: number
-  defaultStrokeOpacity: number
   fillColorScaleData?: QsColorScaleData
   strokeColorScaleData?: QsColorScaleData
 }

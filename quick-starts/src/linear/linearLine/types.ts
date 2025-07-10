@@ -8,19 +8,17 @@ import {
 } from '../../core/enums/qsEnums'
 
 import { QsLineData } from './qsTypes'
+import { ConfigStrokeDefaults } from '../../core/types/types'
 
 export interface DrawArgs {
   data: QsLineData
   orientation: Orientation
 }
 
-export interface LineConfig {
+export interface LineConfig extends ConfigStrokeDefaults {
   [key: string]: QsEnumCurve | number | string | undefined
   scaleType: QsEnumScaleType
   curve: QsEnumCurve
-  defaultStrokeColor: string
-  defaultStrokeWidth: number
-  defaultStrokeOpacity: number
   strokeLineJoin: QsEnumLineJoin
   strokeLineCap: QsEnumLineCap
 }

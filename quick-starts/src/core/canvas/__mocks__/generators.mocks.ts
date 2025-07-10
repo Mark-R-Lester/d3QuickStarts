@@ -1,4 +1,4 @@
-import { Selection } from 'd3'
+import { createMockSelection } from './selection.mocks'
 
 jest.mock('d3', () => ({
   select: jest.fn().mockReturnValue({
@@ -13,25 +13,6 @@ jest.mock('d3', () => ({
     remove: jest.fn().mockReturnThis(),
   }),
 }))
-
-// Centralized mock selection utility
-export const createMockSelection = <T extends SVGElement>(): Selection<
-  T,
-  unknown,
-  HTMLElement,
-  any
-> =>
-  ({
-    append: jest.fn().mockReturnThis(),
-    attr: jest.fn().mockReturnThis(),
-    style: jest.fn().mockReturnThis(),
-    select: jest.fn().mockReturnThis(),
-    selectAll: jest.fn().mockReturnThis(),
-    data: jest.fn().mockReturnThis(),
-    enter: jest.fn().mockReturnThis(),
-    exit: jest.fn().mockReturnThis(),
-    remove: jest.fn().mockReturnThis(),
-  }) as any
 
 // Helper for selection and transition
 const getMockSelectionAndTransition = () => ({

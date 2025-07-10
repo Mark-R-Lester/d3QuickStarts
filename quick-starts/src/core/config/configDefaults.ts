@@ -1,4 +1,3 @@
-import { schemePurples } from 'd3'
 import { GlobalDefaultColors, GlobalDefaultSettings } from '../enums/enums'
 
 import { LegendConfig } from '../../unbound/legend/types'
@@ -151,13 +150,21 @@ export const linearBarConfig: BarConfig = {
 }
 
 export const linearBarGroupConfig: BarGroupConfig = {
-  colorRange: schemePurples[4],
+  colorRange: ['red', 'blue', 'green', 'orange'],
   padding: 20,
+  fillOpacity: 1,
+  strokeColor: 'none',
+  strokeWidth: 0,
+  strokeOpacity: 1,
 }
 
 export const linearBarStackConfig: BarStackedConfig = {
-  colorRange: schemePurples[4],
+  colorRange: ['red', 'blue', 'green', 'orange'],
   padding: 20,
+  fillOpacity: 1,
+  strokeColor: 'none',
+  strokeWidth: 0,
+  strokeOpacity: 1,
 }
 
 export const linearLineConfig: LineConfig = {

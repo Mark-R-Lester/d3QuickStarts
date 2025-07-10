@@ -53,8 +53,12 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
     const createChart = () => {
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
-      let grouped = canvas.generate.linear.horizontal.barGroup(dataMax)
-      let stacked = canvas.generate.linear.horizontal.barStack(dataMin)
+      let grouped = canvas.generate.linear.horizontal.barGroup({
+        data: dataMax,
+      })
+      let stacked = canvas.generate.linear.horizontal.barStack({
+        data: dataMin,
+      })
 
       setGrouped(grouped)
       setStacked(stacked)
@@ -65,9 +69,19 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
   useEffect(
     function transitionGrouped() {
       if (changedGroup) {
-        if (grouped) grouped.transition({ data: dataMax })
+        if (grouped)
+          grouped.transition({
+            data: {
+              data: dataMin,
+            },
+          })
       } else {
-        if (grouped) grouped.transition({ data: dataMin })
+        if (grouped)
+          grouped.transition({
+            data: {
+              data: dataMin,
+            },
+          })
       }
       setTimeout(() => setChangedGroup(!changedGroup), 3000)
     },
@@ -76,14 +90,24 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
 
   useEffect(
     function transitionStacked() {
-      if (changedStack) {
-        if (stacked) stacked.transition({ data: dataMin })
+      if (changedGroup) {
+        if (grouped)
+          grouped.transition({
+            data: {
+              data: dataMin,
+            },
+          })
       } else {
-        if (stacked) stacked.transition({ data: dataMax })
+        if (grouped)
+          grouped.transition({
+            data: {
+              data: dataMin,
+            },
+          })
       }
       setTimeout(() => setChangedStack(!changedStack), 3000)
     },
-    [stacked, changedStack, dataMin, dataMax]
+    [stacked, changedStack, dataMin, dataMax, changedGroup, grouped]
   )
 
   return (

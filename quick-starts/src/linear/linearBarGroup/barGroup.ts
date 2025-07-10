@@ -4,6 +4,7 @@ import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { Canvas } from '../../core/canvas/canvas'
 import {
   QsBarGroupConfig,
+  QsBarGroupedData,
   QsBarGroups,
   QsBarGroupTransitionData,
 } from './qsTypes'
@@ -11,14 +12,10 @@ import { linearBarGroupConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 
-interface DrawArgs {
-  data: number[][]
-}
-
 export const linearBarGroup = {
   group: (
     canvas: Canvas,
-    data: number[][],
+    data: QsBarGroupedData,
     customConfig?: QsBarGroupConfig
   ): QsBarGroups => {
     const config: BarGroupConfig = addDefaultsToConfig<BarGroupConfig>(
@@ -26,14 +23,13 @@ export const linearBarGroup = {
       customConfig,
       { ...canvas.configStore.linear.barGroupConfig() }
     )
-    const args: DrawArgs = { data }
-    return draw(canvas, args, config)
+    return draw(canvas, data, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  args: DrawArgs,
+  args: QsBarGroupedData,
   config: BarGroupConfig
 ): QsBarGroups => {
   const { data } = args
@@ -42,6 +38,7 @@ const draw = (
     data,
     config
   )
+  const { fillOpacity, strokeColor, strokeWidth, strokeOpacity } = config
   const { className, dotClassName } = generateClassName('linearBarGrouped')
   const { className: classNameGroup, dotClassName: dotClassNameGroup } =
     generateClassName('linearBarGroup')
@@ -66,6 +63,10 @@ const draw = (
     .attr('y', (d) => d.y)
     .attr('height', (d) => d.height)
     .attr('width', (d) => d.width)
+    .attr('fill-opacity', fillOpacity)
+    .attr('stroke', strokeColor)
+    .attr('stroke-opacity', strokeOpacity)
+    .attr('stroke-width', strokeWidth)
 
   return {
     element: barGroups.selectAll(dotClassName),
@@ -73,7 +74,7 @@ const draw = (
       const args = addTransitionDefaults(data.transitionArgs)
       const calculatedData: CalculatedData[] = getCalculatedData(
         canvas,
-        data.data,
+        data.data.data,
         config
       )
       const bars = canvas.canvasGroup

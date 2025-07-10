@@ -24,7 +24,7 @@ export const LinearBarsGroupedDefaultsChart: FunctionComponent<ChartProps> = ({
       ]
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
-      canvas.generate.linear.horizontal.barGroup(data)
+      canvas.generate.linear.horizontal.barGroup({ data })
       canvas.generate.linear.vertical.axis.left([])
       canvas.generate.linear.horizontal.axis.bottom(
         [1, 2, 3, 4, 5, 6, 7, 8, 9],

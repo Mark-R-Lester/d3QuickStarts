@@ -1,24 +1,21 @@
-import { BarStackedConfig } from './types'
-import { CalculatedData, getCalculatedData } from './calculatedData'
+import { BarStackedConfig, CalculatedData } from './types'
+import { getCalculatedData } from './calculatedData'
 import { Canvas } from '../../core/canvas/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
   QsBarStackedConfig,
   QsBarStack,
   QsBarStackedTransitionData,
+  QsBarStackedData,
 } from './qsTypes'
 import { linearBarStackConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 
-interface DrawArgs {
-  data: number[][]
-}
-
 export const linearBarStack = {
   stack: (
     canvas: Canvas,
-    data: number[][],
+    data: QsBarStackedData,
     customConfig?: QsBarStackedConfig
   ): QsBarStack => {
     const config: BarStackedConfig = addDefaultsToConfig<BarStackedConfig>(
@@ -26,14 +23,13 @@ export const linearBarStack = {
       customConfig,
       { ...canvas.configStore.linear.barStackConfig() }
     )
-    const args: DrawArgs = { data }
-    return draw(canvas, args, config)
+    return draw(canvas, data, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  args: DrawArgs,
+  args: QsBarStackedData,
   config: BarStackedConfig
 ): QsBarStack => {
   const { data } = args
@@ -43,7 +39,7 @@ const draw = (
     data,
     config
   )
-
+  const { fillOpacity, strokeColor, strokeWidth, strokeOpacity } = config
   const { className, dotClassName } = generateClassName('linearBarStacked')
   const { className: classNameStack, dotClassName: dotClassNameStack } =
     generateClassName('linearBarStack')
@@ -68,6 +64,10 @@ const draw = (
     .attr('y', (d) => d.y)
     .attr('height', (d) => d.height)
     .attr('width', (d) => d.width)
+    .attr('fill-opacity', fillOpacity)
+    .attr('stroke', strokeColor)
+    .attr('stroke-opacity', strokeOpacity)
+    .attr('stroke-width', strokeWidth)
 
   return {
     element: barStacks.selectAll(dotClassName),
@@ -75,7 +75,7 @@ const draw = (
       const args = addTransitionDefaults(data.transitionArgs)
       const calculatedData: CalculatedData[] = getCalculatedData(
         canvas,
-        data.data,
+        data.data.data,
         config
       )
 

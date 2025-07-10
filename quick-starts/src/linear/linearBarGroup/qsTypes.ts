@@ -4,8 +4,12 @@ import { BarGroupConfig } from './types'
 
 export type QsBarGroupConfig = Partial<BarGroupConfig>
 
-export interface QsBarGroupTransitionData {
+export interface QsBarGroupedData {
   data: number[][]
+}
+
+export interface QsBarGroupTransitionData {
+  data: QsBarGroupedData
   transitionArgs?: QsTransitionArgs
 }
 

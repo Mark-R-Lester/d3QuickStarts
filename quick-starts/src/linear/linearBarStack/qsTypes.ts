@@ -4,8 +4,12 @@ import { QsTransitionArgs } from '../../core/types/qsTypes'
 
 export type QsBarStackedConfig = Partial<BarStackedConfig>
 
-export interface QsBarStackedTransitionData {
+export interface QsBarStackedData {
   data: number[][]
+}
+
+export interface QsBarStackedTransitionData {
+  data: QsBarStackedData
   transitionArgs?: QsTransitionArgs
 }
 

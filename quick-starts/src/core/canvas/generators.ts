@@ -17,12 +17,14 @@ import { QsBarConfig, QsBarData, QsBars } from '../../linear/linearBar/qsTypes'
 import { linearBarGroup } from '../../linear/linearBarGroup/barGroup'
 import {
   QsBarGroupConfig,
+  QsBarGroupedData,
   QsBarGroups,
 } from '../../linear/linearBarGroup/qsTypes'
 import { linearBarStack } from '../../linear/linearBarStack/barStack'
 import {
   QsBarStack,
   QsBarStackedConfig,
+  QsBarStackedData,
 } from '../../linear/linearBarStack/qsTypes'
 import { linearLine } from '../../linear/linearLine/line'
 import {
@@ -115,8 +117,14 @@ interface HorizontalLinearAxisFunctions {
 
 interface HorizontalLinearElementFunctions {
   area: (data: QsAreaData, customConfig?: QsAreaConfig) => QsArea
-  barGroup: (data: number[][], customConfig?: QsBarGroupConfig) => QsBarGroups
-  barStack: (data: number[][], customConfig?: QsBarStackedConfig) => QsBarStack
+  barGroup: (
+    data: QsBarGroupedData,
+    customConfig?: QsBarGroupConfig
+  ) => QsBarGroups
+  barStack: (
+    data: QsBarStackedData,
+    customConfig?: QsBarStackedConfig
+  ) => QsBarStack
   bars: (data: QsBarData[], customConfig?: QsBarConfig) => QsBars
   line: (data: QsLineData, customConfig?: QsLineConfig) => QsLine
   points: (data: QsPointData[], customConfig?: QsPointsConfig) => QsPoints
@@ -217,7 +225,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           return element
         },
         barGroup: (
-          data: number[][],
+          data: QsBarGroupedData,
           customConfig?: QsBarGroupConfig
         ): QsBarGroups => {
           const element = linearBarGroup.group(canvas, data, customConfig)
@@ -225,7 +233,7 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
           return element
         },
         barStack: (
-          data: number[][],
+          data: QsBarStackedData,
           customConfig?: QsBarStackedConfig
         ): QsBarStack => {
           const element = linearBarStack.stack(canvas, data, customConfig)

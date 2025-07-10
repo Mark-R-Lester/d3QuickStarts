@@ -1,4 +1,3 @@
-import { schemePurples } from 'd3'
 import { GlobalDefaultColors, GlobalDefaultSettings } from '../../enums/enums'
 
 import {
@@ -140,12 +139,12 @@ export const linearBarConfig: QsBarConfig = {
 }
 
 export const linearBarGroupConfig: QsBarGroupConfig = {
-  colorRange: schemePurples[4],
+  colorRange: ['red', 'blue', 'green', 'orange'],
   padding: 20,
 }
 
 export const linearBarStackConfig: QsBarStackedConfig = {
-  colorRange: schemePurples[4],
+  colorRange: ['red', 'blue', 'green', 'orange'],
   padding: 20,
 }
 

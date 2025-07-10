@@ -82,7 +82,7 @@ const qsBarGroupDataExample: string = `const data = [
 ]`
 
 const qsBarGroupConfigExample: string = `const defaults: BarGroupConfig = {
-  colorRange: schemePurples[4],
+  colorRange: ['red', 'blue','green','orange'],
   padding: 20,
 }`
 

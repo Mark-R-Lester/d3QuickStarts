@@ -1,6 +1,5 @@
 import { getCalculatedData, CalculatedData } from './calculatedData'
 import { getScales } from '../../core/canvas/getScales'
-import { mockSelection } from '../../testObjects/mockSelection'
 import { mockCanvasConfig } from '../../testObjects/mockCanvasConfig'
 import { LegendConfig } from './types'
 import {
@@ -14,12 +13,13 @@ import {
 import { QsLegendData } from './qsTypes'
 import { ConfigStoreManager } from '../../core/config/configStore.class'
 import { Canvas } from '../../core/canvas/canvas'
+import { createMockSelection } from '../../core/canvas/__mocks__/selection.mocks'
 
 const scales = getScales(mockCanvasConfig)
 const canvas: Canvas = {
   config: mockCanvasConfig,
-  canvasGroup: mockSelection,
-  canvasDataGroup: mockSelection,
+  canvasGroup: createMockSelection(),
+  canvasDataGroup: createMockSelection(),
   scales,
   configStore: new ConfigStoreManager().getters,
   elements: [],

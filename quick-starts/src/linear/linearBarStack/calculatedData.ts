@@ -2,12 +2,7 @@ import { scaleBand, scaleOrdinal, range, stack, ScaleOrdinal, Series } from 'd3'
 import { Canvas } from '../../core/canvas/canvas'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/math/conversion'
-import { BarData, BarStackedConfig } from './types'
-
-export interface CalculatedData {
-  groupId: string
-  barData: BarData[]
-}
+import { BarData, BarStackedConfig, CalculatedData } from './types'
 
 export const getCalculatedData = (
   canvas: Canvas,

@@ -12,14 +12,37 @@ import { toStrings } from '../../core/math/conversion'
 import { ChartEdge } from '../../core/enums/enums'
 import { DrawArgs, AxisConfig } from './types'
 import { Canvas } from '../../core/canvas/canvas'
-import { QsEnumAxisScaleType } from '../../core/enums/qsEnums'
+import {
+  QsEnumAlignmentBaseline,
+  QsEnumAxisScaleType,
+  QsEnumTextAnchor,
+  QsEnumTextDecorationLine,
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+} from '../../core/enums/qsEnums'
 
 export interface CalculatedData {
   translation: string
   axis: Axis<string>
   domainWidth: number
   tickWidth: number
+  domainColor: string
+  domainOpacity: number
+  tickColor: string
+  tickOpacity: number
+  textFont: QsEnumTextFont | string
   textFontSize: number
+  textFontStyle: QsEnumTextFontStyle
+  textFontWeight: QsEnumTextFontWeight | number
+  textDecorationLine: QsEnumTextDecorationLine
+  textAnchor: QsEnumTextAnchor
+  textAlignmentBaseline: QsEnumAlignmentBaseline
+  textFill: string
+  textAngle: number
+  textStroke: string
+  textX: number
+  textY: number
 }
 
 export const getCalculatedData = (
@@ -47,6 +70,21 @@ export const getCalculatedData = (
     domainWidth,
     tickWidth,
     textFontSize,
+    domainColor,
+    domainOpacity,
+    tickColor,
+    tickOpacity,
+    textFont,
+    textFontStyle,
+    textFontWeight,
+    textAngle,
+    textAnchor,
+    textStroke,
+    textFill,
+    textDecorationLine,
+    textAlignmentBaseline,
+    textX,
+    textY,
   } = config
   const { data, chartEdge } = args
 
@@ -115,7 +153,7 @@ export const getCalculatedData = (
       ? genralPercentScale(tickSizeOuter)
       : percentScale(tickSizeOuter)
   )
-  axis.tickPadding(tickPadding)
+  axis.tickPadding(genralPercentScale(tickPadding))
 
   if (numberOfTicks) axis.ticks(numberOfTicks)
 
@@ -125,6 +163,25 @@ export const getCalculatedData = (
     domainWidth: genralPercentScale(domainWidth) / 5,
     tickWidth: genralPercentScale(tickWidth) / 5,
     textFontSize: genralPercentScale(textFontSize),
+    domainColor,
+    domainOpacity,
+    tickColor,
+    tickOpacity,
+    textFont,
+    textFontStyle,
+    textFontWeight,
+    textAngle,
+    textAnchor,
+    textStroke,
+    textFill,
+    textDecorationLine,
+    textAlignmentBaseline,
+    textX: genralPercentScale(
+      chartEdge === ChartEdge.BOTTOM || ChartEdge.TOP ? textY : textX
+    ),
+    textY: genralPercentScale(
+      chartEdge === ChartEdge.BOTTOM || ChartEdge.TOP ? textX : textY
+    ),
   }
 
   return calculatedData

@@ -26,6 +26,7 @@ import { RadialSpokesConfig } from '../../radialCentroid/radialCentroidSpokes/ty
 import {
   QsEnumAlignmentBaseline,
   QsEnumAxisScaleType,
+  QsEnumColorScale,
   QsEnumCurve,
   QsEnumLineCap,
   QsEnumLineJoin,
@@ -36,6 +37,7 @@ import {
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from '../enums/qsEnums'
+import { ConfigTextDefaults } from '../types/types'
 
 export const canvasConfig: CanvasConfig = {
   ry: 0,
@@ -55,6 +57,18 @@ export const canvasConfig: CanvasConfig = {
   fillColor: 'none',
   borderWidth: 2,
 }
+const textDefaults: ConfigTextDefaults = {
+  defaultTextFont: QsEnumTextFont.SERIF,
+  defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
+  defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
+  defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
+  defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
+  defaultTextFill: GlobalDefaultColors.TEXT_FILL_COLOR,
+  defaultTextAngle: GlobalDefaultSettings.TEXT_ANGLE,
+  defaultTextAnchor: QsEnumTextAnchor.START,
+  defaultTextStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
+  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+}
 
 export const legendConfig: LegendConfig = {
   height: 2,
@@ -64,16 +78,7 @@ export const legendConfig: LegendConfig = {
   relativeTextY: 0,
   x: 0,
   y: 3,
-  defaultTextFont: QsEnumTextFont.SERIF,
-  defaultTextFontSize: 5,
-  defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
-  defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
-  defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
-  defaultTextFill: 'black',
-  defaultTextAngle: 0,
-  defaultTextStroke: '',
-  defaultTextAnchor: QsEnumTextAnchor.START,
-  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+  ...textDefaults,
 }
 
 export const linearAreaConfig: AreaConfig = {
@@ -97,19 +102,19 @@ const linearAxisConfigBase: AxisConfigBase = {
   tickColor: GlobalDefaultColors.AXIS_COLOR,
   tickOpacity: 1,
   tickWidth: 2,
-  tickSizeInner: 2,
-  tickSizeOuter: 2,
-  tickPadding: 1,
+  tickSizeInner: 0,
+  tickSizeOuter: 0,
+  tickPadding: 2,
   numberOfTicks: 0,
 
   textFont: QsEnumTextFont.SERIF,
-  textFontSize: 6,
+  textFontSize: GlobalDefaultSettings.FONT_SIZE,
   textFontStyle: QsEnumTextFontStyle.NORMAL,
   textFontWeight: QsEnumTextFontWeight.NORMAL,
   textDecorationLine: QsEnumTextDecorationLine.NORMAL,
   textFill: GlobalDefaultColors.AXIS_COLOR,
-  textAngle: 0,
-  textStroke: '',
+  textAngle: GlobalDefaultSettings.TEXT_ANGLE,
+  textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
   textX: 0,
   textY: 0,
 }
@@ -192,16 +197,7 @@ export const linearPointsConfig: PointsConfig = {
 export const linearTextConfig: TextConfig = {
   scaleType: QsEnumScaleType.LINEAR,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
-  defaultTextFont: QsEnumTextFont.SERIF,
-  defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
-  defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
-  defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
-  defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
-  defaultTextFill: GlobalDefaultColors.TEXT_FILL_COLOR,
-  defaultTextAngle: GlobalDefaultSettings.TEXT_ANGLE,
-  defaultTextStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
-  defaultTextAnchor: QsEnumTextAnchor.START,
-  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+  ...textDefaults,
 }
 
 export const plottedLineConfig: PlottedLineConfig = {
@@ -224,16 +220,7 @@ export const plottedPointsConfig: PlottedPointsConfig = {
 
 export const plottedTextConfig: PlottedTextConfig = {
   defaultDecimalPoints: 0,
-  defaultTextFont: QsEnumTextFont.SERIF,
-  defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
-  defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
-  defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
-  defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
-  defaultTextFill: GlobalDefaultColors.TEXT_FILL_COLOR,
-  defaultTextAngle: GlobalDefaultSettings.TEXT_ANGLE,
-  defaultTextAnchor: QsEnumTextAnchor.START,
-  defaultTextStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
-  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+  ...textDefaults,
 }
 
 export const radialArcConfig: RadialArcConfig = {
@@ -248,7 +235,31 @@ export const radialArcConfig: RadialArcConfig = {
   defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
   defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-  fillColorScaleData: undefined,
+  fillColorScaleData: {
+    type: QsEnumColorScale.ORDINAL,
+    range: [
+      'red',
+      'blue',
+      'green',
+      'orange',
+      'purple',
+      'darkgreen',
+      'pink',
+      'brown',
+      'gray',
+      'gold',
+      'indigo',
+      'springgreen',
+      'orangered',
+      'steelblue',
+      'greenyellow',
+      'crimson',
+      'chartreuse',
+      'yellow',
+      'magenta',
+      'cyan',
+    ],
+  },
   strokeColorScaleData: undefined,
 }
 

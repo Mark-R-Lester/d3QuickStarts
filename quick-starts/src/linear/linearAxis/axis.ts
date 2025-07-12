@@ -81,24 +81,6 @@ export const linearAxis = {
 }
 
 const draw = (canvas: Canvas, args: DrawArgs, config: AxisConfig): QsAxis => {
-  const {
-    domainColor,
-    domainOpacity,
-    tickColor,
-    tickOpacity,
-    textFont,
-    textFontStyle,
-    textFontWeight,
-    textAngle,
-    textAnchor,
-    textStroke,
-    textFill,
-    textDecorationLine,
-    textAlignmentBaseline,
-    textX,
-    textY,
-  } = config
-
   const calculatedData: CalculatedData = getCalculatedData(canvas, args, config)
 
   const { className, dotClassName } = generateClassName('linearAxis')
@@ -117,33 +99,36 @@ const draw = (canvas: Canvas, args: DrawArgs, config: AxisConfig): QsAxis => {
 
   axisGroup
     .select('.domain')
+    .datum(calculatedData)
     .attr('class', classNameDomain)
-    .attr('stroke', domainColor)
-    .attr('stroke-width', calculatedData.domainWidth)
-    .attr('opacity', domainOpacity)
+    .attr('stroke', (d) => d.domainColor)
+    .attr('stroke-width', (d) => d.domainWidth)
+    .attr('opacity', (d) => d.domainOpacity)
   axisGroup
     .selectAll('.tick')
+    .datum(calculatedData)
     .attr('class', classNameTick)
     .select('line')
-    .attr('stroke', tickColor)
-    .attr('stroke-width', calculatedData.tickWidth)
-    .attr('opacity', tickOpacity)
+    .attr('stroke', (d) => d.tickColor)
+    .attr('stroke-width', (d) => d.tickWidth)
+    .attr('opacity', (d) => d.tickOpacity)
   axisGroup
     .selectAll('text')
+    .datum(calculatedData)
     .attr('class', classNameText)
-    .attr('font-family', textFont)
-    .attr('font-style', textFontStyle)
-    .attr('font-weight', textFontWeight)
-    .attr('font-size', calculatedData.textFontSize)
-    .attr('text-decoration', textDecorationLine)
-    .attr('fill', textFill)
-    .attr('stroke', textStroke)
-    .attr('transform', `rotate(${textAngle})`)
-    .style('text-anchor', textAnchor)
-    .style('alignment-baseline', textAlignmentBaseline)
-    .attr('text-anchor', textAnchor)
-    .attr('dy', textY)
-    .attr('dx', textX)
+    .attr('font-family', (d) => d.textFont)
+    .attr('font-style', (d) => d.textFontStyle)
+    .attr('font-weight', (d) => d.textFontWeight)
+    .attr('font-size', (d) => d.textFontSize)
+    .attr('text-decoration', (d) => d.textDecorationLine)
+    .attr('fill', (d) => d.textFill)
+    .attr('stroke', (d) => d.textStroke)
+    .attr('transform', (d) => `rotate(${d.textAngle})`)
+    .style('text-anchor', (d) => d.textAnchor)
+    .style('alignment-baseline', (d) => d.textAlignmentBaseline)
+    .attr('text-anchor', (d) => d.textAnchor)
+    .attr('dy', (d) => d.textY)
+    .attr('dx', (d) => d.textX)
 
   return {
     elementDomain: axisGroup.select('.domain'),

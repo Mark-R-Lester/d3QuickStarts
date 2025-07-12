@@ -23,16 +23,16 @@ export enum RadialTextType {
 }
 
 export enum GlobalDefaultColors {
-  FILL_COLOR = 'steelblue',
+  FILL_COLOR = 'lightblue',
   STROKE_COLOR = 'black',
-  AREA_FILL_COLOR = 'steelblue',
+  AREA_FILL_COLOR = 'lightblue',
   AREA_STROKE_COLOR = 'black',
-  BAR_FILL = 'steelblue',
+  BAR_FILL = 'lightblue',
   BAR_STROKE = 'black',
-  POINT_FILL = 'steelblue',
-  POINT_STROKE = 'black',
+  POINT_FILL = 'lightblue',
+  POINT_STROKE = 'darkblue',
   AXIS_COLOR = 'black',
-  LINE_COLOR = 'black',
+  LINE_COLOR = 'darkblue',
   TEXT_FILL_COLOR = 'black',
   TEXT_STROKE_COLOR = 'none',
 }

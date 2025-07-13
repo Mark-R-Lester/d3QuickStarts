@@ -10,6 +10,7 @@ import { addDefaultsToConfig } from './addDefaultsToConfig'
 
 describe('addDefaultsToConfig', () => {
   const defaultConfig: LineConfig = {
+    useDataArea: true,
     scaleType: QsEnumScaleType.LINEAR,
     curve: QsEnumCurve.LINEAR,
     defaultStrokeColor: 'black',
@@ -36,6 +37,7 @@ describe('addDefaultsToConfig', () => {
     )
 
     expect(result).toEqual({
+      useDataArea: true,
       scaleType: QsEnumScaleType.BANDED,
       curve: QsEnumCurve.NATURAL,
       defaultStrokeColor: 'black',
@@ -59,6 +61,7 @@ describe('addDefaultsToConfig', () => {
     )
 
     expect(result).toEqual({
+      useDataArea: true,
       scaleType: QsEnumScaleType.LINEAR,
       curve: QsEnumCurve.NATURAL,
       defaultStrokeColor: 'black',
@@ -82,6 +85,7 @@ describe('addDefaultsToConfig', () => {
     )
 
     expect(result).toEqual({
+      useDataArea: true,
       scaleType: QsEnumScaleType.LINEAR,
       curve: QsEnumCurve.LINEAR,
       defaultStrokeColor: 'black',
@@ -140,6 +144,7 @@ describe('addDefaultsToConfig', () => {
     )
 
     expect(result).toEqual({
+      useDataArea: true,
       scaleType: QsEnumScaleType.BANDED,
       curve: QsEnumCurve.LINEAR,
       defaultStrokeColor: 'black',

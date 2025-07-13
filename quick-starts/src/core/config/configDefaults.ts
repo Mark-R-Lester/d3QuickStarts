@@ -112,6 +112,7 @@ export const legendConfig: LegendConfig = {
 }
 
 export const linearAreaConfig: AreaConfig = {
+  useDataArea: true,
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
@@ -174,6 +175,7 @@ export const linearAxisConfigRight: AxisConfig = {
 }
 
 export const linearBarConfig: BarConfig = {
+  useDataArea: true,
   padding: 8,
   defaultFillColor: GlobalDefaultColors.BAR_FILL,
   defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
@@ -185,6 +187,7 @@ export const linearBarConfig: BarConfig = {
 }
 
 export const linearBarGroupConfig: BarGroupConfig = {
+  useDataArea: true,
   colorRange: defaultFillColorArray,
   padding: 20,
   fillOpacity: 1,
@@ -194,6 +197,7 @@ export const linearBarGroupConfig: BarGroupConfig = {
 }
 
 export const linearBarStackConfig: BarStackedConfig = {
+  useDataArea: true,
   colorRange: defaultFillColorArray,
   padding: 20,
   fillOpacity: 1,
@@ -203,6 +207,7 @@ export const linearBarStackConfig: BarStackedConfig = {
 }
 
 export const linearLineConfig: LineConfig = {
+  useDataArea: true,
   scaleType: QsEnumScaleType.LINEAR,
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
@@ -213,6 +218,7 @@ export const linearLineConfig: LineConfig = {
 }
 
 export const linearPointsConfig: PointsConfig = {
+  useDataArea: true,
   scaleType: QsEnumScaleType.LINEAR,
   defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
   defaultFillColor: GlobalDefaultColors.POINT_FILL,
@@ -225,12 +231,14 @@ export const linearPointsConfig: PointsConfig = {
 }
 
 export const linearTextConfig: TextConfig = {
+  useDataArea: true,
   scaleType: QsEnumScaleType.LINEAR,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
   ...textDefaults,
 }
 
 export const plottedLineConfig: PlottedLineConfig = {
+  useDataArea: true,
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
@@ -240,6 +248,7 @@ export const plottedLineConfig: PlottedLineConfig = {
 }
 
 export const plottedPointsConfig: PlottedPointsConfig = {
+  useDataArea: true,
   defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
   defaultFillColor: GlobalDefaultColors.POINT_FILL,
   defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
@@ -249,11 +258,13 @@ export const plottedPointsConfig: PlottedPointsConfig = {
 }
 
 export const plottedTextConfig: PlottedTextConfig = {
+  useDataArea: true,
   defaultDecimalPoints: 0,
   ...textDefaults,
 }
 
 export const radialArcConfig: RadialArcConfig = {
+  useDataArea: true,
   outerRadius: 100,
   innerRadius: 0,
   padding: 0,
@@ -285,30 +296,35 @@ const radialArcTextConfigBase: RadialTextConfigBase = {
 }
 
 export const radialArcTextConfigRotated: RadialTextConfig = {
+  useDataArea: true,
   ...radialArcTextConfigBase,
   radius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
 export const radialArcTextConfigHorizontal: RadialTextConfig = {
+  useDataArea: true,
   ...radialArcTextConfigBase,
   radius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
 export const radialArcTextConfigSpoke: RadialTextConfig = {
+  useDataArea: true,
   ...radialArcTextConfigBase,
   radius: 103,
   textAnchor: QsEnumTextAnchor.START,
 }
 
 export const radialArcTextConfigFollow: RadialTextConfig = {
+  useDataArea: true,
   ...radialArcTextConfigBase,
   radius: 103,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
 export const radialCentroidAreaConfig: RadialAreaConfig = {
+  useDataArea: true,
   curve: QsEnumCurve.LINEAR,
   x: 50,
   y: 50,
@@ -322,6 +338,7 @@ export const radialCentroidAreaConfig: RadialAreaConfig = {
 }
 
 export const radialCentroidAxisConfig: RadialAxisConfig = {
+  useDataArea: true,
   radius: 100,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
@@ -342,6 +359,7 @@ export const radialCentroidAxisConfig: RadialAxisConfig = {
 }
 
 export const radialCentroidLineConfig: RadialLineConfig = {
+  useDataArea: true,
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
@@ -353,6 +371,7 @@ export const radialCentroidLineConfig: RadialLineConfig = {
 }
 
 export const radialCentroidPointsConfig: RadialPointsConfig = {
+  useDataArea: true,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
@@ -366,6 +385,7 @@ export const radialCentroidPointsConfig: RadialPointsConfig = {
 }
 
 export const radialCentroidSpokesConfig: RadialSpokesConfig = {
+  useDataArea: true,
   radius: 100,
   innerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,

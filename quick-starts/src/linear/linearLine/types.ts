@@ -16,7 +16,8 @@ export interface DrawArgs {
 }
 
 export interface LineConfig extends ConfigStrokeDefaults {
-  [key: string]: QsEnumCurve | number | string | undefined
+  [key: string]: QsEnumCurve | number | string | undefined | boolean
+  useDataArea: boolean
   scaleType: QsEnumScaleType
   curve: QsEnumCurve
   strokeLineJoin: QsEnumLineJoin

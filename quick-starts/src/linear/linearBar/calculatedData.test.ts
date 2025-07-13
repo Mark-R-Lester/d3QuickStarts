@@ -18,6 +18,7 @@ global.document = dom.window.document
 
 describe('Linear Bars calculatedData', () => {
   const config: BarConfig = {
+    useDataArea: true,
     padding: 8,
     defaultFillColor: GlobalDefaultColors.BAR_FILL,
     defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,

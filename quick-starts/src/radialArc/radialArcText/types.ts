@@ -8,7 +8,12 @@ import {
 } from '../../core/enums/qsEnums'
 
 export interface RadialTextConfigBase {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
+  [key: string]:
+    | number
+    | Iterable<unknown>
+    | Iterable<string>
+    | undefined
+    | boolean
   x: number
   y: number
   scaleType: QsEnumScaleType
@@ -23,7 +28,13 @@ export interface RadialTextConfigBase {
 }
 
 export interface RadialTextConfig extends RadialTextConfigBase {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
+  [key: string]:
+    | number
+    | Iterable<unknown>
+    | Iterable<string>
+    | undefined
+    | boolean
+  useDataArea: boolean
   radius: number
   textAnchor: QsEnumTextAnchor
 }

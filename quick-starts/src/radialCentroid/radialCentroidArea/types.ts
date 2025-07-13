@@ -24,7 +24,8 @@ export interface CalculatedData {
 }
 
 export interface RadialAreaConfig extends ConfigStrokeDefaults {
-  [key: string]: QsEnumCurve | number | undefined | string
+  [key: string]: QsEnumCurve | number | undefined | string | boolean
+  useDataArea: boolean
   curve: QsEnumCurve
   x: number
   y: number

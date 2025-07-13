@@ -119,7 +119,10 @@ const draw = (
 
   let calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
   const arc: any = d3arc()
-  const group = canvas.canvasDataGroup.append('g')
+  const canvasGroup = config.useDataArea
+    ? canvas.canvasDataGroup
+    : canvas.canvasGroup
+  const group = canvasGroup.append('g')
   const arcs = group.append('g')
   const text = group.append('g')
 

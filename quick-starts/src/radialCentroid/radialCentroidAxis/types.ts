@@ -28,7 +28,8 @@ export interface CalculatedData {
 }
 
 export interface RadialAxisConfig {
-  [key: string]: number | undefined | string
+  [key: string]: number | undefined | string | boolean
+  useDataArea: boolean
   radius: number
   x: number
   y: number

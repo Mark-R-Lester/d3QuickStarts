@@ -23,7 +23,8 @@ export interface CalculatedData {
 }
 
 export interface AreaConfig extends ConfigStrokeDefaults {
-  [key: string]: CurveFactory | string | number | undefined
+  [key: string]: CurveFactory | string | number | undefined | boolean
+  useDataArea: boolean
   curve: QsEnumCurve
   defaultFillColor: string
   defaultFillOpacity: number

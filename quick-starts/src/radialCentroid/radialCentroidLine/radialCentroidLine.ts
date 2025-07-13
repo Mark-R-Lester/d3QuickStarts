@@ -40,7 +40,10 @@ const draw = (
   const radialLine = lineRadial().curve(constantsCurves[curve])
 
   const { className, dotClassName } = generateClassName('radialCentroidLine')
-  const group = canvas.canvasDataGroup.append('g')
+  const canvasGroup = config.useDataArea
+    ? canvas.canvasDataGroup
+    : canvas.canvasGroup
+  const group = canvasGroup.append('g')
   group
     .append('path')
     .datum(calculatedData)

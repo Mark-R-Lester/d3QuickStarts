@@ -48,8 +48,10 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
   )
   const { className, dotClassName } = generateClassName('linearBars')
 
-  const group: Selection<SVGGElement, unknown, HTMLElement, any> =
-    canvas.canvasDataGroup.append('g')
+  const canvasGroup = config.useDataArea
+    ? canvas.canvasDataGroup
+    : canvas.canvasGroup
+  const group = canvasGroup.append('g')
   group
     .selectAll(dotClassName)
     .data(calculatedData)

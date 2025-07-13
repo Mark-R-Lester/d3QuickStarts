@@ -5,7 +5,13 @@ export interface CalculatedData {
 }
 
 export interface RadialSpokesConfig {
-  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
+  [key: string]:
+    | number
+    | Iterable<unknown>
+    | Iterable<string>
+    | undefined
+    | boolean
+  useDataArea: boolean
   radius: number
   innerRadius: number
   x: number

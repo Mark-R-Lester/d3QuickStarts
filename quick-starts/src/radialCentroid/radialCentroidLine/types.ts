@@ -6,7 +6,8 @@ import {
 import { ConfigStrokeDefaults } from '../../core/types/types'
 
 export interface RadialLineConfig extends ConfigStrokeDefaults {
-  [key: string]: number | QsEnumCurve | string | undefined
+  [key: string]: number | QsEnumCurve | string | undefined | boolean
+  useDataArea: boolean
   x: number
   y: number
   curve: QsEnumCurve

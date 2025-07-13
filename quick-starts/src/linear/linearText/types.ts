@@ -10,7 +10,8 @@ export interface DrawArgs {
 }
 
 export interface TextConfig extends ConfigTextDefaults {
-  [key: string]: number | QsColorScaleData | string | undefined
+  [key: string]: number | QsColorScaleData | string | undefined | boolean
+  useDataArea: boolean
   scaleType: QsEnumScaleType
   defaultDecimalPoints: number
 }

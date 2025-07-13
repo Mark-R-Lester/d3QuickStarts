@@ -19,7 +19,8 @@ export interface DrawArgs {
 }
 
 export interface BarConfig extends ConfigStrokeDefaults {
-  [key: string]: number | string | QsColorScaleData | undefined
+  [key: string]: number | string | QsColorScaleData | undefined | boolean
+  useDataArea: boolean
   padding: number
   defaultFillColor: string
   defaultFillOpacity: number

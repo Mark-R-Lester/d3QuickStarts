@@ -1,5 +1,6 @@
 export interface BarGroupConfig {
-  [key: string]: number | Iterable<String> | undefined
+  [key: string]: number | Iterable<String> | undefined | boolean
+  useDataArea: boolean
   padding: number
   colorRange: Iterable<String>
   fillOpacity: number

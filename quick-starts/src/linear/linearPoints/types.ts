@@ -10,7 +10,8 @@ export interface DrawArgs {
 }
 
 export interface PointsConfig extends ConfigStrokeDefaults {
-  [key: string]: number | QsColorScaleData | string | undefined
+  [key: string]: number | QsColorScaleData | string | undefined | boolean
+  useDataArea: boolean
   scaleType: QsEnumScaleType
   defaultRadius: number
   defaultFillColor: string

@@ -60,7 +60,10 @@ const draw = (canvas: Canvas, args: DrawArgs, config: TextConfig): QsText => {
   const { defaultDecimalPoints } = config
 
   const { className, dotClassName } = generateClassName('linearText')
-  const group = canvas.canvasDataGroup.append('g')
+  const canvasGroup = config.useDataArea
+    ? canvas.canvasDataGroup
+    : canvas.canvasGroup
+  const group = canvasGroup.append('g')
 
   group
     .selectAll(dotClassName)

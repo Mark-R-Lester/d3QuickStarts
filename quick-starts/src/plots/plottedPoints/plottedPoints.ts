@@ -46,7 +46,10 @@ const draw = (
   )
 
   const { className, dotClassName } = generateClassName('plottedPoints')
-  const group = canvas.canvasDataGroup.append('g')
+  const canvasGroup = config.useDataArea
+    ? canvas.canvasDataGroup
+    : canvas.canvasGroup
+  const group = canvasGroup.append('g')
 
   group
     .selectAll(dotClassName)

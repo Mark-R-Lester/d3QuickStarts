@@ -53,7 +53,10 @@ const draw = (
     .curve(constantsCurves[curve])
 
   const { className, dotClassName } = generateClassName('radialCentroidArea')
-  const group = canvas.canvasDataGroup.append('g')
+  const canvasGroup = config.useDataArea
+    ? canvas.canvasDataGroup
+    : canvas.canvasGroup
+  const group = canvasGroup.append('g')
   group
     .append('path')
     .datum(calculatedData)

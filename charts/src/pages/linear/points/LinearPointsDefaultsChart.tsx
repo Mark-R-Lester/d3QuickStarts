@@ -26,13 +26,13 @@ export const LinearPointsDefaultsChart: FunctionComponent<
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
 
       if (orientation === EnumOrientation.VERTICAL) {
-        canvas.generate.linear.vertical.points(data, { defaultRadius: 3 })
+        canvas.generate.linear.vertical.points(data)
         canvas.generate.linear.vertical.axis.left([1, 2, 3, 4, 5, 6, 7, 8], {
           domainScale: QsEnumAxisScaleType.POINT,
         })
         canvas.generate.linear.horizontal.axis.bottom([])
       } else {
-        canvas.generate.linear.horizontal.points(data, { defaultRadius: 3 })
+        canvas.generate.linear.horizontal.points(data)
         canvas.generate.linear.vertical.axis.left([])
         canvas.generate.linear.horizontal.axis.bottom(
           [1, 2, 3, 4, 5, 6, 7, 8],

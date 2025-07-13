@@ -144,6 +144,7 @@ export const getCalculatedData = (
         : value,
       strokeColorScale
     )
+
     return {
       id: `point${uuidv4()}`,
       pointData: { x: x(d), y: y(d) },

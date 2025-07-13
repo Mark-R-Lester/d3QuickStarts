@@ -38,6 +38,48 @@ import {
   QsEnumTextFontWeight,
 } from '../enums/qsEnums'
 import { ConfigTextDefaults } from '../types/types'
+import { QsColorScaleData } from '../types/qsTypes'
+
+const defaultFillColorArray: string[] = [
+  'red',
+  'blue',
+  'green',
+  'orange',
+  'purple',
+  'darkgreen',
+  'pink',
+  'brown',
+  'gray',
+  'gold',
+  'indigo',
+  'springgreen',
+  'orangered',
+  'steelblue',
+  'greenyellow',
+  'crimson',
+  'chartreuse',
+  'yellow',
+  'magenta',
+  'cyan',
+]
+
+const defaultFillColorScale: QsColorScaleData = {
+  type: QsEnumColorScale.ORDINAL,
+  range: defaultFillColorArray,
+}
+
+const textDefaults: ConfigTextDefaults = {
+  defaultTextFont: QsEnumTextFont.SERIF,
+  defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
+  defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
+  defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
+  defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
+  defaultTextFill: GlobalDefaultColors.TEXT_FILL_COLOR,
+  defaultTextAngle: GlobalDefaultSettings.TEXT_ANGLE,
+  defaultTextAnchor: QsEnumTextAnchor.START,
+  defaultTextStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
+  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+}
 
 export const canvasConfig: CanvasConfig = {
   ry: 0,
@@ -56,18 +98,6 @@ export const canvasConfig: CanvasConfig = {
   displayAreaWidth: 0,
   fillColor: 'none',
   borderWidth: 2,
-}
-const textDefaults: ConfigTextDefaults = {
-  defaultTextFont: QsEnumTextFont.SERIF,
-  defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
-  defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
-  defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
-  defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
-  defaultTextFill: GlobalDefaultColors.TEXT_FILL_COLOR,
-  defaultTextAngle: GlobalDefaultSettings.TEXT_ANGLE,
-  defaultTextAnchor: QsEnumTextAnchor.START,
-  defaultTextStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
-  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
 export const legendConfig: LegendConfig = {
@@ -155,7 +185,7 @@ export const linearBarConfig: BarConfig = {
 }
 
 export const linearBarGroupConfig: BarGroupConfig = {
-  colorRange: ['red', 'blue', 'green', 'orange'],
+  colorRange: defaultFillColorArray,
   padding: 20,
   fillOpacity: 1,
   strokeColor: 'none',
@@ -164,7 +194,7 @@ export const linearBarGroupConfig: BarGroupConfig = {
 }
 
 export const linearBarStackConfig: BarStackedConfig = {
-  colorRange: ['red', 'blue', 'green', 'orange'],
+  colorRange: defaultFillColorArray,
   padding: 20,
   fillOpacity: 1,
   strokeColor: 'none',
@@ -188,7 +218,7 @@ export const linearPointsConfig: PointsConfig = {
   defaultFillColor: GlobalDefaultColors.POINT_FILL,
   defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
   defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
-  defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
+  defaultStrokeWidth: GlobalDefaultSettings.POINT_STROKE_WIDTH,
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
   fillColorScaleData: undefined,
   strokeColorScaleData: undefined,
@@ -214,7 +244,7 @@ export const plottedPointsConfig: PlottedPointsConfig = {
   defaultFillColor: GlobalDefaultColors.POINT_FILL,
   defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
   defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
-  defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
+  defaultStrokeWidth: GlobalDefaultSettings.POINT_STROKE_WIDTH,
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
 }
 
@@ -235,31 +265,7 @@ export const radialArcConfig: RadialArcConfig = {
   defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
   defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-  fillColorScaleData: {
-    type: QsEnumColorScale.ORDINAL,
-    range: [
-      'red',
-      'blue',
-      'green',
-      'orange',
-      'purple',
-      'darkgreen',
-      'pink',
-      'brown',
-      'gray',
-      'gold',
-      'indigo',
-      'springgreen',
-      'orangered',
-      'steelblue',
-      'greenyellow',
-      'crimson',
-      'chartreuse',
-      'yellow',
-      'magenta',
-      'cyan',
-    ],
-  },
+  fillColorScaleData: defaultFillColorScale,
   strokeColorScaleData: undefined,
 }
 
@@ -353,7 +359,7 @@ export const radialCentroidPointsConfig: RadialPointsConfig = {
   defaultFillColor: GlobalDefaultColors.POINT_FILL,
   defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
   defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
-  defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
+  defaultStrokeWidth: GlobalDefaultSettings.POINT_STROKE_WIDTH,
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
   fillColorScaleData: undefined,
   strokeColorScaleData: undefined,

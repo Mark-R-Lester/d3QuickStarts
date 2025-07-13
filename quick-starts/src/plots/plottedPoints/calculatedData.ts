@@ -33,7 +33,7 @@ export const getCalculatedData = (
     return {
       x: xDataScalePlotted(d.x),
       y: yDataScalePlotted(d.y),
-      radius: genralPercentScale(d.radius ? d.radius : defaultRadius),
+      radius: genralPercentScale(d.radius ?? defaultRadius),
       fillColor: d.fillColor ?? defaultFillColor,
       strokeColor: d.strokeColor ?? defaultStrokeColor,
       fillOpacity: d.fillOpacity ?? defaultFillOpacity,

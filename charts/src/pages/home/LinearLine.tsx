@@ -2,7 +2,6 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvas,
   qsCreateCanvas,
-  QsTextData,
   QsPoints,
   QsLineData,
   QsLine,
@@ -87,29 +86,24 @@ export const LinearLine: FunctionComponent<OrienetedChartProps> = ({
   useEffect(
     function transitionData() {
       const getData = (): {
-        textData: QsTextData[]
+        pointData: QsPointData[]
         lineData: number[]
       } => {
-        const barData = []
-        const textData = []
+        const pointData = []
         const lineData = []
         for (let i = 0; i < 20; i++) {
           let num = (Math.random() * 100) / 2
-          barData.push({
-            upperBoundry: num,
-            fillColor: num < 25 ? 'green' : 'red',
-          })
-          textData.push({
+          pointData.push({
             value: num,
           })
           lineData.push(num)
         }
-        return { textData, lineData }
+        return { pointData: pointData, lineData }
       }
 
       const transitionData = getData()
 
-      if (points) points.transition({ data: transitionData.textData })
+      if (points) points.transition({ data: transitionData.pointData })
       if (line)
         line.transition({
           data: {

@@ -22,6 +22,7 @@ export interface CalculatedData extends TextData {
   text?: string
   newText?: string
   value: number
+  diplayValue?: string
   newValue: number
 }
 
@@ -90,22 +91,26 @@ export const getCalculatedData = (
   }
 
   const getCoordinates = (data: QsTextData[]): CoordinateAugmented[] =>
-    data.map((d, i) => ({
-      x: isVertical ? d.value : pointSpacing[i],
-      y: isVertical ? pointSpacing[data.length - i - 1] : d.value,
-      value: d.value,
-      text: d.text,
-      textFont: d.textFont,
-      textFontSize: d.textFontSize,
-      textFontStyle: d.textFontStyle,
-      textFontWeigh: d.textFontWeight,
-      textDecorationLine: d.textDecorationLine,
-      textFill: d.textFill,
-      textAngle: d.textAngle,
-      textAnchor: d.textAnchor,
-      textStroke: d.textStroke,
-      textAlignmentBaseline: d.textAlignmentBaseline,
-    }))
+    data.map((d, i) => {
+      const value: number = d.relativeValue ?? d.value
+      return {
+        x: isVertical ? value : pointSpacing[i],
+        y: isVertical ? pointSpacing[data.length - i - 1] : value,
+        value: d.value,
+        text: d.text,
+        displayValue: d.relativeValue,
+        textFont: d.textFont,
+        textFontSize: d.textFontSize,
+        textFontStyle: d.textFontStyle,
+        textFontWeigh: d.textFontWeight,
+        textDecorationLine: d.textDecorationLine,
+        textFill: d.textFill,
+        textAngle: d.textAngle,
+        textAnchor: d.textAnchor,
+        textStroke: d.textStroke,
+        textAlignmentBaseline: d.textAlignmentBaseline,
+      }
+    })
 
   const coordinates: CoordinateAugmented[] = getCoordinates(data)
   const dataScale = isVertical ? xDataScale : yDataScale

@@ -44,6 +44,7 @@ export const linearText = {
       data,
       orientation: Orientation.VERTICAL,
     }
+
     const config: TextConfig = addDefaultsToConfig<TextConfig>(
       { ...linearTextConfig },
       customConfig,

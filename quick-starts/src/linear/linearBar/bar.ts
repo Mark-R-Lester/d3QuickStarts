@@ -1,4 +1,3 @@
-import { Selection } from 'd3'
 import { Canvas } from '../../core/canvas/canvas'
 import { getCalculatedData, CalculatedData } from './calculatedData'
 import { BarConfig, DrawArgs } from './types'

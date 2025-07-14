@@ -75,11 +75,6 @@ describe('Gradient Functions Testing', () => {
     `(
       'creates linear gradient with gradientId=$gradientId, x1=$x1, y1=$y1, x2=$x2, y2=$y2',
       ({ gradientId, colorStops, x1, y1, x2, y2, expectedId }) => {
-        const appendCallsBefore = canvasMock.canvasSVG.getAppendCalls()
-        console.log(
-          'qsCreateCustomStopLinearGradient appendCalls before:',
-          appendCallsBefore
-        )
         const result = qsCreateCustomStopLinearGradient({
           canvas: canvasMock,
           gradientId,
@@ -93,10 +88,6 @@ describe('Gradient Functions Testing', () => {
         expect(result).toBe(expectedId)
         expect(canvasMock.canvasSVG.append).toHaveBeenCalled()
         const appendCalls = canvasMock.canvasSVG.getAppendCalls()
-        console.log(
-          'qsCreateCustomStopLinearGradient appendCalls after:',
-          appendCalls
-        )
         expect(appendCalls).toContainEqual({ type: 'defs' })
         expect(appendCalls).toContainEqual({ type: 'linearGradient' })
         expect(appendCalls.filter((call) => call.type === 'stop').length).toBe(
@@ -135,11 +126,6 @@ describe('Gradient Functions Testing', () => {
       'creates linear gradient with gradientId=$gradientId, x1=$x1, y1=$y1, x2=$x2, y2=$y2',
       ({ gradientId, colors, x1, y1, x2, y2, expectedId }) => {
         resetMockSelectionStore()
-        const appendCallsBefore = canvasMock.canvasSVG.getAppendCalls()
-        console.log(
-          'qsCreateLinearGradient appendCalls before:',
-          appendCallsBefore
-        )
         const result = qsCreateLinearGradient({
           canvas: canvasMock,
           gradientId,
@@ -152,7 +138,6 @@ describe('Gradient Functions Testing', () => {
 
         expect(result).toBe(expectedId)
         const appendCalls = canvasMock.canvasSVG.getAppendCalls()
-        console.log('qsCreateLinearGradient appendCalls after:', appendCalls)
         expect(appendCalls).toContainEqual({ type: 'defs' })
         expect(appendCalls).toContainEqual({ type: 'linearGradient' })
         expect(appendCalls.filter((call) => call.type === 'stop').length).toBe(
@@ -182,11 +167,6 @@ describe('Gradient Functions Testing', () => {
     `(
       'creates radial gradient with gradientId=$gradientId, cx=$cx, cy=$cy, r=$r',
       ({ gradientId, colorStops, cx, cy, r, expectedId }) => {
-        const appendCallsBefore = canvasMock.canvasSVG.getAppendCalls()
-        console.log(
-          'qsCreateCustomStopRadialGradient appendCalls before:',
-          appendCallsBefore
-        )
         const result = qsCreateCustomStopRadialGradient({
           canvas: canvasMock,
           gradientId,
@@ -198,10 +178,7 @@ describe('Gradient Functions Testing', () => {
 
         expect(result).toBe(expectedId)
         const appendCalls = canvasMock.canvasSVG.getAppendCalls()
-        console.log(
-          'qsCreateCustomStopRadialGradient appendCalls after:',
-          appendCalls
-        )
+
         expect(appendCalls).toContainEqual({ type: 'defs' })
         expect(appendCalls).toContainEqual({ type: 'radialGradient' })
         expect(appendCalls.filter((call) => call.type === 'stop').length).toBe(
@@ -235,11 +212,6 @@ describe('Gradient Functions Testing', () => {
     `(
       'creates radial gradient with gradientId=$gradientId, cx=$cx, cy=$cy, r=$r',
       ({ gradientId, colors, cx, cy, r, expectedId }) => {
-        const appendCallsBefore = canvasMock.canvasSVG.getAppendCalls()
-        console.log(
-          'qsCreateRadialGradient appendCalls before:',
-          appendCallsBefore
-        )
         const result = qsCreateRadialGradient({
           canvas: canvasMock,
           gradientId,
@@ -251,7 +223,6 @@ describe('Gradient Functions Testing', () => {
 
         expect(result).toBe(expectedId)
         const appendCalls = canvasMock.canvasSVG.getAppendCalls()
-        console.log('qsCreateRadialGradient appendCalls after:', appendCalls)
         expect(appendCalls).toContainEqual({ type: 'defs' })
         expect(appendCalls).toContainEqual({ type: 'radialGradient' })
         expect(appendCalls.filter((call) => call.type === 'stop').length).toBe(

@@ -8,6 +8,7 @@ import {
   QsText,
   QsEnumScaleType,
   QsEnumAxisScaleType,
+  QsEnumTextAnchor,
 } from 'd3qs/d3QuickStart'
 import { OrienetedChartProps } from '../../common/chartProps'
 import { EnumOrientation } from '../../common/enums'
@@ -82,6 +83,8 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
 
         newText = canvas.generate.linear.vertical.text(textData, {
           scaleType: QsEnumScaleType.BANDED,
+          defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
+          defaultTextFill: 'yellow',
         })
         canvas.generate.linear.vertical.axis.left(
           [
@@ -98,6 +101,8 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
 
         newText = canvas.generate.linear.horizontal.text(textData, {
           scaleType: QsEnumScaleType.BANDED,
+          defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
+          defaultTextFill: 'yellow',
         })
         canvas.generate.linear.vertical.axis.left([])
         canvas.generate.linear.horizontal.axis.bottom(
@@ -119,16 +124,14 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
       const getData = (): {
         barData: QsBarData[]
         textData: QsTextData[]
-        lineData: number[]
       } => {
         const barData = []
         const textData = []
-        const lineData = []
         for (let i = 0; i < 20; i++) {
           let num = (Math.random() * 100) / 2
           barData.push({
             upperBoundry: num,
-            fillColor: num < 25 ? 'green' : 'red',
+            fillColor: num < 25 ? 'blue' : 'darkblue',
             topLeftCornerRadiusCx: 50,
             topLeftCornerRadiusCy: 1000,
             topRightCornerRadiusCx: 50,
@@ -136,10 +139,10 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
           })
           textData.push({
             value: num,
+            relativeValue: num / 4,
           })
-          lineData.push(num)
         }
-        return { barData, textData, lineData }
+        return { barData, textData }
       }
 
       const transitionData = getData()

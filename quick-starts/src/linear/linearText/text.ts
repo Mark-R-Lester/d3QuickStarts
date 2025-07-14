@@ -80,9 +80,11 @@ const draw = (canvas: Canvas, args: DrawArgs, config: TextConfig): QsText => {
     .attr('text-decoration', (d) => d.textDecorationLine)
     .attr('fill', (d) => d.textFill)
     .attr('stroke', (d) => d.textStroke)
-    .attr('transform', (d) => {
-      return `translate(${d.coordinate.x}, ${d.coordinate.y})rotate(${d.textAngle})`
-    })
+    .attr(
+      'transform',
+      (d) =>
+        `translate(${d.coordinate.x}, ${d.coordinate.y})rotate(${d.textAngle})`
+    )
     .style('text-anchor', (d) => d.textAnchor)
     .style('alignment-baseline', (d) => d.textAlignmentBaseline)
     .text((d) => d.text ?? d.value.toFixed(defaultDecimalPoints))

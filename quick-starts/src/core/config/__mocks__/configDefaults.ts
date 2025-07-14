@@ -14,7 +14,7 @@ import {
   QsEnumTextFontWeight,
 } from '../../enums/qsEnums'
 import { QsCanvasConfig } from '../../canvas/qsTypes'
-import { QsRadialTextConfig } from '../../../radialArc/radialArcText/qsTypes'
+import { QsRadialArcTextConfig } from '../../../radialArc/radialArcText/qsTypes'
 import { QsRadialAreaConfig } from '../../../radialCentroid/radialCentroidArea/qsTypes'
 import { QsRadialAxisConfig } from '../../../radialCentroid/radialCentroidAxis/qsTypes'
 import { QsRadialLineConfig } from '../../../radialCentroid/radialCentroidLine/qsTypes'
@@ -232,7 +232,7 @@ export const radialArcConfig: QsRadialArcConfig = {
   strokeColorScaleData: undefined,
 }
 
-const radialArcTextConfigBase: QsRadialTextConfig = {
+const radialArcTextConfigBase: QsRadialArcTextConfig = {
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
@@ -246,25 +246,25 @@ const radialArcTextConfigBase: QsRadialTextConfig = {
   textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
 }
 
-export const radialArcTextConfigRotated: QsRadialTextConfig = {
+export const radialArcTextConfigRotated: QsRadialArcTextConfig = {
   ...radialArcTextConfigBase,
   radius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
-export const radialArcTextConfigHorizontal: QsRadialTextConfig = {
+export const radialArcTextConfigHorizontal: QsRadialArcTextConfig = {
   ...radialArcTextConfigBase,
   radius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
-export const radialArcTextConfigSpoke: QsRadialTextConfig = {
+export const radialArcTextConfigSpoke: QsRadialArcTextConfig = {
   ...radialArcTextConfigBase,
   radius: 103,
   textAnchor: QsEnumTextAnchor.START,
 }
 
-export const radialArcTextConfigFollow: QsRadialTextConfig = {
+export const radialArcTextConfigFollow: QsRadialArcTextConfig = {
   ...radialArcTextConfigBase,
   radius: 103,
   textAnchor: QsEnumTextAnchor.MIDDLE,

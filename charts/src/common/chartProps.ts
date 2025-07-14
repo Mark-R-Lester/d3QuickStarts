@@ -16,7 +16,7 @@ import {
   QsRadialLineConfig,
   QsRadialPointsConfig,
   QsRadialSpokesConfig,
-  QsRadialTextConfig,
+  QsRadialArcTextConfig,
   QsValuedText,
   QsRadialPointData,
   QsPointData,
@@ -35,7 +35,7 @@ export interface OrienetedChartProps extends ChartProps {
 }
 
 export interface RadialTextChartProps extends ChartProps {
-  config?: QsRadialTextConfig
+  config?: QsRadialArcTextConfig
   data: QsValuedText[]
   orientation: EnumRadialTextOrientation
 }

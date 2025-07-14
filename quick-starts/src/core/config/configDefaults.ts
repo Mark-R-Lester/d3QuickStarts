@@ -15,9 +15,10 @@ import { PlottedPointsConfig } from '../../plots/plottedPoints/calculatedData'
 import { PlottedTextConfig } from '../../plots/plottedText/types'
 import { RadialArcConfig } from '../../radialArc/radialArc/types'
 import {
-  RadialTextConfig,
-  RadialTextConfigBase,
+  RadialArcTextConfig,
+  RadialArcTextConfigBase,
 } from '../../radialArc/radialArcText/types'
+
 import { RadialAreaConfig } from '../../radialCentroid/radialCentroidArea/types'
 import { RadialAxisConfig } from '../../radialCentroid/radialCentroidAxis/types'
 import { RadialLineConfig } from '../../radialCentroid/radialCentroidLine/types'
@@ -39,6 +40,7 @@ import {
 } from '../enums/qsEnums'
 import { ConfigTextDefaults } from '../types/types'
 import { QsColorScaleData } from '../types/qsTypes'
+import { RadialTextConfig } from '../../radialCentroid/radialCentroidText/types'
 
 const defaultFillColorArray: string[] = [
   'red',
@@ -280,7 +282,7 @@ export const radialArcConfig: RadialArcConfig = {
   strokeColorScaleData: undefined,
 }
 
-const radialArcTextConfigBase: RadialTextConfigBase = {
+const radialArcTextConfigBase: RadialArcTextConfigBase = {
   scaleType: QsEnumScaleType.LINEAR,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
@@ -295,28 +297,28 @@ const radialArcTextConfigBase: RadialTextConfigBase = {
   textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
 }
 
-export const radialArcTextConfigRotated: RadialTextConfig = {
+export const radialArcTextConfigRotated: RadialArcTextConfig = {
   useDataArea: true,
   ...radialArcTextConfigBase,
   radius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
-export const radialArcTextConfigHorizontal: RadialTextConfig = {
+export const radialArcTextConfigHorizontal: RadialArcTextConfig = {
   useDataArea: true,
   ...radialArcTextConfigBase,
   radius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
-export const radialArcTextConfigSpoke: RadialTextConfig = {
+export const radialArcTextConfigSpoke: RadialArcTextConfig = {
   useDataArea: true,
   ...radialArcTextConfigBase,
   radius: 103,
   textAnchor: QsEnumTextAnchor.START,
 }
 
-export const radialArcTextConfigFollow: RadialTextConfig = {
+export const radialArcTextConfigFollow: RadialArcTextConfig = {
   useDataArea: true,
   ...radialArcTextConfigBase,
   radius: 103,
@@ -382,6 +384,14 @@ export const radialCentroidPointsConfig: RadialPointsConfig = {
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
   fillColorScaleData: undefined,
   strokeColorScaleData: undefined,
+}
+
+export const radialCentroidTextsConfig: RadialTextConfig = {
+  useDataArea: true,
+  x: GlobalDefaultSettings.RADIAL_X,
+  y: GlobalDefaultSettings.RADIAL_Y,
+  defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
+  ...textDefaults,
 }
 
 export const radialCentroidSpokesConfig: RadialSpokesConfig = {

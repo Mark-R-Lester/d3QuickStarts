@@ -3,7 +3,7 @@ import {
   QsCanvas,
   qsCreateCanvas,
   QsRadial,
-  QsRadialText,
+  QsRadialArcText,
   QsValuedText,
   QsRadialData,
 } from 'd3qs/d3QuickStart'
@@ -17,7 +17,7 @@ export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
   orientation,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
-  const [element1, setElement1] = useState<QsRadialText>()
+  const [element1, setElement1] = useState<QsRadialArcText>()
   const [element2, setElement2] = useState<QsRadial>()
 
   useEffect(() => {

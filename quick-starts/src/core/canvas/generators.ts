@@ -64,11 +64,11 @@ import {
 } from '../../radialArc/radialArc/qsTypes'
 import { radialArc } from '../../radialArc/radialArc/radialArc'
 import {
-  QsRadialText,
-  QsRadialTextConfig,
+  QsRadialArcText,
+  QsRadialArcTextConfig,
   QsValuedText,
 } from '../../radialArc/radialArcText/qsTypes'
-import { radialText } from '../../radialArc/radialArcText/radialArcText'
+import { radialArcText } from '../../radialArc/radialArcText/radialArcText'
 import {
   QsRadialArea,
   QsRadialAreaConfig,
@@ -109,6 +109,12 @@ import {
   QsTextConfig,
   QsTextData,
 } from '../../linear/linearText/qsTypes'
+import {
+  QsRadialText,
+  QsRadialTextConfig,
+  QsRadialTextData,
+} from '../../radialCentroid/radialCentroidText/qsTypes'
+import { radialText } from '../../radialCentroid/radialCentroidText/radialCentroidText'
 
 interface HorizontalLinearAxisFunctions {
   bottom: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
@@ -167,20 +173,20 @@ interface PlottedElementFunctions {
 interface RadialArcTextElementFunctions {
   follow: (
     data: QsValuedText[],
-    customConfig?: QsRadialTextConfig
-  ) => QsRadialText
+    customConfig?: QsRadialArcTextConfig
+  ) => QsRadialArcText
   horizontal: (
     data: QsValuedText[],
-    customConfig?: QsRadialTextConfig
-  ) => QsRadialText
+    customConfig?: QsRadialArcTextConfig
+  ) => QsRadialArcText
   rotated: (
     data: QsValuedText[],
-    customConfig?: QsRadialTextConfig
-  ) => QsRadialText
+    customConfig?: QsRadialArcTextConfig
+  ) => QsRadialArcText
   spoke: (
     data: QsValuedText[],
-    customConfig?: QsRadialTextConfig
-  ) => QsRadialText
+    customConfig?: QsRadialArcTextConfig
+  ) => QsRadialArcText
 }
 
 interface RadialArcElementFunctions {
@@ -203,6 +209,10 @@ interface RadialCentroidElementFunctions {
     customConfig?: QsRadialPointsConfig
   ) => QsRadialPoints
   spokes: (data: number, customConfig?: QsRadialSpokesConfig) => QsRadialSpokes
+  text: (
+    data: QsRadialTextData[],
+    customConfig?: QsRadialTextConfig
+  ) => QsRadialText
 }
 
 export interface QsGenerator {
@@ -382,33 +392,33 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
       text: {
         follow: (
           data: QsValuedText[],
-          customConfig?: QsRadialTextConfig
-        ): QsRadialText => {
-          const element = radialText.follow(canvas, data, customConfig)
+          customConfig?: QsRadialArcTextConfig
+        ): QsRadialArcText => {
+          const element = radialArcText.follow(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
         horizontal: (
           data: QsValuedText[],
-          customConfig?: QsRadialTextConfig
-        ): QsRadialText => {
-          const element = radialText.horizontal(canvas, data, customConfig)
+          customConfig?: QsRadialArcTextConfig
+        ): QsRadialArcText => {
+          const element = radialArcText.horizontal(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
         rotated: (
           data: QsValuedText[],
-          customConfig?: QsRadialTextConfig
-        ): QsRadialText => {
-          const element = radialText.rotated(canvas, data, customConfig)
+          customConfig?: QsRadialArcTextConfig
+        ): QsRadialArcText => {
+          const element = radialArcText.rotated(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
         spoke: (
           data: QsValuedText[],
-          customConfig?: QsRadialTextConfig
-        ): QsRadialText => {
-          const element = radialText.spoke(canvas, data, customConfig)
+          customConfig?: QsRadialArcTextConfig
+        ): QsRadialArcText => {
+          const element = radialArcText.spoke(canvas, data, customConfig)
           elements.push({ element, data })
           return element
         },
@@ -452,6 +462,14 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
         customConfig?: QsRadialSpokesConfig
       ): QsRadialSpokes => {
         const element = radialSpokes.spokes(canvas, data, customConfig)
+        elements.push({ element, data })
+        return element
+      },
+      text: (
+        data: QsRadialTextData[],
+        customConfig?: QsRadialTextConfig
+      ): QsRadialText => {
+        const element = radialText.text(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },

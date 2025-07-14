@@ -25,6 +25,7 @@ import RadialCentroidAxisPage from './pages/radialCentroid/axis/RadialCentroidAx
 import RadialCentroidSpokesPage from './pages/radialCentroid/spokes/RadialCentroidSpokesPage'
 import UnboundLegendPage from './pages/unbound/legend/UnboundLegendPage'
 import UnboundTextPage from './pages/unbound/text/UnboundTextPage'
+import RadialCentroidTextPage from './pages/radialCentroid/text/RadialCentroidTextPage'
 
 export const AppRoutes: FunctionComponent = () => {
   return (
@@ -63,6 +64,7 @@ export const AppRoutes: FunctionComponent = () => {
         path="/radialCentroid/spokes"
         Component={RadialCentroidSpokesPage}
       />
+      <Route path="/radialcentroid/text" Component={RadialCentroidTextPage} />
 
       <Route path="/plotted/transitions" Component={PlottedTransitionsPage} />
       <Route path="/linear/transitions" Component={LinearTransitionsPage} />

@@ -38,6 +38,7 @@ export const menuElementsRadialCentroid: DropdownMenuProps = {
     { title: 'Points', route: '/radialcentroid/points' },
     { title: 'Line', route: '/radialcentroid/line' },
     { title: 'Spokes', route: '/radialcentroid/spokes' },
+    { title: 'Text', route: '/radialcentroid/text' },
   ],
 }
 

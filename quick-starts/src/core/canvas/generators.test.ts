@@ -642,11 +642,11 @@ describe('getGenerators', () => {
           it should call generators.radialArc.text.follow and add to elements
           expectedElement = $expectedElement`,
         ({ data, customConfig, expectedElement }) => {
-          ;(radialText.radialText.follow as jest.Mock).mockReturnValue(
+          ;(radialText.radialArcText.follow as jest.Mock).mockReturnValue(
             expectedElement
           )
           const result = generators.radialArc.text.follow(data, customConfig)
-          expect(radialText.radialText.follow).toHaveBeenCalledWith(
+          expect(radialText.radialArcText.follow).toHaveBeenCalledWith(
             expect.anything(),
             data,
             customConfig
@@ -668,14 +668,14 @@ describe('getGenerators', () => {
           it should call generators.radialArc.text.horizontal and add to elements
           expectedElement = $expectedElement`,
         ({ data, customConfig, expectedElement }) => {
-          ;(radialText.radialText.horizontal as jest.Mock).mockReturnValue(
+          ;(radialText.radialArcText.horizontal as jest.Mock).mockReturnValue(
             expectedElement
           )
           const result = generators.radialArc.text.horizontal(
             data,
             customConfig
           )
-          expect(radialText.radialText.horizontal).toHaveBeenCalledWith(
+          expect(radialText.radialArcText.horizontal).toHaveBeenCalledWith(
             expect.anything(),
             data,
             customConfig
@@ -697,11 +697,11 @@ describe('getGenerators', () => {
           it should call generators.radialArc.text.rotated and add to elements
           expectedElement = $expectedElement`,
         ({ data, customConfig, expectedElement }) => {
-          ;(radialText.radialText.rotated as jest.Mock).mockReturnValue(
+          ;(radialText.radialArcText.rotated as jest.Mock).mockReturnValue(
             expectedElement
           )
           const result = generators.radialArc.text.rotated(data, customConfig)
-          expect(radialText.radialText.rotated).toHaveBeenCalledWith(
+          expect(radialText.radialArcText.rotated).toHaveBeenCalledWith(
             expect.anything(),
             data,
             customConfig
@@ -723,11 +723,11 @@ describe('getGenerators', () => {
           it should call generators.radialArc.text.spoke and add to elements
           expectedElement = $expectedElement`,
         ({ data, customConfig, expectedElement }) => {
-          ;(radialText.radialText.spoke as jest.Mock).mockReturnValue(
+          ;(radialText.radialArcText.spoke as jest.Mock).mockReturnValue(
             expectedElement
           )
           const result = generators.radialArc.text.spoke(data, customConfig)
-          expect(radialText.radialText.spoke).toHaveBeenCalledWith(
+          expect(radialText.radialArcText.spoke).toHaveBeenCalledWith(
             expect.anything(),
             data,
             customConfig

@@ -11,14 +11,15 @@ import { QsPlottedLineConfig } from '../../plots/plottedLine/qsTypes'
 import { QsPlottedPointsConfig } from '../../plots/plottedPoints/qsTypes'
 import { QsPlottedTextConfig } from '../../plots/plottedText/qsTypes'
 import { QsRadialArcConfig } from '../../radialArc/radialArc/qsTypes'
-import { QsRadialTextConfig } from '../../radialArc/radialArcText/qsTypes'
+import { QsRadialArcTextConfig } from '../../radialArc/radialArcText/qsTypes'
 import { QsRadialAreaConfig } from '../../radialCentroid/radialCentroidArea/qsTypes'
 import { QsRadialAxisConfig } from '../../radialCentroid/radialCentroidAxis/qsTypes'
 import { QsRadialLineConfig } from '../../radialCentroid/radialCentroidLine/qsTypes'
 import { QsRadialPointsConfig } from '../../radialCentroid/radialCentroidPoints/qsTypes'
 import { QsRadialSpokesConfig } from '../../radialCentroid/radialCentroidSpokes/qsTypes'
+import { QsRadialTextConfig } from '../../radialCentroid/radialCentroidText/qsTypes'
 
-interface ConfigStore {
+export interface ConfigStore {
   legendConfig?: QsLegendConfig
   linearAreaConfig?: QsAreaConfig
   linearAxisConfigTop?: QsAxisConfig
@@ -35,15 +36,16 @@ interface ConfigStore {
   plottedPointsConfig?: QsPlottedPointsConfig
   plottedTextConfig?: QsPlottedTextConfig
   radialArcConfig?: QsRadialArcConfig
-  radialArcTextConfigRotated?: QsRadialTextConfig
-  radialArcTextConfigHorizontal?: QsRadialTextConfig
-  radialArcTextConfigSpoke?: QsRadialTextConfig
-  radialArcTextConfigFollow?: QsRadialTextConfig
+  radialArcTextConfigRotated?: QsRadialArcTextConfig
+  radialArcTextConfigHorizontal?: QsRadialArcTextConfig
+  radialArcTextConfigSpoke?: QsRadialArcTextConfig
+  radialArcTextConfigFollow?: QsRadialArcTextConfig
   radialCentroidAreaConfig?: QsRadialAreaConfig
   radialCentroidAxisConfig?: QsRadialAxisConfig
   radialCentroidLineConfig?: QsRadialLineConfig
   radialCentroidPointsConfig?: QsRadialPointsConfig
   radialCentroidSpokesConfig?: QsRadialSpokesConfig
+  radialCentroidTextConfig?: QsRadialTextConfig
 }
 
 export interface ConfigGetters {
@@ -70,10 +72,10 @@ export interface ConfigGetters {
   }
   radialArc: {
     arcConfig: () => QsRadialArcConfig | undefined
-    textConfigRotated: () => QsRadialTextConfig | undefined
-    textConfigHorizontal: () => QsRadialTextConfig | undefined
-    textConfigSpoke: () => QsRadialTextConfig | undefined
-    textConfigFollow: () => QsRadialTextConfig | undefined
+    textConfigRotated: () => QsRadialArcTextConfig | undefined
+    textConfigHorizontal: () => QsRadialArcTextConfig | undefined
+    textConfigSpoke: () => QsRadialArcTextConfig | undefined
+    textConfigFollow: () => QsRadialArcTextConfig | undefined
   }
   radialCentroid: {
     areaConfig: () => QsRadialAreaConfig | undefined
@@ -81,6 +83,7 @@ export interface ConfigGetters {
     lineConfig: () => QsRadialLineConfig | undefined
     pointsConfig: () => QsRadialPointsConfig | undefined
     spokesConfig: () => QsRadialSpokesConfig | undefined
+    textConfig: () => QsRadialTextConfig | undefined
   }
 }
 
@@ -108,10 +111,10 @@ export interface ConfigSetters {
   }
   radialArc: {
     arcConfig: (value: QsRadialArcConfig) => void
-    textConfigRotated: (value: QsRadialTextConfig) => void
-    textConfigHorizontal: (value: QsRadialTextConfig) => void
-    textConfigSpoke: (value: QsRadialTextConfig) => void
-    textConfigFollow: (value: QsRadialTextConfig) => void
+    textConfigRotated: (value: QsRadialArcTextConfig) => void
+    textConfigHorizontal: (value: QsRadialArcTextConfig) => void
+    textConfigSpoke: (value: QsRadialArcTextConfig) => void
+    textConfigFollow: (value: QsRadialArcTextConfig) => void
   }
   radialCentroid: {
     areaConfig: (value: QsRadialAreaConfig) => void
@@ -119,6 +122,7 @@ export interface ConfigSetters {
     lineConfig: (value: QsRadialLineConfig) => void
     pointsConfig: (value: QsRadialPointsConfig) => void
     spokesConfig: (value: QsRadialSpokesConfig) => void
+    textConfig: (value: QsRadialTextConfig) => void
   }
 }
 
@@ -152,6 +156,7 @@ export class ConfigStoreManager {
       radialCentroidLineConfig: undefined,
       radialCentroidPointsConfig: undefined,
       radialCentroidSpokesConfig: undefined,
+      radialCentroidTextConfig: undefined,
     }
   }
 
@@ -191,6 +196,7 @@ export class ConfigStoreManager {
         lineConfig: () => this.store.radialCentroidLineConfig,
         pointsConfig: () => this.store.radialCentroidPointsConfig,
         spokesConfig: () => this.store.radialCentroidSpokesConfig,
+        textConfig: () => this.store.radialCentroidTextConfig,
       },
     }
   }
@@ -252,16 +258,16 @@ export class ConfigStoreManager {
         arcConfig: (value: QsRadialArcConfig) => {
           this.store.radialArcConfig = value
         },
-        textConfigRotated: (value: QsRadialTextConfig) => {
+        textConfigRotated: (value: QsRadialArcTextConfig) => {
           this.store.radialArcTextConfigRotated = value
         },
-        textConfigHorizontal: (value: QsRadialTextConfig) => {
+        textConfigHorizontal: (value: QsRadialArcTextConfig) => {
           this.store.radialArcTextConfigHorizontal = value
         },
-        textConfigSpoke: (value: QsRadialTextConfig) => {
+        textConfigSpoke: (value: QsRadialArcTextConfig) => {
           this.store.radialArcTextConfigSpoke = value
         },
-        textConfigFollow: (value: QsRadialTextConfig) => {
+        textConfigFollow: (value: QsRadialArcTextConfig) => {
           this.store.radialArcTextConfigFollow = value
         },
       },
@@ -280,6 +286,9 @@ export class ConfigStoreManager {
         },
         spokesConfig: (value: QsRadialSpokesConfig) => {
           this.store.radialCentroidSpokesConfig = value
+        },
+        textConfig: (value: QsRadialTextConfig) => {
+          this.store.radialCentroidTextConfig = value
         },
       },
     }

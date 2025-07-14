@@ -11,116 +11,14 @@ import { QsPlottedLineConfig } from '../../../plots/plottedLine/qsTypes'
 import { QsPlottedPointsConfig } from '../../../plots/plottedPoints/qsTypes'
 import { QsPlottedTextConfig } from '../../../plots/plottedText/qsTypes'
 import { QsRadialArcConfig } from '../../../radialArc/radialArc/qsTypes'
-import { QsRadialTextConfig } from '../../../radialArc/radialArcText/qsTypes'
+import { QsRadialArcTextConfig } from '../../../radialArc/radialArcText/qsTypes'
 import { QsRadialAreaConfig } from '../../../radialCentroid/radialCentroidArea/qsTypes'
 import { QsRadialAxisConfig } from '../../../radialCentroid/radialCentroidAxis/qsTypes'
 import { QsRadialLineConfig } from '../../../radialCentroid/radialCentroidLine/qsTypes'
 import { QsRadialPointsConfig } from '../../../radialCentroid/radialCentroidPoints/qsTypes'
 import { QsRadialSpokesConfig } from '../../../radialCentroid/radialCentroidSpokes/qsTypes'
-
-export interface ConfigStore {
-  legendConfig?: QsLegendConfig
-  linearAreaConfig?: QsAreaConfig
-  linearAxisConfigTop?: QsAxisConfig
-  linearAxisConfigBottom?: QsAxisConfig
-  linearAxisConfigLeft?: QsAxisConfig
-  linearAxisConfigRight?: QsAxisConfig
-  linearBarConfig?: QsBarConfig
-  linearBarGroupConfig?: QsBarGroupConfig
-  linearBarStackConfig?: QsBarStackedConfig
-  linearLineConfig?: QsLineConfig
-  linearPointsConfig?: QsPointsConfig
-  linearTextConfig?: QsTextConfig
-  plottedLineConfig?: QsPlottedLineConfig
-  plottedPointsConfig?: QsPlottedPointsConfig
-  plottedTextConfig?: QsPlottedTextConfig
-  radialArcConfig?: QsRadialArcConfig
-  radialArcTextConfigRotated?: QsRadialTextConfig
-  radialArcTextConfigHorizontal?: QsRadialTextConfig
-  radialArcTextConfigSpoke?: QsRadialTextConfig
-  radialArcTextConfigFollow?: QsRadialTextConfig
-  radialCentroidAreaConfig?: QsRadialAreaConfig
-  radialCentroidAxisConfig?: QsRadialAxisConfig
-  radialCentroidLineConfig?: QsRadialLineConfig
-  radialCentroidPointsConfig?: QsRadialPointsConfig
-  radialCentroidSpokesConfig?: QsRadialSpokesConfig
-}
-
-export interface ConfigGetters {
-  legend: {
-    legendConfig: () => QsLegendConfig | undefined
-  }
-  linear: {
-    areaConfig: () => QsAreaConfig | undefined
-    axisConfigTop: () => QsAxisConfig | undefined
-    axisConfigBottom: () => QsAxisConfig | undefined
-    axisConfigLeft: () => QsAxisConfig | undefined
-    axisConfigRight: () => QsAxisConfig | undefined
-    barConfig: () => QsBarConfig | undefined
-    barGroupConfig: () => QsBarGroupConfig | undefined
-    barStackConfig: () => QsBarStackedConfig | undefined
-    lineConfig: () => QsLineConfig | undefined
-    pointsConfig: () => QsPointsConfig | undefined
-    textConfig: () => QsTextConfig | undefined
-  }
-  plotted: {
-    lineConfig: () => QsPlottedLineConfig | undefined
-    pointsConfig: () => QsPlottedPointsConfig | undefined
-    textConfig: () => QsPlottedTextConfig | undefined
-  }
-  radialArc: {
-    arcConfig: () => QsRadialArcConfig | undefined
-    textConfigRotated: () => QsRadialTextConfig | undefined
-    textConfigHorizontal: () => QsRadialTextConfig | undefined
-    textConfigSpoke: () => QsRadialTextConfig | undefined
-    textConfigFollow: () => QsRadialTextConfig | undefined
-  }
-  radialCentroid: {
-    areaConfig: () => QsRadialAreaConfig | undefined
-    axisConfig: () => QsRadialAxisConfig | undefined
-    lineConfig: () => QsRadialLineConfig | undefined
-    pointsConfig: () => QsRadialPointsConfig | undefined
-    spokesConfig: () => QsRadialSpokesConfig | undefined
-  }
-}
-
-export interface ConfigSetters {
-  legend: {
-    legendConfig: (value: QsLegendConfig) => void
-  }
-  linear: {
-    areaConfig: (value: QsAreaConfig) => void
-    axisConfigTop: (value: QsAxisConfig) => void
-    axisConfigBottom: (value: QsAxisConfig) => void
-    axisConfigLeft: (value: QsAxisConfig) => void
-    axisConfigRight: (value: QsAxisConfig) => void
-    barConfig: (value: QsBarConfig) => void
-    barGroupConfig: (value: QsBarGroupConfig) => void
-    barStackConfig: (value: QsBarStackedConfig) => void
-    lineConfig: (value: QsLineConfig) => void
-    pointsConfig: (value: QsPointsConfig) => void
-    textConfig: (value: QsTextConfig) => void
-  }
-  plotted: {
-    lineConfig: (value: QsPlottedLineConfig) => void
-    pointsConfig: (value: QsPlottedPointsConfig) => void
-    textConfig: (value: QsPlottedTextConfig) => void
-  }
-  radialArc: {
-    arcConfig: (value: QsRadialArcConfig) => void
-    textConfigRotated: (value: QsRadialTextConfig) => void
-    textConfigHorizontal: (value: QsRadialTextConfig) => void
-    textConfigSpoke: (value: QsRadialTextConfig) => void
-    textConfigFollow: (value: QsRadialTextConfig) => void
-  }
-  radialCentroid: {
-    areaConfig: (value: QsRadialAreaConfig) => void
-    axisConfig: (value: QsRadialAxisConfig) => void
-    lineConfig: (value: QsRadialLineConfig) => void
-    pointsConfig: (value: QsRadialPointsConfig) => void
-    spokesConfig: (value: QsRadialSpokesConfig) => void
-  }
-}
+import { ConfigStore } from '../../config/configStore.class'
+import { QsRadialTextConfig } from '../../../radialCentroid/radialCentroidText/qsTypes'
 
 export const createMockConfigStore = () => {
   const store: ConfigStore = {
@@ -149,6 +47,7 @@ export const createMockConfigStore = () => {
     radialCentroidLineConfig: undefined,
     radialCentroidPointsConfig: undefined,
     radialCentroidSpokesConfig: undefined,
+    radialCentroidTextConfig: undefined,
   }
 
   return {
@@ -221,6 +120,9 @@ export const createMockConfigStore = () => {
         spokesConfig: jest
           .fn()
           .mockImplementation(() => store.radialCentroidSpokesConfig),
+        textConfig: jest
+          .fn()
+          .mockImplementation(() => store.radialCentroidTextConfig),
       },
     },
     setters: {
@@ -293,22 +195,22 @@ export const createMockConfigStore = () => {
         }),
         textConfigRotated: jest
           .fn()
-          .mockImplementation((value: QsRadialTextConfig) => {
+          .mockImplementation((value: QsRadialArcTextConfig) => {
             store.radialArcTextConfigRotated = value
           }),
         textConfigHorizontal: jest
           .fn()
-          .mockImplementation((value: QsRadialTextConfig) => {
+          .mockImplementation((value: QsRadialArcTextConfig) => {
             store.radialArcTextConfigHorizontal = value
           }),
         textConfigSpoke: jest
           .fn()
-          .mockImplementation((value: QsRadialTextConfig) => {
+          .mockImplementation((value: QsRadialArcTextConfig) => {
             store.radialArcTextConfigSpoke = value
           }),
         textConfigFollow: jest
           .fn()
-          .mockImplementation((value: QsRadialTextConfig) => {
+          .mockImplementation((value: QsRadialArcTextConfig) => {
             store.radialArcTextConfigFollow = value
           }),
       },
@@ -337,6 +239,11 @@ export const createMockConfigStore = () => {
           .fn()
           .mockImplementation((value: QsRadialSpokesConfig) => {
             store.radialCentroidSpokesConfig = value
+          }),
+        textConfig: jest
+          .fn()
+          .mockImplementation((value: QsRadialTextConfig) => {
+            store.radialCentroidTextConfig = value
           }),
       },
     },

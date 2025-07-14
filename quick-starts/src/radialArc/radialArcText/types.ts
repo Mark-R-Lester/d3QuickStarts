@@ -7,7 +7,7 @@ import {
   QsEnumScaleType,
 } from '../../core/enums/qsEnums'
 
-export interface RadialTextConfigBase {
+export interface RadialArcTextConfigBase {
   [key: string]:
     | number
     | Iterable<unknown>
@@ -27,7 +27,7 @@ export interface RadialTextConfigBase {
   textStroke: string
 }
 
-export interface RadialTextConfig extends RadialTextConfigBase {
+export interface RadialArcTextConfig extends RadialArcTextConfigBase {
   [key: string]:
     | number
     | Iterable<unknown>

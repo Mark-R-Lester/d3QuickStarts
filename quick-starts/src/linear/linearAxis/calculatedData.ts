@@ -58,8 +58,11 @@ export const getCalculatedData = (
     yPercentScaleInverted,
     yDataScale,
     xDataScale,
+    xDataScalePlotted,
+    yDataScalePlotted,
   } = canvas.scales
-  const { displayAreaWidth, displayAreaHeight } = canvas.config
+  const { displayAreaWidth, displayAreaHeight, highestViewableValuePlottedX } =
+    canvas.config
   const {
     percentageMovement,
     domainScale,
@@ -101,9 +104,14 @@ export const getCalculatedData = (
           : [displayAreaHeight, 0]
 
       if (domainScale === QsEnumAxisScaleType.LINEAR)
-        return chartEdge === (ChartEdge.BOTTOM || ChartEdge.TOP)
-          ? xDataScale
-          : yDataScale
+        if (highestViewableValuePlottedX)
+          return chartEdge === (ChartEdge.BOTTOM || ChartEdge.TOP)
+            ? xDataScalePlotted
+            : yDataScalePlotted
+        else
+          return chartEdge === (ChartEdge.BOTTOM || ChartEdge.TOP)
+            ? xDataScale
+            : yDataScale
       if (domainScale === QsEnumAxisScaleType.POINT)
         return scalePoint().domain(toStrings(data)).range(range)
       return scaleBand().domain(toStrings(data)).range(range)

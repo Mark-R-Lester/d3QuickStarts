@@ -136,7 +136,7 @@ export const defaultsContent: JSX.Element = (
                 chartName: 'chartH',
                 width: 600,
                 highestViewableValue: 100,
-                highestViewableValuePlottedX: 100,
+                highestViewableValuePlottedX: 150,
               }}
             />,
           ]}

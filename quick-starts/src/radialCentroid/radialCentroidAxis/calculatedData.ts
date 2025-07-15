@@ -3,6 +3,10 @@ import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/math/conversion'
 import { Canvas } from '../../core/canvas/canvas'
 import { RadialAxisConfig, CalculatedData } from './types'
+import {
+  adjacentFromHypotenuse,
+  oppositeFromHypotenuse,
+} from '../../core/math/trigonometricFunctions'
 
 export const getCalculatedData = (
   canvas: Canvas,
@@ -32,15 +36,21 @@ export const getCalculatedData = (
   }
 
   const nunberOfArcs = data.length
+  const radians = axisAngle * (Math.PI / 180)
   const bandWidth = genralPercentScale(radius / 2 / (nunberOfArcs - 1))
 
   data.forEach((d, i) => {
-    const radians = Math.PI * 2
-
     const calculateTextPosition = () => {
       const hypotenuse: number = bandWidth * i
-      const relativeX: number = Math.sin(radianAngle) * hypotenuse
-      const relativeY: number = Math.cos(radianAngle) * hypotenuse * -1
+      const relativeX: number = oppositeFromHypotenuse({
+        hypotenuse,
+        radians: radians,
+      })
+      const relativeY: number =
+        adjacentFromHypotenuse({
+          hypotenuse,
+          radians: radians,
+        }) * -1
       return [
         relativeX + displayAreaWidth / 2 + xPercentScale(-50 + x),
         relativeY + displayAreaHeight / 2 + yPercentScale(-50 + y),
@@ -58,7 +68,6 @@ export const getCalculatedData = (
       else return ''
     }
 
-    const radianAngle = axisAngle * (Math.PI / 180)
     const halfGap = genralPercentScale(gap / 2) / (bandWidth * i)
 
     calculatedData.push({
@@ -68,8 +77,8 @@ export const getCalculatedData = (
       ringData: {
         innerRadius: bandWidth * i,
         outerRadius: bandWidth * i,
-        startAngle: radianAngle + halfGap,
-        endAngle: radianAngle + radians - halfGap,
+        startAngle: radians + halfGap,
+        endAngle: radians + Math.PI * 2 - halfGap,
         textLocation: calculateTextPosition(),
         text: handleText(text),
       },

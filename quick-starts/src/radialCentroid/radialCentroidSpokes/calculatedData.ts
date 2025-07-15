@@ -18,13 +18,13 @@ export const getCalculatedData = (
   const yCenter = (displayAreaHeight / 100) * y
 
   for (let i = 0; i < data; i++) {
-    const angle = ((Math.PI * 2) / data) * i
+    const radians = ((Math.PI * 2) / data) * i
     const outerHypotenuse = ((displayAreaHeight / 2) * radius) / 100
     const innerHypotenuse = ((displayAreaHeight / 2) * innerRadius) / 100
-    const outerX = Math.sin(angle) * outerHypotenuse + xCenter
-    const outerY = Math.cos(angle) * outerHypotenuse + yCenter
-    const innerX = Math.sin(angle) * innerHypotenuse + xCenter
-    const innerY = Math.cos(angle) * innerHypotenuse + yCenter
+    const outerX = Math.sin(radians) * outerHypotenuse + xCenter
+    const outerY = Math.cos(radians) * outerHypotenuse + yCenter
+    const innerX = Math.sin(radians) * innerHypotenuse + xCenter
+    const innerY = Math.cos(radians) * innerHypotenuse + yCenter
     calculatedData[i] = {
       id: `axisSpoke${uuidv4()}`,
       lineData: [

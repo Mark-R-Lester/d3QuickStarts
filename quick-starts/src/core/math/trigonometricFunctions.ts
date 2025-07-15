@@ -1,42 +1,42 @@
 export interface AdjacentAngleInput {
   adjacent: number
-  angle: number
+  radians: number
 }
 export interface OppositeAngleInput {
   opposite: number
-  angle: number
+  radians: number
 }
 export interface HypotenuseAngleInput {
   hypotenuse: number
-  angle: number
+  radians: number
 }
 
 export const hypotenuseFromAdjacent = ({
   adjacent,
-  angle,
-}: AdjacentAngleInput): number => adjacent / Math.cos(angle)
+  radians,
+}: AdjacentAngleInput): number => adjacent / Math.cos(radians)
 
 export const hypotenuseFromOpposite = ({
   opposite,
-  angle,
-}: OppositeAngleInput): number => opposite / Math.sin(angle)
+  radians,
+}: OppositeAngleInput): number => opposite / Math.sin(radians)
 
 export const adjacentFromHypotenuse = ({
   hypotenuse,
-  angle,
-}: HypotenuseAngleInput): number => hypotenuse * Math.cos(angle)
+  radians,
+}: HypotenuseAngleInput): number => hypotenuse * Math.cos(radians)
 
 export const adjacentFromOpposite = ({
   opposite,
-  angle,
-}: OppositeAngleInput): number => opposite / Math.tan(angle)
+  radians,
+}: OppositeAngleInput): number => opposite / Math.tan(radians)
 
 export const oppositeFromHypotenuse = ({
   hypotenuse,
-  angle,
-}: HypotenuseAngleInput): number => hypotenuse * Math.sin(angle)
+  radians,
+}: HypotenuseAngleInput): number => hypotenuse * Math.sin(radians)
 
 export const oppositeFromAdjacent = ({
   adjacent,
-  angle,
-}: AdjacentAngleInput): number => adjacent * Math.tan(angle)
+  radians,
+}: AdjacentAngleInput): number => adjacent * Math.tan(radians)

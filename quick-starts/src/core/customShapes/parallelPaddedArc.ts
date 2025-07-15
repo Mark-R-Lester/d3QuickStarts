@@ -27,8 +27,8 @@ export const calculateInnerRadius = (
   const angle = (endAngle - startAngle) / 2
   const radius =
     angle > degreesToRadians(90)
-      ? hypotenuseFromAdjacent({ adjacent: padding, angle })
-      : hypotenuseFromOpposite({ opposite: padding, angle })
+      ? hypotenuseFromAdjacent({ adjacent: padding, radians: angle })
+      : hypotenuseFromOpposite({ opposite: padding, radians: angle })
   return radius + 0.1
 }
 /**

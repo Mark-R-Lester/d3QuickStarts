@@ -16,6 +16,7 @@ import {
 import { interpolate } from 'd3'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { generateClassName } from '../../core/generateClassName'
+import { QsEnumCoordinateView } from './qsEnums'
 
 export const plottedText = {
   text: (
@@ -38,11 +39,23 @@ const draw = (
   config: PlottedTextConfig
 ): QsPlottedText => {
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
-
+  const { useDataArea, defaultCooridinateView } = config
   const { className, dotClassName } = generateClassName('plottedText')
-  const canvasGroup = config.useDataArea
-    ? canvas.canvasDataGroup
-    : canvas.canvasGroup
+
+  const getCorrectText = (d: CalculatedData): string => {
+    const { text, viewableCoordinate, defaultDecimalPoints } = d
+    const { x, y } = viewableCoordinate
+    const xFixed = x.toFixed(defaultDecimalPoints)
+    const yFixed = y.toFixed(defaultDecimalPoints)
+
+    if (text) return text
+    if (defaultCooridinateView === QsEnumCoordinateView.SHOW_X) return xFixed
+    if (defaultCooridinateView === QsEnumCoordinateView.SHOW_Y) return yFixed
+
+    return `${xFixed}, ${yFixed}`
+  }
+
+  const canvasGroup = useDataArea ? canvas.canvasDataGroup : canvas.canvasGroup
   const group = canvasGroup.append('g')
   group
     .selectAll(dotClassName)
@@ -62,11 +75,7 @@ const draw = (
     })
     .style('text-anchor', (d) => d.textAnchor)
     .style('alignment-baseline', (d) => d.textAlignmentBaseline)
-    .text(
-      (d) =>
-        d.text ??
-        `${d.viewableCoordinate.x.toFixed(d.defaultDecimalPoints)}, ${d.viewableCoordinate.y.toFixed(d.defaultDecimalPoints)}`
-    )
+    .text((d) => getCorrectText(d))
 
   const transition = (data: QsPlottedTextTransitionData) => {
     const args = addTransitionDefaults(data.transitionArgs)
@@ -105,10 +114,7 @@ const draw = (
         return (t: number) => {
           d.coordinate.x = tweenX(t)
           d.coordinate.y = tweenY(t)
-          return (
-            d.text ??
-            `${d.coordinate.x.toFixed(d.defaultDecimalPoints)}, ${d.coordinate.y.toFixed(d.defaultDecimalPoints)}`
-          )
+          return getCorrectText(d)
         }
       })
   }

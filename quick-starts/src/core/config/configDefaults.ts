@@ -41,6 +41,7 @@ import {
 import { ConfigTextDefaults } from '../types/types'
 import { QsColorScaleData } from '../types/qsTypes'
 import { RadialTextConfig } from '../../radialCentroid/radialCentroidText/types'
+import { QsEnumCoordinateView } from '../../plots/plottedText/qsEnums'
 
 const defaultFillColorArray: string[] = [
   'red',
@@ -262,6 +263,7 @@ export const plottedPointsConfig: PlottedPointsConfig = {
 export const plottedTextConfig: PlottedTextConfig = {
   useDataArea: true,
   defaultDecimalPoints: 0,
+  defaultCooridinateView: QsEnumCoordinateView.SHOW_X_AND_Y,
   ...textDefaults,
 }
 

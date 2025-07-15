@@ -1,5 +1,10 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas, QsPlottedTextData } from 'd3qs/d3QuickStart'
+import {
+  QsCanvas,
+  qsCreateCanvas,
+  QsEnumCoordinateView,
+  QsPlottedTextData,
+} from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
 export const PlottedTextDefaultsChart: FunctionComponent<ChartProps> = ({
@@ -15,9 +20,11 @@ export const PlottedTextDefaultsChart: FunctionComponent<ChartProps> = ({
         { x: 25, y: 25 },
         { x: 50, y: 50 },
         { x: 75, y: 75 },
-        { x: 90, y: 90 },
+        { x: 90, y: 95 },
       ]
-      canvas.generate.plotted.text(data)
+      canvas.generate.plotted.text(data, {
+        defaultCooridinateView: QsEnumCoordinateView.SHOW_X_AND_Y,
+      })
       canvas.generate.linear.vertical.axis.left([])
       canvas.generate.linear.horizontal.axis.bottom([])
     }

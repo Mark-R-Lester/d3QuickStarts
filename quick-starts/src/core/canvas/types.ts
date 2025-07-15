@@ -11,6 +11,8 @@ export interface CanvasConfig {
   marginBottom: number
   highestViewableValue: number
   lowestViewableValue: number
+  highestViewableValuePlottedX?: number
+  lowestViewableValuePlottedX?: number
   borderColor: string
   borderWidth: number
   fillColor: string

@@ -34,9 +34,12 @@ export const getScales = (config: CanvasConfig): CanvasScales => {
     displayAreaHeight,
     lowestViewableValue,
     highestViewableValue,
+    highestViewableValuePlottedX,
+    lowestViewableValuePlottedX,
     height,
     width,
   } = config
+
   return {
     xCanvasPercentScaleInverted: scaleLinear()
       .domain([0, 100])
@@ -70,8 +73,16 @@ export const getScales = (config: CanvasConfig): CanvasScales => {
       .domain([lowestViewableValue, highestViewableValue])
       .range([0, displayAreaWidth]),
     xDataScalePlotted: scaleLinear()
-      .domain([lowestViewableValue, highestViewableValue])
-      .range([0, Math.min(displayAreaHeight, displayAreaWidth)]),
+      .domain([
+        lowestViewableValuePlottedX ?? lowestViewableValue,
+        highestViewableValuePlottedX ?? highestViewableValue,
+      ])
+      .range([
+        0,
+        highestViewableValuePlottedX !== undefined
+          ? displayAreaWidth
+          : Math.min(displayAreaHeight, displayAreaWidth),
+      ]),
     xDataScaleInverted: scaleLinear()
       .domain([lowestViewableValue, highestViewableValue])
       .range([displayAreaWidth, 0]),
@@ -81,7 +92,12 @@ export const getScales = (config: CanvasConfig): CanvasScales => {
       .range([displayAreaHeight, 0]),
     yDataScalePlotted: scaleLinear()
       .domain([lowestViewableValue, highestViewableValue])
-      .range([Math.min(displayAreaHeight, displayAreaWidth), 0]),
+      .range([
+        highestViewableValuePlottedX !== undefined
+          ? displayAreaHeight
+          : Math.min(displayAreaHeight, displayAreaWidth),
+        0,
+      ]),
     yDataScaleInverted: scaleLinear()
       .domain([lowestViewableValue, highestViewableValue])
       .range([0, displayAreaHeight]),

@@ -6,7 +6,11 @@ import { Selection } from 'd3'
 
 export { QsGenerator } from './generators'
 
-export type QsCanvasConfig = Partial<CanvasConfig>
+export interface QsCanvasConfig extends Partial<CanvasConfig> {
+  chartName: string
+  width: number
+  highestViewableValue: number
+}
 
 export interface QsCanvas {
   canvasSVG: Selection<SVGSVGElement, unknown, HTMLElement, any>

@@ -65,7 +65,7 @@ const draw = (
     .text(
       (d) =>
         d.text ??
-        `${d.coordinate.x.toFixed(d.defaultDecimalPoints)}, ${d.coordinate.y.toFixed(d.defaultDecimalPoints)}`
+        `${d.viewableCoordinate.x.toFixed(d.defaultDecimalPoints)}, ${d.viewableCoordinate.y.toFixed(d.defaultDecimalPoints)}`
     )
 
   const transition = (data: QsPlottedTextTransitionData) => {
@@ -94,8 +94,14 @@ const draw = (
         return `translate(${d.coordinate.x}, ${d.coordinate.y})rotate(${d.textAngle})`
       })
       .textTween((d) => {
-        const tweenX = interpolate(d.coordinate.x, d.newCoordinate.x)
-        const tweenY = interpolate(d.coordinate.x, d.newCoordinate.x)
+        const tweenX = interpolate(
+          d.viewableCoordinate.x,
+          d.newViewableCoordinate.x
+        )
+        const tweenY = interpolate(
+          d.viewableCoordinate.y,
+          d.newViewableCoordinate.y
+        )
         return (t: number) => {
           d.coordinate.x = tweenX(t)
           d.coordinate.y = tweenY(t)

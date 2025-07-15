@@ -8,7 +8,8 @@ export interface CalculatedData extends TextData {
   text?: string
   newText?: string
   coordinate: QsCoordinate
-  newCoordinate: QsCoordinate
+  viewableCoordinate: QsCoordinate
+  newViewableCoordinate: QsCoordinate
   defaultDecimalPoints: number
 }
 
@@ -25,7 +26,8 @@ export const updateCalculatedData = (
   )
   for (let i = 0; i < calculatedData.length; i++) {
     newCalculatedData[i].text = calculatedData[i].text
-    newCalculatedData[i].coordinate = calculatedData[i].coordinate
+    newCalculatedData[i].viewableCoordinate =
+      calculatedData[i].viewableCoordinate
   }
   return newCalculatedData
 }
@@ -55,7 +57,8 @@ export const getCalculatedData = (
     text: d.text,
     newText: d.text,
     coordinate: { x: xDataScalePlotted(d.x), y: yDataScalePlotted(d.y) },
-    newCoordinate: { x: xDataScalePlotted(d.x), y: yDataScalePlotted(d.y) },
+    viewableCoordinate: { x: d.x, y: d.y },
+    newViewableCoordinate: { x: d.x, y: d.y },
     defaultDecimalPoints,
     textFont: d.textFont ?? defaultTextFont,
     textFontSize: genralPercentScale(d.textFontSize ?? defaultTextFontSize),

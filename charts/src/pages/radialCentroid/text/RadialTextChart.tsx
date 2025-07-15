@@ -8,7 +8,7 @@ export const RadialTextChart: FunctionComponent<ChartProps> = ({
   useEffect(() => {
     const createChart = () => {
       const data: QsRadialPointData[] = [
-        { value: 1, fillColor: 'red' },
+        { value: 1 },
         { value: 2 },
         { value: 1 },
         { value: 2 },
@@ -25,7 +25,7 @@ export const RadialTextChart: FunctionComponent<ChartProps> = ({
       ]
 
       const canvas: QsCanvas = qsCreateCanvas(canvasProps)
-      canvas.generate.radialCentroid.points(data)
+      canvas.generate.radialCentroid.text(data)
     }
     createChart()
   }, [canvasProps])

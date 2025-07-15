@@ -21,7 +21,7 @@ const canvasConfig: string = `const canvasConfig = {
 }`
 
 const defaultsChart: string = `
-const data: QsRadialPointData[] = [
+const data: QsRadialTextData[] = [
   { value: 1 },
   { value: 2 },
   { value: 1 },
@@ -39,11 +39,11 @@ const data: QsRadialPointData[] = [
 ]
 
 const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-canvas.generate.radialCentroid.points(data)`
+canvas.generate.radialCentroid.text(data)`
 
 const configChart: string = `
-const data: QsRadialPointData[] = [
-  { value: 1, fillColor: 'red' },
+const data: QsRadialTextData[] = [
+  { value: 1,},
   { value: 2 },
   { value: 1 },
   { value: 2 },
@@ -60,63 +60,73 @@ const data: QsRadialPointData[] = [
 ]
 
 const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
-canvas.generate.radialCentroid.points(data)`
+canvas.generate.radialCentroid.text(data)`
 
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`
 
-const data: string = `interface QsRadialPointData {
+const data: string = `interface QsRadialTextData {
   value: number
-  radius?: number
-  fillColor?: string
-  fillOpacity?: number
-  strokeColor?: string
-  strokeWidth?: number
-  strokeOpacity?: number
+  text?: string
+  textFont?: QsEnumTextFont | string
+  textFontSize?: number
+  textFontStyle?: QsEnumTextFontStyle
+  textFontWeight?: QsEnumTextFontWeight | number
+  textDecorationLine: QsEnumTextDecorationLine
+  textFill?: string
+  textAngle?: number
+  textAnchor?: QsEnumTextAnchor
+  textStroke?: string
+  textAlignmentBaseline?: QsEnumAlignmentBaseline
 }`
 
-const config: string = `const config: QsRadialPointsConfig = {
+const config: string = `interface QsRadialTextConfig = {
+  useDataArea?: boolean
   x?: number
   y?: number
-  defaultRadius?: number
-  defaultFillColor?: string
-  defaultFillOpacity?: number
-  defaultStrokeColor?: string
-  defaultStrokeWidth?: number
-  defaultStrokeOpacity?: number
-  fillColorScaleData?: QsColorScaleData
-  strokeColorScaleData?: QsColorScaleData
+  defaultDecimalPoints?: number
+  defaultTextFont?: QsEnumTextFont | string
+  defaultTextFontSize?: number
+  defaultTextFontStyle?: QsEnumTextFontStyle
+  defaultTextFontWeight?: QsEnumTextFontWeight | number
+  defaultTextDecorationLine?: QsEnumTextDecorationLine
+  defaultTextFill?: string
+  defaultTextAngle?: number
+  defaultTextAnchor?: QsEnumTextAnchor
+  defaultTextStroke?: string
+  defaultTextAlignmentBaseline?: QsEnumAlignmentBaseline
 }`
 
-const dataExample: string = `const data: QsRadialPointData = {
-  value: 6,
-  radius: 3,
-  fillColor: 'blue',
-  fillOpacity: 1,
-  strokeColor: 'blue',
-  strokeWidth: 1,
-  strokeOpacity: 1,
+const dataExample: string = `const data: QsRadialTextData = {
+  value: 27,
+  text: 'this is what you will see if added',
+  textFont: QsEnumTextFont.SERIF,
+  textFontSize: 10,
+  textFontStyle: QsEnumTextFontStyle.ITALIC,
+  textFontWeight: QsEnumTextFontWeight.BOLD,
+  textDecorationLine: QsEnumTextDecorationLine.OVERLINE,
+  textFill: 'blue',
+  textAngle: 45,
+  textAnchor: QsEnumTextAnchor.START,
+  textStroke:  'blue',
+  textAlignmentBaseline: QsEnumAlignmentBaseline.CENTER,
 }`
 
-const configExample: string = `interface QsRadialPointsConfig {
-  x: 50,
-  y: 50,
-  defaultRadius: 3,
-  defaultFillColor: 'blue',
-  defaultFillOpacity: 1,
-  defaultStrokeColor: 'blue',
-  defaultStrokeWidth: 1,
-  defaultStrokeOpacity: 1,
-  fillColorScaleData: {
-    domain: [1, 100],
-    range: ['lightblue', 'darkblue'],
-    type: QsEnumColorScale.SEQUENTIAL,
-  },
-  strokeColorScaleData:{
-    domain: [1, 100],
-    range: ['lightblue', 'darkblue'],
-    type: QsEnumColorScale.SEQUENTIAL,
-  },
+const configExample: string = `const config: QsRadialTextConfig =  {
+  useDataArea: true
+  x: 50
+  y: 50
+  defaultDecimalPoints: 2
+  defaultDecimalPoints: 3,
+  defaultTextFontSize: 10,
+  defaultTextFontStyle: QsEnumTextFontStyle.ITALIC,
+  defaultTextFontWeight: QsEnumTextFontWeight.BOLD,
+  defaultTextDecorationLine: QsEnumTextDecorationLine.OVERLINE,
+  defaultTextFill: 'blue',
+  defaultTextAngle: 45,
+  defaultTextAnchor: QsEnumTextAnchor.START,
+  defaultTextStroke:  'blue',
+  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.CENTER,
 }`
 
 export const defaultsContent: JSX.Element = (

@@ -7,15 +7,12 @@ import {
   QsValuedText,
   QsRadialData,
 } from 'd3qs/d3QuickStart'
-import { RadialTextChartProps } from '../../../common/chartProps'
+import { RadialArcTextChartProps } from '../../../common/chartProps'
 import { EnumRadialTextOrientation } from '../../../common/enums'
 
-export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
-  canvasProps,
-  config,
-  data,
-  orientation,
-}) => {
+export const RadialTextTransition: FunctionComponent<
+  RadialArcTextChartProps
+> = ({ canvasProps, config, data, orientation }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element1, setElement1] = useState<QsRadialArcText>()
   const [element2, setElement2] = useState<QsRadial>()

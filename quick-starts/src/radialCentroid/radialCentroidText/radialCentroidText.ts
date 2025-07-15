@@ -1,4 +1,8 @@
-import { getCalculatedData, CalculatedData } from './calculatedData'
+import {
+  getCalculatedData,
+  CalculatedData,
+  updateCalculatedData,
+} from './calculatedData'
 import { Canvas } from '../../core/canvas/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { RadialTextConfig } from './types'
@@ -11,6 +15,7 @@ import {
 import { radialCentroidTextsConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
+import { interpolate } from 'd3'
 
 export const radialText = {
   text: (
@@ -32,11 +37,7 @@ const draw = (
   data: QsRadialTextData[],
   config: RadialTextConfig
 ): QsRadialText => {
-  const calculatedData: CalculatedData[] = getCalculatedData(
-    canvas,
-    data,
-    config
-  )
+  let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
 
   const { className, dotClassName } = generateClassName('radialCentroidText')
   const canvasGroup = config.useDataArea
@@ -67,10 +68,11 @@ const draw = (
     element: group.selectAll(dotClassName),
     transition: (data: QsRadialTextTransitionData) => {
       const args = addTransitionDefaults(data.transitionArgs)
-      const calculatedData: CalculatedData[] = getCalculatedData(
+      calculatedData = updateCalculatedData(
         canvas,
         data.data,
-        config
+        config,
+        calculatedData
       )
       group
         .selectAll(dotClassName)
@@ -78,8 +80,8 @@ const draw = (
         .transition()
         .delay(args.delayInMiliSeconds)
         .duration(args.durationInMiliSeconds)
-        .attr('cx', (d) => d.coordinate.x)
-        .attr('cy', (d) => d.coordinate.y)
+        .attr('x', (d) => d.coordinate.x)
+        .attr('y', (d) => d.coordinate.y)
         .attr('font-family', (d) => d.textFont)
         .attr('font-style', (d) => d.textFontStyle)
         .attr('font-weight', (d) => d.textFontWeight)
@@ -89,7 +91,13 @@ const draw = (
         .attr('stroke', (d) => d.textStroke)
         .style('text-anchor', (d) => d.textAnchor)
         .style('alignment-baseline', (d) => d.textAlignmentBaseline)
-        .text((d) => d.text ?? d.value.toFixed(d.defaultDecimalPoints))
+        .textTween((d) => {
+          const tweenText = interpolate(d.value, d.newValue)
+          return (t: number) => {
+            d.value = tweenText(t)
+            return d.text ?? d.value.toFixed(d.defaultDecimalPoints)
+          }
+        })
     },
   }
 }

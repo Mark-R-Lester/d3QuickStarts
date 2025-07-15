@@ -98,7 +98,6 @@ const draw = (canvas: Canvas, args: DrawArgs, config: TextConfig): QsText => {
       config,
       calculatedData
     )
-
     group
       .selectAll(dotClassName)
       .data(calculatedData)

@@ -80,7 +80,7 @@ const data: string = `interface QsTextData {
 }`
 
 const config: string = `interface QsTextConfig {
-  [key: string]: number | QsColorScaleData | string | undefined
+  useDataArea?: boolean
   scaleType?: QsEnumScaleType
   defaultDecimalPoints?: number
   defaultTextFont?: QsEnumTextFont | string
@@ -111,6 +111,7 @@ const dataExample: string = `const data: QsTextData = {
 }`
 
 const configExample: string = `const config: QsTextConfig = {
+  useDataArea: true
   scaleType: QsEnumScaleType.BANDED,
   defaultDecimalPoints: 3,
   defaultTextFontSize: 10,

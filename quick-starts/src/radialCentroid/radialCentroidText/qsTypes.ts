@@ -19,6 +19,5 @@ export interface QsRadialText {
 
 export interface QsRadialTextData extends Partial<TextData> {
   value: number
-  relativeValue?: number
   text?: string
 }

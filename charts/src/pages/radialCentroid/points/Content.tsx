@@ -75,7 +75,8 @@ const data: string = `interface QsRadialPointData {
   strokeOpacity?: number
 }`
 
-const config: string = `const config: QsRadialPointsConfig = {
+const config: string = `interface QsRadialPointsConfig = {
+  useDataArea?: boolean
   x?: number
   y?: number
   defaultRadius?: number
@@ -98,7 +99,8 @@ const dataExample: string = `const data: QsRadialPointData = {
   strokeOpacity: 1,
 }`
 
-const configExample: string = `interface QsRadialPointsConfig {
+const configExample: string = `const config: QsRadialPointsConfig = {
+  useDataArea: true
   x: 50,
   y: 50,
   defaultRadius: 3,

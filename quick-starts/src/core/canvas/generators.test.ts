@@ -13,12 +13,13 @@ import * as plottedLine from '../../plots/plottedLine/plottedLine'
 import * as plottedPoint from '../../plots/plottedPoints/plottedPoints'
 import * as plottedText from '../../plots/plottedText/plottedText'
 import * as radialArc from '../../radialArc/radialArc/radialArc'
-import * as radialText from '../../radialArc/radialArcText/radialArcText'
+import * as radialArcText from '../../radialArc/radialArcText/radialArcText'
 import * as radialArea from '../../radialCentroid/radialCentroidArea/radialCentroidArea'
 import * as radialAxis from '../../radialCentroid/radialCentroidAxis/radialCentroidAxis'
 import * as radialLine from '../../radialCentroid/radialCentroidLine/radialCentroidLine'
 import * as radialPoint from '../../radialCentroid/radialCentroidPoints/radialCentroidPoints'
-import * as radialSpokes from '../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
+import { radialSpokes } from '../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
+import { radialText } from '../../radialCentroid/radialCentroidText/radialCentroidText'
 import { QsCanvas } from './qsTypes'
 import { qsCreateCanvas } from './canvas'
 
@@ -55,6 +56,7 @@ jest.mock('../../radialCentroid/radialCentroidAxis/radialCentroidAxis')
 jest.mock('../../radialCentroid/radialCentroidLine/radialCentroidLine')
 jest.mock('../../radialCentroid/radialCentroidPoints/radialCentroidPoints')
 jest.mock('../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes')
+jest.mock('../../radialCentroid/radialCentroidText/radialCentroidText')
 
 describe('getGenerators', () => {
   let canvas: QsCanvas
@@ -642,11 +644,11 @@ describe('getGenerators', () => {
           it should call generators.radialArc.text.follow and add to elements
           expectedElement = $expectedElement`,
         ({ data, customConfig, expectedElement }) => {
-          ;(radialText.radialArcText.follow as jest.Mock).mockReturnValue(
+          ;(radialArcText.radialArcText.follow as jest.Mock).mockReturnValue(
             expectedElement
           )
           const result = generators.radialArc.text.follow(data, customConfig)
-          expect(radialText.radialArcText.follow).toHaveBeenCalledWith(
+          expect(radialArcText.radialArcText.follow).toHaveBeenCalledWith(
             expect.anything(),
             data,
             customConfig
@@ -668,14 +670,14 @@ describe('getGenerators', () => {
           it should call generators.radialArc.text.horizontal and add to elements
           expectedElement = $expectedElement`,
         ({ data, customConfig, expectedElement }) => {
-          ;(radialText.radialArcText.horizontal as jest.Mock).mockReturnValue(
-            expectedElement
-          )
+          ;(
+            radialArcText.radialArcText.horizontal as jest.Mock
+          ).mockReturnValue(expectedElement)
           const result = generators.radialArc.text.horizontal(
             data,
             customConfig
           )
-          expect(radialText.radialArcText.horizontal).toHaveBeenCalledWith(
+          expect(radialArcText.radialArcText.horizontal).toHaveBeenCalledWith(
             expect.anything(),
             data,
             customConfig
@@ -697,11 +699,11 @@ describe('getGenerators', () => {
           it should call generators.radialArc.text.rotated and add to elements
           expectedElement = $expectedElement`,
         ({ data, customConfig, expectedElement }) => {
-          ;(radialText.radialArcText.rotated as jest.Mock).mockReturnValue(
+          ;(radialArcText.radialArcText.rotated as jest.Mock).mockReturnValue(
             expectedElement
           )
           const result = generators.radialArc.text.rotated(data, customConfig)
-          expect(radialText.radialArcText.rotated).toHaveBeenCalledWith(
+          expect(radialArcText.radialArcText.rotated).toHaveBeenCalledWith(
             expect.anything(),
             data,
             customConfig
@@ -723,11 +725,11 @@ describe('getGenerators', () => {
           it should call generators.radialArc.text.spoke and add to elements
           expectedElement = $expectedElement`,
         ({ data, customConfig, expectedElement }) => {
-          ;(radialText.radialArcText.spoke as jest.Mock).mockReturnValue(
+          ;(radialArcText.radialArcText.spoke as jest.Mock).mockReturnValue(
             expectedElement
           )
           const result = generators.radialArc.text.spoke(data, customConfig)
-          expect(radialText.radialArcText.spoke).toHaveBeenCalledWith(
+          expect(radialArcText.radialArcText.spoke).toHaveBeenCalledWith(
             expect.anything(),
             data,
             customConfig
@@ -844,11 +846,31 @@ describe('getGenerators', () => {
         it should call generators.radialCentroid.spokes and add to elements
         expectedElement = $expectedElement`,
       ({ data, customConfig, expectedElement }) => {
-        ;(radialSpokes.radialSpokes.spokes as jest.Mock).mockReturnValue(
-          expectedElement
-        )
+        ;(radialSpokes.spokes as jest.Mock).mockReturnValue(expectedElement)
         const result = generators.radialCentroid.spokes(data, customConfig)
-        expect(radialSpokes.radialSpokes.spokes).toHaveBeenCalledWith(
+
+        expect(radialSpokes.spokes).toHaveBeenCalledWith(
+          expect.anything(),
+          data,
+          customConfig
+        )
+        expect(testElements).toContainEqual({ element: expectedElement, data })
+        expect(result).toEqual(expectedElement)
+      }
+    )
+
+    test.each`
+      data            | customConfig             | expectedElement
+      ${{ value: 5 }} | ${{ useDataArea: true }} | ${{ id: 'text1' }}
+      ${{ value: 5 }} | ${undefined}             | ${{ id: 'text2' }}
+    `(
+      `When data is $data and customConfig is $customConfig
+        it should call generators.radialCentroid.spokes and add to elements
+        expectedElement = $expectedElement`,
+      ({ data, customConfig, expectedElement }) => {
+        ;(radialText.text as jest.Mock).mockReturnValue(expectedElement)
+        const result = generators.radialCentroid.text(data, customConfig)
+        expect(radialText.text).toHaveBeenCalledWith(
           expect.anything(),
           data,
           customConfig

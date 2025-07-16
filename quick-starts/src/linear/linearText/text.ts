@@ -4,7 +4,7 @@ import {
   getCalculatedData,
   updateCalculatedData,
 } from './calculatedData'
-import { DrawArgs, TextConfig } from './types'
+import { TextConfig } from './types'
 import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
@@ -24,40 +24,40 @@ export const linearText = {
     data: QsTextData[],
     customConfig?: QsTextConfig
   ): QsText => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.HORIZONTAL,
-    }
     const config: TextConfig = addDefaultsToConfig<TextConfig>(
       linearTextConfig,
       customConfig,
       canvas.configStore.linear.textConfig()
     )
-    return draw(canvas, args, config)
+    return draw(canvas, data, Orientation.HORIZONTAL, config)
   },
+
   vertical: (
     canvas: Canvas,
     data: QsTextData[],
     customConfig?: QsTextConfig
   ): QsText => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.VERTICAL,
-    }
-
     const config: TextConfig = addDefaultsToConfig<TextConfig>(
       linearTextConfig,
       customConfig,
       canvas.configStore.linear.textConfig()
     )
-    return draw(canvas, args, config)
+    return draw(canvas, data, Orientation.VERTICAL, config)
   },
 }
 
-const draw = (canvas: Canvas, args: DrawArgs, config: TextConfig): QsText => {
-  const { orientation } = args
-
-  let calculatedData: CalculatedData[] = getCalculatedData(canvas, args, config)
+const draw = (
+  canvas: Canvas,
+  data: QsTextData[],
+  orientation: Orientation,
+  config: TextConfig
+): QsText => {
+  let calculatedData: CalculatedData[] = getCalculatedData(
+    canvas,
+    data,
+    orientation,
+    config
+  )
   const { defaultDecimalPoints } = config
 
   const { className, dotClassName } = generateClassName('linearText')
@@ -89,14 +89,13 @@ const draw = (canvas: Canvas, args: DrawArgs, config: TextConfig): QsText => {
     .style('alignment-baseline', (d) => d.textAlignmentBaseline)
     .text((d) => d.text ?? d.value.toFixed(defaultDecimalPoints))
 
-  const transition = (
-    transitionData: QsTextTransitionData = { data: args.data }
-  ) => {
+  const transition = (transitionData: QsTextTransitionData = { data }) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
-    const drawArgs: DrawArgs = { data: transitionData.data, orientation }
+
     calculatedData = updateCalculatedData(
       canvas,
-      drawArgs,
+      data,
+      orientation,
       config,
       calculatedData
     )

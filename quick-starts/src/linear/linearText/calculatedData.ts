@@ -1,6 +1,6 @@
 import { scaleLinear, scaleBand, range } from 'd3'
 import { Canvas } from '../../core/canvas/canvas'
-import { DrawArgs, TextConfig } from './types'
+import { TextConfig } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
@@ -28,13 +28,15 @@ export interface CalculatedData extends TextData {
 
 export const updateCalculatedData = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: QsTextData[],
+  orientation: Orientation,
   config: TextConfig,
   calculatedData: CalculatedData[]
 ): CalculatedData[] => {
   const newCalculatedData: CalculatedData[] = getCalculatedData(
     canvas,
-    args,
+    data,
+    orientation,
     config
   )
   for (let i = 0; i < calculatedData.length; i++) {
@@ -46,12 +48,13 @@ export const updateCalculatedData = (
 
 export const getCalculatedData = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: QsTextData[],
+  orientation: Orientation,
   config: TextConfig
 ): CalculatedData[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { xDataScale, yDataScale, genralPercentScale } = canvas.scales
-  const { data, orientation } = args
+
   const isVertical = orientation === Orientation.VERTICAL
   const {
     scaleType,

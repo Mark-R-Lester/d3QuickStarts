@@ -9,7 +9,7 @@ import { Canvas, qsCreateCanvas } from '../../core/canvas/canvas'
 import { QsCanvas } from '../../core/canvas/qsTypes'
 import { getCalculatedData } from './calculatedData'
 import { QsBarData } from './qsTypes'
-import { BarConfig, DrawArgs } from './types'
+import { BarConfig } from './types'
 import { JSDOM } from 'jsdom'
 import { ConfigStoreManager } from '../../core/config/configStore.class'
 
@@ -77,10 +77,6 @@ describe('Linear Bars calculatedData', () => {
           { lowerBoundry: 0, upperBoundry: 50 },
           { lowerBoundry: 0, upperBoundry: 25 },
         ]
-        const args: DrawArgs = {
-          data,
-          orientation: Orientation.HORIZONTAL,
-        }
 
         canvasConfig.highestViewableValue = highestViewableValue
         canvasConfig.lowestViewableValue = lowestViewableValue
@@ -95,7 +91,12 @@ describe('Linear Bars calculatedData', () => {
           configStore: new ConfigStoreManager().getters,
           elements: [],
         }
-        const calculatedData = getCalculatedData(canvas, args, config)
+        const calculatedData = getCalculatedData(
+          canvas,
+          data,
+          Orientation.HORIZONTAL,
+          config
+        )
         expect(calculatedData[0].barData.rectangleParams.y).toEqual(zeroY)
         expect(calculatedData[0].barData.rectangleParams.height).toEqual(
           zeroHeight
@@ -138,10 +139,6 @@ describe('Linear Bars calculatedData', () => {
           { lowerBoundry: 0, upperBoundry: 100 },
           { lowerBoundry: 10, upperBoundry: 100 },
         ]
-        const args: DrawArgs = {
-          data,
-          orientation: Orientation.HORIZONTAL,
-        }
 
         canvasConfig.highestViewableValue = highestViewableValue
         canvasConfig.lowestViewableValue = lowestViewableValue
@@ -156,7 +153,12 @@ describe('Linear Bars calculatedData', () => {
           configStore: new ConfigStoreManager().getters,
           elements: [],
         }
-        const calculatedData = getCalculatedData(canvas, args, config)
+        const calculatedData = getCalculatedData(
+          canvas,
+          data,
+          Orientation.HORIZONTAL,
+          config
+        )
         expect(calculatedData[0].barData.rectangleParams.y).toEqual(zeroY)
         expect(calculatedData[0].barData.rectangleParams.height).toEqual(
           zeroHeight
@@ -198,10 +200,6 @@ describe('Linear Bars calculatedData', () => {
           { lowerBoundry: 0, upperBoundry: 50 },
           { lowerBoundry: 0, upperBoundry: 25 },
         ]
-        const args: DrawArgs = {
-          data,
-          orientation: Orientation.VERTICAL,
-        }
 
         canvasConfig.highestViewableValue = highestViewableValue
         canvasConfig.lowestViewableValue = lowestViewableValue
@@ -216,7 +214,12 @@ describe('Linear Bars calculatedData', () => {
           configStore: new ConfigStoreManager().getters,
           elements: [],
         }
-        const calculatedData = getCalculatedData(canvas, args, config)
+        const calculatedData = getCalculatedData(
+          canvas,
+          data,
+          Orientation.VERTICAL,
+          config
+        )
         expect(calculatedData[0].barData.rectangleParams.x).toEqual(zeroY)
         expect(calculatedData[0].barData.rectangleParams.width).toEqual(
           zeroHeight
@@ -259,10 +262,6 @@ describe('Linear Bars calculatedData', () => {
           { lowerBoundry: 0, upperBoundry: 100 },
           { lowerBoundry: 10, upperBoundry: 100 },
         ]
-        const args: DrawArgs = {
-          data,
-          orientation: Orientation.VERTICAL,
-        }
 
         canvasConfig.highestViewableValue = highestViewableValue
         canvasConfig.lowestViewableValue = lowestViewableValue
@@ -277,7 +276,12 @@ describe('Linear Bars calculatedData', () => {
           configStore: new ConfigStoreManager().getters,
           elements: [],
         }
-        const calculatedData = getCalculatedData(canvas, args, config)
+        const calculatedData = getCalculatedData(
+          canvas,
+          data,
+          Orientation.VERTICAL,
+          config
+        )
         expect(calculatedData[0].barData.rectangleParams.x).toEqual(zeroY)
         expect(calculatedData[0].barData.rectangleParams.width).toEqual(
           zeroHeight

@@ -1,7 +1,7 @@
 import { scaleBand, ScaleOrdinal, range, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/math/conversion'
-import { BarConfig, CalculatedDataBarData, DrawArgs } from './types'
+import { BarConfig, CalculatedDataBarData } from './types'
 import { Orientation } from '../../core/enums/enums'
 import {
   getPrecidendedColor,
@@ -38,7 +38,8 @@ export const calculateDataWidth = (
 
 export const getCalculatedData = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: QsBarData[],
+  orientation: Orientation,
   config: BarConfig
 ): CalculatedData[] => {
   const {
@@ -59,7 +60,6 @@ export const getCalculatedData = (
     defaultTBottomRightCornerRadiusCx,
     defaultTBottomRightCornerRadiusCy,
   } = config
-  const { data, orientation } = args
   const {
     displayAreaWidth,
     displayAreaHeight,

@@ -1,6 +1,6 @@
 import { Canvas } from '../../core/canvas/canvas'
 import { getCalculatedData, CalculatedData } from './calculatedData'
-import { BarConfig, DrawArgs } from './types'
+import { BarConfig } from './types'
 import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsBarConfig, QsBarData, QsBars, QsBarTransitionData } from './qsTypes'
@@ -15,34 +15,37 @@ export const linearBar = {
     data: QsBarData[],
     customConfig?: QsBarConfig
   ): QsBars => {
-    const args: DrawArgs = { data, orientation: Orientation.HORIZONTAL }
     const config: BarConfig = addDefaultsToConfig<BarConfig>(
       linearBarConfig,
       customConfig,
       canvas.configStore.linear.barConfig()
     )
-    return draw(canvas, args, config)
+    return draw(canvas, data, Orientation.HORIZONTAL, config)
   },
   vertical: (
     canvas: Canvas,
     data: QsBarData[],
     customConfig?: QsBarConfig
   ): QsBars => {
-    const args: DrawArgs = { data, orientation: Orientation.VERTICAL }
     const config: BarConfig = addDefaultsToConfig<BarConfig>(
       linearBarConfig,
       customConfig,
       canvas.configStore.linear.barConfig()
     )
-    return draw(canvas, args, config)
+    return draw(canvas, data, Orientation.VERTICAL, config)
   },
 }
 
-const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
-  const { orientation } = args
+const draw = (
+  canvas: Canvas,
+  data: QsBarData[],
+  orientation: Orientation,
+  config: BarConfig
+): QsBars => {
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
-    args,
+    data,
+    orientation,
     config
   )
   const { className, dotClassName } = generateClassName('linearBars')
@@ -65,14 +68,13 @@ const draw = (canvas: Canvas, args: DrawArgs, config: BarConfig): QsBars => {
     .attr('stroke-opacity', (d) => d.barData.strokeOpacity)
     .attr('stroke-width', (d) => d.barData.strokeWidth)
 
-  const transition = (
-    transitionData: QsBarTransitionData = { data: args.data }
-  ) => {
+  const transition = (transitionData: QsBarTransitionData = { data }) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
-    const drawArgs: DrawArgs = { data: transitionData.data, orientation }
+
     const calculatedData: CalculatedData[] = getCalculatedData(
       canvas,
-      drawArgs,
+      transitionData.data,
+      orientation,
       config
     )
 

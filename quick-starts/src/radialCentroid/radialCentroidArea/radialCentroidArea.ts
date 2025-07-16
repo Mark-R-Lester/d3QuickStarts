@@ -15,10 +15,6 @@ import { radialCentroidAreaConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 
-interface DrawArgs {
-  data: QsRadialAreaData
-}
-
 export const radialArea = {
   area: (
     canvas: Canvas,
@@ -30,19 +26,16 @@ export const radialArea = {
       customConfig,
       canvas.configStore.radialCentroid.areaConfig()
     )
-    const args: DrawArgs = {
-      data,
-    }
-    return draw(canvas, args, config)
+
+    return draw(canvas, data, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: QsRadialAreaData,
   config: RadialAreaConfig
 ): QsRadialArea => {
-  const { data } = args
   const { curve } = config
   const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
 
@@ -73,7 +66,7 @@ const draw = (
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
 
   const transition = (
-    transitionData: QsRadialAreaTransitionData = { data: args.data }
+    transitionData: QsRadialAreaTransitionData = { data }
   ) => {
     const calculatedData = getCalculatedData(
       canvas,

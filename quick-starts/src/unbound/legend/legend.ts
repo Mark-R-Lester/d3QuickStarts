@@ -7,10 +7,6 @@ import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { Canvas } from '../../core/canvas/canvas'
 import { generateClassName } from '../../core/generateClassName'
 
-interface DrawArgs {
-  data: QsLegendData[]
-}
-
 export const legend = (
   canvas: Canvas,
   data: QsLegendData[],
@@ -21,12 +17,11 @@ export const legend = (
     customConfig,
     canvas.configStore.legend.legendConfig()
   )
-  const args: DrawArgs = { data }
-  return draw(canvas, args, config)
+
+  return draw(canvas, data, config)
 }
 
-const draw = (canvas: Canvas, args: DrawArgs, config: LegendConfig) => {
-  const { data } = args
+const draw = (canvas: Canvas, data: QsLegendData[], config: LegendConfig) => {
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
     data,

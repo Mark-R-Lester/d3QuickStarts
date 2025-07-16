@@ -7,10 +7,6 @@ import { radialCentroidSpokesConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 
-interface DrawArgs {
-  data: number
-}
-
 export const radialSpokes = {
   spokes: (
     canvas: Canvas,
@@ -22,18 +18,16 @@ export const radialSpokes = {
       customConfig,
       canvas.configStore.radialCentroid.spokesConfig()
     )
-    const args: DrawArgs = { data }
-    return draw(canvas, args, config)
+    return draw(canvas, data, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: number,
   config: RadialSpokesConfig
 ): QsRadialSpokes => {
   const { strokeColor, strokeOpacity } = config
-  const { data } = args
 
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,

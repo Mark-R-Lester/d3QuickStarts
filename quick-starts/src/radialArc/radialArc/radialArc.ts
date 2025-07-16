@@ -18,33 +18,26 @@ import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 import { parallelPaddedArc } from '../../core/customShapes/parallelPaddedArc'
 
-interface DrawArgs {
-  data: QsRadialData[]
-}
-
 export const radialArc = {
   radial: (
     canvas: Canvas,
     data: QsRadialData[],
     customConfig?: QsRadialArcConfig
   ): QsRadial => {
-    const args: DrawArgs = { data }
     const config: RadialArcConfig = addDefaultsToConfig<RadialArcConfig>(
       radialArcConfig,
       customConfig,
       canvas.configStore.radialArc.arcConfig()
     )
-    return draw(canvas, args, config)
+    return draw(canvas, data, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: QsRadialData[],
   config: RadialArcConfig
 ): QsRadial => {
-  const { data } = args
-
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
 
   const { className, dotClassName } = generateClassName('radialCentroidArea')
@@ -68,9 +61,7 @@ const draw = (
     .attr('stroke-opacity', (d) => d.arcData.strokeOpacity)
     .attr('stroke-width', (d) => d.arcData.strokeWidth)
 
-  const transition = (
-    transitionData: QsRadialTransitionData = { data: args.data }
-  ) => {
+  const transition = (transitionData: QsRadialTransitionData = { data }) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
     calculatedData = updateCalculatedData(
       canvas,

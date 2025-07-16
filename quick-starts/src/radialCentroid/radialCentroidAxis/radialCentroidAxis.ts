@@ -12,10 +12,6 @@ import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { generateClassName } from '../../core/generateClassName'
 
-interface DrawArgs {
-  data: number[]
-}
-
 export const radialAxis = {
   rings: (
     canvas: Canvas,
@@ -27,14 +23,13 @@ export const radialAxis = {
       customConfig,
       canvas.configStore.radialCentroid.axisConfig()
     )
-    const args: DrawArgs = { data }
-    return draw(canvas, args, config)
+    return draw(canvas, data, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: number[],
   config: RadialAxisConfig
 ): QsRadialAxis => {
   const {
@@ -49,7 +44,6 @@ const draw = (
     textAlignmentBaseline,
     textAnchor,
   } = config
-  const { data } = args
 
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
@@ -105,7 +99,7 @@ const draw = (
     .text((d) => d.ringData.text)
 
   const transition = (
-    transitionData: QsRadialCentroidAxisTransitionData = { data: args.data }
+    transitionData: QsRadialCentroidAxisTransitionData = { data }
   ) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
 

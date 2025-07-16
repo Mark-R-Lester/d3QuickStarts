@@ -63,20 +63,22 @@ const draw = (
     .attr('stroke-width', (d) => d.strokeWidth)
     .attr('stroke-opacity', strokeOpacity)
 
+  const transition = (data: number) => {
+    const calculatedData: CalculatedData[] = getCalculatedData(
+      canvas,
+      data,
+      config
+    )
+    group
+      .selectAll(dotClassName)
+      .data(calculatedData.map((d) => d.lineData))
+      .transition()
+      .duration(3000)
+      .attr('d', radialLine)
+  }
+
   return {
     element: group.selectAll(dotClassName),
-    transition: (data: number) => {
-      const calculatedData: CalculatedData[] = getCalculatedData(
-        canvas,
-        data,
-        config
-      )
-      group
-        .selectAll(dotClassName)
-        .data(calculatedData.map((d) => d.lineData))
-        .transition()
-        .duration(3000)
-        .attr('d', radialLine)
-    },
+    transition,
   }
 }

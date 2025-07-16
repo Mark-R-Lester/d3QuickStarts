@@ -65,30 +65,34 @@ const draw = (
     .attr('stroke-opacity', (d) => d.strokeOpacity)
     .attr('stroke-width', (d) => d.strokeWidth)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
+
+  const transition = (
+    transitionData: QsRadialPointsTransitionData = { data: args.data }
+  ) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
+    const calculatedData: CalculatedData[] = getCalculatedData(
+      canvas,
+      transitionData.data,
+      config
+    )
+    group
+      .selectAll(dotClassName)
+      .data(calculatedData)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('cx', (d) => d.coordinate.x)
+      .attr('cy', (d) => d.coordinate.y)
+      .attr('r', (d) => d.radius)
+      .attr('fill', (d) => d.fillColor)
+      .attr('fill', (d) => d.fillColor)
+      .attr('fill-opacity', (d) => d.fillOpacity)
+      .attr('stroke', (d) => d.strokeColor)
+      .attr('stroke-opacity', (d) => d.strokeOpacity)
+      .attr('stroke-width', (d) => d.strokeWidth)
+  }
   return {
     element: group.selectAll(dotClassName),
-    transition: (data: QsRadialPointsTransitionData) => {
-      const args = addTransitionDefaults(data.transitionArgs)
-      const calculatedData: CalculatedData[] = getCalculatedData(
-        canvas,
-        data.data,
-        config
-      )
-      group
-        .selectAll(dotClassName)
-        .data(calculatedData)
-        .transition()
-        .delay(args.delayInMiliSeconds)
-        .duration(args.durationInMiliSeconds)
-        .attr('cx', (d) => d.coordinate.x)
-        .attr('cy', (d) => d.coordinate.y)
-        .attr('r', (d) => d.radius)
-        .attr('fill', (d) => d.fillColor)
-        .attr('fill', (d) => d.fillColor)
-        .attr('fill-opacity', (d) => d.fillOpacity)
-        .attr('stroke', (d) => d.strokeColor)
-        .attr('stroke-opacity', (d) => d.strokeOpacity)
-        .attr('stroke-width', (d) => d.strokeWidth)
-    },
+    transition,
   }
 }

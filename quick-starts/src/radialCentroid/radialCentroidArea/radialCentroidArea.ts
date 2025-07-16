@@ -71,24 +71,32 @@ const draw = (
     .attr('stroke-linejoin', QsEnumLineJoin.ROUND)
     .attr('stroke-linecap', QsEnumLineCap.ROUND)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
+
+  const transition = (
+    transitionData: QsRadialAreaTransitionData = { data: args.data }
+  ) => {
+    const calculatedData = getCalculatedData(
+      canvas,
+      transitionData.data,
+      config
+    )
+    const args = addTransitionDefaults(transitionData.transitionArgs)
+
+    group
+      .selectAll(dotClassName)
+      .datum(calculatedData)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('d', (d) => radialArea(d.areaData))
+      .attr('fill', (d) => d.fillColor)
+      .attr('fill-opacity', (d) => d.fillOpacity)
+      .attr('stroke', (d) => d.strokeColor)
+      .attr('stroke-width', (d) => d.strokeWidth)
+      .attr('stroke-opacity', (d) => d.strokeOpacity)
+  }
   return {
     element: group.selectAll(dotClassName),
-    transition: (data: QsRadialAreaTransitionData) => {
-      const calculatedData = getCalculatedData(canvas, data.data, config)
-      const args = addTransitionDefaults(data.transitionArgs)
-
-      group
-        .selectAll(dotClassName)
-        .datum(calculatedData)
-        .transition()
-        .delay(args.delayInMiliSeconds)
-        .duration(args.durationInMiliSeconds)
-        .attr('d', (d) => radialArea(d.areaData))
-        .attr('fill', (d) => d.fillColor)
-        .attr('fill-opacity', (d) => d.fillOpacity)
-        .attr('stroke', (d) => d.strokeColor)
-        .attr('stroke-width', (d) => d.strokeWidth)
-        .attr('stroke-opacity', (d) => d.strokeOpacity)
-    },
+    transition,
   }
 }

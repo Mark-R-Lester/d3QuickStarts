@@ -77,11 +77,13 @@ const draw = (
     .style('alignment-baseline', (d) => d.textAlignmentBaseline)
     .text((d) => getCorrectText(d))
 
-  const transition = (data: QsPlottedTextTransitionData) => {
-    const args = addTransitionDefaults(data.transitionArgs)
+  const transition = (
+    transitionData: QsPlottedTextTransitionData = { data }
+  ) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
     calculatedData = updateCalculatedData(
       canvas,
-      data.data,
+      transitionData.data,
       config,
       calculatedData
     )

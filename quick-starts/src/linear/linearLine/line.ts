@@ -80,10 +80,12 @@ export const draw = (
     .attr('stroke-linejoin', strokeLineJoin)
     .attr('stroke-linecap', strokeLineCap)
 
-  const transition = (data: QsLineTransitionData) => {
-    const args = addTransitionDefaults(data.transitionArgs)
+  const transition = (
+    transitionData: QsLineTransitionData = { data: args.data }
+  ) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
     const drawArgs: DrawArgs = {
-      data: data.data,
+      data: transitionData.data,
       orientation,
     }
     const calculatedData: CalculatedData =

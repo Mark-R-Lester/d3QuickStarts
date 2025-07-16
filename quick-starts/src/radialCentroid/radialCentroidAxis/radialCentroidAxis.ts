@@ -104,35 +104,39 @@ const draw = (
     )
     .text((d) => d.ringData.text)
 
+  const transition = (
+    transitionData: QsRadialCentroidAxisTransitionData = { data: args.data }
+  ) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
+
+    const calculatedData: CalculatedData[] = getCalculatedData(
+      canvas,
+      transitionData.data,
+      config
+    )
+    group
+      .selectAll(dotClassName)
+      .data(calculatedData)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('stroke-width', (d) => d.strokeWidth)
+      .attr('d', (d) => arc(d.ringData))
+    group
+      .selectAll(dotClassNameText)
+      .data(calculatedData)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('font-size', (d) => `${d.textFontSize}px`)
+      .attr('transform', (d) => {
+        return `translate(${d.ringData.textLocation})`
+      })
+  }
+
   return {
     textElement: group.selectAll(dotClassNameText),
     ringsElement: group.selectAll(dotClassName),
-    transition: (data: QsRadialCentroidAxisTransitionData) => {
-      const args = addTransitionDefaults(data.transitionArgs)
-
-      const calculatedData: CalculatedData[] = getCalculatedData(
-        canvas,
-        data.data,
-        config
-      )
-      group
-        .selectAll(dotClassName)
-        .data(calculatedData)
-        .transition()
-        .delay(args.delayInMiliSeconds)
-        .duration(args.durationInMiliSeconds)
-        .attr('stroke-width', (d) => d.strokeWidth)
-        .attr('d', (d) => arc(d.ringData))
-      group
-        .selectAll(dotClassNameText)
-        .data(calculatedData)
-        .transition()
-        .delay(args.delayInMiliSeconds)
-        .duration(args.durationInMiliSeconds)
-        .attr('font-size', (d) => `${d.textFontSize}px`)
-        .attr('transform', (d) => {
-          return `translate(${d.ringData.textLocation})`
-        })
-    },
+    transition,
   }
 }

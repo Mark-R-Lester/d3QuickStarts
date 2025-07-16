@@ -29,14 +29,12 @@ export const linearBarStack = {
 
 const draw = (
   canvas: Canvas,
-  args: QsBarStackedData,
+  data: QsBarStackedData,
   config: BarStackedConfig
 ): QsBarStack => {
-  const { data } = args
-
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
-    data,
+    data.data,
     config
   )
   const { fillOpacity, strokeColor, strokeWidth, strokeOpacity } = config
@@ -72,29 +70,31 @@ const draw = (
     .attr('stroke-opacity', strokeOpacity)
     .attr('stroke-width', strokeWidth)
 
+  const transition = (
+    transitionData: QsBarStackedTransitionData = { data }
+  ) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
+    const calculatedData: CalculatedData[] = getCalculatedData(
+      canvas,
+      transitionData.data.data,
+      config
+    )
+
+    const bars = canvas.canvasGroup.selectAll(dotClassName).data(calculatedData)
+    bars
+      .selectAll(dotClassNameStack)
+      .data((d) => d.barData)
+      .attr('x', (d) => d.x)
+      .attr('width', (d) => d.width)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('y', (d) => d.y)
+      .attr('height', (d) => d.height)
+  }
+
   return {
     element: barStacks.selectAll(dotClassName),
-    transition: (data: QsBarStackedTransitionData) => {
-      const args = addTransitionDefaults(data.transitionArgs)
-      const calculatedData: CalculatedData[] = getCalculatedData(
-        canvas,
-        data.data.data,
-        config
-      )
-
-      const bars = canvas.canvasGroup
-        .selectAll(dotClassName)
-        .data(calculatedData)
-      bars
-        .selectAll(dotClassNameStack)
-        .data((d) => d.barData)
-        .attr('x', (d) => d.x)
-        .attr('width', (d) => d.width)
-        .transition()
-        .delay(args.delayInMiliSeconds)
-        .duration(args.durationInMiliSeconds)
-        .attr('y', (d) => d.y)
-        .attr('height', (d) => d.height)
-    },
+    transition,
   }
 }

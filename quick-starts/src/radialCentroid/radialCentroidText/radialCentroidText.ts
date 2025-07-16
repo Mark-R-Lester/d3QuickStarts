@@ -64,40 +64,45 @@ const draw = (
     .style('text-anchor', (d) => d.textAnchor)
     .style('alignment-baseline', (d) => d.textAlignmentBaseline)
     .text((d) => d.text ?? d.value.toFixed(d.defaultDecimalPoints))
+
+  const transition = (
+    transitionData: QsRadialTextTransitionData = { data }
+  ) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
+    calculatedData = updateCalculatedData(
+      canvas,
+      transitionData.data,
+      config,
+      calculatedData
+    )
+    group
+      .selectAll(dotClassName)
+      .data(calculatedData)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('x', (d) => d.coordinate.x)
+      .attr('y', (d) => d.coordinate.y)
+      .attr('font-family', (d) => d.textFont)
+      .attr('font-style', (d) => d.textFontStyle)
+      .attr('font-weight', (d) => d.textFontWeight)
+      .attr('font-size', (d) => `${d.textFontSize}px`)
+      .attr('text-decoration', (d) => d.textDecorationLine)
+      .attr('fill', (d) => d.textFill)
+      .attr('stroke', (d) => d.textStroke)
+      .style('text-anchor', (d) => d.textAnchor)
+      .style('alignment-baseline', (d) => d.textAlignmentBaseline)
+      .textTween((d) => {
+        const tweenText = interpolate(d.value, d.newValue)
+        return (t: number) => {
+          d.value = tweenText(t)
+          return d.text ?? d.value.toFixed(d.defaultDecimalPoints)
+        }
+      })
+  }
+
   return {
     element: group.selectAll(dotClassName),
-    transition: (data: QsRadialTextTransitionData) => {
-      const args = addTransitionDefaults(data.transitionArgs)
-      calculatedData = updateCalculatedData(
-        canvas,
-        data.data,
-        config,
-        calculatedData
-      )
-      group
-        .selectAll(dotClassName)
-        .data(calculatedData)
-        .transition()
-        .delay(args.delayInMiliSeconds)
-        .duration(args.durationInMiliSeconds)
-        .attr('x', (d) => d.coordinate.x)
-        .attr('y', (d) => d.coordinate.y)
-        .attr('font-family', (d) => d.textFont)
-        .attr('font-style', (d) => d.textFontStyle)
-        .attr('font-weight', (d) => d.textFontWeight)
-        .attr('font-size', (d) => `${d.textFontSize}px`)
-        .attr('text-decoration', (d) => d.textDecorationLine)
-        .attr('fill', (d) => d.textFill)
-        .attr('stroke', (d) => d.textStroke)
-        .style('text-anchor', (d) => d.textAnchor)
-        .style('alignment-baseline', (d) => d.textAlignmentBaseline)
-        .textTween((d) => {
-          const tweenText = interpolate(d.value, d.newValue)
-          return (t: number) => {
-            d.value = tweenText(t)
-            return d.text ?? d.value.toFixed(d.defaultDecimalPoints)
-          }
-        })
-    },
+    transition,
   }
 }

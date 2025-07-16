@@ -68,46 +68,47 @@ const draw = (
     .attr('stroke-opacity', (d) => d.arcData.strokeOpacity)
     .attr('stroke-width', (d) => d.arcData.strokeWidth)
 
+  const transition = (
+    transitionData: QsRadialTransitionData = { data: args.data }
+  ) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
+    calculatedData = updateCalculatedData(
+      canvas,
+      transitionData.data,
+      config,
+      calculatedData
+    )
+
+    group
+      .selectAll(dotClassName)
+      .data(calculatedData)
+      .attr('d', (d) => parallelPaddedArc(d.arcData))
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('fill', (d) => d.arcData.fillColor)
+      .attr('fill-opacity', (d) => d.arcData.fillOpacity)
+      .attr('stroke', (d) => d.arcData.strokeColor)
+      .attr('stroke-opacity', (d) => d.arcData.strokeOpacity)
+      .attr('stroke-width', (d) => d.arcData.strokeWidth)
+      .attrTween('d', (d) => {
+        const tweenStart = interpolate(
+          d.arcData.startAngle,
+          d.arcData.newStartAngle
+        )
+        const tweenEnd = interpolate(d.arcData.endAngle, d.arcData.newEndAngle)
+
+        return function (t: number) {
+          d.arcData.startAngle = tweenStart(t)
+          d.arcData.endAngle = tweenEnd(t)
+
+          return parallelPaddedArc(d.arcData)
+        }
+      })
+  }
+
   return {
     element: group.selectAll(dotClassName),
-    transition: (data: QsRadialTransitionData) => {
-      const args = addTransitionDefaults(data.transitionArgs)
-      calculatedData = updateCalculatedData(
-        canvas,
-        data.data,
-        config,
-        calculatedData
-      )
-
-      group
-        .selectAll(dotClassName)
-        .data(calculatedData)
-        .attr('d', (d) => parallelPaddedArc(d.arcData))
-        .transition()
-        .delay(args.delayInMiliSeconds)
-        .duration(args.durationInMiliSeconds)
-        .attr('fill', (d) => d.arcData.fillColor)
-        .attr('fill-opacity', (d) => d.arcData.fillOpacity)
-        .attr('stroke', (d) => d.arcData.strokeColor)
-        .attr('stroke-opacity', (d) => d.arcData.strokeOpacity)
-        .attr('stroke-width', (d) => d.arcData.strokeWidth)
-        .attrTween('d', (d) => {
-          const tweenStart = interpolate(
-            d.arcData.startAngle,
-            d.arcData.newStartAngle
-          )
-          const tweenEnd = interpolate(
-            d.arcData.endAngle,
-            d.arcData.newEndAngle
-          )
-
-          return function (t: number) {
-            d.arcData.startAngle = tweenStart(t)
-            d.arcData.endAngle = tweenEnd(t)
-
-            return parallelPaddedArc(d.arcData)
-          }
-        })
-    },
+    transition,
   }
 }

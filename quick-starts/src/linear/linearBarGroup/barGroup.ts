@@ -29,13 +29,12 @@ export const linearBarGroup = {
 
 const draw = (
   canvas: Canvas,
-  args: QsBarGroupedData,
+  data: QsBarGroupedData,
   config: BarGroupConfig
 ): QsBarGroups => {
-  const { data } = args
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
-    data,
+    data.data,
     config
   )
   const { fillOpacity, strokeColor, strokeWidth, strokeOpacity } = config
@@ -71,28 +70,30 @@ const draw = (
     .attr('stroke-opacity', strokeOpacity)
     .attr('stroke-width', strokeWidth)
 
+  const transition = (transitionData: QsBarGroupTransitionData = { data }) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
+    const calculatedData: CalculatedData[] = getCalculatedData(
+      canvas,
+      transitionData.data.data,
+      config
+    )
+    const bars = canvas.canvasGroup
+      .selectAll(dotClassNameGroup)
+      .data(calculatedData)
+    bars
+      .selectAll(dotClassName)
+      .data((d) => d.barData)
+      .attr('x', (d) => d.x)
+      .attr('width', (d) => d.width)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('y', (d) => d.y)
+      .attr('height', (d) => d.height)
+  }
+
   return {
     element: barGroups.selectAll(dotClassName),
-    transition: (data: QsBarGroupTransitionData) => {
-      const args = addTransitionDefaults(data.transitionArgs)
-      const calculatedData: CalculatedData[] = getCalculatedData(
-        canvas,
-        data.data.data,
-        config
-      )
-      const bars = canvas.canvasGroup
-        .selectAll(dotClassNameGroup)
-        .data(calculatedData)
-      bars
-        .selectAll(dotClassName)
-        .data((d) => d.barData)
-        .attr('x', (d) => d.x)
-        .attr('width', (d) => d.width)
-        .transition()
-        .delay(args.delayInMiliSeconds)
-        .duration(args.durationInMiliSeconds)
-        .attr('y', (d) => d.y)
-        .attr('height', (d) => d.height)
-    },
+    transition,
   }
 }

@@ -195,11 +195,13 @@ const draw = (
       )
   }
 
-  const transition = (data: QsRadialArcTextTransitionData) => {
-    const args = addTransitionDefaults(data.transitionArgs)
+  const transition = (
+    transitionData: QsRadialArcTextTransitionData = { data: args.data }
+  ) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
     calculatedData = updateCalculatedData(
       canvas,
-      data.data,
+      transitionData.data,
       config,
       calculatedData
     )

@@ -89,9 +89,11 @@ const draw = (canvas: Canvas, args: DrawArgs, config: TextConfig): QsText => {
     .style('alignment-baseline', (d) => d.textAlignmentBaseline)
     .text((d) => d.text ?? d.value.toFixed(defaultDecimalPoints))
 
-  const transition = (data: QsTextTransitionData) => {
-    const args = addTransitionDefaults(data.transitionArgs)
-    const drawArgs: DrawArgs = { data: data.data, orientation }
+  const transition = (
+    transitionData: QsTextTransitionData = { data: args.data }
+  ) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
+    const drawArgs: DrawArgs = { data: transitionData.data, orientation }
     calculatedData = updateCalculatedData(
       canvas,
       drawArgs,

@@ -1,4 +1,4 @@
-import { lineRadial } from 'd3'
+import { lineRadial, transition } from 'd3'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { Canvas } from '../../core/canvas/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
@@ -57,25 +57,29 @@ const draw = (
     .attr('stroke-linejoin', strokeLineJoin)
     .attr('stroke-linecap', strokeLineCap)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
+
+  const transition = (
+    transitionData: QsRadialLineTransitionData = { data }
+  ) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
+    const calculatedData: CalculatedData = getCalculatedData(
+      canvas,
+      transitionData.data,
+      config
+    )
+    group
+      .selectAll(dotClassName)
+      .datum(calculatedData)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('d', (d) => radialLine(d.lineData))
+      .attr('stroke', (d) => d.strokeColor)
+      .attr('stroke-width', (d) => d.strokeWidth)
+      .attr('stroke-opacity', (d) => d.strokeOpacity)
+  }
   return {
     element: group.selectAll(dotClassName),
-    transition: (data: QsRadialLineTransitionData) => {
-      const args = addTransitionDefaults(data.transitionArgs)
-      const calculatedData: CalculatedData = getCalculatedData(
-        canvas,
-        data.data,
-        config
-      )
-      group
-        .selectAll(dotClassName)
-        .datum(calculatedData)
-        .transition()
-        .delay(args.delayInMiliSeconds)
-        .duration(args.durationInMiliSeconds)
-        .attr('d', (d) => radialLine(d.lineData))
-        .attr('stroke', (d) => d.strokeColor)
-        .attr('stroke-width', (d) => d.strokeWidth)
-        .attr('stroke-opacity', (d) => d.strokeOpacity)
-    },
+    transition,
   }
 }

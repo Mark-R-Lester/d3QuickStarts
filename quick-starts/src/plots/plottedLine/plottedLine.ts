@@ -60,11 +60,13 @@ const draw = (
     .attr('stroke-linejoin', strokeLineJoin)
     .attr('stroke-linecap', strokeLineCap)
 
-  const transition = (data: QsPlottedLineTransitionData) => {
-    const args = addTransitionDefaults(data.transitionArgs)
+  const transition = (
+    transitionData: QsPlottedLineTransitionData = { data }
+  ) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
     const calculatedData: CalculatedData = getCalculatedData(
       canvas,
-      data.data,
+      transitionData.data,
       config
     )
 

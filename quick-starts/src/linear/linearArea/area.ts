@@ -15,36 +15,24 @@ import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { Canvas } from '../../core/canvas/canvas'
 import { generateClassName } from '../../core/generateClassName'
 
-interface DrawArgs {
-  data: QsAreaData
-}
-
 export const linearArea = {
   horizontal: (
     canvas: Canvas,
     data: QsAreaData,
     customConfig?: QsAreaConfig
   ): QsArea => {
-    const args: DrawArgs = {
-      data,
-    }
     const config: AreaConfig = addDefaultsToConfig<AreaConfig>(
-      { ...linearAreaConfig },
+      linearAreaConfig,
       customConfig,
-      { ...canvas.configStore.linear.areaConfig() }
+      canvas.configStore.linear.areaConfig()
     )
-    return draw(canvas, args, config)
+    return draw(canvas, data, config)
   },
 }
 
-function draw(canvas: Canvas, args: DrawArgs, config: AreaConfig): QsArea {
+const draw = (canvas: Canvas, data: QsAreaData, config: AreaConfig): QsArea => {
   const { curve } = config
-  const calculatedData: CalculatedData = getCalculatedData(
-    canvas,
-    args.data,
-    config
-  )
-
+  const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
   const { className, dotClassName } = generateClassName('linearArea')
 
   const area = d3area<AreaData>()
@@ -70,28 +58,30 @@ function draw(canvas: Canvas, args: DrawArgs, config: AreaConfig): QsArea {
     .attr('stroke-opacity', (d) => d.strokeOpacity)
     .attr('stroke-linejoin', QsEnumLineJoin.ROUND)
     .attr('stroke-linecap', QsEnumLineCap.ROUND)
+
+  const transition = (transitionData: QsAreaTransitionData = { data }) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
+    const calculatedData: CalculatedData = getCalculatedData(
+      canvas,
+      transitionData.data,
+      config
+    )
+
+    group
+      .selectAll(dotClassName)
+      .datum(calculatedData)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('d', area(calculatedData.areaData))
+      .attr('fill', (d) => d.fillColor)
+      .attr('fill-opacity', (d) => d.fillOpacity)
+      .attr('stroke', (d) => d.strokeColor)
+      .attr('stroke-width', (d) => d.strokeWidth)
+      .attr('stroke-opacity', (d) => d.strokeOpacity)
+  }
   return {
     element: group.select(dotClassName),
-    transition: (data: QsAreaTransitionData) => {
-      const args = addTransitionDefaults(data.transitionArgs)
-      const calculatedData: CalculatedData = getCalculatedData(
-        canvas,
-        data.data,
-        config
-      )
-
-      group
-        .selectAll(dotClassName)
-        .datum(calculatedData)
-        .transition()
-        .delay(args.delayInMiliSeconds)
-        .duration(args.durationInMiliSeconds)
-        .attr('d', area(calculatedData.areaData))
-        .attr('fill', (d) => d.fillColor)
-        .attr('fill-opacity', (d) => d.fillOpacity)
-        .attr('stroke', (d) => d.strokeColor)
-        .attr('stroke-width', (d) => d.strokeWidth)
-        .attr('stroke-opacity', (d) => d.strokeOpacity)
-    },
+    transition,
   }
 }

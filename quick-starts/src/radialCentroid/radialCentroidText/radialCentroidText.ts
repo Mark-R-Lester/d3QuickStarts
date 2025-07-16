@@ -24,9 +24,9 @@ export const radialText = {
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
     const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
-      { ...radialCentroidTextsConfig },
+      radialCentroidTextsConfig,
       customConfig,
-      { ...canvas.configStore.radialCentroid.textConfig() }
+      canvas.configStore.radialCentroid.textConfig()
     )
     return draw(canvas, data, config)
   },

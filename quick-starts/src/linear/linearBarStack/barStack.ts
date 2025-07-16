@@ -19,9 +19,9 @@ export const linearBarStack = {
     customConfig?: QsBarStackedConfig
   ): QsBarStack => {
     const config: BarStackedConfig = addDefaultsToConfig<BarStackedConfig>(
-      { ...linearBarStackConfig },
+      linearBarStackConfig,
       customConfig,
-      { ...canvas.configStore.linear.barStackConfig() }
+      canvas.configStore.linear.barStackConfig()
     )
     return draw(canvas, data, config)
   },

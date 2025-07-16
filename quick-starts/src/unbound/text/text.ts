@@ -23,9 +23,9 @@ export const unboundText = (
   customConfig?: QsUnboundTextConfig
 ): QsUnboundText => {
   const config: UnboundTextConfig = addDefaultsToConfig<UnboundTextConfig>(
-    { ...plottedTextConfig },
+    plottedTextConfig,
     customConfig,
-    { ...canvas.configStore.plotted.pointsConfig() }
+    canvas.configStore.plotted.pointsConfig()
   )
   return draw(canvas, data, config)
 }

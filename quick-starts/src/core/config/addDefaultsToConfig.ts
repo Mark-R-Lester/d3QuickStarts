@@ -3,16 +3,9 @@ export const addDefaultsToConfig = <T extends object>(
   customConfig?: Partial<T>,
   storeConfig?: Partial<T>
 ): T => {
-  const update = (config?: Partial<T>) => {
-    if (config) {
-      Object.keys(config).forEach((key) => {
-        ;(defaults as any)[key] = (config as any)[key]
-      })
-    }
+  return {
+    ...defaults,
+    ...storeConfig,
+    ...customConfig,
   }
-
-  update(storeConfig)
-  update(customConfig)
-
-  return defaults
 }

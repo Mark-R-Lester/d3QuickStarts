@@ -30,9 +30,9 @@ export const radialArc = {
   ): QsRadial => {
     const args: DrawArgs = { data }
     const config: RadialArcConfig = addDefaultsToConfig<RadialArcConfig>(
-      { ...radialArcConfig },
+      radialArcConfig,
       customConfig,
-      { ...canvas.configStore.radialArc.arcConfig() }
+      canvas.configStore.radialArc.arcConfig()
     )
     return draw(canvas, args, config)
   },

@@ -25,9 +25,9 @@ export const linearLine = {
       orientation: Orientation.VERTICAL,
     }
     const config: LineConfig = addDefaultsToConfig<LineConfig>(
-      { ...linearLineConfig },
+      linearLineConfig,
       customConfig,
-      { ...canvas.configStore.linear.lineConfig() }
+      canvas.configStore.linear.lineConfig()
     )
     return draw(canvas, args, config)
   },
@@ -41,9 +41,9 @@ export const linearLine = {
       orientation: Orientation.HORIZONTAL,
     }
     const config: LineConfig = addDefaultsToConfig<LineConfig>(
-      { ...linearLineConfig },
+      linearLineConfig,
       customConfig,
-      { ...canvas.configStore.linear.lineConfig() }
+      canvas.configStore.linear.lineConfig()
     )
     return draw(canvas, args, config)
   },

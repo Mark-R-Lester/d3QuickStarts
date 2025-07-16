@@ -9,6 +9,7 @@ import {
 import { addDefaultsToConfig } from './addDefaultsToConfig'
 
 describe('addDefaultsToConfig', () => {
+  // Define constants for test inputs
   const defaultConfig: LineConfig = {
     useDataArea: true,
     scaleType: QsEnumScaleType.LINEAR,
@@ -20,138 +21,134 @@ describe('addDefaultsToConfig', () => {
     strokeLineCap: QsEnumLineCap.BUTT,
   }
 
-  it('merges storeConfig and customConfig into defaults', () => {
-    const storeConfig: QsLineConfig = {
-      curve: QsEnumCurve.NATURAL,
-      defaultStrokeWidth: 2,
-    }
-    const customConfig: QsLineConfig = {
-      defaultStrokeOpacity: 0.8,
-      scaleType: QsEnumScaleType.BANDED,
-    }
+  const storeConfigWithCurveAndWidth: QsLineConfig = {
+    curve: QsEnumCurve.NATURAL,
+    defaultStrokeWidth: 2,
+  }
 
-    const result = addDefaultsToConfig<LineConfig>(
-      { ...defaultConfig },
-      customConfig,
-      storeConfig
-    )
+  const customConfigWithOpacityAndScale: QsLineConfig = {
+    defaultStrokeOpacity: 0.8,
+    scaleType: QsEnumScaleType.BANDED,
+  }
 
-    expect(result).toEqual({
-      useDataArea: true,
-      scaleType: QsEnumScaleType.BANDED,
-      curve: QsEnumCurve.NATURAL,
-      defaultStrokeColor: 'black',
-      defaultStrokeWidth: 2,
-      defaultStrokeOpacity: 0.8,
-      strokeLineJoin: QsEnumLineJoin.MITER,
-      strokeLineCap: QsEnumLineCap.BUTT,
-    })
+  const customConfigWithOpacityAndLinearScale: QsLineConfig = {
+    defaultStrokeOpacity: 0.8,
+    scaleType: QsEnumScaleType.LINEAR,
+  }
+
+  const storeConfigWithCustomProperty: QsLineConfig = {
+    customProperty: 'extra',
+  }
+
+  const customConfigWithAnotherProperty: QsLineConfig = {
+    anotherProperty: 123,
+  }
+
+  const storeConfigWithLinearScaleAndWidth: QsLineConfig = {
+    scaleType: QsEnumScaleType.LINEAR,
+    defaultStrokeWidth: 2,
+  }
+
+  const customConfigWithBandedScaleAndWidth: QsLineConfig = {
+    scaleType: QsEnumScaleType.BANDED,
+    defaultStrokeWidth: 3,
+  }
+
+  // Define expected results as constants
+  const expectedWithBothConfigs: LineConfig = {
+    useDataArea: true,
+    scaleType: QsEnumScaleType.BANDED,
+    curve: QsEnumCurve.NATURAL,
+    defaultStrokeColor: 'black',
+    defaultStrokeWidth: 2,
+    defaultStrokeOpacity: 0.8,
+    strokeLineJoin: QsEnumLineJoin.MITER,
+    strokeLineCap: QsEnumLineCap.BUTT,
+  }
+
+  const expectedWithOnlyStoreConfig: LineConfig = {
+    useDataArea: true,
+    scaleType: QsEnumScaleType.LINEAR,
+    curve: QsEnumCurve.NATURAL,
+    defaultStrokeColor: 'black',
+    defaultStrokeWidth: 2,
+    defaultStrokeOpacity: 1,
+    strokeLineJoin: QsEnumLineJoin.MITER,
+    strokeLineCap: QsEnumLineCap.BUTT,
+  }
+
+  const expectedWithOnlyCustomConfig: LineConfig = {
+    useDataArea: true,
+    scaleType: QsEnumScaleType.LINEAR,
+    curve: QsEnumCurve.LINEAR,
+    defaultStrokeColor: 'black',
+    defaultStrokeWidth: 1,
+    defaultStrokeOpacity: 0.8,
+    strokeLineJoin: QsEnumLineJoin.MITER,
+    strokeLineCap: QsEnumLineCap.BUTT,
+  }
+
+  const expectedWithExtraProperties: LineConfig & {
+    customProperty?: string
+    anotherProperty?: number
+  } = {
+    ...defaultConfig,
+    customProperty: 'extra',
+    anotherProperty: 123,
+  }
+
+  const expectedWithCustomConfigOverride: LineConfig = {
+    useDataArea: true,
+    scaleType: QsEnumScaleType.BANDED,
+    curve: QsEnumCurve.LINEAR,
+    defaultStrokeColor: 'black',
+    defaultStrokeWidth: 3,
+    defaultStrokeOpacity: 1,
+    strokeLineJoin: QsEnumLineJoin.MITER,
+    strokeLineCap: QsEnumLineCap.BUTT,
+  }
+
+  beforeEach(() => {
+    // Reset any mocks or state before each test (none needed here, but included for consistency)
+    jest.clearAllMocks()
   })
 
-  it('merges only storeConfig into defaults when customConfig is undefined', () => {
-    const storeConfig: QsLineConfig = {
-      curve: QsEnumCurve.NATURAL,
-      defaultStrokeWidth: 2,
+  test.each`
+    description                                                     | defaults         | customConfig                             | storeConfig                           | expectedResult
+    ${'merges storeConfig and customConfig into defaults'}          | ${defaultConfig} | ${customConfigWithOpacityAndScale}       | ${storeConfigWithCurveAndWidth}       | ${expectedWithBothConfigs}
+    ${'merges only storeConfig when customConfig is undefined'}     | ${defaultConfig} | ${undefined}                             | ${storeConfigWithCurveAndWidth}       | ${expectedWithOnlyStoreConfig}
+    ${'merges only customConfig when storeConfig is undefined'}     | ${defaultConfig} | ${customConfigWithOpacityAndLinearScale} | ${undefined}                          | ${expectedWithOnlyCustomConfig}
+    ${'returns defaults unchanged when both configs are undefined'} | ${defaultConfig} | ${undefined}                             | ${undefined}                          | ${defaultConfig}
+    ${'handles additional properties via index signature'}          | ${defaultConfig} | ${customConfigWithAnotherProperty}       | ${storeConfigWithCustomProperty}      | ${expectedWithExtraProperties}
+    ${'customConfig overwrites storeConfig when both are supplied'} | ${defaultConfig} | ${customConfigWithBandedScaleAndWidth}   | ${storeConfigWithLinearScaleAndWidth} | ${expectedWithCustomConfigOverride}
+  `(
+    '$description',
+    ({ defaults, customConfig, storeConfig, expectedResult }) => {
+      // Create deep copies to compare inputs before and after
+      const originalDefaults = { ...defaults }
+      const originalCustomConfig = customConfig
+        ? { ...customConfig }
+        : undefined
+      const originalStoreConfig = storeConfig ? { ...storeConfig } : undefined
+
+      // Call the function
+      const result = addDefaultsToConfig<LineConfig>(
+        { ...defaults },
+        customConfig,
+        storeConfig
+      )
+
+      // Verify the result
+      expect(result).toEqual(expectedResult)
+
+      // Assert that inputs are unchanged
+      expect(defaults).toEqual(originalDefaults)
+      if (customConfig !== undefined) {
+        expect(customConfig).toEqual(originalCustomConfig)
+      }
+      if (storeConfig !== undefined) {
+        expect(storeConfig).toEqual(originalStoreConfig)
+      }
     }
-
-    const result = addDefaultsToConfig<LineConfig>(
-      { ...defaultConfig },
-      undefined,
-      storeConfig
-    )
-
-    expect(result).toEqual({
-      useDataArea: true,
-      scaleType: QsEnumScaleType.LINEAR,
-      curve: QsEnumCurve.NATURAL,
-      defaultStrokeColor: 'black',
-      defaultStrokeWidth: 2,
-      defaultStrokeOpacity: 1,
-      strokeLineJoin: QsEnumLineJoin.MITER,
-      strokeLineCap: QsEnumLineCap.BUTT,
-    })
-  })
-
-  it('merges only customConfig into defaults when storeConfig is undefined', () => {
-    const customConfig: QsLineConfig = {
-      defaultStrokeOpacity: 0.8,
-      scaleType: QsEnumScaleType.LINEAR,
-    }
-
-    const result = addDefaultsToConfig<LineConfig>(
-      { ...defaultConfig },
-      customConfig,
-      undefined
-    )
-
-    expect(result).toEqual({
-      useDataArea: true,
-      scaleType: QsEnumScaleType.LINEAR,
-      curve: QsEnumCurve.LINEAR,
-      defaultStrokeColor: 'black',
-      defaultStrokeWidth: 1,
-      defaultStrokeOpacity: 0.8,
-      strokeLineJoin: QsEnumLineJoin.MITER,
-      strokeLineCap: QsEnumLineCap.BUTT,
-    })
-  })
-
-  it('returns defaults unchanged when both storeConfig and customConfig are undefined', () => {
-    const result = addDefaultsToConfig<LineConfig>(
-      { ...defaultConfig },
-      undefined,
-      undefined
-    )
-
-    expect(result).toEqual(defaultConfig)
-  })
-
-  it('handles additional properties via index signature', () => {
-    const storeConfig: QsLineConfig = {
-      customProperty: 'extra',
-    }
-    const customConfig: QsLineConfig = {
-      anotherProperty: 123,
-    }
-
-    const result = addDefaultsToConfig<LineConfig>(
-      { ...defaultConfig },
-      customConfig,
-      storeConfig
-    )
-
-    expect(result).toEqual({
-      ...defaultConfig,
-      customProperty: 'extra',
-      anotherProperty: 123,
-    })
-  })
-
-  it('customConfig overwrites storeConfig when both are supplied', () => {
-    const storeConfig: QsLineConfig = {
-      scaleType: QsEnumScaleType.LINEAR,
-      defaultStrokeWidth: 2,
-    }
-    const customConfig: QsLineConfig = {
-      scaleType: QsEnumScaleType.BANDED,
-      defaultStrokeWidth: 3,
-    }
-
-    const result = addDefaultsToConfig<LineConfig>(
-      { ...defaultConfig },
-      customConfig,
-      storeConfig
-    )
-
-    expect(result).toEqual({
-      useDataArea: true,
-      scaleType: QsEnumScaleType.BANDED,
-      curve: QsEnumCurve.LINEAR,
-      defaultStrokeColor: 'black',
-      defaultStrokeWidth: 3,
-      defaultStrokeOpacity: 1,
-      strokeLineJoin: QsEnumLineJoin.MITER,
-      strokeLineCap: QsEnumLineCap.BUTT,
-    })
-  })
+  )
 })

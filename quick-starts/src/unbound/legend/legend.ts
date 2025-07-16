@@ -17,9 +17,9 @@ export const legend = (
   customConfig?: QsLegendConfig
 ): QsLegend => {
   const config: LegendConfig = addDefaultsToConfig<LegendConfig>(
-    { ...legendConfig },
+    legendConfig,
     customConfig,
-    { ...canvas.configStore.legend.legendConfig() }
+    canvas.configStore.legend.legendConfig()
   )
   const args: DrawArgs = { data }
   return draw(canvas, args, config)

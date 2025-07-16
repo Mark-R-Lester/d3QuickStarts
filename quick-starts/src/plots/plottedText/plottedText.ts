@@ -25,9 +25,9 @@ export const plottedText = {
     customConfig?: QsPlottedTextConfig
   ): QsPlottedText => {
     const config: PlottedTextConfig = addDefaultsToConfig<PlottedTextConfig>(
-      { ...plottedTextConfig },
+      plottedTextConfig,
       customConfig,
-      { ...canvas.configStore.plotted.pointsConfig() }
+      canvas.configStore.plotted.pointsConfig()
     )
     return draw(canvas, data, config)
   },

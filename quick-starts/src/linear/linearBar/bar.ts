@@ -17,9 +17,9 @@ export const linearBar = {
   ): QsBars => {
     const args: DrawArgs = { data, orientation: Orientation.HORIZONTAL }
     const config: BarConfig = addDefaultsToConfig<BarConfig>(
-      { ...linearBarConfig },
+      linearBarConfig,
       customConfig,
-      { ...canvas.configStore.linear.barConfig() }
+      canvas.configStore.linear.barConfig()
     )
     return draw(canvas, args, config)
   },
@@ -30,9 +30,9 @@ export const linearBar = {
   ): QsBars => {
     const args: DrawArgs = { data, orientation: Orientation.VERTICAL }
     const config: BarConfig = addDefaultsToConfig<BarConfig>(
-      { ...linearBarConfig },
+      linearBarConfig,
       customConfig,
-      { ...canvas.configStore.linear.barConfig() }
+      canvas.configStore.linear.barConfig()
     )
     return draw(canvas, args, config)
   },

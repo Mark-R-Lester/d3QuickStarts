@@ -18,9 +18,9 @@ export const radialSpokes = {
     customConfig?: QsRadialSpokesConfig
   ): QsRadialSpokes => {
     const config: RadialSpokesConfig = addDefaultsToConfig<RadialSpokesConfig>(
-      { ...radialCentroidSpokesConfig },
+      radialCentroidSpokesConfig,
       customConfig,
-      { ...canvas.configStore.radialCentroid.spokesConfig() }
+      canvas.configStore.radialCentroid.spokesConfig()
     )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)

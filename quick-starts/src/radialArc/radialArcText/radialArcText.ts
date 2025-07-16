@@ -39,9 +39,9 @@ export const radialArcText = {
   ): QsRadialArcText => {
     const config: RadialArcTextConfig =
       addDefaultsToConfig<RadialArcTextConfig>(
-        { ...radialArcTextConfigSpoke },
+        radialArcTextConfigSpoke,
         customConfig,
-        { ...canvas.configStore.radialArc.textConfigSpoke() }
+        canvas.configStore.radialArc.textConfigSpoke()
       )
     const args: DrawArgs = {
       data,
@@ -56,9 +56,9 @@ export const radialArcText = {
   ): QsRadialArcText => {
     const config: RadialArcTextConfig =
       addDefaultsToConfig<RadialArcTextConfig>(
-        { ...radialArcTextConfigHorizontal },
+        radialArcTextConfigHorizontal,
         customConfig,
-        { ...canvas.configStore.radialArc.textConfigHorizontal() }
+        canvas.configStore.radialArc.textConfigHorizontal()
       )
     const args: DrawArgs = {
       data,
@@ -73,9 +73,9 @@ export const radialArcText = {
   ): QsRadialArcText => {
     const config: RadialArcTextConfig =
       addDefaultsToConfig<RadialArcTextConfig>(
-        { ...radialArcTextConfigRotated },
+        radialArcTextConfigRotated,
         customConfig,
-        { ...canvas.configStore.radialArc.textConfigRotated() }
+        canvas.configStore.radialArc.textConfigRotated()
       )
     const args: DrawArgs = {
       data,
@@ -90,9 +90,9 @@ export const radialArcText = {
   ): QsRadialArcText => {
     const config: RadialArcTextConfig =
       addDefaultsToConfig<RadialArcTextConfig>(
-        { ...radialArcTextConfigFollow },
+        radialArcTextConfigFollow,
         customConfig,
-        { ...canvas.configStore.radialArc.textConfigFollow() }
+        canvas.configStore.radialArc.textConfigFollow()
       )
     const args: DrawArgs = {
       data,

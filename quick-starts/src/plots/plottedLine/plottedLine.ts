@@ -21,9 +21,9 @@ export const plottedLine = {
     customConfig?: QsPlottedLineConfig
   ): QsLinePlot => {
     const config: PlottedLineConfig = addDefaultsToConfig<PlottedLineConfig>(
-      { ...plottedLineConfig },
+      plottedLineConfig,
       customConfig,
-      { ...canvas.configStore.plotted.lineConfig() }
+      canvas.configStore.plotted.lineConfig()
     )
     return draw(canvas, data, config)
   },

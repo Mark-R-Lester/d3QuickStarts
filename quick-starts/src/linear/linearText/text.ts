@@ -29,9 +29,9 @@ export const linearText = {
       orientation: Orientation.HORIZONTAL,
     }
     const config: TextConfig = addDefaultsToConfig<TextConfig>(
-      { ...linearTextConfig },
+      linearTextConfig,
       customConfig,
-      { ...canvas.configStore.linear.textConfig() }
+      canvas.configStore.linear.textConfig()
     )
     return draw(canvas, args, config)
   },
@@ -46,9 +46,9 @@ export const linearText = {
     }
 
     const config: TextConfig = addDefaultsToConfig<TextConfig>(
-      { ...linearTextConfig },
+      linearTextConfig,
       customConfig,
-      { ...canvas.configStore.linear.textConfig() }
+      canvas.configStore.linear.textConfig()
     )
     return draw(canvas, args, config)
   },

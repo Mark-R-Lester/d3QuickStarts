@@ -19,9 +19,9 @@ export const linearBarGroup = {
     customConfig?: QsBarGroupConfig
   ): QsBarGroups => {
     const config: BarGroupConfig = addDefaultsToConfig<BarGroupConfig>(
-      { ...linearBarGroupConfig },
+      linearBarGroupConfig,
       customConfig,
-      { ...canvas.configStore.linear.barGroupConfig() }
+      canvas.configStore.linear.barGroupConfig()
     )
     return draw(canvas, data, config)
   },

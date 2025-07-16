@@ -24,9 +24,9 @@ export const linearPoint = {
       orientation: Orientation.HORIZONTAL,
     }
     const config: PointsConfig = addDefaultsToConfig<PointsConfig>(
-      { ...linearPointsConfig },
+      linearPointsConfig,
       customConfig,
-      { ...canvas.configStore.linear.pointsConfig() }
+      canvas.configStore.linear.pointsConfig()
     )
     return draw(canvas, args, config)
   },
@@ -40,9 +40,9 @@ export const linearPoint = {
       orientation: Orientation.VERTICAL,
     }
     const config: PointsConfig = addDefaultsToConfig<PointsConfig>(
-      { ...linearPointsConfig },
+      linearPointsConfig,
       customConfig,
-      { ...canvas.configStore.linear.pointsConfig() }
+      canvas.configStore.linear.pointsConfig()
     )
     return draw(canvas, args, config)
   },

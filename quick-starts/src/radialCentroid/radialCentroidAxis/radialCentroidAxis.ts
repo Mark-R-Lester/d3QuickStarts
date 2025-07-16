@@ -23,9 +23,9 @@ export const radialAxis = {
     customConfig?: QsRadialAxisConfig
   ): QsRadialAxis => {
     const config: RadialAxisConfig = addDefaultsToConfig<RadialAxisConfig>(
-      { ...radialCentroidAxisConfig },
+      radialCentroidAxisConfig,
       customConfig,
-      { ...canvas.configStore.radialCentroid.axisConfig() }
+      canvas.configStore.radialCentroid.axisConfig()
     )
     const args: DrawArgs = { data }
     return draw(canvas, args, config)

@@ -19,9 +19,9 @@ export const linearAxis = {
     customConfig?: QsAxisConfig
   ): QsAxis => {
     const config: AxisConfig = addDefaultsToConfig<AxisConfig>(
-      { ...linearAxisConfigTop },
+      linearAxisConfigTop,
       customConfig,
-      { ...canvas.configStore.linear.axisConfigTop() }
+      canvas.configStore.linear.axisConfigTop()
     )
     const args: DrawArgs = {
       data,
@@ -35,9 +35,9 @@ export const linearAxis = {
     customConfig?: QsAxisConfig
   ): QsAxis => {
     const config: AxisConfig = addDefaultsToConfig<AxisConfig>(
-      { ...linearAxisConfigBottom },
+      linearAxisConfigBottom,
       customConfig,
-      { ...canvas.configStore.linear.axisConfigBottom() }
+      canvas.configStore.linear.axisConfigBottom()
     )
     const args: DrawArgs = {
       data,
@@ -52,9 +52,9 @@ export const linearAxis = {
     customConfig?: QsAxisConfig
   ): QsAxis => {
     const config: AxisConfig = addDefaultsToConfig<AxisConfig>(
-      { ...linearAxisConfigLeft },
+      linearAxisConfigLeft,
       customConfig,
-      { ...canvas.configStore.linear.axisConfigLeft() }
+      canvas.configStore.linear.axisConfigLeft()
     )
     const args: DrawArgs = {
       data,
@@ -68,9 +68,9 @@ export const linearAxis = {
     customConfig?: QsAxisConfig
   ): QsAxis => {
     const config: AxisConfig = addDefaultsToConfig<AxisConfig>(
-      { ...linearAxisConfigRight },
+      linearAxisConfigRight,
       customConfig,
-      { ...canvas.configStore.linear.axisConfigRight() }
+      canvas.configStore.linear.axisConfigRight()
     )
     const args: DrawArgs = {
       data,

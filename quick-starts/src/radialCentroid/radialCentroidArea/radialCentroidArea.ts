@@ -26,9 +26,9 @@ export const radialArea = {
     customConfig?: QsRadialAreaConfig
   ): QsRadialArea => {
     const config: RadialAreaConfig = addDefaultsToConfig<RadialAreaConfig>(
-      { ...radialCentroidAreaConfig },
+      radialCentroidAreaConfig,
       customConfig,
-      { ...canvas.configStore.radialCentroid.areaConfig() }
+      canvas.configStore.radialCentroid.areaConfig()
     )
     const args: DrawArgs = {
       data,

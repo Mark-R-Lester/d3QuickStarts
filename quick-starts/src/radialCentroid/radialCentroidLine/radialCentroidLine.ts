@@ -21,9 +21,9 @@ export const radialLine = {
     customConfig?: QsRadialLineConfig
   ): QsRadialLine => {
     const config: RadialLineConfig = addDefaultsToConfig<RadialLineConfig>(
-      { ...radialCentroidLineConfig },
+      radialCentroidLineConfig,
       customConfig,
-      { ...canvas.configStore.radialCentroid.lineConfig() }
+      canvas.configStore.radialCentroid.lineConfig()
     )
     return draw(canvas, data, config)
   },

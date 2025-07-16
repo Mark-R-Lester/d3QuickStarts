@@ -12,10 +12,6 @@ import { radialCentroidPointsConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 
-interface DrawArgs {
-  data: QsRadialPointData[]
-}
-
 export const radialPoint = {
   points: (
     canvas: Canvas,
@@ -27,17 +23,15 @@ export const radialPoint = {
       customConfig,
       canvas.configStore.radialCentroid.pointsConfig()
     )
-    const args: DrawArgs = { data }
-    return draw(canvas, args, config)
+    return draw(canvas, data, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: QsRadialPointData[],
   config: RadialPointsConfig
 ): QsRadialPoints => {
-  const { data } = args
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
     data,
@@ -67,7 +61,7 @@ const draw = (
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
 
   const transition = (
-    transitionData: QsRadialPointsTransitionData = { data: args.data }
+    transitionData: QsRadialPointsTransitionData = { data }
   ) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
     const calculatedData: CalculatedData[] = getCalculatedData(

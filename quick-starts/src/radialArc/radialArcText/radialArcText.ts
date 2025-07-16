@@ -26,11 +26,6 @@ import {
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 
-interface DrawArgs {
-  data: QsValuedText[]
-  type: RadialTextType
-}
-
 export const radialArcText = {
   spoke: (
     canvas: Canvas,
@@ -43,11 +38,8 @@ export const radialArcText = {
         customConfig,
         canvas.configStore.radialArc.textConfigSpoke()
       )
-    const args: DrawArgs = {
-      data,
-      type: RadialTextType.SPOKE,
-    }
-    return draw(canvas, args, config)
+
+    return draw(canvas, data, RadialTextType.SPOKE, config)
   },
   horizontal: (
     canvas: Canvas,
@@ -60,11 +52,8 @@ export const radialArcText = {
         customConfig,
         canvas.configStore.radialArc.textConfigHorizontal()
       )
-    const args: DrawArgs = {
-      data,
-      type: RadialTextType.HORIZONTAL,
-    }
-    return draw(canvas, args, config)
+
+    return draw(canvas, data, RadialTextType.HORIZONTAL, config)
   },
   rotated: (
     canvas: Canvas,
@@ -77,11 +66,8 @@ export const radialArcText = {
         customConfig,
         canvas.configStore.radialArc.textConfigRotated()
       )
-    const args: DrawArgs = {
-      data,
-      type: RadialTextType.ROTATED,
-    }
-    return draw(canvas, args, config)
+
+    return draw(canvas, data, RadialTextType.ROTATED, config)
   },
   follow: (
     canvas: Canvas,
@@ -94,20 +80,17 @@ export const radialArcText = {
         customConfig,
         canvas.configStore.radialArc.textConfigFollow()
       )
-    const args: DrawArgs = {
-      data,
-      type: RadialTextType.FOLLOW,
-    }
-    return draw(canvas, args, config)
+
+    return draw(canvas, data, RadialTextType.FOLLOW, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: QsValuedText[],
+  type: RadialTextType,
   config: RadialArcTextConfig
 ): QsRadialArcText | QsRadialArcTextFollow => {
-  const { data, type } = args
   const {
     defaultDecimalPoints,
     textFont,
@@ -196,7 +179,7 @@ const draw = (
   }
 
   const transition = (
-    transitionData: QsRadialArcTextTransitionData = { data: args.data }
+    transitionData: QsRadialArcTextTransitionData = { data }
   ) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
     calculatedData = updateCalculatedData(

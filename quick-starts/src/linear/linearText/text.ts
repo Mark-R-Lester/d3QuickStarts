@@ -94,11 +94,12 @@ const draw = (
 
     calculatedData = updateCalculatedData(
       canvas,
-      data,
+      transitionData.data,
       orientation,
       config,
       calculatedData
     )
+
     group
       .selectAll(dotClassName)
       .data(calculatedData)

@@ -63,11 +63,13 @@ const draw = (
         `${d.coordinate.x.toFixed(d.defaultDecimalPoints)}, ${d.coordinate.y.toFixed(d.defaultDecimalPoints)}`
     )
 
-  const transition = (data: QsUnboundTextTransitionData) => {
-    const args = addTransitionDefaults(data.transitionArgs)
+  const transition = (
+    transitionData: QsUnboundTextTransitionData = { data }
+  ) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
     calculatedData = updateCalculatedData(
       canvas,
-      data.data,
+      transitionData.data,
       config,
       calculatedData
     )

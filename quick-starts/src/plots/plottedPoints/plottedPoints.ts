@@ -66,11 +66,13 @@ const draw = (
     .attr('stroke-opacity', (d) => d.strokeOpacity)
     .attr('stroke-width', (d) => d.strokeWidth)
 
-  const transition = (data: QsPlottedPointsTransitionData) => {
-    const args = addTransitionDefaults(data.transitionArgs)
+  const transition = (
+    transitionData: QsPlottedPointsTransitionData = { data }
+  ) => {
+    const args = addTransitionDefaults(transitionData.transitionArgs)
     const calculatedData: CalculatedData[] = getCalculatedData(
       canvas,
-      data.data,
+      transitionData.data,
       config
     )
 

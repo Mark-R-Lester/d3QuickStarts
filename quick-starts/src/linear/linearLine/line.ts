@@ -77,8 +77,8 @@ export const draw = (
 
     const calculatedData: CalculatedData =
       orientation === Orientation.HORIZONTAL
-        ? getHorizontalCalculatedData(canvas, data, config)
-        : getVerticalCalculatedData(canvas, data, config)
+        ? getHorizontalCalculatedData(canvas, transitionData.data, config)
+        : getVerticalCalculatedData(canvas, transitionData.data, config)
 
     group
       .selectAll(dotClassName)

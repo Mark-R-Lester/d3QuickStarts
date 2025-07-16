@@ -79,7 +79,7 @@ const draw = (
     const args = addTransitionDefaults(transitionData.transitionArgs)
     const calculatedData: CalculatedData[] = getCalculatedData(
       canvas,
-      data,
+      transitionData.data,
       orientation,
       config
     )

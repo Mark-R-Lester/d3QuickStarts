@@ -1,6 +1,6 @@
 import { Orientation } from '../../core/enums/enums'
 import { Canvas } from '../../core/canvas/canvas'
-import { DrawArgs, LineConfig, CalculatedData } from './types'
+import { LineConfig, CalculatedData } from './types'
 import { getCalculatedData as getVerticalCalculatedData } from './calculatedDataVertical'
 import { getCalculatedData as getHorizontalCalculatedData } from './calculatedDataHorizontal'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
@@ -20,45 +20,37 @@ export const linearLine = {
     data: QsLineData,
     customConfig?: QsLineConfig
   ): QsLine => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.VERTICAL,
-    }
     const config: LineConfig = addDefaultsToConfig<LineConfig>(
       linearLineConfig,
       customConfig,
       canvas.configStore.linear.lineConfig()
     )
-    return draw(canvas, args, config)
+    return draw(canvas, data, Orientation.VERTICAL, config)
   },
   horizontal: (
     canvas: Canvas,
     data: QsLineData,
     customConfig?: QsLineConfig
   ): QsLine => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.HORIZONTAL,
-    }
     const config: LineConfig = addDefaultsToConfig<LineConfig>(
       linearLineConfig,
       customConfig,
       canvas.configStore.linear.lineConfig()
     )
-    return draw(canvas, args, config)
+    return draw(canvas, data, Orientation.HORIZONTAL, config)
   },
 }
 
 export const draw = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: QsLineData,
+  orientation: Orientation,
   config: LineConfig
 ): QsLine => {
-  const { orientation } = args
   const calculatedData: CalculatedData =
     orientation === Orientation.HORIZONTAL
-      ? getHorizontalCalculatedData(canvas, args, config)
-      : getVerticalCalculatedData(canvas, args, config)
+      ? getHorizontalCalculatedData(canvas, data, config)
+      : getVerticalCalculatedData(canvas, data, config)
   const { strokeLineJoin, strokeLineCap } = config
 
   const { className, dotClassName } = generateClassName('linearLine')
@@ -80,18 +72,13 @@ export const draw = (
     .attr('stroke-linejoin', strokeLineJoin)
     .attr('stroke-linecap', strokeLineCap)
 
-  const transition = (
-    transitionData: QsLineTransitionData = { data: args.data }
-  ) => {
+  const transition = (transitionData: QsLineTransitionData = { data }) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
-    const drawArgs: DrawArgs = {
-      data: transitionData.data,
-      orientation,
-    }
+
     const calculatedData: CalculatedData =
       orientation === Orientation.HORIZONTAL
-        ? getHorizontalCalculatedData(canvas, drawArgs, config)
-        : getVerticalCalculatedData(canvas, drawArgs, config)
+        ? getHorizontalCalculatedData(canvas, data, config)
+        : getVerticalCalculatedData(canvas, data, config)
 
     group
       .selectAll(dotClassName)

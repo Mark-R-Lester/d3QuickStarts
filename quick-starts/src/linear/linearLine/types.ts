@@ -7,13 +7,7 @@ import {
   QsEnumScaleType,
 } from '../../core/enums/qsEnums'
 
-import { QsLineData } from './qsTypes'
 import { ConfigStrokeDefaults } from '../../core/types/types'
-
-export interface DrawArgs {
-  data: QsLineData
-  orientation: Orientation
-}
 
 export interface LineConfig extends ConfigStrokeDefaults {
   [key: string]: QsEnumCurve | number | string | undefined | boolean

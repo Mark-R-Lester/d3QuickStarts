@@ -1,6 +1,6 @@
 import { Canvas } from '../../core/canvas/canvas'
 import { CalculatedData, getCalculatedData } from './calculatedData'
-import { DrawArgs, PointsConfig } from './types'
+import { PointsConfig } from './types'
 import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
@@ -19,44 +19,37 @@ export const linearPoint = {
     data: QsPointData[],
     customConfig?: QsPointsConfig
   ): QsPoints => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.HORIZONTAL,
-    }
     const config: PointsConfig = addDefaultsToConfig<PointsConfig>(
       linearPointsConfig,
       customConfig,
       canvas.configStore.linear.pointsConfig()
     )
-    return draw(canvas, args, config)
+    return draw(canvas, data, Orientation.HORIZONTAL, config)
   },
   vertical: (
     canvas: Canvas,
     data: QsPointData[],
     customConfig?: QsPointsConfig
   ): QsPoints => {
-    const args: DrawArgs = {
-      data,
-      orientation: Orientation.VERTICAL,
-    }
     const config: PointsConfig = addDefaultsToConfig<PointsConfig>(
       linearPointsConfig,
       customConfig,
       canvas.configStore.linear.pointsConfig()
     )
-    return draw(canvas, args, config)
+    return draw(canvas, data, Orientation.VERTICAL, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: QsPointData[],
+  orientation: Orientation,
   config: PointsConfig
 ): QsPoints => {
-  const { orientation } = args
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
-    args,
+    data,
+    orientation,
     config
   )
 
@@ -82,14 +75,12 @@ const draw = (
     .attr('stroke-opacity', (d) => d.strokeOpacity)
     .attr('stroke-width', (d) => d.strokeWidth)
 
-  const transition = (
-    transitionData: QsPointsTransitionData = { data: args.data }
-  ) => {
+  const transition = (transitionData: QsPointsTransitionData = { data }) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
-    const drawArgs: DrawArgs = { data: transitionData.data, orientation }
     const calculatedData: CalculatedData[] = getCalculatedData(
       canvas,
-      drawArgs,
+      data,
+      orientation,
       config
     )
 

@@ -5,7 +5,7 @@ import {
   ScaleOrdinal,
   ScaleSequential,
 } from 'd3'
-import { DrawArgs, PointsConfig } from './types'
+import { PointsConfig } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
@@ -33,13 +33,14 @@ export interface CalculatedData {
 
 export const getCalculatedData = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: QsPointData[],
+  orientation: Orientation,
   config: PointsConfig
 ): CalculatedData[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { xDataScale, yDataScale, genralPercentScale } = canvas.scales
-  const { data, orientation } = args
   const isVertical = orientation === Orientation.VERTICAL
+
   const {
     scaleType,
     defaultRadius,

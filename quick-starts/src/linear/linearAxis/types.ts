@@ -1,4 +1,3 @@
-import { ChartEdge } from '../../core/enums/enums'
 import {
   QsEnumAlignmentBaseline,
   QsEnumAxisScaleType,
@@ -41,9 +40,4 @@ export interface AxisConfig extends AxisConfigBase {
   [key: string]: number | boolean | string | undefined
   textAnchor: QsEnumTextAnchor
   textAlignmentBaseline: QsEnumAlignmentBaseline
-}
-
-export interface DrawArgs {
-  data: string[] | number[]
-  chartEdge: ChartEdge
 }

@@ -10,7 +10,7 @@ import {
 } from 'd3'
 import { toStrings } from '../../core/math/conversion'
 import { ChartEdge } from '../../core/enums/enums'
-import { DrawArgs, AxisConfig } from './types'
+import { AxisConfig } from './types'
 import { Canvas } from '../../core/canvas/canvas'
 import {
   QsEnumAlignmentBaseline,
@@ -47,7 +47,8 @@ export interface CalculatedData {
 
 export const getCalculatedData = (
   canvas: Canvas,
-  args: DrawArgs,
+  data: string[] | number[],
+  chartEdge: ChartEdge,
   config: AxisConfig
 ): CalculatedData => {
   const {
@@ -89,7 +90,6 @@ export const getCalculatedData = (
     textX,
     textY,
   } = config
-  const { data, chartEdge } = args
 
   interface AxisScales {
     axis: Axis<string>

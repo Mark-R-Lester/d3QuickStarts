@@ -1,7 +1,7 @@
 import { ChartEdge } from '../../core/enums/enums'
 import { Canvas } from '../../core/canvas/canvas'
 import { QsAxis, QsAxisConfig } from './qsTypes'
-import { AxisConfig, DrawArgs } from './types'
+import { AxisConfig } from './types'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import {
   linearAxisConfigTop,
@@ -23,12 +23,10 @@ export const linearAxis = {
       customConfig,
       canvas.configStore.linear.axisConfigTop()
     )
-    const args: DrawArgs = {
-      data,
-      chartEdge: ChartEdge.TOP,
-    }
-    return draw(canvas, args, config)
+
+    return draw(canvas, data, ChartEdge.TOP, config)
   },
+
   xAxisBottom: (
     canvas: Canvas,
     data: string[] | number[],
@@ -39,11 +37,8 @@ export const linearAxis = {
       customConfig,
       canvas.configStore.linear.axisConfigBottom()
     )
-    const args: DrawArgs = {
-      data,
-      chartEdge: ChartEdge.BOTTOM,
-    }
-    return draw(canvas, args, config)
+
+    return draw(canvas, data, ChartEdge.BOTTOM, config)
   },
 
   yAxisLeft: (
@@ -56,12 +51,9 @@ export const linearAxis = {
       customConfig,
       canvas.configStore.linear.axisConfigLeft()
     )
-    const args: DrawArgs = {
-      data,
-      chartEdge: ChartEdge.LEFT,
-    }
-    return draw(canvas, args, config)
+    return draw(canvas, data, ChartEdge.LEFT, config)
   },
+
   yAxisRight: (
     canvas: Canvas,
     data: string[] | number[],
@@ -72,16 +64,23 @@ export const linearAxis = {
       customConfig,
       canvas.configStore.linear.axisConfigRight()
     )
-    const args: DrawArgs = {
-      data,
-      chartEdge: ChartEdge.RIGHT,
-    }
-    return draw(canvas, args, config)
+
+    return draw(canvas, data, ChartEdge.RIGHT, config)
   },
 }
 
-const draw = (canvas: Canvas, args: DrawArgs, config: AxisConfig): QsAxis => {
-  const calculatedData: CalculatedData = getCalculatedData(canvas, args, config)
+const draw = (
+  canvas: Canvas,
+  data: string[] | number[],
+  chartEdge: ChartEdge,
+  config: AxisConfig
+): QsAxis => {
+  const calculatedData: CalculatedData = getCalculatedData(
+    canvas,
+    data,
+    chartEdge,
+    config
+  )
 
   const { className, dotClassName } = generateClassName('linearAxis')
   const { className: classNameDomain, dotClassName: dotClassNameDomian } =

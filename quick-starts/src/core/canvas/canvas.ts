@@ -5,10 +5,11 @@ import { Selection, select } from 'd3'
 import { QsCanvas, QsCanvasConfig } from './qsTypes'
 import { canvasConfig } from '../config/configDefaults'
 import { ConfigGetters, ConfigStoreManager } from '../config/configStore.class'
+import { generateClassName } from '../generateClassName'
 
 export interface Canvas {
-  canvasGroup: Selection<SVGGElement, unknown, HTMLElement, any>
-  canvasDataGroup: Selection<SVGGElement, unknown, HTMLElement, any>
+  canvasGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
+  canvasDataGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
   config: CanvasConfig
   scales: CanvasScales
   configStore: ConfigGetters
@@ -38,70 +39,90 @@ export const qsCreateCanvas = (customConfig?: QsCanvasConfig): QsCanvas => {
 }
 
 const draw = (chartName: string, config: CanvasConfig): QsCanvas => {
-  const scaleValues = (config: CanvasConfig): void => {
-    config.marginRight = (config.width * config.marginRight) / 100
-    config.marginLeft = (config.width * config.marginLeft) / 100
-    config.marginTop = (config.height * config.marginTop) / 100
-    config.marginBottom = (config.height * config.marginBottom) / 100
-    config.displayAreaHeight =
-      config.height - (config.marginBottom + config.marginTop)
-    config.displayAreaWidth =
-      config.width - (config.marginLeft + config.marginRight)
+  const scaleValues = (config: CanvasConfig): CanvasConfig => {
+    const marginRight = (config.width * config.marginRight) / 100
+    const marginLeft = (config.width * config.marginLeft) / 100
+    const marginTop = (config.height * config.marginTop) / 100
+    const marginBottom = (config.height * config.marginBottom) / 100
+
+    return {
+      ...config,
+      marginRight,
+      marginLeft,
+      marginTop,
+      marginBottom,
+      displayAreaHeight: config.height - (marginBottom + marginTop),
+      displayAreaWidth: config.width - (marginLeft + marginRight),
+    }
   }
-  scaleValues(config)
+  const adjustedConfig = scaleValues(config)
 
-  const displayAreaWidth =
-    config.width - (config.marginLeft + config.marginRight)
-  const displayAreaHeight =
-    config.height - (config.marginTop + config.marginBottom)
+  const { className: classCanvasSVG, dotClassName: dotClassCanvasSVG } =
+    generateClassName('canvasSVG')
+  const { className: classCanvasRect, dotClassName: dotClassCanvasRect } =
+    generateClassName('canvasRect')
+  const { className: classCanvasGroup, dotClassName: dotClassCanvasGroup } =
+    generateClassName('canvasGroup')
+  const { className: classDataSVG, dotClassName: dotClassDataSVG } =
+    generateClassName('dataSVG')
+  const { className: classDataGroup, dotClassName: dotClassDataGroup } =
+    generateClassName('dataGroup')
 
-  const canvasSVG = select(chartName).append('svg')
-  canvasSVG.attr('width', config.width).attr('height', config.height)
-  canvasSVG
+  const canvasSVG = select(chartName)
+    .append('svg')
+    .datum(adjustedConfig)
+    .attr('class', classCanvasSVG)
+    .attr('width', (d) => d.width)
+    .attr('height', (d) => d.height)
+
+  const rect = canvasSVG
     .append('rect')
+    .attr('class', classCanvasRect)
+    .datum(adjustedConfig)
     .attr('x', 0)
     .attr('y', 0)
-    .attr('rx', config.rx)
-    .attr('ry', config.ry)
-    .attr('width', config.width)
-    .attr('height', config.height)
-    .style('stroke', config.borderColor)
-    .style('fill', config.fillColor)
-    .style('stroke-width', config.borderWidth)
+    .attr('rx', (d) => d.rx)
+    .attr('ry', (d) => d.ry)
+    .attr('width', (d) => d.width)
+    .attr('height', (d) => d.height)
+    .style('stroke', (d) => d.borderColor)
+    .style('fill', (d) => d.fillColor)
+    .style('stroke-width', (d) => d.borderWidth)
 
-  const canvasGroup = canvasSVG.append('g')
-  canvasGroup
-    .attr('class', 'displayGroup')
-    .attr(
-      'transform',
-      'translate(' + config.marginLeft + ',' + config.marginTop + ')'
-    )
-    .attr('width', displayAreaWidth)
-    .attr('height', displayAreaHeight)
-
-  const canvasDataArea = canvasSVG
-    .append('svg')
-    .attr('width', displayAreaWidth)
-    .attr('height', displayAreaHeight)
-    .attr('x', config.marginLeft)
-    .attr('y', config.marginTop)
-
-  // Append a group to the nested SVG
-  const canvasDataGroup = canvasDataArea
+  const canvasGroup = canvasSVG
     .append('g')
+    .attr('class', classCanvasGroup)
+    .datum(adjustedConfig)
+    .attr('transform', (d) => `translate(${d.marginLeft}, ${d.marginTop})`)
+    .attr('width', (d) => d.displayAreaWidth)
+    .attr('height', (d) => d.displayAreaHeight)
+
+  const dataSVG = canvasSVG
+    .append('svg')
+    .datum(adjustedConfig)
+    .attr('class', classDataSVG)
+    .attr('width', (d) => d.displayAreaWidth)
+    .attr('height', (d) => d.displayAreaHeight)
+    .attr('x', (d) => d.marginLeft)
+    .attr('y', (d) => d.marginTop)
+
+  const dataGroup = dataSVG
+    .append('g')
+    .datum(adjustedConfig)
+    .attr('class', classDataGroup)
     .attr('id', 'canvasDataGroup')
     .attr('transform', 'translate(0, 0)')
-    .attr('width', displayAreaWidth)
-    .attr('height', displayAreaHeight)
+    .attr('width', (d) => d.displayAreaWidth)
+    .attr('height', (d) => d.displayAreaHeight)
 
   const configManager = new ConfigStoreManager()
-  const scales = getScales(config)
+  const scales = getScales(adjustedConfig)
 
   const elements: ElementWithData[] = []
   const canvas: Canvas = {
     canvasGroup,
-    canvasDataGroup,
-    config,
+    canvasDataGroup: dataGroup,
+    config: adjustedConfig,
     scales,
     configStore: configManager.getters,
     elements,
@@ -111,8 +132,8 @@ const draw = (chartName: string, config: CanvasConfig): QsCanvas => {
   return {
     canvasSVG: canvasSVG,
     canvasGroup,
-    canvasDataGroup,
-    config,
+    canvasDataGroup: dataGroup,
+    config: adjustedConfig,
     generate,
     configStore: configManager.setters,
   }

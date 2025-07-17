@@ -1,6 +1,7 @@
 import { Selection } from 'd3'
 import { LineConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
+import { CanvasConfig } from '../../core/canvas/types'
 
 export interface QsLineData {
   [key: string]: number[] | string | number | undefined
@@ -19,7 +20,7 @@ export interface QsLineTransitionData {
 
 export interface QsLine {
   element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, CanvasConfig, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
   transition: (data: QsLineTransitionData) => void
 }

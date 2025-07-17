@@ -1,4 +1,5 @@
 import { ConfigSetters } from '../config/configStore.class'
+import { QsTransitionArgs } from '../types/qsTypes'
 import { QsGenerator } from './generators'
 
 import { CanvasConfig } from './types'
@@ -12,10 +13,17 @@ export interface QsCanvasConfig extends Partial<CanvasConfig> {
   highestViewableValue: number
 }
 
+export interface QsCanvasTransitionConfig extends Partial<CanvasConfig> {}
+
+export interface QsCanvasTransitionData {
+  config: QsCanvasTransitionConfig
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsCanvas {
-  canvasSVG: Selection<SVGSVGElement, unknown, HTMLElement, any>
-  canvasGroup: Selection<SVGGElement, unknown, HTMLElement, any>
-  canvasDataGroup: Selection<SVGGElement, unknown, HTMLElement, any>
+  canvasSVG: Selection<SVGSVGElement, CanvasConfig, HTMLElement, any>
+  canvasGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
+  canvasDataGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
   config: CanvasConfig
   generate: QsGenerator
   configStore: ConfigSetters

@@ -8,10 +8,9 @@ export const addTransitionDefaults = (
     delayInMiliSeconds: 0,
     durationInMiliSeconds: 3000,
   }
-  if (!customConfig) return defaults
 
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
+  return {
+    ...defaults,
+    ...customConfig,
+  }
 }

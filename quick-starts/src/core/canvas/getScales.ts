@@ -1,27 +1,36 @@
-import { ScaleLinear, scaleLinear } from 'd3'
+import {
+  scaleLinear,
+  scalePow,
+  scaleLog,
+  scaleSymlog,
+  scaleSqrt,
+  ScaleContinuousNumeric,
+} from 'd3-scale'
+import { QsEnumDataScale } from '../enums/qsEnums'
 import { CanvasConfig } from './types'
+import { QSDataScale } from '../types/qsTypes'
 
 export interface CanvasScales {
-  xCanvasPercentScaleInverted: ScaleLinear<number, number, never>
-  xCanvasPercentScale: ScaleLinear<number, number, never>
-  yCanvasPercentScaleInverted: ScaleLinear<number, number, never>
-  yCanvasPercentScale: ScaleLinear<number, number, never>
+  xCanvasPercentScaleInverted: ScaleContinuousNumeric<number, number>
+  xCanvasPercentScale: ScaleContinuousNumeric<number, number>
+  yCanvasPercentScaleInverted: ScaleContinuousNumeric<number, number>
+  yCanvasPercentScale: ScaleContinuousNumeric<number, number>
 
-  genralPercentScale: ScaleLinear<number, number, never>
+  genralPercentScale: ScaleContinuousNumeric<number, number>
 
-  xPercentScale: ScaleLinear<number, number, never>
-  xPercentScaleInverted: ScaleLinear<number, number, never>
+  xPercentScale: ScaleContinuousNumeric<number, number>
+  xPercentScaleInverted: ScaleContinuousNumeric<number, number>
 
-  yPercentScale: ScaleLinear<number, number, never>
-  yPercentScaleInverted: ScaleLinear<number, number, never>
+  yPercentScale: ScaleContinuousNumeric<number, number>
+  yPercentScaleInverted: ScaleContinuousNumeric<number, number>
 
-  xDataScale: ScaleLinear<number, number, never>
-  xDataScalePlotted: ScaleLinear<number, number, never>
-  xDataScaleInverted: ScaleLinear<number, number, never>
+  xDataScale: ScaleContinuousNumeric<number, number>
+  xDataScalePlotted: ScaleContinuousNumeric<number, number>
+  xDataScaleInverted: ScaleContinuousNumeric<number, number>
 
-  yDataScale: ScaleLinear<number, number, never>
-  yDataScalePlotted: ScaleLinear<number, number, never>
-  yDataScaleInverted: ScaleLinear<number, number, never>
+  yDataScale: ScaleContinuousNumeric<number, number>
+  yDataScalePlotted: ScaleContinuousNumeric<number, number>
+  yDataScaleInverted: ScaleContinuousNumeric<number, number>
 }
 
 export const getScales = (config: CanvasConfig): CanvasScales => {
@@ -34,72 +43,100 @@ export const getScales = (config: CanvasConfig): CanvasScales => {
     displayAreaHeight,
     lowestViewableValue,
     highestViewableValue,
-    highestViewableValuePlottedX,
     lowestViewableValuePlottedX,
+    highestViewableValuePlottedX,
     height,
     width,
+    dataScale,
   } = config
+
+  const createScale = (
+    domain: [number, number],
+    range: [number, number],
+    dataScale?: QSDataScale
+  ): ScaleContinuousNumeric<number, number> => {
+    if (!dataScale) {
+      return scaleLinear().domain(domain).range(range)
+    }
+    const { scale } = dataScale
+    switch (scale) {
+      case QsEnumDataScale.LINEAR:
+        return scaleLinear().domain(domain).range(range)
+      case QsEnumDataScale.POWER:
+        return scalePow()
+          .exponent(dataScale.exponent ?? 1)
+          .domain(domain)
+          .range(range)
+      case QsEnumDataScale.SYMLOG:
+        return scaleSymlog().domain(domain).range(range)
+      case QsEnumDataScale.SQRT:
+        return scaleSqrt().domain(domain).range(range)
+      default:
+        return scaleLinear().domain(domain).range(range)
+    }
+  }
+
+  const percentDomain: [number, number] = [0, 100]
+  const dataDomain: [number, number] = [
+    lowestViewableValue,
+    highestViewableValue,
+  ]
+  const plottedXDomain: [number, number] = [
+    lowestViewableValuePlottedX ?? lowestViewableValue,
+    highestViewableValuePlottedX ?? highestViewableValue,
+  ]
+  const xRange: [number, number] = [0, displayAreaWidth]
+  const xRangePlotted: [number, number] = [
+    0,
+    highestViewableValuePlottedX !== undefined
+      ? displayAreaWidth
+      : Math.min(displayAreaHeight, displayAreaWidth),
+  ]
+  const xRangeInverted: [number, number] = [displayAreaWidth, 0]
+  const yRange: [number, number] = [displayAreaHeight, 0]
+  const yRangePlotted: [number, number] = [
+    highestViewableValuePlottedX !== undefined
+      ? displayAreaHeight
+      : Math.min(displayAreaHeight, displayAreaWidth),
+    0,
+  ]
+  const yRangeInverted: [number, number] = [0, displayAreaHeight]
+  const genralRange: [number, number] = [
+    0,
+    Math.min(displayAreaHeight, displayAreaWidth),
+  ]
 
   return {
     xCanvasPercentScaleInverted: scaleLinear()
-      .domain([0, 100])
+      .domain(percentDomain)
       .range([width - marginRight, 0 - marginLeft]),
     xCanvasPercentScale: scaleLinear()
-      .domain([0, 100])
+      .domain(percentDomain)
       .range([0 - marginLeft, width - marginRight]),
 
     yCanvasPercentScaleInverted: scaleLinear()
-      .domain([0, 100])
+      .domain(percentDomain)
       .range([height - marginBottom, 0 - marginTop]),
     yCanvasPercentScale: scaleLinear()
-      .domain([0, 100])
+      .domain(percentDomain)
       .range([0 - marginTop, height - marginBottom]),
 
-    genralPercentScale: scaleLinear()
-      .domain([0, 100])
-      .range([0, Math.min(displayAreaHeight, displayAreaWidth)]),
+    genralPercentScale: scaleLinear().domain(percentDomain).range(genralRange),
 
-    xPercentScale: scaleLinear().domain([0, 100]).range([0, displayAreaWidth]),
+    xPercentScale: scaleLinear().domain(percentDomain).range(xRange),
     xPercentScaleInverted: scaleLinear()
-      .domain([0, 100])
-      .range([displayAreaWidth, 0]),
+      .domain(percentDomain)
+      .range(xRangeInverted),
 
-    yPercentScale: scaleLinear().domain([0, 100]).range([0, displayAreaHeight]),
-    yPercentScaleInverted: scaleLinear()
-      .domain([0, 100])
-      .range([displayAreaHeight, 0]),
+    yPercentScale: scaleLinear().domain(percentDomain).range(yRangeInverted),
+    yPercentScaleInverted: scaleLinear().domain(percentDomain).range(yRange),
 
-    xDataScale: scaleLinear()
-      .domain([lowestViewableValue, highestViewableValue])
-      .range([0, displayAreaWidth]),
-    xDataScalePlotted: scaleLinear()
-      .domain([
-        lowestViewableValuePlottedX ?? lowestViewableValue,
-        highestViewableValuePlottedX ?? highestViewableValue,
-      ])
-      .range([
-        0,
-        highestViewableValuePlottedX !== undefined
-          ? displayAreaWidth
-          : Math.min(displayAreaHeight, displayAreaWidth),
-      ]),
-    xDataScaleInverted: scaleLinear()
-      .domain([lowestViewableValue, highestViewableValue])
-      .range([displayAreaWidth, 0]),
+    xDataScale: createScale(dataDomain, xRange, dataScale),
+    xDataScalePlotted: createScale(plottedXDomain, xRangePlotted, dataScale),
+    xDataScaleInverted: createScale(dataDomain, xRangeInverted, dataScale),
 
-    yDataScale: scaleLinear()
-      .domain([lowestViewableValue, highestViewableValue])
-      .range([displayAreaHeight, 0]),
-    yDataScalePlotted: scaleLinear()
-      .domain([lowestViewableValue, highestViewableValue])
-      .range([
-        highestViewableValuePlottedX !== undefined
-          ? displayAreaHeight
-          : Math.min(displayAreaHeight, displayAreaWidth),
-        0,
-      ]),
-    yDataScaleInverted: scaleLinear()
-      .domain([lowestViewableValue, highestViewableValue])
-      .range([0, displayAreaHeight]),
+    yDataScale: createScale(dataDomain, yRange, dataScale),
+    yDataScalePlotted: createScale(dataDomain, yRangePlotted, dataScale),
+    yDataScaleInverted: createScale(dataDomain, yRangeInverted, dataScale),
   }
 }

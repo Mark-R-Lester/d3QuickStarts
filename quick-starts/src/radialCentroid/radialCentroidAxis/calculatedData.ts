@@ -1,4 +1,9 @@
-import { scaleLinear, scaleOrdinal, ScaleOrdinal, ScaleLinear } from 'd3'
+import {
+  scaleLinear,
+  scaleOrdinal,
+  ScaleOrdinal,
+  ScaleContinuousNumeric,
+} from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/math/conversion'
 import { Canvas } from '../../core/canvas/canvas'
@@ -26,7 +31,7 @@ export const getCalculatedData = (
   const ordinal = data.some((d) => typeof d === 'string')
 
   let ordialScale: ScaleOrdinal<string, unknown, never>
-  let linearScale: ScaleLinear<number, number, never>
+  let linearScale: ScaleContinuousNumeric<number, number>
   if (ordinal) {
     ordialScale = scaleOrdinal().domain(toStrings(data)).range(data)
   } else {

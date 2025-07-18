@@ -1,5 +1,7 @@
+import { QSDataScale } from '../types/qsTypes'
+
 export interface CanvasConfig {
-  [key: string]: string | number | undefined
+  [key: string]: string | number | undefined | QSDataScale
   ry: number
   rx: number
   chartName: string
@@ -18,6 +20,7 @@ export interface CanvasConfig {
   fillColor: string
   displayAreaHeight: number
   displayAreaWidth: number
+  dataScale?: QSDataScale
 }
 
 export interface ElementWithData {

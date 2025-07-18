@@ -6,7 +6,7 @@ import {
   axisLeft,
   axisRight,
   Axis,
-  ScaleLinear,
+  ScaleContinuousNumeric,
 } from 'd3'
 import { toStrings } from '../../core/math/conversion'
 import { ChartEdge } from '../../core/enums/enums'
@@ -93,7 +93,7 @@ export const getCalculatedData = (
 
   interface AxisScales {
     axis: Axis<string>
-    percentScale: ScaleLinear<number, number, never>
+    percentScale: ScaleContinuousNumeric<number, number>
   }
 
   const applyScaleToAxis = (): AxisScales => {

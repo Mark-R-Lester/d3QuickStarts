@@ -61,6 +61,13 @@ export enum QsEnumTextDecorationLine {
   OVERLINE_UNDERLINE = 'overline underline',
 }
 
+export enum QsEnumDataScale {
+  LINEAR = 'linear',
+  POWER = 'pow',
+  SYMLOG = 'symlog',
+  SQRT = 'sqrt',
+}
+
 export enum QsEnumTextFont {
   //  Sans Serif
   SANS_SERIF = 'Sans-Serif',

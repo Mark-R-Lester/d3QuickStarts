@@ -12,6 +12,7 @@ import {
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { LinearAreaStackedChart } from './LinearAreaStackedChart'
+import { QsEnumDataScale } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'linearArea',
@@ -137,8 +138,9 @@ export const defaultsContent: JSX.Element = (
               canvasProps={{
                 chartName: 'chartH',
                 width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 190,
+                lowestViewableValue: 9,
+                highestViewableValue: 156,
+                dataScale: { scale: QsEnumDataScale.LINEAR },
               }}
             />,
           ]}

@@ -1,3 +1,4 @@
+import { QsEnumDataScale } from '../enums/qsEnums'
 import { OrdinalColorScaleData, SequentialColorScaleData } from './types'
 
 export interface QsCoordinate {
@@ -13,3 +14,12 @@ export interface QsTransitionArgs {
   delayInMiliSeconds?: number
   durationInMiliSeconds?: number
 }
+
+export type QSDataScale =
+  | {
+      scale:
+        | QsEnumDataScale.LINEAR
+        | QsEnumDataScale.SQRT
+        | QsEnumDataScale.SYMLOG
+    }
+  | { scale: QsEnumDataScale.POWER; exponent: number }

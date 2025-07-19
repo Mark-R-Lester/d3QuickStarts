@@ -1,6 +1,6 @@
 import { BaseType, Selection } from 'd3'
 import { AxisConfig } from './types'
-import { CanvasConfig } from '../../core/canvas/types'
+import { CanvasConfig } from '../../canvas/linear/types'
 
 export type QsAxisConfig = Partial<AxisConfig>
 

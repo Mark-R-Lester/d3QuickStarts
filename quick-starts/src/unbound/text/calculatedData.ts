@@ -1,4 +1,4 @@
-import { Canvas } from '../../core/canvas/canvas'
+import { Canvas } from '../../canvas/linear/canvas'
 import { TextData } from '../../core/types/types'
 import { QsCoordinate } from '../../d3QuickStart'
 import { QsUnboundTextData } from './qsTypes'

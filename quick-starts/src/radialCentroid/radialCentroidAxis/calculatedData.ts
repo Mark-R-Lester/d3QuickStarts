@@ -6,7 +6,7 @@ import {
 } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/math/conversion'
-import { Canvas } from '../../core/canvas/canvas'
+import { Canvas } from '../../canvas/linear/canvas'
 import { RadialAxisConfig, CalculatedData } from './types'
 import {
   adjacentFromHypotenuse,

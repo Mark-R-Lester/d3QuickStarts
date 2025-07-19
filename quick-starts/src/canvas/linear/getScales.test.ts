@@ -1,5 +1,4 @@
 import { getScales } from './getScales'
-
 import { CanvasConfig } from './types'
 
 let canvasConfig: CanvasConfig = {

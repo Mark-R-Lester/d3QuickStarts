@@ -1,7 +1,8 @@
-import { createMockQsCanvas } from '../canvas/__mocks__/canvas.mocks'
-import { resetMockSelectionStore } from '../canvas/__mocks__/selection.mocks'
-import { QsCanvas } from '../canvas/qsTypes'
-import { CanvasConfig } from '../canvas/types'
+import { createMockQsCanvas } from '../../canvas/linear/__mocks__/canvas.mocks'
+import { resetMockSelectionStore } from '../../canvas/linear/__mocks__/selection.mocks'
+import { QsCanvas } from '../../canvas/linear/qsTypes'
+import { CanvasConfig } from '../../canvas/linear/types'
+
 import {
   qsCreateCustomStopLinearGradient,
   qsCreateCustomStopRadialGradient,

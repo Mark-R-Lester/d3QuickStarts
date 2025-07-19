@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { LineConfig, CalculatedData } from './types'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { constantsCurves } from '../../core/constants/constants'
-import { Canvas } from '../../core/canvas/canvas'
+import { Canvas } from '../../canvas/linear/canvas'
 import { QsEnumScaleType } from '../../core/enums/qsEnums'
 import { QsLineData } from './qsTypes'
 

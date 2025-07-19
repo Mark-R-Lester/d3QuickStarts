@@ -1,17 +1,18 @@
-import { getScales } from '../../core/canvas/getScales'
-import { CanvasConfig } from '../../core/canvas/types'
+import { CanvasConfig } from '../../canvas/linear/types'
 import {
   GlobalDefaultColors,
   GlobalDefaultSettings,
   Orientation,
 } from '../../core/enums/enums'
-import { Canvas, qsCreateCanvas } from '../../core/canvas/canvas'
-import { QsCanvas } from '../../core/canvas/qsTypes'
+
+import { QsCanvas } from '../../canvas/linear/qsTypes'
 import { getCalculatedData } from './calculatedData'
 import { QsBarData } from './qsTypes'
 import { BarConfig } from './types'
 import { JSDOM } from 'jsdom'
 import { ConfigStoreManager } from '../../core/config/configStore.class'
+import { getScales } from '../../canvas/linear/getScales'
+import { Canvas, qsCreateCanvas } from '../../canvas/linear/canvas'
 
 const dom = new JSDOM()
 global.document = dom.window.document

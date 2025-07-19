@@ -1,11 +1,11 @@
 import { QsCanvas, QsCanvasConfig } from '../qsTypes'
 import { CanvasConfig } from '../types'
-import { canvasConfig as defaultCanvasConfig } from '../../config/configDefaults'
+import { canvasConfig as defaultCanvasConfig } from '../../../core/config/configDefaults'
 import { getGenerators } from './generators.mocks'
-import { createMockConfigStore } from './configStore.mocks'
 import { Canvas } from '../canvas'
 import { getScalesMock } from './scales.mocks'
 import { createMockSelection } from './selection.mocks'
+import { createMockConfigStore } from './configStore.mocks'
 
 export const baseConfig = (
   configOverrides: Partial<QsCanvasConfig> = {}

@@ -1,5 +1,5 @@
 import { getCalculatedData, CalculatedData } from './calculatedData'
-import { Canvas } from '../../core/canvas/canvas'
+import { Canvas } from '../../canvas/linear/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { RadialPointsConfig } from './types'
 import {

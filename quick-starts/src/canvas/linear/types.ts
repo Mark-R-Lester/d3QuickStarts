@@ -1,4 +1,4 @@
-import { QSDataScale } from '../types/qsTypes'
+import { QSDataScale } from '../../core/types/qsTypes'
 
 export interface CanvasConfig {
   [key: string]: string | number | undefined | QSDataScale

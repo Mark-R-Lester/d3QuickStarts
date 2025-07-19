@@ -1,7 +1,7 @@
+import { Canvas } from '../../canvas/linear/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { plottedPointsConfig } from '../../core/config/configDefaults'
 import { generateClassName } from '../../core/generateClassName'
-import { Canvas } from '../../d3QuickStart'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import {
   QsPlottedPointsConfig,

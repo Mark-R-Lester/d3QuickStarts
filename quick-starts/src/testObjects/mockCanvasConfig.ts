@@ -1,4 +1,4 @@
-import { CanvasConfig } from '../core/canvas/types'
+import { CanvasConfig } from '../canvas/linear/types'
 
 export const mockCanvasConfig: CanvasConfig = {
   ry: 0,

@@ -1,5 +1,5 @@
 import { scaleBand, scaleOrdinal, range, stack, ScaleOrdinal, Series } from 'd3'
-import { Canvas } from '../../core/canvas/canvas'
+import { Canvas } from '../../canvas/linear/canvas'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/math/conversion'
 import { BarData, BarStackedConfig, CalculatedData } from './types'

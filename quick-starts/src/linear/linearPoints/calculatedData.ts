@@ -17,7 +17,7 @@ import {
 } from '../../core/color/color'
 import { QsPointData } from './qsTypes'
 import { toStrings } from '../../core/math/conversion'
-import { Canvas } from '../../core/canvas/canvas'
+import { Canvas } from '../../canvas/linear/canvas'
 import { QsEnumColorScale, QsEnumScaleType } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {

@@ -1,5 +1,5 @@
 import { ChartEdge } from '../../core/enums/enums'
-import { Canvas } from '../../core/canvas/canvas'
+import { Canvas } from '../../canvas/linear/canvas'
 import { QsAxis, QsAxisConfig } from './qsTypes'
 import { AxisConfig } from './types'
 import { CalculatedData, getCalculatedData } from './calculatedData'

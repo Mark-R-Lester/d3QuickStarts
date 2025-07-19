@@ -1,4 +1,4 @@
-import { QsCanvas } from '../canvas/qsTypes'
+import { QsCanvas } from '../../canvas/linear/qsTypes'
 import { addColorsToGradient } from './addColorsToGradient'
 import { createColorStops } from './createColorStops'
 

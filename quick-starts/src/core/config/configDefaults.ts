@@ -5,7 +5,7 @@ import { AreaConfig } from '../../linear/linearArea/types'
 import { AxisConfig, AxisConfigBase } from '../../linear/linearAxis/types'
 import { BarConfig } from '../../linear/linearBar/types'
 import { BarGroupConfig } from '../../linear/linearBarGroup/types'
-import { CanvasConfig } from '../canvas/types'
+
 import { BarStackedConfig } from '../../linear/linearBarStack/types'
 import { LineConfig } from '../../linear/linearLine/types'
 import { PointsConfig } from '../../linear/linearPoints/types'
@@ -42,6 +42,7 @@ import { ConfigTextDefaults } from '../types/types'
 import { QsColorScaleData } from '../types/qsTypes'
 import { RadialTextConfig } from '../../radialCentroid/radialCentroidText/types'
 import { QsEnumCoordinateView } from '../../plots/plottedText/qsEnums'
+import { CanvasConfig } from '../../canvas/linear/types'
 
 const defaultFillColorArray: string[] = [
   'red',

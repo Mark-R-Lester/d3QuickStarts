@@ -1,7 +1,7 @@
 import { BarGroupConfig } from './types'
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { Canvas } from '../../core/canvas/canvas'
+import { Canvas } from '../../canvas/linear/canvas'
 import {
   QsBarGroupConfig,
   QsBarGroupedData,

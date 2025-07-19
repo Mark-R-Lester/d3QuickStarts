@@ -1,6 +1,6 @@
 import { BarStackedConfig, CalculatedData } from './types'
 import { getCalculatedData } from './calculatedData'
-import { Canvas } from '../../core/canvas/canvas'
+import { Canvas } from '../../canvas/linear/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
   QsBarStackedConfig,

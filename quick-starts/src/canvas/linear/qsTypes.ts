@@ -1,5 +1,5 @@
-import { ConfigSetters } from '../config/configStore.class'
-import { QsTransitionArgs } from '../types/qsTypes'
+import { ConfigSetters } from '../../core/config/configStore.class'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { QsGenerator } from './generators'
 
 import { CanvasConfig } from './types'

@@ -1,7 +1,7 @@
 import { Selection } from 'd3'
 import { LineConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
-import { CanvasConfig } from '../../core/canvas/types'
+import { CanvasConfig } from '../../canvas/linear/types'
 
 export interface QsLineData {
   [key: string]: number[] | string | number | undefined

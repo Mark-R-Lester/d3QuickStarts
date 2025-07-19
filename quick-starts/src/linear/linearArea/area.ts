@@ -12,8 +12,9 @@ import {
 import { AreaConfig, AreaData, CalculatedData } from './types'
 import { linearAreaConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
-import { Canvas } from '../../core/canvas/canvas'
+
 import { generateClassName } from '../../core/generateClassName'
+import { Canvas } from '../../canvas/linear/canvas'
 
 export const linearArea = {
   horizontal: (

@@ -3,7 +3,7 @@ import {
   CalculatedData,
   updateCalculatedData,
 } from './calculatedData'
-import { Canvas } from '../../core/canvas/canvas'
+import { Canvas } from '../../canvas/linear/canvas'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { RadialTextConfig } from './types'
 import {

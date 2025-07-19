@@ -1,4 +1,4 @@
-import { Canvas } from '../../core/canvas/canvas'
+import { Canvas } from '../../canvas/linear/canvas'
 import { QsPlottedPointsData } from './qsTypes'
 import { PlottedPointsConfig } from './types'
 

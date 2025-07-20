@@ -1,4 +1,4 @@
-import { createMockSelection } from './selection.mocks'
+import { createMockSelection } from '../../../__mocks__/selection'
 
 jest.mock('d3', () => ({
   select: jest.fn().mockReturnValue({

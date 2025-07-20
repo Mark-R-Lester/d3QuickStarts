@@ -6,7 +6,7 @@ import {
 } from '../../core/config/configStore.class'
 import { generateClassName } from '../../core/generateClassName'
 import { QsGenerator, getGenerators } from './generators'
-import { CanvasScales, getScales } from './getScales'
+import { CanvasScales, getScales } from '../../core/scales/getScales'
 import { QsCanvasConfig, QsCanvas } from './qsTypes'
 import { CanvasConfig, ElementWithData } from './types'
 

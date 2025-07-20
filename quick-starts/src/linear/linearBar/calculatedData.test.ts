@@ -11,7 +11,7 @@ import { QsBarData } from './qsTypes'
 import { BarConfig } from './types'
 import { JSDOM } from 'jsdom'
 import { ConfigStoreManager } from '../../core/config/configStore.class'
-import { getScales } from '../../canvas/linear/getScales'
+import { getScales } from '../../core/scales/getScales'
 import { Canvas, qsCreateCanvas } from '../../canvas/linear/canvas'
 
 const dom = new JSDOM()

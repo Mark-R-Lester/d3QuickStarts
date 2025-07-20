@@ -1,5 +1,5 @@
+import { CanvasConfig } from '../../canvas/linear/types'
 import { getScales } from './getScales'
-import { CanvasConfig } from './types'
 
 let canvasConfig: CanvasConfig = {
   ry: 0,

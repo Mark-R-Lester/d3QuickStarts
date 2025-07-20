@@ -1,14 +1,13 @@
 import {
   scaleLinear,
   scalePow,
-  scaleLog,
   scaleSymlog,
   scaleSqrt,
   ScaleContinuousNumeric,
 } from 'd3-scale'
-import { CanvasConfig } from './types'
-import { QSDataScale } from '../../core/types/qsTypes'
-import { QsEnumDataScale } from '../../core/enums/qsEnums'
+import { CanvasConfig } from '../../canvas/linear/types'
+import { QSDataScale } from '../types/qsTypes'
+import { QsEnumDataScale } from '../enums/qsEnums'
 
 export interface CanvasScales {
   xCanvasPercentScaleInverted: ScaleContinuousNumeric<number, number>

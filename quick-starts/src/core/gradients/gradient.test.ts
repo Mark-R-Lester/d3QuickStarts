@@ -1,5 +1,5 @@
-import { createMockQsCanvas } from '../../canvas/linear/__mocks__/canvas.mocks'
-import { resetMockSelectionStore } from '../../canvas/linear/__mocks__/selection.mocks'
+import { resetMockSelectionStore } from '../../__mocks__/selection'
+import { createMockQsCanvas } from '../../canvas/linear/__mocks__/canvas'
 import { QsCanvas } from '../../canvas/linear/qsTypes'
 import { CanvasConfig } from '../../canvas/linear/types'
 

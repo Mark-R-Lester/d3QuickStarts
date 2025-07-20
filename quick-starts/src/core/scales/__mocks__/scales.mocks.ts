@@ -1,6 +1,6 @@
 import { scaleLinear } from 'd3'
-import { CanvasConfig } from '../types'
 import { CanvasScales } from '../getScales'
+import { CanvasConfig } from '../../../canvas/linear/types'
 
 // Mock scaleLinear to return a chainable object with domain and range
 jest.mock('d3', () => ({

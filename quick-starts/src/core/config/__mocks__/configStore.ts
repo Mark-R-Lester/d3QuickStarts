@@ -19,7 +19,7 @@ import { QsRadialPointsConfig } from '../../../radialCentroid/radialCentroidPoin
 import { QsRadialSpokesConfig } from '../../../radialCentroid/radialCentroidSpokes/qsTypes'
 
 import { QsRadialTextConfig } from '../../../radialCentroid/radialCentroidText/qsTypes'
-import { ConfigStore } from '../../../core/config/configStore.class'
+import { ConfigStore } from '../configStore.class'
 
 export const createMockConfigStore = () => {
   const store: ConfigStore = {

@@ -1,11 +1,11 @@
 import { QsCanvas, QsCanvasConfig } from '../qsTypes'
 import { CanvasConfig } from '../types'
 import { canvasConfig as defaultCanvasConfig } from '../../../core/config/configDefaults'
-import { getGenerators } from './generators.mocks'
+import { getGenerators } from './generators'
 import { Canvas } from '../canvas'
-import { getScalesMock } from './scales.mocks'
-import { createMockSelection } from './selection.mocks'
-import { createMockConfigStore } from './configStore.mocks'
+import { createMockSelection } from '../../../__mocks__/selection'
+import { createMockConfigStore } from '../../../core/config/__mocks__/configStore'
+import { getScales } from '../../../core/scales/getScales'
 
 export const baseConfig = (
   configOverrides: Partial<QsCanvasConfig> = {}
@@ -47,7 +47,7 @@ export const createMockCanvas = (config: QsCanvasConfig): Canvas => ({
   canvasDataGroup: createMockSelection<SVGGElement>(),
   config: baseConfig(config),
   configStore: createMockConfigStore().getters,
-  scales: getScalesMock(baseConfig(config)),
+  scales: getScales(baseConfig(config)),
   elements: [],
 })
 

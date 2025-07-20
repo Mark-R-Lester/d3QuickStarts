@@ -1,11 +1,8 @@
-import { ConfigSetters } from '../../core/config/configStore.class'
-import { QsTransitionArgs } from '../../core/types/qsTypes'
-import { QsGenerator } from './generators'
-
-import { CanvasConfig } from './types'
 import { Selection } from 'd3'
-
-export { QsGenerator } from './generators'
+import { CanvasConfig } from './types'
+import { QsTransitionArgs } from '../core/types/qsTypes'
+import { QsGenerator } from './plotted/generators'
+import { ConfigSetters } from '../core/config/configStore.class'
 
 export interface QsCanvasConfig extends Partial<CanvasConfig> {
   chartName: string

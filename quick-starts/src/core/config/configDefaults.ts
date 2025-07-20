@@ -42,7 +42,7 @@ import { ConfigTextDefaults } from '../types/types'
 import { QsColorScaleData } from '../types/qsTypes'
 import { RadialTextConfig } from '../../radialCentroid/radialCentroidText/types'
 import { QsEnumCoordinateView } from '../../plots/plottedText/qsEnums'
-import { CanvasConfig } from '../../canvas/linear/types'
+import { CanvasConfig } from '../../canvas/types'
 
 const defaultFillColorArray: string[] = [
   'red',

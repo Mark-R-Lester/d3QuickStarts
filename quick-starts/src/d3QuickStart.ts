@@ -1,5 +1,5 @@
 export * from './canvas/linear/canvas'
-export * from './canvas/linear/qsTypes'
+export * from './canvas/qsTypes'
 export * from './core/max'
 export * from './core/min'
 export * from './core/types/qsTypes'

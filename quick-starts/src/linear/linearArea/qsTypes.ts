@@ -1,7 +1,7 @@
 import { Selection } from 'd3'
 import { AreaConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
-import { CanvasConfig } from '../../canvas/linear/types'
+import { CanvasConfig } from '../../canvas/types'
 
 export interface QsAreaData {
   lowerData?: number[]

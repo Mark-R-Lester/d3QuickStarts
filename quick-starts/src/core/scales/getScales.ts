@@ -5,9 +5,9 @@ import {
   scaleSqrt,
   ScaleContinuousNumeric,
 } from 'd3-scale'
-import { CanvasConfig } from '../../canvas/linear/types'
 import { QSDataScale } from '../types/qsTypes'
 import { QsEnumDataScale } from '../enums/qsEnums'
+import { CanvasConfig } from '../../canvas/types'
 
 export interface CanvasScales {
   xCanvasPercentScaleInverted: ScaleContinuousNumeric<number, number>

@@ -13,7 +13,6 @@ import {
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from '../../enums/qsEnums'
-import { QsCanvasConfig } from '../../../canvas/linear/qsTypes'
 import { QsRadialArcTextConfig } from '../../../radialArc/radialArcText/qsTypes'
 import { QsRadialAreaConfig } from '../../../radialCentroid/radialCentroidArea/qsTypes'
 import { QsRadialAxisConfig } from '../../../radialCentroid/radialCentroidAxis/qsTypes'
@@ -33,6 +32,7 @@ import { QsBarConfig } from '../../../linear/linearBar/qsTypes'
 import { QsAxisConfig } from '../../../linear/linearAxis/qsTypes'
 import { QsAreaConfig } from '../../../linear/linearArea/qsTypes'
 import { QsLegendConfig } from '../../../unbound/legend/qsTypes'
+import { QsCanvasConfig } from '../../../canvas/qsTypes'
 
 export const canvasConfig: QsCanvasConfig = {
   chartName: '',

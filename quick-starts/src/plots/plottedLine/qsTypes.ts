@@ -1,7 +1,7 @@
 import { Selection } from 'd3'
 import { PlottedLineConfig } from './types'
 import { QsCoordinate, QsTransitionArgs } from '../../core/types/qsTypes'
-import { CanvasConfig } from '../../canvas/linear/types'
+import { CanvasConfig } from '../../canvas/types'
 
 export type QsPlottedLineConfig = Partial<PlottedLineConfig>
 

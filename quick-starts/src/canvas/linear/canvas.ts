@@ -7,8 +7,8 @@ import {
 import { generateClassName } from '../../core/generateClassName'
 import { QsGenerator, getGenerators } from './generators'
 import { CanvasScales, getScales } from '../../core/scales/getScales'
-import { QsCanvasConfig, QsCanvas } from './qsTypes'
-import { CanvasConfig, ElementWithData } from './types'
+import { CanvasConfig, ElementWithData } from '../types'
+import { QsCanvas, QsCanvasConfig } from '../qsTypes'
 
 export interface Canvas {
   canvasGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>

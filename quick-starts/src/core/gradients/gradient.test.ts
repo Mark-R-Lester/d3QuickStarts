@@ -1,7 +1,7 @@
 import { resetMockSelectionStore } from '../../__mocks__/selection'
 import { createMockQsCanvas } from '../../canvas/linear/__mocks__/canvas'
-import { QsCanvas } from '../../canvas/linear/qsTypes'
-import { CanvasConfig } from '../../canvas/linear/types'
+import { QsCanvas } from '../../canvas/qsTypes'
+import { CanvasConfig } from '../../canvas/types'
 
 import {
   qsCreateCustomStopLinearGradient,

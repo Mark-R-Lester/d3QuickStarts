@@ -20,8 +20,9 @@ import * as radialLine from '../../radialCentroid/radialCentroidLine/radialCentr
 import * as radialPoint from '../../radialCentroid/radialCentroidPoints/radialCentroidPoints'
 import { radialSpokes } from '../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
 import { radialText } from '../../radialCentroid/radialCentroidText/radialCentroidText'
-import { QsCanvas } from './qsTypes'
+
 import { qsCreateCanvas } from './canvas'
+import { QsCanvas } from '../qsTypes'
 
 // Test-scoped elements array
 let testElements: any[] = []

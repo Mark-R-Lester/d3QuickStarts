@@ -1,4 +1,4 @@
-import { CanvasConfig } from '../../canvas/linear/types'
+import { CanvasConfig } from '../../canvas/types'
 import { getScales } from './getScales'
 
 let canvasConfig: CanvasConfig = {

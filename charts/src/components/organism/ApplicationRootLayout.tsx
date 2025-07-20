@@ -19,7 +19,7 @@ import { AppRoutes } from '../../AppRoutes'
 import { DropdownMenu } from '../atoms/DropdownMenu'
 import {
   menuCanvas,
-  menuElementsLinear,
+  menuElementsOrthogonal,
   menuElementsPlotted,
   menuElementsRadialArc,
   menuElementsRadialCentroid,
@@ -138,7 +138,7 @@ export const ApplicationLayout: FunctionComponent = () => {
             {open ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <DropdownMenu {...menuElementsLinear} />
+            <DropdownMenu {...menuElementsOrthogonal} />
             <DropdownMenu {...menuElementsPlotted} />
             <DropdownMenu {...menuElementsRadialArc} />
             <DropdownMenu {...menuElementsRadialCentroid} />

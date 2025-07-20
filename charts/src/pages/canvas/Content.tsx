@@ -28,9 +28,9 @@ const configChart: string = `const canvas = qsCreateCanvas(canvasConfig)
 const data: QsAreaData = {
   higherData: [100, 100],
 }
-canvas.generate.linear.horizontal.area(data)
-canvas.generate.linear.vertical.axis.left([0, 100])
-canvas.generate.linear.horizontal.axis.bottom(['0', '1'])`
+canvas.generate.orthogonal.horizontal.area(data)
+canvas.generate.orthogonal.vertical.axis.left([0, 100])
+canvas.generate.orthogonal.horizontal.axis.bottom(['0', '1'])`
 
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`
@@ -143,8 +143,8 @@ export const configContent: JSX.Element = (
         <Typography variant="body1">
           Every canvas has a display area. The display area is where the data is
           visualised when adding elements. To allow us to see the display area,
-          we've completely filled it with a linear area element. So you can see
-          the effects of changes to the canvas config axes have also beeen
+          we've completely filled it with a orthogonal area element. So you can
+          see the effects of changes to the canvas config axes have also beeen
           added.
         </Typography>
       </ContentBox>,
@@ -157,8 +157,8 @@ export const configContent: JSX.Element = (
                 points if not provided default to 0.
               </Typography>
               <Typography variant="body1">
-                The vertical axis uses a linear scale to automatically calculate
-                what is displayed against the ticks.
+                The vertical axis uses a orthogonal scale to automatically
+                calculate what is displayed against the ticks.
               </Typography>
               <Typography variant="body1">
                 The horizontal axis uses a point scale and will only ever show

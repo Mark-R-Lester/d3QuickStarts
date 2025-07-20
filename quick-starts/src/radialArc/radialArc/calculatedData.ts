@@ -9,7 +9,7 @@ import {
 } from '../../core/color/color'
 
 import { QsRadialData } from './qsTypes'
-import { Canvas } from '../../canvas/linear/canvas'
+import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
 import { QsEnumColorScale } from '../../core/enums/qsEnums'
 
 export interface CalculatedData {

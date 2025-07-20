@@ -30,12 +30,12 @@ export const PlottedLineChart: FunctionComponent<ChartProps> = ({
       const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       canvas.generate.plotted.line(data, {
-        curve: QsEnumCurve.LINEAR,
+        curve: QsEnumCurve.orthogonal,
         strokeLineJoin: QsEnumLineJoin.BEVEL,
         strokeLineCap: QsEnumLineCap.ROUND,
       })
-      canvas.generate.linear.vertical.axis.left([])
-      canvas.generate.linear.horizontal.axis.bottom([])
+      canvas.generate.orthogonal.vertical.axis.left([])
+      canvas.generate.orthogonal.horizontal.axis.bottom([])
     }
     createChart()
   }, [canvasProps])

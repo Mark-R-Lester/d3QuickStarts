@@ -16,7 +16,7 @@ let centralizedStore: Record<string, Selection<any, any, HTMLElement, any>[]> =
   {
     defs: [],
     stop: [],
-    linearGradient: [],
+    orthogonalGradient: [],
     radialGradient: [],
   }
 
@@ -47,9 +47,9 @@ export const createMockSelection = <T extends SVGElement>(): Selection<
           selection = createMockSelection<SVGDefsElement>()
           centralizedStore.defs.push(selection)
           return selection
-        case 'linearGradient':
+        case 'orthogonalGradient':
           selection = createMockSelection<SVGLinearGradientElement>()
-          centralizedStore.linearGradient.push(selection)
+          centralizedStore.orthogonalGradient.push(selection)
           return selection
         case 'radialGradient':
           selection = createMockSelection<SVGRadialGradientElement>()

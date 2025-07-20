@@ -15,9 +15,9 @@ export const SimpleCanvasWithArea: FunctionComponent<ChartProps> = ({
       const data: QsAreaData = {
         higherData: [100, 100],
       }
-      canvas.generate.linear.horizontal.area(data)
-      canvas.generate.linear.vertical.axis.left([])
-      canvas.generate.linear.horizontal.axis.bottom([])
+      canvas.generate.orthogonal.horizontal.area(data)
+      canvas.generate.orthogonal.vertical.axis.left([])
+      canvas.generate.orthogonal.horizontal.axis.bottom([])
     }
     createChart()
   }, [canvasProps])

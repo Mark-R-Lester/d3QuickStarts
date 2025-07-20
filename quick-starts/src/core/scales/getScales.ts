@@ -59,7 +59,7 @@ export const getScales = (config: CanvasConfig): CanvasScales => {
     }
     const { scale } = dataScale
     switch (scale) {
-      case QsEnumDataScale.LINEAR:
+      case QsEnumDataScale.orthogonal:
         return scaleLinear().domain(domain).range(range)
       case QsEnumDataScale.POWER:
         return scalePow()

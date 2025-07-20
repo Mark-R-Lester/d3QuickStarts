@@ -42,16 +42,16 @@ export const menuElementsRadialCentroid: DropdownMenuProps = {
   ],
 }
 
-export const menuElementsLinear: DropdownMenuProps = {
-  title: 'Linear',
+export const menuElementsOrthogonal: DropdownMenuProps = {
+  title: 'Orthogonal',
   routes: [
-    { title: 'Area', route: '/linear/area' },
-    { title: 'Axis', route: '/linear/axis' },
-    { title: 'Bars', route: '/linear/bars' },
-    { title: 'Bar Group', route: '/linear/bargroup' },
-    { title: 'Bar Stack', route: '/linear/barstack' },
-    { title: 'Line', route: '/linear/line' },
-    { title: 'Points', route: '/linear/points' },
-    { title: 'Text', route: '/linear/text' },
+    { title: 'Area', route: '/orthogonal/area' },
+    { title: 'Axis', route: '/orthogonal/axis' },
+    { title: 'Bars', route: '/orthogonal/bars' },
+    { title: 'Bar Group', route: '/orthogonal/bargroup' },
+    { title: 'Bar Stack', route: '/orthogonal/barstack' },
+    { title: 'Line', route: '/orthogonal/line' },
+    { title: 'Points', route: '/orthogonal/points' },
+    { title: 'Text', route: '/orthogonal/text' },
   ],
 }

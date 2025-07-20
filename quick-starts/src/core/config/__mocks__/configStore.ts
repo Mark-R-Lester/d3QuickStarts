@@ -1,12 +1,12 @@
 import { QsLegendConfig } from '../../../unbound/legend/qsTypes'
-import { QsAreaConfig } from '../../../linear/linearArea/qsTypes'
-import { QsAxisConfig } from '../../../linear/linearAxis/qsTypes'
-import { QsBarConfig } from '../../../linear/linearBar/qsTypes'
-import { QsBarGroupConfig } from '../../../linear/linearBarGroup/qsTypes'
-import { QsBarStackedConfig } from '../../../linear/linearBarStack/qsTypes'
-import { QsLineConfig } from '../../../linear/linearLine/qsTypes'
-import { QsPointsConfig } from '../../../linear/linearPoints/qsTypes'
-import { QsTextConfig } from '../../../linear/linearText/qsTypes'
+import { QsAreaConfig } from '../../../orthogonal/orthogonalArea/qsTypes'
+import { QsAxisConfig } from '../../../orthogonal/orthogonalAxis/qsTypes'
+import { QsBarConfig } from '../../../orthogonal/orthogonalBar/qsTypes'
+import { QsBarGroupConfig } from '../../../orthogonal/orthogonalBarGroup/qsTypes'
+import { QsBarStackedConfig } from '../../../orthogonal/orthogonalBarStack/qsTypes'
+import { QsLineConfig } from '../../../orthogonal/orthogonalLine/qsTypes'
+import { QsPointsConfig } from '../../../orthogonal/orthogonalPoints/qsTypes'
+import { QsTextConfig } from '../../../orthogonal/orthogonalText/qsTypes'
 import { QsPlottedLineConfig } from '../../../plots/plottedLine/qsTypes'
 import { QsPlottedPointsConfig } from '../../../plots/plottedPoints/qsTypes'
 import { QsPlottedTextConfig } from '../../../plots/plottedText/qsTypes'
@@ -24,17 +24,17 @@ import { ConfigStore } from '../configStore.class'
 export const createMockConfigStore = () => {
   const store: ConfigStore = {
     legendConfig: undefined,
-    linearAreaConfig: undefined,
-    linearAxisConfigTop: undefined,
-    linearAxisConfigBottom: undefined,
-    linearAxisConfigLeft: undefined,
-    linearAxisConfigRight: undefined,
-    linearBarConfig: undefined,
-    linearBarGroupConfig: undefined,
-    linearBarStackConfig: undefined,
-    linearLineConfig: undefined,
-    linearPointsConfig: undefined,
-    linearTextConfig: undefined,
+    orthogonalAreaConfig: undefined,
+    orthogonalAxisConfigTop: undefined,
+    orthogonalAxisConfigBottom: undefined,
+    orthogonalAxisConfigLeft: undefined,
+    orthogonalAxisConfigRight: undefined,
+    orthogonalBarConfig: undefined,
+    orthogonalBarGroupConfig: undefined,
+    orthogonalBarStackConfig: undefined,
+    orthogonalLineConfig: undefined,
+    orthogonalPointsConfig: undefined,
+    orthogonalTextConfig: undefined,
     plottedLineConfig: undefined,
     plottedPointsConfig: undefined,
     plottedTextConfig: undefined,
@@ -56,32 +56,40 @@ export const createMockConfigStore = () => {
       legend: {
         legendConfig: jest.fn().mockImplementation(() => store.legendConfig),
       },
-      linear: {
-        areaConfig: jest.fn().mockImplementation(() => store.linearAreaConfig),
+      orthogonal: {
+        areaConfig: jest
+          .fn()
+          .mockImplementation(() => store.orthogonalAreaConfig),
         axisConfigTop: jest
           .fn()
-          .mockImplementation(() => store.linearAxisConfigTop),
+          .mockImplementation(() => store.orthogonalAxisConfigTop),
         axisConfigBottom: jest
           .fn()
-          .mockImplementation(() => store.linearAxisConfigBottom),
+          .mockImplementation(() => store.orthogonalAxisConfigBottom),
         axisConfigLeft: jest
           .fn()
-          .mockImplementation(() => store.linearAxisConfigLeft),
+          .mockImplementation(() => store.orthogonalAxisConfigLeft),
         axisConfigRight: jest
           .fn()
-          .mockImplementation(() => store.linearAxisConfigRight),
-        barConfig: jest.fn().mockImplementation(() => store.linearBarConfig),
+          .mockImplementation(() => store.orthogonalAxisConfigRight),
+        barConfig: jest
+          .fn()
+          .mockImplementation(() => store.orthogonalBarConfig),
         barGroupConfig: jest
           .fn()
-          .mockImplementation(() => store.linearBarGroupConfig),
+          .mockImplementation(() => store.orthogonalBarGroupConfig),
         barStackConfig: jest
           .fn()
-          .mockImplementation(() => store.linearBarStackConfig),
-        lineConfig: jest.fn().mockImplementation(() => store.linearLineConfig),
+          .mockImplementation(() => store.orthogonalBarStackConfig),
+        lineConfig: jest
+          .fn()
+          .mockImplementation(() => store.orthogonalLineConfig),
         pointsConfig: jest
           .fn()
-          .mockImplementation(() => store.linearPointsConfig),
-        textConfig: jest.fn().mockImplementation(() => store.linearTextConfig),
+          .mockImplementation(() => store.orthogonalPointsConfig),
+        textConfig: jest
+          .fn()
+          .mockImplementation(() => store.orthogonalTextConfig),
       },
       plotted: {
         lineConfig: jest.fn().mockImplementation(() => store.plottedLineConfig),
@@ -132,45 +140,45 @@ export const createMockConfigStore = () => {
           store.legendConfig = value
         }),
       },
-      linear: {
+      orthogonal: {
         areaConfig: jest.fn().mockImplementation((value: QsAreaConfig) => {
-          store.linearAreaConfig = value
+          store.orthogonalAreaConfig = value
         }),
         axisConfigTop: jest.fn().mockImplementation((value: QsAxisConfig) => {
-          store.linearAxisConfigTop = value
+          store.orthogonalAxisConfigTop = value
         }),
         axisConfigBottom: jest
           .fn()
           .mockImplementation((value: QsAxisConfig) => {
-            store.linearAxisConfigBottom = value
+            store.orthogonalAxisConfigBottom = value
           }),
         axisConfigLeft: jest.fn().mockImplementation((value: QsAxisConfig) => {
-          store.linearAxisConfigLeft = value
+          store.orthogonalAxisConfigLeft = value
         }),
         axisConfigRight: jest.fn().mockImplementation((value: QsAxisConfig) => {
-          store.linearAxisConfigRight = value
+          store.orthogonalAxisConfigRight = value
         }),
         barConfig: jest.fn().mockImplementation((value: QsBarConfig) => {
-          store.linearBarConfig = value
+          store.orthogonalBarConfig = value
         }),
         barGroupConfig: jest
           .fn()
           .mockImplementation((value: QsBarGroupConfig) => {
-            store.linearBarGroupConfig = value
+            store.orthogonalBarGroupConfig = value
           }),
         barStackConfig: jest
           .fn()
           .mockImplementation((value: QsBarStackedConfig) => {
-            store.linearBarStackConfig = value
+            store.orthogonalBarStackConfig = value
           }),
         lineConfig: jest.fn().mockImplementation((value: QsLineConfig) => {
-          store.linearLineConfig = value
+          store.orthogonalLineConfig = value
         }),
         pointsConfig: jest.fn().mockImplementation((value: QsPointsConfig) => {
-          store.linearPointsConfig = value
+          store.orthogonalPointsConfig = value
         }),
         textConfig: jest.fn().mockImplementation((value: QsTextConfig) => {
-          store.linearTextConfig = value
+          store.orthogonalTextConfig = value
         }),
       },
       plotted: {

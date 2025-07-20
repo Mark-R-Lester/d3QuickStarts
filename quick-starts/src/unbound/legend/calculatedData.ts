@@ -1,6 +1,6 @@
 import { LegendConfig } from './types'
 import { QsLegendData } from './qsTypes'
-import { Canvas } from '../../canvas/linear/canvas'
+import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
 import { TextData } from '../../core/types/types'
 
 export interface CalculatedData extends TextData {

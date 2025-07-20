@@ -4,7 +4,7 @@ import { getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsEnumLineCap, QsEnumLineJoin } from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
-import { Canvas } from '../../canvas/linear/canvas'
+import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
 import {
   QsRadialArea,
   QsRadialAreaConfig,

@@ -2,19 +2,19 @@ import { FunctionComponent } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import HomePage from './pages/home/HomePage'
 import PlottedTransitionsPage from './pages/plotted/PlottedTransitionsPage'
-import LinearTransitionsPage from './pages/linear/LinearTransitionsPage'
+import orthogonalTransitionsPage from './pages/orthogonal/OrthogonalTransitionsPage'
 import RadialTransitionsPage from './pages/radialArc/RadialArcTransitionsPage'
-import LinearBarsPage from './pages/linear/bars/LinearBarsPage'
+import orthogonalBarsPage from './pages/orthogonal/bars/OrthogonalBarsPage'
 import RadialCentroidLinePage from './pages/radialCentroid/line/RadialCentroidLinePage'
 import RadialCentroidPointsPage from './pages/radialCentroid/points/RadialCentroidPointsPage'
 import CanvasPage from './pages/canvas/CanvasPage'
-import LinearAreaPage from './pages/linear/area/LinearAreaPage'
-import LinearAxisPage from './pages/linear/axes/LinearAxisPage'
-import LinearBarGroupPage from './pages/linear/barGroup/LinearBarGroupPage'
-import LinearBarStackPage from './pages/linear/barStack/LinearBarStackPage'
-import LinearLinePage from './pages/linear/line/LinearLinePage'
-import LinearPointsPage from './pages/linear/points/LinearPointsPage'
-import LinearTextPage from './pages/linear/text/LinearTextPage'
+import orthogonalAreaPage from './pages/orthogonal/area/OrthogonalAreaPage'
+import orthogonalAxisPage from './pages/orthogonal/axes/OrthogonalAxisPage'
+import orthogonalBarGroupPage from './pages/orthogonal/barGroup/OrthogonalBarGroupPage'
+import orthogonalBarStackPage from './pages/orthogonal/barStack/OrthogonalBarStackPage'
+import orthogonalLinePage from './pages/orthogonal/line/OrthogonalLinePage'
+import orthogonalPointsPage from './pages/orthogonal/points/OrthogonalPointsPage'
+import orthogonalTextPage from './pages/orthogonal/text/OrthogonalTextPage'
 import PlottedLinePage from './pages/plotted/line/PlottedLinePage'
 import PlottedPointsPage from './pages/plotted/points/PlottedPointsPage'
 import PlottedTextPage from './pages/plotted/text/PlottedTextPage'
@@ -37,14 +37,14 @@ export const AppRoutes: FunctionComponent = () => {
       <Route path="/unbound/legend" Component={UnboundLegendPage} />
       <Route path="/unbound/text" Component={UnboundTextPage} />
 
-      <Route path="/linear/bars" Component={LinearBarsPage} />
-      <Route path="/linear/area" Component={LinearAreaPage} />
-      <Route path="/linear/axis" Component={LinearAxisPage} />
-      <Route path="/linear/bargroup" Component={LinearBarGroupPage} />
-      <Route path="/linear/barstack" Component={LinearBarStackPage} />
-      <Route path="/linear/line" Component={LinearLinePage} />
-      <Route path="/linear/points" Component={LinearPointsPage} />
-      <Route path="/linear/text" Component={LinearTextPage} />
+      <Route path="/orthogonal/bars" Component={orthogonalBarsPage} />
+      <Route path="/orthogonal/area" Component={orthogonalAreaPage} />
+      <Route path="/orthogonal/axis" Component={orthogonalAxisPage} />
+      <Route path="/orthogonal/bargroup" Component={orthogonalBarGroupPage} />
+      <Route path="/orthogonal/barstack" Component={orthogonalBarStackPage} />
+      <Route path="/orthogonal/line" Component={orthogonalLinePage} />
+      <Route path="/orthogonal/points" Component={orthogonalPointsPage} />
+      <Route path="/orthogonal/text" Component={orthogonalTextPage} />
 
       <Route path="/plotted/points" Component={PlottedPointsPage} />
       <Route path="/plotted/line" Component={PlottedLinePage} />
@@ -67,7 +67,10 @@ export const AppRoutes: FunctionComponent = () => {
       <Route path="/radialcentroid/text" Component={RadialCentroidTextPage} />
 
       <Route path="/plotted/transitions" Component={PlottedTransitionsPage} />
-      <Route path="/linear/transitions" Component={LinearTransitionsPage} />
+      <Route
+        path="/orthogonal/transitions"
+        Component={orthogonalTransitionsPage}
+      />
       <Route path="/radial/transitions" Component={RadialTransitionsPage} />
     </Routes>
   )

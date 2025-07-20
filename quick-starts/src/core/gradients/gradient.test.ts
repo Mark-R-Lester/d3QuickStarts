@@ -1,12 +1,12 @@
 import { resetMockSelectionStore } from '../../__mocks__/selection'
-import { createMockQsCanvas } from '../../canvas/linear/__mocks__/canvas'
+import { createMockQsCanvas } from '../../canvas/orthogonal/__mocks__/canvasOrthogonal'
 import { QsCanvasOrthogonal } from '../../canvas/qsTypes'
 import { CanvasConfig } from '../../canvas/types'
 
 import {
-  qsCreateCustomStopLinearGradient,
+  qsCreateCustomStoporthogonalGradient,
   qsCreateCustomStopRadialGradient,
-  qsCreateLinearGradient,
+  qsCreateorthogonalGradient,
   qsCreateRadialGradient,
 } from './gradients'
 
@@ -68,15 +68,15 @@ describe('Gradient Functions Testing', () => {
     canvasMock.config = canvasConfig
   })
 
-  describe('qsCreateCustomStopLinearGradient', () => {
+  describe('qsCreateCustomStoporthogonalGradient', () => {
     test.each`
       gradientId | colorStops            | x1       | y1       | x2       | y2        | expectedId
       ${'grad1'} | ${BLUE_RED_STOPS}     | ${'0%'}  | ${'0%'}  | ${'0%'}  | ${'100%'} | ${'url(#grad1)'}
       ${'grad2'} | ${BLUE_RED_MID_STOPS} | ${'10%'} | ${'20%'} | ${'80%'} | ${'30%'}  | ${'url(#grad2)'}
     `(
-      'creates linear gradient with gradientId=$gradientId, x1=$x1, y1=$y1, x2=$x2, y2=$y2',
+      'creates orthogonal gradient with gradientId=$gradientId, x1=$x1, y1=$y1, x2=$x2, y2=$y2',
       ({ gradientId, colorStops, x1, y1, x2, y2, expectedId }) => {
-        const result = qsCreateCustomStopLinearGradient({
+        const result = qsCreateCustomStoporthogonalGradient({
           canvas: canvasMock,
           gradientId,
           colorStops,
@@ -90,7 +90,7 @@ describe('Gradient Functions Testing', () => {
         expect(canvasMock.canvasSVG.append).toHaveBeenCalled()
         const appendCalls = canvasMock.canvasSVG.getAppendCalls()
         expect(appendCalls).toContainEqual({ type: 'defs' })
-        expect(appendCalls).toContainEqual({ type: 'linearGradient' })
+        expect(appendCalls).toContainEqual({ type: 'orthogonalGradient' })
         expect(appendCalls.filter((call) => call.type === 'stop').length).toBe(
           colorStops.length
         )
@@ -112,22 +112,22 @@ describe('Gradient Functions Testing', () => {
           })
         })
 
-        canvasMock.canvasSVG.selectAll('defs').selectAll('linearGradient')
+        canvasMock.canvasSVG.selectAll('defs').selectAll('orthogonalGradient')
         expect(canvasMock.canvasSVG.selectAll).toHaveBeenCalledWith('defs')
       }
     )
   })
 
-  describe('qsCreateLinearGradient', () => {
+  describe('qsCreateorthogonalGradient', () => {
     test.each`
       gradientId | colors                | x1       | y1       | x2        | y2       | expectedId
       ${'grad3'} | ${RED_GREEN}          | ${'0%'}  | ${'0%'}  | ${'100%'} | ${'0%'}  | ${'url(#grad3)'}
       ${'grad4'} | ${BLUE_WHITE_MAGENTA} | ${'10%'} | ${'20%'} | ${'80%'}  | ${'30%'} | ${'url(#grad4)'}
     `(
-      'creates linear gradient with gradientId=$gradientId, x1=$x1, y1=$y1, x2=$x2, y2=$y2',
+      'creates orthogonal gradient with gradientId=$gradientId, x1=$x1, y1=$y1, x2=$x2, y2=$y2',
       ({ gradientId, colors, x1, y1, x2, y2, expectedId }) => {
         resetMockSelectionStore()
-        const result = qsCreateLinearGradient({
+        const result = qsCreateorthogonalGradient({
           canvas: canvasMock,
           gradientId,
           colors,
@@ -140,7 +140,7 @@ describe('Gradient Functions Testing', () => {
         expect(result).toBe(expectedId)
         const appendCalls = canvasMock.canvasSVG.getAppendCalls()
         expect(appendCalls).toContainEqual({ type: 'defs' })
-        expect(appendCalls).toContainEqual({ type: 'linearGradient' })
+        expect(appendCalls).toContainEqual({ type: 'orthogonalGradient' })
         expect(appendCalls.filter((call) => call.type === 'stop').length).toBe(
           colors.length
         )

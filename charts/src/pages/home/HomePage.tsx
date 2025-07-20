@@ -1,15 +1,15 @@
 import { Typography } from '@mui/material'
 import { EnumOrientation } from '../../common/enums'
-import { LinearBarsTransition } from './LinearBarsTransition'
-import { LinearLine } from './LinearLine'
+import { OrthogonalBarsTransition } from './OrthogonalBarsTransition'
+import { OrthogonalLine } from './OrthogonalLine'
 
-export default function LinearBarsPage() {
+export default function orthogonalBarsPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
         Home
       </Typography>
-      <LinearBarsTransition
+      <OrthogonalBarsTransition
         canvasProps={{
           chartName: 'simpleBarChartHorizontal',
           height: 500,
@@ -22,7 +22,7 @@ export default function LinearBarsPage() {
         }}
         orientation={EnumOrientation.HORIZONTAL}
       />
-      <LinearLine
+      <OrthogonalLine
         canvasProps={{
           chartName: 'simpleChart',
           height: 500,

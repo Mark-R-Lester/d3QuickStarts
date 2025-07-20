@@ -6,7 +6,7 @@ import {
 } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/math/conversion'
-import { Canvas } from '../../canvas/linear/canvas'
+import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
 import { RadialAxisConfig, CalculatedData } from './types'
 import {
   adjacentFromHypotenuse,
@@ -31,11 +31,11 @@ export const getCalculatedData = (
   const ordinal = data.some((d) => typeof d === 'string')
 
   let ordialScale: ScaleOrdinal<string, unknown, never>
-  let linearScale: ScaleContinuousNumeric<number, number>
+  let orthogonalScale: ScaleContinuousNumeric<number, number>
   if (ordinal) {
     ordialScale = scaleOrdinal().domain(toStrings(data)).range(data)
   } else {
-    linearScale = scaleLinear()
+    orthogonalScale = scaleLinear()
       .domain([1, data.length])
       .range([lowestViewableValue, highestViewableValue])
   }
@@ -64,7 +64,7 @@ export const getCalculatedData = (
 
     let text: unknown
     if (ordinal) text = ordialScale(d.toString())
-    else text = linearScale(i + 1)
+    else text = orthogonalScale(i + 1)
 
     const handleText = (text: unknown): string => {
       if (typeof text === 'string') return text

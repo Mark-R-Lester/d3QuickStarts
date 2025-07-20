@@ -1,13 +1,13 @@
 import { Box, Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../components/molecules/ChartButtonGrid'
 import { useState } from 'react'
-import { LinearAreaChart } from '../linear/area/LinearAreaChart'
+import { OrthogonalAreaChart } from '../orthogonal/area/OrthogonalAreaChart'
 
 export default function PlottedTransitionPage() {
   const menuElements: JSX.Element[] = [
-    <LinearAreaChart
+    <OrthogonalAreaChart
       canvasProps={{
-        chartName: 'linearArea',
+        chartName: 'orthogonalArea',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 250,
@@ -16,7 +16,7 @@ export default function PlottedTransitionPage() {
   ]
 
   const charts: JSX.Element[] = [
-    <LinearAreaChart
+    <OrthogonalAreaChart
       canvasProps={{
         chartName: 'chart',
         width: 800,

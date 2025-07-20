@@ -1,15 +1,18 @@
 import { GlobalDefaultColors, GlobalDefaultSettings } from '../enums/enums'
 
 import { LegendConfig } from '../../unbound/legend/types'
-import { AreaConfig } from '../../linear/linearArea/types'
-import { AxisConfig, AxisConfigBase } from '../../linear/linearAxis/types'
-import { BarConfig } from '../../linear/linearBar/types'
-import { BarGroupConfig } from '../../linear/linearBarGroup/types'
+import { AreaConfig } from '../../orthogonal/orthogonalArea/types'
+import {
+  AxisConfig,
+  AxisConfigBase,
+} from '../../orthogonal/orthogonalAxis/types'
+import { BarConfig } from '../../orthogonal/orthogonalBar/types'
+import { BarGroupConfig } from '../../orthogonal/orthogonalBarGroup/types'
 
-import { BarStackedConfig } from '../../linear/linearBarStack/types'
-import { LineConfig } from '../../linear/linearLine/types'
-import { PointsConfig } from '../../linear/linearPoints/types'
-import { TextConfig } from '../../linear/linearText/types'
+import { BarStackedConfig } from '../../orthogonal/orthogonalBarStack/types'
+import { LineConfig } from '../../orthogonal/orthogonalLine/types'
+import { PointsConfig } from '../../orthogonal/orthogonalPoints/types'
+import { TextConfig } from '../../orthogonal/orthogonalText/types'
 import { PlottedLineConfig } from '../../plots/plottedLine/types'
 import { PlottedPointsConfig } from '../../plots/plottedPoints/calculatedData'
 import { PlottedTextConfig } from '../../plots/plottedText/types'
@@ -115,9 +118,9 @@ export const legendConfig: LegendConfig = {
   ...textDefaults,
 }
 
-export const linearAreaConfig: AreaConfig = {
+export const orthogonalAreaConfig: AreaConfig = {
   useDataArea: true,
-  curve: QsEnumCurve.LINEAR,
+  curve: QsEnumCurve.orthogonal,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
   defaultFillColor: GlobalDefaultColors.AREA_FILL_COLOR,
@@ -127,13 +130,13 @@ export const linearAreaConfig: AreaConfig = {
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
 }
 
-const linearAxisConfigBase: AxisConfigBase = {
+const orthogonalAxisConfigBase: AxisConfigBase = {
   percentageMovement: 0,
 
   domainColor: GlobalDefaultColors.AXIS_COLOR,
   domainOpacity: 1,
   domainWidth: 2,
-  domainScale: QsEnumAxisScaleType.LINEAR,
+  domainScale: QsEnumAxisScaleType.orthogonal,
   tickColor: GlobalDefaultColors.AXIS_COLOR,
   tickOpacity: 1,
   tickWidth: 2,
@@ -154,31 +157,31 @@ const linearAxisConfigBase: AxisConfigBase = {
   textY: 0,
 }
 
-export const linearAxisConfigTop: AxisConfig = {
-  ...linearAxisConfigBase,
+export const orthogonalAxisConfigTop: AxisConfig = {
+  ...orthogonalAxisConfigBase,
   textAnchor: QsEnumTextAnchor.MIDDLE,
   textAlignmentBaseline: QsEnumAlignmentBaseline.BASELINE,
 }
 
-export const linearAxisConfigBottom: AxisConfig = {
-  ...linearAxisConfigBase,
+export const orthogonalAxisConfigBottom: AxisConfig = {
+  ...orthogonalAxisConfigBase,
   textAnchor: QsEnumTextAnchor.MIDDLE,
   textAlignmentBaseline: QsEnumAlignmentBaseline.HANGING,
 }
 
-export const linearAxisConfigLeft: AxisConfig = {
-  ...linearAxisConfigBase,
+export const orthogonalAxisConfigLeft: AxisConfig = {
+  ...orthogonalAxisConfigBase,
   textAnchor: QsEnumTextAnchor.END,
   textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
-export const linearAxisConfigRight: AxisConfig = {
-  ...linearAxisConfigBase,
+export const orthogonalAxisConfigRight: AxisConfig = {
+  ...orthogonalAxisConfigBase,
   textAnchor: QsEnumTextAnchor.START,
   textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
-export const linearBarConfig: BarConfig = {
+export const orthogonalBarConfig: BarConfig = {
   useDataArea: true,
   padding: 8,
   defaultFillColor: GlobalDefaultColors.BAR_FILL,
@@ -190,7 +193,7 @@ export const linearBarConfig: BarConfig = {
   strokeColorScaleData: undefined,
 }
 
-export const linearBarGroupConfig: BarGroupConfig = {
+export const orthogonalBarGroupConfig: BarGroupConfig = {
   useDataArea: true,
   colorRange: defaultFillColorArray,
   padding: 20,
@@ -200,7 +203,7 @@ export const linearBarGroupConfig: BarGroupConfig = {
   strokeOpacity: 1,
 }
 
-export const linearBarStackConfig: BarStackedConfig = {
+export const orthogonalBarStackConfig: BarStackedConfig = {
   useDataArea: true,
   colorRange: defaultFillColorArray,
   padding: 20,
@@ -210,10 +213,10 @@ export const linearBarStackConfig: BarStackedConfig = {
   strokeOpacity: 1,
 }
 
-export const linearLineConfig: LineConfig = {
+export const orthogonalLineConfig: LineConfig = {
   useDataArea: true,
-  scaleType: QsEnumScaleType.LINEAR,
-  curve: QsEnumCurve.LINEAR,
+  scaleType: QsEnumScaleType.orthogonal,
+  curve: QsEnumCurve.orthogonal,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
   defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
@@ -221,9 +224,9 @@ export const linearLineConfig: LineConfig = {
   defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
 }
 
-export const linearPointsConfig: PointsConfig = {
+export const orthogonalPointsConfig: PointsConfig = {
   useDataArea: true,
-  scaleType: QsEnumScaleType.LINEAR,
+  scaleType: QsEnumScaleType.orthogonal,
   defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
   defaultFillColor: GlobalDefaultColors.POINT_FILL,
   defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
@@ -234,16 +237,16 @@ export const linearPointsConfig: PointsConfig = {
   strokeColorScaleData: undefined,
 }
 
-export const linearTextConfig: TextConfig = {
+export const orthogonalTextConfig: TextConfig = {
   useDataArea: true,
-  scaleType: QsEnumScaleType.LINEAR,
+  scaleType: QsEnumScaleType.orthogonal,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
   ...textDefaults,
 }
 
 export const plottedLineConfig: PlottedLineConfig = {
   useDataArea: true,
-  curve: QsEnumCurve.LINEAR,
+  curve: QsEnumCurve.orthogonal,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
   defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
@@ -286,7 +289,7 @@ export const radialArcConfig: RadialArcConfig = {
 }
 
 const radialArcTextConfigBase: RadialArcTextConfigBase = {
-  scaleType: QsEnumScaleType.LINEAR,
+  scaleType: QsEnumScaleType.orthogonal,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
@@ -330,7 +333,7 @@ export const radialArcTextConfigFollow: RadialArcTextConfig = {
 
 export const radialCentroidAreaConfig: RadialAreaConfig = {
   useDataArea: true,
-  curve: QsEnumCurve.LINEAR,
+  curve: QsEnumCurve.orthogonal,
   x: 50,
   y: 50,
   strokeLineJoin: QsEnumLineJoin.ROUND,
@@ -365,7 +368,7 @@ export const radialCentroidAxisConfig: RadialAxisConfig = {
 
 export const radialCentroidLineConfig: RadialLineConfig = {
   useDataArea: true,
-  curve: QsEnumCurve.LINEAR,
+  curve: QsEnumCurve.orthogonal,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
   defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,

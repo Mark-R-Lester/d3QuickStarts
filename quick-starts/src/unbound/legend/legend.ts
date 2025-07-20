@@ -4,7 +4,7 @@ import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { QsLegendData, QsLegendConfig, QsLegend } from './qsTypes'
 import { legendConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
-import { Canvas } from '../../canvas/linear/canvas'
+import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
 import { generateClassName } from '../../core/generateClassName'
 
 export const legend = (

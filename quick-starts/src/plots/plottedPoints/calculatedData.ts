@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/linear/canvas'
+import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
 import { QsPlottedPointsData } from './qsTypes'
 import { PlottedPointsConfig } from './types'
 

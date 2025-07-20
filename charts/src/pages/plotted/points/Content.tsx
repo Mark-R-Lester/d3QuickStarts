@@ -31,8 +31,8 @@ const data: QsPlottedPointData[] = [
 
 const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 canvas.generate.plotted.points(data)
-canvas.generate.linear.vertical.axis.left([])
-canvas.generate.linear.horizontal.axis.bottom([])`
+canvas.generate.orthogonal.vertical.axis.left([])
+canvas.generate.orthogonal.horizontal.axis.bottom([])`
 
 const configChart: string = `
 const data: QsPlottedPointData[] = [
@@ -59,8 +59,8 @@ const data: QsPlottedPointData[] = [
 
 const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 canvas.generate.plotted.points(data)
-canvas.generate.linear.vertical.axis.left([])
-canvas.generate.linear.horizontal.axis.bottom([])`
+canvas.generate.orthogonal.vertical.axis.left([])
+canvas.generate.orthogonal.horizontal.axis.bottom([])`
 
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`

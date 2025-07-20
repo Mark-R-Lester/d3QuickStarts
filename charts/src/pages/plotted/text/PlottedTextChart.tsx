@@ -44,8 +44,8 @@ export const PlottedTextChart: FunctionComponent<ChartProps> = ({
         defaultTextFill: 'blue',
         defaultTextAngle: 10,
       })
-      canvas.generate.linear.vertical.axis.left([])
-      canvas.generate.linear.horizontal.axis.bottom([])
+      canvas.generate.orthogonal.vertical.axis.left([])
+      canvas.generate.orthogonal.horizontal.axis.bottom([])
     }
     createChart()
   }, [canvasProps])

@@ -1,8 +1,8 @@
 import { Selection } from 'd3'
 import { CanvasConfig } from './types'
 import { QsTransitionArgs } from '../core/types/qsTypes'
-import { QsGenerator } from './linear/generators'
-import { QsGeneratorPlotted } from './plotted/generators'
+import { QsGenerator } from './orthogonal/generatorsOrthogonal'
+import { QsGeneratorPlotted } from './plotted/generatorsPlotted'
 import { ConfigSetters } from '../core/config/configStore.class'
 
 export interface QsCanvasConfig extends Partial<CanvasConfig> {

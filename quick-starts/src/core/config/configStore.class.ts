@@ -1,12 +1,12 @@
 import { QsLegendConfig } from '../../unbound/legend/qsTypes'
-import { QsAreaConfig } from '../../linear/linearArea/qsTypes'
-import { QsAxisConfig } from '../../linear/linearAxis/qsTypes'
-import { QsBarConfig } from '../../linear/linearBar/qsTypes'
-import { QsBarGroupConfig } from '../../linear/linearBarGroup/qsTypes'
-import { QsBarStackedConfig } from '../../linear/linearBarStack/qsTypes'
-import { QsLineConfig } from '../../linear/linearLine/qsTypes'
-import { QsPointsConfig } from '../../linear/linearPoints/qsTypes'
-import { QsTextConfig } from '../../linear/linearText/qsTypes'
+import { QsAreaConfig } from '../../orthogonal/orthogonalArea/qsTypes'
+import { QsAxisConfig } from '../../orthogonal/orthogonalAxis/qsTypes'
+import { QsBarConfig } from '../../orthogonal/orthogonalBar/qsTypes'
+import { QsBarGroupConfig } from '../../orthogonal/orthogonalBarGroup/qsTypes'
+import { QsBarStackedConfig } from '../../orthogonal/orthogonalBarStack/qsTypes'
+import { QsLineConfig } from '../../orthogonal/orthogonalLine/qsTypes'
+import { QsPointsConfig } from '../../orthogonal/orthogonalPoints/qsTypes'
+import { QsTextConfig } from '../../orthogonal/orthogonalText/qsTypes'
 import { QsPlottedLineConfig } from '../../plots/plottedLine/qsTypes'
 import { QsPlottedPointsConfig } from '../../plots/plottedPoints/qsTypes'
 import { QsPlottedTextConfig } from '../../plots/plottedText/qsTypes'
@@ -21,17 +21,17 @@ import { QsRadialTextConfig } from '../../radialCentroid/radialCentroidText/qsTy
 
 export interface ConfigStore {
   legendConfig?: QsLegendConfig
-  linearAreaConfig?: QsAreaConfig
-  linearAxisConfigTop?: QsAxisConfig
-  linearAxisConfigBottom?: QsAxisConfig
-  linearAxisConfigLeft?: QsAxisConfig
-  linearAxisConfigRight?: QsAxisConfig
-  linearBarConfig?: QsBarConfig
-  linearBarGroupConfig?: QsBarGroupConfig
-  linearBarStackConfig?: QsBarStackedConfig
-  linearLineConfig?: QsLineConfig
-  linearPointsConfig?: QsPointsConfig
-  linearTextConfig?: QsTextConfig
+  orthogonalAreaConfig?: QsAreaConfig
+  orthogonalAxisConfigTop?: QsAxisConfig
+  orthogonalAxisConfigBottom?: QsAxisConfig
+  orthogonalAxisConfigLeft?: QsAxisConfig
+  orthogonalAxisConfigRight?: QsAxisConfig
+  orthogonalBarConfig?: QsBarConfig
+  orthogonalBarGroupConfig?: QsBarGroupConfig
+  orthogonalBarStackConfig?: QsBarStackedConfig
+  orthogonalLineConfig?: QsLineConfig
+  orthogonalPointsConfig?: QsPointsConfig
+  orthogonalTextConfig?: QsTextConfig
   plottedLineConfig?: QsPlottedLineConfig
   plottedPointsConfig?: QsPlottedPointsConfig
   plottedTextConfig?: QsPlottedTextConfig
@@ -52,7 +52,7 @@ export interface ConfigGetters {
   legend: {
     legendConfig: () => QsLegendConfig | undefined
   }
-  linear: {
+  orthogonal: {
     areaConfig: () => QsAreaConfig | undefined
     axisConfigTop: () => QsAxisConfig | undefined
     axisConfigBottom: () => QsAxisConfig | undefined
@@ -91,7 +91,7 @@ export interface ConfigSetters {
   legend: {
     legendConfig: (value: QsLegendConfig) => void
   }
-  linear: {
+  orthogonal: {
     areaConfig: (value: QsAreaConfig) => void
     axisConfigTop: (value: QsAxisConfig) => void
     axisConfigBottom: (value: QsAxisConfig) => void
@@ -132,17 +132,17 @@ export class ConfigStoreManager {
   constructor() {
     this.store = {
       legendConfig: undefined,
-      linearAreaConfig: undefined,
-      linearAxisConfigTop: undefined,
-      linearAxisConfigBottom: undefined,
-      linearAxisConfigLeft: undefined,
-      linearAxisConfigRight: undefined,
-      linearBarConfig: undefined,
-      linearBarGroupConfig: undefined,
-      linearBarStackConfig: undefined,
-      linearLineConfig: undefined,
-      linearPointsConfig: undefined,
-      linearTextConfig: undefined,
+      orthogonalAreaConfig: undefined,
+      orthogonalAxisConfigTop: undefined,
+      orthogonalAxisConfigBottom: undefined,
+      orthogonalAxisConfigLeft: undefined,
+      orthogonalAxisConfigRight: undefined,
+      orthogonalBarConfig: undefined,
+      orthogonalBarGroupConfig: undefined,
+      orthogonalBarStackConfig: undefined,
+      orthogonalLineConfig: undefined,
+      orthogonalPointsConfig: undefined,
+      orthogonalTextConfig: undefined,
       plottedLineConfig: undefined,
       plottedPointsConfig: undefined,
       plottedTextConfig: undefined,
@@ -165,18 +165,18 @@ export class ConfigStoreManager {
       legend: {
         legendConfig: () => this.store.legendConfig,
       },
-      linear: {
-        areaConfig: () => this.store.linearAreaConfig,
-        axisConfigTop: () => this.store.linearAxisConfigTop,
-        axisConfigBottom: () => this.store.linearAxisConfigBottom,
-        axisConfigLeft: () => this.store.linearAxisConfigLeft,
-        axisConfigRight: () => this.store.linearAxisConfigRight,
-        barConfig: () => this.store.linearBarConfig,
-        barGroupConfig: () => this.store.linearBarGroupConfig,
-        barStackConfig: () => this.store.linearBarStackConfig,
-        lineConfig: () => this.store.linearLineConfig,
-        pointsConfig: () => this.store.linearPointsConfig,
-        textConfig: () => this.store.linearTextConfig,
+      orthogonal: {
+        areaConfig: () => this.store.orthogonalAreaConfig,
+        axisConfigTop: () => this.store.orthogonalAxisConfigTop,
+        axisConfigBottom: () => this.store.orthogonalAxisConfigBottom,
+        axisConfigLeft: () => this.store.orthogonalAxisConfigLeft,
+        axisConfigRight: () => this.store.orthogonalAxisConfigRight,
+        barConfig: () => this.store.orthogonalBarConfig,
+        barGroupConfig: () => this.store.orthogonalBarGroupConfig,
+        barStackConfig: () => this.store.orthogonalBarStackConfig,
+        lineConfig: () => this.store.orthogonalLineConfig,
+        pointsConfig: () => this.store.orthogonalPointsConfig,
+        textConfig: () => this.store.orthogonalTextConfig,
       },
       plotted: {
         lineConfig: () => this.store.plottedLineConfig,
@@ -208,39 +208,39 @@ export class ConfigStoreManager {
           this.store.legendConfig = value
         },
       },
-      linear: {
+      orthogonal: {
         areaConfig: (value: QsAreaConfig) => {
-          this.store.linearAreaConfig = value
+          this.store.orthogonalAreaConfig = value
         },
         axisConfigTop: (value: QsAxisConfig) => {
-          this.store.linearAxisConfigTop = value
+          this.store.orthogonalAxisConfigTop = value
         },
         axisConfigBottom: (value: QsAxisConfig) => {
-          this.store.linearAxisConfigBottom = value
+          this.store.orthogonalAxisConfigBottom = value
         },
         axisConfigLeft: (value: QsAxisConfig) => {
-          this.store.linearAxisConfigLeft = value
+          this.store.orthogonalAxisConfigLeft = value
         },
         axisConfigRight: (value: QsAxisConfig) => {
-          this.store.linearAxisConfigRight = value
+          this.store.orthogonalAxisConfigRight = value
         },
         barConfig: (value: QsBarConfig) => {
-          this.store.linearBarConfig = value
+          this.store.orthogonalBarConfig = value
         },
         barGroupConfig: (value: QsBarGroupConfig) => {
-          this.store.linearBarGroupConfig = value
+          this.store.orthogonalBarGroupConfig = value
         },
         barStackConfig: (value: QsBarStackedConfig) => {
-          this.store.linearBarStackConfig = value
+          this.store.orthogonalBarStackConfig = value
         },
         lineConfig: (value: QsLineConfig) => {
-          this.store.linearLineConfig = value
+          this.store.orthogonalLineConfig = value
         },
         pointsConfig: (value: QsPointsConfig) => {
-          this.store.linearPointsConfig = value
+          this.store.orthogonalPointsConfig = value
         },
         textConfig: (value: QsTextConfig) => {
-          this.store.linearTextConfig = value
+          this.store.orthogonalTextConfig = value
         },
       },
       plotted: {

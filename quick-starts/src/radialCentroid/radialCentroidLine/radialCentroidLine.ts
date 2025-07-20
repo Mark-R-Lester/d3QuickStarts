@@ -1,6 +1,6 @@
 import { lineRadial, transition } from 'd3'
 import { CalculatedData, getCalculatedData } from './calculatedData'
-import { Canvas } from '../../canvas/linear/canvas'
+import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { constantsCurves } from '../../core/constants/constants'
 import {

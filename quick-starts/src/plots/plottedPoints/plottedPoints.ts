@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/linear/canvas'
+import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { plottedPointsConfig } from '../../core/config/configDefaults'
 import { generateClassName } from '../../core/generateClassName'

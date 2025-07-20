@@ -7,7 +7,7 @@ export interface QsColorStop {
   offset: number
 }
 
-interface LinearGradient {
+interface orthogonalGradient {
   canvas: QsCanvasOrthogonal | QsCanvasPlotted
   gradientId: string
   x1?: string
@@ -16,11 +16,11 @@ interface LinearGradient {
   y2?: string
 }
 
-export interface QsLinearGradientColorStopData extends LinearGradient {
+export interface QsorthogonalGradientColorStopData extends orthogonalGradient {
   colorStops: QsColorStop[]
 }
 
-export interface QsLinearGradientData extends LinearGradient {
+export interface QsorthogonalGradientData extends orthogonalGradient {
   colors: string[]
 }
 
@@ -40,7 +40,7 @@ export interface QsRadialGradientData extends RadialGradient {
   colors: string[]
 }
 
-export const qsCreateCustomStopLinearGradient = ({
+export const qsCreateCustomStoporthogonalGradient = ({
   canvas,
   gradientId,
   colorStops,
@@ -48,7 +48,7 @@ export const qsCreateCustomStopLinearGradient = ({
   y1 = '0%',
   x2 = '0%',
   y2 = '100%',
-}: QsLinearGradientColorStopData): string => {
+}: QsorthogonalGradientColorStopData): string => {
   const defs: any = canvas.canvasSVG.append('defs')
 
   const gradient: d3.Selection<
@@ -57,7 +57,7 @@ export const qsCreateCustomStopLinearGradient = ({
     SVGGElement,
     unknown
   > = defs
-    .append('linearGradient')
+    .append('orthogonalGradient')
     .attr('id', gradientId)
     .attr('x1', x1)
     .attr('y1', y1)
@@ -68,7 +68,7 @@ export const qsCreateCustomStopLinearGradient = ({
   return `url(#${gradientId})`
 }
 
-export const qsCreateLinearGradient = ({
+export const qsCreateorthogonalGradient = ({
   canvas,
   gradientId,
   colors,
@@ -76,8 +76,8 @@ export const qsCreateLinearGradient = ({
   y1 = '0%',
   x2 = '0%',
   y2 = '100%',
-}: QsLinearGradientData): string => {
-  return qsCreateCustomStopLinearGradient({
+}: QsorthogonalGradientData): string => {
+  return qsCreateCustomStoporthogonalGradient({
     canvas,
     gradientId,
     colorStops: createColorStops(colors),

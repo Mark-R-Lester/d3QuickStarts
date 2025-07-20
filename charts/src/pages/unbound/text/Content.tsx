@@ -26,8 +26,8 @@ const data: QsUnboundTextData[] = [
   { x: 10, y: 100, text: 'Text with no config uses defaults' },
 ]
 canvas.generate.unbound.text(data)
-canvas.generate.linear.vertical.axis.left([])
-canvas.generate.linear.horizontal.axis.bottom([])`
+canvas.generate.orthogonal.vertical.axis.left([])
+canvas.generate.orthogonal.horizontal.axis.bottom([])`
 
 const configChart: string = `
 const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
@@ -60,8 +60,8 @@ canvas.generate.unbound.text(data2, {
   defualtTextFill: 'blue',
   defualtTextAngle: 10,
 })
-canvas.generate.linear.vertical.axis.left([])
-canvas.generate.linear.horizontal.axis.bottom([])`
+canvas.generate.orthogonal.vertical.axis.left([])
+canvas.generate.orthogonal.horizontal.axis.bottom([])`
 
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`

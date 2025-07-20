@@ -1,16 +1,16 @@
 import {
   legendConfig,
-  linearAreaConfig,
-  linearAxisConfigBottom,
-  linearAxisConfigLeft,
-  linearAxisConfigRight,
-  linearAxisConfigTop,
-  linearBarConfig,
-  linearBarGroupConfig,
-  linearBarStackConfig,
-  linearLineConfig,
-  linearPointsConfig,
-  linearTextConfig,
+  orthogonalAreaConfig,
+  orthogonalAxisConfigBottom,
+  orthogonalAxisConfigLeft,
+  orthogonalAxisConfigRight,
+  orthogonalAxisConfigTop,
+  orthogonalBarConfig,
+  orthogonalBarGroupConfig,
+  orthogonalBarStackConfig,
+  orthogonalLineConfig,
+  orthogonalPointsConfig,
+  orthogonalTextConfig,
   plottedLineConfig,
   plottedPointsConfig,
   plottedTextConfig,
@@ -40,17 +40,17 @@ describe('ConfigStoreManager', () => {
     it('initializes store with undefined values', () => {
       const store = (configManager as any).store
       expect(store.legendConfig).toBeUndefined()
-      expect(store.linearAreaConfig).toBeUndefined()
-      expect(store.linearAxisConfigTop).toBeUndefined()
-      expect(store.linearAxisConfigBottom).toBeUndefined()
-      expect(store.linearAxisConfigLeft).toBeUndefined()
-      expect(store.linearAxisConfigRight).toBeUndefined()
-      expect(store.linearBarConfig).toBeUndefined()
-      expect(store.linearBarGroupConfig).toBeUndefined()
-      expect(store.linearBarStackConfig).toBeUndefined()
-      expect(store.linearLineConfig).toBeUndefined()
-      expect(store.linearPointsConfig).toBeUndefined()
-      expect(store.linearTextConfig).toBeUndefined()
+      expect(store.orthogonalAreaConfig).toBeUndefined()
+      expect(store.orthogonalAxisConfigTop).toBeUndefined()
+      expect(store.orthogonalAxisConfigBottom).toBeUndefined()
+      expect(store.orthogonalAxisConfigLeft).toBeUndefined()
+      expect(store.orthogonalAxisConfigRight).toBeUndefined()
+      expect(store.orthogonalBarConfig).toBeUndefined()
+      expect(store.orthogonalBarGroupConfig).toBeUndefined()
+      expect(store.orthogonalBarStackConfig).toBeUndefined()
+      expect(store.orthogonalLineConfig).toBeUndefined()
+      expect(store.orthogonalPointsConfig).toBeUndefined()
+      expect(store.orthogonalTextConfig).toBeUndefined()
       expect(store.plottedLineConfig).toBeUndefined()
       expect(store.plottedPointsConfig).toBeUndefined()
       expect(store.plottedTextConfig).toBeUndefined()
@@ -70,17 +70,19 @@ describe('ConfigStoreManager', () => {
   describe('Getters', () => {
     it('returns undefined for all getter methods initially', () => {
       expect(configManager.getters.legend.legendConfig()).toBeUndefined()
-      expect(configManager.getters.linear.areaConfig()).toBeUndefined()
-      expect(configManager.getters.linear.axisConfigTop()).toBeUndefined()
-      expect(configManager.getters.linear.axisConfigBottom()).toBeUndefined()
-      expect(configManager.getters.linear.axisConfigLeft()).toBeUndefined()
-      expect(configManager.getters.linear.axisConfigRight()).toBeUndefined()
-      expect(configManager.getters.linear.barConfig()).toBeUndefined()
-      expect(configManager.getters.linear.barGroupConfig()).toBeUndefined()
-      expect(configManager.getters.linear.barStackConfig()).toBeUndefined()
-      expect(configManager.getters.linear.lineConfig()).toBeUndefined()
-      expect(configManager.getters.linear.pointsConfig()).toBeUndefined()
-      expect(configManager.getters.linear.textConfig()).toBeUndefined()
+      expect(configManager.getters.orthogonal.areaConfig()).toBeUndefined()
+      expect(configManager.getters.orthogonal.axisConfigTop()).toBeUndefined()
+      expect(
+        configManager.getters.orthogonal.axisConfigBottom()
+      ).toBeUndefined()
+      expect(configManager.getters.orthogonal.axisConfigLeft()).toBeUndefined()
+      expect(configManager.getters.orthogonal.axisConfigRight()).toBeUndefined()
+      expect(configManager.getters.orthogonal.barConfig()).toBeUndefined()
+      expect(configManager.getters.orthogonal.barGroupConfig()).toBeUndefined()
+      expect(configManager.getters.orthogonal.barStackConfig()).toBeUndefined()
+      expect(configManager.getters.orthogonal.lineConfig()).toBeUndefined()
+      expect(configManager.getters.orthogonal.pointsConfig()).toBeUndefined()
+      expect(configManager.getters.orthogonal.textConfig()).toBeUndefined()
       expect(configManager.getters.plotted.lineConfig()).toBeUndefined()
       expect(configManager.getters.plotted.pointsConfig()).toBeUndefined()
       expect(configManager.getters.plotted.textConfig()).toBeUndefined()
@@ -105,79 +107,85 @@ describe('ConfigStoreManager', () => {
     })
   })
 
-  describe('Linear Configurations', () => {
-    it('sets and gets linear area config', () => {
-      configManager.setters.linear.areaConfig(linearAreaConfig)
-      expect(configManager.getters.linear.areaConfig()).toEqual(
-        linearAreaConfig
+  describe('orthogonal Configurations', () => {
+    it('sets and gets orthogonal area config', () => {
+      configManager.setters.orthogonal.areaConfig(orthogonalAreaConfig)
+      expect(configManager.getters.orthogonal.areaConfig()).toEqual(
+        orthogonalAreaConfig
       )
     })
 
-    it('sets and gets linear axis top config', () => {
-      configManager.setters.linear.axisConfigTop(linearAxisConfigTop)
-      expect(configManager.getters.linear.axisConfigTop()).toEqual(
-        linearAxisConfigTop
+    it('sets and gets orthogonal axis top config', () => {
+      configManager.setters.orthogonal.axisConfigTop(orthogonalAxisConfigTop)
+      expect(configManager.getters.orthogonal.axisConfigTop()).toEqual(
+        orthogonalAxisConfigTop
       )
     })
 
-    it('sets and gets linear axis bottom config', () => {
-      configManager.setters.linear.axisConfigBottom(linearAxisConfigBottom)
-      expect(configManager.getters.linear.axisConfigBottom()).toEqual(
-        linearAxisConfigBottom
+    it('sets and gets orthogonal axis bottom config', () => {
+      configManager.setters.orthogonal.axisConfigBottom(
+        orthogonalAxisConfigBottom
+      )
+      expect(configManager.getters.orthogonal.axisConfigBottom()).toEqual(
+        orthogonalAxisConfigBottom
       )
     })
 
-    it('sets and gets linear axis left config', () => {
-      configManager.setters.linear.axisConfigLeft(linearAxisConfigLeft)
-      expect(configManager.getters.linear.axisConfigLeft()).toEqual(
-        linearAxisConfigLeft
+    it('sets and gets orthogonal axis left config', () => {
+      configManager.setters.orthogonal.axisConfigLeft(orthogonalAxisConfigLeft)
+      expect(configManager.getters.orthogonal.axisConfigLeft()).toEqual(
+        orthogonalAxisConfigLeft
       )
     })
 
-    it('sets and gets linear axis right config', () => {
-      configManager.setters.linear.axisConfigRight(linearAxisConfigRight)
-      expect(configManager.getters.linear.axisConfigRight()).toEqual(
-        linearAxisConfigRight
+    it('sets and gets orthogonal axis right config', () => {
+      configManager.setters.orthogonal.axisConfigRight(
+        orthogonalAxisConfigRight
+      )
+      expect(configManager.getters.orthogonal.axisConfigRight()).toEqual(
+        orthogonalAxisConfigRight
       )
     })
 
-    it('sets and gets linear bar config', () => {
-      configManager.setters.linear.barConfig(linearBarConfig)
-      expect(configManager.getters.linear.barConfig()).toEqual(linearBarConfig)
-    })
-
-    it('sets and gets linear bar group config', () => {
-      configManager.setters.linear.barGroupConfig(linearBarGroupConfig)
-      expect(configManager.getters.linear.barGroupConfig()).toEqual(
-        linearBarGroupConfig
+    it('sets and gets orthogonal bar config', () => {
+      configManager.setters.orthogonal.barConfig(orthogonalBarConfig)
+      expect(configManager.getters.orthogonal.barConfig()).toEqual(
+        orthogonalBarConfig
       )
     })
 
-    it('sets and gets linear bar stack config', () => {
-      configManager.setters.linear.barStackConfig(linearBarStackConfig)
-      expect(configManager.getters.linear.barStackConfig()).toEqual(
-        linearBarStackConfig
+    it('sets and gets orthogonal bar group config', () => {
+      configManager.setters.orthogonal.barGroupConfig(orthogonalBarGroupConfig)
+      expect(configManager.getters.orthogonal.barGroupConfig()).toEqual(
+        orthogonalBarGroupConfig
       )
     })
 
-    it('sets and gets linear line config', () => {
-      configManager.setters.linear.lineConfig(linearLineConfig)
-      expect(configManager.getters.linear.lineConfig()).toEqual(
-        linearLineConfig
+    it('sets and gets orthogonal bar stack config', () => {
+      configManager.setters.orthogonal.barStackConfig(orthogonalBarStackConfig)
+      expect(configManager.getters.orthogonal.barStackConfig()).toEqual(
+        orthogonalBarStackConfig
       )
     })
 
-    it('sets and gets linear points config', () => {
-      configManager.setters.linear.pointsConfig(linearPointsConfig)
-      expect(configManager.getters.linear.pointsConfig()).toEqual(
-        linearPointsConfig
+    it('sets and gets orthogonal line config', () => {
+      configManager.setters.orthogonal.lineConfig(orthogonalLineConfig)
+      expect(configManager.getters.orthogonal.lineConfig()).toEqual(
+        orthogonalLineConfig
       )
     })
 
-    it('sets and gets linear text config', () => {
-      configManager.setters.linear.textConfig(linearTextConfig)
-      expect(configManager.getters.linear.textConfig()).toEqual(
-        linearTextConfig
+    it('sets and gets orthogonal points config', () => {
+      configManager.setters.orthogonal.pointsConfig(orthogonalPointsConfig)
+      expect(configManager.getters.orthogonal.pointsConfig()).toEqual(
+        orthogonalPointsConfig
+      )
+    })
+
+    it('sets and gets orthogonal text config', () => {
+      configManager.setters.orthogonal.textConfig(orthogonalTextConfig)
+      expect(configManager.getters.orthogonal.textConfig()).toEqual(
+        orthogonalTextConfig
       )
     })
   })

@@ -6,7 +6,7 @@ import {
   updateCalculatedData,
 } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { Canvas } from '../../canvas/linear/canvas'
+import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
 import {
   QsRadialArcConfig,
   QsRadial,

@@ -1,5 +1,5 @@
-import { QsLineConfig } from '../../linear/linearLine/qsTypes'
-import { LineConfig } from '../../linear/linearLine/types'
+import { QsLineConfig } from '../../orthogonal/orthogonalLine/qsTypes'
+import { LineConfig } from '../../orthogonal/orthogonalLine/types'
 import {
   QsEnumCurve,
   QsEnumLineCap,
@@ -12,8 +12,8 @@ describe('addDefaultsToConfig', () => {
   // Define constants for test inputs
   const defaultConfig: LineConfig = {
     useDataArea: true,
-    scaleType: QsEnumScaleType.LINEAR,
-    curve: QsEnumCurve.LINEAR,
+    scaleType: QsEnumScaleType.orthogonal,
+    curve: QsEnumCurve.orthogonal,
     defaultStrokeColor: 'black',
     defaultStrokeWidth: 1,
     defaultStrokeOpacity: 1,
@@ -31,9 +31,9 @@ describe('addDefaultsToConfig', () => {
     scaleType: QsEnumScaleType.BANDED,
   }
 
-  const customConfigWithOpacityAndLinearScale: QsLineConfig = {
+  const customConfigWithOpacityAndorthogonalScale: QsLineConfig = {
     defaultStrokeOpacity: 0.8,
-    scaleType: QsEnumScaleType.LINEAR,
+    scaleType: QsEnumScaleType.orthogonal,
   }
 
   const storeConfigWithCustomProperty: QsLineConfig = {
@@ -44,8 +44,8 @@ describe('addDefaultsToConfig', () => {
     anotherProperty: 123,
   }
 
-  const storeConfigWithLinearScaleAndWidth: QsLineConfig = {
-    scaleType: QsEnumScaleType.LINEAR,
+  const storeConfigWithorthogonalScaleAndWidth: QsLineConfig = {
+    scaleType: QsEnumScaleType.orthogonal,
     defaultStrokeWidth: 2,
   }
 
@@ -68,7 +68,7 @@ describe('addDefaultsToConfig', () => {
 
   const expectedWithOnlyStoreConfig: LineConfig = {
     useDataArea: true,
-    scaleType: QsEnumScaleType.LINEAR,
+    scaleType: QsEnumScaleType.orthogonal,
     curve: QsEnumCurve.NATURAL,
     defaultStrokeColor: 'black',
     defaultStrokeWidth: 2,
@@ -79,8 +79,8 @@ describe('addDefaultsToConfig', () => {
 
   const expectedWithOnlyCustomConfig: LineConfig = {
     useDataArea: true,
-    scaleType: QsEnumScaleType.LINEAR,
-    curve: QsEnumCurve.LINEAR,
+    scaleType: QsEnumScaleType.orthogonal,
+    curve: QsEnumCurve.orthogonal,
     defaultStrokeColor: 'black',
     defaultStrokeWidth: 1,
     defaultStrokeOpacity: 0.8,
@@ -100,7 +100,7 @@ describe('addDefaultsToConfig', () => {
   const expectedWithCustomConfigOverride: LineConfig = {
     useDataArea: true,
     scaleType: QsEnumScaleType.BANDED,
-    curve: QsEnumCurve.LINEAR,
+    curve: QsEnumCurve.orthogonal,
     defaultStrokeColor: 'black',
     defaultStrokeWidth: 3,
     defaultStrokeOpacity: 1,
@@ -114,13 +114,13 @@ describe('addDefaultsToConfig', () => {
   })
 
   test.each`
-    description                                                     | defaults         | customConfig                             | storeConfig                           | expectedResult
-    ${'merges storeConfig and customConfig into defaults'}          | ${defaultConfig} | ${customConfigWithOpacityAndScale}       | ${storeConfigWithCurveAndWidth}       | ${expectedWithBothConfigs}
-    ${'merges only storeConfig when customConfig is undefined'}     | ${defaultConfig} | ${undefined}                             | ${storeConfigWithCurveAndWidth}       | ${expectedWithOnlyStoreConfig}
-    ${'merges only customConfig when storeConfig is undefined'}     | ${defaultConfig} | ${customConfigWithOpacityAndLinearScale} | ${undefined}                          | ${expectedWithOnlyCustomConfig}
-    ${'returns defaults unchanged when both configs are undefined'} | ${defaultConfig} | ${undefined}                             | ${undefined}                          | ${defaultConfig}
-    ${'handles additional properties via index signature'}          | ${defaultConfig} | ${customConfigWithAnotherProperty}       | ${storeConfigWithCustomProperty}      | ${expectedWithExtraProperties}
-    ${'customConfig overwrites storeConfig when both are supplied'} | ${defaultConfig} | ${customConfigWithBandedScaleAndWidth}   | ${storeConfigWithLinearScaleAndWidth} | ${expectedWithCustomConfigOverride}
+    description                                                     | defaults         | customConfig                                 | storeConfig                               | expectedResult
+    ${'merges storeConfig and customConfig into defaults'}          | ${defaultConfig} | ${customConfigWithOpacityAndScale}           | ${storeConfigWithCurveAndWidth}           | ${expectedWithBothConfigs}
+    ${'merges only storeConfig when customConfig is undefined'}     | ${defaultConfig} | ${undefined}                                 | ${storeConfigWithCurveAndWidth}           | ${expectedWithOnlyStoreConfig}
+    ${'merges only customConfig when storeConfig is undefined'}     | ${defaultConfig} | ${customConfigWithOpacityAndorthogonalScale} | ${undefined}                              | ${expectedWithOnlyCustomConfig}
+    ${'returns defaults unchanged when both configs are undefined'} | ${defaultConfig} | ${undefined}                                 | ${undefined}                              | ${defaultConfig}
+    ${'handles additional properties via index signature'}          | ${defaultConfig} | ${customConfigWithAnotherProperty}           | ${storeConfigWithCustomProperty}          | ${expectedWithExtraProperties}
+    ${'customConfig overwrites storeConfig when both are supplied'} | ${defaultConfig} | ${customConfigWithBandedScaleAndWidth}       | ${storeConfigWithorthogonalScaleAndWidth} | ${expectedWithCustomConfigOverride}
   `(
     '$description',
     ({ defaults, customConfig, storeConfig, expectedResult }) => {

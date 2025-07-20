@@ -17,8 +17,8 @@ export const UnboundTextDefaultsChart: FunctionComponent<ChartProps> = ({
         { x: 0, y: 5, text: 'Text with no config uses defaults' },
       ]
       canvas.generate.unbound.text(data)
-      canvas.generate.linear.vertical.axis.left([])
-      canvas.generate.linear.horizontal.axis.bottom([])
+      canvas.generate.orthogonal.vertical.axis.left([])
+      canvas.generate.orthogonal.horizontal.axis.bottom([])
     }
     createChart()
   }, [canvasProps])

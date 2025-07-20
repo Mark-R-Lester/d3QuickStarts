@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
+import { Canvas } from '../../canvas/types'
 import {
   QsUnboundTextData,
   QsUnboundTextConfig,

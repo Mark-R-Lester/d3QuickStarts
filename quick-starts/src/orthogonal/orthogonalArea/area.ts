@@ -14,7 +14,7 @@ import { orthogonalAreaConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
 import { generateClassName } from '../../core/generateClassName'
-import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
+import { Canvas } from '../../canvas/types'
 
 export const orthogonalArea = {
   horizontal: (

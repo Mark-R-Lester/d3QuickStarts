@@ -1,10 +1,9 @@
 import { canvasConfig as defaultCanvasConfig } from '../../../core/config/configDefaults'
 import { getGenerators } from './generatorsPlotted'
-import { Canvas } from '../canvasPlotted'
 import { getScalesMock } from '../../../core/scales/__mocks__/scales.mocks'
 import { createMockSelection } from '../../../__mocks__/selection'
 import { createMockConfigStore } from '../../../core/config/__mocks__/configStore'
-import { CanvasConfig } from '../../types'
+import { Canvas, CanvasConfig } from '../../types'
 import { QsCanvasPlotted, QsCanvasConfig } from '../../qsTypes'
 
 export const baseConfig = (

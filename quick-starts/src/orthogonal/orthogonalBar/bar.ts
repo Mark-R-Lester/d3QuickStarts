@@ -1,4 +1,4 @@
-import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
+import { Canvas } from '../../canvas/types'
 import { getCalculatedData, CalculatedData } from './calculatedData'
 import { BarConfig } from './types'
 import { Orientation } from '../../core/enums/enums'

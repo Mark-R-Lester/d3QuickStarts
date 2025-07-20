@@ -11,10 +11,8 @@ import { BarConfig } from './types'
 import { JSDOM } from 'jsdom'
 import { ConfigStoreManager } from '../../core/config/configStore.class'
 import { getScales } from '../../core/scales/getScales'
-import {
-  Canvas,
-  qsCreateCanvas,
-} from '../../canvas/orthogonal/canvasOrthogonal'
+import { qsCreateCanvas } from '../../canvas/orthogonal/canvasOrthogonal'
+import { Canvas } from '../../canvas/types'
 import { QsCanvasOrthogonal } from '../../canvas/qsTypes'
 
 const dom = new JSDOM()

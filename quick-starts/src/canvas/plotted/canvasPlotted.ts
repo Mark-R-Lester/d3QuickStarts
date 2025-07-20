@@ -1,23 +1,11 @@
-import { Selection, select } from 'd3'
+import { select } from 'd3'
 import { canvasConfig } from '../../core/config/configDefaults'
-import {
-  ConfigGetters,
-  ConfigStoreManager,
-} from '../../core/config/configStore.class'
+import { ConfigStoreManager } from '../../core/config/configStore.class'
 import { generateClassName } from '../../core/generateClassName'
 import { QsGeneratorPlotted, getGenerators } from './generatorsPlotted'
-import { CanvasScales, getScales } from '../../core/scales/getScales'
-import { CanvasConfig, ElementWithData } from '../types'
+import { getScales } from '../../core/scales/getScales'
+import { Canvas, CanvasConfig, ElementWithData } from '../types'
 import { QsCanvasPlotted, QsCanvasConfig } from '../qsTypes'
-
-export interface Canvas {
-  canvasGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
-  canvasDataGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
-  config: CanvasConfig
-  scales: CanvasScales
-  configStore: ConfigGetters
-  elements: ElementWithData[]
-}
 
 const addDefaultsToConfig = (customConfig?: QsCanvasConfig): CanvasConfig => {
   const defaults: CanvasConfig = { ...canvasConfig }

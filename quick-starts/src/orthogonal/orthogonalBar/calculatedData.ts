@@ -10,7 +10,7 @@ import {
   findOrdinalValue,
 } from '../../core/color/color'
 import { QsBarData } from './qsTypes'
-import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
+import { Canvas } from '../../canvas/types'
 import { QsEnumColorScale } from '../../core/enums/qsEnums'
 import { RectangleParams } from '../../core/customShapes/customRectangle'
 import { rotateCorners } from './rotateCorners'

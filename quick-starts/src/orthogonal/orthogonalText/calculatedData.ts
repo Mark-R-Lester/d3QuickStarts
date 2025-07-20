@@ -1,5 +1,5 @@
 import { scaleLinear, scaleBand, range } from 'd3'
-import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
+import { Canvas } from '../../canvas/types'
 import { TextConfig } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation } from '../../core/enums/enums'

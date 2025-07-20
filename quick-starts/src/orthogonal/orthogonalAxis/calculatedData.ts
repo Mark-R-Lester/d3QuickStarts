@@ -11,7 +11,7 @@ import {
 import { toStrings } from '../../core/math/conversion'
 import { ChartEdge } from '../../core/enums/enums'
 import { AxisConfig } from './types'
-import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
+import { Canvas } from '../../canvas/types'
 import {
   QsEnumAlignmentBaseline,
   QsEnumAxisScaleType,

@@ -1,3 +1,6 @@
+import { Selection } from 'd3'
+import { ConfigGetters } from '../core/config/configStore.class'
+import { CanvasScales } from '../core/scales/getScales'
 import { QSDataScale } from '../core/types/qsTypes'
 
 export interface CanvasConfig {
@@ -26,4 +29,13 @@ export interface CanvasConfig {
 export interface ElementWithData {
   element: any
   data: any
+}
+
+export interface Canvas {
+  canvasGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
+  canvasDataGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
+  config: CanvasConfig
+  scales: CanvasScales
+  configStore: ConfigGetters
+  elements: ElementWithData[]
 }

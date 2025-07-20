@@ -24,13 +24,13 @@ import {
   QsPlottedTextData,
   QsPlottedTextConfig,
 } from '../../plots/plottedText/qsTypes'
-import { Canvas } from './canvasPlotted'
 import {
   QsUnboundText,
   QsUnboundTextConfig,
   QsUnboundTextData,
 } from '../../unbound/text/qsTypes'
 import { unboundText } from '../../unbound/text/text'
+import { Canvas } from '../types'
 
 interface HorizontalorthogonalAxisFunctions {
   bottom: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis

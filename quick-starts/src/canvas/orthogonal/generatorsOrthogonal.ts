@@ -101,7 +101,7 @@ import {
   QsRadialSpokesConfig,
 } from '../../radialCentroid/radialCentroidSpokes/qsTypes'
 import { radialSpokes } from '../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
-import { Canvas } from './canvasOrthogonal'
+
 import {
   QsUnboundText,
   QsUnboundTextConfig,
@@ -119,6 +119,7 @@ import {
   QsRadialTextData,
 } from '../../radialCentroid/radialCentroidText/qsTypes'
 import { radialText } from '../../radialCentroid/radialCentroidText/radialCentroidText'
+import { Canvas } from '../types'
 
 interface HorizontalorthogonalAxisFunctions {
   bottom: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis

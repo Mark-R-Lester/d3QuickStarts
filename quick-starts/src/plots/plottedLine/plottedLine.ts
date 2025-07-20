@@ -10,7 +10,7 @@ import {
   QsPlottedLineData,
   QsPlottedLineTransitionData,
 } from './qsTypes'
-import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
+import { Canvas } from '../../canvas/types'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { generateClassName } from '../../core/generateClassName'
 

@@ -9,7 +9,7 @@ import {
 import { RadialTextType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { getRotationFunction } from './textRotation'
-import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
+import { Canvas } from '../../canvas/types'
 import {
   QsRadialArcTextConfig,
   QsRadialArcText,

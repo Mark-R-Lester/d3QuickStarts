@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { QsAreaData } from './qsTypes'
 import { AreaConfig, CalculatedData } from './types'
-import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
+import { Canvas } from '../../canvas/types'
 
 export const getCalculatedData = (
   canvas: Canvas,

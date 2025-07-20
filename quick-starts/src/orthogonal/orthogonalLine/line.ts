@@ -1,5 +1,5 @@
 import { Orientation } from '../../core/enums/enums'
-import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
+import { Canvas } from '../../canvas/types'
 import { LineConfig, CalculatedData } from './types'
 import { getCalculatedData as getVerticalCalculatedData } from './calculatedDataVertical'
 import { getCalculatedData as getHorizontalCalculatedData } from './calculatedDataHorizontal'

@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { RadialTextConfig } from './types'
 import { QsRadialTextData } from './qsTypes'
 import { QsCoordinate } from '../../core/types/qsTypes'
-import { Canvas } from '../../canvas/orthogonal/canvasOrthogonal'
+import { Canvas } from '../../canvas/types'
 import { TextData } from '../../core/types/types'
 
 export interface CalculatedData extends TextData {

@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
+import { QsCanvasOrthogonal, qsCreateCanvas } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
 export const RadialSpokesChart: FunctionComponent<ChartProps> = ({
@@ -7,7 +7,7 @@ export const RadialSpokesChart: FunctionComponent<ChartProps> = ({
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       const numberOfSpokes = 6
       canvas.generate.radialCentroid.spokes(numberOfSpokes)

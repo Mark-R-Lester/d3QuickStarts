@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   qsCreateLinearGradient,
   QsEnumAxisScaleType,
@@ -14,7 +14,7 @@ export const LinearAreaChart: FunctionComponent<ChartProps> = ({
     const createChart = () => {
       const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
 
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       const gradientUrl: string = qsCreateLinearGradient({
         canvas,

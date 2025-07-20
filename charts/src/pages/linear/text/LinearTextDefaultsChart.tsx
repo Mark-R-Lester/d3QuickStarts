@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsEnumAxisScaleType,
   QsTextData,
@@ -23,7 +23,7 @@ export const LinearTextDefaultsChart: FunctionComponent<
         { value: 25 },
         { value: 25 },
       ]
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       if (orientation === EnumOrientation.VERTICAL) {
         canvas.generate.linear.vertical.text(data, { defaultRadius: 3 })

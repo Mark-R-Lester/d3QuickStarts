@@ -20,7 +20,7 @@ const canvasConfig: string = `const canvasConfig = {
 }`
 
 const defaultsChart: string = `
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 
 const data: QsPlottedTextData[] = [
   { x: 10, y: 100, text: 'Text with no config uses defaults' },
@@ -30,7 +30,7 @@ canvas.generate.linear.vertical.axis.left([])
 canvas.generate.linear.horizontal.axis.bottom([])`
 
 const configChart: string = `
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 
 const data: QsPlottedTextData[] = [
   { x: 10, y: 100, text: 'Text with no config uses defaults' },

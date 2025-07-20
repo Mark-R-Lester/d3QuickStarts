@@ -1,5 +1,9 @@
 import { FunctionComponent, useEffect, useState, useMemo } from 'react'
-import { QsCanvas, qsCreateCanvas, QsBarGroups } from 'd3qs/d3QuickStart'
+import {
+  QsCanvasOrthogonal,
+  qsCreateCanvas,
+  QsBarGroups,
+} from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
 export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
@@ -51,7 +55,7 @@ export const LinearBarGroupTransition: FunctionComponent<ChartProps> = ({
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       let grouped = canvas.generate.linear.horizontal.barGroup({
         data: dataMax,

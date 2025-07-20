@@ -1,4 +1,3 @@
-import { QsGenerator } from './generators'
 import * as legend from '../../unbound/legend/legend'
 import * as text from '../../unbound/text/text'
 import * as linearArea from '../../linear/linearArea/area'
@@ -22,7 +21,8 @@ import { radialSpokes } from '../../radialCentroid/radialCentroidSpokes/radialCe
 import { radialText } from '../../radialCentroid/radialCentroidText/radialCentroidText'
 
 import { qsCreateCanvas } from './canvas'
-import { QsCanvas } from '../qsTypes'
+import { QsCanvasOrthogonal } from '../qsTypes'
+import { QsGenerator } from './generators'
 
 // Test-scoped elements array
 let testElements: any[] = []
@@ -60,7 +60,7 @@ jest.mock('../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes')
 jest.mock('../../radialCentroid/radialCentroidText/radialCentroidText')
 
 describe('getGenerators', () => {
-  let canvas: QsCanvas
+  let canvas: QsCanvasOrthogonal
   let generators: QsGenerator
 
   beforeEach(() => {

@@ -1,5 +1,9 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas, QsAreaData } from 'd3qs/d3QuickStart'
+import {
+  QsCanvasOrthogonal,
+  qsCreateCanvas,
+  QsAreaData,
+} from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../common/chartProps'
 
 export const SimpleCanvasWithArea: FunctionComponent<ChartProps> = ({
@@ -7,7 +11,7 @@ export const SimpleCanvasWithArea: FunctionComponent<ChartProps> = ({
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
       const data: QsAreaData = {
         higherData: [100, 100],
       }

@@ -34,7 +34,7 @@ const barDataAsString: string = `const data = [
 
 const defaultsChart: string = `${barDataAsString}
 
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 
 canvas.generate.linear.horizontal.barStack(data)
 canvas.generate.linear.vertical.axis.left([])
@@ -47,7 +47,7 @@ canvas.generate.linear.horizontal.axis.bottom(
 
 const configChart: string = `${barDataAsString}
 
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 
 canvas.generate.linear.horizontal.barStack(data)
 canvas.generate.linear.vertical.axis.left([])

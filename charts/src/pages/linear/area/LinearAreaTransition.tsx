@@ -1,5 +1,10 @@
 import { FunctionComponent, useEffect, useRef, useState } from 'react'
-import { QsCanvas, qsCreateCanvas, QsArea, QsAreaData } from 'd3qs/d3QuickStart'
+import {
+  QsCanvasOrthogonal,
+  qsCreateCanvas,
+  QsArea,
+  QsAreaData,
+} from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
 export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
@@ -28,7 +33,7 @@ export const LinearAreaTransition: FunctionComponent<ChartProps> = ({
         higherData: lowerData,
       }
 
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       let newTopArea = canvas.generate.linear.horizontal.area(dataUpper)
       let newBottomArea = canvas.generate.linear.horizontal.area(dataLower)

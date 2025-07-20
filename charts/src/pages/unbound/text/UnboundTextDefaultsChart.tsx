@@ -1,5 +1,9 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas, QsUnboundTextData } from 'd3qs/d3QuickStart'
+import {
+  QsCanvasOrthogonal,
+  qsCreateCanvas,
+  QsUnboundTextData,
+} from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 
 export const UnboundTextDefaultsChart: FunctionComponent<ChartProps> = ({
@@ -7,7 +11,7 @@ export const UnboundTextDefaultsChart: FunctionComponent<ChartProps> = ({
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       const data: QsUnboundTextData[] = [
         { x: 0, y: 5, text: 'Text with no config uses defaults' },

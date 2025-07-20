@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsPlottedLineData,
   QsEnumCurve,
@@ -27,7 +27,7 @@ export const PlottedLineChart: FunctionComponent<ChartProps> = ({
         strokeWidth: 10,
       }
 
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       canvas.generate.plotted.line(data, {
         curve: QsEnumCurve.LINEAR,

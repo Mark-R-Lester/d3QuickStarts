@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsBarData,
   QsBars,
@@ -74,7 +74,7 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
         { value: 25 },
       ]
 
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
       let newBars: QsBars
       let newText: QsText
 

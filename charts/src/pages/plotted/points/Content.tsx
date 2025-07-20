@@ -29,7 +29,7 @@ const data: QsPlottedPointData[] = [
   { x: 156, y: 140 },
 ]
 
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 canvas.generate.plotted.points(data)
 canvas.generate.linear.vertical.axis.left([])
 canvas.generate.linear.horizontal.axis.bottom([])`
@@ -57,7 +57,7 @@ const data: QsPlottedPointData[] = [
   { x: 156, y: 140, radius: 15, fillOpacity: 0.1 },
 ]
 
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 canvas.generate.plotted.points(data)
 canvas.generate.linear.vertical.axis.left([])
 canvas.generate.linear.horizontal.axis.bottom([])`

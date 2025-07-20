@@ -35,7 +35,7 @@ canvas.generate.linear.horizontal.axis.bottom(['0', '1'])`
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`
 
-const qsCanvasConfig: string = `export interface QsCanvasConfig {
+const QsCanvasConfig: string = `export interface QsCanvasConfig {
   [key: string]: string | number | undefined
   chartName: string
   width?: number
@@ -366,7 +366,7 @@ export const configAndData: JSX.Element = (
                 <Typography variant="body1">Interface:</Typography>,
                 <ContentSyntaxBox>
                   <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {qsCanvasConfig}
+                    {QsCanvasConfig}
                   </SyntaxHighlighter>
                 </ContentSyntaxBox>,
               ]}

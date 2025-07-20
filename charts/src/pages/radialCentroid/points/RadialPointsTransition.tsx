@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useRef, useState } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsRadialPoints,
   QsRadialPointData,
@@ -16,7 +16,7 @@ export const RadialPointTransition: FunctionComponent<
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       setElement(
         canvas.generate.radialCentroid.points(chartDataRef.current, config)

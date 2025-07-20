@@ -24,7 +24,7 @@ const canvasConfig: string = `const canvasConfig = {
 const defaultsChart: string = `
 const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
 
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 canvas.generate.linear.horizontal.area(
   { higherData: data1 }
 )
@@ -40,7 +40,7 @@ const configChart: string = `
 const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
 const data2 = [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 170, 190]
 
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 canvas.generate.linear.horizontal.area(
   { higherData: data1, fillColor: 'blue' },
   { curve: QsEnumCurve.NATURAL }

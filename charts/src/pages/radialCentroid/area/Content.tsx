@@ -28,7 +28,7 @@ const data1: QsRadialAreaData = {
   ],
 }
 
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 canvas.generate.radialCentroid.area(data1)`
 
 const configChart: string = `
@@ -52,7 +52,7 @@ const data2: QsRadialAreaData = {
   fillColor: 'darkBlue',
 }
 
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 
 canvas.generate.radialCentroid.area(data1)
 canvas.generate.radialCentroid.area(data2)`

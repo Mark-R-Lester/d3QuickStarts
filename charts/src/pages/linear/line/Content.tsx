@@ -22,7 +22,7 @@ const canvasConfig: string = `const canvasConfig = {
 `
 
 const defaultsChart: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
  canvas.generate.linear.horizontal.line({
   data,
 })
@@ -35,7 +35,7 @@ canvas.generate.linear.horizontal.axis.bottom(
 )`
 
 const configChart: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 canvas.generate.linear.vertical.line({
   data,
   strokeColor: 'red',

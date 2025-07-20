@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsEnumAxisScaleType,
   QsPointData,
@@ -32,7 +32,7 @@ export const LinearPointsChart: FunctionComponent<OrienetedChartProps> = ({
         { value: 25, fillColor: 'red' },
         { value: 25 },
       ]
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       if (orientation === EnumOrientation.VERTICAL) {
         canvas.generate.linear.vertical.points(data, { defaultRadius: 3 })

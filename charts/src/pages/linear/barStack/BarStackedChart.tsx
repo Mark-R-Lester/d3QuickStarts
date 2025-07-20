@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsEnumAxisScaleType,
 } from 'd3qs/d3QuickStart'
@@ -22,7 +22,7 @@ export const BarStackedChart: FunctionComponent<ChartProps> = ({
         [15, 16, 12, 16],
         [10, 4, 13, 32],
       ]
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       canvas.generate.linear.horizontal.barStack({ data })
       canvas.generate.linear.vertical.axis.left([])

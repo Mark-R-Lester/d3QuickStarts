@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsPoints,
   QsLineData,
@@ -51,7 +51,7 @@ export const LinearLine: FunctionComponent<OrienetedChartProps> = ({
         ],
       }
 
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
       let newPoints: QsPoints
       let newLine: QsLine
 

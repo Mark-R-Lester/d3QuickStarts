@@ -21,12 +21,12 @@ const canvasConfig: string = `const canvasConfig = {
 }`
 
 const defaultsChart: string = `
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 const numberOfSpokes = 6
 canvas.generate.radialCentroid.spokes(numberOfSpokes)`
 
 const configChart: string = `
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 const numberOfSpokes = 6
 canvas.generate.radialCentroid.spokes(numberOfSpokes)`
 

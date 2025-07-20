@@ -12,7 +12,7 @@ import { JSDOM } from 'jsdom'
 import { ConfigStoreManager } from '../../core/config/configStore.class'
 import { getScales } from '../../core/scales/getScales'
 import { Canvas, qsCreateCanvas } from '../../canvas/linear/canvas'
-import { QsCanvas } from '../../canvas/qsTypes'
+import { QsCanvasOrthogonal } from '../../canvas/qsTypes'
 
 const dom = new JSDOM()
 global.document = dom.window.document
@@ -82,7 +82,7 @@ describe('Linear Bars calculatedData', () => {
         canvasConfig.highestViewableValue = highestViewableValue
         canvasConfig.lowestViewableValue = lowestViewableValue
         const scales = getScales(canvasConfig)
-        const qsCanvas: QsCanvas = qsCreateCanvas(canvasConfig)
+        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 
         const canvas: Canvas = {
           canvasGroup: qsCanvas.canvasGroup,
@@ -144,7 +144,7 @@ describe('Linear Bars calculatedData', () => {
         canvasConfig.highestViewableValue = highestViewableValue
         canvasConfig.lowestViewableValue = lowestViewableValue
         const scales = getScales(canvasConfig)
-        const qsCanvas: QsCanvas = qsCreateCanvas(canvasConfig)
+        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 
         const canvas: Canvas = {
           canvasGroup: qsCanvas.canvasGroup,
@@ -205,7 +205,7 @@ describe('Linear Bars calculatedData', () => {
         canvasConfig.highestViewableValue = highestViewableValue
         canvasConfig.lowestViewableValue = lowestViewableValue
         const scales = getScales(canvasConfig)
-        const qsCanvas: QsCanvas = qsCreateCanvas(canvasConfig)
+        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 
         const canvas: Canvas = {
           canvasGroup: qsCanvas.canvasGroup,
@@ -267,7 +267,7 @@ describe('Linear Bars calculatedData', () => {
         canvasConfig.highestViewableValue = highestViewableValue
         canvasConfig.lowestViewableValue = lowestViewableValue
         const scales = getScales(canvasConfig)
-        const qsCanvas: QsCanvas = qsCreateCanvas(canvasConfig)
+        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 
         const canvas: Canvas = {
           canvasGroup: qsCanvas.canvasGroup,

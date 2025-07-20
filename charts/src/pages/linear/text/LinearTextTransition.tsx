@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsPointData,
   QsPoints,
@@ -19,7 +19,7 @@ export const LinearTextTransition: FunctionComponent<PointChartProps> = ({
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
       let newElement: QsPoints
       if (orientation === EnumOrientation.VERTICAL) {
         newElement = canvas.generate.linear.vertical.text(data, config)

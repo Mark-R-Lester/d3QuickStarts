@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsBarData,
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsEnumAxisScaleType,
   QsEnumColorScale,
@@ -16,7 +16,7 @@ export const SimpleBarChart: FunctionComponent<OrienetedChartProps> = ({
   useEffect(() => {
     const createChart = () => {
       const isVertical = orientation === EnumOrientation.VERTICAL
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       const data: QsBarData[] = [
         { upperBoundry: 35, lowerBoundry: 5 },

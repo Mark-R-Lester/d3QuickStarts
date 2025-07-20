@@ -4,7 +4,7 @@ import { Canvas } from '../canvas'
 import { createMockSelection } from '../../../__mocks__/selection'
 import { createMockConfigStore } from '../../../core/config/__mocks__/configStore'
 import { getScales } from '../../../core/scales/getScales'
-import { QsCanvas, QsCanvasConfig } from '../../qsTypes'
+import { QsCanvasOrthogonal, QsCanvasConfig } from '../../qsTypes'
 import { CanvasConfig } from '../../types'
 
 export const baseConfig = (
@@ -51,7 +51,7 @@ export const createMockCanvas = (config: QsCanvasConfig): Canvas => ({
   elements: [],
 })
 
-export const createMockQsCanvas = (): QsCanvas => ({
+export const createMockQsCanvas = (): QsCanvasOrthogonal => ({
   canvasSVG: createMockSelection<SVGSVGElement>(),
   canvasGroup: createMockSelection<SVGGElement>(),
   canvasDataGroup: createMockSelection<SVGGElement>(),

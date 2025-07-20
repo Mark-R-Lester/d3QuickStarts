@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsLegendData,
   QsEnumAlignmentBaseline,
@@ -24,7 +24,7 @@ export const UnboundLegendChart: FunctionComponent<ChartProps> = ({
         { value: 'Purple', fillColor: 'purple' },
       ]
 
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       canvas.generate.unbound.legend(data, {
         x: 10,

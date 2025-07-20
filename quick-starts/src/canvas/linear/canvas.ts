@@ -8,7 +8,7 @@ import { generateClassName } from '../../core/generateClassName'
 import { QsGenerator, getGenerators } from './generators'
 import { CanvasScales, getScales } from '../../core/scales/getScales'
 import { CanvasConfig, ElementWithData } from '../types'
-import { QsCanvas, QsCanvasConfig } from '../qsTypes'
+import { QsCanvasOrthogonal, QsCanvasConfig } from '../qsTypes'
 
 export interface Canvas {
   canvasGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
@@ -32,7 +32,9 @@ const addDefaultsToConfig = (customConfig?: QsCanvasConfig): CanvasConfig => {
   return defaults
 }
 
-export const qsCreateCanvas = (customConfig?: QsCanvasConfig): QsCanvas => {
+export const qsCreateCanvas = (
+  customConfig?: QsCanvasConfig
+): QsCanvasOrthogonal => {
   const config: CanvasConfig = addDefaultsToConfig(customConfig)
 
   const element = document.getElementById(config.chartName)
@@ -41,7 +43,7 @@ export const qsCreateCanvas = (customConfig?: QsCanvasConfig): QsCanvas => {
   return draw(`#${config.chartName}`, config)
 }
 
-const draw = (chartName: string, config: CanvasConfig): QsCanvas => {
+const draw = (chartName: string, config: CanvasConfig): QsCanvasOrthogonal => {
   const scaleValues = (config: CanvasConfig): CanvasConfig => {
     const marginRight = (config.width * config.marginRight) / 100
     const marginLeft = (config.width * config.marginLeft) / 100

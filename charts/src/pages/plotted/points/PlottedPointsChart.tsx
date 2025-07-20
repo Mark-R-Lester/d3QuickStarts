@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   QsPlottedPointsData,
   qsCreateCanvas,
 } from 'd3qs/d3QuickStart'
@@ -33,7 +33,7 @@ export const PlottedPointsChart: FunctionComponent<ChartProps> = ({
         { x: 156, y: 140, radius: 15, fillOpacity: 0.1 },
       ]
 
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
       canvas.generate.plotted.points(data)
       canvas.generate.linear.vertical.axis.left([])
       canvas.generate.linear.horizontal.axis.bottom([])

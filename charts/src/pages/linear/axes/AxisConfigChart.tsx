@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
@@ -19,7 +19,7 @@ export const LinearAxisChart: FunctionComponent<ChartProps> = ({
     const createChart = () => {
       const data1 = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']
       const data2 = [0, 20, 20, 30, 20, 35, 0, 20, 15, 30, 10, 50]
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       canvas.generate.linear.vertical.axis.left(data2, {
         tickSizeInner: -100,

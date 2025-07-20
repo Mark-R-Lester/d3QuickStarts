@@ -27,7 +27,7 @@ const data: QsRadialData[] = [
   { value: 15 },
 ]
 
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 canvas.generate.radialArc.radial(data)`
 
 const configChart: string = `
@@ -55,7 +55,7 @@ const config: QsRadialConfig = {
   padding: 0.03,
 }
 
-const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 canvas.generate.radialArc.radial(data, config)`
 
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`

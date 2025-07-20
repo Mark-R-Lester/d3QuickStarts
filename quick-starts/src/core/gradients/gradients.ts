@@ -1,4 +1,4 @@
-import { QsCanvas } from '../../canvas/qsTypes'
+import { QsCanvasOrthogonal, QsCanvasPlotted } from '../../canvas/qsTypes'
 import { addColorsToGradient } from './addColorsToGradient'
 import { createColorStops } from './createColorStops'
 
@@ -8,7 +8,7 @@ export interface QsColorStop {
 }
 
 interface LinearGradient {
-  canvas: QsCanvas
+  canvas: QsCanvasOrthogonal | QsCanvasPlotted
   gradientId: string
   x1?: string
   y1?: string
@@ -25,7 +25,7 @@ export interface QsLinearGradientData extends LinearGradient {
 }
 
 interface RadialGradient {
-  canvas: QsCanvas
+  canvas: QsCanvasOrthogonal
   gradientId: string
   cx: string
   cy: string

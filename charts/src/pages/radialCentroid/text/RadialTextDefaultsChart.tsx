@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvas, qsCreateCanvas } from 'd3qs/d3QuickStart'
+import { QsCanvasOrthogonal, qsCreateCanvas } from 'd3qs/d3QuickStart'
 import { ChartProps } from '../../../common/chartProps'
 import { QsRadialTextData } from 'd3qs/radialCentroid/radialCentroidText/qsTypes'
 
@@ -25,7 +25,7 @@ export const RadialTextDefaultsChart: FunctionComponent<ChartProps> = ({
         { value: 2 },
       ]
 
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
       canvas.generate.radialCentroid.text(data)
     }
     createChart()

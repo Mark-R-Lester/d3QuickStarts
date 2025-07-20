@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsEnumTextFont,
   QsEnumTextFontWeight,
@@ -21,7 +21,7 @@ export const ConfigAndData: FunctionComponent = () => {
   }
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvas = qsCreateCanvas(canvasConfig)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 
       const data1: QsUnboundTextData[] = [
         {

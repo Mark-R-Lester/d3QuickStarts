@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsRadial,
   QsRadialArcText,
@@ -19,7 +19,7 @@ export const RadialTextTransition: FunctionComponent<
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       if (orientation === EnumRadialTextOrientation.FOLLOW)
         setElement1(canvas.generate.radialArc.text.follow(data, config))

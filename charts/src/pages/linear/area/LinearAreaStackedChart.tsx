@@ -1,6 +1,6 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvas,
+  QsCanvasOrthogonal,
   qsCreateCanvas,
   QsEnumAxisScaleType,
   QsEnumCurve,
@@ -15,7 +15,7 @@ export const LinearAreaStackedChart: FunctionComponent<ChartProps> = ({
       const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
       const data2 = [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 170, 190]
 
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
 
       canvas.generate.linear.horizontal.area(
         { higherData: data1, fillColor: 'lightBlue' },

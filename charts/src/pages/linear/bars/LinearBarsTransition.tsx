@@ -1,5 +1,10 @@
 import { FunctionComponent, useEffect, useState } from 'react'
-import { QsCanvas, qsCreateCanvas, QsBarData, QsBars } from 'd3qs/d3QuickStart'
+import {
+  QsCanvasOrthogonal,
+  qsCreateCanvas,
+  QsBarData,
+  QsBars,
+} from 'd3qs/d3QuickStart'
 import { OrienetedChartProps } from '../../../common/chartProps'
 import { EnumOrientation } from '../../../common/enums'
 
@@ -22,7 +27,7 @@ export const LinearBarsTransition: FunctionComponent<OrienetedChartProps> = ({
         { upperBoundry: 25 },
         { upperBoundry: 25 },
       ]
-      const canvas: QsCanvas = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
       let newBars: QsBars
       if (orientation === EnumOrientation.VERTICAL) {
         newBars = canvas.generate.linear.vertical.bars(data)

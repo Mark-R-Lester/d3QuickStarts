@@ -5,7 +5,7 @@ import {
   scaleSqrt,
   ScaleContinuousNumeric,
 } from 'd3-scale'
-import { QSDataScale } from '../types/qsTypes'
+import { QsDataScale } from '../types/qsTypes'
 import { QsEnumDataScale } from '../enums/qsEnums'
 import { CanvasConfig } from '../../canvas/types'
 
@@ -42,8 +42,10 @@ export const getScales = (config: CanvasConfig): CanvasScales => {
     displayAreaHeight,
     lowestViewableValue,
     highestViewableValue,
-    lowestViewableValuePlottedX,
-    highestViewableValuePlottedX,
+    lowestViewableValueX,
+    highestViewableValueX,
+    lowestViewableValueY,
+    highestViewableValueY,
     height,
     width,
     dataScale,
@@ -52,7 +54,7 @@ export const getScales = (config: CanvasConfig): CanvasScales => {
   const createScale = (
     domain: [number, number],
     range: [number, number],
-    dataScale?: QSDataScale
+    dataScale?: QsDataScale
   ): ScaleContinuousNumeric<number, number> => {
     if (!dataScale) {
       return scaleLinear().domain(domain).range(range)
@@ -75,30 +77,26 @@ export const getScales = (config: CanvasConfig): CanvasScales => {
     }
   }
 
+  const xDomainPlotted: [number, number] = [
+    lowestViewableValueX,
+    highestViewableValueX,
+  ]
+  const xRangePlotted: [number, number] = [0, displayAreaWidth]
+
+  const yDomainPlotted: [number, number] = [
+    lowestViewableValueY,
+    highestViewableValueY,
+  ]
+  const yRangePlotted: [number, number] = [displayAreaHeight, 0]
+
   const percentDomain: [number, number] = [0, 100]
   const dataDomain: [number, number] = [
     lowestViewableValue,
     highestViewableValue,
   ]
-  const plottedXDomain: [number, number] = [
-    lowestViewableValuePlottedX ?? lowestViewableValue,
-    highestViewableValuePlottedX ?? highestViewableValue,
-  ]
   const xRange: [number, number] = [0, displayAreaWidth]
-  const xRangePlotted: [number, number] = [
-    0,
-    highestViewableValuePlottedX !== undefined
-      ? displayAreaWidth
-      : Math.min(displayAreaHeight, displayAreaWidth),
-  ]
   const xRangeInverted: [number, number] = [displayAreaWidth, 0]
   const yRange: [number, number] = [displayAreaHeight, 0]
-  const yRangePlotted: [number, number] = [
-    highestViewableValuePlottedX !== undefined
-      ? displayAreaHeight
-      : Math.min(displayAreaHeight, displayAreaWidth),
-    0,
-  ]
   const yRangeInverted: [number, number] = [0, displayAreaHeight]
   const genralRange: [number, number] = [
     0,
@@ -131,11 +129,11 @@ export const getScales = (config: CanvasConfig): CanvasScales => {
     yPercentScaleInverted: scaleLinear().domain(percentDomain).range(yRange),
 
     xDataScale: createScale(dataDomain, xRange, dataScale),
-    xDataScalePlotted: createScale(plottedXDomain, xRangePlotted, dataScale),
+    xDataScalePlotted: createScale(xDomainPlotted, xRangePlotted, dataScale),
     xDataScaleInverted: createScale(dataDomain, xRangeInverted, dataScale),
 
     yDataScale: createScale(dataDomain, yRange, dataScale),
-    yDataScalePlotted: createScale(dataDomain, yRangePlotted, dataScale),
+    yDataScalePlotted: createScale(yDomainPlotted, yRangePlotted, dataScale),
     yDataScaleInverted: createScale(dataDomain, yRangeInverted, dataScale),
   }
 }

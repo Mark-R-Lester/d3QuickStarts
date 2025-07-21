@@ -1,5 +1,5 @@
 import { resetMockSelectionStore } from '../../__mocks__/selection'
-import { createMockQsCanvas } from '../../canvas/orthogonal/__mocks__/canvasOrthogonal'
+import { createMockQsCanvasOthogonal } from '../../canvas/__mocks__/canvas'
 import { QsCanvasOrthogonal } from '../../canvas/qsTypes'
 import { CanvasConfig } from '../../canvas/types'
 
@@ -59,12 +59,16 @@ describe('Gradient Functions Testing', () => {
     fillColor: 'none',
     displayAreaHeight: 100,
     displayAreaWidth: 100,
+    highestViewableValueY: 0,
+    lowestViewableValueY: 0,
+    highestViewableValueX: 0,
+    lowestViewableValueX: 0,
   }
   let canvasMock: QsCanvasOrthogonal
 
   beforeEach(() => {
     resetMockSelectionStore()
-    canvasMock = createMockQsCanvas()
+    canvasMock = createMockQsCanvasOthogonal()
     canvasMock.config = canvasConfig
   })
 

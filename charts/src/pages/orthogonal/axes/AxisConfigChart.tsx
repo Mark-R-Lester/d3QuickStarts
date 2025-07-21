@@ -10,9 +10,9 @@ import {
   QsEnumTextFontWeight,
   QsEnumAxisScaleType,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const OrthogonalAxisChart: FunctionComponent<ChartProps> = ({
+export const OrthogonalAxisChart: FunctionComponent<ChartPropsOthogonal> = ({
   canvasProps,
 }) => {
   useEffect(() => {

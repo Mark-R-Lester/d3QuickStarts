@@ -1,14 +1,14 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvasOrthogonal,
-  qsCreateCanvas,
+  QsCanvasPlotted,
+  qsCreateCanvasPlotted,
   QsPlottedPointsData,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsPlotted } from '../../../common/chartProps'
 
-export const PlottedPointsDefaultsChart: FunctionComponent<ChartProps> = ({
-  canvasProps,
-}) => {
+export const PlottedPointsDefaultsChart: FunctionComponent<
+  ChartPropsPlotted
+> = ({ canvasProps }) => {
   useEffect(() => {
     const createChart = () => {
       const data: QsPlottedPointsData[] = [
@@ -20,7 +20,7 @@ export const PlottedPointsDefaultsChart: FunctionComponent<ChartProps> = ({
         { x: 156, y: 140 },
       ]
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasPlotted = qsCreateCanvasPlotted(canvasProps)
       canvas.generate.plotted.points(data)
       canvas.generate.orthogonal.vertical.axis.left([])
       canvas.generate.orthogonal.horizontal.axis.bottom([])

@@ -15,7 +15,7 @@ export interface QsTransitionArgs {
   durationInMiliSeconds?: number
 }
 
-export type QSDataScale =
+export type QsDataScale =
   | {
       scale:
         | QsEnumDataScale.orthogonal

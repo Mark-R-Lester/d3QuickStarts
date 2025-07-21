@@ -18,16 +18,16 @@ export default function PlottedPointsPage() {
       canvasProps={{
         chartName: 'plottedPointsDefaultsChart',
         width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 156,
+        highestViewableValueX: 156,
+        highestViewableValueY: 156,
       }}
     />,
     <PlottedPointsChart
       canvasProps={{
         chartName: 'PlottedPointsChart',
         width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 156,
+        highestViewableValueX: 156,
+        highestViewableValueY: 156,
       }}
     />,
     <ConfigAndData />,

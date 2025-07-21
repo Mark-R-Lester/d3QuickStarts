@@ -135,8 +135,8 @@ export const defaultsContent: JSX.Element = (
               canvasProps={{
                 chartName: 'chartH',
                 width: 600,
-                highestViewableValue: 100,
-                highestViewableValuePlottedX: 150,
+                highestViewableValueX: 100,
+                highestViewableValueY: 100,
               }}
             />,
           ]}
@@ -178,7 +178,8 @@ export const configContent: JSX.Element = (
               canvasProps={{
                 chartName: 'chartV',
                 width: 600,
-                highestViewableValue: 100,
+                highestViewableValueX: 100,
+                highestViewableValueY: 100,
               }}
             />,
           ]}

@@ -4,11 +4,11 @@ import {
   qsCreateCanvas,
   QsValuedText,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const RadialTextDefaultsChart: FunctionComponent<ChartProps> = ({
-  canvasProps,
-}) => {
+export const RadialTextDefaultsChart: FunctionComponent<
+  ChartPropsOthogonal
+> = ({ canvasProps }) => {
   useEffect(() => {
     const createChart = () => {
       const data: QsValuedText[] = [

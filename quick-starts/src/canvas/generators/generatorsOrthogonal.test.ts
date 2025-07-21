@@ -8,9 +8,6 @@ import * as orthogonalBarStack from '../../orthogonal/orthogonalBarStack/barStac
 import * as orthogonalLine from '../../orthogonal/orthogonalLine/line'
 import * as orthogonalPoint from '../../orthogonal/orthogonalPoints/points'
 import * as orthogonalText from '../../orthogonal/orthogonalText/text'
-import * as plottedLine from '../../plots/plottedLine/plottedLine'
-import * as plottedPoint from '../../plots/plottedPoints/plottedPoints'
-import * as plottedText from '../../plots/plottedText/plottedText'
 import * as radialArc from '../../radialArc/radialArc/radialArc'
 import * as radialArcText from '../../radialArc/radialArcText/radialArcText'
 import * as radialArea from '../../radialCentroid/radialCentroidArea/radialCentroidArea'
@@ -20,15 +17,15 @@ import * as radialPoint from '../../radialCentroid/radialCentroidPoints/radialCe
 import { radialSpokes } from '../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
 import { radialText } from '../../radialCentroid/radialCentroidText/radialCentroidText'
 
-import { qsCreateCanvas } from './canvasOrthogonal'
+import { qsCreateCanvas } from '../canvas'
 import { QsCanvasOrthogonal } from '../qsTypes'
-import { QsGenerator } from './generatorsOrthogonal'
+import { QsGenerator } from '../generators/generatorsOrthogonal'
 
 // Test-scoped elements array
 let testElements: any[] = []
 
 // Mock qsCreateCanvas to return a canvas with a controlled elements array
-jest.mock('./canvasOrthogonal', () => ({
+jest.mock('../canvas', () => ({
   qsCreateCanvas: jest.fn().mockImplementation(() => {
     const canvas = { elements: testElements, generate: {} }
     canvas.generate = jest
@@ -49,9 +46,6 @@ jest.mock('../../orthogonal/orthogonalBarStack/barStack')
 jest.mock('../../orthogonal/orthogonalLine/line')
 jest.mock('../../orthogonal/orthogonalPoints/points')
 jest.mock('../../orthogonal/orthogonalText/text')
-jest.mock('../../plots/plottedLine/plottedLine')
-jest.mock('../../plots/plottedPoints/plottedPoints')
-jest.mock('../../plots/plottedText/plottedText')
 jest.mock('../../radialArc/radialArc/radialArc')
 jest.mock('../../radialArc/radialArcText/radialArcText')
 jest.mock('../../radialCentroid/radialCentroidArea/radialCentroidArea')
@@ -535,80 +529,6 @@ describe('getGenerators', () => {
         ;(text.unboundText as jest.Mock).mockReturnValue(expectedElement)
         const result = generators.unbound.text(data, customConfig)
         expect(text.unboundText).toHaveBeenCalledWith(
-          expect.anything(),
-          data,
-          customConfig
-        )
-        expect(testElements).toContainEqual({ element: expectedElement, data })
-        expect(result).toEqual(expectedElement)
-      }
-    )
-  })
-
-  describe('plotted', () => {
-    test.each`
-      data                  | customConfig         | expectedElement
-      ${{ points: [1, 2] }} | ${{ color: 'blue' }} | ${{ id: 'line1' }}
-      ${{ points: [3, 4] }} | ${undefined}         | ${{ id: 'line2' }}
-    `(
-      `When data is $data and customConfig is $customConfig
-        it should call generators.plotted.line and add to elements
-        expectedElement = $expectedElement`,
-      ({ data, customConfig, expectedElement }) => {
-        ;(plottedLine.plottedLine.line as jest.Mock).mockReturnValue(
-          expectedElement
-        )
-        const result = generators.plotted.line(data, customConfig)
-        expect(plottedLine.plottedLine.line).toHaveBeenCalledWith(
-          expect.anything(),
-          data,
-          customConfig
-        )
-        expect(testElements).toContainEqual({
-          element: expectedElement,
-          data,
-        })
-        expect(result).toEqual(expectedElement)
-      }
-    )
-
-    test.each`
-      data               | customConfig        | expectedElement
-      ${[{ text: 'A' }]} | ${{ fontSize: 12 }} | ${{ id: 'text1' }}
-      ${[{ text: 'B' }]} | ${undefined}        | ${{ id: 'text2' }}
-    `(
-      `When data is $data and customConfig is $customConfig
-        it should call generators.plotted.text and add to elements
-        expectedElement = $expectedElement`,
-      ({ data, customConfig, expectedElement }) => {
-        ;(plottedText.plottedText.text as jest.Mock).mockReturnValue(
-          expectedElement
-        )
-        const result = generators.plotted.text(data, customConfig)
-        expect(plottedText.plottedText.text).toHaveBeenCalledWith(
-          expect.anything(),
-          data,
-          customConfig
-        )
-        expect(testElements).toContainEqual({ element: expectedElement, data })
-        expect(result).toEqual(expectedElement)
-      }
-    )
-
-    test.each`
-      data                | customConfig   | expectedElement
-      ${[{ x: 1, y: 2 }]} | ${{ size: 5 }} | ${{ id: 'points1' }}
-      ${[{ x: 3, y: 4 }]} | ${undefined}   | ${{ id: 'points2' }}
-    `(
-      `When data is $data and customConfig is $customConfig
-        it should call generators.plotted.points and add to elements
-        expectedElement = $expectedElement`,
-      ({ data, customConfig, expectedElement }) => {
-        ;(plottedPoint.plottedPoint.points as jest.Mock).mockReturnValue(
-          expectedElement
-        )
-        const result = generators.plotted.points(data, customConfig)
-        expect(plottedPoint.plottedPoint.points).toHaveBeenCalledWith(
           expect.anything(),
           data,
           customConfig

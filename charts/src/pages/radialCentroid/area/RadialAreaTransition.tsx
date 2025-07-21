@@ -6,9 +6,9 @@ import {
   QsRadialAreaData,
   QsEnumCurve,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const RadialAreaTransition: FunctionComponent<ChartProps> = ({
+export const RadialAreaTransition: FunctionComponent<ChartPropsOthogonal> = ({
   canvasProps,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)

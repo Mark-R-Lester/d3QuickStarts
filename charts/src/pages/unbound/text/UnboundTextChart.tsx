@@ -7,9 +7,9 @@ import {
   QsEnumTextFontWeight,
   QsUnboundTextData,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const UnboundTextChart: FunctionComponent<ChartProps> = ({
+export const UnboundTextChart: FunctionComponent<ChartPropsOthogonal> = ({
   canvasProps,
 }) => {
   useEffect(() => {

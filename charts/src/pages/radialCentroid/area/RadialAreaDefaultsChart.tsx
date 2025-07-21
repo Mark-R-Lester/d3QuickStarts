@@ -4,11 +4,11 @@ import {
   qsCreateCanvas,
   QsRadialAreaData,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const RadialAreaDefaultsChart: FunctionComponent<ChartProps> = ({
-  canvasProps,
-}) => {
+export const RadialAreaDefaultsChart: FunctionComponent<
+  ChartPropsOthogonal
+> = ({ canvasProps }) => {
   useEffect(() => {
     const createChart = () => {
       const data1: QsRadialAreaData = {

@@ -17,4 +17,8 @@ export const mockCanvasConfig: CanvasConfig = {
   borderWidth: 2,
   displayAreaHeight: 100,
   displayAreaWidth: 100,
+  highestViewableValueY: 0,
+  lowestViewableValueY: 0,
+  highestViewableValueX: 0,
+  lowestViewableValueX: 0,
 }

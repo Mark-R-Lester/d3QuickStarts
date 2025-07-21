@@ -105,6 +105,10 @@ export const canvasConfig: CanvasConfig = {
   displayAreaWidth: 0,
   fillColor: 'none',
   borderWidth: 2,
+  highestViewableValueY: 0,
+  lowestViewableValueY: 0,
+  highestViewableValueX: 0,
+  lowestViewableValueX: 0,
 }
 
 export const legendConfig: LegendConfig = {

@@ -5,16 +5,14 @@ import * as plottedLine from '../../plots/plottedLine/plottedLine'
 import * as plottedPoint from '../../plots/plottedPoints/plottedPoints'
 import * as plottedText from '../../plots/plottedText/plottedText'
 
-import { qsCreateCanvas } from './canvasPlotted'
 import { QsCanvasPlotted } from '../qsTypes'
 import { QsGeneratorPlotted } from './generatorsPlotted'
+import { qsCreateCanvasPlotted } from '../canvas'
 
-// Test-scoped elements array
 let testElements: any[] = []
 
-// Mock qsCreateCanvas to return a canvas with a controlled elements array
-jest.mock('./canvasPlotted', () => ({
-  qsCreateCanvas: jest.fn().mockImplementation(() => {
+jest.mock('../canvas', () => ({
+  qsCreateCanvasPlotted: jest.fn().mockImplementation(() => {
     const canvas = { elements: testElements, generate: {} }
     canvas.generate = jest
       .requireActual('./generatorsPlotted')
@@ -23,7 +21,6 @@ jest.mock('./canvasPlotted', () => ({
   }),
 }))
 
-// Mock all imported modules
 jest.mock('../../unbound/legend/legend')
 jest.mock('../../unbound/text/text')
 jest.mock('../../orthogonal/orthogonalAxis/axis')
@@ -36,8 +33,8 @@ describe('getGenerators', () => {
   let generators: QsGeneratorPlotted
 
   beforeEach(() => {
-    testElements = [] // Reset elements for each test
-    canvas = qsCreateCanvas()
+    testElements = []
+    canvas = qsCreateCanvasPlotted()
     generators = canvas.generate
     jest.clearAllMocks()
   })

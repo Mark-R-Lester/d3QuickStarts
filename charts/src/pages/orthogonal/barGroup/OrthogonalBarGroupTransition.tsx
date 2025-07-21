@@ -4,11 +4,11 @@ import {
   qsCreateCanvas,
   QsBarGroups,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const OrthogonalBarGroupTransition: FunctionComponent<ChartProps> = ({
-  canvasProps,
-}) => {
+export const OrthogonalBarGroupTransition: FunctionComponent<
+  ChartPropsOthogonal
+> = ({ canvasProps }) => {
   const [changedStack, setChangedStack] = useState<boolean>(false)
   const [changedGroup, setChangedGroup] = useState<boolean>(false)
   const [grouped, setGrouped] = useState<QsBarGroups>()

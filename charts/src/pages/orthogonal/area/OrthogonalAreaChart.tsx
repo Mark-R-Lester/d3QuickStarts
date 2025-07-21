@@ -5,9 +5,9 @@ import {
   qsCreateorthogonalGradient,
   QsEnumAxisScaleType,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const OrthogonalAreaChart: FunctionComponent<ChartProps> = ({
+export const OrthogonalAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
   canvasProps,
 }) => {
   useEffect(() => {

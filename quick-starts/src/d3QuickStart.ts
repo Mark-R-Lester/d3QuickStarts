@@ -1,4 +1,4 @@
-export * from './canvas/orthogonal/canvasOrthogonal'
+export * from './canvas/canvas'
 export * from './canvas/qsTypes'
 export * from './core/max'
 export * from './core/min'

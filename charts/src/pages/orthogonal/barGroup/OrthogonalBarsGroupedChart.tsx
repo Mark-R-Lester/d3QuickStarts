@@ -4,11 +4,11 @@ import {
   qsCreateCanvas,
   QsEnumAxisScaleType,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const OrthogonalBarsGroupedChart: FunctionComponent<ChartProps> = ({
-  canvasProps,
-}) => {
+export const OrthogonalBarsGroupedChart: FunctionComponent<
+  ChartPropsOthogonal
+> = ({ canvasProps }) => {
   useEffect(() => {
     const createChart = () => {
       const data = [

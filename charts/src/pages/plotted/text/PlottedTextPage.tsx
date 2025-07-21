@@ -18,16 +18,16 @@ export default function PlottedTextPage() {
       canvasProps={{
         chartName: 'plottedTextDefaultsChart',
         width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 100,
+        highestViewableValueX: 156,
+        highestViewableValueY: 100,
       }}
     />,
     <PlottedTextChart
       canvasProps={{
         chartName: 'plottedTextChart',
         width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 100,
+        highestViewableValueX: 156,
+        highestViewableValueY: 100,
       }}
     />,
     <ConfigAndData />,

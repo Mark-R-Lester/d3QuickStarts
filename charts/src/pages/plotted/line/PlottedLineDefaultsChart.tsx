@@ -1,12 +1,12 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvasOrthogonal,
-  qsCreateCanvas,
+  QsCanvasPlotted,
+  qsCreateCanvasPlotted,
   QsPlottedLineData,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsPlotted } from '../../../common/chartProps'
 
-export const PlottedLineDefaultsChart: FunctionComponent<ChartProps> = ({
+export const PlottedLineDefaultsChart: FunctionComponent<ChartPropsPlotted> = ({
   canvasProps,
 }) => {
   useEffect(() => {
@@ -22,7 +22,7 @@ export const PlottedLineDefaultsChart: FunctionComponent<ChartProps> = ({
         ],
       }
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasPlotted = qsCreateCanvasPlotted(canvasProps)
       canvas.generate.plotted.line(data)
       canvas.generate.orthogonal.vertical.axis.left([])
       canvas.generate.orthogonal.horizontal.axis.bottom([])

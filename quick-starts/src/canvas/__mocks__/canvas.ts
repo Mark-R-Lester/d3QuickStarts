@@ -1,10 +1,11 @@
-import { canvasConfig as defaultCanvasConfig } from '../../../core/config/configDefaults'
-import { getGenerators } from './generatorsOrthogonal'
-import { createMockSelection } from '../../../__mocks__/selection'
-import { createMockConfigStore } from '../../../core/config/__mocks__/configStore'
-import { getScales } from '../../../core/scales/getScales'
-import { QsCanvasOrthogonal, QsCanvasConfig } from '../../qsTypes'
-import { Canvas, CanvasConfig } from '../../types'
+import { canvasConfig as defaultCanvasConfig } from '../../core/config/configDefaults'
+import { getGenerators as getOrthogonalGenerators } from '../generators/__mocks__/generatorsOrthogonal'
+import { getGenerators as getPlottedGenerators } from '../generators/__mocks__/generatorsOrthogonal'
+import { createMockSelection } from '../../__mocks__/selection'
+import { createMockConfigStore } from '../../core/config/__mocks__/configStore'
+import { getScales } from '../../core/scales/getScales'
+import { QsCanvasOrthogonal, QsCanvasConfig, QsCanvasPlotted } from '../qsTypes'
+import { Canvas, CanvasConfig } from '../types'
 
 export const baseConfig = (
   configOverrides: Partial<QsCanvasConfig> = {}
@@ -39,6 +40,10 @@ const canvasConfig = (): CanvasConfig => ({
   fillColor: '',
   displayAreaHeight: 0,
   displayAreaWidth: 0,
+  highestViewableValueY: 0,
+  lowestViewableValueY: 0,
+  highestViewableValueX: 0,
+  lowestViewableValueX: 0,
 })
 
 export const createMockCanvas = (config: QsCanvasConfig): Canvas => ({
@@ -50,11 +55,20 @@ export const createMockCanvas = (config: QsCanvasConfig): Canvas => ({
   elements: [],
 })
 
-export const createMockQsCanvas = (): QsCanvasOrthogonal => ({
+export const createMockQsCanvasOthogonal = (): QsCanvasOrthogonal => ({
   canvasSVG: createMockSelection<SVGSVGElement>(),
   canvasGroup: createMockSelection<SVGGElement>(),
   canvasDataGroup: createMockSelection<SVGGElement>(),
   config: canvasConfig(),
-  generate: getGenerators(),
+  generate: getOrthogonalGenerators(),
+  configStore: createMockConfigStore().setters,
+})
+
+export const createMockQsCanvasPlotted = (): QsCanvasPlotted => ({
+  canvasSVG: createMockSelection<SVGSVGElement>(),
+  canvasGroup: createMockSelection<SVGGElement>(),
+  canvasDataGroup: createMockSelection<SVGGElement>(),
+  config: canvasConfig(),
+  generate: getPlottedGenerators(),
   configStore: createMockConfigStore().setters,
 })

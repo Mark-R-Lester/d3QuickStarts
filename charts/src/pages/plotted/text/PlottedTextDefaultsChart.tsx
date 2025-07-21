@@ -1,18 +1,18 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvasOrthogonal,
-  qsCreateCanvas,
+  QsCanvasPlotted,
+  qsCreateCanvasPlotted,
   QsEnumCoordinateView,
   QsPlottedTextData,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsPlotted } from '../../../common/chartProps'
 
-export const PlottedTextDefaultsChart: FunctionComponent<ChartProps> = ({
+export const PlottedTextDefaultsChart: FunctionComponent<ChartPropsPlotted> = ({
   canvasProps,
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasPlotted = qsCreateCanvasPlotted(canvasProps)
 
       const data: QsPlottedTextData[] = [
         { x: 10, y: 100, text: 'Text with no config uses defaults' },

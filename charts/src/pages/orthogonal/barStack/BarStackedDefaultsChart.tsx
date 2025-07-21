@@ -4,11 +4,11 @@ import {
   qsCreateCanvas,
   QsEnumAxisScaleType,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const BarStackedDefaultsChart: FunctionComponent<ChartProps> = ({
-  canvasProps,
-}) => {
+export const BarStackedDefaultsChart: FunctionComponent<
+  ChartPropsOthogonal
+> = ({ canvasProps }) => {
   useEffect(() => {
     const createChart = () => {
       const data = [

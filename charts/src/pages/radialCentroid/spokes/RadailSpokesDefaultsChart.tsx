@@ -1,10 +1,10 @@
 import { FunctionComponent, useEffect } from 'react'
 import { QsCanvasOrthogonal, qsCreateCanvas } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const RadialSpokesDefaultsChart: FunctionComponent<ChartProps> = ({
-  canvasProps,
-}) => {
+export const RadialSpokesDefaultsChart: FunctionComponent<
+  ChartPropsOthogonal
+> = ({ canvasProps }) => {
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)

@@ -19,16 +19,16 @@ export default function PlottedLinePage() {
       canvasProps={{
         chartName: 'plottedLineDefaultsChart',
         width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 156,
+        highestViewableValueX: 156,
+        highestViewableValueY: 156,
       }}
     />,
     <PlottedLineChart
       canvasProps={{
         chartName: 'plottedLineChart',
         width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 156,
+        highestViewableValueX: 156,
+        highestViewableValueY: 156,
       }}
     />,
     <ConfigAndData />,

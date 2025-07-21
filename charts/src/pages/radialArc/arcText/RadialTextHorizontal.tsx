@@ -8,11 +8,11 @@ import {
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const RadialTextHorizontalElement: FunctionComponent<ChartProps> = ({
-  canvasProps,
-}) => {
+export const RadialTextHorizontalElement: FunctionComponent<
+  ChartPropsOthogonal
+> = ({ canvasProps }) => {
   useEffect(() => {
     const createChart = () => {
       const data: QsValuedText[] = [

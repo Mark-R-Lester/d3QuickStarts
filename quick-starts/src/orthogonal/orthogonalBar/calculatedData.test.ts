@@ -11,9 +11,12 @@ import { BarConfig } from './types'
 import { JSDOM } from 'jsdom'
 import { ConfigStoreManager } from '../../core/config/configStore.class'
 import { getScales } from '../../core/scales/getScales'
-import { qsCreateCanvas } from '../../canvas/orthogonal/canvasOrthogonal'
+import { qsCreateCanvas } from '../../canvas/canvas'
 import { Canvas } from '../../canvas/types'
-import { QsCanvasOrthogonal } from '../../canvas/qsTypes'
+import {
+  QsCanvasConfigOrthogonal,
+  QsCanvasOrthogonal,
+} from '../../canvas/qsTypes'
 
 const dom = new JSDOM()
 global.document = dom.window.document
@@ -32,6 +35,29 @@ describe('orthogonal Bars calculatedData', () => {
   }
 
   const canvasConfig: CanvasConfig = {
+    ry: 0,
+    rx: 0,
+    chartName: 'myChart',
+    width: 100,
+    height: 100,
+    marginRight: 0,
+    marginLeft: 0,
+    marginTop: 0,
+    marginBottom: 0,
+    highestViewableValue: 100,
+    lowestViewableValue: 0,
+    borderColor: 'lightgrey',
+    borderWidth: 2,
+    fillColor: 'none',
+    displayAreaHeight: 100,
+    displayAreaWidth: 100,
+    highestViewableValueY: 100,
+    lowestViewableValueY: 0,
+    highestViewableValueX: 100,
+    lowestViewableValueX: 0,
+  }
+
+  const qsCanvasConfig: QsCanvasConfigOrthogonal = {
     ry: 0,
     rx: 0,
     chartName: 'myChart',
@@ -82,8 +108,10 @@ describe('orthogonal Bars calculatedData', () => {
 
         canvasConfig.highestViewableValue = highestViewableValue
         canvasConfig.lowestViewableValue = lowestViewableValue
+        qsCanvasConfig.highestViewableValue = highestViewableValue
+        qsCanvasConfig.lowestViewableValue = lowestViewableValue
         const scales = getScales(canvasConfig)
-        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(qsCanvasConfig)
 
         const canvas: Canvas = {
           canvasGroup: qsCanvas.canvasGroup,
@@ -144,8 +172,10 @@ describe('orthogonal Bars calculatedData', () => {
 
         canvasConfig.highestViewableValue = highestViewableValue
         canvasConfig.lowestViewableValue = lowestViewableValue
+        qsCanvasConfig.highestViewableValue = highestViewableValue
+        qsCanvasConfig.lowestViewableValue = lowestViewableValue
         const scales = getScales(canvasConfig)
-        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(qsCanvasConfig)
 
         const canvas: Canvas = {
           canvasGroup: qsCanvas.canvasGroup,
@@ -205,8 +235,10 @@ describe('orthogonal Bars calculatedData', () => {
 
         canvasConfig.highestViewableValue = highestViewableValue
         canvasConfig.lowestViewableValue = lowestViewableValue
+        qsCanvasConfig.highestViewableValue = highestViewableValue
+        qsCanvasConfig.lowestViewableValue = lowestViewableValue
         const scales = getScales(canvasConfig)
-        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(qsCanvasConfig)
 
         const canvas: Canvas = {
           canvasGroup: qsCanvas.canvasGroup,
@@ -267,8 +299,10 @@ describe('orthogonal Bars calculatedData', () => {
 
         canvasConfig.highestViewableValue = highestViewableValue
         canvasConfig.lowestViewableValue = lowestViewableValue
+        qsCanvasConfig.highestViewableValue = highestViewableValue
+        qsCanvasConfig.lowestViewableValue = lowestViewableValue
         const scales = getScales(canvasConfig)
-        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(qsCanvasConfig)
 
         const canvas: Canvas = {
           canvasGroup: qsCanvas.canvasGroup,

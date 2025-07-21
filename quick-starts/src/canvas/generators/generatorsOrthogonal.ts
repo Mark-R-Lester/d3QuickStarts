@@ -43,24 +43,6 @@ import {
   QsPointsConfig,
 } from '../../orthogonal/orthogonalPoints/qsTypes'
 import { orthogonalText } from '../../orthogonal/orthogonalText/text'
-import { plottedLine } from '../../plots/plottedLine/plottedLine'
-import {
-  QsLinePlot,
-  QsPlottedLineConfig,
-  QsPlottedLineData,
-} from '../../plots/plottedLine/qsTypes'
-import { plottedPoint } from '../../plots/plottedPoints/plottedPoints'
-import {
-  QsPlottedPoints,
-  QsPlottedPointsConfig,
-  QsPlottedPointsData,
-} from '../../plots/plottedPoints/qsTypes'
-import { plottedText } from '../../plots/plottedText/plottedText'
-import {
-  QsPlottedText,
-  QsPlottedTextData,
-  QsPlottedTextConfig,
-} from '../../plots/plottedText/qsTypes'
 import {
   QsRadial,
   QsRadialArcConfig,
@@ -166,15 +148,6 @@ interface UnboundElementFunctions {
   text: (data: QsUnboundTextData[], customConfig?: QsUnboundTextConfig) => {}
 }
 
-interface PlottedElementFunctions {
-  line: (data: QsPlottedLineData, customConfig?: QsPlottedLineConfig) => {}
-  text: (data: QsPlottedTextData[], customConfig?: QsPlottedTextConfig) => {}
-  points: (
-    data: QsPlottedPointsData[],
-    customConfig?: QsPlottedPointsConfig
-  ) => {}
-}
-
 interface RadialArcTextElementFunctions {
   follow: (
     data: QsValuedText[],
@@ -224,7 +197,6 @@ export interface QsGenerator {
   orthogonal: orthogonalElementFunctions
   radialArc: RadialArcElementFunctions
   radialCentroid: RadialCentroidElementFunctions
-  plotted: PlottedElementFunctions
   unbound: UnboundElementFunctions
 }
 
@@ -347,32 +319,6 @@ export const getGenerators = (canvas: Canvas): QsGenerator => {
             return element
           },
         },
-      },
-    },
-    plotted: {
-      line: (
-        data: QsPlottedLineData,
-        customConfig?: QsPlottedLineConfig
-      ): QsLinePlot => {
-        const element = plottedLine.line(canvas, data, customConfig)
-        elements.push({ element, data })
-        return element
-      },
-      text: (
-        data: QsPlottedTextData[],
-        customConfig?: QsPlottedTextConfig
-      ): QsPlottedText => {
-        const element = plottedText.text(canvas, data, customConfig)
-        elements.push({ element, data })
-        return element
-      },
-      points: (
-        data: QsPlottedPointsData[],
-        customConfig?: QsPlottedPointsConfig
-      ): QsPlottedPoints => {
-        const element = plottedPoint.points(canvas, data, customConfig)
-        elements.push({ element, data })
-        return element
       },
     },
     unbound: {

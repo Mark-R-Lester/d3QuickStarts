@@ -18,6 +18,10 @@ let canvasConfig: CanvasConfig = {
   displayAreaWidth: 100,
   fillColor: 'none',
   borderWidth: 2,
+  highestViewableValueY: 100,
+  lowestViewableValueY: 0,
+  highestViewableValueX: 100,
+  lowestViewableValueX: 0,
 }
 
 beforeEach(() => {
@@ -38,6 +42,10 @@ beforeEach(() => {
     displayAreaWidth: 100,
     fillColor: 'none',
     borderWidth: 2,
+    highestViewableValueY: 100,
+    lowestViewableValueY: 0,
+    highestViewableValueX: 100,
+    lowestViewableValueX: 0,
   }
 })
 
@@ -453,56 +461,56 @@ describe('getScales', () => {
 
   describe('xDataScalePlotted', () => {
     test.each`
-      valueToScale | scaledValue           | displayAreaHeight | displayAreaWidth | lowestViewableValue | highestViewableValue
-      ${25}        | ${25}                 | ${100}            | ${100}           | ${0}                | ${100}
-      ${25}        | ${12.5}               | ${100}            | ${100}           | ${0}                | ${200}
-      ${25}        | ${50}                 | ${100}            | ${100}           | ${0}                | ${50}
-      ${25}        | ${16.666666666666664} | ${100}            | ${100}           | ${10}               | ${100}
-      ${25}        | ${0}                  | ${100}            | ${100}           | ${25}               | ${100}
+      valueToScale | scaledValue           | displayAreaHeight | displayAreaWidth | lowestViewableValueX | highestViewableValueX
+      ${25}        | ${25}                 | ${100}            | ${100}           | ${0}                 | ${100}
+      ${25}        | ${12.5}               | ${100}            | ${100}           | ${0}                 | ${200}
+      ${25}        | ${50}                 | ${100}            | ${100}           | ${0}                 | ${50}
+      ${25}        | ${16.666666666666664} | ${100}            | ${100}           | ${10}                | ${100}
+      ${25}        | ${0}                  | ${100}            | ${100}           | ${25}                | ${100}
     `(
       `xDataScalePlotted is affected by changes to lowestViewableValue, highestViewableValue
-      when the lowestViewableValue is $lowestViewableValue and the highestViewableValue is $highestViewableValue
+      when the lowestViewableValueX is $lowestViewableValueX and the highestViewableValueX is $highestViewableValueX
       valueToScale is $valueToScaleis the scaledValue should be $scaledValue`,
       ({
         valueToScale,
         scaledValue,
         displayAreaWidth,
         displayAreaHeight,
-        lowestViewableValue,
-        highestViewableValue,
+        lowestViewableValueX,
+        highestViewableValueX,
       }) => {
         canvasConfig.displayAreaHeight = displayAreaHeight
         canvasConfig.displayAreaWidth = displayAreaWidth
-        canvasConfig.lowestViewableValue = lowestViewableValue
-        canvasConfig.highestViewableValue = highestViewableValue
+        canvasConfig.lowestViewableValueX = lowestViewableValueX
+        canvasConfig.highestViewableValueX = highestViewableValueX
         const scales = getScales(canvasConfig)
         expect(scales.xDataScalePlotted(valueToScale)).toEqual(scaledValue)
       }
     )
 
     test.each`
-      valueToScale | scaledValue | displayAreaHeight | displayAreaWidth | lowestViewableValue | highestViewableValue
-      ${25}        | ${25}       | ${100}            | ${100}           | ${0}                | ${100}
-      ${25}        | ${25}       | ${100}            | ${200}           | ${0}                | ${100}
-      ${25}        | ${25}       | ${200}            | ${100}           | ${0}                | ${100}
-      ${25}        | ${50}       | ${200}            | ${400}           | ${0}                | ${100}
-      ${25}        | ${50}       | ${400}            | ${200}           | ${0}                | ${100}
+      valueToScale | scaledValue | displayAreaHeight | displayAreaWidth | lowestViewableValueX | highestViewableValueX
+      ${25}        | ${25}       | ${100}            | ${100}           | ${0}                 | ${100}
+      ${25}        | ${50}       | ${100}            | ${200}           | ${0}                 | ${100}
+      ${25}        | ${25}       | ${200}            | ${100}           | ${0}                 | ${100}
+      ${25}        | ${100}      | ${200}            | ${400}           | ${0}                 | ${100}
+      ${25}        | ${50}       | ${400}            | ${200}           | ${0}                 | ${100}
     `(
       `xDataScalePlotted is affected by changes to the value of displayAreaHeight or displayAreaWidth
-    when the lowestViewableValue is $lowestViewableValue and the highestViewableValue is $highestViewableValue
+    when the lowestViewableValueX is $lowestViewableValueX and the highestViewableValueX is $highestViewableValueX
     valueToScale is $valueToScaleis the scaledValue should be $scaledValue`,
       ({
         valueToScale,
         scaledValue,
         displayAreaWidth,
         displayAreaHeight,
-        lowestViewableValue,
-        highestViewableValue,
+        lowestViewableValueX,
+        highestViewableValueX,
       }) => {
         canvasConfig.displayAreaHeight = displayAreaHeight
         canvasConfig.displayAreaWidth = displayAreaWidth
-        canvasConfig.lowestViewableValue = lowestViewableValue
-        canvasConfig.highestViewableValue = highestViewableValue
+        canvasConfig.lowestViewableValueX = lowestViewableValueX
+        canvasConfig.highestViewableValueX = highestViewableValueX
         const scales = getScales(canvasConfig)
         expect(scales.xDataScalePlotted(valueToScale)).toEqual(scaledValue)
       }
@@ -511,56 +519,56 @@ describe('getScales', () => {
 
   describe('yDataScalePlotted', () => {
     test.each`
-      valueToScale | scaledValue          | displayAreaHeight | displayAreaWidth | lowestViewableValue | highestViewableValue
-      ${25}        | ${75}                | ${100}            | ${100}           | ${0}                | ${100}
-      ${25}        | ${87.5}              | ${100}            | ${100}           | ${0}                | ${200}
-      ${25}        | ${50}                | ${100}            | ${100}           | ${0}                | ${50}
-      ${25}        | ${83.33333333333334} | ${100}            | ${100}           | ${10}               | ${100}
-      ${25}        | ${100}               | ${100}            | ${100}           | ${25}               | ${100}
+      valueToScale | scaledValue          | displayAreaHeight | displayAreaWidth | lowestViewableValueY | highestViewableValueY
+      ${25}        | ${75}                | ${100}            | ${100}           | ${0}                 | ${100}
+      ${25}        | ${87.5}              | ${100}            | ${100}           | ${0}                 | ${200}
+      ${25}        | ${50}                | ${100}            | ${100}           | ${0}                 | ${50}
+      ${25}        | ${83.33333333333334} | ${100}            | ${100}           | ${10}                | ${100}
+      ${25}        | ${100}               | ${100}            | ${100}           | ${25}                | ${100}
     `(
       `yDataScalePlotted is affected by changes to lowestViewableValue, highestViewableValue
-      when the lowestViewableValue is $lowestViewableValue and the highestViewableValue is $highestViewableValue
+      when the lowestViewableValueY is $lowestViewableValueY and the highestViewableValueY is $highestViewableValueY
       valueToScale is $valueToScaleis the scaledValue should be $scaledValue`,
       ({
         valueToScale,
         scaledValue,
         displayAreaWidth,
         displayAreaHeight,
-        lowestViewableValue,
-        highestViewableValue,
+        lowestViewableValueY,
+        highestViewableValueY,
       }) => {
         canvasConfig.displayAreaHeight = displayAreaHeight
         canvasConfig.displayAreaWidth = displayAreaWidth
-        canvasConfig.lowestViewableValue = lowestViewableValue
-        canvasConfig.highestViewableValue = highestViewableValue
+        canvasConfig.lowestViewableValueY = lowestViewableValueY
+        canvasConfig.highestViewableValueY = highestViewableValueY
         const scales = getScales(canvasConfig)
         expect(scales.yDataScalePlotted(valueToScale)).toEqual(scaledValue)
       }
     )
 
     test.each`
-      valueToScale | scaledValue | displayAreaHeight | displayAreaWidth | lowestViewableValue | highestViewableValue
-      ${25}        | ${75}       | ${100}            | ${100}           | ${0}                | ${100}
-      ${25}        | ${75}       | ${100}            | ${200}           | ${0}                | ${100}
-      ${25}        | ${75}       | ${200}            | ${100}           | ${0}                | ${100}
-      ${25}        | ${150}      | ${200}            | ${400}           | ${0}                | ${100}
-      ${25}        | ${150}      | ${400}            | ${200}           | ${0}                | ${100}
+      valueToScale | scaledValue | displayAreaHeight | displayAreaWidth | lowestViewableValueY | highestViewableValueY
+      ${25}        | ${75}       | ${100}            | ${100}           | ${0}                 | ${100}
+      ${25}        | ${75}       | ${100}            | ${200}           | ${0}                 | ${100}
+      ${25}        | ${150}      | ${200}            | ${100}           | ${0}                 | ${100}
+      ${25}        | ${150}      | ${200}            | ${400}           | ${0}                 | ${100}
+      ${25}        | ${300}      | ${400}            | ${200}           | ${0}                 | ${100}
     `(
       `yDataScalePlotted is affected by changes to the value of displayAreaHeight or displayAreaWidth
-      when the lowestViewableValue is $lowestViewableValue and the highestViewableValue is $highestViewableValue
+      when the lowestViewableValueY is $lowestViewableValueY and the highestViewableValueY is $highestViewableValueY
       valueToScale is $valueToScaleis the scaledValue should be $scaledValue`,
       ({
         valueToScale,
         scaledValue,
         displayAreaWidth,
         displayAreaHeight,
-        lowestViewableValue,
-        highestViewableValue,
+        lowestViewableValueY,
+        highestViewableValueY,
       }) => {
         canvasConfig.displayAreaHeight = displayAreaHeight
         canvasConfig.displayAreaWidth = displayAreaWidth
-        canvasConfig.lowestViewableValue = lowestViewableValue
-        canvasConfig.highestViewableValue = highestViewableValue
+        canvasConfig.lowestViewableValueY = lowestViewableValueY
+        canvasConfig.highestViewableValueY = highestViewableValueY
         const scales = getScales(canvasConfig)
         expect(scales.yDataScalePlotted(valueToScale)).toEqual(scaledValue)
       }

@@ -66,6 +66,7 @@ export const getCalculatedData = (
     lowestViewableValue,
     highestViewableValue,
   } = canvas.config
+  console.log('--------canvasConfig calc', canvas.config)
   const { xDataScale, yDataScaleInverted, genralPercentScale } = canvas.scales
   const calculatedData: CalculatedData[] = []
 

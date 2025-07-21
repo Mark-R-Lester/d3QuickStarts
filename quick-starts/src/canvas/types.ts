@@ -1,10 +1,10 @@
 import { Selection } from 'd3'
 import { ConfigGetters } from '../core/config/configStore.class'
 import { CanvasScales } from '../core/scales/getScales'
-import { QSDataScale } from '../core/types/qsTypes'
+import { QsDataScale } from '../core/types/qsTypes'
 
 export interface CanvasConfig {
-  [key: string]: string | number | undefined | QSDataScale
+  [key: string]: string | number | undefined | QsDataScale
   ry: number
   rx: number
   chartName: string
@@ -14,16 +14,20 @@ export interface CanvasConfig {
   marginLeft: number
   marginTop: number
   marginBottom: number
-  highestViewableValue: number
-  lowestViewableValue: number
-  highestViewableValuePlottedX?: number
-  lowestViewableValuePlottedX?: number
   borderColor: string
   borderWidth: number
   fillColor: string
   displayAreaHeight: number
   displayAreaWidth: number
-  dataScale?: QSDataScale
+  highestViewableValueY: number
+  lowestViewableValueY: number
+  highestViewableValueX: number
+  lowestViewableValueX: number
+  highestViewableValue: number
+  lowestViewableValue: number
+  dataScale?: QsDataScale
+  dataScaleX?: QsDataScale
+  dataScaleY?: QsDataScale
 }
 
 export interface ElementWithData {

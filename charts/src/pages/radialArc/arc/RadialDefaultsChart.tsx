@@ -4,9 +4,9 @@ import {
   qsCreateCanvas,
   QsRadialData,
 } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const RadialDefaultsChart: FunctionComponent<ChartProps> = ({
+export const RadialDefaultsChart: FunctionComponent<ChartPropsOthogonal> = ({
   canvasProps,
 }) => {
   useEffect(() => {

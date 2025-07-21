@@ -1,10 +1,10 @@
 import { FunctionComponent, useEffect } from 'react'
 import { QsCanvasOrthogonal, qsCreateCanvas } from 'd3qs/d3QuickStart'
-import { ChartProps } from '../../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const RadialLineDefaultsChart: FunctionComponent<ChartProps> = ({
-  canvasProps,
-}) => {
+export const RadialLineDefaultsChart: FunctionComponent<
+  ChartPropsOthogonal
+> = ({ canvasProps }) => {
   useEffect(() => {
     const createChart = () => {
       const data: number[] = [

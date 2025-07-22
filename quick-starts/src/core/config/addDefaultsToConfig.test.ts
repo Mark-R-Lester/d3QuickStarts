@@ -12,8 +12,8 @@ describe('addDefaultsToConfig', () => {
   // Define constants for test inputs
   const defaultConfig: LineConfig = {
     useDataArea: true,
-    scaleType: QsEnumScaleType.orthogonal,
-    curve: QsEnumCurve.orthogonal,
+    scaleType: QsEnumScaleType.LINEAR,
+    curve: QsEnumCurve.LINEAR,
     defaultStrokeColor: 'black',
     defaultStrokeWidth: 1,
     defaultStrokeOpacity: 1,
@@ -33,7 +33,7 @@ describe('addDefaultsToConfig', () => {
 
   const customConfigWithOpacityAndorthogonalScale: QsLineConfig = {
     defaultStrokeOpacity: 0.8,
-    scaleType: QsEnumScaleType.orthogonal,
+    scaleType: QsEnumScaleType.LINEAR,
   }
 
   const storeConfigWithCustomProperty: QsLineConfig = {
@@ -45,7 +45,7 @@ describe('addDefaultsToConfig', () => {
   }
 
   const storeConfigWithorthogonalScaleAndWidth: QsLineConfig = {
-    scaleType: QsEnumScaleType.orthogonal,
+    scaleType: QsEnumScaleType.LINEAR,
     defaultStrokeWidth: 2,
   }
 
@@ -68,7 +68,7 @@ describe('addDefaultsToConfig', () => {
 
   const expectedWithOnlyStoreConfig: LineConfig = {
     useDataArea: true,
-    scaleType: QsEnumScaleType.orthogonal,
+    scaleType: QsEnumScaleType.LINEAR,
     curve: QsEnumCurve.NATURAL,
     defaultStrokeColor: 'black',
     defaultStrokeWidth: 2,
@@ -79,8 +79,8 @@ describe('addDefaultsToConfig', () => {
 
   const expectedWithOnlyCustomConfig: LineConfig = {
     useDataArea: true,
-    scaleType: QsEnumScaleType.orthogonal,
-    curve: QsEnumCurve.orthogonal,
+    scaleType: QsEnumScaleType.LINEAR,
+    curve: QsEnumCurve.LINEAR,
     defaultStrokeColor: 'black',
     defaultStrokeWidth: 1,
     defaultStrokeOpacity: 0.8,
@@ -100,7 +100,7 @@ describe('addDefaultsToConfig', () => {
   const expectedWithCustomConfigOverride: LineConfig = {
     useDataArea: true,
     scaleType: QsEnumScaleType.BANDED,
-    curve: QsEnumCurve.orthogonal,
+    curve: QsEnumCurve.LINEAR,
     defaultStrokeColor: 'black',
     defaultStrokeWidth: 3,
     defaultStrokeOpacity: 1,

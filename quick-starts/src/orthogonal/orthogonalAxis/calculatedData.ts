@@ -103,7 +103,7 @@ export const getCalculatedData = (
           ? [0, displayAreaWidth]
           : [displayAreaHeight, 0]
 
-      if (domainScale === QsEnumAxisScaleType.orthogonal)
+      if (domainScale === QsEnumAxisScaleType.LINEAR)
         if (highestViewableValueX)
           return chartEdge === (ChartEdge.BOTTOM || ChartEdge.TOP)
             ? xDataScalePlotted

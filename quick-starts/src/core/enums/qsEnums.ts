@@ -7,7 +7,7 @@ export enum QsEnumCurve {
   BASIS = 'basis',
   BUMP_X = 'bunpX',
   BUMP_Y = 'bumpY',
-  orthogonal = 'orthogonal',
+  LINEAR = 'linear',
   MONOTONE_X = 'monotoneX',
   MONOTONE_Y = 'MonotoneY',
   NATURAL = 'natural',
@@ -62,7 +62,7 @@ export enum QsEnumTextDecorationLine {
 }
 
 export enum QsEnumDataScale {
-  orthogonal = 'orthogonal',
+  LINEAR = 'linear',
   POWER = 'pow',
   SYMLOG = 'symlog',
   SQRT = 'sqrt',
@@ -112,12 +112,12 @@ export enum QsEnumLineCap {
 
 export enum QsEnumScaleType {
   BANDED = 'banded',
-  orthogonal = 'orthogonal',
+  LINEAR = 'linear',
 }
 
 export enum QsEnumAxisScaleType {
   BANDED = 'banded',
-  orthogonal = 'orthogonal',
+  LINEAR = 'linear',
   POINT = 'point',
 }
 

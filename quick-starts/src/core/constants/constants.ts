@@ -16,7 +16,7 @@ export const constantsCurves = {
   [QsEnumCurve.BASIS]: curveBasis,
   [QsEnumCurve.BUMP_X]: curveBumpX,
   [QsEnumCurve.BUMP_Y]: curveBumpY,
-  [QsEnumCurve.orthogonal]: curveLinear,
+  [QsEnumCurve.LINEAR]: curveLinear,
   [QsEnumCurve.MONOTONE_X]: curveMonotoneX,
   [QsEnumCurve.MONOTONE_Y]: curveMonotoneY,
   [QsEnumCurve.NATURAL]: curveNatural,

@@ -68,7 +68,7 @@ export const legendConfig: QsLegendConfig = {
 }
 
 export const orthogonalAreaConfig: QsAreaConfig = {
-  curve: QsEnumCurve.orthogonal,
+  curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
   defaultFillColor: GlobalDefaultColors.AREA_FILL_COLOR,
@@ -83,7 +83,7 @@ const orthogonalAxisConfigBase: QsAxisConfig = {
   domainColor: GlobalDefaultColors.AXIS_COLOR,
   domainOpacity: 1,
   domainWidth: 2,
-  domainScale: QsEnumAxisScaleType.orthogonal,
+  domainScale: QsEnumAxisScaleType.LINEAR,
   tickColor: GlobalDefaultColors.AXIS_COLOR,
   tickOpacity: 1,
   tickWidth: 2,
@@ -149,8 +149,8 @@ export const orthogonalBarStackConfig: QsBarStackedConfig = {
 }
 
 export const orthogonalLineConfig: QsLineConfig = {
-  scaleType: QsEnumScaleType.orthogonal,
-  curve: QsEnumCurve.orthogonal,
+  scaleType: QsEnumScaleType.LINEAR,
+  curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
   defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
@@ -159,7 +159,7 @@ export const orthogonalLineConfig: QsLineConfig = {
 }
 
 export const orthogonalPointsConfig: QsPointsConfig = {
-  scaleType: QsEnumScaleType.orthogonal,
+  scaleType: QsEnumScaleType.LINEAR,
   defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
   defaultFillColor: GlobalDefaultColors.POINT_FILL,
   defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
@@ -171,7 +171,7 @@ export const orthogonalPointsConfig: QsPointsConfig = {
 }
 
 export const orthogonalTextConfig: QsTextConfig = {
-  scaleType: QsEnumScaleType.orthogonal,
+  scaleType: QsEnumScaleType.LINEAR,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
   defaultTextFont: QsEnumTextFont.SERIF,
   defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
@@ -186,7 +186,7 @@ export const orthogonalTextConfig: QsTextConfig = {
 }
 
 export const plottedLineConfig: QsPlottedLineConfig = {
-  curve: QsEnumCurve.orthogonal,
+  curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
   defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,
@@ -271,7 +271,7 @@ export const radialArcTextConfigFollow: QsRadialArcTextConfig = {
 }
 
 export const radialCentroidAreaConfig: QsRadialAreaConfig = {
-  curve: QsEnumCurve.orthogonal,
+  curve: QsEnumCurve.LINEAR,
   x: 50,
   y: 50,
   strokeLineJoin: QsEnumLineJoin.ROUND,
@@ -304,7 +304,7 @@ export const radialCentroidAxisConfig: QsRadialAxisConfig = {
 }
 
 export const radialCentroidLineConfig: QsRadialLineConfig = {
-  curve: QsEnumCurve.orthogonal,
+  curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
   defaultStrokeColor: GlobalDefaultColors.LINE_COLOR,

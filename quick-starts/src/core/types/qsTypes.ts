@@ -18,7 +18,7 @@ export interface QsTransitionArgs {
 export type QsDataScale =
   | {
       scale:
-        | QsEnumDataScale.orthogonal
+        | QsEnumDataScale.LINEAR
         | QsEnumDataScale.SQRT
         | QsEnumDataScale.SYMLOG
     }

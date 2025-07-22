@@ -1,6 +1,6 @@
 import { Selection } from 'd3'
 import { RadialArcConfig } from './types'
-import { QsTransitionArgs } from '../../d3QuickStart'
+import { QsTransitionArgs } from '../../core/types/qsTypes'
 
 export type QsRadialArcConfig = Partial<RadialArcConfig>
 

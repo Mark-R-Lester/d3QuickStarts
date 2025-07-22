@@ -1,6 +1,6 @@
 import { Canvas } from '../../canvas/types'
+import { QsCoordinate } from '../../core/types/qsTypes'
 import { TextData } from '../../core/types/types'
-import { QsCoordinate } from '../../d3QuickStart'
 import { QsUnboundTextData } from './qsTypes'
 import { UnboundTextConfig } from './types'
 

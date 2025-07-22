@@ -138,8 +138,8 @@ export const defaultsContent: JSX.Element = (
               canvasProps={{
                 chartName: 'chartH',
                 width: 600,
-                lowestViewableValue: 9,
-                highestViewableValue: 156,
+                lowestViewableValue: 0,
+                highestViewableValue: 190,
                 dataScale: { scale: QsEnumDataScale.LINEAR },
               }}
             />,

@@ -94,7 +94,7 @@ describe('Gradient Functions Testing', () => {
         expect(canvasMock.canvasSVG.append).toHaveBeenCalled()
         const appendCalls = canvasMock.canvasSVG.getAppendCalls()
         expect(appendCalls).toContainEqual({ type: 'defs' })
-        expect(appendCalls).toContainEqual({ type: 'orthogonalGradient' })
+        expect(appendCalls).toContainEqual({ type: 'linearGradient' })
         expect(appendCalls.filter((call) => call.type === 'stop').length).toBe(
           colorStops.length
         )
@@ -144,7 +144,7 @@ describe('Gradient Functions Testing', () => {
         expect(result).toBe(expectedId)
         const appendCalls = canvasMock.canvasSVG.getAppendCalls()
         expect(appendCalls).toContainEqual({ type: 'defs' })
-        expect(appendCalls).toContainEqual({ type: 'orthogonalGradient' })
+        expect(appendCalls).toContainEqual({ type: 'linearGradient' })
         expect(appendCalls.filter((call) => call.type === 'stop').length).toBe(
           colors.length
         )

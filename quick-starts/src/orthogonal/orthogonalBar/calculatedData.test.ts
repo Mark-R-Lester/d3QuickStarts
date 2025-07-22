@@ -8,18 +8,14 @@ import {
 import { getCalculatedData } from './calculatedData'
 import { QsBarData } from './qsTypes'
 import { BarConfig } from './types'
-import { JSDOM } from 'jsdom'
 import { ConfigStoreManager } from '../../core/config/configStore.class'
 import { getScales } from '../../core/scales/getScales'
-import { qsCreateCanvas } from '../../canvas/canvas'
+import { createMockQsCanvasOthogonal } from '../../canvas/__mocks__/canvas'
 import { Canvas } from '../../canvas/types'
 import {
   QsCanvasConfigOrthogonal,
   QsCanvasOrthogonal,
 } from '../../canvas/qsTypes'
-
-const dom = new JSDOM()
-global.document = dom.window.document
 
 describe('orthogonal Bars calculatedData', () => {
   const config: BarConfig = {
@@ -111,7 +107,8 @@ describe('orthogonal Bars calculatedData', () => {
         qsCanvasConfig.highestViewableValue = highestViewableValue
         qsCanvasConfig.lowestViewableValue = lowestViewableValue
         const scales = getScales(canvasConfig)
-        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(qsCanvasConfig)
+        const qsCanvas: QsCanvasOrthogonal =
+          createMockQsCanvasOthogonal(canvasConfig)
 
         const canvas: Canvas = {
           canvasGroup: qsCanvas.canvasGroup,
@@ -175,7 +172,8 @@ describe('orthogonal Bars calculatedData', () => {
         qsCanvasConfig.highestViewableValue = highestViewableValue
         qsCanvasConfig.lowestViewableValue = lowestViewableValue
         const scales = getScales(canvasConfig)
-        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(qsCanvasConfig)
+        const qsCanvas: QsCanvasOrthogonal =
+          createMockQsCanvasOthogonal(canvasConfig)
 
         const canvas: Canvas = {
           canvasGroup: qsCanvas.canvasGroup,
@@ -238,7 +236,8 @@ describe('orthogonal Bars calculatedData', () => {
         qsCanvasConfig.highestViewableValue = highestViewableValue
         qsCanvasConfig.lowestViewableValue = lowestViewableValue
         const scales = getScales(canvasConfig)
-        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(qsCanvasConfig)
+        const qsCanvas: QsCanvasOrthogonal =
+          createMockQsCanvasOthogonal(canvasConfig)
 
         const canvas: Canvas = {
           canvasGroup: qsCanvas.canvasGroup,
@@ -302,7 +301,8 @@ describe('orthogonal Bars calculatedData', () => {
         qsCanvasConfig.highestViewableValue = highestViewableValue
         qsCanvasConfig.lowestViewableValue = lowestViewableValue
         const scales = getScales(canvasConfig)
-        const qsCanvas: QsCanvasOrthogonal = qsCreateCanvas(qsCanvasConfig)
+        const qsCanvas: QsCanvasOrthogonal =
+          createMockQsCanvasOthogonal(canvasConfig)
 
         const canvas: Canvas = {
           canvasGroup: qsCanvas.canvasGroup,

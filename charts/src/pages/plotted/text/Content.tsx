@@ -12,6 +12,7 @@ import {
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { PlottedTextChart } from './PlottedTextChart'
 import { PlottedTextDefaultsChart } from './PlottedTextDefaultsChart'
+import { QsEnumDataScale, QsEnumScaleType } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
@@ -135,8 +136,9 @@ export const defaultsContent: JSX.Element = (
               canvasProps={{
                 chartName: 'chartH',
                 width: 600,
-                highestViewableValueX: 100,
+                highestViewableValueX: 200,
                 highestViewableValueY: 100,
+                dataScaleY: { scale: QsEnumDataScale.LINEAR },
               }}
             />,
           ]}

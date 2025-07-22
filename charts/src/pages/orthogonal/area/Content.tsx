@@ -93,7 +93,7 @@ const dataExample: string = `const data: QsAreaData = {
 }`
 
 const configExample: string = `const config: QsAreaConfig = {
-  curve: QsEnumCurve.orthogonal,
+  curve: QsEnumCurve.LINEAR,
   defaultFillColor: 'blue',
   defaultFillOpacity: 1,
   defaultStrokeColor: 'blue',
@@ -140,7 +140,7 @@ export const defaultsContent: JSX.Element = (
                 width: 600,
                 lowestViewableValue: 9,
                 highestViewableValue: 156,
-                dataScale: { scale: QsEnumDataScale.orthogonal },
+                dataScale: { scale: QsEnumDataScale.LINEAR },
               }}
             />,
           ]}

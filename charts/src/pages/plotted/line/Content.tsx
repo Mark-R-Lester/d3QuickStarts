@@ -53,7 +53,7 @@ const data: QsPlottedLineData = {
 const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
 
 canvas.generate.plotted.line(data, {
-  curve: QsEnumCurve.orthogonal,
+  curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.BEVEL,
   strokeLineCap: QsEnumLineCap.ROUND,
 })

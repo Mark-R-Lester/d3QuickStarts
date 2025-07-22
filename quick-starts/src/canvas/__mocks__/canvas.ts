@@ -55,20 +55,24 @@ export const createMockCanvas = (config: QsCanvasConfig): Canvas => ({
   elements: [],
 })
 
-export const createMockQsCanvasOthogonal = (): QsCanvasOrthogonal => ({
+export const createMockQsCanvasOthogonal = (
+  config: CanvasConfig = canvasConfig()
+): QsCanvasOrthogonal => ({
   canvasSVG: createMockSelection<SVGSVGElement>(),
   canvasGroup: createMockSelection<SVGGElement>(),
   canvasDataGroup: createMockSelection<SVGGElement>(),
-  config: canvasConfig(),
+  config: config,
   generate: getOrthogonalGenerators(),
   configStore: createMockConfigStore().setters,
 })
 
-export const createMockQsCanvasPlotted = (): QsCanvasPlotted => ({
+export const createMockQsCanvasPlotted = (
+  config: CanvasConfig = canvasConfig()
+): QsCanvasPlotted => ({
   canvasSVG: createMockSelection<SVGSVGElement>(),
   canvasGroup: createMockSelection<SVGGElement>(),
   canvasDataGroup: createMockSelection<SVGGElement>(),
-  config: canvasConfig(),
+  config: config,
   generate: getPlottedGenerators(),
   configStore: createMockConfigStore().setters,
 })

@@ -4,7 +4,7 @@ import {
   scaleSymlog,
   scaleSqrt,
   ScaleContinuousNumeric,
-} from 'd3-scale'
+} from 'd3'
 import { QsDataScale } from '../types/qsTypes'
 import { QsEnumDataScale } from '../enums/qsEnums'
 import { CanvasConfig } from '../../canvas/types'

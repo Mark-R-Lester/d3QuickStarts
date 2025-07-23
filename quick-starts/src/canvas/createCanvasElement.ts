@@ -8,7 +8,7 @@ export interface CanvasElements {
   canvasDataGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
 }
 
-export const createCanvaElements = (config: CanvasConfig): CanvasElements => {
+export const createCanvasElements = (config: CanvasConfig): CanvasElements => {
   const { className: classCanvasSVG, dotClassName: dotClassCanvasSVG } =
     generateClassName('canvasSVG')
   const { className: classCanvasRect, dotClassName: dotClassCanvasRect } =

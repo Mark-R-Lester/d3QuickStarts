@@ -193,14 +193,14 @@ interface RadialCentroidElementFunctions {
   ) => QsRadialText
 }
 
-export interface QsGenerator {
+export interface QsGeneratorOrthogonal {
   orthogonal: orthogonalElementFunctions
   radialArc: RadialArcElementFunctions
   radialCentroid: RadialCentroidElementFunctions
   unbound: UnboundElementFunctions
 }
 
-export const getGenerators = (canvas: Canvas): QsGenerator => {
+export const getGenerators = (canvas: Canvas): QsGeneratorOrthogonal => {
   const { elements } = canvas
 
   return {

@@ -19,7 +19,7 @@ import { radialText } from '../../radialCentroid/radialCentroidText/radialCentro
 
 import { qsCreateCanvasOrthogonal } from '../canvas'
 import { QsCanvasOrthogonal } from '../qsTypes'
-import { QsGenerator } from '../generators/generatorsOrthogonal'
+import { QsGeneratorOrthogonal } from '../generators/generatorsOrthogonal'
 
 // Test-scoped elements array
 let testElements: any[] = []
@@ -57,7 +57,7 @@ jest.mock('../../radialCentroid/radialCentroidText/radialCentroidText')
 
 describe('getGenerators', () => {
   let canvas: QsCanvasOrthogonal
-  let generators: QsGenerator
+  let generators: QsGeneratorOrthogonal
 
   beforeEach(() => {
     testElements = [] // Reset elements for each test

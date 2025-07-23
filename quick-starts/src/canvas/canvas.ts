@@ -1,7 +1,7 @@
 import { canvasConfig } from '../core/config/configDefaults'
 import { ConfigStoreManager } from '../core/config/configStore.class'
 import {
-  QsGenerator,
+  QsGeneratorOrthogonal,
   getGenerators as getOrthogonalGenerators,
 } from './generators/generatorsOrthogonal'
 import {
@@ -18,7 +18,7 @@ import {
   QsCanvasPlotted,
 } from './qsTypes'
 import { scaleMarginsAndDisplayArea } from './scaleMarginsAndDisplayArea'
-import { createCanvaElements } from './createCanvasElement'
+import { createCanvasElements } from './createCanvasElement'
 
 const addDefaultsToConfig = (customConfig?: QsCanvasConfig): CanvasConfig => {
   const defaults: CanvasConfig = { ...canvasConfig }
@@ -33,21 +33,19 @@ const addDefaultsToConfig = (customConfig?: QsCanvasConfig): CanvasConfig => {
   return defaults
 }
 
-export const qsCreateCanvasOrthogonal = (
-  customConfig?: QsCanvasConfigOrthogonal
-): QsCanvasOrthogonal => {
-  const config: CanvasConfig = addDefaultsToConfig(customConfig)
-
+const createCanvas = <T extends QsGeneratorOrthogonal | QsGeneratorPlotted>(
+  generatorFunction: (arg0: Canvas) => T,
+  customConfig?: QsCanvasConfig
+) => {
+  const config = addDefaultsToConfig(customConfig)
   const element = document.getElementById(config.chartName)
   if (element) element.innerHTML = ''
 
   const adjustedConfig = scaleMarginsAndDisplayArea(config)
   const { canvasSVG, canvasGroup, canvasDataGroup } =
-    createCanvaElements(adjustedConfig)
-
+    createCanvasElements(adjustedConfig)
   const configManager = new ConfigStoreManager()
   const scales = getScales(adjustedConfig)
-  const elements: ElementWithData[] = []
 
   const canvas: Canvas = {
     canvasGroup,
@@ -55,12 +53,12 @@ export const qsCreateCanvasOrthogonal = (
     config: adjustedConfig,
     scales,
     configStore: configManager.getters,
-    elements,
+    elements: [] as ElementWithData[],
   }
-  const generate: QsGenerator = getOrthogonalGenerators(canvas)
+  const generate = generatorFunction(canvas)
 
   return {
-    canvasSVG: canvasSVG,
+    canvasSVG,
     canvasGroup,
     canvasDataGroup,
     config: adjustedConfig,
@@ -69,38 +67,17 @@ export const qsCreateCanvasOrthogonal = (
   }
 }
 
+export const qsCreateCanvasOrthogonal = (
+  customConfig?: QsCanvasConfigOrthogonal
+): QsCanvasOrthogonal => {
+  return createCanvas<QsGeneratorOrthogonal>(
+    getOrthogonalGenerators,
+    customConfig
+  )
+}
+
 export const qsCreateCanvasPlotted = (
   customConfig?: QsCanvasConfigPlotted
 ): QsCanvasPlotted => {
-  const config: CanvasConfig = addDefaultsToConfig(customConfig)
-
-  const element = document.getElementById(config.chartName)
-  if (element) element.innerHTML = ''
-
-  const adjustedConfig = scaleMarginsAndDisplayArea(config)
-  const { canvasSVG, canvasGroup, canvasDataGroup } =
-    createCanvaElements(adjustedConfig)
-
-  const configManager = new ConfigStoreManager()
-  const scales = getScales(adjustedConfig)
-  const elements: ElementWithData[] = []
-
-  const canvas: Canvas = {
-    canvasGroup,
-    canvasDataGroup,
-    config: adjustedConfig,
-    scales,
-    configStore: configManager.getters,
-    elements,
-  }
-  const generate: QsGeneratorPlotted = getPlottedGenerators(canvas)
-
-  return {
-    canvasSVG: canvasSVG,
-    canvasGroup,
-    canvasDataGroup,
-    config: adjustedConfig,
-    generate,
-    configStore: configManager.setters,
-  }
+  return createCanvas<QsGeneratorPlotted>(getPlottedGenerators, customConfig)
 }

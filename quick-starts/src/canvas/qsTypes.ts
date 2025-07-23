@@ -1,7 +1,7 @@
 import { Selection } from 'd3'
 import { CanvasConfig } from './types'
 import { QsTransitionArgs } from '../core/types/qsTypes'
-import { QsGenerator } from './generators/generatorsOrthogonal'
+import { QsGeneratorOrthogonal } from './generators/generatorsOrthogonal'
 import { QsGeneratorPlotted } from './generators/generatorsPlotted'
 import { ConfigSetters } from '../core/config/configStore.class'
 
@@ -41,7 +41,7 @@ interface QsCanvas {
 }
 
 export interface QsCanvasOrthogonal extends QsCanvas {
-  generate: QsGenerator
+  generate: QsGeneratorOrthogonal
 }
 
 export interface QsCanvasPlotted extends QsCanvas {

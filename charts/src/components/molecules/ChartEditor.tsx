@@ -6,7 +6,7 @@ import 'ace-builds/src-noconflict/worker-javascript'
 import ace from 'ace-builds'
 import { transpile } from 'typescript'
 import {
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsEnumAxisScaleType,
   QsEnumColorScale,
   QsEnumCurve,
@@ -72,7 +72,7 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
         `return (function() { ${jsCode} })()`
       )
       func(
-        qsCreateCanvas,
+        qsCreateCanvasOrthogonal,
         QsEnumColorScale,
         QsEnumCurve,
         QsEnumAlignmentBaseline,

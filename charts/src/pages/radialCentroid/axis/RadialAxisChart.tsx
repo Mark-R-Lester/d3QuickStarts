@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsEnumTextFont,
   QsEnumTextFontWeight,
   QsEnumTextFontStyle,
@@ -18,7 +18,7 @@ export const RadialAxisChart: FunctionComponent<ChartPropsOthogonal> = ({
     const createChart = () => {
       const data: number[] = [5, 10, 15, 50]
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
       canvas.generate.radialCentroid.axis(data, {
         radius: 100,
         x: 50,

@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsAreaData,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../common/chartProps'
@@ -11,7 +11,7 @@ export const SimpleCanvasWithArea: FunctionComponent<ChartPropsOthogonal> = ({
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
       const data: QsAreaData = {
         higherData: [100, 100],
       }

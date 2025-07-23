@@ -22,9 +22,9 @@ const canvasConfig: string = `const canvasConfig = {
 `
 
 const defaultsChart: string = `
-qsCreateCanvas(canvasConfig)`
+qsCreateCanvasOrthogonal(canvasConfig)`
 
-const configChart: string = `const canvas = qsCreateCanvas(canvasConfig)
+const configChart: string = `const canvas = qsCreateCanvasOrthogonal(canvasConfig)
 const data: QsAreaData = {
   higherData: [100, 100],
 }

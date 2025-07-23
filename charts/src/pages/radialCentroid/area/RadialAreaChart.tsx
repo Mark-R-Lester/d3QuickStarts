@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsRadialAreaData,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
@@ -31,7 +31,7 @@ export const RadialAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
         fillColor: 'darkBlue',
       }
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
 
       canvas.generate.radialCentroid.area(data1)
       canvas.generate.radialCentroid.area(data2)

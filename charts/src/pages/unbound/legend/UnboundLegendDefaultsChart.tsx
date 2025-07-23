@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsLegendData,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
@@ -18,7 +18,7 @@ export const UnboundLegendDefaultsChart: FunctionComponent<
         { value: 'Purple', fillColor: 'purple' },
       ]
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
       canvas.generate.unbound.legend(data)
     }
     createChart()

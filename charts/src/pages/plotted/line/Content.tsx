@@ -32,7 +32,7 @@ const data: QsPlottedLineData = {
   ],
 }
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.plotted.line(data)
 canvas.generate.orthogonal.vertical.axis.left([])
 canvas.generate.orthogonal.horizontal.axis.bottom([])`
@@ -51,7 +51,7 @@ const data: QsPlottedLineData = {
   strokeWidth: 10,
 }
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
 canvas.generate.plotted.line(data, {
   curve: QsEnumCurve.LINEAR,

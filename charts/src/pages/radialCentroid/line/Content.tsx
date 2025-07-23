@@ -26,7 +26,7 @@ const data: number[] = [
   20, 17, 16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16,
 ]
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.radialCentroid.line({ data })`
 
 const configChart: string = `
@@ -35,7 +35,7 @@ const data: number[] = [
   20, 17, 16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16,
 ]
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.radialCentroid.line(
   { data, strokeColor: 'green' }
 )`

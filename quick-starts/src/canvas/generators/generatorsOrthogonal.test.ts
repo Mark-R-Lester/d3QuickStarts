@@ -17,7 +17,7 @@ import * as radialPoint from '../../radialCentroid/radialCentroidPoints/radialCe
 import { radialSpokes } from '../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
 import { radialText } from '../../radialCentroid/radialCentroidText/radialCentroidText'
 
-import { qsCreateCanvas } from '../canvas'
+import { qsCreateCanvasOrthogonal } from '../canvas'
 import { QsCanvasOrthogonal } from '../qsTypes'
 import { QsGenerator } from '../generators/generatorsOrthogonal'
 
@@ -61,7 +61,7 @@ describe('getGenerators', () => {
 
   beforeEach(() => {
     testElements = [] // Reset elements for each test
-    canvas = qsCreateCanvas()
+    canvas = qsCreateCanvasOrthogonal()
     generators = canvas.generate
     jest.clearAllMocks()
   })

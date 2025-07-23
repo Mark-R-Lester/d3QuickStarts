@@ -33,7 +33,7 @@ const addDefaultsToConfig = (customConfig?: QsCanvasConfig): CanvasConfig => {
   return defaults
 }
 
-export const qsCreateCanvas = (
+export const qsCreateCanvasOrthogonal = (
   customConfig?: QsCanvasConfigOrthogonal
 ): QsCanvasOrthogonal => {
   const config: CanvasConfig = addDefaultsToConfig(customConfig)

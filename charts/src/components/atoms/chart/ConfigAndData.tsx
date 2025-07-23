@@ -2,7 +2,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsEnumTextFont,
   QsEnumTextFontWeight,
   QsEnumAlignmentBaseline,
@@ -21,7 +21,7 @@ export const ConfigAndData: FunctionComponent = () => {
   }
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       const data1: QsUnboundTextData[] = [
         {

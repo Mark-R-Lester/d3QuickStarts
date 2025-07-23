@@ -1,5 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvasOrthogonal, qsCreateCanvas } from 'd3qs/d3QuickStart'
+import { QsCanvasOrthogonal, qsCreateCanvasOrthogonal } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const AxiesDefaultsChart: FunctionComponent<ChartPropsOthogonal> = ({
@@ -7,7 +7,7 @@ export const AxiesDefaultsChart: FunctionComponent<ChartPropsOthogonal> = ({
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
       canvas.generate.orthogonal.vertical.axis.left([])
       canvas.generate.orthogonal.horizontal.axis.bottom([])
     }

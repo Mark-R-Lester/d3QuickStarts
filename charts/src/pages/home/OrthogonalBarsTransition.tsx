@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsBarData,
   QsBars,
   QsTextData,
@@ -73,7 +73,7 @@ export const OrthogonalBarsTransition: FunctionComponent<
         { value: 25 },
       ]
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
       let newBars: QsBars
       let newText: QsText
 

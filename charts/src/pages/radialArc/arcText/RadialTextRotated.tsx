@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsValuedText,
   QsEnumTextAnchor,
   QsEnumTextFont,
@@ -22,7 +22,7 @@ export const RadialTextRotatedElement: FunctionComponent<
         { value: 50, text: 'Fifty' },
       ]
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
 
       canvas.generate.radialArc.text.rotated(data, {
         radius: 115,

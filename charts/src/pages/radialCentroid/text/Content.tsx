@@ -38,7 +38,7 @@ const data: QsRadialTextData[] = [
   { value: 2 },
 ]
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.radialCentroid.text(data)`
 
 const configChart: string = `
@@ -59,7 +59,7 @@ const data: QsRadialTextData[] = [
   { value: 2 },
 ]
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.radialCentroid.text(data)`
 
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`

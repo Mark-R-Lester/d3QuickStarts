@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsPointData,
   QsPoints,
 } from 'd3qs/d3QuickStart'
@@ -19,7 +19,7 @@ export const OrthogonalTextTransition: FunctionComponent<PointChartProps> = ({
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
       let newElement: QsPoints
       if (orientation === EnumOrientation.VERTICAL) {
         newElement = canvas.generate.orthogonal.vertical.text(data, config)

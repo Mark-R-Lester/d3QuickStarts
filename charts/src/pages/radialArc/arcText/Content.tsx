@@ -29,7 +29,7 @@ const defaultsChart: string = `
   { value: 50, text: 'Fifty' },
 ]
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.radialArc.text.follow(data)`
 
 const configChart: string = `
@@ -41,7 +41,7 @@ const configChart: string = `
     { value: 50, text: 'Fifty' },
   ]
 
-  const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+  const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
   canvas.generate.radialArc.text.follow(data, {
     radius: 100,
     x: 50,

@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvasOrthogonal,
-  qsCreateCanvasOrthogonal,
+  QsCanvasRadial,
+  qsCreateCanvasRadial,
   QsValuedText,
   QsEnumTextAnchor,
   QsEnumTextFont,
@@ -22,7 +22,7 @@ export const RadialTextSpokeElement: FunctionComponent<ChartPropsOthogonal> = ({
         { value: 50, text: 'Fifty' },
       ]
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
 
       canvas.generate.radialArc.text.spoke(data, {
         radius: 100,

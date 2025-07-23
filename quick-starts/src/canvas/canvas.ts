@@ -16,9 +16,15 @@ import {
   QsCanvasConfigOrthogonal,
   QsCanvasConfigPlotted,
   QsCanvasPlotted,
+  QsCanvasRadial,
+  QsCanvasConfigRadial,
 } from './qsTypes'
 import { scaleMarginsAndDisplayArea } from './scaleMarginsAndDisplayArea'
 import { createCanvasElements } from './createCanvasElement'
+import {
+  getGenerators as getRadialGenerators,
+  QsGeneratorRadial,
+} from './generators/generatorsRadial'
 
 const addDefaultsToConfig = (customConfig?: QsCanvasConfig): CanvasConfig => {
   const defaults: CanvasConfig = { ...canvasConfig }
@@ -33,7 +39,9 @@ const addDefaultsToConfig = (customConfig?: QsCanvasConfig): CanvasConfig => {
   return defaults
 }
 
-const createCanvas = <T extends QsGeneratorOrthogonal | QsGeneratorPlotted>(
+const createCanvas = <
+  T extends QsGeneratorOrthogonal | QsGeneratorPlotted | QsGeneratorRadial,
+>(
   generatorFunction: (arg0: Canvas) => T,
   customConfig?: QsCanvasConfig
 ) => {
@@ -80,4 +88,10 @@ export const qsCreateCanvasPlotted = (
   customConfig?: QsCanvasConfigPlotted
 ): QsCanvasPlotted => {
   return createCanvas<QsGeneratorPlotted>(getPlottedGenerators, customConfig)
+}
+
+export const qsCreateCanvasRadial = (
+  customConfig?: QsCanvasConfigRadial
+): QsCanvasRadial => {
+  return createCanvas<QsGeneratorRadial>(getRadialGenerators, customConfig)
 }

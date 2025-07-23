@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvasOrthogonal,
-  qsCreateCanvasOrthogonal,
+  QsCanvasRadial,
+  qsCreateCanvasRadial,
   QsValuedText,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
@@ -19,7 +19,7 @@ export const RadialTextDefaultsChart: FunctionComponent<
         { value: 50, text: 'Fifty' },
       ]
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
       canvas.generate.radialArc.text.follow(data)
     }
     createChart()

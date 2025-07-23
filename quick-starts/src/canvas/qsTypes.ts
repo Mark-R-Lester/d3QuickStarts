@@ -4,6 +4,7 @@ import { QsTransitionArgs } from '../core/types/qsTypes'
 import { QsGeneratorOrthogonal } from './generators/generatorsOrthogonal'
 import { QsGeneratorPlotted } from './generators/generatorsPlotted'
 import { ConfigSetters } from '../core/config/configStore.class'
+import { QsGeneratorRadial } from './generators/generatorsRadial'
 
 export interface QsCanvasConfig extends Partial<CanvasConfig> {
   chartName: string
@@ -11,6 +12,15 @@ export interface QsCanvasConfig extends Partial<CanvasConfig> {
 }
 
 export interface QsCanvasConfigOrthogonal extends QsCanvasConfig {
+  highestViewableValueY?: never
+  lowestViewableValueY?: never
+  highestViewableValueX?: never
+  lowestViewableValueX?: never
+  dataScaleX?: never
+  dataScaleY?: never
+}
+
+export interface QsCanvasConfigRadial extends QsCanvasConfig {
   highestViewableValueY?: never
   lowestViewableValueY?: never
   highestViewableValueX?: never
@@ -46,4 +56,8 @@ export interface QsCanvasOrthogonal extends QsCanvas {
 
 export interface QsCanvasPlotted extends QsCanvas {
   generate: QsGeneratorPlotted
+}
+
+export interface QsCanvasRadial extends QsCanvas {
+  generate: QsGeneratorRadial
 }

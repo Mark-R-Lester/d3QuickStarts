@@ -63,39 +63,6 @@ export const getGenerators = jest.fn().mockReturnValue({
       },
     },
   },
-  radialArc: {
-    radial: jest.fn().mockReturnValue(getMockSelectionAndTransition()),
-    text: {
-      follow: jest.fn().mockReturnValue({
-        elementText: createMockSelection<SVGGElement>(),
-        elementArcs: createMockSelection<SVGGElement>(),
-        transition: jest.fn(),
-      }),
-      horizontal: jest.fn().mockReturnValue({
-        elementText: createMockSelection<SVGGElement>(),
-        transition: jest.fn(),
-      }),
-      rotated: jest.fn().mockReturnValue({
-        elementText: createMockSelection<SVGGElement>(),
-        transition: jest.fn(),
-      }),
-      spoke: jest.fn().mockReturnValue({
-        elementText: createMockSelection<SVGGElement>(),
-        transition: jest.fn(),
-      }),
-    },
-  },
-  radialCentroid: {
-    area: jest.fn().mockReturnValue(getMockSelectionAndTransition()),
-    axis: jest.fn().mockReturnValue({
-      textElement: createMockSelection<SVGGElement>(),
-      ringsElement: createMockSelection<SVGGElement>(),
-      transition: jest.fn(),
-    }),
-    line: jest.fn().mockReturnValue(getMockSelectionAndTransition()),
-    points: jest.fn().mockReturnValue(getMockSelectionAndTransition()),
-    spokes: jest.fn().mockReturnValue(getMockSelectionAndTransition()),
-  },
   plotted: {
     line: jest.fn().mockReturnValue(getMockSelectionAndTransition()),
     text: jest.fn().mockReturnValue(getMockSelectionAndTransition()),

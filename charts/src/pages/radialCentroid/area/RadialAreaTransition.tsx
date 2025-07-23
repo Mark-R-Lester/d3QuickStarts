@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
-  QsCanvasOrthogonal,
-  qsCreateCanvasOrthogonal,
+  QsCanvasRadial,
+  qsCreateCanvasRadial,
   QsRadialArea,
   QsRadialAreaData,
   QsEnumCurve,
@@ -32,7 +32,7 @@ export const RadialAreaTransition: FunctionComponent<ChartPropsOthogonal> = ({
         outerData: innerData,
       }
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
 
       let newTopArea = canvas.generate.radialCentroid.area(dataUpper, {
         curve: QsEnumCurve.BASIS,

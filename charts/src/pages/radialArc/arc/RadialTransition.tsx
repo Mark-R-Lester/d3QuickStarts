@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
-  QsCanvasOrthogonal,
-  qsCreateCanvasOrthogonal,
+  QsCanvasRadial,
+  qsCreateCanvasRadial,
   QsRadial,
   QsValuedText,
 } from 'd3qs/d3QuickStart'
@@ -17,7 +17,7 @@ export const RadialTransition: FunctionComponent<RadialChartProps> = ({
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
       const { generate } = canvas
       setElement(generate.radialArc.radial(data, config))
     }

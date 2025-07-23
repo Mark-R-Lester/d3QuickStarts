@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvasOrthogonal,
-  qsCreateCanvasOrthogonal,
+  QsCanvasRadial,
+  qsCreateCanvasRadial,
   QsValuedText,
   QsEnumTextAnchor,
   QsEnumTextDecorationLine,
@@ -25,7 +25,7 @@ export const RadialTextConfigChart: FunctionComponent<ChartPropsOthogonal> = ({
         { value: 50, text: 'Fifty' },
       ]
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
       canvas.generate.radialArc.text.follow(data, {
         radius: 100,
         x: 50,

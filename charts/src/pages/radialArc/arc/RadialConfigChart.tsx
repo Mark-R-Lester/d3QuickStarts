@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
-  QsCanvasOrthogonal,
-  qsCreateCanvasOrthogonal,
+  QsCanvasRadial,
+  qsCreateCanvasRadial,
   QsRadialData,
   QsRadialArcConfig,
 } from 'd3qs/d3QuickStart'
@@ -36,7 +36,7 @@ export const RadialConfigChart: FunctionComponent<ChartPropsOthogonal> = ({
         padding: 0.9,
       }
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
       canvas.configStore.radialArc.arcConfig(config)
       canvas.generate.radialArc.radial(data)
     }

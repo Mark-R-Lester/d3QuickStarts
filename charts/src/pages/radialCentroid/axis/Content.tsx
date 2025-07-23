@@ -23,13 +23,13 @@ const canvasConfig: string = `const canvasConfig = {
 const defaultsChart: string = `
 const data: number[] = [5, 10, 15, 50]
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.radialCentroid.axis(data)`
 
 const configChart: string = `
 const data: number[] = [5, 10, 15, 50]
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.radialCentroid.axis(data, {
   radius: 100,
   x: 50,

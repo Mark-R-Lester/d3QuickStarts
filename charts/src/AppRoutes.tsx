@@ -26,6 +26,7 @@ import RadialCentroidSpokesPage from './pages/radialCentroid/spokes/RadialCentro
 import UnboundLegendPage from './pages/unbound/legend/UnboundLegendPage'
 import UnboundTextPage from './pages/unbound/text/UnboundTextPage'
 import RadialCentroidTextPage from './pages/radialCentroid/text/RadialCentroidTextPage'
+import EnumPage from './pages/enums/EnumPage'
 
 export const AppRoutes: FunctionComponent = () => {
   return (
@@ -33,6 +34,7 @@ export const AppRoutes: FunctionComponent = () => {
       <Route path="/" Component={HomePage} />
 
       <Route path="/canvas" Component={CanvasPage} />
+      <Route path="/enums" Component={EnumPage} />
 
       <Route path="/unbound/legend" Component={UnboundLegendPage} />
       <Route path="/unbound/text" Component={UnboundTextPage} />

@@ -35,10 +35,6 @@ export interface ChartPropsOthogonal {
   canvasProps: QsCanvasConfigOrthogonal
 }
 
-export interface ChartPropsPlotted {
-  canvasProps: QsCanvasConfigPlotted
-}
-
 export interface OrienetedChartProps extends ChartPropsOthogonal {
   orientation: EnumOrientation
 }
@@ -113,6 +109,10 @@ export interface RadialTextChartProps extends ChartPropsOthogonal {
 export interface RadialSpokesChartProps extends ChartPropsOthogonal {
   config?: QsRadialSpokesConfig
   data: number
+}
+
+export interface ChartPropsPlotted {
+  canvasProps: QsCanvasConfigPlotted
 }
 
 export interface PlottedTextChartProps extends ChartPropsPlotted {

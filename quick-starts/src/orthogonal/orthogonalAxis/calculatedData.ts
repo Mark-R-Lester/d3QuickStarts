@@ -105,9 +105,7 @@ export const getCalculatedData = (
         ? [0, displayAreaWidth]
         : [displayAreaHeight, 0]
 
-      console.log('calling scale1', scaleData)
       if (!scaleData) {
-        console.log('calling scale2', scaleData)
         if (isPlotted)
           return isHorizontal ? xDataScalePlotted : yDataScalePlotted
         return isHorizontal ? xDataScale : yDataScale
@@ -118,9 +116,7 @@ export const getCalculatedData = (
       return scaleBand().domain(toStrings(scaleData.domain)).range(range)
     }
 
-    console.log('calling scale0')
     const scale: any = getScale()
-    console.log('calling scale4', scale)
 
     type Scales = {
       [key in ChartEdge]: AxisScales

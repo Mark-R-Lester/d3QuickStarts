@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsEnumAxisScaleType,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
@@ -22,7 +22,7 @@ export const BarStackedDefaultsChart: FunctionComponent<
         [15, 16, 12, 16],
         [10, 4, 13, 32],
       ]
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
 
       canvas.generate.orthogonal.horizontal.barStack({ data })
       canvas.generate.orthogonal.vertical.axis.left([])

@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState, useMemo } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsBarGroups,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
@@ -55,7 +55,7 @@ export const OrthogonalBarGroupTransition: FunctionComponent<
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
 
       let grouped = canvas.generate.orthogonal.horizontal.barGroup({
         data: dataMax,

@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsEnumAxisScaleType,
   QsPointData,
 } from 'd3qs/d3QuickStart'
@@ -32,7 +32,7 @@ export const OrthogonalPointsChart: FunctionComponent<OrienetedChartProps> = ({
         { value: 25, fillColor: 'red' },
         { value: 25 },
       ]
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
 
       if (orientation === EnumOrientation.VERTICAL) {
         canvas.generate.orthogonal.vertical.points(data, { defaultRadius: 3 })

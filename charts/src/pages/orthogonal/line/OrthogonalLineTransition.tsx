@@ -1,5 +1,9 @@
 import { FunctionComponent, useEffect, useState } from 'react'
-import { QsCanvasOrthogonal, qsCreateCanvas, QsLine } from 'd3qs/d3QuickStart'
+import {
+  QsCanvasOrthogonal,
+  qsCreateCanvasOrthogonal,
+  QsLine,
+} from 'd3qs/d3QuickStart'
 import { OrienetedChartProps } from '../../../common/chartProps'
 import { EnumOrientation } from '../../../common/enums'
 
@@ -12,7 +16,7 @@ export const OrthogonalLineTransition: FunctionComponent<
   useEffect(() => {
     const createChart = () => {
       const data = [25, 10, 35, 25, 35, 5, 25, 25]
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
       let newElement: QsLine
       if (orientation === EnumOrientation.VERTICAL) {
         newElement = canvas.generate.orthogonal.vertical.line({ data })

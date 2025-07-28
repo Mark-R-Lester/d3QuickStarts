@@ -83,7 +83,7 @@ export default function RadialTransitionsPage() {
     />,
     <RadialTransition
       canvasProps={{
-        chartName: 'radialorthogonalColorTransition',
+        chartName: 'radialRadialColorTransition',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 40,

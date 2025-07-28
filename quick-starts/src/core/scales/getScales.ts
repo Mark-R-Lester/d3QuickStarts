@@ -49,6 +49,8 @@ export const getScales = (config: CanvasConfig): CanvasScales => {
     height,
     width,
     dataScale,
+    dataScaleX,
+    dataScaleY,
   } = config
 
   const createScale = (
@@ -129,11 +131,11 @@ export const getScales = (config: CanvasConfig): CanvasScales => {
     yPercentScaleInverted: scaleLinear().domain(percentDomain).range(yRange),
 
     xDataScale: createScale(dataDomain, xRange, dataScale),
-    xDataScalePlotted: createScale(xDomainPlotted, xRangePlotted, dataScale),
+    xDataScalePlotted: createScale(xDomainPlotted, xRangePlotted, dataScaleX),
     xDataScaleInverted: createScale(dataDomain, xRangeInverted, dataScale),
 
     yDataScale: createScale(dataDomain, yRange, dataScale),
-    yDataScalePlotted: createScale(yDomainPlotted, yRangePlotted, dataScale),
+    yDataScalePlotted: createScale(yDomainPlotted, yRangePlotted, dataScaleY),
     yDataScaleInverted: createScale(dataDomain, yRangeInverted, dataScale),
   }
 }

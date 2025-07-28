@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsEnumAxisScaleType,
   QsEnumCurve,
 } from 'd3qs/d3QuickStart'
@@ -15,7 +15,7 @@ export const OrthogonalAreaStackedChart: FunctionComponent<
       const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
       const data2 = [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 170, 190]
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
 
       canvas.generate.orthogonal.horizontal.area(
         { higherData: data1, fillColor: 'lightBlue' },

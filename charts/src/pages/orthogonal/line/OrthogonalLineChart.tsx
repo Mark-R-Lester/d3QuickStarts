@@ -22,26 +22,26 @@ export const OrthogonalLineChart: FunctionComponent<OrienetedChartProps> = ({
           strokeColor: 'red',
           strokeWidth: 1,
         })
-        canvas.generate.orthogonal.vertical.axis.left(
-          [1, 2, 3, 4, 5, 6, 7, 8],
-          {
-            domainScale: QsEnumAxisScaleType.POINT,
-          }
-        )
-        canvas.generate.orthogonal.horizontal.axis.bottom([])
+        canvas.generate.orthogonal.vertical.axis.left({
+          scale: {
+            type: QsEnumAxisScaleType.POINT,
+            domain: [1, 2, 3, 4, 5, 6, 7, 8],
+          },
+        })
+        canvas.generate.orthogonal.horizontal.axis.bottom()
       } else {
         canvas.generate.orthogonal.horizontal.line({
           data,
           strokeColor: 'red',
           strokeWidth: 1,
         })
-        canvas.generate.orthogonal.vertical.axis.left([])
-        canvas.generate.orthogonal.horizontal.axis.bottom(
-          [1, 2, 3, 4, 5, 6, 7, 8],
-          {
-            domainScale: QsEnumAxisScaleType.POINT,
-          }
-        )
+        canvas.generate.orthogonal.vertical.axis.left()
+        canvas.generate.orthogonal.horizontal.axis.bottom({
+          scale: {
+            type: QsEnumAxisScaleType.POINT,
+            domain: [1, 2, 3, 4, 5, 6, 7, 8],
+          },
+        })
       }
     }
 

@@ -25,13 +25,13 @@ export const OrthogonalAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
         higherData: data1,
         fillColor: gradientUrl,
       })
-      canvas.generate.orthogonal.vertical.axis.left([])
-      canvas.generate.orthogonal.horizontal.axis.bottom(
-        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-        {
-          domainScale: QsEnumAxisScaleType.POINT,
-        }
-      )
+      canvas.generate.orthogonal.vertical.axis.left()
+      canvas.generate.orthogonal.horizontal.axis.bottom({
+        scale: {
+          type: QsEnumAxisScaleType.POINT,
+          domain: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+        },
+      })
     }
     createChart()
   }, [canvasProps])

@@ -25,8 +25,8 @@ export const PlottedTextDefaultsChart: FunctionComponent<ChartPropsPlotted> = ({
       canvas.generate.plotted.text(data, {
         defaultCooridinateView: QsEnumCoordinateView.SHOW_X_AND_Y,
       })
-      canvas.generate.orthogonal.vertical.axis.left([])
-      canvas.generate.orthogonal.horizontal.axis.bottom([])
+      canvas.generate.orthogonal.vertical.axis.left()
+      canvas.generate.orthogonal.horizontal.axis.bottom()
     }
     createChart()
   }, [canvasProps])

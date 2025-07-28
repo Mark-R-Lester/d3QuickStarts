@@ -263,20 +263,18 @@ describe('getGenerators', () => {
           `When data is $data and customConfig is $customConfig
             it should call generators.orthogonal.horizontal.axis.bottom and add to elements
             expectedElement = $expectedElement`,
-          ({ data, customConfig, expectedElement }) => {
+          ({ customConfig, expectedElement }) => {
             ;(
               orthogonalAxis.orthogonalAxis.xAxisBottom as jest.Mock
             ).mockReturnValue(expectedElement)
-            const result = generators.orthogonal.horizontal.axis.bottom(
-              data,
-              customConfig
-            )
+            const result =
+              generators.orthogonal.horizontal.axis.bottom(customConfig)
             expect(
               orthogonalAxis.orthogonalAxis.xAxisBottom
-            ).toHaveBeenCalledWith(expect.anything(), data, customConfig)
+            ).toHaveBeenCalledWith(expect.anything(), customConfig)
             expect(testElements).toContainEqual({
               element: expectedElement,
-              data,
+              data: undefined,
             })
             expect(result).toEqual(expectedElement)
           }
@@ -294,18 +292,15 @@ describe('getGenerators', () => {
             ;(
               orthogonalAxis.orthogonalAxis.xAxisTop as jest.Mock
             ).mockReturnValue(expectedElement)
-            const result = generators.orthogonal.horizontal.axis.top(
-              data,
-              customConfig
-            )
+            const result =
+              generators.orthogonal.horizontal.axis.top(customConfig)
             expect(orthogonalAxis.orthogonalAxis.xAxisTop).toHaveBeenCalledWith(
               expect.anything(),
-              data,
               customConfig
             )
             expect(testElements).toContainEqual({
               element: expectedElement,
-              data,
+              data: undefined,
             })
             expect(result).toEqual(expectedElement)
           }
@@ -434,16 +429,14 @@ describe('getGenerators', () => {
             ;(
               orthogonalAxis.orthogonalAxis.yAxisLeft as jest.Mock
             ).mockReturnValue(expectedElement)
-            const result = generators.orthogonal.vertical.axis.left(
-              data,
-              customConfig
-            )
+            const result =
+              generators.orthogonal.vertical.axis.left(customConfig)
             expect(
               orthogonalAxis.orthogonalAxis.yAxisLeft
-            ).toHaveBeenCalledWith(expect.anything(), data, customConfig)
+            ).toHaveBeenCalledWith(expect.anything(), customConfig)
             expect(testElements).toContainEqual({
               element: expectedElement,
-              data,
+              data: undefined,
             })
             expect(result).toEqual(expectedElement)
           }
@@ -461,16 +454,14 @@ describe('getGenerators', () => {
             ;(
               orthogonalAxis.orthogonalAxis.yAxisRight as jest.Mock
             ).mockReturnValue(expectedElement)
-            const result = generators.orthogonal.vertical.axis.right(
-              data,
-              customConfig
-            )
+            const result =
+              generators.orthogonal.vertical.axis.right(customConfig)
             expect(
               orthogonalAxis.orthogonalAxis.yAxisRight
-            ).toHaveBeenCalledWith(expect.anything(), data, customConfig)
+            ).toHaveBeenCalledWith(expect.anything(), customConfig)
             expect(testElements).toContainEqual({
               element: expectedElement,
-              data,
+              data: undefined,
             })
             expect(result).toEqual(expectedElement)
           }

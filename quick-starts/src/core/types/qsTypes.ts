@@ -1,5 +1,10 @@
 import { QsEnumDataScale } from '../enums/qsEnums'
-import { OrdinalColorScaleData, SequentialColorScaleData } from './types'
+import {
+  BandedAxisScaleData,
+  OrdinalColorScaleData,
+  PointAxisScaleData,
+  SequentialColorScaleData,
+} from './types'
 
 export interface QsCoordinate {
   [key: string]: number | string | undefined
@@ -8,6 +13,7 @@ export interface QsCoordinate {
 }
 
 export type QsColorScaleData = OrdinalColorScaleData | SequentialColorScaleData
+export type QsAxisScaleData = BandedAxisScaleData | PointAxisScaleData
 
 export interface QsTransitionArgs {
   [key: string]: number | undefined

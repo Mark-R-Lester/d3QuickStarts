@@ -7,15 +7,16 @@ import {
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from '../../core/enums/qsEnums'
+import { QsAxisScaleData } from '../../d3QuickStart'
 
 export interface AxisConfigBase {
-  [key: string]: number | boolean | string | undefined
+  [key: string]: number | boolean | string | undefined | QsAxisScaleData
   percentageMovement: number
 
   domainColor: string
   domainOpacity: number
   domainWidth: number
-  domainScale: QsEnumAxisScaleType
+  scale?: QsAxisScaleData
   tickColor: string
   tickOpacity: number
   tickWidth: number
@@ -37,7 +38,7 @@ export interface AxisConfigBase {
 }
 
 export interface AxisConfig extends AxisConfigBase {
-  [key: string]: number | boolean | string | undefined
+  [key: string]: number | boolean | string | undefined | QsAxisScaleData
   textAnchor: QsEnumTextAnchor
   textAlignmentBaseline: QsEnumAlignmentBaseline
 }

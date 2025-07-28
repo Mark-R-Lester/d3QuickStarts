@@ -27,11 +27,13 @@ export const AreaColorDemoChart: FunctionComponent<AreaColorDemoChartProps> =
           higherData: [10, 20, 50, 90, 10, 50, 90, 10, 70, 50],
         }
         canvas.generate.orthogonal.horizontal.area(horizontalArea)
-        canvas.generate.orthogonal.vertical.axis.left([])
-        canvas.generate.orthogonal.vertical.axis.right(
-          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-          { domainScale: QsEnumAxisScaleType.POINT }
-        )
+        canvas.generate.orthogonal.vertical.axis.left()
+        canvas.generate.orthogonal.vertical.axis.right({
+          scale: {
+            type: QsEnumAxisScaleType.POINT,
+            domain: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+          },
+        })
       }
       createChart()
     }, [chartName, height, width])

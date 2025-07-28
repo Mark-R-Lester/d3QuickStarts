@@ -16,8 +16,8 @@ export const SimpleCanvasWithArea: FunctionComponent<ChartPropsOthogonal> = ({
         higherData: [100, 100],
       }
       canvas.generate.orthogonal.horizontal.area(data)
-      canvas.generate.orthogonal.vertical.axis.left([])
-      canvas.generate.orthogonal.horizontal.axis.bottom([])
+      canvas.generate.orthogonal.vertical.axis.left()
+      canvas.generate.orthogonal.horizontal.axis.bottom()
     }
     createChart()
   }, [canvasProps])

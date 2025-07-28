@@ -27,8 +27,8 @@ const data: QsPlottedTextData[] = [
   { x: 10, y: 100, text: 'Text with no config uses defaults' },
 ]
 canvas.generate.plotted.text(data)
-canvas.generate.orthogonal.vertical.axis.left([])
-canvas.generate.orthogonal.horizontal.axis.bottom([])`
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom()`
 
 const configChart: string = `
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
@@ -61,8 +61,8 @@ canvas.generate.plotted.text(data2, {
   defualtTextFill: 'blue',
   defualtTextAngle: 10,
 })
-canvas.generate.orthogonal.vertical.axis.left([])
-canvas.generate.orthogonal.horizontal.axis.bottom([])`
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom()`
 
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`

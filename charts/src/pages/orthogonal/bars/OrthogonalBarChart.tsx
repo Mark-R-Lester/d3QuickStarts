@@ -36,20 +36,22 @@ export const SimpleBarChart: FunctionComponent<OrienetedChartProps> = ({
             type: QsEnumColorScale.ORDINAL,
           },
         })
-        canvas.generate.orthogonal.horizontal.axis.bottom([])
-        canvas.generate.orthogonal.vertical.axis.left(
-          [1, 2, 3, 4, 5, 6, 7, 8],
-          {
-            domainScale: QsEnumAxisScaleType.BANDED,
-          }
-        )
+        canvas.generate.orthogonal.horizontal.axis.bottom()
+        canvas.generate.orthogonal.vertical.axis.left({
+          scale: {
+            type: QsEnumAxisScaleType.BANDED,
+            domain: [1, 2, 3, 4, 5, 6, 7, 8],
+          },
+        })
       } else {
         canvas.generate.orthogonal.horizontal.bars(data)
-        canvas.generate.orthogonal.vertical.axis.left([])
-        canvas.generate.orthogonal.horizontal.axis.bottom(
-          [1, 2, 3, 4, 5, 6, 7, 8],
-          { domainScale: QsEnumAxisScaleType.BANDED }
-        )
+        canvas.generate.orthogonal.vertical.axis.left()
+        canvas.generate.orthogonal.horizontal.axis.bottom({
+          scale: {
+            type: QsEnumAxisScaleType.BANDED,
+            domain: [1, 2, 3, 4, 5, 6, 7, 8],
+          },
+        })
       }
     }
     createChart()

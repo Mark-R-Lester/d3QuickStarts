@@ -17,11 +17,9 @@ export const OrthogonalAxisChart: FunctionComponent<ChartPropsOthogonal> = ({
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const data1 = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']
-      const data2 = [0, 20, 20, 30, 20, 35, 0, 20, 15, 30, 10, 50]
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
 
-      canvas.generate.orthogonal.vertical.axis.left(data2, {
+      canvas.generate.orthogonal.vertical.axis.left({
         tickSizeInner: -100,
         tickSizeOuter: 1,
         tickPadding: 2,
@@ -41,13 +39,16 @@ export const OrthogonalAxisChart: FunctionComponent<ChartPropsOthogonal> = ({
         textX: 0,
         textY: 0,
       })
-      canvas.generate.orthogonal.horizontal.axis.bottom(data1, {
+      canvas.generate.orthogonal.horizontal.axis.bottom({
         tickSizeInner: 0,
         tickSizeOuter: 0,
         tickPadding: 0,
         domainWidth: 3,
         domainOpacity: 1,
-        domainScale: QsEnumAxisScaleType.BANDED,
+        scale: {
+          type: QsEnumAxisScaleType.BANDED,
+          domain: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
+        },
         percentageMovement: 0,
         textFont: QsEnumTextFont.SERIF,
         textFontWeight: QsEnumTextFontWeight.NORMAL,

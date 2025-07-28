@@ -34,8 +34,8 @@ export const PlottedLineChart: FunctionComponent<ChartPropsPlotted> = ({
         strokeLineJoin: QsEnumLineJoin.BEVEL,
         strokeLineCap: QsEnumLineCap.ROUND,
       })
-      canvas.generate.orthogonal.vertical.axis.left([])
-      canvas.generate.orthogonal.horizontal.axis.bottom([])
+      canvas.generate.orthogonal.vertical.axis.left()
+      canvas.generate.orthogonal.horizontal.axis.bottom()
     }
     createChart()
   }, [canvasProps])

@@ -33,8 +33,8 @@ import { unboundText } from '../../unbound/text/text'
 import { Canvas } from '../types'
 
 interface HorizontalorthogonalAxisFunctions {
-  bottom: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
-  top: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
+  bottom: (customConfig?: QsAxisConfig) => QsAxis
+  top: (customConfig?: QsAxisConfig) => QsAxis
 }
 
 interface HorizontalorthogonalElementFunctions {
@@ -42,8 +42,8 @@ interface HorizontalorthogonalElementFunctions {
 }
 
 interface VerticalorthogonalAxisFunctions {
-  left: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
-  right: (data: number[] | string[], customConfig?: QsAxisConfig) => QsAxis
+  left: (customConfig?: QsAxisConfig) => QsAxis
+  right: (customConfig?: QsAxisConfig) => QsAxis
 }
 
 interface VerticalorthogonalElementFunctions {
@@ -82,48 +82,28 @@ export const getGenerators = (canvas: Canvas): QsGeneratorPlotted => {
     orthogonal: {
       horizontal: {
         axis: {
-          bottom: (
-            data: number[] | string[],
-            customConfig?: QsAxisConfig
-          ): QsAxis => {
-            const element = orthogonalAxis.xAxisBottom(
-              canvas,
-              data,
-              customConfig
-            )
-            elements.push({ element, data })
+          bottom: (customConfig?: QsAxisConfig): QsAxis => {
+            const element = orthogonalAxis.xAxisBottom(canvas, customConfig)
+            elements.push({ element, data: undefined })
             return element
           },
-          top: (
-            data: number[] | string[],
-            customConfig?: QsAxisConfig
-          ): QsAxis => {
-            const element = orthogonalAxis.xAxisTop(canvas, data, customConfig)
-            elements.push({ element, data })
+          top: (customConfig?: QsAxisConfig): QsAxis => {
+            const element = orthogonalAxis.xAxisTop(canvas, customConfig)
+            elements.push({ element, data: undefined })
             return element
           },
         },
       },
       vertical: {
         axis: {
-          left: (
-            data: number[] | string[],
-            customConfig?: QsAxisConfig
-          ): QsAxis => {
-            const element = orthogonalAxis.yAxisLeft(canvas, data, customConfig)
-            elements.push({ element, data })
+          left: (customConfig?: QsAxisConfig): QsAxis => {
+            const element = orthogonalAxis.yAxisLeft(canvas, customConfig)
+            elements.push({ element, data: undefined })
             return element
           },
-          right: (
-            data: number[] | string[],
-            customConfig?: QsAxisConfig
-          ): QsAxis => {
-            const element = orthogonalAxis.yAxisRight(
-              canvas,
-              data,
-              customConfig
-            )
-            elements.push({ element, data })
+          right: (customConfig?: QsAxisConfig): QsAxis => {
+            const element = orthogonalAxis.yAxisRight(canvas, customConfig)
+            elements.push({ element, data: undefined })
             return element
           },
         },

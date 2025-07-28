@@ -47,7 +47,6 @@ export interface CalculatedData {
 
 export const getCalculatedData = (
   canvas: Canvas,
-  data: string[] | number[],
   chartEdge: ChartEdge,
   config: AxisConfig
 ): CalculatedData => {
@@ -66,7 +65,7 @@ export const getCalculatedData = (
     canvas.config
   const {
     percentageMovement,
-    domainScale,
+    scale: scaleData,
     tickSizeInner,
     tickSizeOuter,
     tickPadding,
@@ -106,18 +105,22 @@ export const getCalculatedData = (
         ? [0, displayAreaWidth]
         : [displayAreaHeight, 0]
 
-      if (domainScale === QsEnumAxisScaleType.LINEAR) {
+      console.log('calling scale1', scaleData)
+      if (!scaleData) {
+        console.log('calling scale2', scaleData)
         if (isPlotted)
           return isHorizontal ? xDataScalePlotted : yDataScalePlotted
         return isHorizontal ? xDataScale : yDataScale
       }
 
-      if (domainScale === QsEnumAxisScaleType.POINT)
-        return scalePoint().domain(toStrings(data)).range(range)
-      return scaleBand().domain(toStrings(data)).range(range)
+      if (scaleData.type === QsEnumAxisScaleType.POINT)
+        return scalePoint().domain(toStrings(scaleData.domain)).range(range)
+      return scaleBand().domain(toStrings(scaleData.domain)).range(range)
     }
 
+    console.log('calling scale0')
     const scale: any = getScale()
+    console.log('calling scale4', scale)
 
     type Scales = {
       [key in ChartEdge]: AxisScales

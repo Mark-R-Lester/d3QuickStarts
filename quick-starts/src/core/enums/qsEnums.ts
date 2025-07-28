@@ -114,7 +114,6 @@ export enum QsEnumScaleType {
 
 export enum QsEnumAxisScaleType {
   BANDED = 'banded',
-  LINEAR = 'linear',
   POINT = 'point',
 }
 

@@ -35,8 +35,8 @@ export const PlottedPointsChart: FunctionComponent<ChartPropsPlotted> = ({
 
       const canvas: QsCanvasPlotted = qsCreateCanvasPlotted(canvasProps)
       canvas.generate.plotted.points(data)
-      canvas.generate.orthogonal.vertical.axis.left([])
-      canvas.generate.orthogonal.horizontal.axis.bottom([])
+      canvas.generate.orthogonal.vertical.axis.left()
+      canvas.generate.orthogonal.horizontal.axis.bottom()
     }
     createChart()
   }, [canvasProps])

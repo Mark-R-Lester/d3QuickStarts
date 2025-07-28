@@ -29,7 +29,6 @@ import { RadialPointsConfig } from '../../radialCentroid/radialCentroidPoints/ty
 import { RadialSpokesConfig } from '../../radialCentroid/radialCentroidSpokes/types'
 import {
   QsEnumAlignmentBaseline,
-  QsEnumAxisScaleType,
   QsEnumColorScale,
   QsEnumCurve,
   QsEnumLineCap,
@@ -140,7 +139,6 @@ const orthogonalAxisConfigBase: AxisConfigBase = {
   domainColor: GlobalDefaultColors.AXIS_COLOR,
   domainOpacity: 1,
   domainWidth: 2,
-  domainScale: QsEnumAxisScaleType.LINEAR,
   tickColor: GlobalDefaultColors.AXIS_COLOR,
   tickOpacity: 1,
   tickWidth: 2,

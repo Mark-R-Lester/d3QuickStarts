@@ -28,11 +28,12 @@ const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.orthogonal.horizontal.area(
   { higherData: data1 }
 )
-canvas.generate.orthogonal.vertical.axis.left([])
-canvas.generate.orthogonal.horizontal.axis.bottom(
-  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-  {
-    domainScale: QsEnumAxisScaleType.POINT,
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom({
+    scale: {
+      type: QsEnumAxisScaleType.POINT,
+      domain: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    },
   }
 )`
 
@@ -49,11 +50,12 @@ canvas.generate.orthogonal.horizontal.area(
   { higherData: data2, lowerData: data1, fillColor: 'red' },
   { curve: QsEnumCurve.NATURAL }
 )
-canvas.generate.orthogonal.vertical.axis.left([])
-canvas.generate.orthogonal.horizontal.axis.bottom(
-  [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-  {
-    domainScale: QsEnumAxisScaleType.POINT,
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom({
+    scale: {
+      type: QsEnumAxisScaleType.POINT,
+      domain: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+    },
   }
 )`
 

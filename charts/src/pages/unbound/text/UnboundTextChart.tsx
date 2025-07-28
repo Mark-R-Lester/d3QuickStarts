@@ -44,8 +44,8 @@ export const UnboundTextChart: FunctionComponent<ChartPropsOthogonal> = ({
         defaultTextFill: 'blue',
         defaultTextAngle: 10,
       })
-      canvas.generate.orthogonal.vertical.axis.left([])
-      canvas.generate.orthogonal.horizontal.axis.bottom([])
+      canvas.generate.orthogonal.vertical.axis.left()
+      canvas.generate.orthogonal.horizontal.axis.bottom()
     }
     createChart()
   }, [canvasProps])

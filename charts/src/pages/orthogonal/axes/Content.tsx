@@ -24,11 +24,10 @@ const canvasConfig: string = `const canvasConfig = {
 
 const defaultsChart: string = `
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-canvas.generate.orthogonal.vertical.axis.left([])
-canvas.generate.orthogonal.horizontal.axis.bottom([])`
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom()`
 
 const configChart: string = `
-  const data1 = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']
   const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
   canvas.generate.orthogonal.vertical.axis.left([], {
@@ -58,7 +57,10 @@ const configChart: string = `
     tickPadding: 0,
     domainWidth: 3,
     domainOpacity: 1,
-    domainScale: QsEnumAxisScaleType.BANDED,
+    scale: {
+      type: QsEnumAxisScaleType.BANDED,
+      domain: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
+    }
     
 
     textFont: QsEnumTextFont.SERIF,
@@ -115,7 +117,10 @@ const configExample: string = `const axisConfig: QsAxisConfig = {
   domainColor: 'blue',
   domainOpacity: 1,
   domainWidth: 3,
-  domainScale: QsEnumAxisScaleType.BANDED,
+  scale: {
+    type: QsEnumAxisScaleType.BANDED,
+    domain: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
+  }
   tickColor:'blue',
   tickOpacity: 1,
   tickWidth: 1,

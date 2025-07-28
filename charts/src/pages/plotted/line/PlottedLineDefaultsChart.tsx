@@ -24,8 +24,8 @@ export const PlottedLineDefaultsChart: FunctionComponent<ChartPropsPlotted> = ({
 
       const canvas: QsCanvasPlotted = qsCreateCanvasPlotted(canvasProps)
       canvas.generate.plotted.line(data)
-      canvas.generate.orthogonal.vertical.axis.left([])
-      canvas.generate.orthogonal.horizontal.axis.bottom([])
+      canvas.generate.orthogonal.vertical.axis.left()
+      canvas.generate.orthogonal.horizontal.axis.bottom()
     }
     createChart()
   }, [canvasProps])

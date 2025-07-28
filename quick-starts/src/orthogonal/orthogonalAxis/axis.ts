@@ -13,68 +13,50 @@ import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 
 export const orthogonalAxis = {
-  xAxisTop: (
-    canvas: Canvas,
-    data: string[] | number[],
-    customConfig?: QsAxisConfig
-  ): QsAxis => {
+  xAxisTop: (canvas: Canvas, customConfig?: QsAxisConfig): QsAxis => {
     const config: AxisConfig = addDefaultsToConfig<AxisConfig>(
       orthogonalAxisConfigTop,
       customConfig,
       canvas.configStore.orthogonal.axisConfigTop()
     )
-    return draw(canvas, data, ChartEdge.TOP, config)
+    return draw(canvas, ChartEdge.TOP, config)
   },
 
-  xAxisBottom: (
-    canvas: Canvas,
-    data: string[] | number[],
-    customConfig?: QsAxisConfig
-  ): QsAxis => {
+  xAxisBottom: (canvas: Canvas, customConfig?: QsAxisConfig): QsAxis => {
     const config: AxisConfig = addDefaultsToConfig<AxisConfig>(
       orthogonalAxisConfigBottom,
       customConfig,
       canvas.configStore.orthogonal.axisConfigBottom()
     )
-    return draw(canvas, data, ChartEdge.BOTTOM, config)
+    return draw(canvas, ChartEdge.BOTTOM, config)
   },
 
-  yAxisLeft: (
-    canvas: Canvas,
-    data: string[] | number[],
-    customConfig?: QsAxisConfig
-  ): QsAxis => {
+  yAxisLeft: (canvas: Canvas, customConfig?: QsAxisConfig): QsAxis => {
     const config: AxisConfig = addDefaultsToConfig<AxisConfig>(
       orthogonalAxisConfigLeft,
       customConfig,
       canvas.configStore.orthogonal.axisConfigLeft()
     )
-    return draw(canvas, data, ChartEdge.LEFT, config)
+    return draw(canvas, ChartEdge.LEFT, config)
   },
 
-  yAxisRight: (
-    canvas: Canvas,
-    data: string[] | number[],
-    customConfig?: QsAxisConfig
-  ): QsAxis => {
+  yAxisRight: (canvas: Canvas, customConfig?: QsAxisConfig): QsAxis => {
     const config: AxisConfig = addDefaultsToConfig<AxisConfig>(
       orthogonalAxisConfigRight,
       customConfig,
       canvas.configStore.orthogonal.axisConfigRight()
     )
-    return draw(canvas, data, ChartEdge.RIGHT, config)
+    return draw(canvas, ChartEdge.RIGHT, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  data: string[] | number[],
   chartEdge: ChartEdge,
   config: AxisConfig
 ): QsAxis => {
   const calculatedData: CalculatedData = getCalculatedData(
     canvas,
-    data,
     chartEdge,
     config
   )

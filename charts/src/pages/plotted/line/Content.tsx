@@ -34,8 +34,8 @@ const data: QsPlottedLineData = {
 
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.plotted.line(data)
-canvas.generate.orthogonal.vertical.axis.left([])
-canvas.generate.orthogonal.horizontal.axis.bottom([])`
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom()`
 
 const configChart: string = `
 const data: QsPlottedLineData = {
@@ -58,8 +58,8 @@ canvas.generate.plotted.line(data, {
   strokeLineJoin: QsEnumLineJoin.BEVEL,
   strokeLineCap: QsEnumLineCap.ROUND,
 })
-canvas.generate.orthogonal.vertical.axis.left([])
-canvas.generate.orthogonal.horizontal.axis.bottom([])`
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom()`
 
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`

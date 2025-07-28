@@ -33,10 +33,13 @@ const defaultsChart: string = `const data: QsPointData[] = [
 ]
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.orthogonal.horizontal.points(data, { defaultRadius: 3 })
-canvas.generate.orthogonal.vertical.axis.left([])
-canvas.generate.orthogonal.horizontal.axis.bottom(
-  [1, 2, 3, 4, 5, 6, 7, 8],
-  { domainScale: QsEnumAxisScaleType.POINT }
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom({
+    scale: {
+      type: QsEnumAxisScaleType.POINT,
+      domain: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    },
+  }
 )`
 
 const configChart: string = `const data: QsPointData[] = [
@@ -59,11 +62,14 @@ const configChart: string = `const data: QsPointData[] = [
 ]
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.orthogonal.vertical.points(data, { defaultRadius: 3 })
-canvas.generate.orthogonal.vertical.axis.left(
-  [1, 2, 3, 4, 5, 6, 7, 8],
-  { domainScale: QsEnumAxisScaleType.POINT }
- )
-canvas.generate.orthogonal.horizontal.axis.bottom([])`
+canvas.generate.orthogonal.vertical.axis.left({
+    scale: {
+      type: QsEnumAxisScaleType.POINT,
+      domain: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    },
+  }
+)
+canvas.generate.orthogonal.horizontal.axis.bottom()`
 
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`

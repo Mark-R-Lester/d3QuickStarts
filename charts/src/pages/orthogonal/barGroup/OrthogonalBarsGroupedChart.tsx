@@ -25,13 +25,13 @@ export const OrthogonalBarsGroupedChart: FunctionComponent<
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
 
       canvas.generate.orthogonal.horizontal.barGroup({ data })
-      canvas.generate.orthogonal.vertical.axis.left([])
-      canvas.generate.orthogonal.horizontal.axis.bottom(
-        [1, 2, 3, 4, 5, 6, 7, 8, 9],
-        {
-          domainScale: QsEnumAxisScaleType.BANDED,
-        }
-      )
+      canvas.generate.orthogonal.vertical.axis.left()
+      canvas.generate.orthogonal.horizontal.axis.bottom({
+        scale: {
+          type: QsEnumAxisScaleType.BANDED,
+          domain: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+        },
+      })
     }
     createChart()
   }, [canvasProps])

@@ -8,8 +8,8 @@ export const AxiesDefaultsChart: FunctionComponent<ChartPropsOthogonal> = ({
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
-      canvas.generate.orthogonal.vertical.axis.left([])
-      canvas.generate.orthogonal.horizontal.axis.bottom([])
+      canvas.generate.orthogonal.vertical.axis.left()
+      canvas.generate.orthogonal.horizontal.axis.bottom()
     }
     createChart()
   }, [canvasProps])

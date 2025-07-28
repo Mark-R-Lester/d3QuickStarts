@@ -49,56 +49,51 @@ describe('getGenerators', () => {
     describe('horizontal', () => {
       describe('axis', () => {
         test.each`
-          data          | customConfig    | expectedElement
-          ${[0, 1, 2]}  | ${{ ticks: 5 }} | ${{ id: 'axisBottom1' }}
-          ${['a', 'b']} | ${undefined}    | ${{ id: 'axisBottom2' }}
+          customConfig    | expectedElement
+          ${{ ticks: 5 }} | ${{ id: 'axisBottom1' }}
+          ${undefined}    | ${{ id: 'axisBottom2' }}
         `(
           `When data is $data and customConfig is $customConfig
             it should call generators.orthogonal.horizontal.axis.bottom and add to elements
             expectedElement = $expectedElement`,
-          ({ data, customConfig, expectedElement }) => {
+          ({ customConfig, expectedElement }) => {
             ;(
               orthogonalAxis.orthogonalAxis.xAxisBottom as jest.Mock
             ).mockReturnValue(expectedElement)
-            const result = generators.orthogonal.horizontal.axis.bottom(
-              data,
-              customConfig
-            )
+            const result =
+              generators.orthogonal.horizontal.axis.bottom(customConfig)
             expect(
               orthogonalAxis.orthogonalAxis.xAxisBottom
-            ).toHaveBeenCalledWith(expect.anything(), data, customConfig)
+            ).toHaveBeenCalledWith(expect.anything(), customConfig)
             expect(testElements).toContainEqual({
               element: expectedElement,
-              data,
+              data: undefined,
             })
             expect(result).toEqual(expectedElement)
           }
         )
 
         test.each`
-          data          | customConfig    | expectedElement
-          ${[0, 1, 2]}  | ${{ ticks: 5 }} | ${{ id: 'axisTop1' }}
-          ${['a', 'b']} | ${undefined}    | ${{ id: 'axisTop2' }}
+          customConfig    | expectedElement
+          ${{ ticks: 5 }} | ${{ id: 'axisTop1' }}
+          ${undefined}    | ${{ id: 'axisTop2' }}
         `(
           `When data is $data and customConfig is $customConfig
             it should call generators.orthogonal.horizontal.axis.top and add to elements
             expectedElement = $expectedElement`,
-          ({ data, customConfig, expectedElement }) => {
+          ({ customConfig, expectedElement }) => {
             ;(
               orthogonalAxis.orthogonalAxis.xAxisTop as jest.Mock
             ).mockReturnValue(expectedElement)
-            const result = generators.orthogonal.horizontal.axis.top(
-              data,
-              customConfig
-            )
+            const result =
+              generators.orthogonal.horizontal.axis.top(customConfig)
             expect(orthogonalAxis.orthogonalAxis.xAxisTop).toHaveBeenCalledWith(
               expect.anything(),
-              data,
               customConfig
             )
             expect(testElements).toContainEqual({
               element: expectedElement,
-              data,
+              data: undefined,
             })
             expect(result).toEqual(expectedElement)
           }
@@ -109,9 +104,9 @@ describe('getGenerators', () => {
     describe('vertical', () => {
       describe('axis', () => {
         test.each`
-          data           | customConfig    | expectedElement
-          ${[0, 10, 20]} | ${{ ticks: 4 }} | ${{ id: 'axisLeft1' }}
-          ${['x', 'y']}  | ${undefined}    | ${{ id: 'axisLeft2' }}
+          customConfig    | expectedElement
+          ${{ ticks: 4 }} | ${{ id: 'axisLeft1' }}
+          ${undefined}    | ${{ id: 'axisLeft2' }}
         `(
           `When data is $data and customConfig is $customConfig
             it should call generators.orthogonal.vertical.axis.left and add to elements
@@ -120,43 +115,39 @@ describe('getGenerators', () => {
             ;(
               orthogonalAxis.orthogonalAxis.yAxisLeft as jest.Mock
             ).mockReturnValue(expectedElement)
-            const result = generators.orthogonal.vertical.axis.left(
-              data,
-              customConfig
-            )
+            const result =
+              generators.orthogonal.vertical.axis.left(customConfig)
             expect(
               orthogonalAxis.orthogonalAxis.yAxisLeft
-            ).toHaveBeenCalledWith(expect.anything(), data, customConfig)
+            ).toHaveBeenCalledWith(expect.anything(), customConfig)
             expect(testElements).toContainEqual({
               element: expectedElement,
-              data,
+              data: undefined,
             })
             expect(result).toEqual(expectedElement)
           }
         )
 
         test.each`
-          data           | customConfig    | expectedElement
-          ${[0, 10, 20]} | ${{ ticks: 4 }} | ${{ id: 'axisRight1' }}
-          ${['x', 'y']}  | ${undefined}    | ${{ id: 'axisRight2' }}
+          customConfig    | expectedElement
+          ${{ ticks: 4 }} | ${{ id: 'axisRight1' }}
+          ${undefined}    | ${{ id: 'axisRight2' }}
         `(
           `When data is $data and customConfig is $customConfig
             it should call generators.orthogonal.vertical.axis.right and add to elements
             expectedElement = $expectedElement`,
-          ({ data, customConfig, expectedElement }) => {
+          ({ customConfig, expectedElement }) => {
             ;(
               orthogonalAxis.orthogonalAxis.yAxisRight as jest.Mock
             ).mockReturnValue(expectedElement)
-            const result = generators.orthogonal.vertical.axis.right(
-              data,
-              customConfig
-            )
+            const result =
+              generators.orthogonal.vertical.axis.right(customConfig)
             expect(
               orthogonalAxis.orthogonalAxis.yAxisRight
-            ).toHaveBeenCalledWith(expect.anything(), data, customConfig)
+            ).toHaveBeenCalledWith(expect.anything(), customConfig)
             expect(testElements).toContainEqual({
               element: expectedElement,
-              data,
+              data: undefined,
             })
             expect(result).toEqual(expectedElement)
           }

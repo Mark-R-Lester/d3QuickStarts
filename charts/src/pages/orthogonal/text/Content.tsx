@@ -33,11 +33,12 @@ const defaultsChart: string = `const data: QsTextData[] = [
 ]
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.orthogonal.horizontal.text(data, { defaultRadius: 3 })
-canvas.generate.orthogonal.vertical.axis.left([])
-canvas.generate.orthogonal.horizontal.axis.bottom(
-  [1, 2, 3, 4, 5, 6, 7, 8],
-  {
-    domainScale: QsEnumAxisScaleType.POINT,
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom({
+    scale: {
+      type: QsEnumAxisScaleType.POINT,
+      domain: [1, 2, 3, 4, 5, 6, 7, 8],
+    },
   }
 )`
 
@@ -53,11 +54,12 @@ const configChart: string = `const data: QsTextData[] = [
 ]
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.orthogonal.vertical.text(data, { defaultRadius: 3 })
-canvas.generate.orthogonal.vertical.axis.left([])
-canvas.generate.orthogonal.horizontal.axis.bottom(
-  [1, 2, 3, 4, 5, 6, 7, 8],
-  {
-    domainScale: QsEnumAxisScaleType.POINT,
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom({
+    scale: {
+      type: QsEnumAxisScaleType.POINT,
+      domain: [1, 2, 3, 4, 5, 6, 7, 8],
+    },
   }
 )`
 

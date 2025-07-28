@@ -84,16 +84,16 @@ export const OrthogonalBarsTransition: FunctionComponent<OrienetedChartProps> =
             defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
             defaultTextFill: 'yellow',
           })
-          canvas.generate.orthogonal.vertical.axis.left(
-            [
-              1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-              20,
-            ],
-            {
-              domainScale: QsEnumAxisScaleType.BANDED,
-            }
-          )
-          canvas.generate.orthogonal.horizontal.axis.bottom([])
+          canvas.generate.orthogonal.vertical.axis.left({
+            scale: {
+              type: QsEnumAxisScaleType.BANDED,
+              domain: [
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+                19, 20,
+              ],
+            },
+          })
+          canvas.generate.orthogonal.horizontal.axis.bottom()
         } else {
           newBars = canvas.generate.orthogonal.horizontal.bars(data)
 
@@ -102,14 +102,16 @@ export const OrthogonalBarsTransition: FunctionComponent<OrienetedChartProps> =
             defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
             defaultTextFill: 'yellow',
           })
-          canvas.generate.orthogonal.vertical.axis.left([])
-          canvas.generate.orthogonal.horizontal.axis.bottom(
-            [
-              1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-              20,
-            ],
-            { domainScale: QsEnumAxisScaleType.BANDED }
-          )
+          canvas.generate.orthogonal.vertical.axis.left()
+          canvas.generate.orthogonal.horizontal.axis.bottom({
+            scale: {
+              type: QsEnumAxisScaleType.BANDED,
+              domain: [
+                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
+                19, 20,
+              ],
+            },
+          })
         }
         setBars(newBars)
         setText(newText)

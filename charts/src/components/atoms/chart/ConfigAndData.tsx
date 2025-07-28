@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { FunctionComponent, useEffect } from 'react'
+import { FunctionComponent, memo, useEffect } from 'react'
 import {
   QsCanvasOrthogonal,
   qsCreateCanvasOrthogonal,
@@ -10,7 +10,7 @@ import {
 } from 'd3qs/d3QuickStart'
 import { QsUnboundTextData } from 'd3qs/unbound/text/qsTypes'
 
-export const ConfigAndData: FunctionComponent = () => {
+export const ConfigAndData: FunctionComponent = memo(() => {
   const canvasConfig = {
     chartName: 'configAndData',
     width: 130,
@@ -70,4 +70,4 @@ export const ConfigAndData: FunctionComponent = () => {
       <div id={canvasConfig.chartName}></div>
     </>
   )
-}
+})

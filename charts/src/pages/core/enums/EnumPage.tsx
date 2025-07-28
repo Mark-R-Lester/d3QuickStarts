@@ -1,8 +1,8 @@
 import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import { textEnumContent, lineEnumContent, colorEnumContent } from './Content'
-import { ChartButtonGrid } from '../../components/molecules/ChartButtonGrid'
-import { SingleWord } from '../../components/atoms/chart/SingleWord'
+import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
+import { SingleWord } from '../../../components/atoms/chart/SingleWord'
 
 export default function OrthogonalAreaPage() {
   const menuElements: JSX.Element[] = [

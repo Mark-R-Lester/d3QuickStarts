@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material'
 import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-import { ContentColumn } from '../../components/atoms/content/ContentColumn'
-import { ContentRow } from '../../components/atoms/content/ContentRow'
+import { ContentColumn } from '../../../components/atoms/content/ContentColumn'
+import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import { SimpleCanvas } from './SimpleCanvas'
 import { SimpleCanvasWithArea } from './SimpleCanvasWithArea'
 import {
@@ -9,9 +9,9 @@ import {
   ContentSyntaxBox,
   ContentTextBox,
   ContentTitle,
-} from '../../components/atoms/content/ContentStyled'
+} from '../../../components/atoms/content/ContentStyled'
 import SyntaxHighlighter from 'react-syntax-highlighter'
-import { ChartEditor } from '../../components/molecules/ChartEditor'
+import { ChartEditor } from '../../../components/molecules/ChartEditor'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'chart',

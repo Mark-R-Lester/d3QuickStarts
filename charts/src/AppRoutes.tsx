@@ -7,7 +7,7 @@ import RadialTransitionsPage from './pages/radialArc/RadialArcTransitionsPage'
 import orthogonalBarsPage from './pages/orthogonal/bars/OrthogonalBarsPage'
 import RadialCentroidLinePage from './pages/radialCentroid/line/RadialCentroidLinePage'
 import RadialCentroidPointsPage from './pages/radialCentroid/points/RadialCentroidPointsPage'
-import CanvasPage from './pages/canvas/CanvasPage'
+import CanvasPage from './pages/core/canvas/CanvasPage'
 import orthogonalAreaPage from './pages/orthogonal/area/OrthogonalAreaPage'
 import orthogonalAxisPage from './pages/orthogonal/axes/OrthogonalAxisPage'
 import orthogonalBarGroupPage from './pages/orthogonal/barGroup/OrthogonalBarGroupPage'
@@ -26,7 +26,7 @@ import RadialCentroidSpokesPage from './pages/radialCentroid/spokes/RadialCentro
 import UnboundLegendPage from './pages/unbound/legend/UnboundLegendPage'
 import UnboundTextPage from './pages/unbound/text/UnboundTextPage'
 import RadialCentroidTextPage from './pages/radialCentroid/text/RadialCentroidTextPage'
-import EnumPage from './pages/enums/EnumPage'
+import EnumPage from './pages/core/enums/EnumPage'
 
 export const AppRoutes: FunctionComponent = () => {
   return (

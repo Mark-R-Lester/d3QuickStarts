@@ -1,11 +1,11 @@
 import { Typography } from '@mui/material'
-import { ContentColumn } from '../../components/atoms/content/ContentColumn'
+import { ContentColumn } from '../../../components/atoms/content/ContentColumn'
 import {
   ContentBox,
   ContentTextBox,
   ContentTitle,
-} from '../../components/atoms/content/ContentStyled'
-import { ContentRow } from '../../components/atoms/content/ContentRow'
+} from '../../../components/atoms/content/ContentStyled'
+import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import { TextEnumDemoChart } from './TextEnumDemoChart'
 import {
   QsEnumAlignmentBaseline,

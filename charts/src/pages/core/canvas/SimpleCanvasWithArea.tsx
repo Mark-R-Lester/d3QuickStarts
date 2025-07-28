@@ -4,7 +4,7 @@ import {
   qsCreateCanvasOrthogonal,
   QsAreaData,
 } from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../common/chartProps'
+import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const SimpleCanvasWithArea: FunctionComponent<ChartPropsOthogonal> = ({
   canvasProps,

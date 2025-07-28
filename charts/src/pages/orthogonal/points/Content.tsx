@@ -31,7 +31,7 @@ const defaultsChart: string = `const data: QsPointData[] = [
   { value: 25 },
   { value: 25 },
 ]
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.orthogonal.horizontal.points(data, { defaultRadius: 3 })
 canvas.generate.orthogonal.vertical.axis.left([])
 canvas.generate.orthogonal.horizontal.axis.bottom(
@@ -57,7 +57,7 @@ const configChart: string = `const data: QsPointData[] = [
   { value: 25, fillColor: 'red' },
   { value: 25 },
 ]
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.orthogonal.vertical.points(data, { defaultRadius: 3 })
 canvas.generate.orthogonal.vertical.axis.left(
   [1, 2, 3, 4, 5, 6, 7, 8],

@@ -12,6 +12,7 @@ import {
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { PlottedLineDefaultsChart } from './PlottedLineDefaultsChart'
 import { PlottedLineChart } from './PlottedLineChart'
+import { QsDataScale, QsEnumDataScale } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
@@ -31,7 +32,7 @@ const data: QsPlottedLineData = {
   ],
 }
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.plotted.line(data)
 canvas.generate.orthogonal.vertical.axis.left([])
 canvas.generate.orthogonal.horizontal.axis.bottom([])`
@@ -50,7 +51,7 @@ const data: QsPlottedLineData = {
   strokeWidth: 10,
 }
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
 canvas.generate.plotted.line(data, {
   curve: QsEnumCurve.LINEAR,
@@ -135,6 +136,7 @@ export const defaultsContent: JSX.Element = (
                 width: 600,
                 highestViewableValueX: 156,
                 highestViewableValueY: 156,
+                dataScaleY: { scale: QsEnumDataScale.SYMLOG },
               }}
             />,
           ]}

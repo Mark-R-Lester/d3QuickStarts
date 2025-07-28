@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsBarData,
   QsBars,
 } from 'd3qs/d3QuickStart'
@@ -26,7 +26,7 @@ export const OrthogonalBarsTransition: FunctionComponent<
         { upperBoundry: 25 },
         { upperBoundry: 25 },
       ]
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
       let newBars: QsBars
       if (orientation === EnumOrientation.VERTICAL) {
         newBars = canvas.generate.orthogonal.vertical.bars(data)

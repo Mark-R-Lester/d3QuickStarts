@@ -1,9 +1,10 @@
 import { Selection } from 'd3'
 import { CanvasConfig } from './types'
 import { QsTransitionArgs } from '../core/types/qsTypes'
-import { QsGenerator } from './generators/generatorsOrthogonal'
+import { QsGeneratorOrthogonal } from './generators/generatorsOrthogonal'
 import { QsGeneratorPlotted } from './generators/generatorsPlotted'
 import { ConfigSetters } from '../core/config/configStore.class'
+import { QsGeneratorRadial } from './generators/generatorsRadial'
 
 export interface QsCanvasConfig extends Partial<CanvasConfig> {
   chartName: string
@@ -11,6 +12,15 @@ export interface QsCanvasConfig extends Partial<CanvasConfig> {
 }
 
 export interface QsCanvasConfigOrthogonal extends QsCanvasConfig {
+  highestViewableValueY?: never
+  lowestViewableValueY?: never
+  highestViewableValueX?: never
+  lowestViewableValueX?: never
+  dataScaleX?: never
+  dataScaleY?: never
+}
+
+export interface QsCanvasConfigRadial extends QsCanvasConfig {
   highestViewableValueY?: never
   lowestViewableValueY?: never
   highestViewableValueX?: never
@@ -41,9 +51,13 @@ interface QsCanvas {
 }
 
 export interface QsCanvasOrthogonal extends QsCanvas {
-  generate: QsGenerator
+  generate: QsGeneratorOrthogonal
 }
 
 export interface QsCanvasPlotted extends QsCanvas {
   generate: QsGeneratorPlotted
+}
+
+export interface QsCanvasRadial extends QsCanvas {
+  generate: QsGeneratorRadial
 }

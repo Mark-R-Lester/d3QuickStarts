@@ -1,10 +1,16 @@
 import { canvasConfig as defaultCanvasConfig } from '../../core/config/configDefaults'
 import { getGenerators as getOrthogonalGenerators } from '../generators/__mocks__/generatorsOrthogonal'
-import { getGenerators as getPlottedGenerators } from '../generators/__mocks__/generatorsOrthogonal'
+import { getGenerators as getPlottedGenerators } from '../generators/__mocks__/generatorsPlotted'
+import { getGenerators as getRadialGenerators } from '../generators/__mocks__/generatorsRadial'
 import { createMockSelection } from '../../__mocks__/selection'
 import { createMockConfigStore } from '../../core/config/__mocks__/configStore'
 import { getScales } from '../../core/scales/getScales'
-import { QsCanvasOrthogonal, QsCanvasConfig, QsCanvasPlotted } from '../qsTypes'
+import {
+  QsCanvasOrthogonal,
+  QsCanvasConfig,
+  QsCanvasPlotted,
+  QsCanvasRadial,
+} from '../qsTypes'
 import { Canvas, CanvasConfig } from '../types'
 
 export const baseConfig = (
@@ -74,5 +80,16 @@ export const createMockQsCanvasPlotted = (
   canvasDataGroup: createMockSelection<SVGGElement>(),
   config: config,
   generate: getPlottedGenerators(),
+  configStore: createMockConfigStore().setters,
+})
+
+export const createMockQsCanvasRadial = (
+  config: CanvasConfig = canvasConfig()
+): QsCanvasRadial => ({
+  canvasSVG: createMockSelection<SVGSVGElement>(),
+  canvasGroup: createMockSelection<SVGGElement>(),
+  canvasDataGroup: createMockSelection<SVGGElement>(),
+  config: config,
+  generate: getRadialGenerators(),
   configStore: createMockConfigStore().setters,
 })

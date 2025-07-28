@@ -23,13 +23,13 @@ const canvasConfig: string = `const canvasConfig = {
 `
 
 const defaultsChart: string = `
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.orthogonal.vertical.axis.left([])
 canvas.generate.orthogonal.horizontal.axis.bottom([])`
 
 const configChart: string = `
   const data1 = ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun']
-  const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+  const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
   canvas.generate.orthogonal.vertical.axis.left([], {
     tickSizeInner: -100,

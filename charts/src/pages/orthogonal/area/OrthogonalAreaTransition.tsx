@@ -1,7 +1,7 @@
 import { FunctionComponent, useEffect, useRef, useState } from 'react'
 import {
   QsCanvasOrthogonal,
-  qsCreateCanvas,
+  qsCreateCanvasOrthogonal,
   QsArea,
   QsAreaData,
 } from 'd3qs/d3QuickStart'
@@ -33,7 +33,7 @@ export const OrthogonalAreaTransition: FunctionComponent<
         higherData: lowerData,
       }
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
 
       let newTopArea = canvas.generate.orthogonal.horizontal.area(dataUpper)
       let newBottomArea = canvas.generate.orthogonal.horizontal.area(dataLower)

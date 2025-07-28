@@ -27,7 +27,7 @@ const data: QsLegendData[] = [
   { value: 'Purple', fillColor: 'purple' },
 ]
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.unbound.legend(data)`
 
 const configChart: string = `
@@ -38,7 +38,7 @@ const data: QsLegendData[] = [
   { value: 'Purple', fillColor: 'purple' },
 ]
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvas(canvasConfig)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
 canvas.generate.unbound.legend(data, {
   x: 0,

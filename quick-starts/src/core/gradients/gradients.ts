@@ -57,7 +57,7 @@ export const qsCreateCustomStoporthogonalGradient = ({
     SVGGElement,
     unknown
   > = defs
-    .append('orthogonalGradient')
+    .append('linearGradient')
     .attr('id', gradientId)
     .attr('x1', x1)
     .attr('y1', y1)

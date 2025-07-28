@@ -10,9 +10,17 @@ import {
 } from 'd3qs/d3QuickStart'
 import { QsUnboundTextData } from 'd3qs/unbound/text/qsTypes'
 
-export const TryItYourSelf: FunctionComponent = () => {
+export interface SingleWordProps {
+  chartName: string
+  text: string
+}
+
+export const SingleWord: FunctionComponent<SingleWordProps> = ({
+  chartName,
+  text,
+}: SingleWordProps) => {
   const canvasConfig = {
-    chartName: 'tryItYourSelf',
+    chartName,
     width: 130,
     marginLeft: 0,
     marginBottom: 0,
@@ -25,13 +33,8 @@ export const TryItYourSelf: FunctionComponent = () => {
       const data2: QsUnboundTextData[] = [
         {
           x: 50,
-          y: 70,
-          text: `Try it`,
-        },
-        {
-          x: 50,
-          y: 40,
-          text: `yourself`,
+          y: 50,
+          text,
         },
       ]
       canvas.generate.unbound.text(data2, {

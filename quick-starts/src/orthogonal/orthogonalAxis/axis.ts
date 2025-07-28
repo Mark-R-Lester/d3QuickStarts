@@ -23,7 +23,6 @@ export const orthogonalAxis = {
       customConfig,
       canvas.configStore.orthogonal.axisConfigTop()
     )
-
     return draw(canvas, data, ChartEdge.TOP, config)
   },
 
@@ -37,7 +36,6 @@ export const orthogonalAxis = {
       customConfig,
       canvas.configStore.orthogonal.axisConfigBottom()
     )
-
     return draw(canvas, data, ChartEdge.BOTTOM, config)
   },
 
@@ -64,7 +62,6 @@ export const orthogonalAxis = {
       customConfig,
       canvas.configStore.orthogonal.axisConfigRight()
     )
-
     return draw(canvas, data, ChartEdge.RIGHT, config)
   },
 }

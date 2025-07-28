@@ -25,6 +25,8 @@ const menuCanvas: DropdownMenuProps = {
   routes: [
     { title: 'Canvas', route: '/canvas' },
     { title: 'Emums', route: '/enums' },
+    { title: 'Colors', route: '/colors' },
+    { title: 'Config', route: '/config' },
   ],
 }
 

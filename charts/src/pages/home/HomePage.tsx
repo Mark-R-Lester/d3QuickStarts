@@ -1,7 +1,10 @@
 import { Typography } from '@mui/material'
 import { EnumOrientation } from '../../common/enums'
 import { OrthogonalBarsTransition } from './OrthogonalBarsTransition'
-import { OrthogonalLine } from './OrthogonalLine'
+import { OrthogonalLine } from './OrthogonalLineTransition'
+import { OrthogonalAreaChart } from './OrthogonalAreaChart'
+import { OrthogonalAreaOpacityChart } from './OrthogonalAreaOpacityChart'
+import { OrthogonalAreaStackedChart } from './OrthogonalAreaStackedChart'
 
 export default function orthogonalBarsPage() {
   return (
@@ -34,6 +37,42 @@ export default function orthogonalBarsPage() {
           rx: 30,
         }}
         orientation={EnumOrientation.HORIZONTAL}
+      />
+      <OrthogonalAreaChart
+        canvasProps={{
+          chartName: 'orthogonalAreaChart',
+          height: 500,
+          width: 1000,
+          lowestViewableValue: 0,
+          highestViewableValue: 200,
+          fillColor: 'lightGrey',
+          ry: 30,
+          rx: 30,
+        }}
+      />
+      <OrthogonalAreaOpacityChart
+        canvasProps={{
+          chartName: 'orthogonalAreaOpacityChart',
+          height: 500,
+          width: 1000,
+          lowestViewableValue: 0,
+          highestViewableValue: 200,
+          fillColor: 'lightGrey',
+          ry: 30,
+          rx: 30,
+        }}
+      />
+      <OrthogonalAreaStackedChart
+        canvasProps={{
+          chartName: 'orthogonalAreaStackedChart',
+          height: 500,
+          width: 1000,
+          lowestViewableValue: 0,
+          highestViewableValue: 200,
+          fillColor: 'lightGrey',
+          ry: 30,
+          rx: 30,
+        }}
       />
     </>
   )

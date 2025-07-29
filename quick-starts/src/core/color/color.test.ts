@@ -8,7 +8,7 @@ import {
 import { toStrings } from '../math/conversion'
 import { GlobalDefaultColors } from '../../core/enums/enums'
 import { findOrdinalValue, getPrecidendedColor, getScaledColor } from './color'
-import { OrdinalColorScaleData } from '../types/types'
+import { QsOrdinalColorScaleData } from '../types/qsTypes'
 import { QsEnumColorScale } from '../enums/qsEnums'
 
 describe('color functions', () => {
@@ -50,7 +50,7 @@ describe('color functions', () => {
     `(
       'When index is $index and range is $description, the result should be $expected',
       ({ index, range, expected }) => {
-        const data: OrdinalColorScaleData = {
+        const data: QsOrdinalColorScaleData = {
           type: QsEnumColorScale.ORDINAL,
           range,
         }

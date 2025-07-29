@@ -5,6 +5,9 @@ import { OrthogonalLine } from './OrthogonalLineTransition'
 import { OrthogonalAreaChart } from './OrthogonalAreaChart'
 import { OrthogonalAreaOpacityChart } from './OrthogonalAreaOpacityChart'
 import { OrthogonalAreaStackedChart } from './OrthogonalAreaStackedChart'
+import { OrthogonalBarChart } from './OrthogonalBarChart'
+import { OrthogonalBarFruitsChart } from './OrthogonalBarFruitsChart'
+import { OrthogonalCandleChart } from './OrthogonalCandleChart'
 
 export default function orthogonalBarsPage() {
   return (
@@ -38,6 +41,42 @@ export default function orthogonalBarsPage() {
         }}
         orientation={EnumOrientation.HORIZONTAL}
       />
+      <OrthogonalCandleChart
+        canvasProps={{
+          chartName: 'orthogonalCandleChart',
+          height: 500,
+          width: 1000,
+          lowestViewableValue: 0,
+          highestViewableValue: 40,
+          fillColor: 'black',
+          ry: 30,
+          rx: 30,
+        }}
+      />
+      <OrthogonalBarChart
+        canvasProps={{
+          chartName: 'orthogonalBarBasicChart',
+          height: 500,
+          width: 1000,
+          lowestViewableValue: 0,
+          highestViewableValue: 40,
+          fillColor: 'lightGrey',
+          ry: 30,
+          rx: 30,
+        }}
+      />
+      <OrthogonalBarFruitsChart
+        canvasProps={{
+          chartName: 'orthogonalBarFruitsChart',
+          height: 500,
+          width: 1000,
+          lowestViewableValue: 0,
+          highestViewableValue: 40,
+          fillColor: 'lightGrey',
+          ry: 30,
+          rx: 30,
+        }}
+      />
       <OrthogonalAreaChart
         canvasProps={{
           chartName: 'orthogonalAreaChart',
@@ -57,11 +96,12 @@ export default function orthogonalBarsPage() {
           width: 1000,
           lowestViewableValue: 0,
           highestViewableValue: 200,
-          fillColor: 'lightGrey',
+          fillColor: 'black',
           ry: 30,
           rx: 30,
         }}
       />
+
       <OrthogonalAreaStackedChart
         canvasProps={{
           chartName: 'orthogonalAreaStackedChart',

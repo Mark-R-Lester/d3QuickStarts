@@ -29,8 +29,19 @@ export const OrthogonalAreaOpacityChart: FunctionComponent<
         fillColor: 'green',
         strokeColor: 'green',
       })
-      canvas.generate.orthogonal.vertical.axis.left()
+      canvas.generate.orthogonal.vertical.axis.left({
+        tickSizeInner: -100,
+        tickWidth: 0.5,
+        domainWidth: 0.9,
+        domainColor: 'green',
+        tickColor: 'green',
+        textFill: 'green',
+      })
       canvas.generate.orthogonal.horizontal.axis.bottom({
+        domainWidth: 0.9,
+        domainColor: 'green',
+        tickColor: 'green',
+        textFill: 'green',
         scale: {
           type: QsEnumAxisScaleType.POINT,
           domain: [

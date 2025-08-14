@@ -19,6 +19,8 @@ import {
   QsEnumLineJoin,
   QsEnumLineCap,
   QsEnumScaleType,
+  qsCreateCanvasPlotted,
+  qsCreateCanvasRadial,
 } from 'd3qs/d3QuickStart'
 import { styled } from '@mui/material/styles'
 
@@ -56,7 +58,9 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
     try {
       // eslint-disable-next-line no-new-func
       const func = new Function(
-        'qsCreateCanvas',
+        'qsCreateCanvasOrthogonal',
+        'qsCreateCanvasPlotted',
+        'qsCreateCanvasRadial',
         'QsEnumColorScale',
         'QsEnumCurve',
         'QsEnumAlignmentBaseline',
@@ -73,6 +77,8 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
       )
       func(
         qsCreateCanvasOrthogonal,
+        qsCreateCanvasPlotted,
+        qsCreateCanvasRadial,
         QsEnumColorScale,
         QsEnumCurve,
         QsEnumAlignmentBaseline,

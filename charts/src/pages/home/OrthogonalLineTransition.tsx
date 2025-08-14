@@ -53,31 +53,17 @@ export const OrthogonalLine: FunctionComponent<OrienetedChartProps> = memo(
         let newPoints: QsPoints
         let newLine: QsLine
 
-        if (orientation === EnumOrientation.VERTICAL) {
-          newPoints = canvas.generate.orthogonal.vertical.points(pointData, {
-            scaleType: QsEnumScaleType.BANDED,
-          })
+        newLine = canvas.generate.orthogonal.horizontal.line(lineData)
+        newPoints = canvas.generate.orthogonal.horizontal.points(pointData)
 
-          newLine = canvas.generate.orthogonal.vertical.line(lineData, {
-            scaleType: QsEnumScaleType.BANDED,
-          })
-        } else {
-          newLine = canvas.generate.orthogonal.horizontal.line(lineData)
-          newPoints = canvas.generate.orthogonal.horizontal.points(pointData)
+        canvas.generate.orthogonal.vertical.axis.left({
+          tickSizeInner: -100,
+          tickWidth: 0.5,
+          domainWidth: 0.9,
+          numberOfTicks: 5,
+        })
 
-          canvas.generate.orthogonal.vertical.axis.left()
-          canvas.generate.orthogonal.horizontal.axis.bottom({
-            scale: {
-              type: QsEnumAxisScaleType.POINT,
-              domain: [
-                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-                19, 20,
-              ],
-            },
-          })
-        }
         setPoints(newPoints)
-
         setLine(newLine)
       }
       createChart()

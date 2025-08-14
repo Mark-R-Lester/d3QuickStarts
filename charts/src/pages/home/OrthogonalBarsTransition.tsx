@@ -11,7 +11,6 @@ import {
   QsEnumTextAnchor,
 } from 'd3qs/d3QuickStart'
 import { OrienetedChartProps } from '../../common/chartProps'
-import { EnumOrientation } from '../../common/enums'
 
 export const OrthogonalBarsTransition: FunctionComponent<OrienetedChartProps> =
   memo(({ canvasProps, orientation }) => {
@@ -76,43 +75,21 @@ export const OrthogonalBarsTransition: FunctionComponent<OrienetedChartProps> =
         let newBars: QsBars
         let newText: QsText
 
-        if (orientation === EnumOrientation.VERTICAL) {
-          newBars = canvas.generate.orthogonal.vertical.bars(data)
+        newBars = canvas.generate.orthogonal.horizontal.bars(data)
 
-          newText = canvas.generate.orthogonal.vertical.text(textData, {
-            scaleType: QsEnumScaleType.BANDED,
-            defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
-            defaultTextFill: 'yellow',
-          })
-          canvas.generate.orthogonal.vertical.axis.left({
-            scale: {
-              type: QsEnumAxisScaleType.BANDED,
-              domain: [
-                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-                19, 20,
-              ],
-            },
-          })
-          canvas.generate.orthogonal.horizontal.axis.bottom()
-        } else {
-          newBars = canvas.generate.orthogonal.horizontal.bars(data)
-
-          newText = canvas.generate.orthogonal.horizontal.text(textData, {
-            scaleType: QsEnumScaleType.BANDED,
-            defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
-            defaultTextFill: 'yellow',
-          })
-          canvas.generate.orthogonal.vertical.axis.left()
-          canvas.generate.orthogonal.horizontal.axis.bottom({
-            scale: {
-              type: QsEnumAxisScaleType.BANDED,
-              domain: [
-                1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18,
-                19, 20,
-              ],
-            },
-          })
-        }
+        newText = canvas.generate.orthogonal.horizontal.text(textData, {
+          scaleType: QsEnumScaleType.BANDED,
+          defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
+          defaultTextFill: 'yellow',
+        })
+        canvas.generate.orthogonal.vertical.axis.left({
+          tickSizeInner: -100,
+          tickWidth: 0.9,
+          domainWidth: 1.5,
+          domainColor: 'black',
+          tickColor: 'white',
+          textFill: 'blue',
+        })
         setBars(newBars)
         setText(newText)
       }

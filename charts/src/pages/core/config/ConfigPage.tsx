@@ -1,17 +1,21 @@
 import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
-import { textEnumContent } from './Content'
+import { colorConfigContent, configContent, dataContent } from './Content'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { SingleWord } from '../../../components/atoms/chart/SingleWord'
 
-export default function ConfigPage() {
+export default function ColorPage() {
   const menuElements: JSX.Element[] = [
-    <SingleWord chartName="text" text="Text" />,
-    <SingleWord chartName="line" text="Line" />,
+    <SingleWord chartName="text" text="Config" />,
+    <SingleWord chartName="line" text="Data" />,
     <SingleWord chartName="color" text="Color" />,
   ]
 
-  const contents: JSX.Element[] = [textEnumContent]
+  const contents: JSX.Element[] = [
+    configContent,
+    dataContent,
+    colorConfigContent,
+  ]
   const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
     setContent(contents[index])
@@ -20,7 +24,7 @@ export default function ConfigPage() {
   return (
     <>
       <Typography variant="h2" component="h1" sx={{ mb: 2 }}>
-        Configuration
+        Working with configuration and data
       </Typography>
       <ChartButtonGrid
         onClick={onClick}

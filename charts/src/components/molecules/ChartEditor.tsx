@@ -117,8 +117,9 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
     flex: '0 0 40%',
     minWidth: 0,
     boxSizing: 'border-box',
-    '@media (max-width: 1700px)': {
-      flex: '0 0 95%',
+    [theme.breakpoints.down('lg')]: {
+      paddingLeft: '0px',
+      paddingTop: '25px',
     },
   }))
 
@@ -127,7 +128,7 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
     paddingTop: '10px',
     flex: '0 0 40%',
     justifyContent: 'flex-start',
-    '@media (max-width: 1700px)': {
+    [theme.breakpoints.down('lg')]: {
       paddingLeft: '0px',
       paddingTop: '25px',
     },

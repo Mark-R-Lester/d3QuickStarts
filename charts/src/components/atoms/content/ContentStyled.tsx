@@ -26,6 +26,14 @@ export const ContentTextBox = styled('div')(({ theme }) => ({
   backgroundColor: '#f2f2f2',
 }))
 
+export const ContentChartBox = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  width: '98%',
+  height: '95%',
+}))
+
 export const ContentBox = styled('div')(({ theme }) => ({
   marginLeft: '7%',
   marginRight: '10%',
@@ -36,4 +44,14 @@ export const ContentBox = styled('div')(({ theme }) => ({
   borderWidth: '10px',
   borderColor: '#f2f2f2',
   backgroundColor: '#f2f2f2',
+  [theme.breakpoints.down('xl')]: {
+    marginLeft: '0%',
+    marginRight: '0%',
+    width: '100%',
+  },
+  [theme.breakpoints.down('lg')]: {
+    marginLeft: '0%',
+    marginRight: '0%',
+    width: '100%',
+  },
 }))

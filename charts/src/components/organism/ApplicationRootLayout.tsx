@@ -2,16 +2,20 @@ import {
   ListItemButton,
   ListItemText,
   List,
-  Drawer,
   Divider,
   AppBar,
   Typography,
   Box,
   Collapse,
   Toolbar,
+  IconButton,
+  styled,
+  Drawer,
 } from '@mui/material'
 import { makeStyles } from '@mui/styles'
-import { FunctionComponent, useCallback, useState } from 'react'
+import { useTheme } from '@mui/material/styles'
+import { useMediaQuery } from '@mui/material'
+import { FunctionComponent, useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { ExpandLess, ExpandMore } from '@mui/icons-material'
@@ -19,6 +23,8 @@ import { AppRoutes } from '../../AppRoutes'
 import { DropdownMenu, DropdownMenuProps } from '../atoms/DropdownMenu'
 
 import { MenuRoute } from '../types/atomicTypes'
+import MenuIcon from '@mui/icons-material/Menu'
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 
 const menuCanvas: DropdownMenuProps = {
   title: 'Core',
@@ -101,6 +107,16 @@ const useStyles = makeStyles({
 export const ApplicationLayout: FunctionComponent = () => {
   const navigate = useNavigate()
   const classes = useStyles()
+  const theme = useTheme()
+  const isSmScreen = useMediaQuery(theme.breakpoints.down('sm'), {
+    noSsr: true,
+  })
+  const isMdScreen = useMediaQuery(theme.breakpoints.down('md'), {
+    noSsr: true,
+  })
+  const isLgScreen = useMediaQuery(theme.breakpoints.down('lg'), {
+    noSsr: true,
+  })
   const homeRoute: MenuRoute = { title: 'Home', route: '/' }
 
   const handleNavigate = useCallback(
@@ -110,10 +126,26 @@ export const ApplicationLayout: FunctionComponent = () => {
     [navigate]
   )
 
-  const [open, setOpen] = useState<boolean>(false)
+  const [expandMenu, setExpandMenu] = useState<boolean>(false)
+  const [openDrawer, setOpenDrawer] = useState<boolean>(
+    !isSmScreen && !isMdScreen
+  )
   const handleClick = () => {
-    setOpen(!open)
+    setExpandMenu(!expandMenu)
   }
+  const handleOpenDrawer = () => {
+    setOpenDrawer(!openDrawer)
+  }
+
+  const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  }))
+
+  useEffect(() => {
+    setOpenDrawer(!isSmScreen && !isMdScreen)
+  }, [isSmScreen, isMdScreen, isLgScreen])
 
   return (
     <>
@@ -124,6 +156,20 @@ export const ApplicationLayout: FunctionComponent = () => {
         className={classes.appBar}
       >
         <Toolbar variant="dense">
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleOpenDrawer}
+            edge="start"
+            sx={[
+              {
+                mr: 2,
+              },
+              openDrawer && { display: 'none' },
+            ]}
+          >
+            <MenuIcon />
+          </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             D3 Quick starts
           </Typography>
@@ -132,8 +178,8 @@ export const ApplicationLayout: FunctionComponent = () => {
 
       <Box
         sx={{
-          paddingLeft: { xs: 25, sm: 30 },
-          paddingTop: { xs: 5, sm: 5 },
+          paddingLeft: { xs: 2, sm: 2, md: 25, lg: 25, xl: 25 },
+          paddingTop: { xs: 2, sm: 2 },
           bgcolor: 'background.paper',
           marginTop: appBarHeight,
         }}
@@ -151,8 +197,14 @@ export const ApplicationLayout: FunctionComponent = () => {
             },
           },
         }}
-        variant="permanent"
+        variant="persistent"
+        open={openDrawer}
       >
+        <DrawerHeader>
+          <IconButton onClick={handleOpenDrawer}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </DrawerHeader>
         <List
           sx={{
             width: '100%',
@@ -188,9 +240,9 @@ export const ApplicationLayout: FunctionComponent = () => {
                 },
               }}
             />
-            {open ? <ExpandLess /> : <ExpandMore />}
+            {expandMenu ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
-          <Collapse in={open} timeout="auto" unmountOnExit>
+          <Collapse in={expandMenu} timeout="auto" unmountOnExit>
             <DropdownMenu {...menuElementsOrthogonal} />
             <DropdownMenu {...menuElementsPlotted} />
             <DropdownMenu {...menuElementsRadialArc} />

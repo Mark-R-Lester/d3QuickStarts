@@ -2,6 +2,7 @@ import { Typography } from '@mui/material'
 import { ContentColumn } from '../../../components/atoms/content/ContentColumn'
 import {
   ContentBox,
+  ContentChartBox,
   ContentSyntaxBox,
   ContentTextBox,
   ContentTitle,
@@ -127,11 +128,9 @@ export const configContent: JSX.Element = (
                     </SyntaxHighlighter>
                   </ContentSyntaxBox>
                 </ContentTextBox>,
-                <ContentColumn
-                  elements={[
-                    <AreaConfigDemoChart chartName={`areaNoConfig`} />,
-                  ]}
-                />,
+                <ContentChartBox>
+                  <AreaConfigDemoChart chartName={`areaNoConfig`} />
+                </ContentChartBox>,
               ]}
             />,
             <ContentRow
@@ -150,9 +149,9 @@ export const configContent: JSX.Element = (
                     </SyntaxHighlighter>
                   </ContentSyntaxBox>
                 </ContentTextBox>,
-                <ContentColumn
-                  elements={[<BarColorDemoChart chartName={`barNoConfig`} />]}
-                />,
+                <ContentChartBox>
+                  <BarColorDemoChart chartName={`barNoConfig`} />
+                </ContentChartBox>,
               ]}
             />,
           ]}
@@ -193,20 +192,18 @@ export const configContent: JSX.Element = (
                     </SyntaxHighlighter>
                   </ContentSyntaxBox>
                 </ContentTextBox>,
-                <ContentColumn
-                  elements={[
-                    <MultiAreaConfigDemoChart
-                      chartName={`multiArea1`}
-                      configCanvasLevel={{
-                        defaultFillColor: 'blue',
-                        defaultFillOpacity: 0.1,
-                        defaultStrokeColor: 'blue',
-                        defaultStrokeOpacity: 1,
-                        defaultStrokeWidth: 1,
-                      }}
-                    />,
-                  ]}
-                />,
+                <ContentChartBox>
+                  <MultiAreaConfigDemoChart
+                    chartName={`multiArea1`}
+                    configCanvasLevel={{
+                      defaultFillColor: 'blue',
+                      defaultFillOpacity: 0.1,
+                      defaultStrokeColor: 'blue',
+                      defaultStrokeOpacity: 1,
+                      defaultStrokeWidth: 1,
+                    }}
+                  />
+                </ContentChartBox>,
               ]}
             />,
             <ContentRow
@@ -235,14 +232,12 @@ export const configContent: JSX.Element = (
                     </SyntaxHighlighter>
                   </ContentSyntaxBox>
                 </ContentTextBox>,
-                <ContentColumn
-                  elements={[
-                    <MultiBarConfigDemoChart
-                      chartName={`multiBar1`}
-                      configCanvasLevel={{ defaultFillColor: 'blue' }}
-                    />,
-                  ]}
-                />,
+                <ContentChartBox>
+                  <MultiBarConfigDemoChart
+                    chartName={`multiBar1`}
+                    configCanvasLevel={{ defaultFillColor: 'blue' }}
+                  />
+                </ContentChartBox>,
               ]}
             />,
           ]}
@@ -341,29 +336,28 @@ export const configContent: JSX.Element = (
                     </SyntaxHighlighter>
                   </ContentSyntaxBox>
                 </ContentTextBox>,
-                <ContentColumn
-                  elements={[
-                    <MultiAreaConfigDemoChart
-                      chartName={`multiArea3`}
-                      configCanvasLevel={{
-                        defaultFillColor: 'blue',
-                        defaultFillOpacity: 0.1,
-                        defaultStrokeColor: 'blue',
-                        defaultStrokeOpacity: 1,
-                        defaultStrokeWidth: 1,
-                      }}
-                      data1={{
-                        higherData: [
-                          50, 50, 30, 20, 70, 60, 70, 60, 50, 112, 10, 10,
-                        ],
-                      }}
-                      config1={{
-                        defaultFillColor: 'orange',
-                        defaultStrokeColor: 'orange',
-                      }}
-                    />,
-                  ]}
-                />,
+                <ContentChartBox>
+                  <MultiAreaConfigDemoChart
+                    chartName={`multiArea3`}
+                    configCanvasLevel={{
+                      defaultFillColor: 'blue',
+                      defaultFillOpacity: 0.1,
+                      defaultStrokeColor: 'blue',
+                      defaultStrokeOpacity: 1,
+                      defaultStrokeWidth: 1,
+                    }}
+                    data1={{
+                      higherData: [
+                        50, 50, 30, 20, 70, 60, 70, 60, 50, 112, 10, 10,
+                      ],
+                    }}
+                    config1={{
+                      defaultFillColor: 'orange',
+                      defaultStrokeColor: 'orange',
+                    }}
+                  />
+                  ,
+                </ContentChartBox>,
               ]}
             />,
             <ContentRow
@@ -401,27 +395,25 @@ export const configContent: JSX.Element = (
                     </SyntaxHighlighter>
                   </ContentSyntaxBox>
                 </ContentTextBox>,
-                <ContentColumn
-                  elements={[
-                    <MultiBarConfigDemoChart
-                      chartName={`multiBar3`}
-                      configCanvasLevel={{ defaultFillColor: 'blue' }}
-                      config1={{
-                        defaultFillColor: 'orange',
-                      }}
-                      data1={[
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                      ]}
-                    />,
-                  ]}
-                />,
+                <ContentChartBox>
+                  <MultiBarConfigDemoChart
+                    chartName={`multiBar3`}
+                    configCanvasLevel={{ defaultFillColor: 'blue' }}
+                    config1={{
+                      defaultFillColor: 'orange',
+                    }}
+                    data1={[
+                      { upperBoundry: 40 },
+                      { upperBoundry: 40 },
+                      { upperBoundry: 40 },
+                      { upperBoundry: 40 },
+                      { upperBoundry: 40 },
+                      { upperBoundry: 40 },
+                      { upperBoundry: 40 },
+                      { upperBoundry: 40 },
+                    ]}
+                  />
+                </ContentChartBox>,
               ]}
             />,
           ]}
@@ -480,31 +472,29 @@ export const configContent: JSX.Element = (
                     </SyntaxHighlighter>
                   </ContentSyntaxBox>
                 </ContentTextBox>,
-                <ContentColumn
-                  elements={[
-                    <MultiAreaConfigDemoChart
-                      chartName={`multiArea4`}
-                      configCanvasLevel={{
-                        defaultFillColor: 'blue',
-                        defaultFillOpacity: 0.1,
-                        defaultStrokeColor: 'blue',
-                        defaultStrokeOpacity: 1,
-                        defaultStrokeWidth: 1,
-                      }}
-                      data1={{
-                        higherData: [
-                          50, 50, 30, 20, 70, 60, 70, 60, 50, 112, 10, 10,
-                        ],
-                        strokeColor: 'red',
-                        strokeWidth: 3,
-                      }}
-                      config1={{
-                        defaultFillColor: 'orange',
-                        defaultStrokeColor: 'orange',
-                      }}
-                    />,
-                  ]}
-                />,
+                <ContentChartBox>
+                  <MultiAreaConfigDemoChart
+                    chartName={`multiArea4`}
+                    configCanvasLevel={{
+                      defaultFillColor: 'blue',
+                      defaultFillOpacity: 0.1,
+                      defaultStrokeColor: 'blue',
+                      defaultStrokeOpacity: 1,
+                      defaultStrokeWidth: 1,
+                    }}
+                    data1={{
+                      higherData: [
+                        50, 50, 30, 20, 70, 60, 70, 60, 50, 112, 10, 10,
+                      ],
+                      strokeColor: 'red',
+                      strokeWidth: 3,
+                    }}
+                    config1={{
+                      defaultFillColor: 'orange',
+                      defaultStrokeColor: 'orange',
+                    }}
+                  />
+                </ContentChartBox>,
               ]}
             />,
             <ContentRow
@@ -550,27 +540,25 @@ export const configContent: JSX.Element = (
                     </SyntaxHighlighter>
                   </ContentSyntaxBox>
                 </ContentTextBox>,
-                <ContentColumn
-                  elements={[
-                    <MultiBarConfigDemoChart
-                      chartName={`multiBar4`}
-                      configCanvasLevel={{ defaultFillColor: 'blue' }}
-                      config1={{
-                        defaultFillColor: 'orange',
-                      }}
-                      data1={[
-                        { upperBoundry: 35, fillColor: 'red' },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                      ]}
-                    />,
-                  ]}
-                />,
+                <ContentChartBox>
+                  <MultiBarConfigDemoChart
+                    chartName={`multiBar4`}
+                    configCanvasLevel={{ defaultFillColor: 'blue' }}
+                    config1={{
+                      defaultFillColor: 'orange',
+                    }}
+                    data1={[
+                      { upperBoundry: 35, fillColor: 'red' },
+                      { upperBoundry: 40 },
+                      { upperBoundry: 40 },
+                      { upperBoundry: 40 },
+                      { upperBoundry: 40 },
+                      { upperBoundry: 40 },
+                      { upperBoundry: 40 },
+                      { upperBoundry: 40 },
+                    ]}
+                  />
+                </ContentChartBox>,
               ]}
             />,
           ]}
@@ -579,6 +567,24 @@ export const configContent: JSX.Element = (
     ]}
   />
 )
+
+const barsCodeNoConfig: string = ` const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal({
+  chartName: \`textEnumDemo\${chartName}\`,
+  height: 300,
+  width: 500,
+  highestViewableValue: 35,
+})
+canvas.generate.orthogonal.horizontal.bars(data)
+canvas.generate.orthogonal.vertical.axis.left()`
+
+const barsCode: string = ` const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal({
+  chartName: \`textEnumDemo\${chartName}\`,
+  height: 300,
+  width: 500,
+  highestViewableValue: 35,
+})
+canvas.generate.orthogonal.horizontal.bars(data, config)
+canvas.generate.orthogonal.vertical.axis.left()`
 
 const configDefaultColour: string = `const config: QsBarConfig = {
   defaultFillColor: 'blue',
@@ -600,6 +606,14 @@ const configSequentialScale: string = `const config: QsBarConfig = {
   },
 }`
 
+const configOrdinalScale: string = `const config: QsBarConfig = {
+  defaultFillColor: 'blue',
+  fillColorScaleData: {
+    range: ['lightblue', 'darkblue'],
+    type: QsEnumColorScale.ORDINAL,
+  },
+}`
+
 const dataWithColour: string = `const data: QsBarData[] = [
   { upperBoundry: 35, fillColor: 'lightGreen' },
   { upperBoundry: 35, fillColor: 'lightGreen' },
@@ -609,90 +623,42 @@ const dataWithColour: string = `const data: QsBarData[] = [
   { upperBoundry: 15 },
   { upperBoundry: 10 },
   { upperBoundry: 5, fillColor: 'red' },
-]
-  
-`
+]`
 
-const configOrdinalScale: string = `const config: QsBarConfig = {
-  defaultFillColor: 'blue',
-  fillColorScaleData: {
-    range: ['lightblue', 'darkblue'],
-    type: QsEnumColorScale.ORDINAL,
-  },
-}`
-
-export const dataContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle key="title" variant="h3">
-        How configuration with data
-      </ContentTitle>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography>
-                    Changing color in configuration is designed to be purely for
-                    aesthetic purposes and therefore has a lower order of
-                    precidence than color intended to represent data.
-                  </Typography>
-                  <Typography>
-                    This is the default appearance of bars.
-                  </Typography>
-                </ContentTextBox>,
-                <BarColorDemoChart chartName={`noConfig`} />,
-              ]}
-            />,
-
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography>
-                    Changing color in configuration is designed to be purely for
-                    aesthetic purposes and therefore has a lower order of
-                    precidence than color intended to represent data.
-                  </Typography>
-                  <Typography>
-                    This is the default appearance of bars.
-                  </Typography>
-                </ContentTextBox>,
-                <BarColorDemoChart chartName={`noConfig`} />,
-              ]}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
 export const colorConfigContent: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle key="title" variant="h3"></ContentTitle>,
-
       <ContentBox>
-        <Typography variant="h5" paddingBottom="20px">
-          Sometimes color is aesthetic. Sometimes it's data.
-        </Typography>
         <ContentColumn
           elements={[
+            <Typography key="title" variant="h4">
+              More about colors
+            </Typography>,
+            <Typography>
+              Changing color in configuration is primarily aimed at being used
+              for aesthetic purposes, therefore has a lower order of precidence
+              than color intended to represent data.
+            </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
                   <Typography>
-                    Changing color in configuration is primarily aimed at being
-                    used for aesthetic purposes, therefore has a lower order of
-                    precidence than color intended to represent data.
-                  </Typography>
-                  <br />
-                  <Typography>
                     This is the default appearance of bars.
                   </Typography>
+                  <ContentSyntaxBox>
+                    <SyntaxHighlighter
+                      language="typescript"
+                      style={atomOneDark}
+                      showLineNumbers={true}
+                    >
+                      {barsCodeNoConfig}
+                    </SyntaxHighlighter>
+                  </ContentSyntaxBox>
                 </ContentTextBox>,
-                <BarColorDemoChart chartName={`noConfig`} />,
+                <ContentChartBox>
+                  <BarColorDemoChart chartName={`noConfig`} />,
+                </ContentChartBox>,
               ]}
             />,
             <ContentRow
@@ -712,13 +678,24 @@ export const colorConfigContent: JSX.Element = (
                       {configDefaultColour}
                     </SyntaxHighlighter>
                   </ContentSyntaxBox>
+                  <ContentSyntaxBox>
+                    <SyntaxHighlighter
+                      language="typescript"
+                      style={atomOneDark}
+                      showLineNumbers={true}
+                    >
+                      {barsCode}
+                    </SyntaxHighlighter>
+                  </ContentSyntaxBox>
                 </ContentTextBox>,
-                <BarColorDemoChart
-                  chartName={`defaultColor`}
-                  config={{
-                    defaultFillColor: 'blue',
-                  }}
-                />,
+                <ContentChartBox>
+                  <BarColorDemoChart
+                    chartName={`defaultColor`}
+                    config={{
+                      defaultFillColor: 'blue',
+                    }}
+                  />
+                </ContentChartBox>,
               ]}
             />,
             <ContentRow
@@ -737,16 +714,28 @@ export const colorConfigContent: JSX.Element = (
                       {configDefaultStrokeColour}
                     </SyntaxHighlighter>
                   </ContentSyntaxBox>
+                  <ContentSyntaxBox>
+                    <SyntaxHighlighter
+                      language="typescript"
+                      style={atomOneDark}
+                      showLineNumbers={true}
+                    >
+                      {barsCode}
+                    </SyntaxHighlighter>
+                  </ContentSyntaxBox>
+                  ,
                 </ContentTextBox>,
-                <BarColorDemoChart
-                  chartName={`defaultStrokeColor`}
-                  config={{
-                    defaultFillColor: 'blue',
-                    defaultStrokeColor: 'red',
-                    defaultStrokeWidth: 1,
-                    defaultStrokeOpacity: 1,
-                  }}
-                />,
+                <ContentChartBox>
+                  <BarColorDemoChart
+                    chartName={`defaultStrokeColor`}
+                    config={{
+                      defaultFillColor: 'blue',
+                      defaultStrokeColor: 'red',
+                      defaultStrokeWidth: 1,
+                      defaultStrokeOpacity: 1,
+                    }}
+                  />
+                </ContentChartBox>,
               ]}
             />,
             <ContentRow
@@ -768,17 +757,28 @@ export const colorConfigContent: JSX.Element = (
                       {configOrdinalScale}
                     </SyntaxHighlighter>
                   </ContentSyntaxBox>
+                  <ContentSyntaxBox>
+                    <SyntaxHighlighter
+                      language="typescript"
+                      style={atomOneDark}
+                      showLineNumbers={true}
+                    >
+                      {barsCode}
+                    </SyntaxHighlighter>
+                  </ContentSyntaxBox>
                 </ContentTextBox>,
-                <BarColorDemoChart
-                  chartName={`fillColorScaleOrdinal`}
-                  config={{
-                    defaultFillColor: 'blue',
-                    fillColorScaleData: {
-                      range: ['lightblue', 'darkblue'],
-                      type: QsEnumColorScale.ORDINAL,
-                    },
-                  }}
-                />,
+                <ContentChartBox>
+                  <BarColorDemoChart
+                    chartName={`fillColorScaleOrdinal`}
+                    config={{
+                      defaultFillColor: 'blue',
+                      fillColorScaleData: {
+                        range: ['lightblue', 'darkblue'],
+                        type: QsEnumColorScale.ORDINAL,
+                      },
+                    }}
+                  />
+                </ContentChartBox>,
               ]}
             />,
             <ContentRow
@@ -797,18 +797,29 @@ export const colorConfigContent: JSX.Element = (
                       {configSequentialScale}
                     </SyntaxHighlighter>
                   </ContentSyntaxBox>
+                  <ContentSyntaxBox>
+                    <SyntaxHighlighter
+                      language="typescript"
+                      style={atomOneDark}
+                      showLineNumbers={true}
+                    >
+                      {barsCode}
+                    </SyntaxHighlighter>
+                  </ContentSyntaxBox>
                 </ContentTextBox>,
-                <BarColorDemoChart
-                  chartName={`fillColorScaleSequential`}
-                  config={{
-                    defaultFillColor: 'blue',
-                    fillColorScaleData: {
-                      domain: [1, 35],
-                      range: ['lightblue', 'darkblue'],
-                      type: QsEnumColorScale.SEQUENTIAL,
-                    },
-                  }}
-                />,
+                <ContentChartBox>
+                  <BarColorDemoChart
+                    chartName={`fillColorScaleSequential`}
+                    config={{
+                      defaultFillColor: 'blue',
+                      fillColorScaleData: {
+                        domain: [1, 35],
+                        range: ['lightblue', 'darkblue'],
+                        type: QsEnumColorScale.SEQUENTIAL,
+                      },
+                    }}
+                  />
+                </ContentChartBox>,
               ]}
             />,
             <ContentRow
@@ -824,13 +835,33 @@ export const colorConfigContent: JSX.Element = (
                       style={atomOneDark}
                       showLineNumbers={true}
                     >
-                      {`${dataWithColour}${configSequentialScale}`}
+                      {configSequentialScale}
+                    </SyntaxHighlighter>
+                  </ContentSyntaxBox>
+                  <ContentSyntaxBox>
+                    <SyntaxHighlighter
+                      language="typescript"
+                      style={atomOneDark}
+                      showLineNumbers={true}
+                    >
+                      {dataWithColour}
+                    </SyntaxHighlighter>
+                  </ContentSyntaxBox>
+                  <ContentSyntaxBox>
+                    <SyntaxHighlighter
+                      language="typescript"
+                      style={atomOneDark}
+                      showLineNumbers={true}
+                    >
+                      {barsCode}
                     </SyntaxHighlighter>
                   </ContentSyntaxBox>
                 </ContentTextBox>,
-                <BarColorDemoChartWithData
-                  chartName={`fillColorScaleSequentialWithData`}
-                />,
+                <ContentChartBox>
+                  <BarColorDemoChartWithData
+                    chartName={`fillColorScaleSequentialWithData`}
+                  />
+                </ContentChartBox>,
               ]}
             />,
           ]}

@@ -1,6 +1,9 @@
 import { resetMockSelectionStore } from '../../__mocks__/selection'
-import { createMockQsCanvasOthogonal } from '../../canvas/__mocks__/canvas'
-import { QsCanvasOrthogonal } from '../../canvas/qsTypes'
+import {
+  createMockQsCanvasOthogonal,
+  createMockQsCanvasRadial,
+} from '../../canvas/__mocks__/canvas'
+import { QsCanvasOrthogonal, QsCanvasRadial } from '../../canvas/qsTypes'
 import { CanvasConfig } from '../../canvas/types'
 
 import {
@@ -64,12 +67,14 @@ describe('Gradient Functions Testing', () => {
     highestViewableValueX: 0,
     lowestViewableValueX: 0,
   }
-  let canvasMock: QsCanvasOrthogonal
+  let canvasOrthogonalMock: QsCanvasOrthogonal
+  let canvasRadialMock: QsCanvasRadial
 
   beforeEach(() => {
     resetMockSelectionStore()
-    canvasMock = createMockQsCanvasOthogonal()
-    canvasMock.config = canvasConfig
+    canvasOrthogonalMock = createMockQsCanvasOthogonal()
+    canvasRadialMock = createMockQsCanvasRadial()
+    canvasOrthogonalMock.config = canvasConfig
   })
 
   describe('qsCreateCustomStoporthogonalGradient', () => {
@@ -81,7 +86,7 @@ describe('Gradient Functions Testing', () => {
       'creates orthogonal gradient with gradientId=$gradientId, x1=$x1, y1=$y1, x2=$x2, y2=$y2',
       ({ gradientId, colorStops, x1, y1, x2, y2, expectedId }) => {
         const result = qsCreateCustomStopOrthogonalGradient({
-          canvas: canvasMock,
+          canvas: canvasOrthogonalMock,
           gradientId,
           colorStops,
           x1,
@@ -91,15 +96,15 @@ describe('Gradient Functions Testing', () => {
         })
 
         expect(result).toBe(expectedId)
-        expect(canvasMock.canvasSVG.append).toHaveBeenCalled()
-        const appendCalls = canvasMock.canvasSVG.getAppendCalls()
+        expect(canvasOrthogonalMock.canvasSVG.append).toHaveBeenCalled()
+        const appendCalls = canvasOrthogonalMock.canvasSVG.getAppendCalls()
         expect(appendCalls).toContainEqual({ type: 'defs' })
         expect(appendCalls).toContainEqual({ type: 'linearGradient' })
         expect(appendCalls.filter((call) => call.type === 'stop').length).toBe(
           colorStops.length
         )
 
-        const attrCalls = canvasMock.canvasSVG.getAttrCalls()
+        const attrCalls = canvasOrthogonalMock.canvasSVG.getAttrCalls()
         expect(attrCalls).toContainEqual({ name: 'id', value: gradientId })
         expect(attrCalls).toContainEqual({ name: 'x1', value: x1 })
         expect(attrCalls).toContainEqual({ name: 'y1', value: y1 })
@@ -116,8 +121,12 @@ describe('Gradient Functions Testing', () => {
           })
         })
 
-        canvasMock.canvasSVG.selectAll('defs').selectAll('orthogonalGradient')
-        expect(canvasMock.canvasSVG.selectAll).toHaveBeenCalledWith('defs')
+        canvasOrthogonalMock.canvasSVG
+          .selectAll('defs')
+          .selectAll('orthogonalGradient')
+        expect(canvasOrthogonalMock.canvasSVG.selectAll).toHaveBeenCalledWith(
+          'defs'
+        )
       }
     )
   })
@@ -132,7 +141,7 @@ describe('Gradient Functions Testing', () => {
       ({ gradientId, colors, x1, y1, x2, y2, expectedId }) => {
         resetMockSelectionStore()
         const result = qsCreateOrthogonalGradient({
-          canvas: canvasMock,
+          canvas: canvasOrthogonalMock,
           gradientId,
           colors,
           x1,
@@ -142,14 +151,14 @@ describe('Gradient Functions Testing', () => {
         })
 
         expect(result).toBe(expectedId)
-        const appendCalls = canvasMock.canvasSVG.getAppendCalls()
+        const appendCalls = canvasOrthogonalMock.canvasSVG.getAppendCalls()
         expect(appendCalls).toContainEqual({ type: 'defs' })
         expect(appendCalls).toContainEqual({ type: 'linearGradient' })
         expect(appendCalls.filter((call) => call.type === 'stop').length).toBe(
           colors.length
         )
 
-        const attrCalls = canvasMock.canvasSVG.getAttrCalls()
+        const attrCalls = canvasOrthogonalMock.canvasSVG.getAttrCalls()
         expect(attrCalls).toContainEqual({ name: 'id', value: gradientId })
         expect(attrCalls).toContainEqual({ name: 'x1', value: x1 })
         expect(attrCalls).toContainEqual({ name: 'y1', value: y1 })
@@ -166,23 +175,25 @@ describe('Gradient Functions Testing', () => {
 
   describe('qsCreateCustomStopRadialGradient', () => {
     test.each`
-      gradientId | colorStops            | cx       | cy       | r        | expectedId
-      ${'rad1'}  | ${BLUE_RED_STOPS}     | ${'50%'} | ${'50%'} | ${'50%'} | ${'url(#rad1)'}
-      ${'rad2'}  | ${BLUE_RED_MID_STOPS} | ${'40%'} | ${'60%'} | ${'70%'} | ${'url(#rad2)'}
+      gradientId | colorStops            | cx       | cy       | r        | fx       | fy       | expectedId
+      ${'rad1'}  | ${BLUE_RED_STOPS}     | ${'50%'} | ${'50%'} | ${'50%'} | ${'50%'} | ${'50%'} | ${'url(#rad1)'}
+      ${'rad2'}  | ${BLUE_RED_MID_STOPS} | ${'40%'} | ${'60%'} | ${'70%'} | ${'30%'} | ${'30%'} | ${'url(#rad2)'}
     `(
-      'creates radial gradient with gradientId=$gradientId, cx=$cx, cy=$cy, r=$r',
-      ({ gradientId, colorStops, cx, cy, r, expectedId }) => {
+      'creates radial gradient with gradientId=$gradientId, cx=$cx, cy=$cy, r=$r, fx=$fx, fy=$fy',
+      ({ gradientId, colorStops, cx, cy, r, fx, fy, expectedId }) => {
         const result = qsCreateCustomStopRadialGradient({
-          canvas: canvasMock,
+          canvas: canvasRadialMock,
           gradientId,
           colorStops,
           cx,
           cy,
           r,
+          fx,
+          fy,
         })
 
         expect(result).toBe(expectedId)
-        const appendCalls = canvasMock.canvasSVG.getAppendCalls()
+        const appendCalls = canvasRadialMock.canvasSVG.getAppendCalls()
 
         expect(appendCalls).toContainEqual({ type: 'defs' })
         expect(appendCalls).toContainEqual({ type: 'radialGradient' })
@@ -190,11 +201,13 @@ describe('Gradient Functions Testing', () => {
           colorStops.length
         )
 
-        const attrCalls = canvasMock.canvasSVG.getAttrCalls()
+        const attrCalls = canvasRadialMock.canvasSVG.getAttrCalls()
         expect(attrCalls).toContainEqual({ name: 'id', value: gradientId })
         expect(attrCalls).toContainEqual({ name: 'cx', value: cx })
         expect(attrCalls).toContainEqual({ name: 'cy', value: cy })
         expect(attrCalls).toContainEqual({ name: 'r', value: r })
+        expect(attrCalls).toContainEqual({ name: 'fx', value: fx })
+        expect(attrCalls).toContainEqual({ name: 'fy', value: fy })
         colorStops.forEach((stop: { color: any; offset: any }) => {
           expect(attrCalls).toContainEqual({
             name: 'offset',
@@ -211,34 +224,38 @@ describe('Gradient Functions Testing', () => {
 
   describe('qsCreateRadialGradient', () => {
     test.each`
-      gradientId | colors                | cx       | cy       | r        | expectedId
-      ${'rad3'}  | ${RED_GREEN}          | ${'50%'} | ${'50%'} | ${'50%'} | ${'url(#rad3)'}
-      ${'rad4'}  | ${BLUE_WHITE_MAGENTA} | ${'40%'} | ${'60%'} | ${'70%'} | ${'url(#rad4)'}
+      gradientId | colors                | cx       | cy       | r        | fx       | fy       | expectedId
+      ${'rad3'}  | ${RED_GREEN}          | ${'50%'} | ${'50%'} | ${'50%'} | ${'50%'} | ${'50%'} | ${'url(#rad3)'}
+      ${'rad4'}  | ${BLUE_WHITE_MAGENTA} | ${'40%'} | ${'60%'} | ${'70%'} | ${'30%'} | ${'30%'} | ${'url(#rad4)'}
     `(
       'creates radial gradient with gradientId=$gradientId, cx=$cx, cy=$cy, r=$r',
-      ({ gradientId, colors, cx, cy, r, expectedId }) => {
+      ({ gradientId, colors, cx, cy, r, fx, fy, expectedId }) => {
         const result = qsCreateRadialGradient({
-          canvas: canvasMock,
+          canvas: canvasRadialMock,
           gradientId,
           colors,
           cx,
           cy,
           r,
+          fx,
+          fy,
         })
 
         expect(result).toBe(expectedId)
-        const appendCalls = canvasMock.canvasSVG.getAppendCalls()
+        const appendCalls = canvasRadialMock.canvasSVG.getAppendCalls()
         expect(appendCalls).toContainEqual({ type: 'defs' })
         expect(appendCalls).toContainEqual({ type: 'radialGradient' })
         expect(appendCalls.filter((call) => call.type === 'stop').length).toBe(
           colors.length
         )
 
-        const attrCalls = canvasMock.canvasSVG.getAttrCalls()
+        const attrCalls = canvasRadialMock.canvasSVG.getAttrCalls()
         expect(attrCalls).toContainEqual({ name: 'id', value: gradientId })
         expect(attrCalls).toContainEqual({ name: 'cx', value: cx })
         expect(attrCalls).toContainEqual({ name: 'cy', value: cy })
         expect(attrCalls).toContainEqual({ name: 'r', value: r })
+        expect(attrCalls).toContainEqual({ name: 'fx', value: fx })
+        expect(attrCalls).toContainEqual({ name: 'fy', value: fy })
         colors.forEach((color: string, i: number) => {
           const offset = `${(i / (colors.length - 1)) * 100}%`
           expect(attrCalls).toContainEqual({ name: 'stop-color', value: color })

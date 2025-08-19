@@ -1,4 +1,8 @@
-import { QsCanvasOrthogonal, QsCanvasPlotted } from '../../canvas/qsTypes'
+import {
+  QsCanvasOrthogonal,
+  QsCanvasPlotted,
+  QsCanvasRadial,
+} from '../../canvas/qsTypes'
 import { addColorsToGradient } from './addColorsToGradient'
 import { createColorStops } from './createColorStops'
 
@@ -25,11 +29,13 @@ export interface QsorthogonalGradientData extends orthogonalGradient {
 }
 
 interface RadialGradient {
-  canvas: QsCanvasOrthogonal
+  canvas: QsCanvasRadial
   gradientId: string
-  cx: string
-  cy: string
-  r: string
+  cx?: string
+  cy?: string
+  r?: string
+  fy?: string
+  fx?: string
 }
 
 export interface QsRadialGradientColorStopData extends RadialGradient {
@@ -121,6 +127,8 @@ export const qsCreateCustomStopRadialGradient = ({
   cx = '50%',
   cy = '50%',
   r = '50%',
+  fy = '50%',
+  fx = '50%',
 }: QsRadialGradientColorStopData): string => {
   const defs: any = canvas.canvasSVG.append('defs')
 
@@ -135,6 +143,8 @@ export const qsCreateCustomStopRadialGradient = ({
     .attr('cx', cx)
     .attr('cy', cy)
     .attr('r', r)
+    .attr('fy', fy)
+    .attr('fx', fx)
 
   addColorsToGradient(colorStops, gradient)
   return `url(#${gradientId})`
@@ -155,6 +165,8 @@ export const qsCreateRadialGradient = ({
   cx = '50%',
   cy = '50%',
   r = '50%',
+  fy = '50%',
+  fx = '50%',
 }: QsRadialGradientData): string => {
   return qsCreateCustomStopRadialGradient({
     canvas,
@@ -163,5 +175,7 @@ export const qsCreateRadialGradient = ({
     cx,
     cy,
     r,
+    fy,
+    fx,
   })
 }

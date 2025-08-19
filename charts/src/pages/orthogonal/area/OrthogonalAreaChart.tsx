@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasOrthogonal,
   qsCreateCanvasOrthogonal,
-  qsCreateorthogonalGradient,
+  qsCreateOrthogonalGradient,
   QsEnumAxisScaleType,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
@@ -16,7 +16,7 @@ export const OrthogonalAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
 
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
 
-      const gradientUrl: string = qsCreateorthogonalGradient({
+      const gradientUrl: string = qsCreateOrthogonalGradient({
         canvas,
         gradientId: 'redBlue',
         colors: ['red', 'darkblue'],

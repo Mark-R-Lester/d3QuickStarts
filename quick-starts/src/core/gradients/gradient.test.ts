@@ -4,9 +4,9 @@ import { QsCanvasOrthogonal } from '../../canvas/qsTypes'
 import { CanvasConfig } from '../../canvas/types'
 
 import {
-  qsCreateCustomStoporthogonalGradient,
+  qsCreateCustomStopOrthogonalGradient,
   qsCreateCustomStopRadialGradient,
-  qsCreateorthogonalGradient,
+  qsCreateOrthogonalGradient,
   qsCreateRadialGradient,
 } from './gradients'
 
@@ -80,7 +80,7 @@ describe('Gradient Functions Testing', () => {
     `(
       'creates orthogonal gradient with gradientId=$gradientId, x1=$x1, y1=$y1, x2=$x2, y2=$y2',
       ({ gradientId, colorStops, x1, y1, x2, y2, expectedId }) => {
-        const result = qsCreateCustomStoporthogonalGradient({
+        const result = qsCreateCustomStopOrthogonalGradient({
           canvas: canvasMock,
           gradientId,
           colorStops,
@@ -131,7 +131,7 @@ describe('Gradient Functions Testing', () => {
       'creates orthogonal gradient with gradientId=$gradientId, x1=$x1, y1=$y1, x2=$x2, y2=$y2',
       ({ gradientId, colors, x1, y1, x2, y2, expectedId }) => {
         resetMockSelectionStore()
-        const result = qsCreateorthogonalGradient({
+        const result = qsCreateOrthogonalGradient({
           canvas: canvasMock,
           gradientId,
           colors,

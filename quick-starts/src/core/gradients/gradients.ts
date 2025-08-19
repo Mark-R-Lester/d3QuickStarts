@@ -40,7 +40,16 @@ export interface QsRadialGradientData extends RadialGradient {
   colors: string[]
 }
 
-export const qsCreateCustomStoporthogonalGradient = ({
+/**
+ * canvas: The canvas which this will be added to
+ * gradientId: The Id that will identify the gradient
+ * colorStops: Color stops each is a color with anumbe representing the amount of gradient it will consume
+ * x1: one half of the starting coordinate for the gradient
+ * y1: one half of the starting coordinate for the gradient
+ * x2: one half of the ending coordinate for the gradient
+ * y2: one half of the ending coordinate for the gradient
+ */
+export const qsCreateCustomStopOrthogonalGradient = ({
   canvas,
   gradientId,
   colorStops,
@@ -68,7 +77,16 @@ export const qsCreateCustomStoporthogonalGradient = ({
   return `url(#${gradientId})`
 }
 
-export const qsCreateorthogonalGradient = ({
+/**
+ * canvas: The canvas which this will be added to
+ * gradientId: The Id that will identify the gradient
+ * colors: The colors used in the gradient
+ * x1: one half of the starting coordinate for the gradient
+ * y1: one half of the starting coordinate for the gradient
+ * x2: one half of the ending coordinate for the gradient
+ * y2: one half of the ending coordinate for the gradient
+ */
+export const qsCreateOrthogonalGradient = ({
   canvas,
   gradientId,
   colors,
@@ -77,7 +95,7 @@ export const qsCreateorthogonalGradient = ({
   x2 = '0%',
   y2 = '100%',
 }: QsorthogonalGradientData): string => {
-  return qsCreateCustomStoporthogonalGradient({
+  return qsCreateCustomStopOrthogonalGradient({
     canvas,
     gradientId,
     colorStops: createColorStops(colors),
@@ -88,6 +106,14 @@ export const qsCreateorthogonalGradient = ({
   })
 }
 
+/**
+ * canvas: The canvas which this will be added to
+ * gradientId: The Id that will identify the gradient
+ * colorStops: Color stops each is a color with anumbe representing the amount of gradient it will consume
+ * cx: one half of the starting center coordinate for the gradient
+ * cy: one half of the starting center coordinate for the gradient
+ * r: radius of the gradient
+ */
 export const qsCreateCustomStopRadialGradient = ({
   canvas,
   gradientId,
@@ -114,6 +140,14 @@ export const qsCreateCustomStopRadialGradient = ({
   return `url(#${gradientId})`
 }
 
+/**
+ * canvas: The canvas which this will be added to
+ * gradientId: The Id that will identify the gradient
+ * colors: The colors used in the gradient
+ * cx: one half of the starting center coordinate for the gradient
+ * cy: one half of the starting center coordinate for the gradient
+ * r: radius of the gradient
+ */
 export const qsCreateRadialGradient = ({
   canvas,
   gradientId,

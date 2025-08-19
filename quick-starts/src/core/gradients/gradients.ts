@@ -119,6 +119,8 @@ export const qsCreateOrthogonalGradient = ({
  * cx: one half of the starting center coordinate for the gradient
  * cy: one half of the starting center coordinate for the gradient
  * r: radius of the gradient
+ * fy, sets the focal point
+ * fx,  sets the focal point
  */
 export const qsCreateCustomStopRadialGradient = ({
   canvas,
@@ -157,6 +159,8 @@ export const qsCreateCustomStopRadialGradient = ({
  * cx: one half of the starting center coordinate for the gradient
  * cy: one half of the starting center coordinate for the gradient
  * r: radius of the gradient
+ * fy, sets the focal point
+ * fx,  sets the focal point
  */
 export const qsCreateRadialGradient = ({
   canvas,

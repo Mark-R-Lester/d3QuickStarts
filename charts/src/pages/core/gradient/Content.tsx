@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material'
+import { Card, CardContent, Container, Grid, Typography } from '@mui/material'
 import { ContentColumn } from '../../../components/atoms/content/ContentColumn'
 import {
   ContentBox,
@@ -10,6 +10,36 @@ import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import { RadialAreaGradientDemoChart } from './RadialAreaGradientDemoChart'
 import { AreaConfigDemoChart } from './AreaGradientDemoChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
+
+const orthogonalGradient: string = `const gradientUrl: string = qsCreateOrthogonalGradient({
+  canvas,
+  gradientId: 'areaGradient',
+  colors: ['lightblue', 'darkblue'],
+  x1: '0%',
+  y1: '0%',
+  x2: '0%',
+  y2: '100%',
+})`
+
+const orthogonalGradientMoreColours: string = `const gradientUrl: string = qsCreateOrthogonalGradient({
+  canvas,
+  gradientId: 'areaGradient',
+  colors: ['#90EE90', '#70C170', '#509450', '#006400'],
+  x1: '0%',
+  y1: '0%',
+  x2: '0%',
+  y2: '100%',
+})`
+
+const orthogonalConfig: string = `const config: QsRadialAreaConfig = {
+  defaultFillColor: gradientUrl,
+}`
+
+const orthogonalData: string = `const data: QsAreaData = {
+  higherData: [
+    150, 100, 120, 130, 140, 160, 160, 160, 150, 112, 156, 140,
+  ],
+}`
 
 const areaCode: string = ` const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal({
   chartName: \`textEnumDemo\${chartName}\`,
@@ -39,12 +69,69 @@ export const orthogonalGradientContent: JSX.Element = (
               depth and guide the viewer’s eye, making complex data more
               intuitive and engaging without overwhelming the presentation.
             </Typography>,
+            <Typography key="title" variant="h4">
+              qsCreateCustomStopOrthogonalGradient
+            </Typography>,
+            <Typography variant="body2" component="ul">
+              <li>
+                <strong>Inputs:</strong> Canvas, gradient ID, color stops, start
+                (x1, y1: 0%, 0%), end (x2, y2: 0%, 100%).
+              </li>
+              <li>
+                <strong>Functionality:</strong> Creates SVG defs, linear
+                gradient with ID and coordinates, adds color stops, returns URL.
+              </li>
+              <li>
+                <strong>Purpose:</strong> Generates customizable linear gradient
+                for SVG elements, defaults to vertical.
+              </li>
+            </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
-                  <Typography>
-                    An area element with default configuration
+                  <Typography variant="h6" gutterBottom>
+                    Something
                   </Typography>
+
+                  <ContentCodeBox code={orthogonalGradient} />
+                  <ContentCodeBox code={orthogonalConfig} />
+                  <ContentCodeBox code={orthogonalData} />
+                  <ContentCodeBox code={areaCode} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <AreaConfigDemoChart
+                    chartName={`basicOrthogonalGradientColorStops`}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+
+            <Typography key="title" variant="h4">
+              qsCreateOrthogonalGradient
+            </Typography>,
+            <Typography variant="body2" component="ul">
+              <li>
+                <strong>Inputs:</strong> Canvas, gradient ID, colors, start (x1,
+                y1: 0%, 0%), end (x2, y2: 0%, 100%).
+              </li>
+              <li>
+                <strong>Functionality:</strong> Converts colors to stops, calls
+                qsCreateCustomStopOrthogonalGradient, returns URL.
+              </li>
+              <li>
+                <strong>Purpose:</strong> Simplifies vertical linear gradient
+                creation, customizable for direction.
+              </li>
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="h6" gutterBottom>
+                    Something
+                  </Typography>
+                  <ContentCodeBox code={orthogonalGradient} />
+                  <ContentCodeBox code={orthogonalConfig} />
+                  <ContentCodeBox code={orthogonalData} />
                   <ContentCodeBox code={areaCode} />
                 </ContentTextBox>,
                 <ContentChartBox>
@@ -55,12 +142,17 @@ export const orthogonalGradientContent: JSX.Element = (
             <ContentRow
               elements={[
                 <ContentTextBox>
-                  <Typography>Some info</Typography>
+                  <Typography></Typography>
+                  <ContentCodeBox code={orthogonalGradientMoreColours} />
+                  <ContentCodeBox code={orthogonalConfig} />
+                  <ContentCodeBox code={orthogonalData} />
                   <ContentCodeBox code={areaCode} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <AreaConfigDemoChart
                     chartName={`basicOrthogonalGradientConfigured`}
+                    gradientId={'orthogonalGradient2'}
+                    colors={['lightblue', 'pink', 'darkblue']}
                   />
                 </ContentChartBox>,
               ]}

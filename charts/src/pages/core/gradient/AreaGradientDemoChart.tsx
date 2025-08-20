@@ -5,6 +5,7 @@ import {
   QsCanvasOrthogonal,
   QsColorStop,
   qsCreateCanvasOrthogonal,
+  qsCreateCustomStopOrthogonalGradient,
   qsCreateOrthogonalGradient,
 } from 'd3qs/d3QuickStart'
 
@@ -47,10 +48,10 @@ export const AreaConfigDemoChart: FunctionComponent<BarColorDemoChartProps> =
           let gradientUrl: string
 
           if (colorStops) {
-            gradientUrl = qsCreateOrthogonalGradient({
+            gradientUrl = qsCreateCustomStopOrthogonalGradient({
               canvas,
               gradientId,
-              colors,
+              colorStops,
               x1,
               y1,
               x2,

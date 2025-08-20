@@ -3,6 +3,7 @@ import {
   QsCanvasRadial,
   QsColorStop,
   qsCreateCanvasRadial,
+  qsCreateCustomStopRadialGradient,
   qsCreateRadialGradient,
   QsRadialAreaConfig,
   QsRadialAreaData,
@@ -49,10 +50,10 @@ export const RadialAreaGradientDemoChart: FunctionComponent<BarColorDemoChartPro
           let gradientUrl: string
 
           if (colorStops) {
-            gradientUrl = qsCreateRadialGradient({
+            gradientUrl = qsCreateCustomStopRadialGradient({
               canvas,
               gradientId,
-              colors,
+              colorStops,
               cx,
               cy,
               r,

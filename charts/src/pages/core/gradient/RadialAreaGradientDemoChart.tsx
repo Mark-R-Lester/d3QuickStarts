@@ -1,6 +1,7 @@
 import { FunctionComponent, memo, useEffect } from 'react'
 import {
   QsCanvasRadial,
+  QsColorStop,
   qsCreateCanvasRadial,
   qsCreateRadialGradient,
   QsRadialAreaConfig,
@@ -11,9 +12,9 @@ export interface BarColorDemoChartProps {
   chartName: string
   height?: number
   width?: number
-  withColorStops?: boolean
   gradientId?: string
   colors?: string[]
+  colorStops?: QsColorStop[]
   cx?: string
   cy?: string
   r?: string
@@ -27,9 +28,9 @@ export const RadialAreaGradientDemoChart: FunctionComponent<BarColorDemoChartPro
       chartName,
       height = 300,
       width = 500,
-      withColorStops = false,
       gradientId = 'radialGradient',
       colors = ['darkBlue', 'pink', 'lightblue'],
+      colorStops,
       cx = '50%',
       cy = '50%',
       r = '50%',
@@ -47,7 +48,7 @@ export const RadialAreaGradientDemoChart: FunctionComponent<BarColorDemoChartPro
 
           let gradientUrl: string
 
-          if (withColorStops) {
+          if (colorStops) {
             gradientUrl = qsCreateRadialGradient({
               canvas,
               gradientId,
@@ -96,7 +97,7 @@ export const RadialAreaGradientDemoChart: FunctionComponent<BarColorDemoChartPro
         height,
         r,
         width,
-        withColorStops,
+        colorStops,
       ])
 
       return <div id={`textEnumDemo${chartName}`} />

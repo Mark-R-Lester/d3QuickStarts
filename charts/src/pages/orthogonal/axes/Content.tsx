@@ -1,18 +1,15 @@
 import { Typography } from '@mui/material'
-import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
-
-import SyntaxHighlighter from 'react-syntax-highlighter'
 import { ContentColumn } from '../../../components/atoms/content/ContentColumn'
 import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import {
   ContentTitle,
   ContentBox,
   ContentTextBox,
-  ContentSyntaxBox,
 } from '../../../components/atoms/content/ContentStyled'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import { OrthogonalAxisChart } from './AxisConfigChart'
 import { AxiesDefaultsChart } from './AxesDefaultsChart'
+import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'chart',
@@ -158,15 +155,7 @@ export const defaultsContent: JSX.Element = (
                 <ContentTextBox>
                   <Typography variant="body1">Some content</Typography>
                 </ContentTextBox>,
-                <ContentSyntaxBox>
-                  <SyntaxHighlighter
-                    language="typescript"
-                    style={atomOneDark}
-                    showLineNumbers={true}
-                  >
-                    {defaultsChartAll}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={defaultsChartAll} />,
               ]}
             ></ContentRow>,
             <AxiesDefaultsChart
@@ -202,15 +191,7 @@ export const configContent: JSX.Element = (
                   <br />
                   <Typography variant="body1">Some content3</Typography>
                 </ContentTextBox>,
-                <ContentSyntaxBox>
-                  <SyntaxHighlighter
-                    language="typescript"
-                    style={atomOneDark}
-                    showLineNumbers={true}
-                  >
-                    {configChartAll}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={configChartAll} />,
               ]}
             ></ContentRow>,
             <OrthogonalAxisChart
@@ -239,22 +220,13 @@ export const configAndData: JSX.Element = (
             <ContentColumn
               elements={[
                 <Typography variant="body1">Interface:</Typography>,
-                <ContentSyntaxBox>
-                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {config}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={config} />,
               ]}
             />,
             <ContentColumn
               elements={[
                 <Typography variant="body1">Example:</Typography>,
-                <ContentSyntaxBox>
-                  {' '}
-                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {configExample}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={configExample} />,
               ]}
             />,
           ]}

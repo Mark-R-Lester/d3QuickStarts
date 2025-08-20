@@ -3,19 +3,17 @@ import { ContentColumn } from '../../../components/atoms/content/ContentColumn'
 import {
   ContentBox,
   ContentChartBox,
-  ContentSyntaxBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import { BarColorDemoChart } from './BarColorDemoChart'
 import { QsEnumColorScale } from 'd3qs/d3QuickStart'
-import SyntaxHighlighter from 'react-syntax-highlighter'
-import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { BarColorDemoChartWithData } from './BarColorDemoChartWithData'
 import { AreaConfigDemoChart } from './AreaConfigDemoChart'
 import { MultiAreaConfigDemoChart } from './MultiAreaConfigDemoChart'
 import { MultiBarConfigDemoChart } from './MultiBarConfigDemoChart'
+import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 
 const getCodeSample = (
   elementType: string,
@@ -118,15 +116,7 @@ export const configContent: JSX.Element = (
                   <Typography>
                     An area element with default configuration
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {mutliAreaCodeNoConfig}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
+                  <ContentCodeBox code={mutliAreaCodeNoConfig} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <AreaConfigDemoChart chartName={`areaNoConfig`} />
@@ -139,15 +129,7 @@ export const configContent: JSX.Element = (
                   <Typography>
                     A bars element with default configuration
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {mutliBarCodeNoConfig}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
+                  <ContentCodeBox code={mutliBarCodeNoConfig} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <BarColorDemoChart chartName={`barNoConfig`} />
@@ -173,24 +155,8 @@ export const configContent: JSX.Element = (
                     Area configured at canvas level. Depending upon the data
                     being displayed, this may be sufficient
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {areaConfigCanvasLevel}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {mutliAreaCodeConfigCanvasLevel}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
+                  <ContentCodeBox code={areaConfigCanvasLevel} />
+                  <ContentCodeBox code={mutliAreaCodeConfigCanvasLevel} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <MultiAreaConfigDemoChart
@@ -213,24 +179,8 @@ export const configContent: JSX.Element = (
                     Bars configured at canvas level. Depending upon the data
                     being displayed, this may be sufficient
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {barConfigCanvasLevel}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {mutliBarCodeConfigCanvasLevel}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
+                  <ContentCodeBox code={barConfigCanvasLevel} />
+                  <ContentCodeBox code={mutliBarCodeConfigCanvasLevel} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <MultiBarConfigDemoChart
@@ -308,33 +258,9 @@ export const configContent: JSX.Element = (
                     Changes to config at element level override config at canvas
                     level
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {areaConfigCanvasLevel}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {areaConfig1}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {mutliAreaCodeConfigElementLevel}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
+                  <ContentCodeBox code={areaConfigCanvasLevel} />
+                  <ContentCodeBox code={areaConfig1} />
+                  <ContentCodeBox code={mutliAreaCodeConfigElementLevel} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <MultiAreaConfigDemoChart
@@ -367,33 +293,9 @@ export const configContent: JSX.Element = (
                     Changes to config at element level override config at canvas
                     level
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {barConfigCanvasLevel}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {barConfig1}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {mutliBarCodeConfigElementLevel}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
+                  <ContentCodeBox code={barConfigCanvasLevel} />
+                  <ContentCodeBox code={barConfig1} />
+                  <ContentCodeBox code={mutliBarCodeConfigElementLevel} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <MultiBarConfigDemoChart
@@ -435,42 +337,10 @@ export const configContent: JSX.Element = (
                   <Typography>
                     Settings at data level override any config
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {areaConfigCanvasLevel}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {areaConfig1}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {areaData1}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {mutliAreaCodeConfigElementLevel}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
+                  <ContentCodeBox code={areaConfigCanvasLevel} />
+                  <ContentCodeBox code={areaConfig1} />
+                  <ContentCodeBox code={areaData1} />
+                  <ContentCodeBox code={mutliAreaCodeConfigElementLevel} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <MultiAreaConfigDemoChart
@@ -503,42 +373,10 @@ export const configContent: JSX.Element = (
                   <Typography>
                     Settings at data level override any config
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {barConfigCanvasLevel}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {barConfig1}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {barData1}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {mutliBarCodeConfigElementLevel}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
+                  <ContentCodeBox code={barConfigCanvasLevel} />
+                  <ContentCodeBox code={barConfig1} />
+                  <ContentCodeBox code={barData1} />
+                  <ContentCodeBox code={mutliBarCodeConfigElementLevel} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <MultiBarConfigDemoChart
@@ -646,15 +484,7 @@ export const colorConfigContent: JSX.Element = (
                   <Typography>
                     This is the default appearance of bars.
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {barsCodeNoConfig}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
+                  <ContentCodeBox code={barsCodeNoConfig} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <BarColorDemoChart chartName={`noConfig`} />,
@@ -669,24 +499,8 @@ export const colorConfigContent: JSX.Element = (
                     This is purely aesthetic and does not change the way in
                     which the data is presented.
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {configDefaultColour}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {barsCode}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
+                  <ContentCodeBox code={configDefaultColour} />
+                  <ContentCodeBox code={barsCode} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <BarColorDemoChart
@@ -705,25 +519,8 @@ export const colorConfigContent: JSX.Element = (
                     It is possible to change the stroke in the same way as fill.
                     From here only fill will be used to demonstrate color use.
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {configDefaultStrokeColour}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {barsCode}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  ,
+                  <ContentCodeBox code={configDefaultStrokeColour} />
+                  <ContentCodeBox code={barsCode} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <BarColorDemoChart
@@ -748,24 +545,8 @@ export const colorConfigContent: JSX.Element = (
                     can represent data so 'defaultFillColor' is overridden when
                     using 'fillColorScaleData'.
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {configOrdinalScale}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {barsCode}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
+                  <ContentCodeBox code={configOrdinalScale} />
+                  <ContentCodeBox code={barsCode} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <BarColorDemoChart
@@ -788,24 +569,8 @@ export const colorConfigContent: JSX.Element = (
                     While an 'ordinal' scale is purely aesthetic a 'sequential'
                     scale changes color based on data.
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {configSequentialScale}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {barsCode}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
+                  <ContentCodeBox code={configSequentialScale} />
+                  <ContentCodeBox code={barsCode} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <BarColorDemoChart
@@ -829,33 +594,9 @@ export const colorConfigContent: JSX.Element = (
                     Finally color can be specified as part of the data. This
                     will override 'defaultFillColor' and 'fillColorScaleData'.
                   </Typography>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {configSequentialScale}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {dataWithColour}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
-                  <ContentSyntaxBox>
-                    <SyntaxHighlighter
-                      language="typescript"
-                      style={atomOneDark}
-                      showLineNumbers={true}
-                    >
-                      {barsCode}
-                    </SyntaxHighlighter>
-                  </ContentSyntaxBox>
+                  <ContentCodeBox code={configSequentialScale} />
+                  <ContentCodeBox code={dataWithColour} />
+                  <ContentCodeBox code={barsCode} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <BarColorDemoChartWithData

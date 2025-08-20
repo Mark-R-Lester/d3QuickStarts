@@ -1,17 +1,15 @@
 import { Typography } from '@mui/material'
-import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { ContentColumn } from '../../../components/atoms/content/ContentColumn'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import { SimpleCanvas } from './SimpleCanvas'
 import { SimpleCanvasWithArea } from './SimpleCanvasWithArea'
 import {
   ContentBox,
-  ContentSyntaxBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import SyntaxHighlighter from 'react-syntax-highlighter'
 import { ChartEditor } from '../../../components/molecules/ChartEditor'
+import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'chart',
@@ -108,15 +106,7 @@ export const defaultsContent: JSX.Element = (
                     visual elements
                   </Typography>
                 </ContentTextBox>,
-                <ContentSyntaxBox>
-                  <SyntaxHighlighter
-                    language="typescript"
-                    style={atomOneDark}
-                    showLineNumbers={true}
-                  >
-                    {defaultsChartAll}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={defaultsChartAll} />,
               ]}
             ></ContentRow>,
             <SimpleCanvas
@@ -165,15 +155,7 @@ export const configContent: JSX.Element = (
                 the data provided
               </Typography>
             </ContentTextBox>,
-            <ContentSyntaxBox>
-              <SyntaxHighlighter
-                language="typescript"
-                style={atomOneDark}
-                showLineNumbers={true}
-              >
-                {configChartAll}
-              </SyntaxHighlighter>
-            </ContentSyntaxBox>,
+            <ContentCodeBox code={configChartAll} />,
           ]}
         ></ContentRow>
       </ContentBox>,
@@ -206,15 +188,7 @@ export const configContent: JSX.Element = (
                     at least as high as your highest value
                   </Typography>
                 </ContentTextBox>,
-                <ContentSyntaxBox>
-                  <SyntaxHighlighter
-                    language="typescript"
-                    style={atomOneDark}
-                    showLineNumbers={true}
-                  >
-                    {configExample1}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={configExample1} />,
               ]}
             ></ContentRow>,
             <SimpleCanvasWithArea
@@ -241,16 +215,7 @@ export const configContent: JSX.Element = (
                     rectangular area with whatever dimentions you want
                   </Typography>
                 </ContentTextBox>,
-                <ContentSyntaxBox>
-                  {' '}
-                  <SyntaxHighlighter
-                    language="typescript"
-                    style={atomOneDark}
-                    showLineNumbers={true}
-                  >
-                    {configExample2}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={configExample2} />,
               ]}
             ></ContentRow>,
             <SimpleCanvasWithArea
@@ -280,15 +245,7 @@ export const configContent: JSX.Element = (
                     can drastically change how the data is displayed
                   </Typography>
                 </ContentTextBox>,
-                <ContentSyntaxBox>
-                  <SyntaxHighlighter
-                    language="typescript"
-                    style={atomOneDark}
-                    showLineNumbers={true}
-                  >
-                    {configExample3}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={configExample3} />,
               ]}
             ></ContentRow>,
             <SimpleCanvasWithArea
@@ -321,16 +278,7 @@ export const configContent: JSX.Element = (
                     and 10% of the width.
                   </Typography>
                 </ContentTextBox>,
-                <ContentSyntaxBox>
-                  {' '}
-                  <SyntaxHighlighter
-                    language="typescript"
-                    style={atomOneDark}
-                    showLineNumbers={true}
-                  >
-                    {configExample4}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={configExample4} />,
               ]}
             ></ContentRow>,
             <SimpleCanvasWithArea
@@ -364,22 +312,13 @@ export const configAndData: JSX.Element = (
             <ContentColumn
               elements={[
                 <Typography variant="body1">Interface:</Typography>,
-                <ContentSyntaxBox>
-                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {QsCanvasConfig}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={QsCanvasConfig} />,
               ]}
             />,
             <ContentColumn
               elements={[
                 <Typography variant="body1">Example:</Typography>,
-                <ContentSyntaxBox>
-                  {' '}
-                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {configExample4}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={configExample4} />,
               ]}
             />,
           ]}

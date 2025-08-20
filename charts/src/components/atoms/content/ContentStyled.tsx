@@ -6,16 +6,6 @@ export const ContentTitle = styled(Typography)(({ theme }) => ({
   marginBottom: '0px',
 }))
 
-export const ContentSyntaxBox = styled('div')(({ theme }) => ({
-  marginTop: '1%',
-  width: '98%',
-  borderRadius: '10px',
-  border: 'solid',
-  borderWidth: '10px',
-  borderColor: '#282c34',
-  backgroundColor: '#282c34',
-}))
-
 export const ContentTextBox = styled('div')(({ theme }) => ({
   marginTop: '1%',
   width: '98%',

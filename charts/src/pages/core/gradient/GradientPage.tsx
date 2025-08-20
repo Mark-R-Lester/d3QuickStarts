@@ -1,16 +1,19 @@
 import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
-import { configContent } from './Content'
+import { orthogonalGradientContent, radialGradientContent } from './Content'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { SingleWord } from '../../../components/atoms/chart/SingleWord'
 
 export default function ColorPage() {
   const menuElements: JSX.Element[] = [
-    <SingleWord chartName="text" text="Gradients" />,
-    <SingleWord chartName="color" text="Color" />,
+    <SingleWord chartName="text" text="Orthogonal" />,
+    <SingleWord chartName="color" text="Radial" />,
   ]
 
-  const contents: JSX.Element[] = [configContent, configContent]
+  const contents: JSX.Element[] = [
+    orthogonalGradientContent,
+    radialGradientContent,
+  ]
   const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
     setContent(contents[index])

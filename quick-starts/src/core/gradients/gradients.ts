@@ -30,12 +30,12 @@ interface RadialGradientData {
   fx?: string
 }
 
-export interface QsorthogonalGradientColorStopData
+export interface QsOrthogonalGradientColorStopData
   extends OrthogonalGradientData {
   colorStops: QsColorStop[]
 }
 
-export interface QsorthogonalGradientData extends OrthogonalGradientData {
+export interface QsOrthogonalGradientData extends OrthogonalGradientData {
   colors: string[]
 }
 
@@ -64,7 +64,7 @@ export const qsCreateCustomStopOrthogonalGradient = ({
   y1 = '0%',
   x2 = '0%',
   y2 = '100%',
-}: QsorthogonalGradientColorStopData): string => {
+}: QsOrthogonalGradientColorStopData): string => {
   const defs: any = canvas.canvasSVG.append('defs')
 
   const gradient: d3.Selection<
@@ -101,7 +101,7 @@ export const qsCreateOrthogonalGradient = ({
   y1 = '0%',
   x2 = '0%',
   y2 = '100%',
-}: QsorthogonalGradientData): string => {
+}: QsOrthogonalGradientData): string => {
   return qsCreateCustomStopOrthogonalGradient({
     canvas,
     gradientId,

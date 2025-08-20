@@ -3,6 +3,7 @@ import {
   QsAreaConfig,
   QsAreaData,
   QsCanvasOrthogonal,
+  QsColorStop,
   qsCreateCanvasOrthogonal,
   qsCreateOrthogonalGradient,
 } from 'd3qs/d3QuickStart'
@@ -13,6 +14,7 @@ export interface BarColorDemoChartProps {
   width?: number
   withColorStops?: boolean
   gradientId?: string
+  colorStops?: QsColorStop[]
   colors?: string[]
   x1?: string
   y1?: string
@@ -26,9 +28,9 @@ export const AreaConfigDemoChart: FunctionComponent<BarColorDemoChartProps> =
       chartName,
       height = 300,
       width = 500,
-      withColorStops = false,
       gradientId = 'orthogonalGradient',
       colors = ['lightblue', 'darkblue'],
+      colorStops,
       x1 = '0%',
       y1 = '0%',
       x2 = '0%',
@@ -44,7 +46,7 @@ export const AreaConfigDemoChart: FunctionComponent<BarColorDemoChartProps> =
           })
           let gradientUrl: string
 
-          if (withColorStops) {
+          if (colorStops) {
             gradientUrl = qsCreateOrthogonalGradient({
               canvas,
               gradientId,
@@ -85,7 +87,7 @@ export const AreaConfigDemoChart: FunctionComponent<BarColorDemoChartProps> =
         gradientId,
         height,
         width,
-        withColorStops,
+        colorStops,
         x1,
         x2,
         y1,

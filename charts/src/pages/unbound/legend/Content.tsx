@@ -1,17 +1,15 @@
 import { Typography } from '@mui/material'
-import { atomOneDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 import { ContentColumn } from '../../../components/atoms/content/ContentColumn'
 import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
-  ContentSyntaxBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import SyntaxHighlighter from 'react-syntax-highlighter'
 import { UnboundLegendDefaultsChart } from './UnboundLegendDefaultsChart'
 import { UnboundLegendChart } from './UnboundLegendChart'
+import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
@@ -137,15 +135,7 @@ export const defaultsContent: JSX.Element = (
                   <Typography variant="body1">content</Typography>
                   <Typography variant="body1">content</Typography>
                 </ContentTextBox>,
-                <ContentSyntaxBox>
-                  <SyntaxHighlighter
-                    language="typescript"
-                    style={atomOneDark}
-                    showLineNumbers={true}
-                  >
-                    {defaultsChartAll}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={defaultsChartAll} />,
               ]}
             />,
             <UnboundLegendDefaultsChart
@@ -180,15 +170,7 @@ export const configContent: JSX.Element = (
                   <Typography variant="body1">content</Typography>
                   <Typography variant="body1">content</Typography>
                 </ContentTextBox>,
-                <ContentSyntaxBox>
-                  <SyntaxHighlighter
-                    language="typescript"
-                    style={atomOneDark}
-                    showLineNumbers={true}
-                  >
-                    {configChartAll}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={configChartAll} />,
               ]}
             />,
             <UnboundLegendChart
@@ -217,22 +199,13 @@ export const configAndData: JSX.Element = (
             <ContentColumn
               elements={[
                 <Typography variant="body1">Interface:</Typography>,
-                <ContentSyntaxBox>
-                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {data}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={data} />,
               ]}
             />,
             <ContentColumn
               elements={[
                 <Typography variant="body1">Example:</Typography>,
-                <ContentSyntaxBox>
-                  {' '}
-                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {dataExample}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={dataExample} />,
               ]}
             />,
           ]}
@@ -245,21 +218,13 @@ export const configAndData: JSX.Element = (
             <ContentColumn
               elements={[
                 <Typography variant="body1">interface:</Typography>,
-                <ContentSyntaxBox>
-                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {config}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={config} />,
               ]}
             />,
             <ContentColumn
               elements={[
                 <Typography variant="body1">Example:</Typography>,
-                <ContentSyntaxBox>
-                  <SyntaxHighlighter language="typescript" style={atomOneDark}>
-                    {configExample}
-                  </SyntaxHighlighter>
-                </ContentSyntaxBox>,
+                <ContentCodeBox code={configExample} />,
               ]}
             />,
           ]}

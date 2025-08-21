@@ -12,7 +12,7 @@ export interface QsColorStop {
 }
 
 interface OrthogonalGradientData {
-  canvas: QsCanvasOrthogonal | QsCanvasPlotted
+  canvas: QsCanvasOrthogonal | QsCanvasPlotted | QsCanvasRadial
   gradientId: string
   x1?: string
   y1?: string
@@ -21,7 +21,7 @@ interface OrthogonalGradientData {
 }
 
 interface RadialGradientData {
-  canvas: QsCanvasRadial
+  canvas: QsCanvasOrthogonal | QsCanvasPlotted | QsCanvasRadial
   gradientId: string
   cx?: string
   cy?: string

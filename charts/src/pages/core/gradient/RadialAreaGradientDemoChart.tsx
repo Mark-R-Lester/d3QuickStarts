@@ -30,7 +30,7 @@ export const RadialAreaGradientDemoChart: FunctionComponent<BarColorDemoChartPro
       height = 300,
       width = 500,
       gradientId = 'radialGradient',
-      colors = ['darkBlue', 'pink', 'lightblue'],
+      colors = ['darkBlue', 'lightblue'],
       colorStops,
       cx = '50%',
       cy = '50%',

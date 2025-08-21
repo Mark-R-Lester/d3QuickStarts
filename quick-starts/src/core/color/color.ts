@@ -8,7 +8,7 @@ import {
 import { GlobalDefaultColors } from '../enums/enums'
 import { QsEnumColorScale } from '../enums/qsEnums'
 import { QsColorScaleData } from '../types/qsTypes'
-import { QsOrdinalColorScaleData } from '../types/qsTypes'
+import { QsOrdinalScaleData } from '../types/qsTypes'
 
 export const getPrecidendedColor = (
   color?: string,
@@ -34,7 +34,7 @@ export const getScaledColor = (
 
 export const findOrdinalValue = (
   index: number,
-  data: QsOrdinalColorScaleData
+  data: QsOrdinalScaleData
 ): number => {
   return (index % data.range.length) + 1
 }

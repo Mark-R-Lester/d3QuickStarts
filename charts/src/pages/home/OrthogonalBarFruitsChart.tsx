@@ -5,7 +5,7 @@ import {
   qsCreateCanvasOrthogonal,
   QsEnumAxisScaleType,
   QsEnumColorScale,
-  QsOrdinalColorScaleData,
+  QsOrdinalScaleData,
 } from 'd3qs/d3QuickStart'
 
 import { ChartPropsOthogonal } from '../../common/chartProps'
@@ -28,7 +28,7 @@ export const OrthogonalBarFruitsChart: FunctionComponent<
         { upperBoundry: 5 },
       ]
 
-      const ordinalScaleData: QsOrdinalColorScaleData = {
+      const ordinalScaleData: QsOrdinalScaleData = {
         type: QsEnumColorScale.ORDINAL,
         range: [
           '#DC143C',

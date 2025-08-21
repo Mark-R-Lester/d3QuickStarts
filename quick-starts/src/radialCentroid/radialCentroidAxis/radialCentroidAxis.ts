@@ -13,43 +13,18 @@ import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { generateClassName } from '../../core/generateClassName'
 
 export const radialAxis = {
-  rings: (
-    canvas: Canvas,
-    data: number[],
-    customConfig?: QsRadialAxisConfig
-  ): QsRadialAxis => {
+  rings: (canvas: Canvas, customConfig?: QsRadialAxisConfig): QsRadialAxis => {
     const config: RadialAxisConfig = addDefaultsToConfig<RadialAxisConfig>(
       radialCentroidAxisConfig,
       customConfig,
       canvas.configStore.radialCentroid.axisConfig()
     )
-    return draw(canvas, data, config)
+    return draw(canvas, config)
   },
 }
 
-const draw = (
-  canvas: Canvas,
-  data: number[],
-  config: RadialAxisConfig
-): QsRadialAxis => {
-  const {
-    strokeColor,
-    strokeOpacity,
-    textFont,
-    textFontStyle,
-    textFontWeight,
-    textDecorationLine,
-    textFill,
-    textStroke,
-    textAlignmentBaseline,
-    textAnchor,
-  } = config
-
-  const calculatedData: CalculatedData[] = getCalculatedData(
-    canvas,
-    data,
-    config
-  )
+const draw = (canvas: Canvas, config: RadialAxisConfig): QsRadialAxis => {
+  const calculatedData: CalculatedData[] = getCalculatedData(canvas, config)
 
   const arc = d3arc()
     .innerRadius((d) => d.innerRadius)
@@ -72,9 +47,9 @@ const draw = (
     .attr('class', className)
     .attr('id', (d) => d.ringId)
     .attr('d', (d) => arc(d.ringData))
-    .attr('stroke', strokeColor)
+    .attr('stroke', (d) => d.strokeColor)
     .attr('stroke-width', (d) => d.strokeWidth)
-    .attr('stroke-opacity', strokeOpacity)
+    .attr('stroke-opacity', (d) => d.strokeOpacity)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
   group
     .selectAll('text')
@@ -83,31 +58,25 @@ const draw = (
     .append('text')
     .attr('class', classNameText)
     .attr('id', (d) => d.textId)
-    .attr('font-family', textFont)
-    .attr('font-style', textFontStyle)
-    .attr('font-weight', textFontWeight)
+    .attr('font-family', (d) => d.textFont)
+    .attr('font-style', (d) => d.textFontStyle)
+    .attr('font-weight', (d) => d.textFontWeight)
     .attr('font-size', (d) => `${d.textFontSize}px`)
-    .attr('text-decoration', textDecorationLine)
-    .attr('fill', textFill)
-    .attr('stroke', textStroke)
-    .style('text-anchor', textAnchor)
-    .style('alignment-baseline', textAlignmentBaseline)
+    .attr('text-decoration', (d) => d.textDecorationLine)
+    .attr('fill', (d) => d.textFill)
+    .attr('stroke', (d) => d.textStroke)
+    .style('text-anchor', (d) => d.textAnchor)
+    .style('alignment-baseline', (d) => d.textAlignmentBaseline)
     .attr(
       'transform',
       (d) => `translate(${d.ringData.textLocation})rotate(${0})`
     )
     .text((d) => d.ringData.text)
 
-  const transition = (
-    transitionData: QsRadialCentroidAxisTransitionData = { data }
-  ) => {
+  const transition = (transitionData: QsRadialCentroidAxisTransitionData) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
 
-    const calculatedData: CalculatedData[] = getCalculatedData(
-      canvas,
-      transitionData.data,
-      config
-    )
+    const calculatedData: CalculatedData[] = getCalculatedData(canvas, config)
     group
       .selectAll(dotClassName)
       .data(calculatedData)

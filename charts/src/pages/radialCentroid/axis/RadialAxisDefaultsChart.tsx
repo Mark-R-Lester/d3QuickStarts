@@ -7,10 +7,8 @@ export const RadialAxisDefaultsChart: FunctionComponent<
 > = ({ canvasProps }) => {
   useEffect(() => {
     const createChart = () => {
-      const data: number[] = [5, 10, 15, 50]
-
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
-      canvas.generate.radialCentroid.axis(data)
+      canvas.generate.radialCentroid.axis()
     }
     createChart()
   }, [canvasProps])

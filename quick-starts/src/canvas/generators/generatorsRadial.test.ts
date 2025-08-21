@@ -13,10 +13,8 @@ import { QsCanvasRadial } from '../qsTypes'
 import { QsGeneratorRadial } from './generatorsRadial'
 import { qsCreateCanvasRadial } from '../canvas'
 
-// Test-scoped elements array
 let testElements: any[] = []
 
-// Mock qsCreateCanvas to return a canvas with a controlled elements array
 jest.mock('../canvas', () => ({
   qsCreateCanvasRadial: jest.fn().mockImplementation(() => {
     const canvas = { elements: testElements, generate: {} }
@@ -27,7 +25,6 @@ jest.mock('../canvas', () => ({
   }),
 }))
 
-// Mock all imported modules
 jest.mock('../../unbound/legend/legend')
 jest.mock('../../unbound/text/text')
 jest.mock('../../radialArc/radialArc/radialArc')
@@ -258,24 +255,23 @@ describe('getGenerators', () => {
     )
 
     test.each`
-      data         | customConfig    | expectedElement
-      ${[0, 1, 2]} | ${{ ticks: 5 }} | ${{ id: 'axis1' }}
-      ${[3, 4, 5]} | ${undefined}    | ${{ id: 'axis2' }}
+      customConfig    | expectedElement
+      ${{ ticks: 5 }} | ${{ id: 'axis1' }}
+      ${undefined}    | ${{ id: 'axis2' }}
     `(
       `When data is $data and customConfig is $customConfig
         it should call generators.radialCentroid.axis and add to elements
         expectedElement = $expectedElement`,
-      ({ data, customConfig, expectedElement }) => {
+      ({ customConfig, expectedElement }) => {
         ;(radialAxis.radialAxis.rings as jest.Mock).mockReturnValue(
           expectedElement
         )
-        const result = generators.radialCentroid.axis(data, customConfig)
+        const result = generators.radialCentroid.axis(customConfig)
         expect(radialAxis.radialAxis.rings).toHaveBeenCalledWith(
           expect.anything(),
-          data,
           customConfig
         )
-        expect(testElements).toContainEqual({ element: expectedElement, data })
+        expect(testElements).toContainEqual({ element: expectedElement })
         expect(result).toEqual(expectedElement)
       }
     )

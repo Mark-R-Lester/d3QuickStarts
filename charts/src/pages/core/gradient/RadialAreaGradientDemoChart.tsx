@@ -44,7 +44,7 @@ export const RadialAreaGradientDemoChart: FunctionComponent<BarColorDemoChartPro
             chartName: `textEnumDemo${chartName}`,
             height,
             width,
-            highestViewableValue: 160,
+            highestViewableValue: 180,
           })
 
           let gradientUrl: string
@@ -82,9 +82,7 @@ export const RadialAreaGradientDemoChart: FunctionComponent<BarColorDemoChartPro
             defaultFillColor: gradientUrl,
           }
           canvas.generate.radialCentroid.area(data, config)
-          canvas.generate.radialCentroid.axis([
-            150, 100, 120, 130, 140, 160, 160, 160, 150, 112, 156, 140,
-          ])
+          canvas.generate.radialCentroid.axis()
         }
         createChart()
       }, [

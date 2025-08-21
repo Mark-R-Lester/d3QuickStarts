@@ -1,11 +1,6 @@
-import {
-  scaleLinear,
-  scaleOrdinal,
-  ScaleOrdinal,
-  ScaleContinuousNumeric,
-} from 'd3'
+import { scaleLinear, ScaleContinuousNumeric } from 'd3'
+import { scaleOrdinal, ScaleOrdinal } from 'd3-scale'
 import { v4 as uuidv4 } from 'uuid'
-import { toStrings } from '../../core/math/conversion'
 import { Canvas } from '../../canvas/types'
 import { RadialAxisConfig, CalculatedData } from './types'
 import {
@@ -15,7 +10,6 @@ import {
 
 export const getCalculatedData = (
   canvas: Canvas,
-  data: number[],
   config: RadialAxisConfig
 ): CalculatedData[] => {
   const {
@@ -25,26 +19,48 @@ export const getCalculatedData = (
     highestViewableValue,
   } = canvas.config
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
-  const { radius, axisAngle, gap, x, y, textFontSize, strokeWidth } = config
+  const {
+    radius,
+    axisAngle,
+    gap,
+    x,
+    y,
+    numberOfRings,
+    ordinalScale: oScale,
+    textFontSize,
+    strokeWidth,
+    strokeColor,
+    strokeOpacity,
+    textFont,
+    textFontStyle,
+    textFontWeight,
+    textDecorationLine,
+    textFill,
+    textStroke,
+    textAlignmentBaseline,
+    textAnchor,
+  } = config
 
   const calculatedData: CalculatedData[] = []
-  const ordinal = data.some((d) => typeof d === 'string')
 
-  let ordialScale: ScaleOrdinal<string, unknown, never>
-  let orthogonalScale: ScaleContinuousNumeric<number, number>
-  if (ordinal) {
-    ordialScale = scaleOrdinal().domain(toStrings(data)).range(data)
+  let ordialScale: ScaleOrdinal<string, unknown, never> = scaleOrdinal()
+  let linearScale: ScaleContinuousNumeric<number, number> = scaleLinear()
+  if (oScale) {
+    const domain: string[] = [...Array(numberOfRings).keys()].map((i) =>
+      (i + 1).toString()
+    )
+    ordialScale = scaleOrdinal().domain(domain).range(oScale.range)
   } else {
-    orthogonalScale = scaleLinear()
-      .domain([1, data.length])
+    const domain: number[] = [...Array(numberOfRings).keys()].map((i) => i + 1)
+    linearScale = scaleLinear()
+      .domain(domain)
       .range([lowestViewableValue, highestViewableValue])
   }
 
-  const nunberOfArcs = data.length
   const radians = axisAngle * (Math.PI / 180)
-  const bandWidth = genralPercentScale(radius / 2 / (nunberOfArcs - 1))
+  const bandWidth = genralPercentScale(radius / 2 / (numberOfRings - 1))
 
-  data.forEach((d, i) => {
+  for (let i = 0; i < numberOfRings; i++) {
     const calculateTextPosition = () => {
       const hypotenuse: number = bandWidth * i
       const relativeX: number = oppositeFromHypotenuse({
@@ -63,8 +79,8 @@ export const getCalculatedData = (
     }
 
     let text: unknown
-    if (ordinal) text = ordialScale(d.toString())
-    else text = orthogonalScale(i + 1)
+    if (oScale) text = ordialScale(i.toString())
+    else text = linearScale(i + 1)
 
     const handleText = (text: unknown): string => {
       if (typeof text === 'string') return text
@@ -91,8 +107,19 @@ export const getCalculatedData = (
       y: yPercentScale(y),
       textFontSize: genralPercentScale(textFontSize),
       strokeWidth: genralPercentScale(strokeWidth),
+
+      strokeColor,
+      strokeOpacity,
+      textFont,
+      textFontStyle,
+      textFontWeight,
+      textDecorationLine,
+      textFill,
+      textAnchor,
+      textStroke,
+      textAlignmentBaseline,
     })
-  })
+  }
 
   return calculatedData
 }

@@ -93,7 +93,7 @@ interface RadialCentroidElementFunctions {
     data: QsRadialAreaData,
     customConfig?: QsRadialAreaConfig
   ) => QsRadialArea
-  axis: (data: number[], customConfig?: QsRadialAxisConfig) => QsRadialAxis
+  axis: (customConfig?: QsRadialAxisConfig) => QsRadialAxis
   line: (
     data: QsRadialLineData,
     customConfig?: QsRadialLineConfig
@@ -190,12 +190,9 @@ export const getGenerators = (canvas: Canvas): QsGeneratorRadial => {
         elements.push({ element, data })
         return element
       },
-      axis: (
-        data: number[],
-        customConfig?: QsRadialAxisConfig
-      ): QsRadialAxis => {
-        const element = radialAxis.rings(canvas, data, customConfig)
-        elements.push({ element, data })
+      axis: (customConfig?: QsRadialAxisConfig): QsRadialAxis => {
+        const element = radialAxis.rings(canvas, customConfig)
+        elements.push({ element, data: undefined })
         return element
       },
       line: (

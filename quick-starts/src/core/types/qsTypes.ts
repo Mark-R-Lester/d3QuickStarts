@@ -16,12 +16,12 @@ export interface QsCoordinate {
  *
  */
 
-export interface QsOrdinalColorScaleData {
+export interface QsOrdinalScaleData {
   type: QsEnumColorScale.ORDINAL
   range: string[]
   domain?: never
 }
-export interface QsSequentialColorScaleData {
+export interface QsSequentialScaleData {
   type: QsEnumColorScale.SEQUENTIAL
   range: string[]
   domain: number[]
@@ -43,9 +43,7 @@ export interface QsPointAxisScaleData {
   domain: number[] | string[]
 }
 
-export type QsColorScaleData =
-  | QsOrdinalColorScaleData
-  | QsSequentialColorScaleData
+export type QsColorScaleData = QsOrdinalScaleData | QsSequentialScaleData
 export type QsAxisScaleData = QsBandedAxisScaleData | QsPointAxisScaleData
 
 export interface QsTransitionArgs {

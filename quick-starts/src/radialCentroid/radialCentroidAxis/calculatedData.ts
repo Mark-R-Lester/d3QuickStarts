@@ -51,16 +51,16 @@ export const getCalculatedData = (
     )
     ordialScale = scaleOrdinal().domain(domain).range(oScale.range)
   } else {
-    const domain: number[] = [...Array(numberOfRings).keys()].map((i) => i + 1)
+    const domain: number[] = [0, numberOfRings]
     linearScale = scaleLinear()
       .domain(domain)
       .range([lowestViewableValue, highestViewableValue])
   }
 
   const radians = axisAngle * (Math.PI / 180)
-  const bandWidth = genralPercentScale(radius / 2 / (numberOfRings - 1))
+  const bandWidth = genralPercentScale(radius / 2 / numberOfRings)
 
-  for (let i = 0; i < numberOfRings; i++) {
+  for (let i = 0; i < numberOfRings + 1; i++) {
     const calculateTextPosition = () => {
       const hypotenuse: number = bandWidth * i
       const relativeX: number = oppositeFromHypotenuse({
@@ -80,7 +80,7 @@ export const getCalculatedData = (
 
     let text: unknown
     if (oScale) text = ordialScale(i.toString())
-    else text = linearScale(i + 1)
+    else text = linearScale(i)
 
     const handleText = (text: unknown): string => {
       if (typeof text === 'string') return text

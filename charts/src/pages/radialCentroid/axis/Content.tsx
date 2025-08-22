@@ -112,7 +112,7 @@ export const defaultsContent: JSX.Element = (
               canvasProps={{
                 chartName: 'chartH',
                 width: 600,
-                highestViewableValue: 25,
+                highestViewableValue: 100,
                 borderColor: 'grey',
               }}
             />,

@@ -354,7 +354,7 @@ export const radialCentroidAxisConfig: RadialAxisConfig = {
   y: GlobalDefaultSettings.RADIAL_Y,
   axisAngle: 0,
   gap: 15,
-  numberOfRings: 5,
+  numberOfRings: 4,
   strokeColor: GlobalDefaultColors.AXIS_COLOR,
   strokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
   strokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,

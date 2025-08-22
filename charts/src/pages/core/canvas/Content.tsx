@@ -5,33 +5,22 @@ import { SimpleCanvas } from './SimpleCanvas'
 import { SimpleCanvasWithArea } from './SimpleCanvasWithArea'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
 import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 
-const canvasConfig: string = `const canvasConfig = {
-  chartName: 'chart',
-  width: 600,
-  highestViewableValue: 100,
-  borderColor: 'grey',
-} 
-`
-
-const defaultsChart: string = `
-qsCreateCanvasOrthogonal(canvasConfig)`
+const defaultsChart: string = `qsCreateCanvasOrthogonal(canvasConfig)`
 
 const configChart: string = `const canvas = qsCreateCanvasOrthogonal(canvasConfig)
 const data: QsAreaData = {
   higherData: [100, 100],
 }
 canvas.generate.orthogonal.horizontal.area(data)
-canvas.generate.orthogonal.vertical.axis.left([0, 100])
-canvas.generate.orthogonal.horizontal.axis.bottom(['0', '1'])`
-
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom()`
 
 const QsCanvasConfig: string = `export interface QsCanvasConfig {
   [key: string]: string | number | undefined
@@ -87,219 +76,206 @@ const configExample4: string = `const canvasConfig: QsCanvasConfig = {
 export const defaultsContent: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">A blank canvas</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">
-          By default the canvas does not have a border. When working with charts
-          it is often useful to be able to see the edges of the canvas. Without
-          the border, here the canvas would be invisible.
-        </Typography>
-      </ContentBox>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
         <ContentColumn
           elements={[
+            <Typography key="title" variant="h4">
+              A blank canvas
+            </Typography>,
+            <Typography variant="body1">
+              By default, the canvas lacks a border and features a transparent
+              background. When creating charts, it is often beneficial to
+              clearly define the canvas boundaries. Without a visible border,
+              the canvas may appear indistinguishable, making it challenging to
+              discern its edges.
+            </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
-                  <Typography variant="body1">
-                    This is a canvas created with minimal configuration and no
-                    visual elements
+                  <Typography variant="body2" gutterBottom>
+                    This canvas is established with a basic configuration,
+                    excluding any visual elements. The mandatory parameters,
+                    chartName, width, and highestViewableValue must be specified
+                    to configure the canvas properly. Additionally, a
+                    borderColor has been incorporated to ensure the canvas
+                    boundaries are clearly visible.
                   </Typography>
+                  <ContentCodeBox code={configExample1} />
+                  <ContentCodeBox code={defaultsChart} />
                 </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
+                <ContentChartBox>
+                  <SimpleCanvas
+                    canvasProps={{
+                      chartName: 'chart',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 100,
+                      borderColor: 'black',
+                    }}
+                  />
+                  ,
+                </ContentChartBox>,
               ]}
-            ></ContentRow>,
-            <SimpleCanvas
-              canvasProps={{
-                chartName: 'chart',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 100,
-                borderColor: 'black',
-              }}
             />,
-          ]}
-        ></ContentColumn>
-      </ContentBox>,
-    ]}
-  ></ContentColumn>
-)
 
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">The canvas display area</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">
-          Every canvas has a display area. The display area is where the data is
-          visualised when adding elements. To allow us to see the display area,
-          we've completely filled it with a orthogonal area element. So you can
-          see the effects of changes to the canvas config axes have also beeen
-          added.
-        </Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentRow
-          elements={[
-            <ContentTextBox>
-              <Typography variant="body1">
-                The code: The area has two points set both at 100 The lower data
-                points if not provided default to 0.
-              </Typography>
-              <Typography variant="body1">
-                The vertical axis uses a orthogonal scale to automatically
-                calculate what is displayed against the ticks.
-              </Typography>
-              <Typography variant="body1">
-                The horizontal axis uses a point scale and will only ever show
-                the data provided
-              </Typography>
-            </ContentTextBox>,
-            <ContentCodeBox code={configChartAll} />,
-          ]}
-        ></ContentRow>
-      </ContentBox>,
-      <ContentTitle variant="h5">
-        chartName, height and highestViewableValue
-      </ContentTitle>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
+            <Typography key="title" variant="h4">
+              The canvas display area
+            </Typography>,
+            <Typography variant="body1">
+              The canvas data display area is implemented as a distinct SVG
+              element, separate from the rest of the canvas. This separation
+              ensures a clear and precise boundary between the visualized data
+              and surrounding elements, such as axes, enhancing the overall
+              clarity and organization of the chart.
+            </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
-                  <Typography variant="body1">
-                    The chartName is mandatory and is used to identify the div
-                    with a coresponding id.
+                  <Typography variant="body2" gutterBottom>
+                    To ensure the display area is visible, it has been fully
+                    populated with an orthogonal area element. Additionally,
+                    axes have been incorporated to demonstrate the impact of
+                    modifications to the canvas configuration.
                   </Typography>
-                  <Typography variant="body1">
-                    <code>&lt;div id=chart1 /&gt;</code>
-                  </Typography>
-                  <br />
-                  <Typography variant="body1">
-                    By default the height is 70% of the width. Provided this
-                    ratio is what you need you only ever need to change the
-                    width.
-                  </Typography>
-                  <br />
-                  <Typography variant="body1">
-                    The highestViewableValue is mandatory. If you want to see
-                    the highest values in your data set highestViewableValue to
-                    at least as high as your highest value
-                  </Typography>
+                  <ContentCodeBox code={configExample1} />
+                  <ContentCodeBox code={configChart} />
                 </ContentTextBox>,
-                <ContentCodeBox code={configExample1} />,
+                <ContentChartBox>
+                  <SimpleCanvasWithArea
+                    canvasProps={{
+                      chartName: 'chart1',
+                      width: 600,
+                      highestViewableValue: 100,
+                      borderColor: 'black',
+                    }}
+                  />
+                  ,
+                </ContentChartBox>,
               ]}
-            ></ContentRow>,
-            <SimpleCanvasWithArea
-              canvasProps={{
-                chartName: 'chart1',
-                width: 600,
-                highestViewableValue: 100,
-                borderColor: 'black',
-              }}
             />,
-          ]}
-        />
-      </ContentBox>,
-      <ContentTitle variant="h5">width and height</ContentTitle>,
 
-      <ContentBox>
-        <ContentColumn
-          elements={[
+            <Typography key="title" variant="h4">
+              Width and height
+            </Typography>,
+            <Typography variant="body1">
+              When specifying the width and height, you can create a rectangular
+              display area with dimensions tailored to your requirements.
+            </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
-                  <Typography variant="body1">
-                    When supplying the width and height you can have a
-                    rectangular area with whatever dimentions you want
+                  <Typography variant="body2" gutterBottom>
+                    The width and height attributes specify the dimensions of
+                    the canvas as displayed on the screen. All elements
+                    contained within the canvas are proportionally scaled to
+                    align with these defined dimensions.
                   </Typography>
+                  <Typography variant="body2" gutterBottom>
+                    When modifying the width and height of the canvas, non-data
+                    elements are proportionally scaled relative to the smaller
+                    of the two dimensions, ensuring uniformity and visual
+                    coherence across the chart.
+                  </Typography>
+                  <ContentCodeBox code={configExample2} />
                 </ContentTextBox>,
-                <ContentCodeBox code={configExample2} />,
+                <ContentChartBox>
+                  <SimpleCanvasWithArea
+                    canvasProps={{
+                      chartName: 'chart2',
+                      width: 600,
+                      height: 250,
+                      highestViewableValue: 100,
+                      borderColor: 'black',
+                    }}
+                  />
+                </ContentChartBox>,
               ]}
-            ></ContentRow>,
-            <SimpleCanvasWithArea
-              canvasProps={{
-                chartName: 'chart2',
-                width: 600,
-                height: 250,
-                highestViewableValue: 100,
-                borderColor: 'black',
-              }}
             />,
-          ]}
-        />
-      </ContentBox>,
 
-      <ContentTitle variant="h5">
-        lowestViewableValue and highestViewableValue
-      </ContentTitle>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
+            <Typography key="title" variant="h4">
+              lowestViewableValue and highestViewableValue
+            </Typography>,
+            <Typography variant="body1">
+              The lowestViewableValue and highestViewableValue parameters play a
+              critical role in shaping the visualization of data on the canvas.
+              By defining the data range, these values directly impact the
+              scaling and rendering of chart elements, ensuring accurate and
+              effective data representation.
+            </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
-                  <Typography variant="body1">
-                    The values in lowestViewableValue and highestViewableValue
-                    can drastically change how the data is displayed
+                  <Typography variant="body2" gutterBottom>
+                    In this example, the lowestViewableValue is set to -10, and
+                    the highestViewableValue is set to 110, while the area
+                    extends from 0 to 100. Consequently, this configuration
+                    creates visible gaps at the top and bottom of the chart, as
+                    the data does not fully utilize the specified viewable
+                    range.
                   </Typography>
+                  <ContentCodeBox code={configExample3} />
                 </ContentTextBox>,
-                <ContentCodeBox code={configExample3} />,
+                <ContentChartBox>
+                  <SimpleCanvasWithArea
+                    canvasProps={{
+                      chartName: 'chart3',
+                      width: 600,
+                      height: 250,
+                      lowestViewableValue: -10,
+                      highestViewableValue: 110,
+                      borderColor: 'black',
+                    }}
+                  />
+                  ,
+                </ContentChartBox>,
               ]}
-            ></ContentRow>,
-            <SimpleCanvasWithArea
-              canvasProps={{
-                chartName: 'chart3',
-                width: 600,
-                height: 250,
-                lowestViewableValue: -10,
-                highestViewableValue: 110,
-                borderColor: 'black',
-              }}
             />,
-          ]}
-        />
-      </ContentBox>,
 
-      <ContentTitle variant="h5">The margins</ContentTitle>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
+            <Typography key="title" variant="h4">
+              The margins
+            </Typography>,
+            <Typography variant="body1">
+              The margins establish the spacing around the data visualization
+              area on the canvas.
+            </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
-                  <Typography variant="body1">
-                    The margins determine the space around the data
-                    visualisation. Here every margin is set to 45. The value
-                    given is a percentage of the canvas width or height
-                    depending on which margin is being set. The result here is
-                    that the data visualisation only occupies 10% of the height
-                    and 10% of the width.
+                  <Typography variant="body2" gutterBottom>
+                    Here, each margin is configured to 45, expressed as a
+                    percentage of the canvas width or height, depending on the
+                    margin in question (top and bottom margins relate to height,
+                    while left and right margins relate to width). As a result,
+                    the data visualization is confined to 10% of the canvas
+                    height and 10% of the canvas width.
                   </Typography>
+                  <ContentCodeBox code={configExample4} />
                 </ContentTextBox>,
-                <ContentCodeBox code={configExample4} />,
+                <ContentChartBox>
+                  <SimpleCanvasWithArea
+                    canvasProps={{
+                      chartName: 'chart4',
+                      width: 600,
+                      height: 250,
+                      marginRight: 45,
+                      marginLeft: 45,
+                      marginTop: 45,
+                      marginBottom: 45,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 100,
+                      borderColor: 'black',
+                    }}
+                  />
+                  ,
+                </ContentChartBox>,
               ]}
-            ></ContentRow>,
-            <SimpleCanvasWithArea
-              canvasProps={{
-                chartName: 'chart4',
-                width: 600,
-                height: 250,
-                marginRight: 45,
-                marginLeft: 45,
-                marginTop: 45,
-                marginBottom: 45,
-                lowestViewableValue: 0,
-                highestViewableValue: 100,
-                borderColor: 'black',
-              }}
             />,
           ]}
         />
       </ContentBox>,
     ]}
-  ></ContentColumn>
+  />
 )
 
 export const configAndData: JSX.Element = (

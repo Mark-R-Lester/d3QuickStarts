@@ -1,10 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import {
-  QsCanvasOrthogonal,
-  qsCreateCanvasOrthogonal,
-  qsCreateOrthogonalGradient,
-  QsEnumAxisScaleType,
-} from 'd3qs/d3QuickStart'
+import { QsCanvasOrthogonal, qsCreateCanvasOrthogonal } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const OrthogonalAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
@@ -12,26 +7,13 @@ export const OrthogonalAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
-
+      const data1 = {
+        higherData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
+      }
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
 
-      const gradientUrl: string = qsCreateOrthogonalGradient({
-        canvas,
-        gradientId: 'redBlue',
-        colors: ['red', 'darkblue'],
-      })
-      canvas.generate.orthogonal.horizontal.area({
-        higherData: data1,
-        fillColor: gradientUrl,
-      })
+      canvas.generate.orthogonal.horizontal.area(data1)
       canvas.generate.orthogonal.vertical.axis.left()
-      canvas.generate.orthogonal.horizontal.axis.bottom({
-        scale: {
-          type: QsEnumAxisScaleType.POINT,
-          domain: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-        },
-      })
     }
     createChart()
   }, [canvasProps])

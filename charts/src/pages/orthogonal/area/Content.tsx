@@ -4,6 +4,7 @@ import { OrthogonalAreaChart } from './OrthogonalAreaChart'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
@@ -19,46 +20,117 @@ const canvasConfig: string = `const canvasConfig = {
 } 
 `
 
-const defaultsChart: string = `
-const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
+const defaultsChart: string = `const data1 = {
+  higherData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
+}
 
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-canvas.generate.orthogonal.horizontal.area(
-  { higherData: data1 }
-)
-canvas.generate.orthogonal.vertical.axis.left()
-canvas.generate.orthogonal.horizontal.axis.bottom({
-    scale: {
-      type: QsEnumAxisScaleType.POINT,
-      domain: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-    },
-  }
-)`
+canvas.generate.orthogonal.horizontal.area(data1)
+canvas.generate.orthogonal.vertical.axis.left()`
 
-const configChart: string = `
-const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
-const data2 = [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 170, 190]
+const configChart: string = `const data1 = {
+  higherData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
+  fillColor: 'orange',
+}
+const data2 = {
+  lowerData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
+  higherData: [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 170, 190],
+  fillColor: 'darkBlue',
+}
 
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-canvas.generate.orthogonal.horizontal.area(
-  { higherData: data1, fillColor: 'blue' },
-  { curve: QsEnumCurve.NATURAL }
-)
-canvas.generate.orthogonal.horizontal.area(
-  { higherData: data2, lowerData: data1, fillColor: 'red' },
-  { curve: QsEnumCurve.NATURAL }
-)
-canvas.generate.orthogonal.vertical.axis.left()
-canvas.generate.orthogonal.horizontal.axis.bottom({
-    scale: {
-      type: QsEnumAxisScaleType.POINT,
-      domain: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-    },
-  }
-)`
+canvas.configStore.orthogonal.areaConfig({
+  curve: QsEnumCurve.NATURAL,
+  defaultFillOpacity: 0.4,
+})
+canvas.generate.orthogonal.horizontal.area(data1)
+canvas.generate.orthogonal.horizontal.area(data2)
+canvas.generate.orthogonal.vertical.axis.left()`
 
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`
+
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              The orthogonal area element visually depicts data values through a
+              filled or outlined area, scaled and positioned according to the
+              canvas's coordinate system.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    When supplying only the essential data, the OrthogonalArea
+                    element produces a visualization leveraging the library's
+                    default configuration parameters
+                  </Typography>
+                  <ContentCodeBox code={defaultsChartAll} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <OrthogonalAreaChart
+                    canvasProps={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 190,
+                      dataScale: { scale: QsEnumDataScale.LINEAR },
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Using config
+            </Typography>,
+            <Typography variant="body1">
+              Adjusting the configuration parameters or input data can
+              substantially change the visual appearance of the OrthogonalArea
+              element, enabling diverse and tailored data visualizations.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This demonstration highlights the application of the
+                    OrthogonalArea element, illustrating the effects of color
+                    and opacity settings for data visualization, alongside curve
+                    parameters in the configuration to customize the visual
+                    output.
+                  </Typography>
+                  <ContentCodeBox code={configChartAll} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <OrthogonalAreaStackedChart
+                    canvasProps={{
+                      chartName: 'chart2',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 190,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
 
 const data: string = `interface QsAreaData {
   lowerData?: number[]
@@ -84,7 +156,7 @@ const config: string = `interface QsAreaConfig {
 
 const dataExample: string = `const data: QsAreaData = {
   lowerData: [1, 2, 3, 4, 5, 6, 7, 8],
-  higherData: number[2, 3, 4, 5, 6, 7, 8, 9],
+  higherData: [2, 3, 4, 5, 6, 7, 8, 9],
   fillColor: 'blue',
   fillOpacity: 1,
   strokeColor: 'blue',
@@ -103,114 +175,54 @@ const configExample: string = `const config: QsAreaConfig = {
   strokeLineCap: QsEnumLineCap.ROUND,
 }`
 
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Horizontal Bars</ContentTitle>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1"></Typography>
-                  <Typography variant="body1">
-                    The area is generated uses default settings and requires
-                    just one line:
-                  </Typography>
-                  <Typography variant="body1">
-                    canvas.generate.orthogonal.horizontal.area(&#123;
-                    higherData: data1 &#125;)
-                  </Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <OrthogonalAreaChart
-              canvasProps={{
-                chartName: 'chartH',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 190,
-                dataScale: { scale: QsEnumDataScale.LINEAR },
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Horizontal Bars</ContentTitle>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">
-                    The area is generated uses default settings and requires
-                    just one line:
-                  </Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <OrthogonalAreaStackedChart
-              canvasProps={{
-                chartName: 'chartH',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 190,
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsBarData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={data} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={dataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    QsBarData interface
+                  </Typography>
+                  <ContentCodeBox code={data} />,
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />,
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsBarConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={config} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    QsBarConfig interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />,
+                </ContentTextBox>,
               ]}
             />,
           ]}
@@ -227,7 +239,7 @@ export const editorContent: JSX.Element = (
     chartName: 'ChartEditable',
     width: 600,
     lowestViewableValue: 0,
-    highestViewableValue: 156,
+    highestViewableValue: 200,
     borderColor: 'grey',
   }
 

@@ -5,6 +5,7 @@ import { EnumOrientation } from '../../../common/enums'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
@@ -19,7 +20,7 @@ const canvasConfig: string = `const canvasConfig = {
 } 
 `
 
-const defaultsChart: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
+const defaultsChart1: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
  canvas.generate.orthogonal.horizontal.line({
   data,
@@ -33,8 +34,22 @@ canvas.generate.orthogonal.horizontal.axis.bottom({
   }
 )`
 
+const defaultsChart2: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+ canvas.generate.orthogonal.vertical.line({
+  data,
+})
+canvas.generate.orthogonal.vertical.axis.left({
+  scale: {
+    type: QsEnumAxisScaleType.POINT,
+    domain: [1, 2, 3, 4, 5, 6, 7, 8],
+  },
+})
+canvas.generate.orthogonal.horizontal.axis.bottom()`
+
 const configChart: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+canvas.configStore.orthogonal.lineConfig({ curve: QsEnumCurve.NATURAL })
 canvas.generate.orthogonal.vertical.line({
   data,
   strokeColor: 'red',
@@ -49,8 +64,119 @@ canvas.generate.orthogonal.vertical.axis.left({
 )
 canvas.generate.orthogonal.horizontal.axis.bottom()`
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
+const defaultsChart1All: string = `${canvasConfig}${defaultsChart1}`
+const defaultsChart2All: string = `${canvasConfig}${defaultsChart2}`
 const configChartAll: string = `${canvasConfig}${configChart}`
+
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              The Line element depicts data values by rendering a continuous or
+              segmented path, precisely scaled and positioned within the
+              canvas's coordinate system to ensure accurate and effective data
+              visualization.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    When supplying only the essential data, the OrthogonalLine
+                    element produces a visualization leveraging the library's
+                    default configuration parameters
+                  </Typography>
+                  <ContentCodeBox code={defaultsChart1All} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <OrthogonalLineDefaultsChart
+                    canvasProps={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 40,
+                    }}
+                    orientation={EnumOrientation.HORIZONTAL}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    The Line element, when oriented vertically, functions
+                    identically to its horizontal counterpart in terms of
+                    configuration and behavior, with the only distinction being
+                    its alignment along the vertical axis of the canvas's
+                    coordinate system.
+                  </Typography>
+                  <ContentCodeBox code={defaultsChart2All} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <OrthogonalLineDefaultsChart
+                    canvasProps={{
+                      chartName: 'chart2',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 40,
+                    }}
+                    orientation={EnumOrientation.VERTICAL}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Using config and data to modify appearance
+            </Typography>,
+            <Typography variant="body1">
+              Adjusting the configuration parameters or input data can
+              substantially change the visual appearance of the OrthogonalLine
+              element, enabling diverse and tailored data visualizations.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This demonstration highlights the application of the
+                    OrthogonalLine element, illustrating the effects of color
+                    and opacity settings for data visualization, alongside curve
+                    parameters in the configuration to customize the visual
+                    output.
+                  </Typography>
+                  <ContentCodeBox code={configChartAll} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <OrthogonalLineChart
+                    canvasProps={{
+                      chartName: 'chart3',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 40,
+                    }}
+                    orientation={EnumOrientation.HORIZONTAL}
+                  />
+                  ,
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
 
 const data: string = `interface QsLineData {
   [key: string]: number[] | string | number | undefined
@@ -88,113 +214,54 @@ const configExample: string = `const config: QsLineConfig = {
   strokeLineCap: QsEnumLineCap.ROUND,
 }`
 
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Line generated with defaults</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <OrthogonalLineDefaultsChart
-              canvasProps={{
-                chartName: 'chartH',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 35,
-              }}
-              orientation={EnumOrientation.HORIZONTAL}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Line customised</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <OrthogonalLineChart
-              canvasProps={{
-                chartName: 'chartV',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 35,
-              }}
-              orientation={EnumOrientation.VERTICAL}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsBarData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={data} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={dataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    QsLineData interface
+                  </Typography>
+                  <ContentCodeBox code={data} />,
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />,
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsBarConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={config} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    QsLineConfig interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />,
+                </ContentTextBox>,
               ]}
             />,
           ]}

@@ -1,12 +1,7 @@
 import { Typography } from '@mui/material'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { useState } from 'react'
-import {
-  defaultsContent,
-  configContent,
-  editorContent,
-  configAndData,
-} from './Content'
+import { defaultsContent, editorContent, configAndData } from './Content'
 import { EnumOrientation } from '../../../common/enums'
 import { SimpleBarChart } from './OrthogonalBarChart'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
@@ -23,22 +18,12 @@ export default function OrthogonalBarsPage() {
       }}
       orientation={EnumOrientation.HORIZONTAL}
     />,
-    <SimpleBarChart
-      canvasProps={{
-        chartName: 'simpleBarChartVertical',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 35,
-      }}
-      orientation={EnumOrientation.VERTICAL}
-    />,
     <ConfigAndData />,
     <TryItYourSelf />,
   ]
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
     configAndData,
     editorContent,
   ]
@@ -51,7 +36,7 @@ export default function OrthogonalBarsPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        orthogonal Bars
+        Orthogonal Bars
       </Typography>
       <ChartButtonGrid
         elements={menuElements}

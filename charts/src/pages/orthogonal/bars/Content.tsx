@@ -6,10 +6,12 @@ import { SimpleBarChart } from './OrthogonalBarChart'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
+import { QsEnumColorScale } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'chart',
@@ -17,8 +19,17 @@ const canvasConfig: string = `const canvasConfig = {
   highestViewableValue: 40,
 } 
 `
+const barConfig: string = `
+const  config={
+  fillColorScaleData: {
+    range: ['red', 'darkblue', 'green'],
+    type: QsEnumColorScale.ORDINAL,
+  }
+}
+`
 
-const barDataAsString: string = `const data: QsBarData[] = [
+const barDataAsString: string = `
+const data: QsBarData[] = [
   { upperBoundry: 35, lowerBoundry: 5 },
   { upperBoundry: 35, lowerBoundry: 10 },
   { upperBoundry: 30, lowerBoundry: 15 },
@@ -29,7 +40,7 @@ const barDataAsString: string = `const data: QsBarData[] = [
   { upperBoundry: 5 },
 ]`
 
-const defaultsChart: string = `${barDataAsString}
+const chartHorizontal: string = `${canvasConfig}${barDataAsString}
 
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.orthogonal.vertical.bars(data)
@@ -42,7 +53,7 @@ canvas.generate.orthogonal.vertical.axis.left({
   }
 )`
 
-const configChart: string = `${barDataAsString}
+const chartVertical: string = `${canvasConfig}${barDataAsString}
 
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.orthogonal.horizontal.bars(data)
@@ -55,8 +66,133 @@ canvas.generate.orthogonal.horizontal.axis.bottom({
   }
 )`
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+const chartWithConfig: string = `${canvasConfig}${barConfig}${barDataAsString}
+
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+canvas.generate.orthogonal.horizontal.bars(data)
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom({
+    scale: {
+      type: QsEnumAxisScaleType.BANDED,
+      domain: [1, 2, 3, 4, 5, 6, 7, 8,],
+    },
+  }
+)`
+
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              The Bar element renders data values as rectangular segments,
+              precisely scaled and positioned within the canvas's coordinate
+              system to ensure accurate and effective data visualization.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    When supplying only the essential data, the bars element
+                    produces a visualization leveraging the library's default
+                    configuration parameters
+                  </Typography>
+                  <ContentCodeBox code={chartHorizontal} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <SimpleBarChart
+                    canvasProps={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 40,
+                    }}
+                    orientation={EnumOrientation.HORIZONTAL}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    The bars element, when oriented vertically, functions
+                    identically to its horizontal counterpart in terms of
+                    configuration and behavior, with the only distinction being
+                    its alignment along the vertical axis of the canvas's
+                    coordinate system.
+                  </Typography>
+                  <ContentCodeBox code={chartVertical} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <SimpleBarChart
+                    canvasProps={{
+                      chartName: 'chart2',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 40,
+                    }}
+                    orientation={EnumOrientation.VERTICAL}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Using config and data to modify appearance
+            </Typography>,
+            <Typography variant="body1">
+              Adjusting the configuration parameters or input data can
+              substantially change the visual appearance of the OrthogonalArea
+              element, enabling diverse and tailored data visualizations.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This demonstration highlights the application of the
+                    OrthogonalArea element, illustrating the effects of color
+                    and opacity settings for data visualization, alongside curve
+                    parameters in the configuration to customize the visual
+                    output.
+                  </Typography>
+                  <ContentCodeBox code={chartWithConfig} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <SimpleBarChart
+                    canvasProps={{
+                      chartName: 'chart3',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 40,
+                    }}
+                    config={{
+                      fillColorScaleData: {
+                        range: ['red', 'darkblue', 'green'],
+                        type: QsEnumColorScale.ORDINAL,
+                      },
+                    }}
+                    orientation={EnumOrientation.VERTICAL}
+                  />
+                  ,
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
 
 const data: string = `interface QsBarData {
   lowerBoundry?: number
@@ -109,135 +245,54 @@ const configExample: string = `const config: QsBarConfig = {
     },
 }`
 
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Horizontal Bars</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">
-          Though it's clear the bars are vertical, the bars element when set to
-          horizontal lays the bars out along the horizontal axis. This makes
-          more sense when using other horizontal elements such as lines or
-          points in conjunction with bars.
-        </Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">
-                    Bars use the type QsBarData the only mandatory field is
-                    upperBoundry
-                  </Typography>
-                  <Typography variant="body1">
-                    The simplest bar chart can be created in just four lines of
-                    code, excluding data.
-                  </Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <SimpleBarChart
-              canvasProps={{
-                chartName: 'chartH',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 35,
-              }}
-              orientation={EnumOrientation.HORIZONTAL}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Vertical Bars</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">
-          Though it's clear the bars are horizonal, the bars element when set to
-          vertical lays the bars out along the vertical axis. This makes more
-          sense when using other vertical elements such as lines or points in
-          conjunction with bars.
-        </Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">
-                    Bars use the type QsBarData the only mandatory field is
-                    upperBoundry
-                  </Typography>
-                  <Typography variant="body1">
-                    The simplest bar chart can be created in just four lines of
-                    code, excluding data.
-                  </Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <SimpleBarChart
-              canvasProps={{
-                chartName: 'chartV',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 35,
-              }}
-              orientation={EnumOrientation.VERTICAL}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsBarData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={data} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={dataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    QsBarData interface
+                  </Typography>
+                  <ContentCodeBox code={data} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsBarConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={config} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    QsBarConfig interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
@@ -257,6 +312,6 @@ const canvasConfig = {
   highestViewableValue: 35,
   borderColor: 'grey',
 }
-${defaultsChart}`}
+${chartWithConfig}`}
   ></ChartEditor>
 )

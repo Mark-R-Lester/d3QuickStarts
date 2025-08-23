@@ -4,15 +4,9 @@ import { useState } from 'react'
 import { EnumOrientation } from '../../../common/enums'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { OrthogonalLineDefaultsChart } from './OrthogonalLineDefaultsChart'
-import { OrthogonalLineChart } from './OrthogonalLineChart'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
-import {
-  configAndData,
-  configContent,
-  defaultsContent,
-  editorContent,
-} from './Content'
+import { configAndData, defaultsContent, editorContent } from './Content'
 
 export default function OrthogonalLinePage() {
   const menuElements: JSX.Element[] = [
@@ -25,23 +19,12 @@ export default function OrthogonalLinePage() {
       }}
       orientation={EnumOrientation.HORIZONTAL}
     />,
-
-    <OrthogonalLineChart
-      canvasProps={{
-        chartName: 'orthogonalLineVertical',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 35,
-      }}
-      orientation={EnumOrientation.VERTICAL}
-    />,
     <ConfigAndData />,
     <TryItYourSelf />,
   ]
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
     configAndData,
     editorContent,
   ]

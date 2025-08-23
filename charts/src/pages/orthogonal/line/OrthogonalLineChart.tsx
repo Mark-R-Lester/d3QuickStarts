@@ -3,6 +3,7 @@ import {
   QsCanvasOrthogonal,
   qsCreateCanvasOrthogonal,
   QsEnumAxisScaleType,
+  QsEnumCurve,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../common/enums'
 import { OrienetedChartProps } from '../../../common/chartProps'
@@ -15,6 +16,7 @@ export const OrthogonalLineChart: FunctionComponent<OrienetedChartProps> = ({
     const createChart = () => {
       const data = [25, 10, 35, 25, 35, 5, 25, 25]
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      canvas.configStore.orthogonal.lineConfig({ curve: QsEnumCurve.NATURAL })
 
       if (orientation === EnumOrientation.VERTICAL) {
         canvas.generate.orthogonal.vertical.line({

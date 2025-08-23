@@ -94,7 +94,7 @@ export const defaultsContent: JSX.Element = (
         <ContentColumn
           elements={[
             <Typography key="title" variant="h4">
-              Using config
+              Using config and data to modify appearance
             </Typography>,
             <Typography variant="body1">
               Adjusting the configuration parameters or input data can
@@ -189,7 +189,7 @@ export const configAndData: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    QsBarData interface
+                    QsAreaData interface
                   </Typography>
                   <ContentCodeBox code={data} />,
                 </ContentTextBox>,
@@ -213,7 +213,7 @@ export const configAndData: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    QsBarConfig interface
+                    QsAreaConfig interface
                   </Typography>
                   <ContentCodeBox code={config} />
                 </ContentTextBox>,

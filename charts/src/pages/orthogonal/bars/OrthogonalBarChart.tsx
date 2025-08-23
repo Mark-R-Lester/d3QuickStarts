@@ -1,17 +1,22 @@
 import { FunctionComponent, useEffect } from 'react'
 import {
+  QsBarConfig,
   QsBarData,
   QsCanvasOrthogonal,
   qsCreateCanvasOrthogonal,
   QsEnumAxisScaleType,
-  QsEnumColorScale,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../common/enums'
 import { OrienetedChartProps } from '../../../common/chartProps'
 
-export const SimpleBarChart: FunctionComponent<OrienetedChartProps> = ({
+export interface SimpleBarChartProps extends OrienetedChartProps {
+  config?: QsBarConfig
+}
+
+export const SimpleBarChart: FunctionComponent<SimpleBarChartProps> = ({
   canvasProps,
   orientation,
+  config = {},
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -30,12 +35,7 @@ export const SimpleBarChart: FunctionComponent<OrienetedChartProps> = ({
       ]
 
       if (isVertical) {
-        canvas.generate.orthogonal.vertical.bars(data, {
-          fillColorScaleData: {
-            range: ['red', 'darkblue', 'green'],
-            type: QsEnumColorScale.ORDINAL,
-          },
-        })
+        canvas.generate.orthogonal.vertical.bars(data, config)
         canvas.generate.orthogonal.horizontal.axis.bottom()
         canvas.generate.orthogonal.vertical.axis.left({
           scale: {
@@ -44,7 +44,7 @@ export const SimpleBarChart: FunctionComponent<OrienetedChartProps> = ({
           },
         })
       } else {
-        canvas.generate.orthogonal.horizontal.bars(data)
+        canvas.generate.orthogonal.horizontal.bars(data, config)
         canvas.generate.orthogonal.vertical.axis.left()
         canvas.generate.orthogonal.horizontal.axis.bottom({
           scale: {
@@ -55,7 +55,7 @@ export const SimpleBarChart: FunctionComponent<OrienetedChartProps> = ({
       }
     }
     createChart()
-  }, [canvasProps, orientation])
+  }, [canvasProps, config, orientation])
 
   return (
     <>

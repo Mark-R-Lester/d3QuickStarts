@@ -209,10 +209,10 @@ export const orthogonalBarStackConfig: BarStackedConfig = {
   useDataArea: true,
   colorRange: defaultFillColorArray,
   padding: 20,
-  fillOpacity: 1,
-  strokeColor: 'none',
-  strokeWidth: 0,
-  strokeOpacity: 1,
+  defaultFillOpacity: 1,
+  defaultStrokeColor: 'none',
+  defaultStrokeWidth: 0,
+  defaultStrokeOpacity: 1,
 }
 
 export const orthogonalLineConfig: LineConfig = {

@@ -126,9 +126,9 @@ export const defaultsContent: JSX.Element = (
                     }}
                     config={{
                       colorRange: ['brown', 'purple', 'red', 'pink'],
-                      strokeColor: 'black',
-                      strokeWidth: 2,
-                      strokeOpacity: 1,
+                      defaultStrokeColor: 'black',
+                      defaultStrokeWidth: 2,
+                      defaultStrokeOpacity: 1,
                     }}
                   />
                 </ContentChartBox>,

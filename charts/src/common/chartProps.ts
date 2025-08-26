@@ -24,6 +24,7 @@ import {
   QsPlottedTextConfig,
   QsCanvasConfigOrthogonal,
   QsCanvasConfigPlotted,
+  QsBarStackedData,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation, EnumRadialTextOrientation } from './enums'
 import {
@@ -67,7 +68,7 @@ export interface BarGroupChartProps extends ChartPropsOthogonal {
 
 export interface BarStackChartProps extends ChartPropsOthogonal {
   config?: QsBarStackedConfig
-  data?: number[][]
+  data?: QsBarStackedData[][]
 }
 
 export interface LineChartProps extends ChartPropsOthogonal {

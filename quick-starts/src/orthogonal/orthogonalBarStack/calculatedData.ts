@@ -3,15 +3,22 @@ import { Canvas } from '../../canvas/types'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/math/conversion'
 import { BarData, BarStackedConfig, CalculatedData } from './types'
+import { QsBarStackedData } from './qsTypes'
 
 export const getCalculatedData = (
   canvas: Canvas,
-  data: number[][],
+  data: QsBarStackedData[][],
   config: BarStackedConfig
 ): CalculatedData[] => {
   const { displayAreaWidth } = canvas.config
   const { yDataScale } = canvas.scales
-  const { padding } = config
+  const {
+    padding,
+    defaultStrokeColor,
+    defaultStrokeOpacity,
+    defaultStrokeWidth,
+    defaultFillOpacity,
+  } = config
 
   const calculatedData: CalculatedData[] = []
 
@@ -25,16 +32,17 @@ export const getCalculatedData = (
     .paddingInner(padding / 200)
     .paddingOuter(padding / 200)
 
-  const y = (d: number[]): number => yDataScale(d[1])
-  const x = (inner: string): number => {
+  const y = (d: QsBarStackedDataEnhanced): number => yDataScale(d.high)
+  const x = (outer: string): number => {
     //TODO requires error handling
-    const bandVal = xBandScale(inner)
+    const bandVal = xBandScale(outer)
     if (bandVal) return bandVal
     return 0
   }
 
-  const height = (d: number[]) => yDataScale(d[0]) - yDataScale(d[1])
-  const width = () => xBandScale.bandwidth()
+  const height = (d: QsBarStackedDataEnhanced) =>
+    yDataScale(d.low) - yDataScale(d.high)
+  const width = xBandScale.bandwidth()
 
   const getColor = (
     i: number,
@@ -45,20 +53,37 @@ export const getCalculatedData = (
     return typeof c == 'string' ? c : '#cbc9e2'
   }
 
-  const stackedData: Series<{ [key: string]: number }, string>[] = stack().keys(
-    data[0].map((d, i) => i.toString())
-  )(data as Iterable<{ [key: string]: number }>)
+  interface QsBarStackedDataEnhanced extends QsBarStackedData {
+    low: number
+    high: number
+  }
+  const stackDataWithLowHigh = (
+    data: QsBarStackedData[][]
+  ): QsBarStackedDataEnhanced[][] => {
+    return data.map((series) =>
+      series.map((item, i, arr) => ({
+        ...item,
+        low: arr.slice(0, i).reduce((sum, prev) => sum + prev.value, 0),
+        high: arr.slice(0, i + 1).reduce((sum, curr) => sum + curr.value, 0),
+      }))
+    )
+  }
+
+  const stackedData = stackDataWithLowHigh(data)
 
   stackedData.forEach((d, outer) => {
-    const barIds = d.map(() => `${`barStacked${uuidv4()}`}`)
     const data: BarData[] = d.map((d, inner): BarData => {
       return {
-        id: barIds[inner],
-        x: x(inner.toString()),
+        id: `${`barStacked${uuidv4()}`}`,
+        x: x(outer.toString()),
         y: y(d),
         height: height(d),
-        width: width(),
-        fillColor: getColor(inner, colors),
+        width: width,
+        fillColor: d.fillColor ? d.fillColor : getColor(inner, colors),
+        fillOpacity: d.fillOpacity ? d.fillOpacity : defaultFillOpacity,
+        strokeColor: d.strokeColor ? d.strokeColor : defaultStrokeColor,
+        strokeWidth: d.strokeWidth ? d.strokeWidth : defaultStrokeWidth,
+        strokeOpacity: d.strokeOpacity ? d.strokeOpacity : defaultStrokeOpacity,
       }
     })
     calculatedData.push({
@@ -66,5 +91,6 @@ export const getCalculatedData = (
       barData: data,
     })
   })
+
   return calculatedData
 }

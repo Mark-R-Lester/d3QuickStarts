@@ -15,7 +15,7 @@ import { generateClassName } from '../../core/generateClassName'
 export const orthogonalBarStack = {
   stack: (
     canvas: Canvas,
-    data: QsBarStackedData,
+    data: QsBarStackedData[][],
     customConfig?: QsBarStackedConfig
   ): QsBarStack => {
     const config: BarStackedConfig = addDefaultsToConfig<BarStackedConfig>(
@@ -29,15 +29,14 @@ export const orthogonalBarStack = {
 
 const draw = (
   canvas: Canvas,
-  data: QsBarStackedData,
+  data: QsBarStackedData[][],
   config: BarStackedConfig
 ): QsBarStack => {
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
-    data.data,
+    data,
     config
   )
-  const { fillOpacity, strokeColor, strokeWidth, strokeOpacity } = config
   const { className, dotClassName } = generateClassName('orthogonalBarStacked')
   const { className: classNameStack, dotClassName: dotClassNameStack } =
     generateClassName('orthogonalBarStack')
@@ -53,7 +52,7 @@ const draw = (
     .append('g')
     .attr('class', classNameStack)
     .attr('id', (d) => d.groupId)
-    .attr('fill', (d, i) => d.barData[i].fillColor)
+
   barStacks
     .selectAll(dotClassName)
     .data((d) => d.barData)
@@ -65,10 +64,11 @@ const draw = (
     .attr('y', (d) => d.y)
     .attr('height', (d) => d.height)
     .attr('width', (d) => d.width)
-    .attr('fill-opacity', fillOpacity)
-    .attr('stroke', strokeColor)
-    .attr('stroke-opacity', strokeOpacity)
-    .attr('stroke-width', strokeWidth)
+    .attr('fill', (d) => d.fillColor)
+    .attr('fill-opacity', (d) => d.fillOpacity)
+    .attr('stroke', (d) => d.strokeColor)
+    .attr('stroke-opacity', (d) => d.strokeOpacity)
+    .attr('stroke-width', (d) => d.strokeWidth)
 
   const transition = (
     transitionData: QsBarStackedTransitionData = { data }
@@ -76,7 +76,7 @@ const draw = (
     const args = addTransitionDefaults(transitionData.transitionArgs)
     const calculatedData: CalculatedData[] = getCalculatedData(
       canvas,
-      transitionData.data.data,
+      transitionData.data,
       config
     )
 

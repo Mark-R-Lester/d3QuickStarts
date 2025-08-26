@@ -3,6 +3,8 @@ import {
   QsCanvasOrthogonal,
   qsCreateCanvasOrthogonal,
   QsBarGroups,
+  QsBarStackedData,
+  QsBarStack,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
@@ -12,7 +14,7 @@ export const OrthogonalBarGroupTransition: FunctionComponent<
   const [changedStack, setChangedStack] = useState<boolean>(false)
   const [changedGroup, setChangedGroup] = useState<boolean>(false)
   const [grouped, setGrouped] = useState<QsBarGroups>()
-  const [stacked, setStacked] = useState<QsBarGroups>()
+  const [stacked, setStacked] = useState<QsBarStack>()
   const dataMin: number[][] = useMemo(
     () => [
       [0, 0, 0, 0],
@@ -33,22 +35,17 @@ export const OrthogonalBarGroupTransition: FunctionComponent<
     []
   )
 
-  const dataMax: number[][] = useMemo(
+  const dataMax: QsBarStackedData[][] = useMemo(
     () => [
-      [10, 20, 16, 23],
-      [16, 32, 30, 26],
-      [40, 16, 12, 16],
-      [10, 4, 13, 32],
-      [10, 37, 21, 8],
-      [10, 20, 16, 23],
-      [10, 32, 30, 26],
-      [15, 16, 12, 16],
-      [10, 4, 13, 32],
-      [19, 37, 21, 8],
-      [15, 20, 16, 23],
-      [11, 32, 30, 26],
-      [10, 16, 12, 16],
-      [6, 4, 13, 3],
+      [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
+      [{ value: 16 }, { value: 32 }, { value: 30 }, { value: 26 }],
+      [{ value: 40 }, { value: 16 }, { value: 12 }, { value: 16 }],
+      [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],
+      [{ value: 10 }, { value: 37 }, { value: 21 }, { value: 8 }],
+      [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
+      [{ value: 10 }, { value: 32 }, { value: 30 }, { value: 26 }],
+      [{ value: 15 }, { value: 16 }, { value: 12 }, { value: 16 }],
+      [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],
     ],
     []
   )
@@ -58,11 +55,9 @@ export const OrthogonalBarGroupTransition: FunctionComponent<
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       let grouped = canvas.generate.orthogonal.horizontal.barGroup({
-        data: dataMax,
-      })
-      let stacked = canvas.generate.orthogonal.horizontal.barStack({
         data: dataMin,
       })
+      let stacked = canvas.generate.orthogonal.horizontal.barStack(dataMax)
 
       setGrouped(grouped)
       setStacked(stacked)

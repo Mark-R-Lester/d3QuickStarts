@@ -68,7 +68,7 @@ interface HorizontalorthogonalElementFunctions {
     customConfig?: QsBarGroupConfig
   ) => QsBarGroups
   barStack: (
-    data: QsBarStackedData,
+    data: QsBarStackedData[][],
     customConfig?: QsBarStackedConfig
   ) => QsBarStack
   bars: (data: QsBarData[], customConfig?: QsBarConfig) => QsBars
@@ -126,7 +126,7 @@ export const getGenerators = (canvas: Canvas): QsGeneratorOrthogonal => {
           return element
         },
         barStack: (
-          data: QsBarStackedData,
+          data: QsBarStackedData[][],
           customConfig?: QsBarStackedConfig
         ): QsBarStack => {
           const element = orthogonalBarStack.stack(canvas, data, customConfig)

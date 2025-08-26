@@ -7,7 +7,7 @@ import {
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const RadialDefaultsChart: FunctionComponent<ChartPropsOthogonal> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -18,7 +18,7 @@ export const RadialDefaultsChart: FunctionComponent<ChartPropsOthogonal> = ({
         { value: 70 },
       ]
 
-      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
       canvas.generate.radialArc.radial(data, {
         outerRadius: 100,
         innerRadius: 0,
@@ -26,11 +26,11 @@ export const RadialDefaultsChart: FunctionComponent<ChartPropsOthogonal> = ({
       })
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

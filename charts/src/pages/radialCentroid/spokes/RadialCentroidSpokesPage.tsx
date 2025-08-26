@@ -16,7 +16,7 @@ import { RadialSpokesDefaultsChart } from './RadailSpokesDefaultsChart'
 export default function RadialCentroidSpokesPage() {
   const menuElements: JSX.Element[] = [
     <RadialSpokesDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialSpokesDefaultsChart',
         width: 130,
         lowestViewableValue: 0,
@@ -24,7 +24,7 @@ export default function RadialCentroidSpokesPage() {
       }}
     />,
     <RadialSpokesChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialSpokesChart',
         width: 130,
         lowestViewableValue: 0,

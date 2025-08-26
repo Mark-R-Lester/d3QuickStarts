@@ -15,7 +15,7 @@ import {
 export default function PlottedTextPage() {
   const menuElements: JSX.Element[] = [
     <PlottedTextDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'plottedTextDefaultsChart',
         width: 130,
         highestViewableValueX: 156,
@@ -23,7 +23,7 @@ export default function PlottedTextPage() {
       }}
     />,
     <PlottedTextChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'plottedTextChart',
         width: 130,
         highestViewableValueX: 156,

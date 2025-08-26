@@ -145,7 +145,7 @@ export const defaultsContent: JSX.Element = (
               ]}
             />,
             <OrthogonalTextDefaultsChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chartH',
                 width: 600,
                 lowestViewableValue: 0,
@@ -181,7 +181,7 @@ export const configContent: JSX.Element = (
               ]}
             />,
             <OrthogonalTextChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chartV',
                 width: 600,
                 lowestViewableValue: 0,

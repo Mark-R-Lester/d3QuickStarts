@@ -15,7 +15,7 @@ import { RadialLineChart } from './RadialLineChart'
 export default function RadialCentroidLinePage() {
   const menuElements: JSX.Element[] = [
     <RadialLineDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialLineDefaultsChart',
         width: 130,
         lowestViewableValue: 0,
@@ -23,7 +23,7 @@ export default function RadialCentroidLinePage() {
       }}
     />,
     <RadialLineChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialLineChart',
         width: 130,
         lowestViewableValue: 0,

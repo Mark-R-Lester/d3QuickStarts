@@ -123,7 +123,7 @@ export const defaultsContent: JSX.Element = (
               ]}
             />,
             <PlottedTextDefaultsChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chartH',
                 width: 600,
                 highestViewableValueX: 200,
@@ -159,7 +159,7 @@ export const configContent: JSX.Element = (
               ]}
             />,
             <PlottedTextChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chartV',
                 width: 600,
                 highestViewableValueX: 100,

@@ -7,7 +7,7 @@ import {
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const RadialAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -31,17 +31,17 @@ export const RadialAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
         fillColor: 'darkBlue',
       }
 
-      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
       canvas.generate.radialCentroid.area(data1)
       canvas.generate.radialCentroid.area(data2)
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

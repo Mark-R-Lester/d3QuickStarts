@@ -8,7 +8,7 @@ import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const OrthogonalBarsGroupedChart: FunctionComponent<
   ChartPropsOthogonal
-> = ({ canvasProps }) => {
+> = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {
       const data = [
@@ -22,7 +22,7 @@ export const OrthogonalBarsGroupedChart: FunctionComponent<
         [15, 16, 12, 16],
         [10, 4, 13, 32],
       ]
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       canvas.generate.orthogonal.horizontal.barGroup({ data })
       canvas.generate.orthogonal.vertical.axis.left()
@@ -34,11 +34,11 @@ export const OrthogonalBarsGroupedChart: FunctionComponent<
       })
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

@@ -13,7 +13,7 @@ import { OrienetedChartProps } from '../../common/chartProps'
 import { EnumOrientation } from '../../common/enums'
 
 export const OrthogonalLine: FunctionComponent<OrienetedChartProps> = memo(
-  ({ canvasProps, orientation }) => {
+  ({ canvasConfig, orientation }) => {
     const [changed, setChanged] = useState<boolean>(false)
     const [points, setPoints] = useState<QsPoints>()
     const [line, setLine] = useState<QsLine>()
@@ -49,7 +49,8 @@ export const OrthogonalLine: FunctionComponent<OrienetedChartProps> = memo(
           ],
         }
 
-        const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+        const canvas: QsCanvasOrthogonal =
+          qsCreateCanvasOrthogonal(canvasConfig)
         let newPoints: QsPoints
         let newLine: QsLine
 
@@ -67,7 +68,7 @@ export const OrthogonalLine: FunctionComponent<OrienetedChartProps> = memo(
         setLine(newLine)
       }
       createChart()
-    }, [canvasProps, orientation])
+    }, [canvasConfig, orientation])
 
     useEffect(
       function transitionData() {
@@ -104,7 +105,7 @@ export const OrthogonalLine: FunctionComponent<OrienetedChartProps> = memo(
 
     return (
       <>
-        <div id={canvasProps.chartName}></div>
+        <div id={canvasConfig.chartName}></div>
       </>
     )
   }

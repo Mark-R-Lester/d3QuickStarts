@@ -8,7 +8,7 @@ import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const UnboundLegendDefaultsChart: FunctionComponent<
   ChartPropsOthogonal
-> = ({ canvasProps }) => {
+> = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {
       const data: QsLegendData[] = [
@@ -18,15 +18,15 @@ export const UnboundLegendDefaultsChart: FunctionComponent<
         { value: 'Purple', fillColor: 'purple' },
       ]
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
       canvas.generate.unbound.legend(data)
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

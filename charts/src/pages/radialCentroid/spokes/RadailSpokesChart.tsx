@@ -3,21 +3,21 @@ import { QsCanvasRadial, qsCreateCanvasRadial } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const RadialSpokesChart: FunctionComponent<ChartPropsOthogonal> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
       const numberOfSpokes = 6
       canvas.generate.radialCentroid.spokes(numberOfSpokes)
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

@@ -11,7 +11,7 @@ import { configAndData, defaultsContent, editorContent } from './Content'
 export default function OrthogonalLinePage() {
   const menuElements: JSX.Element[] = [
     <OrthogonalLineDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'orthogonalLineHorizontal',
         width: 130,
         lowestViewableValue: 0,

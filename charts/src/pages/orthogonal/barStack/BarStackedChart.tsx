@@ -4,27 +4,28 @@ import {
   qsCreateCanvasOrthogonal,
   QsEnumAxisScaleType,
 } from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../../common/chartProps'
+import { BarStackChartProps } from '../../../common/chartProps'
 
-export const BarStackedChart: FunctionComponent<ChartPropsOthogonal> = ({
-  canvasProps,
+export const BarStackedChart: FunctionComponent<BarStackChartProps> = ({
+  canvasConfig,
+  config = {},
+  data = [
+    [10, 20, 16, 23],
+    [16, 32, 30, 26],
+    [40, 16, 12, 16],
+    [10, 4, 13, 32],
+    [10, 37, 21, 8],
+    [10, 20, 16, 23],
+    [10, 32, 30, 26],
+    [15, 16, 12, 16],
+    [10, 4, 13, 32],
+  ],
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const data = [
-        [10, 20, 16, 23],
-        [16, 32, 30, 26],
-        [40, 16, 12, 16],
-        [10, 4, 13, 32],
-        [10, 37, 21, 8],
-        [10, 20, 16, 23],
-        [10, 32, 30, 26],
-        [15, 16, 12, 16],
-        [10, 4, 13, 32],
-      ]
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
-      canvas.generate.orthogonal.horizontal.barStack({ data })
+      canvas.generate.orthogonal.horizontal.barStack({ data }, config)
       canvas.generate.orthogonal.vertical.axis.left()
       canvas.generate.orthogonal.horizontal.axis.bottom({
         scale: {
@@ -34,11 +35,11 @@ export const BarStackedChart: FunctionComponent<ChartPropsOthogonal> = ({
       })
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig, config, data])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

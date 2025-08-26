@@ -8,7 +8,7 @@ import {
 import { RadialChartProps } from '../../../common/chartProps'
 
 export const RadialTransition: FunctionComponent<RadialChartProps> = ({
-  canvasProps,
+  canvasConfig,
   config,
   data,
 }) => {
@@ -17,12 +17,12 @@ export const RadialTransition: FunctionComponent<RadialChartProps> = ({
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
       const { generate } = canvas
       setElement(generate.radialArc.radial(data, config))
     }
     createChart()
-  }, [canvasProps, config, data])
+  }, [canvasConfig, config, data])
 
   useEffect(
     function transitionData() {
@@ -45,7 +45,7 @@ export const RadialTransition: FunctionComponent<RadialChartProps> = ({
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

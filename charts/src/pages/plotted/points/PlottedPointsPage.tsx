@@ -15,7 +15,7 @@ import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 export default function PlottedPointsPage() {
   const menuElements: JSX.Element[] = [
     <PlottedPointsDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'plottedPointsDefaultsChart',
         width: 130,
         highestViewableValueX: 156,
@@ -23,7 +23,7 @@ export default function PlottedPointsPage() {
       }}
     />,
     <PlottedPointsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'PlottedPointsChart',
         width: 130,
         highestViewableValueX: 156,

@@ -9,11 +9,11 @@ import {
 import { ChartPropsOthogonal } from '../../common/chartProps'
 
 export const OrthogonalCandleChart: FunctionComponent<ChartPropsOthogonal> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       const candles: QsBarData[] = [
         { upperBoundry: 20.0, lowerBoundry: 17.5, fillColor: 'red' },
@@ -101,11 +101,11 @@ export const OrthogonalCandleChart: FunctionComponent<ChartPropsOthogonal> = ({
       })
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

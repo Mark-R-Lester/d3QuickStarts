@@ -16,7 +16,7 @@ import {
 export default function UnboundLegendPage() {
   const menuElements: JSX.Element[] = [
     <UnboundLegendDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'legendElement',
         width: 130,
         lowestViewableValue: 0,
@@ -24,7 +24,7 @@ export default function UnboundLegendPage() {
       }}
     />,
     <UnboundLegendChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'charts',
         width: 130,
         lowestViewableValue: 0,

@@ -10,7 +10,7 @@ import {
 import { ChartPropsPlotted } from '../../../common/chartProps'
 
 export const PlottedLineChart: FunctionComponent<ChartPropsPlotted> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -27,7 +27,7 @@ export const PlottedLineChart: FunctionComponent<ChartPropsPlotted> = ({
         strokeWidth: 10,
       }
 
-      const canvas: QsCanvasPlotted = qsCreateCanvasPlotted(canvasProps)
+      const canvas: QsCanvasPlotted = qsCreateCanvasPlotted(canvasConfig)
 
       canvas.generate.plotted.line(data, {
         curve: QsEnumCurve.LINEAR,
@@ -38,11 +38,11 @@ export const PlottedLineChart: FunctionComponent<ChartPropsPlotted> = ({
       canvas.generate.orthogonal.horizontal.axis.bottom()
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

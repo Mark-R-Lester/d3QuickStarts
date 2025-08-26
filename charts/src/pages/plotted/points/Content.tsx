@@ -125,7 +125,7 @@ export const defaultsContent: JSX.Element = (
               ]}
             />,
             <PlottedPointsDefaultsChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chartH',
                 width: 600,
                 highestViewableValueX: 156,
@@ -160,7 +160,7 @@ export const configContent: JSX.Element = (
               ]}
             />,
             <PlottedPointsChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chartV',
                 width: 600,
                 highestViewableValueX: 156,

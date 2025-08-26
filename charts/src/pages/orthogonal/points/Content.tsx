@@ -146,7 +146,7 @@ export const defaultsContent: JSX.Element = (
               ]}
             />,
             <OrthogonalPointsDefaultsChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chartH',
                 width: 600,
                 lowestViewableValue: 0,
@@ -182,7 +182,7 @@ export const configContent: JSX.Element = (
               ]}
             />,
             <OrthogonalPointsChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chartV',
                 width: 600,
                 lowestViewableValue: 0,

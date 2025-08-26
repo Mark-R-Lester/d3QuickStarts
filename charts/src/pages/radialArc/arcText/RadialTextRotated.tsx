@@ -11,7 +11,7 @@ import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const RadialTextRotatedElement: FunctionComponent<
   ChartPropsOthogonal
-> = ({ canvasProps }) => {
+> = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {
       const data: QsValuedText[] = [
@@ -22,7 +22,7 @@ export const RadialTextRotatedElement: FunctionComponent<
         { value: 50, text: 'Fifty' },
       ]
 
-      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
       canvas.generate.radialArc.text.rotated(data, {
         radius: 115,
@@ -37,11 +37,11 @@ export const RadialTextRotatedElement: FunctionComponent<
       })
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

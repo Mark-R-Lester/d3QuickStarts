@@ -16,7 +16,7 @@ import { OrthogonalBarsGroupedChart } from './OrthogonalBarsGroupedChart'
 export default function OrthogonalBarGroupPage() {
   const menuElements: JSX.Element[] = [
     <OrthogonalBarsGroupedDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'barGroupDefaults',
         width: 130,
         lowestViewableValue: 0,
@@ -24,7 +24,7 @@ export default function OrthogonalBarGroupPage() {
       }}
     />,
     <OrthogonalBarsGroupedChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'barGroup',
         width: 130,
         lowestViewableValue: 0,

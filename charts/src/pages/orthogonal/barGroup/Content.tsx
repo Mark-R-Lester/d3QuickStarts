@@ -32,7 +32,7 @@ const barDataAsString: string = `const data = [
 
 const defaultsChart: string = `${canvasConfig}${barDataAsString}
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
 canvas.generate.orthogonal.horizontal.barGroup(data)
 canvas.generate.orthogonal.vertical.axis.left()
@@ -46,7 +46,7 @@ canvas.generate.orthogonal.horizontal.axis.bottom({
 
 const configChart: string = `${canvasConfig}${barDataAsString}
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
 canvas.generate.orthogonal.horizontal.barGroup(data)
 canvas.generate.orthogonal.vertical.axis.left()
@@ -106,7 +106,7 @@ export const defaultsContent: JSX.Element = (
               ]}
             />,
             <OrthogonalBarsGroupedDefaultsChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'barGroupDefaultsContent',
                 width: 600,
                 lowestViewableValue: 0,
@@ -141,7 +141,7 @@ export const configContent: JSX.Element = (
               ]}
             />,
             <OrthogonalBarsGroupedChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'barGroupContent',
                 width: 600,
                 lowestViewableValue: 0,

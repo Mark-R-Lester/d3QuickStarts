@@ -10,7 +10,7 @@ import { EnumOrientation } from '../../../common/enums'
 
 export const OrthogonalBarsTransition: FunctionComponent<
   OrienetedChartProps
-> = ({ canvasProps, orientation }) => {
+> = ({ canvasConfig, orientation }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [bars, setBars] = useState<QsBars>()
 
@@ -26,7 +26,7 @@ export const OrthogonalBarsTransition: FunctionComponent<
         { upperBoundry: 25 },
         { upperBoundry: 25 },
       ]
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
       let newBars: QsBars
       if (orientation === EnumOrientation.VERTICAL) {
         newBars = canvas.generate.orthogonal.vertical.bars(data)
@@ -36,7 +36,7 @@ export const OrthogonalBarsTransition: FunctionComponent<
       setBars(newBars)
     }
     createChart()
-  }, [canvasProps, orientation])
+  }, [canvasConfig, orientation])
 
   useEffect(
     function transitionData() {
@@ -66,7 +66,7 @@ export const OrthogonalBarsTransition: FunctionComponent<
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

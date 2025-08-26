@@ -10,7 +10,7 @@ import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 export default function OrthogonalBarsPage() {
   const menuElements: JSX.Element[] = [
     <SimpleBarChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'simpleBarChartHorizontal',
         width: 130,
         lowestViewableValue: 0,

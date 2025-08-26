@@ -4,10 +4,10 @@ import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import { BarStackedDefaultsChart } from './BarStackedDefaultsChart'
 import { BarStackedChart } from './BarStackedChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 
@@ -30,7 +30,7 @@ const barDataAsString: string = `const data = [
   [10, 4, 13, 32],
 ]`
 
-const defaultsChart: string = `${barDataAsString}
+const defaultsChart: string = `${canvasConfig}${barDataAsString}
 
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
@@ -44,11 +44,17 @@ canvas.generate.orthogonal.horizontal.axis.bottom({
   }
 )`
 
-const configChart: string = `${barDataAsString}
+const configChart: string = `${canvasConfig}${barDataAsString}
 
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+config={{
+  colorRange: ['brown', 'purple', 'red', 'pink'],
+  strokeColor: 'black',
+  strokeWidth: 2,
+  strokeOpacity: 1,
+}}
 
-canvas.generate.orthogonal.horizontal.barStack(data)
+canvas.generate.orthogonal.horizontal.barStack(data, config)
 canvas.generate.orthogonal.vertical.axis.left()
 canvas.generate.orthogonal.horizontal.axis.bottom({
     scale: {
@@ -58,15 +64,93 @@ canvas.generate.orthogonal.horizontal.axis.bottom({
   }
 )`
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              The Stacked Bar element, while a convenient tool for visualizing
+              cumulative and individual subcategory contributions through
+              segmented, stacked bars, is notably limited in functionality
+              compared to standard bar elements, offering less flexibility in
+              layout, and configuration.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    When supplying only the essential data, the Stacked Bar
+                    element generates a visualization using the library's
+                    default configuration parameters, rendering segmented bars
+                    stacked vertically.
+                  </Typography>
+                  <ContentCodeBox code={defaultsChart} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <BarStackedChart
+                    canvasConfig={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 120,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Configuration options for the Stacked Bar element allow
+                    customization of its appearance, enabling tailored
+                    visualizations by adjusting properties like colors, and axis
+                    scaling within the canvas's coordinate system, though
+                    limited compared to standard bar elements.
+                  </Typography>
+                  <ContentCodeBox code={configChart} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <BarStackedChart
+                    canvasConfig={{
+                      chartName: 'chart2',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 200,
+                    }}
+                    config={{
+                      colorRange: ['brown', 'purple', 'red', 'pink'],
+                      strokeColor: 'black',
+                      strokeWidth: 2,
+                      strokeOpacity: 1,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
 
 const data: string = `number[][]`
 
 const config: string = `export interface QsBarGroupConfig {
-  [key: string]: number | Iterable<String> | undefined
-  padding?: number
-  colorRange?: Iterable<String>
+  useDataArea: boolean
+  padding: number
+  colorRange: Iterable<String>
+  fillOpacity: number
+  strokeColor: string
+  strokeWidth: number
+  strokeOpacity: number
 }`
 
 const dataExample: string = `const data = [
@@ -81,116 +165,64 @@ const dataExample: string = `const data = [
   [10, 4, 13, 32],
 ]`
 
-const configExample: string = `const defaults: BarGroupConfig = {
+const configExample: string = `const defaults: BarStackConfig = {
+  useDataArea: boolean
   colorRange: ['red', 'blue','green','orange'],
   padding: 20,
+  fillOpacity: 1
+  strokeColor: 'blue'
+  strokeWidth: 1
+  strokeOpacity: 1
 }`
-
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Bar stack with defaults</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <BarStackedDefaultsChart
-              canvasProps={{
-                chartName: 'barStackedDefaultsChart',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 150,
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Bar Stack</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <BarStackedChart
-              canvasProps={{
-                chartName: 'barStackedChart',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 150,
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
 
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsBarData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={data} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={dataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    interface
+                  </Typography>
+                  <ContentCodeBox code={data} />,
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />,
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsBarConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={config} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    QsBarStackConfig interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />,
+                </ContentTextBox>,
               ]}
             />,
           ]}
@@ -202,13 +234,7 @@ export const configAndData: JSX.Element = (
 
 export const editorContent: JSX.Element = (
   <ChartEditor
-    initialCode={`const canvasConfig = {
-  chartName: 'ChartEditable',
-  width: 600,
-  lowestViewableValue: 0,
-  highestViewableValue: 125,
-  borderColor: 'grey',
-}
+    initialCode={`
 
 ${configChart}
 `}

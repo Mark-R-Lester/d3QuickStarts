@@ -9,7 +9,7 @@ import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const OrthogonalAreaTransition: FunctionComponent<
   ChartPropsOthogonal
-> = ({ canvasProps }) => {
+> = ({ canvasConfig }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [topArea, setTopArea] = useState<QsArea>()
   const [bottomArea, setBottomArea] = useState<QsArea>()
@@ -33,7 +33,7 @@ export const OrthogonalAreaTransition: FunctionComponent<
         higherData: lowerData,
       }
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       let newTopArea = canvas.generate.orthogonal.horizontal.area(dataUpper)
       let newBottomArea = canvas.generate.orthogonal.horizontal.area(dataLower)
@@ -42,7 +42,7 @@ export const OrthogonalAreaTransition: FunctionComponent<
       setBottomArea(newBottomArea)
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   useEffect(
     function transitionData() {
@@ -84,7 +84,7 @@ export const OrthogonalAreaTransition: FunctionComponent<
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

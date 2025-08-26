@@ -5,7 +5,7 @@ import { QsRadialTextData } from 'd3qs/radialCentroid/radialCentroidText/qsTypes
 
 export const RadialTextDefaultsChart: FunctionComponent<
   ChartPropsOthogonal
-> = ({ canvasProps }) => {
+> = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {
       const data: QsRadialTextData[] = [
@@ -25,15 +25,15 @@ export const RadialTextDefaultsChart: FunctionComponent<
         { value: 2 },
       ]
 
-      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
       canvas.generate.radialCentroid.text(data)
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

@@ -9,7 +9,7 @@ import { configAndData, defaultsContent, editorContent } from './Content'
 export default function CanvasPage() {
   const menuElements: JSX.Element[] = [
     <SimpleCanvas
-      canvasProps={{
+      canvasConfig={{
         chartName: 'simpleCanvas',
         width: 130,
         highestViewableValue: 100,

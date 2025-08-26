@@ -8,11 +8,11 @@ import {
 import { ChartPropsOthogonal } from '../../common/chartProps'
 
 export const OrthogonalBarChart: FunctionComponent<ChartPropsOthogonal> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
       canvas.configStore.orthogonal.barConfig({ defaultFillColor: 'darkBlue' })
 
       const data: QsBarData[] = [
@@ -34,11 +34,11 @@ export const OrthogonalBarChart: FunctionComponent<ChartPropsOthogonal> = ({
       })
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

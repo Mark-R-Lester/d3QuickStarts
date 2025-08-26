@@ -42,7 +42,7 @@ export default function RadialTransitionsPage() {
 
   const menuElements: JSX.Element[] = [
     <RadialTextTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialTextFollowTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -52,7 +52,7 @@ export default function RadialTransitionsPage() {
       orientation={EnumRadialTextOrientation.FOLLOW}
     />,
     <RadialTextTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialTextSkokeTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -62,7 +62,7 @@ export default function RadialTransitionsPage() {
       orientation={EnumRadialTextOrientation.SPOKE}
     />,
     <RadialTextTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialTextHorizontalTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -72,7 +72,7 @@ export default function RadialTransitionsPage() {
       orientation={EnumRadialTextOrientation.HORIZONTAL}
     />,
     <RadialTextTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialTextRotatedTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -82,7 +82,7 @@ export default function RadialTransitionsPage() {
       orientation={EnumRadialTextOrientation.ROTATED}
     />,
     <RadialTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialRadialColorTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -96,7 +96,7 @@ export default function RadialTransitionsPage() {
       }}
     />,
     <RadialTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialSerialColoeTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -112,7 +112,7 @@ export default function RadialTransitionsPage() {
 
   const charts: JSX.Element[] = [
     <RadialTextTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,
@@ -122,7 +122,7 @@ export default function RadialTransitionsPage() {
       orientation={EnumRadialTextOrientation.FOLLOW}
     />,
     <RadialTextTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,
@@ -132,7 +132,7 @@ export default function RadialTransitionsPage() {
       orientation={EnumRadialTextOrientation.SPOKE}
     />,
     <RadialTextTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,
@@ -142,7 +142,7 @@ export default function RadialTransitionsPage() {
       orientation={EnumRadialTextOrientation.HORIZONTAL}
     />,
     <RadialTextTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,
@@ -152,7 +152,7 @@ export default function RadialTransitionsPage() {
       orientation={EnumRadialTextOrientation.ROTATED}
     />,
     <RadialTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,
@@ -166,7 +166,7 @@ export default function RadialTransitionsPage() {
       }}
     />,
     <RadialTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,

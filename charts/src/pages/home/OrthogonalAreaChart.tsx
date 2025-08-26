@@ -8,13 +8,13 @@ import {
 import { ChartPropsOthogonal } from '../../common/chartProps'
 
 export const OrthogonalAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
       const data1 = [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       const gradientUrl: string = qsCreateOrthogonalGradient({
         canvas,
@@ -47,11 +47,11 @@ export const OrthogonalAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
       })
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

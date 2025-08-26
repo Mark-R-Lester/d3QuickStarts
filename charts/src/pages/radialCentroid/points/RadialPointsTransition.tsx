@@ -9,21 +9,21 @@ import { RadialPointsChartProps } from '../../../common/chartProps'
 
 export const RadialPointTransition: FunctionComponent<
   RadialPointsChartProps
-> = ({ canvasProps, data, config }) => {
+> = ({ canvasConfig, data, config }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element, setElement] = useState<QsRadialPoints>()
   const chartDataRef = useRef<QsRadialPointData[]>(data)
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
       setElement(
         canvas.generate.radialCentroid.points(chartDataRef.current, config)
       )
     }
     createChart()
-  }, [canvasProps, config])
+  }, [canvasConfig, config])
 
   useEffect(
     function transitionData() {
@@ -58,7 +58,7 @@ export const RadialPointTransition: FunctionComponent<
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

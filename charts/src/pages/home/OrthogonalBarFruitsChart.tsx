@@ -12,10 +12,10 @@ import { ChartPropsOthogonal } from '../../common/chartProps'
 
 export const OrthogonalBarFruitsChart: FunctionComponent<
   ChartPropsOthogonal
-> = ({ canvasProps }) => {
+> = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       const data: QsBarData[] = [
         { upperBoundry: 35 },
@@ -62,11 +62,11 @@ export const OrthogonalBarFruitsChart: FunctionComponent<
       })
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

@@ -9,7 +9,7 @@ import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 export default function OrthogonalAreaPage() {
   const menuElements: JSX.Element[] = [
     <OrthogonalAreaChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'orthogonalArea',
         width: 130,
         lowestViewableValue: 0,

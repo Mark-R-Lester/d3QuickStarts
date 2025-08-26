@@ -13,11 +13,11 @@ import {
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const OrthogonalAxisChart: FunctionComponent<ChartPropsOthogonal> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       canvas.generate.orthogonal.vertical.axis.left({
         tickSizeInner: -100,
@@ -63,11 +63,11 @@ export const OrthogonalAxisChart: FunctionComponent<ChartPropsOthogonal> = ({
       })
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

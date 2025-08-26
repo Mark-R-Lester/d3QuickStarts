@@ -3,7 +3,7 @@ import { QsCanvasRadial, qsCreateCanvasRadial } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const RadialLineChart: FunctionComponent<ChartPropsOthogonal> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -12,15 +12,15 @@ export const RadialLineChart: FunctionComponent<ChartPropsOthogonal> = ({
         20, 17, 23, 23, 20, 17, 16, 16,
       ]
 
-      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
       canvas.generate.radialCentroid.line({ data, strokeColor: 'green' })
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

@@ -8,7 +8,7 @@ import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const OrthogonalAreaStackedChart: FunctionComponent<
   ChartPropsOthogonal
-> = ({ canvasProps }) => {
+> = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {
       const data1 = {
@@ -21,7 +21,7 @@ export const OrthogonalAreaStackedChart: FunctionComponent<
         fillColor: 'darkBlue',
       }
 
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
       canvas.configStore.orthogonal.areaConfig({
         curve: QsEnumCurve.NATURAL,
         defaultFillOpacity: 0.4,
@@ -31,11 +31,11 @@ export const OrthogonalAreaStackedChart: FunctionComponent<
       canvas.generate.orthogonal.vertical.axis.left()
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

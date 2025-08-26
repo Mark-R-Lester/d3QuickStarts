@@ -16,7 +16,7 @@ import { RadialAxisDefaultsChart } from './RadialAxisDefaultsChart'
 export default function RadialCentroidAxisPage() {
   const menuElements: JSX.Element[] = [
     <RadialAxisDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialAxisDefaultsChart',
         width: 130,
         lowestViewableValue: 0,
@@ -24,7 +24,7 @@ export default function RadialCentroidAxisPage() {
       }}
     />,
     <RadialAxisChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialAxisChart',
         width: 130,
         lowestViewableValue: 0,

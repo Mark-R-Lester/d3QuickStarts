@@ -15,7 +15,7 @@ import { RadialPointsDefaultsChart } from './RadialPointsDefaultsChart'
 export default function RadialCentroidPointsPage() {
   const menuElements: JSX.Element[] = [
     <RadialPointsDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialPointDefaultsCharts',
         width: 130,
         lowestViewableValue: 0,
@@ -23,7 +23,7 @@ export default function RadialCentroidPointsPage() {
       }}
     />,
     <RadialPointsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialPointsChart',
         width: 130,
         lowestViewableValue: 0,

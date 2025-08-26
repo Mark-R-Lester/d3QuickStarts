@@ -16,7 +16,7 @@ import {
 export default function OrthogonalPointsPage() {
   const menuElements: JSX.Element[] = [
     <OrthogonalPointsDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'orthogonalPointsDefaultsChart',
         width: 130,
         lowestViewableValue: 0,
@@ -26,7 +26,7 @@ export default function OrthogonalPointsPage() {
     />,
 
     <OrthogonalPointsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'orthogonalPointsChart',
         width: 130,
         lowestViewableValue: 0,

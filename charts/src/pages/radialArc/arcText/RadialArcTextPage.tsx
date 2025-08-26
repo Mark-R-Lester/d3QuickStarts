@@ -16,7 +16,7 @@ import { RadialTextConfigChart } from './RadialTextConfigChart'
 export default function RadialArcTextPage() {
   const menuElements: JSX.Element[] = [
     <RadialTextDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialFollowText',
         width: 130,
         lowestViewableValue: 0,
@@ -24,7 +24,7 @@ export default function RadialArcTextPage() {
       }}
     />,
     <RadialTextConfigChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialSpokeText',
         width: 130,
         lowestViewableValue: 0,

@@ -12,14 +12,14 @@ import { EnumRadialTextOrientation } from '../../../common/enums'
 
 export const RadialTextTransition: FunctionComponent<
   RadialArcTextChartProps
-> = ({ canvasProps, config, data, orientation }) => {
+> = ({ canvasConfig, config, data, orientation }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element1, setElement1] = useState<QsRadialArcText>()
   const [element2, setElement2] = useState<QsRadial>()
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
       if (orientation === EnumRadialTextOrientation.FOLLOW)
         setElement1(canvas.generate.radialArc.text.follow(data, config))
@@ -41,7 +41,7 @@ export const RadialTextTransition: FunctionComponent<
       setElement2(canvas.generate.radialArc.radial(radialArgs))
     }
     createChart()
-  }, [canvasProps, config, data, orientation])
+  }, [canvasConfig, config, data, orientation])
 
   useEffect(
     function transitionData() {
@@ -77,7 +77,7 @@ export const RadialTextTransition: FunctionComponent<
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

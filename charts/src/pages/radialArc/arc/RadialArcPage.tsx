@@ -15,7 +15,7 @@ import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 export default function RadialArcPage() {
   const menuElements: JSX.Element[] = [
     <RadialDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialDoughnut',
         width: 130,
         lowestViewableValue: 0,
@@ -23,7 +23,7 @@ export default function RadialArcPage() {
       }}
     />,
     <RadialConfigChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialPie',
         width: 130,
         lowestViewableValue: 0,

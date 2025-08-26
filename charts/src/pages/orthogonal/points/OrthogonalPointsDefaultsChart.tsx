@@ -10,7 +10,7 @@ import { EnumOrientation } from '../../../common/enums'
 
 export const OrthogonalPointsDefaultsChart: FunctionComponent<
   OrienetedChartProps
-> = ({ canvasProps, orientation }) => {
+> = ({ canvasConfig, orientation }) => {
   useEffect(() => {
     const createChart = () => {
       const data: QsPointData[] = [
@@ -23,7 +23,7 @@ export const OrthogonalPointsDefaultsChart: FunctionComponent<
         { value: 25 },
         { value: 25 },
       ]
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       if (orientation === EnumOrientation.VERTICAL) {
         canvas.generate.orthogonal.vertical.points(data)
@@ -46,11 +46,11 @@ export const OrthogonalPointsDefaultsChart: FunctionComponent<
       }
     }
     createChart()
-  }, [canvasProps, orientation])
+  }, [canvasConfig, orientation])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

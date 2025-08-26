@@ -6,7 +6,7 @@ import { OrthogonalAreaChart } from '../orthogonal/area/OrthogonalAreaChart'
 export default function PlottedTransitionPage() {
   const menuElements: JSX.Element[] = [
     <OrthogonalAreaChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'orthogonalArea',
         width: 130,
         lowestViewableValue: 0,
@@ -17,7 +17,7 @@ export default function PlottedTransitionPage() {
 
   const charts: JSX.Element[] = [
     <OrthogonalAreaChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,

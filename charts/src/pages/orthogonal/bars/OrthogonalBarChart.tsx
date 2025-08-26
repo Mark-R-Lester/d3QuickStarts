@@ -14,14 +14,14 @@ export interface SimpleBarChartProps extends OrienetedChartProps {
 }
 
 export const SimpleBarChart: FunctionComponent<SimpleBarChartProps> = ({
-  canvasProps,
+  canvasConfig,
   orientation,
   config = {},
 }) => {
   useEffect(() => {
     const createChart = () => {
       const isVertical = orientation === EnumOrientation.VERTICAL
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       const data: QsBarData[] = [
         { upperBoundry: 35, lowerBoundry: 5 },
@@ -55,11 +55,11 @@ export const SimpleBarChart: FunctionComponent<SimpleBarChartProps> = ({
       }
     }
     createChart()
-  }, [canvasProps, config, orientation])
+  }, [canvasConfig, config, orientation])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

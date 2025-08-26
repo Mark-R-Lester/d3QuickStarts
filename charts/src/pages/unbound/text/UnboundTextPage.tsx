@@ -15,7 +15,7 @@ import {
 export default function UnboundTextPage() {
   const menuElements: JSX.Element[] = [
     <UnboundTextDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'unboundTextDefaultsChart',
         width: 130,
         lowestViewableValue: 0,
@@ -23,7 +23,7 @@ export default function UnboundTextPage() {
       }}
     />,
     <UnboundTextChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'unboundTextChart',
         width: 130,
         lowestViewableValue: 0,

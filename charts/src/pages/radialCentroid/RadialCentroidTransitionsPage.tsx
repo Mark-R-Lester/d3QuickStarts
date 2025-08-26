@@ -70,7 +70,7 @@ export default function RadialTransitionsPage() {
 
   const menuElements: JSX.Element[] = [
     <RadialAreaTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialAreaTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -78,7 +78,7 @@ export default function RadialTransitionsPage() {
       }}
     />,
     <RadialLineTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialLineTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -86,7 +86,7 @@ export default function RadialTransitionsPage() {
       }}
     />,
     <RadialPointTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialPointsTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -95,7 +95,7 @@ export default function RadialTransitionsPage() {
       data={radialPointsColouredData}
     />,
     <RadialPointTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialPointsOridinalTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -107,7 +107,7 @@ export default function RadialTransitionsPage() {
       }}
     />,
     <RadialPointTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialPointsSerialTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -122,7 +122,7 @@ export default function RadialTransitionsPage() {
 
   const charts: JSX.Element[] = [
     <RadialAreaTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,
@@ -130,7 +130,7 @@ export default function RadialTransitionsPage() {
       }}
     />,
     <RadialLineTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,
@@ -138,7 +138,7 @@ export default function RadialTransitionsPage() {
       }}
     />,
     <RadialPointTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,
@@ -147,7 +147,7 @@ export default function RadialTransitionsPage() {
       data={radialPointsColouredData}
     />,
     <RadialPointTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,
@@ -159,7 +159,7 @@ export default function RadialTransitionsPage() {
       }}
     />,
     <RadialPointTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'chart',
         width: 800,
         lowestViewableValue: 0,

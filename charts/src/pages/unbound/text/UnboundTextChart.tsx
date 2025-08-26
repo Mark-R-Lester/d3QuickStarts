@@ -10,11 +10,11 @@ import {
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const UnboundTextChart: FunctionComponent<ChartPropsOthogonal> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       const data: QsUnboundTextData[] = [
         { x: 0, y: 5, text: 'Text with no config uses defaults' },
@@ -48,11 +48,11 @@ export const UnboundTextChart: FunctionComponent<ChartPropsOthogonal> = ({
       canvas.generate.orthogonal.horizontal.axis.bottom()
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

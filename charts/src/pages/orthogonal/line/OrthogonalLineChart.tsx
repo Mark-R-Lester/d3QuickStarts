@@ -9,13 +9,13 @@ import { EnumOrientation } from '../../../common/enums'
 import { OrienetedChartProps } from '../../../common/chartProps'
 
 export const OrthogonalLineChart: FunctionComponent<OrienetedChartProps> = ({
-  canvasProps,
+  canvasConfig,
   orientation,
 }) => {
   useEffect(() => {
     const createChart = () => {
       const data = [25, 10, 35, 25, 35, 5, 25, 25]
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
       canvas.configStore.orthogonal.lineConfig({ curve: QsEnumCurve.NATURAL })
 
       if (orientation === EnumOrientation.VERTICAL) {
@@ -48,11 +48,11 @@ export const OrthogonalLineChart: FunctionComponent<OrienetedChartProps> = ({
     }
 
     createChart()
-  }, [canvasProps, orientation])
+  }, [canvasConfig, orientation])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

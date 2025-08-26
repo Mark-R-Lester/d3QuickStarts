@@ -10,11 +10,11 @@ import {
 import { ChartPropsPlotted } from '../../../common/chartProps'
 
 export const PlottedTextChart: FunctionComponent<ChartPropsPlotted> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasPlotted = qsCreateCanvasPlotted(canvasProps)
+      const canvas: QsCanvasPlotted = qsCreateCanvasPlotted(canvasConfig)
 
       const data: QsPlottedTextData[] = [
         { x: 10, y: 100, text: 'Text with no config uses defaults' },
@@ -48,11 +48,11 @@ export const PlottedTextChart: FunctionComponent<ChartPropsPlotted> = ({
       canvas.generate.orthogonal.horizontal.axis.bottom()
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

@@ -159,7 +159,7 @@ export const defaultsContent: JSX.Element = (
               ]}
             ></ContentRow>,
             <AxiesDefaultsChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chart',
                 width: 600,
                 lowestViewableValue: 0,
@@ -195,7 +195,7 @@ export const configContent: JSX.Element = (
               ]}
             ></ContentRow>,
             <OrthogonalAxisChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chart1',
                 width: 600,
                 highestViewableValue: 100,

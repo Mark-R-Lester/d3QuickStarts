@@ -106,7 +106,7 @@ export const defaultsContent: JSX.Element = (
                 </ContentTextBox>,
                 <ContentChartBox>
                   <SimpleBarChart
-                    canvasProps={{
+                    canvasConfig={{
                       chartName: 'chart1',
                       width: 600,
                       lowestViewableValue: 0,
@@ -131,7 +131,7 @@ export const defaultsContent: JSX.Element = (
                 </ContentTextBox>,
                 <ContentChartBox>
                   <SimpleBarChart
-                    canvasProps={{
+                    canvasConfig={{
                       chartName: 'chart2',
                       width: 600,
                       lowestViewableValue: 0,
@@ -169,7 +169,7 @@ export const defaultsContent: JSX.Element = (
                 </ContentTextBox>,
                 <ContentChartBox>
                   <SimpleBarChart
-                    canvasProps={{
+                    canvasConfig={{
                       chartName: 'chart3',
                       width: 600,
                       lowestViewableValue: 0,

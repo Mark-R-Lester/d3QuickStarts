@@ -15,14 +15,14 @@ import { AxiesDefaultsChart } from './AxesDefaultsChart'
 export default function OrthogonalAxisPage() {
   const menuElements: JSX.Element[] = [
     <AxiesDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'orthogonalAxis',
         width: 130,
         highestViewableValue: 200,
       }}
     />,
     <OrthogonalAxisChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'orthogonalAxis2',
         width: 130,
         highestViewableValue: 200,

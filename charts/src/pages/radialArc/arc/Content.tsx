@@ -137,7 +137,7 @@ export const defaultsContent: JSX.Element = (
               ]}
             />,
             <RadialDefaultsChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chartH',
                 width: 600,
                 highestViewableValue: 156,
@@ -171,7 +171,7 @@ export const configContent: JSX.Element = (
               ]}
             />,
             <RadialConfigChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chartV',
                 width: 600,
                 lowestViewableValue: 0,

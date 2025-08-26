@@ -16,7 +16,7 @@ import { RadialAreaChart } from './RadialAreaChart'
 export default function RadialCentroidAreaPage() {
   const menuElements: JSX.Element[] = [
     <RadialAreaDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialAreaDefaultsChart',
         width: 130,
         lowestViewableValue: 0,
@@ -24,7 +24,7 @@ export default function RadialCentroidAreaPage() {
       }}
     />,
     <RadialAreaChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'radialAreaChart',
         width: 130,
         lowestViewableValue: 0,

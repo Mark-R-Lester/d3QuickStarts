@@ -16,7 +16,7 @@ import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 export default function PlottedLinePage() {
   const menuElements: JSX.Element[] = [
     <PlottedLineDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'plottedLineDefaultsChart',
         width: 130,
         highestViewableValueX: 156,
@@ -24,7 +24,7 @@ export default function PlottedLinePage() {
       }}
     />,
     <PlottedLineChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'plottedLineChart',
         width: 130,
         highestViewableValueX: 156,

@@ -16,7 +16,7 @@ export default function orthogonalBarsPage() {
         Home
       </Typography>
       <OrthogonalBarsTransition
-        canvasProps={{
+        canvasConfig={{
           chartName: 'simpleBarChartHorizontal',
           height: 500,
           width: 1000,
@@ -29,7 +29,7 @@ export default function orthogonalBarsPage() {
         orientation={EnumOrientation.HORIZONTAL}
       />
       <OrthogonalLine
-        canvasProps={{
+        canvasConfig={{
           chartName: 'simpleChart',
           height: 500,
           width: 1000,
@@ -42,7 +42,7 @@ export default function orthogonalBarsPage() {
         orientation={EnumOrientation.HORIZONTAL}
       />
       <OrthogonalCandleChart
-        canvasProps={{
+        canvasConfig={{
           chartName: 'orthogonalCandleChart',
           height: 500,
           width: 1000,
@@ -54,7 +54,7 @@ export default function orthogonalBarsPage() {
         }}
       />
       <OrthogonalBarChart
-        canvasProps={{
+        canvasConfig={{
           chartName: 'orthogonalBarBasicChart',
           height: 500,
           width: 1000,
@@ -66,7 +66,7 @@ export default function orthogonalBarsPage() {
         }}
       />
       <OrthogonalBarFruitsChart
-        canvasProps={{
+        canvasConfig={{
           chartName: 'orthogonalBarFruitsChart',
           height: 500,
           width: 1000,
@@ -78,7 +78,7 @@ export default function orthogonalBarsPage() {
         }}
       />
       <OrthogonalAreaChart
-        canvasProps={{
+        canvasConfig={{
           chartName: 'orthogonalAreaChart',
           height: 500,
           width: 1000,
@@ -90,7 +90,7 @@ export default function orthogonalBarsPage() {
         }}
       />
       <OrthogonalAreaOpacityChart
-        canvasProps={{
+        canvasConfig={{
           chartName: 'orthogonalAreaOpacityChart',
           height: 500,
           width: 1000,
@@ -103,7 +103,7 @@ export default function orthogonalBarsPage() {
       />
 
       <OrthogonalAreaStackedChart
-        canvasProps={{
+        canvasConfig={{
           chartName: 'orthogonalAreaStackedChart',
           height: 500,
           width: 1000,

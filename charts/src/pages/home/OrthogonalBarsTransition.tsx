@@ -13,7 +13,7 @@ import {
 import { OrienetedChartProps } from '../../common/chartProps'
 
 export const OrthogonalBarsTransition: FunctionComponent<OrienetedChartProps> =
-  memo(({ canvasProps, orientation }) => {
+  memo(({ canvasConfig, orientation }) => {
     const [changed, setChanged] = useState<boolean>(false)
     const [bars, setBars] = useState<QsBars>()
     const [text, setText] = useState<QsText>()
@@ -71,7 +71,8 @@ export const OrthogonalBarsTransition: FunctionComponent<OrienetedChartProps> =
           { value: 25 },
         ]
 
-        const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+        const canvas: QsCanvasOrthogonal =
+          qsCreateCanvasOrthogonal(canvasConfig)
         let newBars: QsBars
         let newText: QsText
 
@@ -94,7 +95,7 @@ export const OrthogonalBarsTransition: FunctionComponent<OrienetedChartProps> =
         setText(newText)
       }
       createChart()
-    }, [canvasProps, orientation])
+    }, [canvasConfig, orientation])
 
     useEffect(
       function transitionData() {
@@ -134,7 +135,7 @@ export const OrthogonalBarsTransition: FunctionComponent<OrienetedChartProps> =
 
     return (
       <>
-        <div id={canvasProps.chartName}></div>
+        <div id={canvasConfig.chartName}></div>
       </>
     )
   })

@@ -22,7 +22,7 @@ const canvasConfig: string = `const canvasConfig = {
 
 const defaultsChart1: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
- canvas.generate.orthogonal.horizontal.line({
+canvas.generate.orthogonal.horizontal.line({
   data,
 })
 canvas.generate.orthogonal.vertical.axis.left()
@@ -36,7 +36,7 @@ canvas.generate.orthogonal.horizontal.axis.bottom({
 
 const defaultsChart2: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
- canvas.generate.orthogonal.vertical.line({
+canvas.generate.orthogonal.vertical.line({
   data,
 })
 canvas.generate.orthogonal.vertical.axis.left({
@@ -96,7 +96,7 @@ export const defaultsContent: JSX.Element = (
                 </ContentTextBox>,
                 <ContentChartBox>
                   <OrthogonalLineDefaultsChart
-                    canvasProps={{
+                    canvasConfig={{
                       chartName: 'chart1',
                       width: 600,
                       lowestViewableValue: 0,
@@ -121,7 +121,7 @@ export const defaultsContent: JSX.Element = (
                 </ContentTextBox>,
                 <ContentChartBox>
                   <OrthogonalLineDefaultsChart
-                    canvasProps={{
+                    canvasConfig={{
                       chartName: 'chart2',
                       width: 600,
                       lowestViewableValue: 0,
@@ -159,7 +159,7 @@ export const defaultsContent: JSX.Element = (
                 </ContentTextBox>,
                 <ContentChartBox>
                   <OrthogonalLineChart
-                    canvasProps={{
+                    canvasConfig={{
                       chartName: 'chart3',
                       width: 600,
                       lowestViewableValue: 0,

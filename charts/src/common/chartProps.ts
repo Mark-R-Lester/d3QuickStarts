@@ -32,7 +32,7 @@ import {
 } from 'd3qs/radialCentroid/radialCentroidText/qsTypes'
 
 export interface ChartPropsOthogonal {
-  canvasProps: QsCanvasConfigOrthogonal
+  canvasConfig: QsCanvasConfigOrthogonal
 }
 
 export interface OrienetedChartProps extends ChartPropsOthogonal {
@@ -67,7 +67,7 @@ export interface BarGroupChartProps extends ChartPropsOthogonal {
 
 export interface BarStackChartProps extends ChartPropsOthogonal {
   config?: QsBarStackedConfig
-  data: number[][]
+  data?: number[][]
 }
 
 export interface LineChartProps extends ChartPropsOthogonal {
@@ -112,7 +112,7 @@ export interface RadialSpokesChartProps extends ChartPropsOthogonal {
 }
 
 export interface ChartPropsPlotted {
-  canvasProps: QsCanvasConfigPlotted
+  canvasConfig: QsCanvasConfigPlotted
 }
 
 export interface PlottedTextChartProps extends ChartPropsPlotted {

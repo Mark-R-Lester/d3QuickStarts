@@ -8,7 +8,7 @@ import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const OrthogonalBarGroupTransition: FunctionComponent<
   ChartPropsOthogonal
-> = ({ canvasProps }) => {
+> = ({ canvasConfig }) => {
   const [changedStack, setChangedStack] = useState<boolean>(false)
   const [changedGroup, setChangedGroup] = useState<boolean>(false)
   const [grouped, setGrouped] = useState<QsBarGroups>()
@@ -55,7 +55,7 @@ export const OrthogonalBarGroupTransition: FunctionComponent<
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       let grouped = canvas.generate.orthogonal.horizontal.barGroup({
         data: dataMax,
@@ -68,7 +68,7 @@ export const OrthogonalBarGroupTransition: FunctionComponent<
       setStacked(stacked)
     }
     createChart()
-  }, [canvasProps, dataMax, dataMin])
+  }, [canvasConfig, dataMax, dataMin])
 
   useEffect(
     function transitionGrouped() {
@@ -116,7 +116,7 @@ export const OrthogonalBarGroupTransition: FunctionComponent<
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

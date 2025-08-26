@@ -9,10 +9,10 @@ import { ChartPropsOthogonal } from '../../common/chartProps'
 
 export const OrthogonalAreaOpacityChart: FunctionComponent<
   ChartPropsOthogonal
-> = ({ canvasProps }) => {
+> = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
       canvas.configStore.orthogonal.areaConfig({
         defaultFillOpacity: 0.5,
         defaultStrokeWidth: 1,
@@ -62,11 +62,11 @@ export const OrthogonalAreaOpacityChart: FunctionComponent<
       })
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

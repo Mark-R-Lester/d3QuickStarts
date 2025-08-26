@@ -7,7 +7,7 @@ import {
 import { ChartPropsPlotted } from '../../../common/chartProps'
 
 export const PlottedLineDefaultsChart: FunctionComponent<ChartPropsPlotted> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
@@ -22,17 +22,17 @@ export const PlottedLineDefaultsChart: FunctionComponent<ChartPropsPlotted> = ({
         ],
       }
 
-      const canvas: QsCanvasPlotted = qsCreateCanvasPlotted(canvasProps)
+      const canvas: QsCanvasPlotted = qsCreateCanvasPlotted(canvasConfig)
       canvas.generate.plotted.line(data)
       canvas.generate.orthogonal.vertical.axis.left()
       canvas.generate.orthogonal.horizontal.axis.bottom()
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

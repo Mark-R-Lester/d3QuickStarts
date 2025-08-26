@@ -38,7 +38,7 @@ const colorScaleSequential: QsColorScaleData = {
 export default function OrthogonalTransitionsPage() {
   const menuElements: JSX.Element[] = [
     <OrthogonalBarsTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'verticalBarTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -48,7 +48,7 @@ export default function OrthogonalTransitionsPage() {
     />,
 
     <OrthogonalLineTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'verticalLineTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -57,7 +57,7 @@ export default function OrthogonalTransitionsPage() {
       orientation={EnumOrientation.VERTICAL}
     />,
     <OrthogonalPointsTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'verticalPointsTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -71,7 +71,7 @@ export default function OrthogonalTransitionsPage() {
       }}
     />,
     <OrthogonalTextTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'verticalTextTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -85,7 +85,7 @@ export default function OrthogonalTransitionsPage() {
       }}
     />,
     <OrthogonalBarsTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'horizontalBarTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -95,7 +95,7 @@ export default function OrthogonalTransitionsPage() {
     />,
 
     <OrthogonalLineTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'horizontalLineTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -104,7 +104,7 @@ export default function OrthogonalTransitionsPage() {
       orientation={EnumOrientation.HORIZONTAL}
     />,
     <OrthogonalPointsTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'horizontalPointsTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -118,7 +118,7 @@ export default function OrthogonalTransitionsPage() {
       }}
     />,
     <OrthogonalTextTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'horizontalTextTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -133,7 +133,7 @@ export default function OrthogonalTransitionsPage() {
     />,
 
     <OrthogonalAreaTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'AreaTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -141,7 +141,7 @@ export default function OrthogonalTransitionsPage() {
       }}
     />,
     <OrthogonalBarGroupTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'BarGroupTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -152,7 +152,7 @@ export default function OrthogonalTransitionsPage() {
 
   const charts: JSX.Element[] = [
     <OrthogonalBarsTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'verticalBarTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -162,7 +162,7 @@ export default function OrthogonalTransitionsPage() {
     />,
 
     <OrthogonalLineTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'verticalLineTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -171,7 +171,7 @@ export default function OrthogonalTransitionsPage() {
       orientation={EnumOrientation.VERTICAL}
     />,
     <OrthogonalPointsTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'verticalPointsTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -185,7 +185,7 @@ export default function OrthogonalTransitionsPage() {
       }}
     />,
     <OrthogonalTextTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'verticalTextTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -199,7 +199,7 @@ export default function OrthogonalTransitionsPage() {
       }}
     />,
     <OrthogonalBarsTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'horizontalBarTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -209,7 +209,7 @@ export default function OrthogonalTransitionsPage() {
     />,
 
     <OrthogonalLineTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'horizontalLineTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -218,7 +218,7 @@ export default function OrthogonalTransitionsPage() {
       orientation={EnumOrientation.HORIZONTAL}
     />,
     <OrthogonalPointsTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'horizontalPointsTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -232,7 +232,7 @@ export default function OrthogonalTransitionsPage() {
       }}
     />,
     <OrthogonalTextTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'horizontalTextTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -247,7 +247,7 @@ export default function OrthogonalTransitionsPage() {
     />,
 
     <OrthogonalAreaTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'AreaTransition',
         width: 130,
         lowestViewableValue: 0,
@@ -255,7 +255,7 @@ export default function OrthogonalTransitionsPage() {
       }}
     />,
     <OrthogonalBarGroupTransition
-      canvasProps={{
+      canvasConfig={{
         chartName: 'BarGroupTransition',
         width: 130,
         lowestViewableValue: 0,

@@ -7,7 +7,7 @@ import {
 } from 'd3qs/radialCentroid/radialCentroidText/qsTypes'
 
 export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
-  canvasProps,
+  canvasConfig,
   data,
   config,
 }) => {
@@ -17,14 +17,14 @@ export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
 
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasProps)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
       setElement(
         canvas.generate.radialCentroid.text(chartDataRef.current, config)
       )
     }
     createChart()
-  }, [canvasProps, config])
+  }, [canvasConfig, config])
 
   useEffect(
     function transitionData() {
@@ -48,7 +48,7 @@ export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

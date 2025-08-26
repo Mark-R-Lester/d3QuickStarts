@@ -3,18 +3,18 @@ import { ChartPropsOthogonal } from '../../../common/chartProps'
 import { qsCreateCanvasOrthogonal } from 'd3qs/d3QuickStart'
 
 export const SimpleCanvas: FunctionComponent<ChartPropsOthogonal> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
-      qsCreateCanvasOrthogonal(canvasProps)
+      qsCreateCanvasOrthogonal(canvasConfig)
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

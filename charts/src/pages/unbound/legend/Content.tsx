@@ -139,7 +139,7 @@ export const defaultsContent: JSX.Element = (
               ]}
             />,
             <UnboundLegendDefaultsChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chartH',
                 width: 600,
                 lowestViewableValue: 0,
@@ -174,7 +174,7 @@ export const configContent: JSX.Element = (
               ]}
             />,
             <UnboundLegendChart
-              canvasProps={{
+              canvasConfig={{
                 chartName: 'chartV',
                 width: 1000,
                 lowestViewableValue: 0,

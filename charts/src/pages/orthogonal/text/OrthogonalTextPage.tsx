@@ -17,7 +17,7 @@ import { OrthogonalTextDefaultsChart } from './OrthogonalTextDefaultsChart'
 export default function OrthogonalTextPage() {
   const menuElements: JSX.Element[] = [
     <OrthogonalTextDefaultsChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'orthogonalTextHorizontal',
         width: 130,
         lowestViewableValue: 0,
@@ -27,7 +27,7 @@ export default function OrthogonalTextPage() {
     />,
 
     <OrthogonalTextChart
-      canvasProps={{
+      canvasConfig={{
         chartName: 'orthogonalTextVertical',
         width: 130,
         lowestViewableValue: 0,

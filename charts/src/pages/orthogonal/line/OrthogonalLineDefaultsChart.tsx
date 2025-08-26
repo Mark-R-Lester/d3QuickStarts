@@ -9,11 +9,11 @@ import { OrienetedChartProps } from '../../../common/chartProps'
 
 export const OrthogonalLineDefaultsChart: FunctionComponent<
   OrienetedChartProps
-> = ({ canvasProps, orientation }) => {
+> = ({ canvasConfig, orientation }) => {
   useEffect(() => {
     const createChart = () => {
       const data = [25, 10, 35, 25, 35, 5, 25, 25]
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       if (orientation === EnumOrientation.VERTICAL) {
         canvas.generate.orthogonal.vertical.line({
@@ -40,11 +40,11 @@ export const OrthogonalLineDefaultsChart: FunctionComponent<
       }
     }
     createChart()
-  }, [canvasProps, orientation])
+  }, [canvasConfig, orientation])
 
   return (
     <>
-      <div id={canvasProps.chartName}></div>
+      <div id={canvasConfig.chartName}></div>
     </>
   )
 }

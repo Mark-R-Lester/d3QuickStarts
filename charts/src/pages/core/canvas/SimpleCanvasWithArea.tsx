@@ -7,11 +7,11 @@ import {
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
 export const SimpleCanvasWithArea: FunctionComponent<ChartPropsOthogonal> = ({
-  canvasProps,
+  canvasConfig,
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasProps)
+      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
       const data: QsAreaData = {
         higherData: [100, 100],
       }
@@ -20,11 +20,11 @@ export const SimpleCanvasWithArea: FunctionComponent<ChartPropsOthogonal> = ({
       canvas.generate.orthogonal.horizontal.axis.bottom()
     }
     createChart()
-  }, [canvasProps])
+  }, [canvasConfig])
 
   return (
     <>
-      <div id={canvasProps.chartName} />
+      <div id={canvasConfig.chartName} />
     </>
   )
 }

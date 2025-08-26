@@ -10,19 +10,7 @@ export const BarStackedChart: FunctionComponent<BarStackChartProps> = ({
   canvasConfig,
   config = {},
   data = [
-    [
-      {
-        value: 10,
-        fillColor: 'green',
-        fillOpacity: 0.7,
-        strokeColor: 'blue',
-        strokeWidth: 1,
-        strokeOpacity: 1,
-      },
-      { value: 20 },
-      { value: 16 },
-      { value: 23 },
-    ],
+    [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
     [{ value: 16 }, { value: 32 }, { value: 30 }, { value: 26 }],
     [{ value: 40 }, { value: 16 }, { value: 12 }, { value: 16 }],
     [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],

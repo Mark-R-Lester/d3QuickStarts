@@ -12,22 +12,24 @@ import { BarStackedChart } from './BarStackedChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 
 const canvasConfig: string = `const canvasConfig = {
-  chartName: 'chart',
-  width: 600,
-  highestViewableValue: 150,
-} 
+    chartName: 'ChartEditable',
+    width: 600,
+    lowestViewableValue: 0,
+    highestViewableValue: 200,
+    borderColor: 'grey',
+  }
 `
 
 const barDataAsString: string = `const data = [
-  [10, 20, 16, 23],
-  [16, 32, 30, 26],
-  [40, 16, 12, 16],
-  [10, 4, 13, 32],
-  [10, 37, 21, 8],
-  [10, 20, 16, 23],
-  [10, 32, 30, 26],
-  [15, 16, 12, 16],
-  [10, 4, 13, 32],
+  [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
+  [{ value: 16 }, { value: 32 }, { value: 30 }, { value: 26 }],
+  [{ value: 40 }, { value: 16 }, { value: 12 }, { value: 16 }],
+  [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],
+  [{ value: 10 }, { value: 37 }, { value: 21 }, { value: 8 }],
+  [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
+  [{ value: 10 }, { value: 32 }, { value: 30 }, { value: 26 }],
+  [{ value: 15 }, { value: 16 }, { value: 12 }, { value: 16 }],
+  [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],
 ]`
 
 const defaultsChart: string = `${canvasConfig}${barDataAsString}
@@ -47,22 +49,23 @@ canvas.generate.orthogonal.horizontal.axis.bottom({
 const configChart: string = `${canvasConfig}${barDataAsString}
 
 const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-config={{
+const config = {
   colorRange: ['brown', 'purple', 'red', 'pink'],
-  strokeColor: 'black',
-  strokeWidth: 2,
-  strokeOpacity: 1,
-}}
+  defaultStrokeColor: 'black',
+  defaultStrokeWidth: 2,
+  defaultStrokeOpacity: 1,
+}
+
+const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
 canvas.generate.orthogonal.horizontal.barStack(data, config)
 canvas.generate.orthogonal.vertical.axis.left()
 canvas.generate.orthogonal.horizontal.axis.bottom({
-    scale: {
-      type: QsEnumAxisScaleType.BANDED,
-      domain: [1, 2, 3, 4, 5, 6, 7, 8,],
-    },
-  }
-)`
+  scale: {
+    type: QsEnumAxisScaleType.BANDED,
+    domain: [1, 2, 3, 4, 5, 6, 7, 8, 9],
+  },
+})`
 
 export const defaultsContent: JSX.Element = (
   <ContentColumn

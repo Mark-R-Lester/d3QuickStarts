@@ -1,7 +1,5 @@
 import {
   QsEnumAlignmentBaseline,
-  QsEnumAxisScaleType,
-  QsEnumColorScale,
   QsEnumTextAnchor,
   QsEnumTextDecorationLine,
   QsEnumTextFont,

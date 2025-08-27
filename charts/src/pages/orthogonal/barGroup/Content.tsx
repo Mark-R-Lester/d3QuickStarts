@@ -15,24 +15,28 @@ const canvasConfig: string = `const canvasConfig = {
   chartName: 'chart',
   width: 600,
   highestViewableValue: 40,
-} 
-`
+}`
 
-const barDataAsString: string = `const data = [
-  [10, 20, 16, 23],
-  [16, 32, 30, 26],
-  [40, 16, 12, 16],
-  [10, 4, 13, 32],
-  [10, 37, 21, 8],
-  [10, 20, 16, 23],
-  [10, 32, 30, 26],
-  [15, 16, 12, 16],
-  [10, 4, 13, 32],
+const barConfig: string = ` const config: QsBarGroupConfig = {
+  colorRange: ['brown', 'purple', 'red', 'pink'],
+  defaultStrokeColor: 'black',
+  defaultStrokeWidth: 2,
+  defaultStrokeOpacity: 1,
+}`
+
+const barData: string = `const data = [
+  [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
+  [{ value: 16 }, { value: 32 }, { value: 30 }, { value: 26 }],
+  [{ value: 40 }, { value: 16 }, { value: 12 }, { value: 16 }],
+  [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],
+  [{ value: 10 }, { value: 37 }, { value: 21 }, { value: 8 }],
+  [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
+  [{ value: 10 }, { value: 32 }, { value: 30 }, { value: 26 }],
+  [{ value: 15 }, { value: 16 }, { value: 12 }, { value: 16 }],
+  [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],
 ]`
 
-const defaultsChart: string = `${canvasConfig}${barDataAsString}
-
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+const defaultsChart: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
 canvas.generate.orthogonal.horizontal.barGroup(data)
 canvas.generate.orthogonal.vertical.axis.left()
@@ -44,11 +48,9 @@ canvas.generate.orthogonal.horizontal.axis.bottom({
   }
 )`
 
-const configChart: string = `${canvasConfig}${barDataAsString}
+const configChart: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-
-canvas.generate.orthogonal.horizontal.barGroup(data)
+canvas.generate.orthogonal.horizontal.barGroup(data, config)
 canvas.generate.orthogonal.vertical.axis.left()
 canvas.generate.orthogonal.horizontal.axis.bottom({
     scale: {
@@ -69,11 +71,11 @@ export const defaultsContent: JSX.Element = (
               Defaults
             </Typography>,
             <Typography variant="body1">
-              The Stacked Bar element, while a convenient tool for visualizing
-              cumulative and individual subcategory contributions through
-              segmented, stacked bars, is notably limited in functionality
-              compared to standard bar elements, offering less flexibility in
-              layout, and configuration.
+              The Grouped Bar element, while an effective tool for visualizing
+              side-by-side comparisons of subcategory contributions through
+              adjacent bars, is notably limited in functionality compared to
+              standard bar elements, offering less flexibility in layout and
+              configuration.
             </Typography>,
             <ContentRow
               elements={[
@@ -84,6 +86,8 @@ export const defaultsContent: JSX.Element = (
                     default configuration parameters, rendering segmented bars
                     stacked vertically.
                   </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={barData} />
                   <ContentCodeBox code={defaultsChart} />
                 </ContentTextBox>,
                 <ContentChartBox>
@@ -108,6 +112,9 @@ export const defaultsContent: JSX.Element = (
                     scaling within the canvas's coordinate system, though
                     limited compared to standard bar elements.
                   </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={barConfig} />
+                  <ContentCodeBox code={barData} />
                   <ContentCodeBox code={configChart} />
                 </ContentTextBox>,
                 <ContentChartBox>
@@ -135,29 +142,42 @@ export const defaultsContent: JSX.Element = (
   />
 )
 
-const data: string = `number[][]`
-
-const config: string = `export interface QsBarGroupConfig {
-  [key: string]: number | Iterable<String> | undefined
-  padding?: number
-  colorRange?: Iterable<String>
+const data: string = `interface QsBarGroupedData {
+  value: number
+  fillColor?: string
+  fillOpacity?: number
+  strokeColor?: string
+  strokeWidth?: number
+  strokeOpacity?: number
 }`
 
-const dataExample: string = `const data = [
-  [10, 20, 16, 23],
-  [16, 32, 30, 26],
-  [40, 16, 12, 16],
-  [10, 4, 13, 32],
-  [10, 37, 21, 8],
-  [10, 20, 16, 23],
-  [10, 32, 30, 26],
-  [15, 16, 12, 16],
-  [10, 4, 13, 32],
-]`
+const config: string = `interface BarGroupConfig extends ConfigStrokeDefaults {
+  useDataArea: boolean
+  padding: number
+  colorRange: Iterable<String>
+  defaultFillOpacity: number
+  defaultStrokeColor: string
+  defaultStrokeWidth: number
+  defaultStrokeOpacity: number
+}`
 
-const configExample: string = `const defaults: BarGroupConfig = {
+const dataExample: string = `const data: QsBarGroupedData  = { 
+  value: 10 
+  fillColor: 'blue'
+  fillOpacity: 1
+  strokeColor: 'blue'
+  strokeWidth: 1
+  strokeOpacity: 1
+}`
+
+const configExample: string = `const config: QsBarGroupConfig = {
+  useDataArea: boolean
   colorRange: ['red', 'blue','green','orange'],
   padding: 20,
+  defaultFillOpacity: 1
+  defaultStrokeColor: 'blue'
+  defaultStrokeWidth: 1
+  defaultStrokeOpacity: 1
 }`
 
 export const configAndData: JSX.Element = (
@@ -226,7 +246,8 @@ export const editorContent: JSX.Element = (
   highestViewableValue: 40,
   borderColor: 'grey',
 }
-
+${barConfig}
+${barData}
 ${configChart}`}
   ></ChartEditor>
 )

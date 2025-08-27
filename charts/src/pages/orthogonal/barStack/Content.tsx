@@ -14,13 +14,11 @@ import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox
 const canvasConfig: string = `const canvasConfig = {
     chartName: 'ChartEditable',
     width: 600,
-    lowestViewableValue: 0,
     highestViewableValue: 200,
-    borderColor: 'grey',
   }
 `
 
-const barDataAsString: string = `const data = [
+const barData: string = `const data = [
   [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
   [{ value: 16 }, { value: 32 }, { value: 30 }, { value: 26 }],
   [{ value: 40 }, { value: 16 }, { value: 12 }, { value: 16 }],
@@ -32,9 +30,14 @@ const barDataAsString: string = `const data = [
   [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],
 ]`
 
-const defaultsChart: string = `${canvasConfig}${barDataAsString}
+const barConfig: string = `const config = {
+  colorRange: ['brown', 'purple', 'red', 'pink'],
+  defaultStrokeColor: 'black',
+  defaultStrokeWidth: 2,
+  defaultStrokeOpacity: 1,
+}`
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+const defaultsChart: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
 canvas.generate.orthogonal.horizontal.barStack(data)
 canvas.generate.orthogonal.vertical.axis.left()
@@ -46,17 +49,7 @@ canvas.generate.orthogonal.horizontal.axis.bottom({
   }
 )`
 
-const configChart: string = `${canvasConfig}${barDataAsString}
-
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-const config = {
-  colorRange: ['brown', 'purple', 'red', 'pink'],
-  defaultStrokeColor: 'black',
-  defaultStrokeWidth: 2,
-  defaultStrokeOpacity: 1,
-}
-
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+const configChart: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
 canvas.generate.orthogonal.horizontal.barStack(data, config)
 canvas.generate.orthogonal.vertical.axis.left()
@@ -93,6 +86,8 @@ export const defaultsContent: JSX.Element = (
                     default configuration parameters, rendering segmented bars
                     stacked vertically.
                   </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={barData} />
                   <ContentCodeBox code={defaultsChart} />
                 </ContentTextBox>,
                 <ContentChartBox>
@@ -117,6 +112,9 @@ export const defaultsContent: JSX.Element = (
                     scaling within the canvas's coordinate system, though
                     limited compared to standard bar elements.
                   </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={barConfig} />
+                  <ContentCodeBox code={barData} />
                   <ContentCodeBox code={configChart} />
                 </ContentTextBox>,
                 <ContentChartBox>
@@ -163,17 +161,14 @@ const config: string = `export interface BarStackedConfig extends ConfigStrokeDe
   defaultStrokeOpacity: number
 }`
 
-const dataExample: string = `const data: QsBarStackedData[][]  = [
-  [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
-  [{ value: 16 }, { value: 32 }, { value: 30 }, { value: 26 }],
-  [{ value: 40 }, { value: 16 }, { value: 12 }, { value: 16 }],
-  [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],
-  [{ value: 10 }, { value: 37 }, { value: 21 }, { value: 8 }],
-  [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
-  [{ value: 10 }, { value: 32 }, { value: 30 }, { value: 26 }],
-  [{ value: 15 }, { value: 16 }, { value: 12 }, { value: 16 }],
-  [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],
-]`
+const dataExample: string = `const data: QsBarStackedData  = { 
+  value: 10 
+  fillColor: 'blue'
+  fillOpacity: 1
+  strokeColor: 'blue'
+  strokeWidth: 1
+  strokeOpacity: 1
+}`
 
 const configExample: string = `const defaults: BarStackConfig = {
   useDataArea: boolean
@@ -243,5 +238,16 @@ export const configAndData: JSX.Element = (
 )
 
 export const editorContent: JSX.Element = (
-  <ChartEditor initialCode={`${configChart}`}></ChartEditor>
+  <ChartEditor
+    initialCode={`const canvasConfig = {
+  chartName: 'ChartEditable',
+  width: 600,
+  lowestViewableValue: 0,
+  highestViewableValue: 200,
+  borderColor: 'grey',
+}
+${barConfig}
+${barData}
+${configChart}`}
+  ></ChartEditor>
 )

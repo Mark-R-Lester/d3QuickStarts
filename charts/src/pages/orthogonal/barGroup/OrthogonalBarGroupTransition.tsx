@@ -18,15 +18,15 @@ export const OrthogonalBarGroupTransition: FunctionComponent<
   const [stacked, setStacked] = useState<QsBarStack>()
   const dataMin: QsBarGroupedData[][] = useMemo(
     () => [
-      [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
-      [{ value: 16 }, { value: 32 }, { value: 30 }, { value: 26 }],
-      [{ value: 40 }, { value: 16 }, { value: 12 }, { value: 16 }],
-      [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],
-      [{ value: 10 }, { value: 37 }, { value: 21 }, { value: 8 }],
-      [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
-      [{ value: 10 }, { value: 32 }, { value: 30 }, { value: 26 }],
-      [{ value: 15 }, { value: 16 }, { value: 12 }, { value: 16 }],
-      [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],
+      [{ value: 0 }, { value: 0 }, { value: 0 }, { value: 0 }],
+      [{ value: 0 }, { value: 0 }, { value: 0 }, { value: 0 }],
+      [{ value: 0 }, { value: 0 }, { value: 0 }, { value: 0 }],
+      [{ value: 0 }, { value: 0 }, { value: 0 }, { value: 0 }],
+      [{ value: 0 }, { value: 0 }, { value: 0 }, { value: 0 }],
+      [{ value: 0 }, { value: 0 }, { value: 0 }, { value: 0 }],
+      [{ value: 0 }, { value: 0 }, { value: 0 }, { value: 0 }],
+      [{ value: 0 }, { value: 0 }, { value: 0 }, { value: 0 }],
+      [{ value: 0 }, { value: 0 }, { value: 0 }, { value: 0 }],
     ],
     []
   )

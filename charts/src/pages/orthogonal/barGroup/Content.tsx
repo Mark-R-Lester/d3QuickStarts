@@ -81,7 +81,7 @@ export const defaultsContent: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    When supplying only the essential data, the Stacked Bar
+                    When supplying only the essential data, the Grouped Bar
                     element generates a visualization using the library's
                     default configuration parameters, rendering segmented bars
                     stacked vertically.
@@ -106,11 +106,10 @@ export const defaultsContent: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    Configuration options for the Stacked Bar element allow
+                    Configuration options for the Grouped Bar element allow
                     customization of its appearance, enabling tailored
                     visualizations by adjusting properties like colors, and axis
-                    scaling within the canvas's coordinate system, though
-                    limited compared to standard bar elements.
+                    scaling within the canvas's coordinate system.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
                   <ContentCodeBox code={barConfig} />
@@ -194,7 +193,7 @@ export const configAndData: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    interface
+                    Interface
                   </Typography>
                   <ContentCodeBox code={data} />,
                 </ContentTextBox>,
@@ -202,7 +201,7 @@ export const configAndData: JSX.Element = (
                   <Typography variant="body2" gutterBottom>
                     Example
                   </Typography>
-                  <ContentCodeBox code={dataExample} />,
+                  <ContentCodeBox code={dataExample} />
                 </ContentTextBox>,
               ]}
             />,
@@ -218,7 +217,7 @@ export const configAndData: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    QsBarStackConfig interface
+                    Interface
                   </Typography>
                   <ContentCodeBox code={config} />
                 </ContentTextBox>,
@@ -226,7 +225,7 @@ export const configAndData: JSX.Element = (
                   <Typography variant="body2" gutterBottom>
                     Example
                   </Typography>
-                  <ContentCodeBox code={configExample} />,
+                  <ContentCodeBox code={configExample} />
                 </ContentTextBox>,
               ]}
             />,

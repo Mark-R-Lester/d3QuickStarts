@@ -194,15 +194,15 @@ export const configAndData: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    interface
+                    Interface
                   </Typography>
-                  <ContentCodeBox code={data} />,
+                  <ContentCodeBox code={data} />
                 </ContentTextBox>,
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
                     Example
                   </Typography>
-                  <ContentCodeBox code={dataExample} />,
+                  <ContentCodeBox code={dataExample} />
                 </ContentTextBox>,
               ]}
             />,
@@ -218,7 +218,7 @@ export const configAndData: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    QsBarStackConfig interface
+                    Interface
                   </Typography>
                   <ContentCodeBox code={config} />
                 </ContentTextBox>,
@@ -226,7 +226,7 @@ export const configAndData: JSX.Element = (
                   <Typography variant="body2" gutterBottom>
                     Example
                   </Typography>
-                  <ContentCodeBox code={configExample} />,
+                  <ContentCodeBox code={configExample} />
                 </ContentTextBox>,
               ]}
             />,

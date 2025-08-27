@@ -3,14 +3,15 @@ import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import { EnumOrientation } from '../../../common/enums'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import { OrthogonalLineDefaultsChart } from './OrthogonalLineDefaultsChart'
+
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import { configAndData, defaultsContent, editorContent } from './Content'
+import { OrthogonalLineChart } from './OrthogonalLineChart'
 
 export default function OrthogonalLinePage() {
   const menuElements: JSX.Element[] = [
-    <OrthogonalLineDefaultsChart
+    <OrthogonalLineChart
       canvasConfig={{
         chartName: 'orthogonalLineHorizontal',
         width: 130,

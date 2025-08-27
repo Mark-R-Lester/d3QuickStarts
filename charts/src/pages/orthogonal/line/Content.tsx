@@ -9,22 +9,28 @@ import {
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import { OrthogonalLineDefaultsChart } from './OrthogonalLineDefaultsChart'
 import { OrthogonalLineChart } from './OrthogonalLineChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
+import { QsEnumCurve } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'chart',
   width: 600,
   highestViewableValue: 40,
-} 
-`
+}`
 
-const defaultsChart1: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-canvas.generate.orthogonal.horizontal.line({
-  data,
-})
+const lineData: string = `const data = {
+  data: [25, 10, 35, 25, 35, 5, 25, 25],
+}`
+const lineDataComplex: string = `const data = {
+  data: [25, 10, 35, 25, 35, 5, 25, 25],
+  strokeColor: 'red',
+  strokeWidth: 1,
+}`
+const lineConfig: string = `const config = { curve: QsEnumCurve.NATURAL }`
+
+const chart1: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+canvas.generate.orthogonal.horizontal.line(data)
 canvas.generate.orthogonal.vertical.axis.left()
 canvas.generate.orthogonal.horizontal.axis.bottom({
     scale: {
@@ -34,11 +40,8 @@ canvas.generate.orthogonal.horizontal.axis.bottom({
   }
 )`
 
-const defaultsChart2: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-canvas.generate.orthogonal.vertical.line({
-  data,
-})
+const chart2: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+canvas.generate.orthogonal.vertical.line(data)
 canvas.generate.orthogonal.vertical.axis.left({
   scale: {
     type: QsEnumAxisScaleType.POINT,
@@ -47,26 +50,17 @@ canvas.generate.orthogonal.vertical.axis.left({
 })
 canvas.generate.orthogonal.horizontal.axis.bottom()`
 
-const configChart: string = `const data = [25, 10, 35, 25, 35, 5, 25, 25]
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-canvas.configStore.orthogonal.lineConfig({ curve: QsEnumCurve.NATURAL })
-canvas.generate.orthogonal.vertical.line({
-  data,
-  strokeColor: 'red',
-  strokeWidth: 1,
-})
-canvas.generate.orthogonal.vertical.axis.left({
+const chart3: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+canvas.configStore.orthogonal.lineConfig(config)
+canvas.generate.orthogonal.horizontal.line(data)
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom({
     scale: {
       type: QsEnumAxisScaleType.POINT,
       domain: [1, 2, 3, 4, 5, 6, 7, 8],
     },
   }
-)
-canvas.generate.orthogonal.horizontal.axis.bottom()`
-
-const defaultsChart1All: string = `${canvasConfig}${defaultsChart1}`
-const defaultsChart2All: string = `${canvasConfig}${defaultsChart2}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+)`
 
 export const defaultsContent: JSX.Element = (
   <ContentColumn
@@ -92,10 +86,12 @@ export const defaultsContent: JSX.Element = (
                     element produces a visualization leveraging the library's
                     default configuration parameters
                   </Typography>
-                  <ContentCodeBox code={defaultsChart1All} />
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={lineData} />
+                  <ContentCodeBox code={chart1} />
                 </ContentTextBox>,
                 <ContentChartBox>
-                  <OrthogonalLineDefaultsChart
+                  <OrthogonalLineChart
                     canvasConfig={{
                       chartName: 'chart1',
                       width: 600,
@@ -117,10 +113,12 @@ export const defaultsContent: JSX.Element = (
                     its alignment along the vertical axis of the canvas's
                     coordinate system.
                   </Typography>
-                  <ContentCodeBox code={defaultsChart2All} />
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={lineData} />
+                  <ContentCodeBox code={chart2} />
                 </ContentTextBox>,
                 <ContentChartBox>
-                  <OrthogonalLineDefaultsChart
+                  <OrthogonalLineChart
                     canvasConfig={{
                       chartName: 'chart2',
                       width: 600,
@@ -155,7 +153,10 @@ export const defaultsContent: JSX.Element = (
                     parameters in the configuration to customize the visual
                     output.
                   </Typography>
-                  <ContentCodeBox code={configChartAll} />
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={lineConfig} />
+                  <ContentCodeBox code={lineDataComplex} />
+                  <ContentCodeBox code={chart3} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <OrthogonalLineChart
@@ -165,6 +166,12 @@ export const defaultsContent: JSX.Element = (
                       lowestViewableValue: 0,
                       highestViewableValue: 40,
                     }}
+                    data={{
+                      data: [25, 10, 35, 25, 35, 5, 25, 25],
+                      strokeColor: 'red',
+                      strokeWidth: 1,
+                    }}
+                    config={{ curve: QsEnumCurve.NATURAL }}
                     orientation={EnumOrientation.HORIZONTAL}
                   />
                   ,
@@ -278,9 +285,11 @@ const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
   lowestViewableValue: 0,
-  highestViewableValue: 35,
+  highestViewableValue: 40,
   borderColor: 'grey',
 }
-${configChart}`}
+${lineConfig}
+${lineDataComplex}
+${chart3}`}
   ></ChartEditor>
 )

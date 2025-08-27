@@ -6,15 +6,16 @@ import {
   QsEnumCurve,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation } from '../../../common/enums'
-import { OrienetedChartProps } from '../../../common/chartProps'
+import { LineChartProps } from '../../../common/chartProps'
 
-export const OrthogonalLineChart: FunctionComponent<OrienetedChartProps> = ({
+export const OrthogonalLineChart: FunctionComponent<LineChartProps> = ({
   canvasConfig,
   orientation,
+  data = [25, 10, 35, 25, 35, 5, 25, 25],
+  config = {},
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const data = [25, 10, 35, 25, 35, 5, 25, 25]
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
       canvas.configStore.orthogonal.lineConfig({ curve: QsEnumCurve.NATURAL })
 
@@ -48,7 +49,7 @@ export const OrthogonalLineChart: FunctionComponent<OrienetedChartProps> = ({
     }
 
     createChart()
-  }, [canvasConfig, orientation])
+  }, [canvasConfig, data, orientation])
 
   return (
     <>

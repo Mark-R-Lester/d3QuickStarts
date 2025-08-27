@@ -8,7 +8,7 @@ import {
 
 export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
   canvasConfig,
-  data,
+  data = [{ value: 25 }, { value: 10 }, { value: 15 }],
   config,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)

@@ -9,7 +9,32 @@ import { RadialPointsChartProps } from '../../../common/chartProps'
 
 export const RadialPointTransition: FunctionComponent<
   RadialPointsChartProps
-> = ({ canvasConfig, data, config }) => {
+> = ({
+  canvasConfig,
+  data = [
+    { value: 1, fillColor: 'red' },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+    { value: 1 },
+    { value: 2 },
+  ],
+  config,
+}) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element, setElement] = useState<QsRadialPoints>()
   const chartDataRef = useRef<QsRadialPointData[]>(data)

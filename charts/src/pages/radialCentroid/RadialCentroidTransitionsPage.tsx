@@ -34,29 +34,6 @@ export default function RadialTransitionsPage() {
     { value: 2, fillColor: 'blue' },
   ]
 
-  const radialPointsData: QsRadialPointData[] = [
-    { value: 1, fillColor: 'red' },
-    { value: 2 },
-    { value: 1 },
-    { value: 2 },
-    { value: 1 },
-    { value: 2 },
-    { value: 1 },
-    { value: 2 },
-    { value: 1 },
-    { value: 2 },
-    { value: 1 },
-    { value: 2 },
-    { value: 1 },
-    { value: 2 },
-    { value: 1 },
-    { value: 2 },
-    { value: 1 },
-    { value: 2 },
-    { value: 1 },
-    { value: 2 },
-  ]
-
   const colorScaleOrdinal: QsColorScaleData = {
     range: ['lightblue', 'darkblue'],
     type: QsEnumColorScale.ORDINAL,
@@ -101,7 +78,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 2.5,
       }}
-      data={radialPointsData}
       config={{
         fillColorScaleData: colorScaleOrdinal,
       }}
@@ -113,7 +89,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 2.5,
       }}
-      data={radialPointsData}
       config={{
         fillColorScaleData: colorScaleSequentialPoints,
       }}
@@ -153,7 +128,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 2.5,
       }}
-      data={radialPointsData}
       config={{
         fillColorScaleData: colorScaleOrdinal,
       }}
@@ -165,7 +139,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 2.5,
       }}
-      data={radialPointsData}
       config={{
         fillColorScaleData: colorScaleSequentialPoints,
       }}

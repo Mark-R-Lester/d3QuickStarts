@@ -1,11 +1,5 @@
 import { Box, Typography } from '@mui/material'
-
-import {
-  QsColorScaleData,
-  QsRadialData,
-  QsValuedText,
-  QsEnumColorScale,
-} from 'd3qs/d3QuickStart'
+import { QsColorScaleData, QsEnumColorScale } from 'd3qs/d3QuickStart'
 import { EnumRadialTextOrientation } from '../../common/enums'
 import { RadialTransition } from './arc/RadialTransition'
 import { useState } from 'react'
@@ -13,22 +7,6 @@ import { RadialTextTransition } from './arcText/RadialTextTransition'
 import { ChartButtonGrid } from '../../components/molecules/ChartButtonGrid'
 
 export default function RadialTransitionsPage() {
-  const data1: QsValuedText[] = [{ value: 25 }, { value: 10 }, { value: 15 }]
-  const data2: QsValuedText[] = [{ value: 25 }, { value: 10 }, { value: 15 }]
-  const data3: QsValuedText[] = [{ value: 25 }, { value: 10 }, { value: 15 }]
-  const data4: QsValuedText[] = [{ value: 25 }, { value: 10 }, { value: 15 }]
-
-  const radialData: QsRadialData[] = [
-    { value: 25 },
-    { value: 10 },
-    { value: 15 },
-    { value: 30 },
-    { value: 25 },
-    { value: 10 },
-    { value: 15 },
-    { value: 30 },
-  ]
-
   const colorScaleOrdinal: QsColorScaleData = {
     range: ['lightblue', 'darkblue'],
     type: QsEnumColorScale.ORDINAL,
@@ -48,7 +26,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      data={data1}
       orientation={EnumRadialTextOrientation.FOLLOW}
     />,
     <RadialTextTransition
@@ -58,7 +35,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      data={data2}
       orientation={EnumRadialTextOrientation.SPOKE}
     />,
     <RadialTextTransition
@@ -68,7 +44,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      data={data3}
       orientation={EnumRadialTextOrientation.HORIZONTAL}
     />,
     <RadialTextTransition
@@ -78,7 +53,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      data={data4}
       orientation={EnumRadialTextOrientation.ROTATED}
     />,
     <RadialTransition
@@ -88,7 +62,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      data={radialData}
       config={{
         innerRadius: 80,
         padding: 0.03,
@@ -102,7 +75,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      data={radialData}
       config={{
         innerRadius: 50,
         fillColorScaleData: colorScaleOrdinal,
@@ -118,7 +90,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      data={data1}
       orientation={EnumRadialTextOrientation.FOLLOW}
     />,
     <RadialTextTransition
@@ -128,7 +99,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      data={data2}
       orientation={EnumRadialTextOrientation.SPOKE}
     />,
     <RadialTextTransition
@@ -138,7 +108,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      data={data3}
       orientation={EnumRadialTextOrientation.HORIZONTAL}
     />,
     <RadialTextTransition
@@ -148,7 +117,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      data={data4}
       orientation={EnumRadialTextOrientation.ROTATED}
     />,
     <RadialTransition
@@ -158,7 +126,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      data={radialData}
       config={{
         innerRadius: 80,
         padding: 0.03,
@@ -172,7 +139,6 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      data={radialData}
       config={{
         innerRadius: 50,
         fillColorScaleData: colorScaleOrdinal,

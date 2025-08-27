@@ -10,7 +10,16 @@ import { RadialChartProps } from '../../../common/chartProps'
 export const RadialTransition: FunctionComponent<RadialChartProps> = ({
   canvasConfig,
   config,
-  data,
+  data = [
+    { value: 25 },
+    { value: 10 },
+    { value: 15 },
+    { value: 30 },
+    { value: 25 },
+    { value: 10 },
+    { value: 15 },
+    { value: 30 },
+  ],
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element, setElement] = useState<QsRadial>()

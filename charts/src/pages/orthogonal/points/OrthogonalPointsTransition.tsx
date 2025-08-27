@@ -10,7 +10,16 @@ import { EnumOrientation } from '../../../common/enums'
 
 export const OrthogonalPointsTransition: FunctionComponent<PointChartProps> = ({
   canvasConfig,
-  data,
+  data = [
+    { value: 25, fillColor: 'red' },
+    { value: 10 },
+    { value: 35 },
+    { value: 25 },
+    { value: 35 },
+    { value: 5 },
+    { value: 25 },
+    { value: 25 },
+  ],
   config,
   orientation,
 }) => {

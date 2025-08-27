@@ -12,7 +12,12 @@ import { EnumRadialTextOrientation } from '../../../common/enums'
 
 export const RadialTextTransition: FunctionComponent<
   RadialArcTextChartProps
-> = ({ canvasConfig, config, data, orientation }) => {
+> = ({
+  canvasConfig,
+  config,
+  data = [{ value: 25 }, { value: 10 }, { value: 15 }],
+  orientation,
+}) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element1, setElement1] = useState<QsRadialArcText>()
   const [element2, setElement2] = useState<QsRadial>()

@@ -20,35 +20,31 @@ const canvasConfig: string = `const canvasConfig = {
 } 
 `
 
-const defaultsChart: string = `const data1 = {
-  higherData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
-}
+const data1: string = `const data1: QsAreaData = {
+  higherData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
+}`
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-canvas.generate.orthogonal.horizontal.area(data1)
-canvas.generate.orthogonal.vertical.axis.left()`
-
-const configChart: string = `const data1 = {
-  higherData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
-  fillColor: 'orange',
-}
-const data2 = {
+const data2: string = `const data2: QsAreaData = {
   lowerData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
   higherData: [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 170, 190],
   fillColor: 'darkBlue',
-}
+}`
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-canvas.configStore.orthogonal.areaConfig({
+const areaConfig: string = `const config: QsAreaConfig = {
   curve: QsEnumCurve.NATURAL,
   defaultFillOpacity: 0.4,
-})
+  defaultFillColor: 'orange'
+}`
+
+const defaultsChart: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+canvas.generate.orthogonal.horizontal.area(data1)
+canvas.generate.orthogonal.vertical.axis.left()`
+
+const configChart: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+canvas.configStore.orthogonal.areaConfig(config)
 canvas.generate.orthogonal.horizontal.area(data1)
 canvas.generate.orthogonal.horizontal.area(data2)
 canvas.generate.orthogonal.vertical.axis.left()`
-
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
 
 export const defaultsContent: JSX.Element = (
   <ContentColumn
@@ -73,7 +69,9 @@ export const defaultsContent: JSX.Element = (
                     element produces a visualization leveraging the library's
                     default configuration parameters
                   </Typography>
-                  <ContentCodeBox code={defaultsChartAll} />
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={data1} />
+                  <ContentCodeBox code={defaultsChart} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <OrthogonalAreaChart
@@ -111,7 +109,11 @@ export const defaultsContent: JSX.Element = (
                     parameters in the configuration to customize the visual
                     output.
                   </Typography>
-                  <ContentCodeBox code={configChartAll} />
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={areaConfig} />
+                  <ContentCodeBox code={data1} />
+                  <ContentCodeBox code={data2} />
+                  <ContentCodeBox code={configChart} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <OrthogonalAreaStackedChart
@@ -243,7 +245,10 @@ export const editorContent: JSX.Element = (
     borderColor: 'grey',
   }
 
-  ${configChart}
+${areaConfig}
+${data1}
+${data2}
+${configChart}
 `}
   ></ChartEditor>
 )

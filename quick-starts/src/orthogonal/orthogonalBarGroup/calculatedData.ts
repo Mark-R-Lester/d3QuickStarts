@@ -2,21 +2,23 @@ import { scaleBand, scaleOrdinal, range, stack, ScaleOrdinal, Series } from 'd3'
 import { Canvas } from '../../canvas/types'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/math/conversion'
-import { BarData, BarGroupConfig } from './types'
-
-export interface CalculatedData {
-  groupId: string
-  barData: BarData[]
-}
+import { BarData, BarGroupConfig, CalculatedData } from './types'
+import { QsBarGroupedData } from './qsTypes'
 
 export const getCalculatedData = (
   canvas: Canvas,
-  data: number[][],
+  data: QsBarGroupedData[][],
   config: BarGroupConfig
 ): CalculatedData[] => {
   const { displayAreaWidth } = canvas.config
   const { yDataScale } = canvas.scales
-  const { padding } = config
+  const {
+    padding,
+    defaultStrokeColor,
+    defaultStrokeOpacity,
+    defaultStrokeWidth,
+    defaultFillOpacity,
+  } = config
   const calculatedData: CalculatedData[] = []
 
   const colors = scaleOrdinal()
@@ -29,18 +31,17 @@ export const getCalculatedData = (
     .paddingInner(padding / 200)
     .paddingOuter(padding / 200)
 
-  const y = (d: number[]): number => yDataScale(d[1] - d[0])
-  const x = (outer: number, inner: string): number => {
+  const y = (d: QsBarGroupedData): number => yDataScale(d.value)
+  const x = (outer: number, inner: number): number => {
     //TODO requires error handling
-    const bandVal = xBandScale(inner)
+    const bandVal = xBandScale(outer.toString())
     if (bandVal)
-      return bandVal + (xBandScale.bandwidth() / data[0].length) * outer
+      return bandVal + (xBandScale.bandwidth() / data[0].length) * inner
     return 0
   }
 
-  const height = (d: number[]) => yDataScale(0) - yDataScale(d[1] - d[0])
+  const height = (d: QsBarGroupedData) => yDataScale(0) - yDataScale(d.value)
   const width = () => xBandScale.bandwidth() / data[0].length
-
   const getColor = (
     i: number,
     colorScale: ScaleOrdinal<string, unknown, never>
@@ -50,20 +51,20 @@ export const getCalculatedData = (
     return typeof c == 'string' ? c : '#cbc9e2'
   }
 
-  const stackedData: Series<{ [key: string]: number }, string>[] = stack().keys(
-    data[0].map((d, i) => i.toString())
-  )(data as Iterable<{ [key: string]: number }>)
-
-  stackedData.forEach((d, outer) => {
+  data.forEach((d, outer) => {
     const barIds = d.map(() => `barGrouped${uuidv4()}`)
     const data: BarData[] = d.map((d, inner): BarData => {
       return {
         id: barIds[inner],
-        x: x(outer, inner.toString()),
+        x: x(outer, inner),
         y: y(d),
         height: height(d),
         width: width(),
-        fillColor: getColor(inner, colors),
+        fillColor: d.fillColor ? d.fillColor : getColor(inner, colors),
+        fillOpacity: d.fillOpacity ? d.fillOpacity : defaultFillOpacity,
+        strokeColor: d.strokeColor ? d.strokeColor : defaultStrokeColor,
+        strokeWidth: d.strokeWidth ? d.strokeWidth : defaultStrokeWidth,
+        strokeOpacity: d.strokeOpacity ? d.strokeOpacity : defaultStrokeOpacity,
       }
     })
     calculatedData.push({

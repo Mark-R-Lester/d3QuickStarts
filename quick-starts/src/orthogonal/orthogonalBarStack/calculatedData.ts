@@ -57,7 +57,7 @@ export const getCalculatedData = (
     low: number
     high: number
   }
-  const stackDataWithLowHigh = (
+  const stackData = (
     data: QsBarStackedData[][]
   ): QsBarStackedDataEnhanced[][] => {
     return data.map((series) =>
@@ -69,7 +69,7 @@ export const getCalculatedData = (
     )
   }
 
-  const stackedData = stackDataWithLowHigh(data)
+  const stackedData = stackData(data)
 
   stackedData.forEach((d, outer) => {
     const data: BarData[] = d.map((d, inner): BarData => {

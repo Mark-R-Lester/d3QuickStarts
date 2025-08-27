@@ -1,5 +1,5 @@
-import { BarGroupConfig } from './types'
-import { CalculatedData, getCalculatedData } from './calculatedData'
+import { BarGroupConfig, CalculatedData } from './types'
+import { getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { Canvas } from '../../canvas/types'
 import {
@@ -15,7 +15,7 @@ import { generateClassName } from '../../core/generateClassName'
 export const orthogonalBarGroup = {
   group: (
     canvas: Canvas,
-    data: QsBarGroupedData,
+    data: QsBarGroupedData[][],
     customConfig?: QsBarGroupConfig
   ): QsBarGroups => {
     const config: BarGroupConfig = addDefaultsToConfig<BarGroupConfig>(
@@ -29,15 +29,14 @@ export const orthogonalBarGroup = {
 
 const draw = (
   canvas: Canvas,
-  data: QsBarGroupedData,
+  data: QsBarGroupedData[][],
   config: BarGroupConfig
 ): QsBarGroups => {
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
-    data.data,
+    data,
     config
   )
-  const { fillOpacity, strokeColor, strokeWidth, strokeOpacity } = config
   const { className, dotClassName } = generateClassName('orthogonalBarGrouped')
   const { className: classNameGroup, dotClassName: dotClassNameGroup } =
     generateClassName('orthogonalBarGroup')
@@ -53,7 +52,6 @@ const draw = (
     .append('g')
     .attr('class', classNameGroup)
     .attr('id', (d) => d.groupId)
-    .attr('fill', (d, i) => d.barData[i].fillColor)
   barGroups
     .selectAll(dotClassName)
     .data((d) => d.barData)
@@ -65,16 +63,17 @@ const draw = (
     .attr('y', (d) => d.y)
     .attr('height', (d) => d.height)
     .attr('width', (d) => d.width)
-    .attr('fill-opacity', fillOpacity)
-    .attr('stroke', strokeColor)
-    .attr('stroke-opacity', strokeOpacity)
-    .attr('stroke-width', strokeWidth)
+    .attr('fill', (d) => d.fillColor)
+    .attr('fill-opacity', (d) => d.fillOpacity)
+    .attr('stroke', (d) => d.strokeColor)
+    .attr('stroke-opacity', (d) => d.strokeOpacity)
+    .attr('stroke-width', (d) => d.strokeWidth)
 
   const transition = (transitionData: QsBarGroupTransitionData = { data }) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
     const calculatedData: CalculatedData[] = getCalculatedData(
       canvas,
-      transitionData.data.data,
+      transitionData.data,
       config
     )
     const bars = canvas.canvasGroup

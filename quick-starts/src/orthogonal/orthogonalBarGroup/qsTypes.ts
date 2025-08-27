@@ -5,11 +5,16 @@ import { BarGroupConfig } from './types'
 export type QsBarGroupConfig = Partial<BarGroupConfig>
 
 export interface QsBarGroupedData {
-  data: number[][]
+  value: number
+  fillColor?: string
+  fillOpacity?: number
+  strokeColor?: string
+  strokeWidth?: number
+  strokeOpacity?: number
 }
 
 export interface QsBarGroupTransitionData {
-  data: QsBarGroupedData
+  data: QsBarGroupedData[][]
   transitionArgs?: QsTransitionArgs
 }
 

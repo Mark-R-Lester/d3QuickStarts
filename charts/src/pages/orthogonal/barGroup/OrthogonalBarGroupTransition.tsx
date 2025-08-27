@@ -5,6 +5,7 @@ import {
   QsBarGroups,
   QsBarStackedData,
   QsBarStack,
+  QsBarGroupedData,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
@@ -15,22 +16,17 @@ export const OrthogonalBarGroupTransition: FunctionComponent<
   const [changedGroup, setChangedGroup] = useState<boolean>(false)
   const [grouped, setGrouped] = useState<QsBarGroups>()
   const [stacked, setStacked] = useState<QsBarStack>()
-  const dataMin: number[][] = useMemo(
+  const dataMin: QsBarGroupedData[][] = useMemo(
     () => [
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0],
+      [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
+      [{ value: 16 }, { value: 32 }, { value: 30 }, { value: 26 }],
+      [{ value: 40 }, { value: 16 }, { value: 12 }, { value: 16 }],
+      [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],
+      [{ value: 10 }, { value: 37 }, { value: 21 }, { value: 8 }],
+      [{ value: 10 }, { value: 20 }, { value: 16 }, { value: 23 }],
+      [{ value: 10 }, { value: 32 }, { value: 30 }, { value: 26 }],
+      [{ value: 15 }, { value: 16 }, { value: 12 }, { value: 16 }],
+      [{ value: 10 }, { value: 4 }, { value: 13 }, { value: 32 }],
     ],
     []
   )
@@ -54,9 +50,7 @@ export const OrthogonalBarGroupTransition: FunctionComponent<
     const createChart = () => {
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
-      let grouped = canvas.generate.orthogonal.horizontal.barGroup({
-        data: dataMin,
-      })
+      let grouped = canvas.generate.orthogonal.horizontal.barGroup(dataMin)
       let stacked = canvas.generate.orthogonal.horizontal.barStack(dataMax)
 
       setGrouped(grouped)
@@ -70,16 +64,12 @@ export const OrthogonalBarGroupTransition: FunctionComponent<
       if (changedGroup) {
         if (grouped)
           grouped.transition({
-            data: {
-              data: dataMin,
-            },
+            data: dataMin,
           })
       } else {
         if (grouped)
           grouped.transition({
-            data: {
-              data: dataMin,
-            },
+            data: dataMin,
           })
       }
       setTimeout(() => setChangedGroup(!changedGroup), 3000)
@@ -92,16 +82,12 @@ export const OrthogonalBarGroupTransition: FunctionComponent<
       if (changedGroup) {
         if (grouped)
           grouped.transition({
-            data: {
-              data: dataMin,
-            },
+            data: dataMin,
           })
       } else {
         if (grouped)
           grouped.transition({
-            data: {
-              data: dataMin,
-            },
+            data: dataMin,
           })
       }
       setTimeout(() => setChangedStack(!changedStack), 3000)

@@ -17,19 +17,16 @@ const canvasConfig: string = `const canvasConfig = {
   chartName: 'chart',
   width: 600,
   highestViewableValue: 40,
-} 
-`
-const barConfig: string = `
-const  config={
+}`
+
+const barConfig: string = `const  config: QsBarConfig = {
   fillColorScaleData: {
     range: ['red', 'darkblue', 'green'],
     type: QsEnumColorScale.ORDINAL,
   }
-}
-`
+}`
 
-const barDataAsString: string = `
-const data: QsBarData[] = [
+const barData: string = `const data: QsBarData[] = [
   { upperBoundry: 35, lowerBoundry: 5 },
   { upperBoundry: 35, lowerBoundry: 10 },
   { upperBoundry: 30, lowerBoundry: 15 },
@@ -40,9 +37,7 @@ const data: QsBarData[] = [
   { upperBoundry: 5 },
 ]`
 
-const chartHorizontal: string = `${canvasConfig}${barDataAsString}
-
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+const chartHorizontal: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.orthogonal.vertical.bars(data)
 canvas.generate.orthogonal.horizontal.axis.bottom()
 canvas.generate.orthogonal.vertical.axis.left({
@@ -53,9 +48,7 @@ canvas.generate.orthogonal.vertical.axis.left({
   }
 )`
 
-const chartVertical: string = `${canvasConfig}${barDataAsString}
-
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+const chartVertical: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.orthogonal.horizontal.bars(data)
 canvas.generate.orthogonal.vertical.axis.left()
 canvas.generate.orthogonal.horizontal.axis.bottom({
@@ -66,10 +59,8 @@ canvas.generate.orthogonal.horizontal.axis.bottom({
   }
 )`
 
-const chartWithConfig: string = `${canvasConfig}${barConfig}${barDataAsString}
-
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-canvas.generate.orthogonal.horizontal.bars(data)
+const chartWithConfig: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+canvas.generate.orthogonal.horizontal.bars(data, config)
 canvas.generate.orthogonal.vertical.axis.left()
 canvas.generate.orthogonal.horizontal.axis.bottom({
     scale: {
@@ -102,6 +93,8 @@ export const defaultsContent: JSX.Element = (
                     produces a visualization leveraging the library's default
                     configuration parameters
                   </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={barData} />
                   <ContentCodeBox code={chartHorizontal} />
                 </ContentTextBox>,
                 <ContentChartBox>
@@ -127,6 +120,8 @@ export const defaultsContent: JSX.Element = (
                     its alignment along the vertical axis of the canvas's
                     coordinate system.
                   </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={barData} />
                   <ContentCodeBox code={chartVertical} />
                 </ContentTextBox>,
                 <ContentChartBox>
@@ -165,6 +160,9 @@ export const defaultsContent: JSX.Element = (
                     parameters in the configuration to customize the visual
                     output.
                   </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={barData} />
+                  <ContentCodeBox code={barConfig} />
                   <ContentCodeBox code={chartWithConfig} />
                 </ContentTextBox>,
                 <ContentChartBox>
@@ -181,7 +179,7 @@ export const defaultsContent: JSX.Element = (
                         type: QsEnumColorScale.ORDINAL,
                       },
                     }}
-                    orientation={EnumOrientation.VERTICAL}
+                    orientation={EnumOrientation.HORIZONTAL}
                   />
                   ,
                 </ContentChartBox>,
@@ -205,7 +203,6 @@ const data: string = `interface QsBarData {
 }`
 
 const config: string = `interface QsBarConfig {
-  [key: string]: number | string | QsColorScaleData | undefined
   padding?: number
   defaultFillColor?: string
   defaultFillOpacity?: number
@@ -259,7 +256,7 @@ export const configAndData: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    QsBarData interface
+                    Interface
                   </Typography>
                   <ContentCodeBox code={data} />
                 </ContentTextBox>,
@@ -283,7 +280,7 @@ export const configAndData: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    QsBarConfig interface
+                    Interface
                   </Typography>
                   <ContentCodeBox code={config} />
                 </ContentTextBox>,
@@ -312,6 +309,9 @@ const canvasConfig = {
   highestViewableValue: 35,
   borderColor: 'grey',
 }
-${chartWithConfig}`}
+${barData}
+${barConfig}
+${chartWithConfig}
+`}
   ></ChartEditor>
 )

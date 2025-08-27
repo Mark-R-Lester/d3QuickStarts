@@ -59,7 +59,7 @@ export interface AxisChartProps extends ChartPropsOthogonal {
 
 export interface BarChartProps extends OrienetedChartProps {
   config?: QsBarConfig
-  data: QsBarData[]
+  data?: QsBarData[]
 }
 
 export interface BarGroupChartProps extends ChartPropsOthogonal {

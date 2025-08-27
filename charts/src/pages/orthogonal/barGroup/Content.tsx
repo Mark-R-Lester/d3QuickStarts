@@ -4,12 +4,12 @@ import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import { OrthogonalBarsGroupedChart } from './OrthogonalBarsGroupedChart'
-import { OrthogonalBarsGroupedDefaultsChart } from './OrthogonalBarsGroupedDefaultsChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
+import { OrthogonalBarsGroupedChart } from './OrthogonalBarsGroupedChart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'chart',
@@ -58,18 +58,92 @@ canvas.generate.orthogonal.horizontal.axis.bottom({
   }
 )`
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              The Stacked Bar element, while a convenient tool for visualizing
+              cumulative and individual subcategory contributions through
+              segmented, stacked bars, is notably limited in functionality
+              compared to standard bar elements, offering less flexibility in
+              layout, and configuration.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    When supplying only the essential data, the Stacked Bar
+                    element generates a visualization using the library's
+                    default configuration parameters, rendering segmented bars
+                    stacked vertically.
+                  </Typography>
+                  <ContentCodeBox code={defaultsChart} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <OrthogonalBarsGroupedChart
+                    canvasConfig={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 50,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Configuration options for the Stacked Bar element allow
+                    customization of its appearance, enabling tailored
+                    visualizations by adjusting properties like colors, and axis
+                    scaling within the canvas's coordinate system, though
+                    limited compared to standard bar elements.
+                  </Typography>
+                  <ContentCodeBox code={configChart} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <OrthogonalBarsGroupedChart
+                    canvasConfig={{
+                      chartName: 'chart2',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 60,
+                    }}
+                    config={{
+                      colorRange: ['brown', 'purple', 'red', 'pink'],
+                      defaultStrokeColor: 'black',
+                      defaultStrokeWidth: 2,
+                      defaultStrokeOpacity: 1,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
 
-const qsBarGroupData: string = `number[][]`
+const data: string = `number[][]`
 
-const qsBarGroupConfig: string = `export interface QsBarGroupConfig {
+const config: string = `export interface QsBarGroupConfig {
   [key: string]: number | Iterable<String> | undefined
   padding?: number
   colorRange?: Iterable<String>
 }`
 
-const qsBarGroupDataExample: string = `const data = [
+const dataExample: string = `const data = [
   [10, 20, 16, 23],
   [16, 32, 30, 26],
   [40, 16, 12, 16],
@@ -81,116 +155,59 @@ const qsBarGroupDataExample: string = `const data = [
   [10, 4, 13, 32],
 ]`
 
-const qsBarGroupConfigExample: string = `const defaults: BarGroupConfig = {
+const configExample: string = `const defaults: BarGroupConfig = {
   colorRange: ['red', 'blue','green','orange'],
   padding: 20,
 }`
 
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Bar group defaults</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <OrthogonalBarsGroupedDefaultsChart
-              canvasConfig={{
-                chartName: 'barGroupDefaultsContent',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 50,
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Bar group</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <OrthogonalBarsGroupedChart
-              canvasConfig={{
-                chartName: 'barGroupContent',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 50,
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsBarGroupData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={qsBarGroupData} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={qsBarGroupDataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    interface
+                  </Typography>
+                  <ContentCodeBox code={data} />,
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />,
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsBarGroupConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={qsBarGroupConfig} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={qsBarGroupConfigExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    QsBarStackConfig interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />,
+                </ContentTextBox>,
               ]}
             />,
           ]}

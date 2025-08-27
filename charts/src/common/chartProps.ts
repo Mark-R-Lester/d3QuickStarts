@@ -63,7 +63,7 @@ export interface BarChartProps extends OrienetedChartProps {
 
 export interface BarGroupChartProps extends ChartPropsOthogonal {
   config?: QsBarGroupConfig
-  data: number[][]
+  data?: number[][]
 }
 
 export interface BarStackChartProps extends ChartPropsOthogonal {

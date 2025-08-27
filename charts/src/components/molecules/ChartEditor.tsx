@@ -98,7 +98,6 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
   }
 
   useEffect(() => {
-    console.log(initialCode)
     executeJsCode(initialCode)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

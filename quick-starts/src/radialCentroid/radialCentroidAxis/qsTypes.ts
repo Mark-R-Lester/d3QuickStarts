@@ -5,7 +5,6 @@ import { QsTransitionArgs } from '../../core/types/qsTypes'
 export type QsRadialAxisConfig = Partial<RadialAxisConfig>
 
 export interface QsRadialCentroidAxisTransitionData {
-  data: number[]
   transitionArgs?: QsTransitionArgs
 }
 

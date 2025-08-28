@@ -7,14 +7,14 @@ export const RadialLineDefaultsChart: FunctionComponent<
 > = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {
-      const data: number[] = [
+      const values: number[] = [
         16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17, 18,
         20, 17, 23, 23, 20, 17, 16, 16,
       ]
 
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
-      canvas.generate.radialCentroid.line({ data })
+      canvas.generate.radialCentroid.line({ values })
     }
     createChart()
   }, [canvasConfig])

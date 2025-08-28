@@ -24,20 +24,20 @@ export const getCalculatedData = (
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
   const { x, y, defaultStrokeColor, defaultStrokeWidth, defaultStrokeOpacity } =
     config
-  const { data, strokeOpacity, strokeColor, strokeWidth } = lineData
-  const dataCopy = data.slice()
+  const { values, strokeOpacity, strokeColor, strokeWidth } = lineData
 
   const angleScale = scaleLinear()
-    .domain([0, data.length])
+    .domain([0, values.length])
     .range([0, 2 * Math.PI])
   const radialScale = scaleLinear()
     .domain([lowestViewableValue, highestViewableValue])
     .range([0, displayAreaHeight / 2])
 
-  dataCopy.push(data[0])
+  const valuesCopy = values.slice()
+  valuesCopy.push(values[0])
   return {
     id: 'radialLine',
-    lineData: dataCopy.map((d, i) => [angleScale(i), radialScale(d)]),
+    lineData: valuesCopy.map((d, i) => [angleScale(i), radialScale(d)]),
     x: xPercentScale(x),
     y: yPercentScale(y),
     strokeOpacity: strokeOpacity ?? defaultStrokeOpacity,

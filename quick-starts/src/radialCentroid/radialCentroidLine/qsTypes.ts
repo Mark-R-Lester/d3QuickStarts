@@ -18,7 +18,7 @@ export interface QsRadialLine {
 
 export interface QsRadialLineData {
   [key: string]: number[] | string | number | undefined
-  data: number[]
+  values: number[]
   strokeOpacity?: number
   strokeColor?: string
   strokeWidth?: number

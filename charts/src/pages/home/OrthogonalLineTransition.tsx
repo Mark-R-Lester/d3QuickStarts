@@ -5,12 +5,9 @@ import {
   QsPoints,
   QsLineData,
   QsLine,
-  QsEnumScaleType,
-  QsEnumAxisScaleType,
   QsPointData,
 } from 'd3qs/d3QuickStart'
 import { OrienetedChartProps } from '../../common/chartProps'
-import { EnumOrientation } from '../../common/enums'
 
 export const OrthogonalLine: FunctionComponent<OrienetedChartProps> = memo(
   ({ canvasConfig, orientation }) => {
@@ -43,7 +40,7 @@ export const OrthogonalLine: FunctionComponent<OrienetedChartProps> = memo(
           { value: 25 },
         ]
         const lineData: QsLineData = {
-          data: [
+          values: [
             25, 10, 35, 25, 35, 5, 25, 25, 25, 10, 35, 25, 35, 5, 25, 25, 25,
             10, 35, 25,
           ],
@@ -94,7 +91,7 @@ export const OrthogonalLine: FunctionComponent<OrienetedChartProps> = memo(
         if (line)
           line.transition({
             data: {
-              data: transitionData.lineData,
+              values: transitionData.lineData,
             },
           })
 

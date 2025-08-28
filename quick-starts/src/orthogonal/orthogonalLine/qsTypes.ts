@@ -5,7 +5,7 @@ import { CanvasConfig } from '../../canvas/types'
 
 export interface QsLineData {
   [key: string]: number[] | string | number | undefined
-  data: number[]
+  values: number[]
   strokeOpacity?: number
   strokeColor?: string
   strokeWidth?: number

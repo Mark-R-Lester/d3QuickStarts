@@ -11,7 +11,7 @@ export const OrthogonalLineChart: FunctionComponent<LineChartProps> = ({
   canvasConfig,
   orientation,
   data = {
-    data: [25, 10, 35, 25, 35, 5, 25, 25],
+    values: [25, 10, 35, 25, 35, 5, 25, 25],
   },
   config = {},
 }) => {

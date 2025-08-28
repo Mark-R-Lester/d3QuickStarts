@@ -26,13 +26,13 @@ export const getCalculatedData = (
   const xVals: number[] = range(
     0,
     displayAreaWidth,
-    displayAreaWidth / data.data.length
+    displayAreaWidth / data.values.length
   )
 
   const coordinates: QsCoordinate[] = []
   const lineData: [number, number][] = []
 
-  data.data.forEach((d, i) => {
+  data.values.forEach((d, i) => {
     coordinates.push({ x: xVals[i], y: d })
     lineData.push([xVals[i], d])
   })

@@ -20,10 +20,10 @@ const canvasConfig: string = `const canvasConfig = {
 }`
 
 const lineData: string = `const data = {
-  data: [25, 10, 35, 25, 35, 5, 25, 25],
+  values: [25, 10, 35, 25, 35, 5, 25, 25],
 }`
 const lineDataComplex: string = `const data = {
-  data: [25, 10, 35, 25, 35, 5, 25, 25],
+  values: [25, 10, 35, 25, 35, 5, 25, 25],
   strokeColor: 'red',
   strokeWidth: 1,
 }`
@@ -167,7 +167,7 @@ export const defaultsContent: JSX.Element = (
                       highestViewableValue: 40,
                     }}
                     data={{
-                      data: [25, 10, 35, 25, 35, 5, 25, 25],
+                      values: [25, 10, 35, 25, 35, 5, 25, 25],
                       strokeColor: 'red',
                       strokeWidth: 1,
                     }}
@@ -187,7 +187,7 @@ export const defaultsContent: JSX.Element = (
 
 const data: string = `interface QsLineData {
   [key: string]: number[] | string | number | undefined
-  data: number[]
+  values: number[]
   strokeOpacity?: number
   strokeColor?: string
   strokeWidth?: number
@@ -205,7 +205,7 @@ const config: string = `interface QsLineConfig {
 }`
 
 const dataExample: string = `const data: QsLineData = {
-  data: number[1, 2, 3, 4, 5],
+  values: number[1, 2, 3, 4, 5],
   strokeOpacity?: number,
   strokeColor?: 'blue',
   strokeWidth?: 1

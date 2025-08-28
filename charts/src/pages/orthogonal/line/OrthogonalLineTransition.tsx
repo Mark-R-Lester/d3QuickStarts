@@ -15,13 +15,13 @@ export const OrthogonalLineTransition: FunctionComponent<
 
   useEffect(() => {
     const createChart = () => {
-      const data = [25, 10, 35, 25, 35, 5, 25, 25]
+      const values = [25, 10, 35, 25, 35, 5, 25, 25]
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
       let newElement: QsLine
       if (orientation === EnumOrientation.VERTICAL) {
-        newElement = canvas.generate.orthogonal.vertical.line({ data })
+        newElement = canvas.generate.orthogonal.vertical.line({ values })
       } else {
-        newElement = canvas.generate.orthogonal.horizontal.line({ data })
+        newElement = canvas.generate.orthogonal.horizontal.line({ values })
       }
       setElement(newElement)
     }
@@ -41,9 +41,9 @@ export const OrthogonalLineTransition: FunctionComponent<
 
       const transitionData = getVals()
       if (orientation === EnumOrientation.VERTICAL) {
-        if (element) element.transition({ data: { data: transitionData } })
+        if (element) element.transition({ data: { values: transitionData } })
       } else {
-        if (element) element.transition({ data: { data: transitionData } })
+        if (element) element.transition({ data: { values: transitionData } })
       }
 
       setTimeout(() => setChanged(!changed), 3000)

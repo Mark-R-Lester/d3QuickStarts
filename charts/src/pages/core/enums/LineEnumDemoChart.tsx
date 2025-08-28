@@ -83,7 +83,7 @@ export const LineEnumDemoChart: FunctionComponent<LineEnumDemoChartProps> = ({
           highestViewableValue: 100,
         })
         const horizontalLine: QsLineData = {
-          data: [10, 20, 50, 10, 90, 30, 60, 95, 85, 10],
+          values: [10, 20, 50, 10, 90, 30, 60, 95, 85, 10],
         }
         canvas.generate.orthogonal.horizontal.line(horizontalLine, {
           defaultStrokeWidth: 2,

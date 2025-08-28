@@ -19,8 +19,8 @@ export const getCalculatedData = (
     defaultStrokeOpacity,
   } = config
   const {
-    outerData,
-    innerData,
+    highValues,
+    lowValues,
     fillColor,
     fillOpacity,
     strokeOpacity,
@@ -34,19 +34,19 @@ export const getCalculatedData = (
 
   let dataInnerCopy: number[]
 
-  const dataOuterCopy: number[] = outerData.slice()
-  dataOuterCopy.push(outerData[0])
+  const dataOuterCopy: number[] = highValues.slice()
+  dataOuterCopy.push(highValues[0])
 
   const angleScale = scaleLinear()
-    .domain([0, outerData.length])
+    .domain([0, highValues.length])
     .range([0, 2 * Math.PI])
   const radialScale = scaleLinear()
     .domain([lowestViewableValue, highestViewableValue])
     .range([0, displayAreaHeight / 2])
 
-  if (innerData) {
-    dataInnerCopy = innerData.slice()
-    dataInnerCopy.push(innerData[0])
+  if (lowValues) {
+    dataInnerCopy = lowValues.slice()
+    dataInnerCopy.push(lowValues[0])
   }
   const calculatedData: CalculatedData = {
     id: `radialArea${uuidv4()}`,

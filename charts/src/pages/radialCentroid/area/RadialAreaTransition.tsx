@@ -17,19 +17,19 @@ export const RadialAreaTransition: FunctionComponent<ChartPropsOthogonal> = ({
 
   useEffect(() => {
     const createChart = () => {
-      const innerData: number[] = [
+      const lowValues: number[] = [
         15, 10, 20, 30, 40, 26, 90, 15, 10, 30, 25, 50,
       ]
-      const outerData: number[] = [
+      const highValues: number[] = [
         25, 15, 40, 36, 80, 100, 96, 30, 100, 98, 100, 60,
       ]
 
       const dataUpper: QsRadialAreaData = {
-        innerData,
-        outerData,
+        lowValues,
+        highValues,
       }
       const dataLower: QsRadialAreaData = {
-        outerData: innerData,
+        highValues: lowValues,
       }
 
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
@@ -56,21 +56,21 @@ export const RadialAreaTransition: FunctionComponent<ChartPropsOthogonal> = ({
       }
 
       const getVals = (): TransitionData => {
-        const innerData: number[] = []
-        const outerData: number[] = []
+        const lowValues: number[] = []
+        const highValues: number[] = []
 
         for (let i = 0; i < 12; i++) {
           let val1 = Math.round(Math.random() * 100)
           let val2 = Math.round(Math.random() * 100)
 
-          innerData.push(val1 < val2 ? val1 : val2)
-          outerData.push(val1 > val2 ? val1 : val2)
+          lowValues.push(val1 < val2 ? val1 : val2)
+          highValues.push(val1 > val2 ? val1 : val2)
         }
         const upperAreaData: QsRadialAreaData = {
-          innerData,
-          outerData,
+          lowValues,
+          highValues,
         }
-        const lowerAreaData: QsRadialAreaData = { outerData: innerData }
+        const lowerAreaData: QsRadialAreaData = { highValues: lowValues }
 
         return { lowerAreaData, upperAreaData }
       }

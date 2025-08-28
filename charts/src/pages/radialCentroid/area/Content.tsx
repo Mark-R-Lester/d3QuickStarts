@@ -20,7 +20,7 @@ const canvasConfig: string = `const canvasConfig = {
 
 const defaultsChart: string = `
 const data1: QsRadialAreaData = {
-  outerData: [
+  highValues: [
     16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17,
     18, 20, 17, 23, 23, 20, 17, 16, 16,
   ],
@@ -31,7 +31,7 @@ canvas.generate.radialCentroid.area(data1)`
 
 const configChart: string = `
 const data1: QsRadialAreaData = {
-  outerData: [
+  highValues: [
     15, 15, 15, 17, 16, 21, 14, 15, 16, 12, 15, 15, 15, 17, 16, 15, 15,
     15, 17, 16, 21, 14, 15, 16, 12, 15,
   ],
@@ -39,11 +39,11 @@ const data1: QsRadialAreaData = {
 }
 
 const data2: QsRadialAreaData = {
-  innerData: [
+  lowValues: [
     15, 15, 15, 17, 16, 21, 14, 15, 16, 12, 15, 15, 15, 17, 16, 15, 15,
     15, 17, 16, 21, 14, 15, 16, 12, 15,
   ],
-  outerData: [
+  highValues: [
     16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17,
     18, 20, 17, 23, 23, 20, 17, 16, 16,
   ],
@@ -59,8 +59,8 @@ const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`
 
 const data: string = `interface QsRadialAreaData {
-  outerData: number[]
-  innerData?: number[]
+  highValues: number[]
+  lowValues?: number[]
   fillColor?: string
   fillOpacity?: number
   strokeColor?: string
@@ -82,8 +82,8 @@ const config: string = `interface QsRadialAreaConfig {
 }`
 
 const dataExample: string = `const data: QsPlottedLineData = {
-  outerData: [15, 15, 15, 17, 16],
-  innerData: [16, 17, 18, 20, 17],
+  highValues: [15, 15, 15, 17, 16],
+  lowValues: [16, 17, 18, 20, 17],
   fillColor: 'blue',
   fillOpacity: 1,
   strokeColor: 'blue'

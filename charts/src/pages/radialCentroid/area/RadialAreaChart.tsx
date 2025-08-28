@@ -12,7 +12,7 @@ export const RadialAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
   useEffect(() => {
     const createChart = () => {
       const data1: QsRadialAreaData = {
-        outerData: [
+        highValues: [
           15, 15, 15, 17, 16, 21, 14, 15, 16, 12, 15, 15, 15, 17, 16, 15, 15,
           15, 17, 16, 21, 14, 15, 16, 12, 15,
         ],
@@ -20,11 +20,11 @@ export const RadialAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
       }
 
       const data2: QsRadialAreaData = {
-        innerData: [
+        lowValues: [
           15, 15, 15, 17, 16, 21, 14, 15, 16, 12, 15, 15, 15, 17, 16, 15, 15,
           15, 17, 16, 21, 14, 15, 16, 12, 15,
         ],
-        outerData: [
+        highValues: [
           16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17,
           18, 20, 17, 23, 23, 20, 17, 16, 16,
         ],

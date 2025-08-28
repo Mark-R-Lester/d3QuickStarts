@@ -361,7 +361,7 @@ const radialCongig: string = `const config: QsRadialAreaConfig = {
 }`
 
 const radialData: string = `const data: QsRadialAreaData = {
-  outerData: [
+  highValues: [
     150, 100, 120, 130, 140, 160, 160, 160, 150, 112, 156, 140,
   ],
 }`

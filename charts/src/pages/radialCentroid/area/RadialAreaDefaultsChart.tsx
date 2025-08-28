@@ -12,7 +12,7 @@ export const RadialAreaDefaultsChart: FunctionComponent<
   useEffect(() => {
     const createChart = () => {
       const data1: QsRadialAreaData = {
-        outerData: [
+        highValues: [
           16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17,
           18, 20, 17, 23, 23, 20, 17, 16, 16,
         ],

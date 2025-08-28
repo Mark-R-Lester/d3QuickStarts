@@ -50,6 +50,11 @@ const pointDataComplex: string = `const data: QsPointData[] = [
   { value: 25 },
 ]`
 
+const lineConfig: string = `const config = {
+  defaultRadius: 5,
+  scaleType: QsEnumScaleType.BANDED,
+}`
+
 const chartH: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.orthogonal.horizontal.points(data)
 canvas.generate.orthogonal.vertical.axis.left()
@@ -172,6 +177,7 @@ export const defaultsContent: JSX.Element = (
                     size and opacity.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={lineConfig} />
                   <ContentCodeBox code={pointDataComplex} />
                   <ContentCodeBox code={chartConfig} />
                 </ContentTextBox>,
@@ -229,7 +235,6 @@ const data: string = `interface QsPointData {
 }`
 
 const config: string = `interface QsPointsConfig {
-  [key: string]: number | QsColorScaleData | string | undefined
   scaleType?: QsEnumScaleType
   defaultRadius?: number
   defaultFillColor?: string
@@ -242,7 +247,6 @@ const config: string = `interface QsPointsConfig {
 }`
 
 const dataExample: string = `const config: QsPointData {
-  [key: string]: number | QsColorScaleData | string | undefined
   value: 3,
   radius: 3,
   fillColor: 'blue',
@@ -335,10 +339,11 @@ export const editorContent: JSX.Element = (
 const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
-  lowestViewableValue: 0,
-  highestViewableValue: 35,
+  highestViewableValue: 40,
   borderColor: 'grey',
 }
+${lineConfig}
+${pointDataComplex}
 ${chartConfig}`}
   ></ChartEditor>
 )

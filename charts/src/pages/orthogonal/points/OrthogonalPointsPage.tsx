@@ -36,7 +36,7 @@ export default function OrthogonalPointsPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        orthogonal Points
+        Orthogonal Points
       </Typography>
       <ChartButtonGrid
         onClick={onClick}

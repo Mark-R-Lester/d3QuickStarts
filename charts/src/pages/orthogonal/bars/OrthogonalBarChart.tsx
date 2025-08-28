@@ -12,14 +12,14 @@ export const SimpleBarChart: FunctionComponent<BarChartProps> = ({
   orientation,
   config = {},
   data = [
-    { upperBoundry: 35, lowerBoundry: 5 },
-    { upperBoundry: 35, lowerBoundry: 10 },
-    { upperBoundry: 30, lowerBoundry: 15 },
-    { upperBoundry: 25 },
-    { upperBoundry: 20 },
-    { upperBoundry: 15 },
-    { upperBoundry: 10 },
-    { upperBoundry: 5 },
+    { highValue: 35, lowValue: 5 },
+    { highValue: 35, lowValue: 10 },
+    { highValue: 30, lowValue: 15 },
+    { highValue: 25 },
+    { highValue: 20 },
+    { highValue: 15 },
+    { highValue: 10 },
+    { highValue: 5 },
   ],
 }) => {
   useEffect(() => {

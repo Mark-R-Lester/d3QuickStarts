@@ -17,14 +17,14 @@ export const OrthogonalBarsTransition: FunctionComponent<
   useEffect(() => {
     const createChart = () => {
       const data: QsBarData[] = [
-        { upperBoundry: 25 },
-        { upperBoundry: 10 },
-        { upperBoundry: 35 },
-        { upperBoundry: 25 },
-        { upperBoundry: 35 },
-        { upperBoundry: 5 },
-        { upperBoundry: 25 },
-        { upperBoundry: 25 },
+        { highValue: 25 },
+        { highValue: 10 },
+        { highValue: 35 },
+        { highValue: 25 },
+        { highValue: 35 },
+        { highValue: 5 },
+        { highValue: 25 },
+        { highValue: 25 },
       ]
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
       let newBars: QsBars
@@ -45,7 +45,7 @@ export const OrthogonalBarsTransition: FunctionComponent<
         for (let i = 0; i < 8; i++) {
           let num = (Math.random() * 100) / 2
           vals.push({
-            upperBoundry: num,
+            highValue: num,
             fillColor: num < 25 ? 'green' : 'red',
           })
         }

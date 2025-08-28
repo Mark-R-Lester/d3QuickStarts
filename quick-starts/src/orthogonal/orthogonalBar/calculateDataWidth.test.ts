@@ -6,25 +6,25 @@ global.document = dom.window.document
 
 describe('orthogonal Bars calculateDataSize', () => {
   test.each`
-    lowerBoundry | upperBoundry | lowestViewableValue | expectedResult
-    ${0}         | ${200}       | ${0}                | ${200}
-    ${0}         | ${200}       | ${100}              | ${200}
-    ${0}         | ${200}       | ${200}              | ${200}
-    ${100}       | ${200}       | ${0}                | ${100}
-    ${100}       | ${200}       | ${50}               | ${150}
-    ${100}       | ${200}       | ${100}              | ${200}
-    ${100}       | ${200}       | ${150}              | ${200}
-    ${100}       | ${200}       | ${200}              | ${200}
+    lowValue | highValue | lowestViewableValue | expectedResult
+    ${0}     | ${200}    | ${0}                | ${200}
+    ${0}     | ${200}    | ${100}              | ${200}
+    ${0}     | ${200}    | ${200}              | ${200}
+    ${100}   | ${200}    | ${0}                | ${100}
+    ${100}   | ${200}    | ${50}               | ${150}
+    ${100}   | ${200}    | ${100}              | ${200}
+    ${100}   | ${200}    | ${150}              | ${200}
+    ${100}   | ${200}    | ${200}              | ${200}
   `(
     `When the lowestViewableValue is $lowestViewableValue
-    lowerBoundry is $lowerBoundry and upperBoundry is $upperBoundry
+    lowValue is $lowValue and highValue is $highValue
     expectedResult = $expectedResult`,
 
-    ({ lowerBoundry, upperBoundry, lowestViewableValue, expectedResult }) => {
+    ({ lowValue, highValue, lowestViewableValue, expectedResult }) => {
       const result = calculateDataWidth(
         lowestViewableValue,
-        lowerBoundry,
-        upperBoundry
+        lowValue,
+        highValue
       )
 
       expect(result).toEqual(expectedResult)

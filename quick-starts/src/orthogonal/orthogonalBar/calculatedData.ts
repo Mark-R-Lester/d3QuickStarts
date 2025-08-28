@@ -22,18 +22,18 @@ export interface CalculatedData {
 
 export const calculateDataWidth = (
   lowestViewableValue: number,
-  lowerBoundry: number,
-  upperBoundry: number
+  lowValue: number,
+  highValue: number
 ) => {
   const theBarIsShrinkingOffTheChart =
-    lowerBoundry + (upperBoundry - lowerBoundry) <= lowestViewableValue
+    lowValue + (highValue - lowValue) <= lowestViewableValue
   const theBarIsMovingAcrossTheChart =
-    lowerBoundry <= lowestViewableValue && upperBoundry > lowestViewableValue
+    lowValue <= lowestViewableValue && highValue > lowestViewableValue
 
   if (theBarIsShrinkingOffTheChart) return lowestViewableValue
-  if (theBarIsMovingAcrossTheChart) return upperBoundry
+  if (theBarIsMovingAcrossTheChart) return highValue
 
-  return lowestViewableValue + upperBoundry - lowerBoundry
+  return lowestViewableValue + highValue - lowValue
 }
 
 export const getCalculatedData = (
@@ -71,14 +71,11 @@ export const getCalculatedData = (
 
   const isVertical = orientation === Orientation.VERTICAL
 
-  const findLowerBoundry = (lowerBoundry: number | undefined) =>
-    lowerBoundry ?? 0
-
   const ensureIsNotGreaterThanZero = (
     lowestViewableValue: number,
-    lowerBoundry: number
+    lowValue: number
   ) => {
-    const offset = lowerBoundry - lowestViewableValue
+    const offset = lowValue - lowestViewableValue
     const theLowestViewableValueExceedsTheHighest =
       lowestViewableValue >= highestViewableValue
     if (theLowestViewableValueExceedsTheHighest) return 0
@@ -87,11 +84,11 @@ export const getCalculatedData = (
   }
 
   const getCorrectValueForX = (
-    lowerBoundry: number,
+    lowValue: number,
     lowestViewableValue: number
   ) => {
-    if (lowerBoundry - lowestViewableValue < 0) return lowestViewableValue
-    return lowerBoundry
+    if (lowValue - lowestViewableValue < 0) return lowestViewableValue
+    return lowValue
   }
 
   const bandStepScale = scaleBand()
@@ -110,19 +107,15 @@ export const getCalculatedData = (
       : lowestViewableValue >= highestViewableValue
         ? 0
         : yDataScaleInverted(
-            d.upperBoundry -
-              ensureIsNotGreaterThanZero(lowestViewableValue, d.lowerBoundry!)
+            d.highValue -
+              ensureIsNotGreaterThanZero(lowestViewableValue, d.lowValue!)
           )
   const width = (d: QsBarData) =>
     isVertical
       ? lowestViewableValue >= highestViewableValue
         ? 0
         : xDataScale(
-            calculateDataWidth(
-              lowestViewableValue,
-              d.lowerBoundry!,
-              d.upperBoundry
-            )
+            calculateDataWidth(lowestViewableValue, d.lowValue!, d.highValue)
           )
       : bandWidthScale.bandwidth()
 
@@ -134,12 +127,12 @@ export const getCalculatedData = (
 
   const x = (d: QsBarData, i: number) =>
     isVertical
-      ? xDataScale(getCorrectValueForX(d.lowerBoundry!, lowestViewableValue))
+      ? xDataScale(getCorrectValueForX(d.lowValue!, lowestViewableValue))
       : barSpaceing(d, i)
   const y = (d: QsBarData, i: number) =>
     isVertical
       ? barSpaceing(d, i)
-      : displayAreaHeight - yDataScaleInverted(d.upperBoundry)
+      : displayAreaHeight - yDataScaleInverted(d.highValue)
 
   const barSpaceing = (d: QsBarData, i: number) => {
     const adjustmentToCorrectD3 =
@@ -166,9 +159,9 @@ export const getCalculatedData = (
     strokeColorScale = getColorScale(strokeColorScaleData)
 
   data.forEach((d, i) => {
-    d.lowerBoundry = findLowerBoundry(d.lowerBoundry)
+    d.lowValue = d.lowValue ?? 0
 
-    const value = d.upperBoundry - d.lowerBoundry!
+    const value = d.highValue - d.lowValue!
     const scaledFillColor: string | unknown | undefined = getScaledColor(
       fillColorScaleData?.type === QsEnumColorScale.ORDINAL
         ? findOrdinalValue(i, fillColorScaleData)

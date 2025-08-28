@@ -25,14 +25,14 @@ export const BarColorDemoChart: FunctionComponent<BarColorDemoChartProps> =
         })
 
         const data: QsBarData[] = [
-          { upperBoundry: 35 },
-          { upperBoundry: 35 },
-          { upperBoundry: 30 },
-          { upperBoundry: 25 },
-          { upperBoundry: 20 },
-          { upperBoundry: 15 },
-          { upperBoundry: 10 },
-          { upperBoundry: 5 },
+          { highValue: 35 },
+          { highValue: 35 },
+          { highValue: 30 },
+          { highValue: 25 },
+          { highValue: 20 },
+          { highValue: 15 },
+          { highValue: 10 },
+          { highValue: 5 },
         ]
         canvas.generate.orthogonal.horizontal.bars(data, config)
         canvas.generate.orthogonal.vertical.axis.left()

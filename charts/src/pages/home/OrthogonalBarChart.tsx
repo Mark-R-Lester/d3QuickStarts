@@ -16,14 +16,14 @@ export const OrthogonalBarChart: FunctionComponent<ChartPropsOthogonal> = ({
       canvas.configStore.orthogonal.barConfig({ defaultFillColor: 'darkBlue' })
 
       const data: QsBarData[] = [
-        { upperBoundry: 37, lowerBoundry: 6 },
-        { upperBoundry: 35 },
-        { upperBoundry: 18 },
-        { upperBoundry: 21 },
-        { upperBoundry: 22 },
-        { upperBoundry: 8 },
-        { upperBoundry: 12 },
-        { upperBoundry: 5 },
+        { highValue: 37, lowValue: 6 },
+        { highValue: 35 },
+        { highValue: 18 },
+        { highValue: 21 },
+        { highValue: 22 },
+        { highValue: 8 },
+        { highValue: 12 },
+        { highValue: 5 },
       ]
 
       canvas.generate.orthogonal.horizontal.bars(data)

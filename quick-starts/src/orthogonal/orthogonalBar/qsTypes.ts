@@ -3,8 +3,8 @@ import { BarConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 
 export interface QsBarData {
-  lowerBoundry?: number
-  upperBoundry: number
+  lowValue?: number
+  highValue: number
   fillColor?: string
   fillOpacity?: number
   strokeColor?: string

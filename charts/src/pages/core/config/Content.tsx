@@ -83,14 +83,14 @@ const areaData1: string = `const data1: QsAreaData = {
 }`
 
 const barData1: string = `const data1: QsBarData[] = [
-  { upperBoundry: 35, fillColor: 'red' },
-  { upperBoundry: 40 },
-  { upperBoundry: 40 },
-  { upperBoundry: 40 },
-  { upperBoundry: 40 },
-  { upperBoundry: 40 },
-  { upperBoundry: 40 },
-  { upperBoundry: 40 },
+  { highValue: 35, fillColor: 'red' },
+  { highValue: 40 },
+  { highValue: 40 },
+  { highValue: 40 },
+  { highValue: 40 },
+  { highValue: 40 },
+  { highValue: 40 },
+  { highValue: 40 },
 ]`
 
 export const configContent: JSX.Element = (
@@ -237,14 +237,14 @@ export const configContent: JSX.Element = (
                       chartName={`multiBar2`}
                       configCanvasLevel={{ defaultFillColor: 'blue' }}
                       data1={[
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
-                        { upperBoundry: 40 },
+                        { highValue: 40 },
+                        { highValue: 40 },
+                        { highValue: 40 },
+                        { highValue: 40 },
+                        { highValue: 40 },
+                        { highValue: 40 },
+                        { highValue: 40 },
+                        { highValue: 40 },
                       ]}
                     />,
                   ]}
@@ -305,14 +305,14 @@ export const configContent: JSX.Element = (
                       defaultFillColor: 'orange',
                     }}
                     data1={[
-                      { upperBoundry: 40 },
-                      { upperBoundry: 40 },
-                      { upperBoundry: 40 },
-                      { upperBoundry: 40 },
-                      { upperBoundry: 40 },
-                      { upperBoundry: 40 },
-                      { upperBoundry: 40 },
-                      { upperBoundry: 40 },
+                      { highValue: 40 },
+                      { highValue: 40 },
+                      { highValue: 40 },
+                      { highValue: 40 },
+                      { highValue: 40 },
+                      { highValue: 40 },
+                      { highValue: 40 },
+                      { highValue: 40 },
                     ]}
                   />
                 </ContentChartBox>,
@@ -386,14 +386,14 @@ export const configContent: JSX.Element = (
                       defaultFillColor: 'orange',
                     }}
                     data1={[
-                      { upperBoundry: 35, fillColor: 'red' },
-                      { upperBoundry: 40 },
-                      { upperBoundry: 40 },
-                      { upperBoundry: 40 },
-                      { upperBoundry: 40 },
-                      { upperBoundry: 40 },
-                      { upperBoundry: 40 },
-                      { upperBoundry: 40 },
+                      { highValue: 35, fillColor: 'red' },
+                      { highValue: 40 },
+                      { highValue: 40 },
+                      { highValue: 40 },
+                      { highValue: 40 },
+                      { highValue: 40 },
+                      { highValue: 40 },
+                      { highValue: 40 },
                     ]}
                   />
                 </ContentChartBox>,
@@ -453,14 +453,14 @@ const configOrdinalScale: string = `const config: QsBarConfig = {
 }`
 
 const dataWithColour: string = `const data: QsBarData[] = [
-  { upperBoundry: 35, fillColor: 'lightGreen' },
-  { upperBoundry: 35, fillColor: 'lightGreen' },
-  { upperBoundry: 30 },
-  { upperBoundry: 25 },
-  { upperBoundry: 20 },
-  { upperBoundry: 15 },
-  { upperBoundry: 10 },
-  { upperBoundry: 5, fillColor: 'red' },
+  { highValue: 35, fillColor: 'lightGreen' },
+  { highValue: 35, fillColor: 'lightGreen' },
+  { highValue: 30 },
+  { highValue: 25 },
+  { highValue: 20 },
+  { highValue: 15 },
+  { highValue: 10 },
+  { highValue: 5, fillColor: 'red' },
 ]`
 
 export const colorConfigContent: JSX.Element = (

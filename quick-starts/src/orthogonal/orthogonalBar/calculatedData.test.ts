@@ -96,10 +96,10 @@ describe('orthogonal Bars calculatedData', () => {
         highestViewableValue,
       }) => {
         const data: QsBarData[] = [
-          { lowerBoundry: 0, upperBoundry: 100 },
-          { lowerBoundry: 0, upperBoundry: 75 },
-          { lowerBoundry: 0, upperBoundry: 50 },
-          { lowerBoundry: 0, upperBoundry: 25 },
+          { lowValue: 0, highValue: 100 },
+          { lowValue: 0, highValue: 75 },
+          { lowValue: 0, highValue: 50 },
+          { lowValue: 0, highValue: 25 },
         ]
 
         canvasConfig.highestViewableValue = highestViewableValue
@@ -163,8 +163,8 @@ describe('orthogonal Bars calculatedData', () => {
         highestViewableValue,
       }) => {
         const data: QsBarData[] = [
-          { lowerBoundry: 0, upperBoundry: 100 },
-          { lowerBoundry: 10, upperBoundry: 100 },
+          { lowValue: 0, highValue: 100 },
+          { lowValue: 10, highValue: 100 },
         ]
 
         canvasConfig.highestViewableValue = highestViewableValue
@@ -225,10 +225,10 @@ describe('orthogonal Bars calculatedData', () => {
         highestViewableValue,
       }) => {
         const data: QsBarData[] = [
-          { lowerBoundry: 0, upperBoundry: 100 },
-          { lowerBoundry: 0, upperBoundry: 75 },
-          { lowerBoundry: 0, upperBoundry: 50 },
-          { lowerBoundry: 0, upperBoundry: 25 },
+          { lowValue: 0, highValue: 100 },
+          { lowValue: 0, highValue: 75 },
+          { lowValue: 0, highValue: 50 },
+          { lowValue: 0, highValue: 25 },
         ]
 
         canvasConfig.highestViewableValue = highestViewableValue
@@ -292,8 +292,8 @@ describe('orthogonal Bars calculatedData', () => {
         highestViewableValue,
       }) => {
         const data: QsBarData[] = [
-          { lowerBoundry: 0, upperBoundry: 100 },
-          { lowerBoundry: 10, upperBoundry: 100 },
+          { lowValue: 0, highValue: 100 },
+          { lowValue: 10, highValue: 100 },
         ]
 
         canvasConfig.highestViewableValue = highestViewableValue

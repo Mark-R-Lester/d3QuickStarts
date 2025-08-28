@@ -27,14 +27,14 @@ const barConfig: string = `const  config: QsBarConfig = {
 }`
 
 const barData: string = `const data: QsBarData[] = [
-  { upperBoundry: 35, lowerBoundry: 5 },
-  { upperBoundry: 35, lowerBoundry: 10 },
-  { upperBoundry: 30, lowerBoundry: 15 },
-  { upperBoundry: 25 },
-  { upperBoundry: 20 },
-  { upperBoundry: 15 },
-  { upperBoundry: 10 },
-  { upperBoundry: 5 },
+  { highValue: 35, lowValue: 5 },
+  { highValue: 35, lowValue: 10 },
+  { highValue: 30, lowValue: 15 },
+  { highValue: 25 },
+  { highValue: 20 },
+  { highValue: 15 },
+  { highValue: 10 },
+  { highValue: 5 },
 ]`
 
 const chartHorizontal: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
@@ -193,8 +193,8 @@ export const defaultsContent: JSX.Element = (
 )
 
 const data: string = `interface QsBarData {
-  lowerBoundry?: number
-  upperBoundry: number
+  lowValue?: number
+  highValue: number
   fillColor?: string
   fillOpacity?: number
   strokeColor?: string
@@ -214,8 +214,8 @@ const config: string = `interface QsBarConfig {
 }`
 
 const dataExample: string = `const data: QsBarData = {
-  lowerBoundry: 0,
-  upperBoundry: 100,
+  lowValue: 0,
+  highValue: 100,
   fillColor: 'blue',
   fillOpacity: 1,
   strokeColor: 'blue',

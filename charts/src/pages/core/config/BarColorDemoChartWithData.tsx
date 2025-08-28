@@ -25,14 +25,14 @@ export const BarColorDemoChartWithData: FunctionComponent<BarColorDemoChartWithD
         })
 
         const data: QsBarData[] = [
-          { upperBoundry: 35, fillColor: 'lightGreen' },
-          { upperBoundry: 35, fillColor: 'lightGreen' },
-          { upperBoundry: 30 },
-          { upperBoundry: 25 },
-          { upperBoundry: 20 },
-          { upperBoundry: 15 },
-          { upperBoundry: 10 },
-          { upperBoundry: 5, fillColor: 'red' },
+          { highValue: 35, fillColor: 'lightGreen' },
+          { highValue: 35, fillColor: 'lightGreen' },
+          { highValue: 30 },
+          { highValue: 25 },
+          { highValue: 20 },
+          { highValue: 15 },
+          { highValue: 10 },
+          { highValue: 5, fillColor: 'red' },
         ]
 
         const config: QsBarConfig = {

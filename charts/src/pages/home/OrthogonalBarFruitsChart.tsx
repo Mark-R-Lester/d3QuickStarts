@@ -18,14 +18,14 @@ export const OrthogonalBarFruitsChart: FunctionComponent<
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
       const data: QsBarData[] = [
-        { upperBoundry: 35 },
-        { upperBoundry: 35 },
-        { upperBoundry: 30 },
-        { upperBoundry: 25 },
-        { upperBoundry: 20 },
-        { upperBoundry: 15 },
-        { upperBoundry: 10 },
-        { upperBoundry: 5 },
+        { highValue: 35 },
+        { highValue: 35 },
+        { highValue: 30 },
+        { highValue: 25 },
+        { highValue: 20 },
+        { highValue: 15 },
+        { highValue: 10 },
+        { highValue: 5 },
       ]
 
       const ordinalScaleData: QsOrdinalScaleData = {

@@ -2,68 +2,40 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasOrthogonal,
   qsCreateCanvasOrthogonal,
-  QsEnumAlignmentBaseline,
-  QsEnumTextAnchor,
-  QsEnumTextDecorationLine,
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
   QsEnumAxisScaleType,
 } from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../../common/chartProps'
+import { AxisChartProps } from '../../../common/chartProps'
 
-export const OrthogonalAxisChart: FunctionComponent<ChartPropsOthogonal> = ({
+export const OrthogonalAxisChart: FunctionComponent<AxisChartProps> = ({
   canvasConfig,
+  configH = {},
+  configV = {},
 }) => {
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 
-      canvas.generate.orthogonal.vertical.axis.left({
-        tickSizeInner: -100,
-        tickSizeOuter: 1,
-        tickPadding: 2,
-        tickColor: 'lightgrey',
-        domainWidth: 3,
-        numberOfTicks: 10,
-        domainOpacity: 1,
-        percentageMovement: 0,
-        textFont: QsEnumTextFont.SERIF,
-        textFontWeight: QsEnumTextFontWeight.NORMAL,
-        textFontStyle: QsEnumTextFontStyle.ITALIC,
-        textFontSize: 3,
-        textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-        textAngle: 0,
-        textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-        textAnchor: QsEnumTextAnchor.END,
-        textX: 0,
-        textY: 0,
-      })
-      canvas.generate.orthogonal.horizontal.axis.bottom({
-        tickSizeInner: 0,
-        tickSizeOuter: 0,
-        tickPadding: 0,
-        domainWidth: 3,
-        domainOpacity: 1,
-        scale: {
-          type: QsEnumAxisScaleType.BANDED,
-          domain: ['Mon', 'Tues', 'Wed', 'Thurs', 'Fri', 'Sat', 'Sun'],
-        },
-        percentageMovement: 0,
-        textFont: QsEnumTextFont.SERIF,
-        textFontWeight: QsEnumTextFontWeight.NORMAL,
-        textFontStyle: QsEnumTextFontStyle.NORMAL,
-        textFontSize: 6,
-        textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-        textAngle: 90,
-        textAlignmentBaseline: QsEnumAlignmentBaseline.BASELINE,
-        textAnchor: QsEnumTextAnchor.START,
-        textX: 0,
-        textY: 3,
-      })
+      if (configH.scale?.type === QsEnumAxisScaleType.BANDED)
+        canvas.generate.orthogonal.horizontal.bars([
+          { highValue: 20 },
+          { highValue: 40 },
+          { highValue: 80 },
+          { highValue: 100 },
+          { highValue: 120 },
+          { highValue: 160 },
+          { highValue: 180 },
+        ])
+
+      if (configH.scale?.type === QsEnumAxisScaleType.POINT)
+        canvas.generate.orthogonal.horizontal.line({
+          values: [20, 40, 80, 100, 120, 160, 180],
+        })
+
+      canvas.generate.orthogonal.vertical.axis.left(configV)
+      canvas.generate.orthogonal.horizontal.axis.bottom(configH)
     }
     createChart()
-  }, [canvasConfig])
+  }, [canvasConfig, configH, configV])
 
   return (
     <>

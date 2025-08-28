@@ -54,8 +54,8 @@ export interface AreaChartProps extends ChartPropsOthogonal {
 }
 
 export interface AxisChartProps extends ChartPropsOthogonal {
-  config?: QsAxisConfig
-  data?: string[]
+  configH?: QsAxisConfig
+  configV?: QsAxisConfig
 }
 
 export interface BarChartProps extends OrienetedChartProps {

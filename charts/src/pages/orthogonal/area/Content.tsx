@@ -223,7 +223,7 @@ export const configAndData: JSX.Element = (
                   <Typography variant="body2" gutterBottom>
                     Example
                   </Typography>
-                  <ContentCodeBox code={configExample} />,
+                  <ContentCodeBox code={configExample} />
                 </ContentTextBox>,
               ]}
             />,

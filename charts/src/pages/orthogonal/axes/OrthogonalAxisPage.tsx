@@ -2,40 +2,25 @@ import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import { OrthogonalAxisChart } from './AxisConfigChart'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
-import {
-  defaultsContent,
-  configContent,
-  configAndData,
-  editorContent,
-} from './Content'
-import { AxiesDefaultsChart } from './AxesDefaultsChart'
+import { defaultsContent, configAndData, editorContent } from './Content'
+import { SingleWord } from '../../../components/atoms/chart/SingleWord'
 
 export default function OrthogonalAxisPage() {
   const menuElements: JSX.Element[] = [
-    <AxiesDefaultsChart
+    <OrthogonalAxisChart
       canvasConfig={{
         chartName: 'orthogonalAxis',
         width: 130,
         highestViewableValue: 200,
       }}
     />,
-    <OrthogonalAxisChart
-      canvasConfig={{
-        chartName: 'orthogonalAxis2',
-        width: 130,
-        highestViewableValue: 200,
-      }}
-    />,
-
-    <ConfigAndData />,
+    <SingleWord chartName={'config'} text={'Config'} />,
     <TryItYourSelf />,
   ]
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
     configAndData,
     editorContent,
   ]

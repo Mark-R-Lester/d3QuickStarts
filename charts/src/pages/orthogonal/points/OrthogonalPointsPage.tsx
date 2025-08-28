@@ -1,30 +1,15 @@
 import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import { EnumOrientation } from '../../../common/enums'
-import { OrthogonalPointsDefaultsChart } from './OrthogonalPointsDefaultsChart'
+
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { OrthogonalPointsChart } from './OrthogonalPointsChart'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
-import {
-  configAndData,
-  configContent,
-  defaultsContent,
-  editorContent,
-} from './Content'
+import { configAndData, defaultsContent, editorContent } from './Content'
 
 export default function OrthogonalPointsPage() {
   const menuElements: JSX.Element[] = [
-    <OrthogonalPointsDefaultsChart
-      canvasConfig={{
-        chartName: 'orthogonalPointsDefaultsChart',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 35,
-      }}
-      orientation={EnumOrientation.HORIZONTAL}
-    />,
-
     <OrthogonalPointsChart
       canvasConfig={{
         chartName: 'orthogonalPointsChart',
@@ -40,7 +25,6 @@ export default function OrthogonalPointsPage() {
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
     configAndData,
     editorContent,
   ]

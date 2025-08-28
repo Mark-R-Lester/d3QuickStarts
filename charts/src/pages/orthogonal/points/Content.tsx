@@ -5,12 +5,13 @@ import { EnumOrientation } from '../../../common/enums'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
 import { OrthogonalPointsChart } from './OrthogonalPointsChart'
-import { OrthogonalPointsDefaultsChart } from './OrthogonalPointsDefaultsChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
+import { QsEnumScaleType } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'chart',
@@ -19,7 +20,7 @@ const canvasConfig: string = `const canvasConfig = {
 } 
 `
 
-const defaultsChart: string = `const data: QsPointData[] = [
+const pointData: string = `const data: QsPointData[] = [
   { value: 25 },
   { value: 10 },
   { value: 35 },
@@ -28,19 +29,9 @@ const defaultsChart: string = `const data: QsPointData[] = [
   { value: 5 },
   { value: 25 },
   { value: 25 },
-]
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-canvas.generate.orthogonal.horizontal.points(data, { defaultRadius: 3 })
-canvas.generate.orthogonal.vertical.axis.left()
-canvas.generate.orthogonal.horizontal.axis.bottom({
-    scale: {
-      type: QsEnumAxisScaleType.POINT,
-      domain: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    },
-  }
-)`
+]`
 
-const configChart: string = `const data: QsPointData[] = [
+const pointDataComplex: string = `const data: QsPointData[] = [
   {
     value: 25,
     fillColor: 'green',
@@ -57,9 +48,21 @@ const configChart: string = `const data: QsPointData[] = [
   { value: 5 },
   { value: 25, fillColor: 'red' },
   { value: 25 },
-]
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-canvas.generate.orthogonal.vertical.points(data, { defaultRadius: 3 })
+]`
+
+const chartH: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+canvas.generate.orthogonal.horizontal.points(data)
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom({
+    scale: {
+      type: QsEnumAxisScaleType.POINT,
+      domain: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    },
+  }
+)`
+
+const chartV: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+canvas.generate.orthogonal.vertical.points(data, config)
 canvas.generate.orthogonal.vertical.axis.left({
     scale: {
       type: QsEnumAxisScaleType.POINT,
@@ -69,8 +72,151 @@ canvas.generate.orthogonal.vertical.axis.left({
 )
 canvas.generate.orthogonal.horizontal.axis.bottom()`
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+const chartConfig: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+canvas.generate.orthogonal.horizontal.points(data, config)
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom({
+    scale: {
+      type: QsEnumAxisScaleType.BANDED,
+      domain: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    },
+  }
+)`
+
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              The points element renders data values as circles, precisely
+              scaled and positioned within the canvas's coordinate system to
+              ensure accurate and effective data visualization.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    When supplying only the essential data, the points element
+                    produces a visualization leveraging the library's default
+                    configuration parameters
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={pointData} />
+                  <ContentCodeBox code={chartH} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <OrthogonalPointsChart
+                    canvasConfig={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 40,
+                    }}
+                    orientation={EnumOrientation.HORIZONTAL}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    The points element, when oriented vertically, functions
+                    identically to its horizontal counterpart in terms of
+                    configuration and behavior, with the only distinction being
+                    its alignment along the vertical axis of the canvas's
+                    coordinate system.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={pointData} />
+                  <ContentCodeBox code={chartV} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <OrthogonalPointsChart
+                    canvasConfig={{
+                      chartName: 'chart2',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 40,
+                    }}
+                    orientation={EnumOrientation.VERTICAL}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Using config and data to modify appearance
+            </Typography>,
+            <Typography variant="body1">
+              Adjusting the configuration parameters or input data can
+              substantially change the visual appearance of the points element,
+              enabling diverse and tailored data visualizations.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This chart demonstrates the impact config and data can have
+                    on the points element, illustrating the effects of color,
+                    size and opacity.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={pointDataComplex} />
+                  <ContentCodeBox code={chartConfig} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <OrthogonalPointsChart
+                    canvasConfig={{
+                      chartName: 'chart3',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 40,
+                    }}
+                    orientation={EnumOrientation.HORIZONTAL}
+                    config={{
+                      defaultRadius: 5,
+                      scaleType: QsEnumScaleType.BANDED,
+                    }}
+                    data={[
+                      {
+                        value: 25,
+                        fillColor: 'green',
+                        radius: 10,
+                        strokeWidth: 5,
+                        strokeColor: 'red',
+                        strokeOpacity: 0.4,
+                        fillOpacity: 0.5,
+                      },
+                      { value: 10 },
+                      { value: 35, fillColor: 'red' },
+                      { value: 25 },
+                      { value: 35, fillColor: 'red' },
+                      { value: 5 },
+                      { value: 25, fillColor: 'red' },
+                      { value: 25 },
+                    ]}
+                  />
+                  ,
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
 
 const data: string = `interface QsPointData {
   value: number
@@ -126,113 +272,54 @@ const configExample: string = `const config: QsBarConfig = {
   },
 }`
 
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Points generated with defaults</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <OrthogonalPointsDefaultsChart
-              canvasConfig={{
-                chartName: 'chartH',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 35,
-              }}
-              orientation={EnumOrientation.HORIZONTAL}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Points customised</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <OrthogonalPointsChart
-              canvasConfig={{
-                chartName: 'chartV',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 35,
-              }}
-              orientation={EnumOrientation.VERTICAL}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsPointData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={data} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={dataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={data} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsPointConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={config} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
@@ -252,6 +339,6 @@ const canvasConfig = {
   highestViewableValue: 35,
   borderColor: 'grey',
 }
-${configChart}`}
+${chartConfig}`}
   ></ChartEditor>
 )

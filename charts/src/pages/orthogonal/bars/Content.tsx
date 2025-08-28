@@ -154,11 +154,8 @@ export const defaultsContent: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    This demonstration highlights the application of the
-                    OrthogonalArea element, illustrating the effects of color
-                    and opacity settings for data visualization, alongside curve
-                    parameters in the configuration to customize the visual
-                    output.
+                    This chat demonstrates the impact config and data can have
+                    on the bars element, illustrating the effects of color.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
                   <ContentCodeBox code={barData} />

@@ -16,7 +16,7 @@ const defaultsChart: string = `qsCreateCanvasOrthogonal(canvasConfig)`
 
 const configChart: string = `const canvas = qsCreateCanvasOrthogonal(canvasConfig)
 const data: QsAreaData = {
-  higherData: [100, 100],
+  highValues: [100, 100],
 }
 canvas.generate.orthogonal.horizontal.area(data)
 canvas.generate.orthogonal.vertical.axis.left()

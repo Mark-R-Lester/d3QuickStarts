@@ -79,11 +79,11 @@ export const getCalculatedData = (
         y: y(d),
         height: height(d),
         width: width,
-        fillColor: d.fillColor ? d.fillColor : getColor(inner, colors),
-        fillOpacity: d.fillOpacity ? d.fillOpacity : defaultFillOpacity,
-        strokeColor: d.strokeColor ? d.strokeColor : defaultStrokeColor,
-        strokeWidth: d.strokeWidth ? d.strokeWidth : defaultStrokeWidth,
-        strokeOpacity: d.strokeOpacity ? d.strokeOpacity : defaultStrokeOpacity,
+        fillColor: d.fillColor ?? getColor(inner, colors),
+        fillOpacity: d.fillOpacity ?? defaultFillOpacity,
+        strokeColor: d.strokeColor ?? defaultStrokeColor,
+        strokeWidth: d.strokeWidth ?? defaultStrokeWidth,
+        strokeOpacity: d.strokeOpacity ?? defaultStrokeOpacity,
       }
     })
     calculatedData.push({

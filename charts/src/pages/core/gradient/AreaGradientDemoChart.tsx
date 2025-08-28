@@ -70,7 +70,7 @@ export const AreaConfigDemoChart: FunctionComponent<BarColorDemoChartProps> =
           }
 
           const data: QsAreaData = {
-            higherData: [
+            highValues: [
               150, 100, 120, 130, 140, 160, 160, 160, 150, 112, 156, 140,
             ],
           }

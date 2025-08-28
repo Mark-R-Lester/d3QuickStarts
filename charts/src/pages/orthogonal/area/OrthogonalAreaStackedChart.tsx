@@ -12,11 +12,11 @@ export const OrthogonalAreaStackedChart: FunctionComponent<
   useEffect(() => {
     const createChart = () => {
       const data1 = {
-        higherData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
+        highValues: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
       }
       const data2 = {
-        lowerData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
-        higherData: [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 170, 190],
+        lowValues: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
+        highValues: [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 170, 190],
         fillColor: 'darkBlue',
       }
 

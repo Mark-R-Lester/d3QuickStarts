@@ -4,8 +4,8 @@ import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { CanvasConfig } from '../../canvas/types'
 
 export interface QsAreaData {
-  lowerData?: number[]
-  higherData: number[]
+  lowValues?: number[]
+  highValues: number[]
   fillColor?: string
   fillOpacity?: number
   strokeColor?: string

@@ -75,7 +75,7 @@ const barConfig1: string = `const config1: QsBarConfig = {
 }`
 
 const areaData1: string = `const data1: QsAreaData = {
-  higherData: [
+  highValues: [
     50, 50, 30, 20, 70, 60, 70, 60, 50, 112, 10, 10,
   ],
   strokeColor: 'red',
@@ -221,7 +221,7 @@ export const configContent: JSX.Element = (
                         defaultStrokeWidth: 1,
                       }}
                       data1={{
-                        higherData: [
+                        highValues: [
                           50, 50, 30, 20, 70, 60, 70, 60, 50, 112, 10, 10,
                         ],
                       }}
@@ -273,7 +273,7 @@ export const configContent: JSX.Element = (
                       defaultStrokeWidth: 1,
                     }}
                     data1={{
-                      higherData: [
+                      highValues: [
                         50, 50, 30, 20, 70, 60, 70, 60, 50, 112, 10, 10,
                       ],
                     }}
@@ -353,7 +353,7 @@ export const configContent: JSX.Element = (
                       defaultStrokeWidth: 1,
                     }}
                     data1={{
-                      higherData: [
+                      highValues: [
                         50, 50, 30, 20, 70, 60, 70, 60, 50, 112, 10, 10,
                       ],
                       strokeColor: 'red',

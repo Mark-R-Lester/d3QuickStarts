@@ -17,20 +17,20 @@ export const OrthogonalAreaTransition: FunctionComponent<
 
   useEffect(() => {
     const createChart = () => {
-      const lowerData: number[] = [
+      const lowValues: number[] = [
         15, 10, 20, 30, 40, 26, 90, 15, 10, 30, 25, 50,
       ]
-      const higherData: number[] = [
+      const highValues: number[] = [
         25, 15, 40, 36, 80, 100, 96, 30, 100, 98, 100, 60,
       ]
 
       const dataUpper: QsAreaData = {
-        lowerData,
-        higherData,
+        lowValues,
+        highValues,
         fillColor: 'blue',
       }
       const dataLower: QsAreaData = {
-        higherData: lowerData,
+        highValues: lowValues,
       }
 
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
@@ -52,22 +52,22 @@ export const OrthogonalAreaTransition: FunctionComponent<
       }
 
       const getVals = (): TransitionData => {
-        const lowerData: number[] = []
-        const higherData: number[] = []
+        const lowValues: number[] = []
+        const highValues: number[] = []
 
         for (let i = 0; i < 12; i++) {
           let val1 = Math.round(Math.random() * 100)
           let val2 = Math.round(Math.random() * 100)
 
-          lowerData.push(val1 < val2 ? val1 : val2)
-          higherData.push(val1 > val2 ? val1 : val2)
+          lowValues.push(val1 < val2 ? val1 : val2)
+          highValues.push(val1 > val2 ? val1 : val2)
         }
 
         const colors = ['red', 'blue', 'green', 'pink']
         const fillColor = colors[colorIndex.current]
         colorIndex.current = colorIndex.current > 2 ? 0 : colorIndex.current + 1
-        const upperAreaData: QsAreaData = { lowerData, higherData, fillColor }
-        const lowerAreaData: QsAreaData = { higherData: lowerData }
+        const upperAreaData: QsAreaData = { lowValues, highValues, fillColor }
+        const lowerAreaData: QsAreaData = { highValues: lowValues }
 
         return { lowerAreaData, upperAreaData }
       }

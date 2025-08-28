@@ -21,12 +21,12 @@ const canvasConfig: string = `const canvasConfig = {
 `
 
 const data1: string = `const data1: QsAreaData = {
-  higherData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
+  highValues: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140]
 }`
 
 const data2: string = `const data2: QsAreaData = {
-  lowerData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
-  higherData: [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 170, 190],
+  lowValues: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
+  highValues: [25, 15, 40, 36, 80, 100, 96, 136, 125, 155, 170, 190],
   fillColor: 'darkBlue',
 }`
 
@@ -135,8 +135,8 @@ export const defaultsContent: JSX.Element = (
 )
 
 const data: string = `interface QsAreaData {
-  lowerData?: number[]
-  higherData: number[]
+  lowValues?: number[]
+  highValues: number[]
   fillColor?: string
   fillOpacity?: number
   strokeColor?: string
@@ -157,8 +157,8 @@ const config: string = `interface QsAreaConfig {
 }`
 
 const dataExample: string = `const data: QsAreaData = {
-  lowerData: [1, 2, 3, 4, 5, 6, 7, 8],
-  higherData: [2, 3, 4, 5, 6, 7, 8, 9],
+  lowValues: [1, 2, 3, 4, 5, 6, 7, 8],
+  highValues: [2, 3, 4, 5, 6, 7, 8, 9],
   fillColor: 'blue',
   fillOpacity: 1,
   strokeColor: 'blue',

@@ -22,7 +22,7 @@ export const OrthogonalAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
         colors: ['red', 'darkblue'],
       })
       canvas.generate.orthogonal.horizontal.area({
-        higherData: data1,
+        highValues: data1,
         fillColor: gradientUrl,
       })
       canvas.generate.orthogonal.vertical.axis.left()

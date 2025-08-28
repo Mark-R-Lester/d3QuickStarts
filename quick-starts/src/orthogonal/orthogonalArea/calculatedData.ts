@@ -13,8 +13,8 @@ export const getCalculatedData = (
   const { displayAreaWidth } = canvas.config
   const { yDataScale, genralPercentScale } = canvas.scales
   const {
-    higherData,
-    lowerData,
+    highValues,
+    lowValues,
     fillColor,
     fillOpacity,
     strokeOpacity,
@@ -30,15 +30,15 @@ export const getCalculatedData = (
   } = config
 
   const xDataScale = scaleLinear()
-    .domain([0, higherData.length - 1])
+    .domain([0, highValues.length - 1])
     .range([0, displayAreaWidth])
 
   const calculatedData: CalculatedData = {
     id: `area-${uuidv4()}`,
-    areaData: higherData.map((d, i) => ({
+    areaData: highValues.map((d, i) => ({
       x: xDataScale(i),
       y1: yDataScale(d),
-      y0: yDataScale(lowerData ? lowerData[i] : 0),
+      y0: yDataScale(lowValues ? lowValues[i] : 0),
     })),
     fillColor: fillColor ?? defaultFillColor,
     fillOpacity: fillOpacity ?? defaultFillOpacity,

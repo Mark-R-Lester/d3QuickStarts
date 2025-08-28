@@ -8,7 +8,7 @@ export const OrthogonalAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
   useEffect(() => {
     const createChart = () => {
       const data1 = {
-        higherData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
+        highValues: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
       }
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 

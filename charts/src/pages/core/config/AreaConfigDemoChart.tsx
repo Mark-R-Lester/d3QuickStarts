@@ -25,7 +25,7 @@ export const AreaConfigDemoChart: FunctionComponent<BarColorDemoChartProps> =
         })
 
         const data: QsAreaData = {
-          higherData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
+          highValues: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
         }
         canvas.generate.orthogonal.horizontal.area(data, config)
         canvas.generate.orthogonal.vertical.axis.left()

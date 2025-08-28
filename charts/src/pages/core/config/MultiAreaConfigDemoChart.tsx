@@ -24,10 +24,10 @@ export const MultiAreaConfigDemoChart: FunctionComponent<MultiAreaDemoChartProps
       height = 300,
       width = 500,
       data1 = {
-        higherData: [25, 50, 50, 30, 40, 15, 20, 15, 10, 70, 10, 14],
+        highValues: [25, 50, 50, 30, 40, 15, 20, 15, 10, 70, 10, 14],
       },
       data2 = {
-        higherData: [50, 60, 70, 50, 50, 26, 80, 60, 102, 112, 156, 140],
+        highValues: [50, 60, 70, 50, 50, 26, 80, 60, 102, 112, 156, 140],
       },
       configCanvasLevel = {},
       config1 = {},

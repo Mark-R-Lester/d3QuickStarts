@@ -13,7 +13,7 @@ export const SimpleCanvasWithArea: FunctionComponent<ChartPropsOthogonal> = ({
     const createChart = () => {
       const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
       const data: QsAreaData = {
-        higherData: [100, 100],
+        highValues: [100, 100],
       }
       canvas.generate.orthogonal.horizontal.area(data)
       canvas.generate.orthogonal.vertical.axis.left()

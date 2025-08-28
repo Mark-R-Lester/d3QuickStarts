@@ -20,12 +20,12 @@ export const OrthogonalAreaOpacityChart: FunctionComponent<
       })
 
       canvas.generate.orthogonal.horizontal.area({
-        higherData: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
+        highValues: [15, 10, 20, 30, 40, 26, 90, 15, 102, 112, 156, 140],
         fillColor: QsEnumColorOranges.DARKORANGE,
         strokeColor: QsEnumColorOranges.DARKORANGE,
       })
       canvas.generate.orthogonal.horizontal.area({
-        higherData: [5, 15, 25, 50, 10, 10, 20, 50, 190, 10, 15, 40],
+        highValues: [5, 15, 25, 50, 10, 10, 20, 50, 190, 10, 15, 40],
         fillColor: 'green',
         strokeColor: 'green',
       })

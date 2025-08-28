@@ -19,13 +19,13 @@ export const OrthogonalAreaStackedChart: FunctionComponent<
       canvas.configStore.orthogonal.areaConfig({ curve: QsEnumCurve.NATURAL })
 
       canvas.generate.orthogonal.horizontal.area({
-        higherData: data1,
+        highValues: data1,
         fillColor: 'lightBlue',
       })
 
       canvas.generate.orthogonal.horizontal.area({
-        higherData: data2,
-        lowerData: data1,
+        highValues: data2,
+        lowValues: data1,
         fillColor: 'darkBlue',
       })
 

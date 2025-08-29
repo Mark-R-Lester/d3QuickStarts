@@ -154,7 +154,7 @@ export const defaultsContent: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    This chat demonstrates the impact config and data can have
+                    This chart demonstrates the impact config and data can have
                     on the bars element, illustrating the effects of color.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />

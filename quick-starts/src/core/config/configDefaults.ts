@@ -82,7 +82,7 @@ const textDefaults: ConfigTextDefaults = {
   defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
   defaultTextFill: GlobalDefaultColors.TEXT_FILL_COLOR,
   defaultTextAngle: GlobalDefaultSettings.TEXT_ANGLE,
-  defaultTextAnchor: QsEnumTextAnchor.START,
+  defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
   defaultTextStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
   defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }

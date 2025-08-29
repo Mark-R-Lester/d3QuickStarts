@@ -213,7 +213,6 @@ export const defaultsContent: JSX.Element = (
                       { value: 25 },
                     ]}
                   />
-                  ,
                 </ContentChartBox>,
               ]}
             />,

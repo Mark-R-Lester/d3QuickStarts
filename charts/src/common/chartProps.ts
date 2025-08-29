@@ -27,6 +27,13 @@ import {
   QsBarStackedData,
   QsBarGroupedData,
   QsLineData,
+  QsCanvasConfigRadial,
+  QsTextConfig,
+  QsPlottedLineConfig,
+  QsPlottedLineData,
+  QsPlottedPointsConfig,
+  QsPlottedPointsData,
+  QsTextData,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation, EnumRadialTextOrientation } from './enums'
 import {
@@ -34,6 +41,9 @@ import {
   QsRadialTextData,
 } from 'd3qs/radialCentroid/radialCentroidText/qsTypes'
 
+/**
+ * Orthogonal interfaces
+ */
 export interface ChartPropsOthogonal {
   canvasConfig: QsCanvasConfigOrthogonal
 }
@@ -42,10 +52,9 @@ export interface OrienetedChartProps extends ChartPropsOthogonal {
   orientation: EnumOrientation
 }
 
-export interface RadialArcTextChartProps extends ChartPropsOthogonal {
-  config?: QsRadialArcTextConfig
-  data?: QsValuedText[]
-  orientation: EnumRadialTextOrientation
+export interface TextChartProps extends OrienetedChartProps {
+  config?: QsTextConfig
+  data?: QsTextData[]
 }
 
 export interface AreaChartProps extends ChartPropsOthogonal {
@@ -81,38 +90,54 @@ export interface PointChartProps extends OrienetedChartProps {
   config?: QsPointsConfig
   data?: QsPointData[]
 }
-export interface RadialChartProps extends ChartPropsOthogonal {
+
+/**
+ * Radial interfaces
+ */
+export interface ChartPropsRadial {
+  canvasConfig: QsCanvasConfigRadial
+}
+
+export interface RadialArcTextChartProps extends ChartPropsRadial {
+  config?: QsRadialArcTextConfig
+  data?: QsValuedText[]
+  orientation: EnumRadialTextOrientation
+}
+export interface RadialChartProps extends ChartPropsRadial {
   config?: QsRadialArcConfig
   data?: QsRadialData[]
 }
-export interface RadialAreaChartProps extends ChartPropsOthogonal {
+export interface RadialAreaChartProps extends ChartPropsRadial {
   config?: QsRadialAreaConfig
   data?: QsRadialAreaData
 }
-export interface RadialAxisChartProps extends ChartPropsOthogonal {
+export interface RadialAxisChartProps extends ChartPropsRadial {
   config?: QsRadialAxisConfig
   data?: number[]
 }
-export interface RadialLineChartProps extends ChartPropsOthogonal {
+export interface RadialLineChartProps extends ChartPropsRadial {
   config?: QsRadialLineConfig
   data?: number[]
 }
 
-export interface RadialPointsChartProps extends ChartPropsOthogonal {
+export interface RadialPointsChartProps extends ChartPropsRadial {
   config?: QsRadialPointsConfig
   data?: QsRadialPointData[]
 }
 
-export interface RadialTextChartProps extends ChartPropsOthogonal {
+export interface RadialTextChartProps extends ChartPropsRadial {
   config?: QsRadialTextConfig
   data?: QsRadialTextData[]
 }
 
-export interface RadialSpokesChartProps extends ChartPropsOthogonal {
+export interface RadialSpokesChartProps extends ChartPropsRadial {
   config?: QsRadialSpokesConfig
   data?: number
 }
 
+/**
+ * Plotted interfaces
+ */
 export interface ChartPropsPlotted {
   canvasConfig: QsCanvasConfigPlotted
 }
@@ -120,4 +145,14 @@ export interface ChartPropsPlotted {
 export interface PlottedTextChartProps extends ChartPropsPlotted {
   config?: QsPlottedTextConfig
   data?: QsPlottedTextData
+}
+
+export interface PlottedLineChartProps extends ChartPropsPlotted {
+  config?: QsPlottedLineConfig
+  data?: QsPlottedLineData
+}
+
+export interface PlottedPointsChartProps extends ChartPropsPlotted {
+  config?: QsPlottedPointsConfig
+  data?: QsPlottedPointsData[]
 }

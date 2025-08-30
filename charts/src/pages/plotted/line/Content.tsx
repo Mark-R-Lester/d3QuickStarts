@@ -4,63 +4,174 @@ import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import { PlottedLineDefaultsChart } from './PlottedLineDefaultsChart'
 import { PlottedLineChart } from './PlottedLineChart'
-import { QsEnumDataScale } from 'd3qs/d3QuickStart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
+import { QsEnumCurve, QsEnumLineCap, QsEnumLineJoin } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
-  highestViewableValue: 156,
+  lowestViewableValueX: 0,
+  highestViewableValueX: 180,
+  lowestViewableValueY: 0,
+  highestViewableValueY: 180,
 }`
 
-const defaultsChart: string = `
-const data: QsPlottedLineData = {
+const lineConfig: string = `const config: QsPlottedLineData = {
+  curve: QsEnumCurve.STEP,
+  defaultStrokeColor: 'blue',
+  defaultStrokeWidth: 5,
+  defaultStrokeOpacity: 1,
+  strokeLineJoin: QsEnumLineJoin.ROUND,
+  strokeLineCap: QsEnumLineCap.ROUND,
+}`
+
+const LineData: string = `const data: QsPlottedLineData = {
   coordinates: [
-    { x: 15, y: 10 },
+    { x: 0, y: 0 },
     { x: 20, y: 30 },
     { x: 40, y: 26 },
     { x: 90, y: 15 },
     { x: 102, y: 112 },
     { x: 156, y: 140 },
   ],
-}
+}`
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+const LineDataComplex: string = `const data: QsPlottedLineData = {
+  coordinates: [
+    { x: 0, y: 10 },
+    { x: 20, y: 30 },
+    { x: 40, y: 26 },
+    { x: 90, y: 15 },
+    { x: 102, y: 112 },
+    { x: 156, y: 140 },
+  ],
+  strokeOpacity: 1,
+  strokeColor: 'red',
+}`
+
+const chart1: string = `const canvas: QsCanvasPlotted = qsCreateCanvasPlotted(canvasConfig)
 canvas.generate.plotted.line(data)
 canvas.generate.orthogonal.vertical.axis.left()
 canvas.generate.orthogonal.horizontal.axis.bottom()`
 
-const configChart: string = `
-const data: QsPlottedLineData = {
-  coordinates: [
-    { x: 15, y: 10 },
-    { x: 20, y: 30 },
-    { x: 40, y: 26 },
-    { x: 90, y: 15 },
-    { x: 102, y: 112 },
-    { x: 156, y: 140 },
-  ],
-  strokeColor: 'blue',
-  strokeWidth: 10,
-}
-
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-
-canvas.generate.plotted.line(data, {
-  curve: QsEnumCurve.LINEAR,
-  strokeLineJoin: QsEnumLineJoin.BEVEL,
-  strokeLineCap: QsEnumLineCap.ROUND,
-})
+const chart2: string = `const canvas: QsCanvasPlotted = qsCreateCanvasPlotted(canvasConfig)
+canvas.generate.plotted.line(data, config)
 canvas.generate.orthogonal.vertical.axis.left()
 canvas.generate.orthogonal.horizontal.axis.bottom()`
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              The line element renders data values as a continuous path,
+              precisely drawn between points within the canvas's x, y coordinate
+              system, ensuring smooth and accurate visualization of trends or
+              relationships in the data.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    When supplying only the essential data, the plotted line
+                    element produces a visualization leveraging the library's
+                    default configuration parameters
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={LineData} />
+                  <ContentCodeBox code={chart1} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <PlottedLineChart
+                    canvasConfig={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValueX: 0,
+                      highestViewableValueX: 180,
+                      lowestViewableValueY: 0,
+                      highestViewableValueY: 180,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Using config and data to modify appearance
+            </Typography>,
+            <Typography variant="body1">
+              Adjusting the configuration parameters or input data can
+              substantially change the visual appearance of the line, enabling
+              diverse and tailored data visualizations.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This chart demonstrates the impact config and data can have
+                    on the line.
+                  </Typography>
+
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={lineConfig} />
+                  <ContentCodeBox code={LineDataComplex} />
+                  <ContentCodeBox code={chart2} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <PlottedLineChart
+                    canvasConfig={{
+                      chartName: 'chart2',
+                      width: 600,
+                      lowestViewableValueX: 0,
+                      highestViewableValueX: 180,
+                      lowestViewableValueY: 0,
+                      highestViewableValueY: 180,
+                    }}
+                    config={{
+                      curve: QsEnumCurve.STEP,
+                      defaultStrokeColor: 'blue',
+                      defaultStrokeWidth: 5,
+                      defaultStrokeOpacity: 1,
+                      strokeLineJoin: QsEnumLineJoin.ROUND,
+                      strokeLineCap: QsEnumLineCap.ROUND,
+                    }}
+                    data={{
+                      coordinates: [
+                        { x: 0, y: 10 },
+                        { x: 20, y: 30 },
+                        { x: 40, y: 26 },
+                        { x: 90, y: 15 },
+                        { x: 102, y: 112 },
+                        { x: 156, y: 140 },
+                      ],
+                      strokeOpacity: 1,
+                      strokeColor: 'red',
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
 
 const data: string = `interface QsPlottedLineData {
   coordinates: QsCoordinate[]
@@ -80,7 +191,7 @@ const config: string = `interface QsLinePlotConfig {
 
 const dataExample: string = `const data: QsPlottedLineData = {
   coordinates: [
-    { x: 15, y: 10 },
+    { x: 0, y: 10 },
     { x: 20, y: 30 },
     { x: 40, y: 26 },
     { x: 90, y: 15 },
@@ -94,119 +205,61 @@ const dataExample: string = `const data: QsPlottedLineData = {
 
 const configExample: string = `const config: QsLinePlotConfig = {
   curve: QsEnumCurve.NATURAL,
-  defaultStrokeColor: 'blue'
+  defaultStrokeColor: 'blue',
   defaultStrokeWidth: 1,
   defaultStrokeOpacity: 1,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
 }`
 
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text generated with defaults</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <PlottedLineDefaultsChart
-              canvasConfig={{
-                chartName: 'chartH',
-                width: 600,
-                highestViewableValueX: 156,
-                highestViewableValueY: 156,
-                dataScaleY: { scale: QsEnumDataScale.SYMLOG },
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text customised</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <PlottedLineChart
-              canvasConfig={{
-                chartName: 'chartV',
-                width: 600,
-                highestViewableValueX: 156,
-                highestViewableValueY: 156,
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsTextData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={data} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={dataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={data} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsTextConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={config} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
@@ -222,10 +275,14 @@ export const editorContent: JSX.Element = (
 const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
-  lowestViewableValue: 0,
-  highestViewableValue: 156,
+  lowestViewableValueX: 0,
+  highestViewableValueX: 180,
+  lowestViewableValueY: 0,
+  highestViewableValueY: 180,
   borderColor: 'grey',
 }
-${configChart}`}
+${lineConfig}
+${LineDataComplex}
+${chart2}`}
   ></ChartEditor>
 )

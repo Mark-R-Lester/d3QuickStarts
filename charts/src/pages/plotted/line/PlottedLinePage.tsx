@@ -2,27 +2,13 @@ import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import { PlottedLineDefaultsChart } from './PlottedLineDefaultsChart'
 import { PlottedLineChart } from './PlottedLineChart'
-import {
-  defaultsContent,
-  configContent,
-  configAndData,
-  editorContent,
-} from './Content'
+import { defaultsContent, configAndData, editorContent } from './Content'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 
 export default function PlottedLinePage() {
   const menuElements: JSX.Element[] = [
-    <PlottedLineDefaultsChart
-      canvasConfig={{
-        chartName: 'plottedLineDefaultsChart',
-        width: 130,
-        highestViewableValueX: 156,
-        highestViewableValueY: 156,
-      }}
-    />,
     <PlottedLineChart
       canvasConfig={{
         chartName: 'plottedLineChart',
@@ -37,7 +23,6 @@ export default function PlottedLinePage() {
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
     configAndData,
     editorContent,
   ]

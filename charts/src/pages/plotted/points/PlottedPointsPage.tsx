@@ -1,27 +1,13 @@
 import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import {
-  defaultsContent,
-  configContent,
-  configAndData,
-  editorContent,
-} from './Content'
-import { PlottedPointsDefaultsChart } from './PlottedPointsDefaultsChart'
+import { defaultsContent, configAndData, editorContent } from './Content'
 import { PlottedPointsChart } from './PlottedPointsChart'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 
 export default function PlottedPointsPage() {
   const menuElements: JSX.Element[] = [
-    <PlottedPointsDefaultsChart
-      canvasConfig={{
-        chartName: 'plottedPointsDefaultsChart',
-        width: 130,
-        highestViewableValueX: 156,
-        highestViewableValueY: 156,
-      }}
-    />,
     <PlottedPointsChart
       canvasConfig={{
         chartName: 'PlottedPointsChart',
@@ -36,7 +22,6 @@ export default function PlottedPointsPage() {
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
     configAndData,
     editorContent,
   ]

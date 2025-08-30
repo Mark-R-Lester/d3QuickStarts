@@ -4,36 +4,32 @@ import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import { PlottedPointsDefaultsChart } from './PlottedPointsDefaultsChart'
 import { PlottedPointsChart } from './PlottedPointsChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
-  highestViewableValue: 156,
+  lowestViewableValueX: 0,
+  highestViewableValueX: 180,
+  lowestViewableValueY: 0,
+  highestViewableValueY: 180,
 }`
 
-const defaultsChart: string = `
-const data: QsPlottedPointData[] = [
+const pointData: string = `const data: QsPlottedPointsData[] = [
   { x: 15, y: 10 },
   { x: 20, y: 30 },
   { x: 40, y: 26 },
   { x: 90, y: 15 },
   { x: 102, y: 112 },
   { x: 156, y: 140 },
-]
+]`
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
-canvas.generate.plotted.points(data)
-canvas.generate.orthogonal.vertical.axis.left()
-canvas.generate.orthogonal.horizontal.axis.bottom()`
-
-const configChart: string = `
-const data: QsPlottedPointData[] = [
+const pointDataComplex: string = `const data: QsPlottedPointsData[] = [
   {
     x: 15,
     y: 10,
@@ -53,15 +49,136 @@ const data: QsPlottedPointData[] = [
     strokeColor: 'blue',
   },
   { x: 156, y: 140, radius: 15, fillOpacity: 0.1 },
-]
+]`
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+const pointConfig: string = `const config = {
+  chartName: 'ChartEditable',
+  width: 600,
+  highestViewableValue: 156,
+}`
+
+const chart1: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasPlotted(canvasConfig)
 canvas.generate.plotted.points(data)
 canvas.generate.orthogonal.vertical.axis.left()
 canvas.generate.orthogonal.horizontal.axis.bottom()`
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+const chart2: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasPlotted(canvasConfig)
+canvas.generate.plotted.points(data)
+canvas.generate.orthogonal.vertical.axis.left()
+canvas.generate.orthogonal.horizontal.axis.bottom()`
+
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              Plotted points are ideal for scatter plots, representing data
+              values as individual markers precisely positioned within an x, y
+              coordinate system on the canvas. Each point’s size and placement
+              accurately reflect the data’s values, enabling clear visualization
+              of patterns, clusters, or outliers. Perfect for displaying
+              relationships or distributions, plotted points offer flexibility
+              in styling, such as color or size, to enhance clarity. Their
+              precise scaling ensures effective data communication, making them
+              a powerful tool for exploratory analysis or highlighting trends in
+              datasets, all while maintaining a clean and intuitive visual
+              representation within the scatter plot.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    When supplying only the essential data, plotted points
+                    produces a visualization leveraging the library's default
+                    configuration parameters
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={pointData} />
+                  <ContentCodeBox code={chart1} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <PlottedPointsChart
+                    canvasConfig={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValueX: 0,
+                      highestViewableValueX: 180,
+                      lowestViewableValueY: 0,
+                      highestViewableValueY: 180,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Using config and data to modify appearance
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Adjusting the configuration and data can substantially
+                    change the visual appearance of plotted points, enabling
+                    diverse and tailored data visualizations.
+                  </Typography>
+
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={pointConfig} />
+                  <ContentCodeBox code={pointDataComplex} />
+                  <ContentCodeBox code={chart2} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <PlottedPointsChart
+                    canvasConfig={{
+                      chartName: 'chart2',
+                      width: 600,
+                      lowestViewableValueX: 0,
+                      highestViewableValueX: 180,
+                      lowestViewableValueY: 0,
+                      highestViewableValueY: 180,
+                    }}
+                    data={[
+                      {
+                        x: 15,
+                        y: 10,
+                        radius: 10,
+                        fillOpacity: 0.1,
+                      },
+                      { x: 20, y: 30, radius: 5, fillOpacity: 0.1 },
+                      { x: 40, y: 26, radius: 30, fillOpacity: 0.1 },
+                      { x: 90, y: 15, radius: 20, fillOpacity: 0.1 },
+                      {
+                        x: 102,
+                        y: 112,
+                        radius: 30,
+                        fillOpacity: 0.1,
+                        fillColor: 'red',
+                        strokeWidth: 1,
+                        strokeColor: 'blue',
+                      },
+                      { x: 156, y: 140, radius: 15, fillOpacity: 0.1 },
+                    ]}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
 
 const data: string = `interface QsPlottedPointsData {
   x: number
@@ -105,111 +222,54 @@ const configExample: string = `const config: QsPlottedPointsConfig = {
   defaultStrokeOpacity: 1,
 }`
 
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text generated with defaults</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <PlottedPointsDefaultsChart
-              canvasConfig={{
-                chartName: 'chartH',
-                width: 600,
-                highestViewableValueX: 156,
-                highestViewableValueY: 156,
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text customised</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <PlottedPointsChart
-              canvasConfig={{
-                chartName: 'chartV',
-                width: 600,
-                highestViewableValueX: 156,
-                highestViewableValueY: 156,
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsTextData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={data} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={dataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={data} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsTextConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={config} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
@@ -225,10 +285,14 @@ export const editorContent: JSX.Element = (
 const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
-  lowestViewableValue: 0,
-  highestViewableValue: 156,
+  lowestViewableValueX: 0,
+  highestViewableValueX: 180,
+  lowestViewableValueY: 0,
+  highestViewableValueY: 180,
   borderColor: 'grey',
 }
-${configChart}`}
+${pointConfig}
+${pointDataComplex}
+${chart1}`}
   ></ChartEditor>
 )

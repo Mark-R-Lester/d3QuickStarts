@@ -5,13 +5,15 @@ import { ChartButton, ChartButtonStyles } from '../atoms/ChartButton'
 export interface ElementGridProps {
   elements: JSX.Element[]
   onClick: (id: number) => void
+  selected?: number
 }
 
 export const ChartButtonGrid: FunctionComponent<ElementGridProps> = ({
   elements,
   onClick,
+  selected = 0,
 }) => {
-  const [lastClicked, setLastClicked] = useState<number>(0)
+  const [lastClicked, setLastClicked] = useState<number>(selected)
 
   return (
     <Grid container spacing={2} columnSpacing={2}>

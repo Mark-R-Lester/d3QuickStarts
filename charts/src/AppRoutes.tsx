@@ -2,19 +2,19 @@ import { FunctionComponent } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import HomePage from './pages/home/HomePage'
 import PlottedTransitionsPage from './pages/plotted/PlottedTransitionsPage'
-import orthogonalTransitionsPage from './pages/orthogonal/OrthogonalTransitionsPage'
+import OrthogonalTransitionsPage from './pages/orthogonal/OrthogonalTransitionsPage'
 import RadialTransitionsPage from './pages/radialArc/RadialArcTransitionsPage'
-import orthogonalBarsPage from './pages/orthogonal/bars/OrthogonalBarsPage'
+import OrthogonalBarsPage from './pages/orthogonal/bars/OrthogonalBarsPage'
 import RadialCentroidLinePage from './pages/radialCentroid/line/RadialCentroidLinePage'
 import RadialCentroidPointsPage from './pages/radialCentroid/points/RadialCentroidPointsPage'
 import CanvasPage from './pages/core/canvas/CanvasPage'
-import orthogonalAreaPage from './pages/orthogonal/area/OrthogonalAreaPage'
-import orthogonalAxisPage from './pages/orthogonal/axes/OrthogonalAxisPage'
-import orthogonalBarGroupPage from './pages/orthogonal/barGroup/OrthogonalBarGroupPage'
-import orthogonalBarStackPage from './pages/orthogonal/barStack/OrthogonalBarStackPage'
-import orthogonalLinePage from './pages/orthogonal/line/OrthogonalLinePage'
-import orthogonalPointsPage from './pages/orthogonal/points/OrthogonalPointsPage'
-import orthogonalTextPage from './pages/orthogonal/text/OrthogonalTextPage'
+import OrthogonalAreaPage from './pages/orthogonal/area/OrthogonalAreaPage'
+import OrthogonalAxisPage from './pages/orthogonal/axes/OrthogonalAxisPage'
+import OrthogonalBarGroupPage from './pages/orthogonal/barGroup/OrthogonalBarGroupPage'
+import OrthogonalBarStackPage from './pages/orthogonal/barStack/OrthogonalBarStackPage'
+import OrthogonalLinePage from './pages/orthogonal/line/OrthogonalLinePage'
+import OrthogonalPointsPage from './pages/orthogonal/points/OrthogonalPointsPage'
+import OrthogonalTextPage from './pages/orthogonal/text/OrthogonalTextPage'
 import PlottedLinePage from './pages/plotted/line/PlottedLinePage'
 import PlottedPointsPage from './pages/plotted/points/PlottedPointsPage'
 import PlottedTextPage from './pages/plotted/text/PlottedTextPage'
@@ -30,54 +30,124 @@ import EnumPage from './pages/core/enums/EnumPage'
 import ConfigPage from './pages/core/config/ConfigPage'
 import GradientPage from './pages/core/gradient/GradientPage'
 
+export const Paths = {
+  HOME: '/',
+  CANVAS: '/canvas',
+  ENUMS: '/enums',
+  CONFIG: '/config',
+  GRADIENT: '/gradient',
+  UNBOUND: {
+    LEGEND: '/unbound/legend',
+    TEXT: '/unbound/text',
+  },
+  ORTHOGONAL: {
+    BARS: '/orthogonal/bars',
+    AREA: '/orthogonal/area',
+    AXIS: '/orthogonal/axis',
+    BARGROUP: '/orthogonal/bargroup',
+    BARSTACK: '/orthogonal/barstack',
+    LINE: '/orthogonal/line',
+    POINTS: '/orthogonal/points',
+    TEXT: '/orthogonal/text',
+    TRANSITIONS: '/orthogonal/transitions',
+  },
+  PLOTTED: {
+    POINTS: '/plotted/points',
+    LINE: '/plotted/line',
+    TEXT: '/plotted/text',
+    TRANSITIONS: '/plotted/transitions',
+  },
+  RADIAL_ARC: {
+    ARC: '/radialarc/arc',
+    TEXT: '/radialarc/text',
+  },
+  RADIAL_CENTROID: {
+    AREA: '/radialcentroid/area',
+    AXIS: '/radialcentroid/axis',
+    LINE: '/radialcentroid/line',
+    POINTS: '/radialcentroid/points',
+    SPOKES: '/radialcentroid/spokes',
+    TEXT: '/radialcentroid/text',
+  },
+  RADIAL: {
+    TRANSITIONS: '/radial/transitions',
+  },
+}
+
 export const AppRoutes: FunctionComponent = () => {
   return (
     <Routes>
-      <Route path="/" Component={HomePage} />
+      <Route path={Paths.HOME} element={<HomePage />} />
 
-      <Route path="/canvas" Component={CanvasPage} />
-      <Route path="/enums" Component={EnumPage} />
-      <Route path="/config" Component={ConfigPage} />
-      <Route path="/gradient" Component={GradientPage} />
+      <Route path={Paths.CANVAS} element={<CanvasPage />} />
+      <Route path={Paths.ENUMS} element={<EnumPage />} />
+      <Route path={Paths.CONFIG} element={<ConfigPage />} />
+      <Route path={Paths.GRADIENT} element={<GradientPage />} />
 
-      <Route path="/unbound/legend" Component={UnboundLegendPage} />
-      <Route path="/unbound/text" Component={UnboundTextPage} />
-
-      <Route path="/orthogonal/bars" Component={orthogonalBarsPage} />
-      <Route path="/orthogonal/area" Component={orthogonalAreaPage} />
-      <Route path="/orthogonal/axis" Component={orthogonalAxisPage} />
-      <Route path="/orthogonal/bargroup" Component={orthogonalBarGroupPage} />
-      <Route path="/orthogonal/barstack" Component={orthogonalBarStackPage} />
-      <Route path="/orthogonal/line" Component={orthogonalLinePage} />
-      <Route path="/orthogonal/points" Component={orthogonalPointsPage} />
-      <Route path="/orthogonal/text" Component={orthogonalTextPage} />
-
-      <Route path="/plotted/points" Component={PlottedPointsPage} />
-      <Route path="/plotted/line" Component={PlottedLinePage} />
-      <Route path="/plotted/text" Component={PlottedTextPage} />
-
-      <Route path="/radialarc/arc" Component={RadialArcPage} />
-      <Route path="/radialarc/text" Component={RadialArcTextPage} />
-
-      <Route path="/radialcentroid/area" Component={RadialCentroidAreaPage} />
-      <Route path="/radialcentroid/axis" Component={RadialCentroidAxisPage} />
-      <Route path="/radialcentroid/line" Component={RadialCentroidLinePage} />
+      <Route path={Paths.ORTHOGONAL.BARS} element={<OrthogonalBarsPage />} />
+      <Route path={Paths.ORTHOGONAL.AREA} element={<OrthogonalAreaPage />} />
+      <Route path={Paths.ORTHOGONAL.AXIS} element={<OrthogonalAxisPage />} />
       <Route
-        path="/radialcentroid/points"
-        Component={RadialCentroidPointsPage}
+        path={Paths.ORTHOGONAL.BARGROUP}
+        element={<OrthogonalBarGroupPage />}
       />
       <Route
-        path="/radialCentroid/spokes"
-        Component={RadialCentroidSpokesPage}
+        path={Paths.ORTHOGONAL.BARSTACK}
+        element={<OrthogonalBarStackPage />}
       />
-      <Route path="/radialcentroid/text" Component={RadialCentroidTextPage} />
-
-      <Route path="/plotted/transitions" Component={PlottedTransitionsPage} />
+      <Route path={Paths.ORTHOGONAL.LINE} element={<OrthogonalLinePage />} />
       <Route
-        path="/orthogonal/transitions"
-        Component={orthogonalTransitionsPage}
+        path={Paths.ORTHOGONAL.POINTS}
+        element={<OrthogonalPointsPage />}
       />
-      <Route path="/radial/transitions" Component={RadialTransitionsPage} />
+      <Route path={Paths.ORTHOGONAL.TEXT} element={<OrthogonalTextPage />} />
+
+      <Route path={Paths.PLOTTED.POINTS} element={<PlottedPointsPage />} />
+      <Route path={Paths.PLOTTED.LINE} element={<PlottedLinePage />} />
+      <Route path={Paths.PLOTTED.TEXT} element={<PlottedTextPage />} />
+
+      <Route path={Paths.RADIAL_ARC.ARC} element={<RadialArcPage />} />
+      <Route path={Paths.RADIAL_ARC.TEXT} element={<RadialArcTextPage />} />
+      <Route
+        path={Paths.RADIAL_CENTROID.AREA}
+        element={<RadialCentroidAreaPage />}
+      />
+      <Route
+        path={Paths.RADIAL_CENTROID.AXIS}
+        element={<RadialCentroidAxisPage />}
+      />
+      <Route
+        path={Paths.RADIAL_CENTROID.LINE}
+        element={<RadialCentroidLinePage />}
+      />
+      <Route
+        path={Paths.RADIAL_CENTROID.POINTS}
+        element={<RadialCentroidPointsPage />}
+      />
+      <Route
+        path={Paths.RADIAL_CENTROID.SPOKES}
+        element={<RadialCentroidSpokesPage />}
+      />
+      <Route
+        path={Paths.RADIAL_CENTROID.TEXT}
+        element={<RadialCentroidTextPage />}
+      />
+
+      <Route path={Paths.UNBOUND.LEGEND} element={<UnboundLegendPage />} />
+      <Route path={Paths.UNBOUND.TEXT} element={<UnboundTextPage />} />
+
+      <Route
+        path={Paths.RADIAL.TRANSITIONS}
+        element={<RadialTransitionsPage />}
+      />
+      <Route
+        path={Paths.PLOTTED.TRANSITIONS}
+        element={<PlottedTransitionsPage />}
+      />
+      <Route
+        path={Paths.ORTHOGONAL.TRANSITIONS}
+        element={<OrthogonalTransitionsPage />}
+      />
     </Routes>
   )
 }

@@ -4,30 +4,17 @@ import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import { PlottedTextChart } from './PlottedTextChart'
-import { PlottedTextDefaultsChart } from './PlottedTextDefaultsChart'
-import {
-  defaultsContent,
-  configContent,
-  configAndData,
-  editorContent,
-} from './Content'
+
+import { defaultsContent, configAndData, editorContent } from './Content'
 
 export default function PlottedTextPage() {
   const menuElements: JSX.Element[] = [
-    <PlottedTextDefaultsChart
-      canvasConfig={{
-        chartName: 'plottedTextDefaultsChart',
-        width: 130,
-        highestViewableValueX: 156,
-        highestViewableValueY: 100,
-      }}
-    />,
     <PlottedTextChart
       canvasConfig={{
         chartName: 'plottedTextChart',
         width: 130,
-        highestViewableValueX: 156,
-        highestViewableValueY: 100,
+        highestViewableValueX: 35,
+        highestViewableValueY: 35,
       }}
     />,
     <ConfigAndData />,
@@ -36,7 +23,7 @@ export default function PlottedTextPage() {
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
+
     configAndData,
     editorContent,
   ]

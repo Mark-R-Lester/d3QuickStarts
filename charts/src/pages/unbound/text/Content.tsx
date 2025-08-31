@@ -42,21 +42,21 @@ const data1: QsUnboundTextData[] = [
 ]
 
 canvas.generate.unbound.text(data1, {
-  defualtTextFont: QsEnumTextFont.FANTASY,
-  defualtTextFontSize: 10,
-  defualtTextFontStyle: QsEnumTextFontStyle.ITALIC,
-  defualtTextStroke: 'red',
+  defaultTextFont: QsEnumTextFont.FANTASY,
+  defaultTextFontSize: 10,
+  defaultTextFontStyle: QsEnumTextFontStyle.ITALIC,
+  defaultTextStroke: 'red',
 })
 
 const data2: QsUnboundTextData[] = [
   { x: 0, y: 50, text: 'Text in separate call uses separate config' },
 ]
 canvas.generate.unbound.text(data2, {
-  defualtTextFont: QsEnumTextFont.HELVETICA,
-  defualtTextFontSize: 7,
-  defualtTextFontWeight: QsEnumTextFontWeight.BOLD,
-  defualtTextFill: 'blue',
-  defualtTextAngle: 10,
+  defaultTextFont: QsEnumTextFont.HELVETICA,
+  defaultTextFontSize: 7,
+  defaultTextFontWeight: QsEnumTextFontWeight.BOLD,
+  defaultTextFill: 'blue',
+  defaultTextAngle: 10,
 })
 canvas.generate.orthogonal.vertical.axis.left()
 canvas.generate.orthogonal.horizontal.axis.bottom()`
@@ -71,16 +71,16 @@ const data: string = `interface QsUnboundTextData {
 }`
 
 const config: string = `interface QsUnboundTextConfig {
-  defualtTextFont?: QsEnumTextFont | string
-  defualtTextFontSize?: number
-  defualtTextFontStyle?: QsEnumTextFontStyle
-  defualtTextFontWeight?: QsEnumTextFontWeight | number
-  defualtTextDecorationLine?: QsEnumTextDecorationLine
-  defualtTextFill?: string
-  defualtTextAngle?: number
-  defualtTextAnchor?: QsEnumTextAnchor
-  defualtTextStroke?: string
-  defualtTextAlignmentBaseline?: QsEnumAlignmentBaseline
+  defaultTextFont?: QsEnumTextFont | string
+  defaultTextFontSize?: number
+  defaultTextFontStyle?: QsEnumTextFontStyle
+  defaultTextFontWeight?: QsEnumTextFontWeight | number
+  defaultTextDecorationLine?: QsEnumTextDecorationLine
+  defaultTextFill?: string
+  defaultTextAngle?: number
+  defaultTextAnchor?: QsEnumTextAnchor
+  defaultTextStroke?: string
+  defaultTextAlignmentBaseline?: QsEnumAlignmentBaseline
 }`
 
 const dataExample: string = `const data: QsUnboundTextData = {
@@ -90,16 +90,16 @@ const dataExample: string = `const data: QsUnboundTextData = {
 }`
 
 const configExample: string = `const config: QsUnboundTextConfig = {
-  defualtTextFont?: QsEnumTextFont.SANS_SERIF
-  defualtTextFontSize: 10,
-  defualtTextFontStyle: QsEnumTextFontStyle.ITALIC,
-  defualtTextFontWeight: QsEnumTextFontWeight.BOLD,
-  defualtTextDecorationLine: QsEnumTextDecorationLine.OVERLINE,
-  defualtTextFill: 'blue',
-  defualtTextAngle: 45,
-  defualtTextAnchor: QsEnumTextAnchor.START,
-  defualtTextStroke:  'blue',
-  defualtTextAlignmentBaseline: QsEnumAlignmentBaseline.CENTER,
+  defaultTextFont?: QsEnumTextFont.SANS_SERIF
+  defaultTextFontSize: 10,
+  defaultTextFontStyle: QsEnumTextFontStyle.ITALIC,
+  defaultTextFontWeight: QsEnumTextFontWeight.BOLD,
+  defaultTextDecorationLine: QsEnumTextDecorationLine.OVERLINE,
+  defaultTextFill: 'blue',
+  defaultTextAngle: 45,
+  defaultTextAnchor: QsEnumTextAnchor.START,
+  defaultTextStroke:  'blue',
+  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.CENTER,
 }`
 
 export const defaultsContent: JSX.Element = (

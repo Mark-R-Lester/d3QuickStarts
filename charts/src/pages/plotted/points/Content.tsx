@@ -51,10 +51,13 @@ const pointDataComplex: string = `const data: QsPlottedPointsData[] = [
   { x: 156, y: 140, radius: 15, fillOpacity: 0.1 },
 ]`
 
-const pointConfig: string = `const config = {
-  chartName: 'ChartEditable',
-  width: 600,
-  highestViewableValue: 156,
+const pointConfig: string = `const config: QsPlottedPointsConfig = {
+  defaultRadius: 2,
+  defaultFillColor: 'blue',
+  defaultFillOpacity: 1,
+  defaultStrokeColor: 'blue',
+  defaultStrokeWidth: 1,
+  defaultStrokeOpacity: 1,
 }`
 
 const chart1: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasPlotted(canvasConfig)
@@ -147,6 +150,14 @@ export const defaultsContent: JSX.Element = (
                       highestViewableValueX: 180,
                       lowestViewableValueY: 0,
                       highestViewableValueY: 180,
+                    }}
+                    config={{
+                      defaultRadius: 2,
+                      defaultFillColor: 'blue',
+                      defaultFillOpacity: 1,
+                      defaultStrokeColor: 'blue',
+                      defaultStrokeWidth: 1,
+                      defaultStrokeOpacity: 1,
                     }}
                     data={[
                       {

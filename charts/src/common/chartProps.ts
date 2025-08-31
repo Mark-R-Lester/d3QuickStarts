@@ -144,7 +144,7 @@ export interface ChartPropsPlotted {
 
 export interface PlottedTextChartProps extends ChartPropsPlotted {
   config?: QsPlottedTextConfig
-  data?: QsPlottedTextData
+  data?: QsPlottedTextData[]
 }
 
 export interface PlottedLineChartProps extends ChartPropsPlotted {

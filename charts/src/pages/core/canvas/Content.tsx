@@ -73,7 +73,7 @@ const configExample4: string = `const canvasConfig: QsCanvasConfig = {
   borderColor: 'black',
 }`
 
-export const defaultsContent: JSX.Element = (
+export const basic: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle key="title" variant="h3"></ContentTitle>,
@@ -278,6 +278,162 @@ export const defaultsContent: JSX.Element = (
   />
 )
 
+export const orthogonal: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              A blank canvas
+            </Typography>,
+            <Typography variant="body1">
+              By default, the canvas lacks a border and features a transparent
+              background. When creating charts, it is often beneficial to
+              clearly define the canvas boundaries. Without a visible border,
+              the canvas may appear indistinguishable, making it challenging to
+              discern its edges.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This canvas is established with a basic configuration,
+                    excluding any visual elements. The mandatory parameters,
+                    chartName, width, and highestViewableValue must be specified
+                    to configure the canvas properly. Additionally, a
+                    borderColor has been incorporated to ensure the canvas
+                    boundaries are clearly visible.
+                  </Typography>
+                  <ContentCodeBox code={configExample1} />
+                  <ContentCodeBox code={defaultsChart} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <SimpleCanvas
+                    canvasConfig={{
+                      chartName: 'chart',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 100,
+                      borderColor: 'black',
+                    }}
+                  />
+                  ,
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
+
+export const plotted: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              A blank canvas
+            </Typography>,
+            <Typography variant="body1">
+              By default, the canvas lacks a border and features a transparent
+              background. When creating charts, it is often beneficial to
+              clearly define the canvas boundaries. Without a visible border,
+              the canvas may appear indistinguishable, making it challenging to
+              discern its edges.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This canvas is established with a basic configuration,
+                    excluding any visual elements. The mandatory parameters,
+                    chartName, width, and highestViewableValue must be specified
+                    to configure the canvas properly. Additionally, a
+                    borderColor has been incorporated to ensure the canvas
+                    boundaries are clearly visible.
+                  </Typography>
+                  <ContentCodeBox code={configExample1} />
+                  <ContentCodeBox code={defaultsChart} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <SimpleCanvas
+                    canvasConfig={{
+                      chartName: 'chart',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 100,
+                      borderColor: 'black',
+                    }}
+                  />
+                  ,
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
+
+export const radial: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              A blank canvas
+            </Typography>,
+            <Typography variant="body1">
+              By default, the canvas lacks a border and features a transparent
+              background. When creating charts, it is often beneficial to
+              clearly define the canvas boundaries. Without a visible border,
+              the canvas may appear indistinguishable, making it challenging to
+              discern its edges.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This canvas is established with a basic configuration,
+                    excluding any visual elements. The mandatory parameters,
+                    chartName, width, and highestViewableValue must be specified
+                    to configure the canvas properly. Additionally, a
+                    borderColor has been incorporated to ensure the canvas
+                    boundaries are clearly visible.
+                  </Typography>
+                  <ContentCodeBox code={configExample1} />
+                  <ContentCodeBox code={defaultsChart} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <SimpleCanvas
+                    canvasConfig={{
+                      chartName: 'chart',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 100,
+                      borderColor: 'black',
+                    }}
+                  />
+                  ,
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
+
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
@@ -304,7 +460,7 @@ export const configAndData: JSX.Element = (
   />
 )
 
-export const editorContent: JSX.Element = (
+export const editor: JSX.Element = (
   <ChartEditor
     initialCode={`
   const canvasConfig = {

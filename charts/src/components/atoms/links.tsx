@@ -24,6 +24,26 @@ const StyledNavButton = styled('button')({
   },
 })
 
+export const SubPage = {
+  BASIC: `?subPage=basic`,
+  CONFIG: `?subPage=config`,
+  EDITOR: `?subPage=editor`,
+
+  ORTHOGONAL: `?subPage=orthogonal`,
+  RADIAL: `?subPage=raidal`,
+  PLOTTED: `?subPage=plotted`,
+}
+
+export const SubPageTarget = {
+  BASIC: `basic`,
+  CONFIG: `onfig`,
+  EDITOR: `editor`,
+
+  ORTHOGONAL: `orthogonal`,
+  RADIAL: `raidal`,
+  PLOTTED: `plotted`,
+}
+
 const NavButton: React.FC<NavButtonProps> = ({ to, children }) => {
   const navigate = useNavigate()
   return (
@@ -34,15 +54,44 @@ const NavButton: React.FC<NavButtonProps> = ({ to, children }) => {
 /*
  * Core Links
  */
-export const CanvasPageLink: React.FC = () => (
-  <NavButton to={Paths.CANVAS}>Genral canvas overview</NavButton>
+export const CanvasPageLinkBasic: React.FC = () => (
+  <NavButton to={`${Paths.CANVAS}${SubPage.BASIC}`}>
+    Canvas basics, the display area, width and height, lowestViewableValue and
+    highestViewableValue and the margins
+  </NavButton>
+)
+export const CanvasPageLinkOrthogonal: React.FC = () => (
+  <NavButton to={`${Paths.CANVAS}${SubPage.ORTHOGONAL}`}>
+    The Othogonal canvas
+  </NavButton>
+)
+export const CanvasPageLinkRadial: React.FC = () => (
+  <NavButton to={`${Paths.CANVAS}${SubPage.RADIAL}`}>
+    The Radial canvas
+  </NavButton>
+)
+export const CanvasPageLinkPlotted: React.FC = () => (
+  <NavButton to={`${Paths.CANVAS}${SubPage.PLOTTED}`}>
+    The Plotted canvas
+  </NavButton>
+)
+export const CanvasPageLinkConfig: React.FC = () => (
+  <NavButton to={`${Paths.CANVAS}${SubPage.CONFIG}`}>
+    Canvas Configuration
+  </NavButton>
+)
+export const CanvasPageLinkEditor: React.FC = () => (
+  <NavButton to={`${Paths.CANVAS}${SubPage.EDITOR}`}>
+    Canvas try it yourself
+  </NavButton>
 )
 export const EnumPageLink: React.FC = () => (
   <NavButton to={Paths.ENUMS}>QsEnums: listed and demostrated</NavButton>
 )
 export const ConfigPageLink: React.FC = () => (
   <NavButton to={Paths.CONFIG}>
-    The relationship between configuration and data
+    How configuration can be applied and relationship between configuration and
+    data
   </NavButton>
 )
 export const GradientPageLink: React.FC = () => (
@@ -91,17 +140,17 @@ export const OrthogonalTextPageLink: React.FC = () => (
  * Plotted links
  */
 export const PlottedLinePageLinkDefaults: React.FC = () => (
-  <NavButton to={`${Paths.PLOTTED.TEXT}?subPage=default`}>
+  <NavButton to={`${Paths.PLOTTED.TEXT}${SubPage.BASIC}`}>
     Plotted Line
   </NavButton>
 )
 export const PlottedLinePageLinkConfig: React.FC = () => (
-  <NavButton to={`${Paths.PLOTTED.TEXT}?subPage=config`}>
+  <NavButton to={`${Paths.PLOTTED.TEXT}${SubPage.BASIC}`}>
     Plotted Line
   </NavButton>
 )
 export const PlottedLinePageLinkEditor: React.FC = () => (
-  <NavButton to={`${Paths.PLOTTED.TEXT}?subPage=editor`}>
+  <NavButton to={`${Paths.PLOTTED.TEXT}${SubPage.BASIC}`}>
     Plotted Line
   </NavButton>
 )

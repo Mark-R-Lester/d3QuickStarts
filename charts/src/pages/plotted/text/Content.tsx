@@ -91,7 +91,7 @@ const textConfig3: string = `const config: QsPlottedTextConfig =  {
   defaultTextAngle: 10,
 }`
 
-export const defaultsContent: JSX.Element = (
+export const basic: JSX.Element = (
   <ContentColumn
     elements={[
       <ContentTitle key="title" variant="h3"></ContentTitle>,

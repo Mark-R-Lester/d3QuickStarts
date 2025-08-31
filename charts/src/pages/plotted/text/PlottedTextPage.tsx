@@ -5,16 +5,19 @@ import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import { PlottedTextChart } from './PlottedTextChart'
 
-import { defaultsContent, configAndData, editorContent } from './Content'
+import { basic, configAndData, editorContent } from './Content'
 import {
   ContentBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
 import { useSearchParams } from 'react-router-dom'
 import {
-  CanvasPageLink,
+  CanvasPageLinkBasic,
+  CanvasPageLinkPlotted,
   ConfigPageLink,
   EnumPageLink,
+  SubPage,
+  SubPageTarget,
 } from '../../../components/atoms/links'
 import {
   ContentColumn,
@@ -23,7 +26,7 @@ import {
 
 export default function PlottedTextPage() {
   const [searchParams] = useSearchParams()
-  const subPage = searchParams.get('subPage') || 'default'
+  const subPage = searchParams.get('subPage') || SubPage.BASIC
 
   const menuElements: JSX.Element[] = [
     <PlottedTextChart
@@ -38,12 +41,12 @@ export default function PlottedTextPage() {
     <TryItYourSelf />,
   ]
 
-  const contents: JSX.Element[] = [
-    defaultsContent,
-    configAndData,
-    editorContent,
-  ]
-  const subPageIndex = ['default', 'config', 'editor'].indexOf(subPage)
+  const contents: JSX.Element[] = [basic, configAndData, editorContent]
+  const subPageIndex = [
+    SubPageTarget.BASIC,
+    SubPageTarget.CONFIG,
+    SubPageTarget.EDITOR,
+  ].indexOf(subPage)
   const [content, setContent] = useState<JSX.Element>(
     contents[subPageIndex >= 0 ? subPageIndex : 0]
   )
@@ -74,7 +77,8 @@ export default function PlottedTextPage() {
                   <Typography key="title" variant="h4">
                     Related content
                   </Typography>,
-                  <CanvasPageLink />,
+                  <CanvasPageLinkBasic />,
+                  <CanvasPageLinkPlotted />,
                   <ConfigPageLink />,
                   <EnumPageLink />,
                 ]}

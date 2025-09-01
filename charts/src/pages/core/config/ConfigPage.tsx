@@ -3,15 +3,27 @@ import { useState } from 'react'
 import { colorConfigContent, configContent } from './Content'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { SingleWord } from '../../../components/atoms/chart/SingleWord'
+import { useSearchParams } from 'react-router-dom'
+import { SubPage, SubPageTarget } from '../../../components/atoms/links'
 
 export default function ColorPage() {
+  const [searchParams] = useSearchParams()
+  const subPage = searchParams.get('subPage') || SubPage.BASIC
+
   const menuElements: JSX.Element[] = [
     <SingleWord chartName="text" text="Config" />,
     <SingleWord chartName="color" text="Color" />,
   ]
 
   const contents: JSX.Element[] = [configContent, colorConfigContent]
-  const [content, setContent] = useState<JSX.Element>(contents[0])
+  const subPageIndex = [
+    SubPageTarget.BASIC,
+    SubPageTarget.COLOR_CONFIG,
+  ].indexOf(subPage)
+  const [content, setContent] = useState<JSX.Element>(
+    contents[subPageIndex >= 0 ? subPageIndex : 0]
+  )
+
   const onClick = (index: number) => {
     setContent(contents[index])
   }

@@ -14,8 +14,8 @@ import { useSearchParams } from 'react-router-dom'
 import {
   CanvasPageLinkBasic,
   CanvasPageLinkPlotted,
-  ConfigPageLink,
-  EnumPageLink,
+  ConfigPageLinkBasic,
+  EnumPageLinkText,
   SubPage,
   SubPageTarget,
 } from '../../../components/atoms/links'
@@ -79,8 +79,8 @@ export default function PlottedTextPage() {
                   </Typography>,
                   <CanvasPageLinkBasic />,
                   <CanvasPageLinkPlotted />,
-                  <ConfigPageLink />,
-                  <EnumPageLink />,
+                  <ConfigPageLinkBasic />,
+                  <EnumPageLinkText />,
                 ]}
               />
             </ContentBox>,

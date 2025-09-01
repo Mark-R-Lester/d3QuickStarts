@@ -3,8 +3,13 @@ import { useState } from 'react'
 import { orthogonalGradientContent, radialGradientContent } from './Content'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { SingleWord } from '../../../components/atoms/chart/SingleWord'
+import { useSearchParams } from 'react-router-dom'
+import { SubPage, SubPageTarget } from '../../../components/atoms/links'
 
-export default function ColorPage() {
+export default function GradientPage() {
+  const [searchParams] = useSearchParams()
+  const subPage = searchParams.get('subPage') || SubPage.ORTHOGONAL_GRADIENT
+
   const menuElements: JSX.Element[] = [
     <SingleWord chartName="text" text="Orthogonal" />,
     <SingleWord chartName="color" text="Radial" />,
@@ -14,7 +19,15 @@ export default function ColorPage() {
     orthogonalGradientContent,
     radialGradientContent,
   ]
-  const [content, setContent] = useState<JSX.Element>(contents[0])
+
+  const subPageIndex = [
+    SubPageTarget.ORTHOGONAL_GRADIENT,
+    SubPageTarget.RADIAL_GRADIENT,
+  ].indexOf(subPage)
+  const [content, setContent] = useState<JSX.Element>(
+    contents[subPageIndex >= 0 ? subPageIndex : 0]
+  )
+
   const onClick = (index: number) => {
     setContent(contents[index])
   }

@@ -16,10 +16,10 @@ const StyledNavButton = styled('button')({
   color: '#1a73e8',
   textAlign: 'inherit',
   textDecoration: 'none',
-  fontSize: 20,
+  fontSize: 15,
   transition: 'all 0.2s ease-in-out',
   '&:hover': {
-    backgroundColor: '#f0f4f8',
+    backgroundColor: '#cfe1f3ff',
     color: 'black',
   },
 })

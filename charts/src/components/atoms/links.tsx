@@ -71,29 +71,27 @@ const NavButton: React.FC<NavButtonProps> = ({ to, children }) => {
 
 /*
  * Core Links
- */
-/*
  * Canvas
  */
 export const CanvasPageLinkBasic: React.FC = () => (
   <NavButton to={`${Paths.CANVAS}${SubPage.BASIC}`}>
-    Canvas basics, the display area, width and height, lowestViewableValue and
+    Canvas basics: The display area, width and height, lowestViewableValue and
     highestViewableValue and the margins.
   </NavButton>
 )
 export const CanvasPageLinkOrthogonal: React.FC = () => (
   <NavButton to={`${Paths.CANVAS}${SubPage.ORTHOGONAL}`}>
-    Orthogonal canvas why its there and what it can do.
+    Canvas Orthogonal: Why its there and what it can do.
   </NavButton>
 )
 export const CanvasPageLinkRadial: React.FC = () => (
   <NavButton to={`${Paths.CANVAS}${SubPage.RADIAL}`}>
-    Radial canvas why its there and what it can do.
+    Canvas radial: Why its there and what it can do.
   </NavButton>
 )
 export const CanvasPageLinkPlotted: React.FC = () => (
   <NavButton to={`${Paths.CANVAS}${SubPage.PLOTTED}`}>
-    Plotted canvas why its there and what it can do.
+    Canvas plotted: Why its there and what it can do.
   </NavButton>
 )
 export const CanvasPageLinkConfig: React.FC = () => (
@@ -107,50 +105,53 @@ export const CanvasPageLinkEditor: React.FC = () => (
   </NavButton>
 )
 /*
+ * Core Links
  * Enums
  */
 export const EnumPageLinkText: React.FC = () => (
   <NavButton to={`${Paths.ENUMS}${SubPage.TEXT_ENUM}`}>
-    Qs text enums: listed with examples.
+    Qs text enums: Listed with examples.
   </NavButton>
 )
 export const EnumPageLinkLine: React.FC = () => (
   <NavButton to={`${Paths.ENUMS}${SubPage.LINE_ENUM}`}>
-    Qs line enums: listed with examples.
+    Qs line enums: Listed with examples.
   </NavButton>
 )
 export const EnumPageLinkColor: React.FC = () => (
   <NavButton to={`${Paths.ENUMS}${SubPage.COLOR_ENUM}`}>
-    Qs color enums: listed with sample colors.
+    Qs color enums: Listed with sample colors.
   </NavButton>
 )
 /*
+ * Core Links
  * Config
  */
 export const ConfigPageLinkBasic: React.FC = () => (
   <NavButton to={`${Paths.ENUMS}${SubPage.BASIC}`}>
-    How configuration can be applied and the relationship between configuration
-    and data.
+    Configuration: How it can be applied and the relationship between
+    configuration and data.
   </NavButton>
 )
 export const ConfigPageLinkColor: React.FC = () => (
   <NavButton to={`${Paths.ENUMS}${SubPage.COLOR_CONFIG}`}>
-    An in depth look at color configuration, to give a better understanding of
-    how configuration is used with elements that have multiple sub elements
-    sucha as bars and points.
+    Configuration of colors: An in depth look at color configuration, to give a
+    better understanding of how configuration is used with elements that have
+    multiple sub elements sucha as bars and points.
   </NavButton>
 )
 /*
+ * Core Links
  * Gradient
  */
 export const GradientPageLinkOrthogonal: React.FC = () => (
   <NavButton to={`${Paths.ENUMS}${SubPage.ORTHOGONAL_GRADIENT}`}>
-    Othogonal gradients: how they are created and applied.
+    Gradients othogonal: How they are created and applied.
   </NavButton>
 )
 export const GradientPageLinkRadial: React.FC = () => (
   <NavButton to={`${Paths.ENUMS}${SubPage.RADIAL_GRADIENT}`}>
-    Radial gradients: how they are created and applied.
+    Gradients radial: How they are created and applied.
   </NavButton>
 )
 

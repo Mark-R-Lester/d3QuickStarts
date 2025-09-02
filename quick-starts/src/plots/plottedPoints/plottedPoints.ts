@@ -1,5 +1,6 @@
 import { Canvas } from '../../canvas/types'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
+import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { plottedPointsConfig } from '../../core/config/configDefaults'
 import { generateClassName } from '../../core/generateClassName'
 import { CalculatedData, getCalculatedData } from './calculatedData'
@@ -11,25 +12,17 @@ import {
 } from './qsTypes'
 import { PlottedPointsConfig } from './types'
 
-const addDefaultsToConfig = (
-  customConfig?: QsPlottedPointsConfig
-): PlottedPointsConfig => {
-  const defaults: PlottedPointsConfig = plottedPointsConfig
-  if (!customConfig) return defaults
-
-  Object.keys(customConfig).forEach(
-    (key) => (defaults[key] = customConfig[key])
-  )
-  return defaults
-}
-
 export const plottedPoint = {
   points: (
     canvas: Canvas,
     data: QsPlottedPointsData[],
     customConfig?: QsPlottedPointsConfig
   ): QsPlottedPoints => {
-    const config: PlottedPointsConfig = addDefaultsToConfig(customConfig)
+    const config: PlottedPointsConfig = addDefaultsToConfig(
+      plottedPointsConfig,
+      customConfig,
+      canvas.configStore.plotted.pointsConfig()
+    )
     return draw(canvas, data, config)
   },
 }

@@ -4,17 +4,16 @@ import { RadialSpokesChartProps } from '../../../common/chartProps'
 
 export const RadialSpokesChart: FunctionComponent<RadialSpokesChartProps> = ({
   canvasConfig,
-  config = {},
-  data = 5,
+  config = { numberOfSpokes: 6 },
 }) => {
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
-      canvas.generate.radialCentroid.spokes(data, config)
+      canvas.generate.radialCentroid.spokes(config)
     }
     createChart()
-  }, [canvasConfig, config, data])
+  }, [canvasConfig, config])
 
   return (
     <>

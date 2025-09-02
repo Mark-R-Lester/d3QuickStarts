@@ -18,7 +18,10 @@ export const RadialAreaChart: FunctionComponent<RadialAreaChartProps> = ({
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
       canvas.configStore.radialCentroid.areaConfig(config)
-      canvas.generate.radialCentroid.spokes(26)
+      canvas.generate.radialCentroid.spokes({
+        numberOfSpokes: 26,
+        innerRadius: 15,
+      })
       canvas.generate.radialCentroid.axis({ radius: 95 })
       canvas.generate.radialCentroid.area(data1)
       if (data2) canvas.generate.radialCentroid.area(data2)

@@ -1,4 +1,4 @@
-import { areaRadial } from 'd3'
+import { areaRadial, lineRadial } from 'd3'
 import { AreaData, CalculatedData, RadialAreaConfig } from './types'
 import { getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
@@ -45,7 +45,14 @@ const draw = (
     .innerRadius((d) => d.inner)
     .curve(constantsCurves[curve])
 
-  const { className, dotClassName } = generateClassName('radialCentroidArea')
+  const radialLine = lineRadial<AreaData>()
+    .angle((d) => d.angle)
+    .radius((d) => d.outer)
+
+  const { className: classNameArea, dotClassName: dotClassNameArea } =
+    generateClassName('radialCentroidArea')
+  const { className: classNameLine, dotClassName: dotClassNameLine } =
+    generateClassName('radialCentroidLine')
   const canvasGroup = config.useDataArea
     ? canvas.canvasDataGroup
     : canvas.canvasGroup
@@ -53,11 +60,20 @@ const draw = (
   group
     .append('path')
     .datum(calculatedData)
-    .attr('class', className)
+    .attr('class', classNameArea)
     .attr('id', (d) => d.id)
     .attr('d', (d) => radialArea(d.areaData))
     .attr('fill', (d) => d.fillColor)
     .attr('fill-opacity', (d) => d.fillOpacity)
+    .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
+
+  group
+    .append('path')
+    .datum(calculatedData)
+    .attr('class', classNameLine)
+    .attr('id', (d) => d.id)
+    .attr('d', (d) => radialLine(d.areaData))
+    .attr('fill', 'none')
     .attr('stroke', (d) => d.strokeColor)
     .attr('stroke-width', (d) => d.strokeWidth)
     .attr('stroke-opacity', (d) => d.strokeOpacity)
@@ -76,7 +92,17 @@ const draw = (
     const args = addTransitionDefaults(transitionData.transitionArgs)
 
     group
-      .selectAll(dotClassName)
+      .selectAll(dotClassNameArea)
+      .datum(calculatedData)
+      .transition()
+      .delay(args.delayInMiliSeconds)
+      .duration(args.durationInMiliSeconds)
+      .attr('d', (d) => radialArea(d.areaData))
+      .attr('fill', (d) => d.fillColor)
+      .attr('fill-opacity', (d) => d.fillOpacity)
+
+    group
+      .selectAll(dotClassNameLine)
       .datum(calculatedData)
       .transition()
       .delay(args.delayInMiliSeconds)
@@ -87,9 +113,12 @@ const draw = (
       .attr('stroke', (d) => d.strokeColor)
       .attr('stroke-width', (d) => d.strokeWidth)
       .attr('stroke-opacity', (d) => d.strokeOpacity)
+      .attr('stroke-linejoin', QsEnumLineJoin.ROUND)
+      .attr('stroke-linecap', QsEnumLineCap.ROUND)
   }
   return {
-    element: group.selectAll(dotClassName),
+    elementArea: group.selectAll(dotClassNameArea),
+    elementLine: group.selectAll(dotClassNameLine),
     transition,
   }
 }

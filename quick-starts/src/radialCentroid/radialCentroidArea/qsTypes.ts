@@ -11,7 +11,10 @@ export interface QsRadialAreaTransitionData {
 }
 
 export interface QsRadialArea {
-  element:
+  elementArea:
+    | Selection<SVGGElement, unknown, HTMLElement, any>
+    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  elementLine:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
   transition: (data: QsRadialAreaTransitionData) => void

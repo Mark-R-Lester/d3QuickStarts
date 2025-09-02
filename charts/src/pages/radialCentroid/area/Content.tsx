@@ -129,8 +129,9 @@ export const basics: JSX.Element = (
                     }}
                     config={{
                       defaultFillOpacity: 0.25,
-                      defaultStrokeWidth: 0.5,
-                      defaultStrokeColor: 'lightBlue',
+                      defaultStrokeWidth: 0.75,
+                      defaultFillColor: 'orange',
+                      defaultStrokeColor: 'orange',
                     }}
                     data2={{
                       lowValues: [
@@ -141,8 +142,8 @@ export const basics: JSX.Element = (
                         16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20,
                         17, 16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16,
                       ],
-                      fillColor: 'darkBlue',
-                      strokeColor: 'darkBlue',
+                      fillColor: 'green',
+                      strokeColor: 'green',
                     }}
                   />
                 </ContentChartBox>,

@@ -10,30 +10,19 @@ import { generateClassName } from '../../core/generateClassName'
 export const radialSpokes = {
   spokes: (
     canvas: Canvas,
-    data: number,
-    customConfig?: QsRadialSpokesConfig
+    customConfig: QsRadialSpokesConfig
   ): QsRadialSpokes => {
     const config: RadialSpokesConfig = addDefaultsToConfig<RadialSpokesConfig>(
       radialCentroidSpokesConfig,
       customConfig,
       canvas.configStore.radialCentroid.spokesConfig()
     )
-    return draw(canvas, data, config)
+    return draw(canvas, config)
   },
 }
 
-const draw = (
-  canvas: Canvas,
-  data: number,
-  config: RadialSpokesConfig
-): QsRadialSpokes => {
-  const { defaultStrokeColor, defaultStrokeOpacity } = config
-
-  const calculatedData: CalculatedData[] = getCalculatedData(
-    canvas,
-    data,
-    config
-  )
+const draw = (canvas: Canvas, config: RadialSpokesConfig): QsRadialSpokes => {
+  const calculatedData: CalculatedData[] = getCalculatedData(canvas, config)
 
   const radialLine = line()
     .x((d) => d[0])
@@ -53,16 +42,12 @@ const draw = (
     .attr('id', (d) => d.id)
     .attr('d', (d) => radialLine(d.lineData))
     .attr('fill', 'none')
-    .attr('stroke', defaultStrokeColor)
+    .attr('stroke', (d) => d.strokeColor)
     .attr('stroke-width', (d) => d.strokeWidth)
-    .attr('stroke-opacity', defaultStrokeOpacity)
+    .attr('stroke-opacity', (d) => d.strokeOpacity)
 
   const transition = (data: number) => {
-    const calculatedData: CalculatedData[] = getCalculatedData(
-      canvas,
-      data,
-      config
-    )
+    const calculatedData: CalculatedData[] = getCalculatedData(canvas, config)
     group
       .selectAll(dotClassName)
       .data(calculatedData.map((d) => d.lineData))

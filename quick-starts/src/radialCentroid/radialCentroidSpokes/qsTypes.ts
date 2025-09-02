@@ -1,7 +1,10 @@
 import { Selection } from 'd3'
 import { RadialSpokesConfig } from './types'
+export { QsSpokeConfig } from './types'
 
-export type QsRadialSpokesConfig = Partial<RadialSpokesConfig>
+export interface QsRadialSpokesConfig extends Partial<RadialSpokesConfig> {
+  numberOfSpokes: number
+}
 
 export interface QsRadialSpokes {
   element:

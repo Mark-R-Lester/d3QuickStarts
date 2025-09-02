@@ -1,26 +1,50 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../canvas/types'
 
-import { CalculatedData, RadialSpokesConfig } from './types'
+import { CalculatedData, QsSpokeConfig, RadialSpokesConfig } from './types'
 
 export const getCalculatedData = (
   canvas: Canvas,
-  data: number,
   config: RadialSpokesConfig
 ) => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
-  const { x, y, radius, innerRadius, defaultStrokeWidth } = config
+  const {
+    x,
+    y,
+    outerRadius,
+    innerRadius,
+    numberOfSpokes,
+    spokeConfig,
+    defaultStrokeWidth,
+    defaultStrokeColor,
+    defaultStrokeOpacity,
+  } = config
   const { genralPercentScale } = canvas.scales
-
   const calculatedData: CalculatedData[] = []
-
   const xCenter = (displayAreaWidth / 100) * x
   const yCenter = (displayAreaHeight / 100) * y
 
-  for (let i = 0; i < data; i++) {
-    const radians = ((Math.PI * 2) / data) * i
-    const outerHypotenuse = ((displayAreaHeight / 2) * radius) / 100
-    const innerHypotenuse = ((displayAreaHeight / 2) * innerRadius) / 100
+  const getLineConfig = (
+    spokeConfig: QsSpokeConfig[] | undefined,
+    lineNumber: number
+  ): QsSpokeConfig | undefined => {
+    return spokeConfig?.find((spoke) => spoke.lineNumber === lineNumber)
+  }
+
+  for (let i = 0; i < numberOfSpokes; i++) {
+    const spoke = getLineConfig(spokeConfig, i)
+
+    const outerRadiusSpoke = spoke?.outerRadius
+    const innerRadiusSpoke = spoke?.innerRadius
+    const strokeColor = spoke?.strokeColor
+    const strokeOpacity = spoke?.strokeOpacity
+    const strokeWidth = spoke?.strokeWidth
+
+    const radians = ((Math.PI * 2) / numberOfSpokes) * i
+    const outerHypotenuse =
+      ((displayAreaHeight / 2) * (outerRadiusSpoke ?? outerRadius)) / 100
+    const innerHypotenuse =
+      ((displayAreaHeight / 2) * (innerRadiusSpoke ?? innerRadius)) / 100
     const outerX = Math.sin(radians) * outerHypotenuse + xCenter
     const outerY = Math.cos(radians) * outerHypotenuse + yCenter
     const innerX = Math.sin(radians) * innerHypotenuse + xCenter
@@ -31,7 +55,9 @@ export const getCalculatedData = (
         [innerX, innerY],
         [outerX, outerY],
       ],
-      strokeWidth: genralPercentScale(defaultStrokeWidth),
+      strokeWidth: genralPercentScale(strokeWidth ?? defaultStrokeWidth),
+      strokeOpacity: strokeOpacity ?? defaultStrokeOpacity,
+      strokeColor: strokeColor ?? defaultStrokeColor,
     }
   }
   return calculatedData

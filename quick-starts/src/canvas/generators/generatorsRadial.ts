@@ -102,7 +102,7 @@ interface RadialCentroidElementFunctions {
     data: QsRadialPointData[],
     customConfig?: QsRadialPointsConfig
   ) => QsRadialPoints
-  spokes: (data: number, customConfig?: QsRadialSpokesConfig) => QsRadialSpokes
+  spokes: (customConfig: QsRadialSpokesConfig) => QsRadialSpokes
   text: (
     data: QsRadialTextData[],
     customConfig?: QsRadialTextConfig
@@ -211,12 +211,9 @@ export const getGenerators = (canvas: Canvas): QsGeneratorRadial => {
         elements.push({ element, data })
         return element
       },
-      spokes: (
-        data: number,
-        customConfig?: QsRadialSpokesConfig
-      ): QsRadialSpokes => {
-        const element = radialSpokes.spokes(canvas, data, customConfig)
-        elements.push({ element, data })
+      spokes: (customConfig: QsRadialSpokesConfig): QsRadialSpokes => {
+        const element = radialSpokes.spokes(canvas, customConfig)
+        elements.push({ element, data: undefined })
         return element
       },
       text: (

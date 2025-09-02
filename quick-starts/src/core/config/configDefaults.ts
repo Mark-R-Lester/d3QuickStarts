@@ -405,11 +405,12 @@ export const radialCentroidTextsConfig: RadialTextConfig = {
 
 export const radialCentroidSpokesConfig: RadialSpokesConfig = {
   useDataArea: true,
-  radius: 100,
+  outerRadius: 100,
   innerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultStrokeColor: GlobalDefaultColors.AXIS_COLOR,
   defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
   defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
+  numberOfSpokes: 0,
 }

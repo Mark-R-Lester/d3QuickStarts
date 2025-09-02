@@ -1,9 +1,11 @@
-import { ConfigStrokeDefaults } from '../../core/types/types'
+import { ConfigStrokeDefaults, StrokeData } from '../../core/types/types'
 
 export interface CalculatedData {
   id: string
   lineData: [number, number][]
   strokeWidth: number
+  strokeOpacity: number
+  strokeColor: string
 }
 
 export interface RadialSpokesConfig extends ConfigStrokeDefaults {
@@ -14,8 +16,17 @@ export interface RadialSpokesConfig extends ConfigStrokeDefaults {
     | undefined
     | boolean
   useDataArea: boolean
-  radius: number
+  spokeConfig?: QsSpokeConfig[]
+  numberOfSpokes: number
+  outerRadius: number
   innerRadius: number
   x: number
   y: number
+}
+
+export interface QsSpokeConfig extends StrokeData {
+  [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
+  lineNumber: number
+  outerRadius: number
+  innerRadius: number
 }

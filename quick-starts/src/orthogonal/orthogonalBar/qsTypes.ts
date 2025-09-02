@@ -1,15 +1,13 @@
 import { Selection } from 'd3'
 import { BarConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
+import { StrokeData } from '../../core/types/types'
 
-export interface QsBarData {
+export interface QsBarData extends Partial<StrokeData> {
   lowValue?: number
   highValue: number
   fillColor?: string
   fillOpacity?: number
-  strokeColor?: string
-  strokeWidth?: number
-  strokeOpacity?: number
   topLeftCornerRadiusCx?: number
   topLeftCornerRadiusCy?: number
   topRightCornerRadiusCy?: number

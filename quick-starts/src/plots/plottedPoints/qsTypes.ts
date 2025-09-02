@@ -1,18 +1,16 @@
 import { Selection } from 'd3'
 import { PlottedPointsConfig } from './calculatedData'
 import { QsCoordinate, QsTransitionArgs } from '../../core/types/qsTypes'
+import { StrokeData } from '../../core/types/types'
 
 export type QsPlottedPointsConfig = Partial<PlottedPointsConfig>
 
-export interface QsPlottedPointsData extends QsCoordinate {
+export interface QsPlottedPointsData extends QsCoordinate, Partial<StrokeData> {
   [key: string]: number | string | undefined
   radius?: number
   opacity?: number
   fillColor?: string
   fillOpacity?: number
-  strokeColor?: string
-  strokeWidth?: number
-  strokeOpacity?: number
 }
 
 export interface QsPlottedPointsTransitionData {

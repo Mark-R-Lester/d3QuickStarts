@@ -9,7 +9,7 @@ export const getCalculatedData = (
   config: RadialSpokesConfig
 ) => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
-  const { x, y, radius, innerRadius, strokeWidth } = config
+  const { x, y, radius, innerRadius, defaultStrokeWidth } = config
   const { genralPercentScale } = canvas.scales
 
   const calculatedData: CalculatedData[] = []
@@ -31,7 +31,7 @@ export const getCalculatedData = (
         [innerX, innerY],
         [outerX, outerY],
       ],
-      strokeWidth: genralPercentScale(strokeWidth),
+      strokeWidth: genralPercentScale(defaultStrokeWidth),
     }
   }
   return calculatedData

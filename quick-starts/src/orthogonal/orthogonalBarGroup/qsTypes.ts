@@ -1,16 +1,14 @@
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { Selection } from 'd3'
 import { BarGroupConfig } from './types'
+import { StrokeData } from '../../core/types/types'
 
 export type QsBarGroupConfig = Partial<BarGroupConfig>
 
-export interface QsBarGroupedData {
+export interface QsBarGroupedData extends Partial<StrokeData> {
   value: number
   fillColor?: string
   fillOpacity?: number
-  strokeColor?: string
-  strokeWidth?: number
-  strokeOpacity?: number
 }
 
 export interface QsBarGroupTransitionData {

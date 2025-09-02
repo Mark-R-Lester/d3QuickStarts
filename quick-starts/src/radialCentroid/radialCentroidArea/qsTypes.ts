@@ -1,6 +1,7 @@
 import { Selection } from 'd3'
 import { RadialAreaConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
+import { StrokeData } from '../../core/types/types'
 
 export type QsRadialAreaConfig = Partial<RadialAreaConfig>
 
@@ -20,13 +21,10 @@ export interface QsRadialArea {
   transition: (data: QsRadialAreaTransitionData) => void
 }
 
-export interface QsRadialAreaData {
+export interface QsRadialAreaData extends Partial<StrokeData> {
   [key: string]: number[] | string | number | undefined
   highValues: number[]
   lowValues?: number[]
   fillColor?: string
   fillOpacity?: number
-  strokeColor?: string
-  strokeWidth?: number
-  strokeOpacity?: number
 }

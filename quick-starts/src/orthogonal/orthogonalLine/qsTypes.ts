@@ -2,13 +2,11 @@ import { Selection } from 'd3'
 import { LineConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { CanvasConfig } from '../../canvas/types'
+import { StrokeData } from '../../core/types/types'
 
-export interface QsLineData {
+export interface QsLineData extends Partial<StrokeData> {
   [key: string]: number[] | string | number | undefined
   values: number[]
-  strokeOpacity?: number
-  strokeColor?: string
-  strokeWidth?: number
 }
 
 export type QsLineConfig = Partial<LineConfig>

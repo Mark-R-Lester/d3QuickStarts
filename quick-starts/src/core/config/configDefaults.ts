@@ -409,7 +409,7 @@ export const radialCentroidSpokesConfig: RadialSpokesConfig = {
   innerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
-  strokeColor: GlobalDefaultColors.AXIS_COLOR,
-  strokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-  strokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
+  defaultStrokeColor: GlobalDefaultColors.AXIS_COLOR,
+  defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
+  defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
 }

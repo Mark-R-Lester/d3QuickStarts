@@ -7,6 +7,7 @@ import {
   QsEnumAlignmentBaseline,
 } from '../../core/enums/qsEnums'
 import { QsOrdinalScaleData } from '../../core/types/qsTypes'
+import { StrokeData } from '../../core/types/types'
 
 interface RingData {
   innerRadius: number
@@ -17,17 +18,13 @@ interface RingData {
   text: number | string
 }
 
-export interface CalculatedData {
+export interface CalculatedData extends StrokeData {
   [key: string]: string | RingData | number
   ringId: string
   textId: string
   ringData: RingData
   x: number
   y: number
-
-  strokeColor: string
-  strokeWidth: number
-  strokeOpacity: number
 
   textFont: QsEnumTextFont | string
   textFontSize: number
@@ -40,7 +37,7 @@ export interface CalculatedData {
   textAlignmentBaseline: QsEnumAlignmentBaseline
 }
 
-export interface RadialAxisConfig {
+export interface RadialAxisConfig extends StrokeData {
   [key: string]: number | undefined | string | boolean | QsOrdinalScaleData
   useDataArea: boolean
   radius: number
@@ -51,9 +48,6 @@ export interface RadialAxisConfig {
   numberOfRings: number
 
   ordinalScale?: QsOrdinalScaleData
-  strokeColor: string
-  strokeWidth: number
-  strokeOpacity: number
 
   textFont: QsEnumTextFont | string
   textFontSize: number

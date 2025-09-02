@@ -7,7 +7,7 @@ import {
   QsEnumScaleType,
 } from '../../core/enums/qsEnums'
 
-import { ConfigStrokeDefaults } from '../../core/types/types'
+import { ConfigStrokeDefaults, StrokeData } from '../../core/types/types'
 
 export interface LineConfig extends ConfigStrokeDefaults {
   [key: string]: QsEnumCurve | number | string | undefined | boolean
@@ -18,11 +18,8 @@ export interface LineConfig extends ConfigStrokeDefaults {
   strokeLineCap: QsEnumLineCap
 }
 
-export interface CalculatedData {
+export interface CalculatedData extends StrokeData {
   id: string
   lineData: [number, number][]
   lineFunction: Line<[number, number]>
-  strokeOpacity: number
-  strokeColor: string
-  strokeWidth: number
 }

@@ -1,4 +1,4 @@
-import { ConfigStrokeDefaults } from '../../core/types/types'
+import { ConfigStrokeDefaults, StrokeData } from '../../core/types/types'
 
 export interface BarStackedConfig extends ConfigStrokeDefaults {
   [key: string]: number | Iterable<String> | undefined | boolean
@@ -13,7 +13,7 @@ export interface CalculatedData {
   barData: BarData[]
 }
 
-export interface BarData {
+export interface BarData extends StrokeData {
   id: string
   x: number
   y: number
@@ -21,7 +21,4 @@ export interface BarData {
   width: number
   fillColor: string
   fillOpacity: number
-  strokeColor: string
-  strokeWidth: number
-  strokeOpacity: number
 }

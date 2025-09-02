@@ -3,7 +3,7 @@ import {
   QsEnumLineCap,
   QsEnumLineJoin,
 } from '../../core/enums/qsEnums'
-import { ConfigStrokeDefaults } from '../../core/types/types'
+import { ConfigStrokeDefaults, StrokeData } from '../../core/types/types'
 
 export interface AreaData {
   angle: number
@@ -11,14 +11,11 @@ export interface AreaData {
   outer: number
 }
 
-export interface CalculatedData {
+export interface CalculatedData extends StrokeData {
   id: string
   areaData: AreaData[]
   fillColor: string
   fillOpacity: number
-  strokeColor: string
-  strokeWidth: number
-  strokeOpacity: number
   x: number
   y: number
 }

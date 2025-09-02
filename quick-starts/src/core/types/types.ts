@@ -22,6 +22,15 @@ export interface ConfigStrokeDefaults {
   defaultStrokeOpacity: number
 }
 
+/*
+ * Color stroke data
+ */
+export interface StrokeData {
+  strokeColor: string
+  strokeWidth: number
+  strokeOpacity: number
+}
+
 export interface ConfigTextDefaults {
   defaultTextFont: QsEnumTextFont | string
   defaultTextFontSize: number

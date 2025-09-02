@@ -1,16 +1,14 @@
 import { Selection } from 'd3'
 import { BarStackedConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
+import { StrokeData } from '../../core/types/types'
 
 export type QsBarStackedConfig = Partial<BarStackedConfig>
 
-export interface QsBarStackedData {
+export interface QsBarStackedData extends Partial<StrokeData> {
   value: number
   fillColor?: string
   fillOpacity?: number
-  strokeColor?: string
-  strokeWidth?: number
-  strokeOpacity?: number
 }
 
 export interface QsBarStackedTransitionData {

@@ -1,13 +1,10 @@
 import { RectangleParams } from '../../core/customShapes/customRectangle'
 import { QsColorScaleData } from '../../core/types/qsTypes'
-import { ConfigStrokeDefaults } from '../../core/types/types'
+import { ConfigStrokeDefaults, StrokeData } from '../../core/types/types'
 
-export interface CalculatedDataBarData {
+export interface CalculatedDataBarData extends StrokeData {
   fillColor: string
   fillOpacity: number
-  strokeColor: string
-  strokeWidth: number
-  strokeOpacity: number
   rectangleParams: RectangleParams
 }
 

@@ -1,10 +1,12 @@
+import { ConfigStrokeDefaults } from '../../core/types/types'
+
 export interface CalculatedData {
   id: string
   lineData: [number, number][]
   strokeWidth: number
 }
 
-export interface RadialSpokesConfig {
+export interface RadialSpokesConfig extends ConfigStrokeDefaults {
   [key: string]:
     | number
     | Iterable<unknown>
@@ -16,7 +18,4 @@ export interface RadialSpokesConfig {
   innerRadius: number
   x: number
   y: number
-  strokeColor: string
-  strokeWidth: number
-  strokeOpacity: number
 }

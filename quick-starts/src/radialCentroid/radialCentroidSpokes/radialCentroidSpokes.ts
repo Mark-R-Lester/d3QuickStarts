@@ -27,7 +27,7 @@ const draw = (
   data: number,
   config: RadialSpokesConfig
 ): QsRadialSpokes => {
-  const { strokeColor, strokeOpacity } = config
+  const { defaultStrokeColor, defaultStrokeOpacity } = config
 
   const calculatedData: CalculatedData[] = getCalculatedData(
     canvas,
@@ -53,9 +53,9 @@ const draw = (
     .attr('id', (d) => d.id)
     .attr('d', (d) => radialLine(d.lineData))
     .attr('fill', 'none')
-    .attr('stroke', strokeColor)
+    .attr('stroke', defaultStrokeColor)
     .attr('stroke-width', (d) => d.strokeWidth)
-    .attr('stroke-opacity', strokeOpacity)
+    .attr('stroke-opacity', defaultStrokeOpacity)
 
   const transition = (data: number) => {
     const calculatedData: CalculatedData[] = getCalculatedData(

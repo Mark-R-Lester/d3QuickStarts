@@ -1,15 +1,13 @@
 import { Selection } from 'd3'
 import { PointsConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
+import { StrokeData } from '../../core/types/types'
 
-export interface QsPointData {
+export interface QsPointData extends Partial<StrokeData> {
   value: number
   radius?: number
   fillColor?: string
   fillOpacity?: number
-  strokeColor?: string
-  strokeWidth?: number
-  strokeOpacity?: number
 }
 
 export type QsPointsConfig = Partial<PointsConfig>

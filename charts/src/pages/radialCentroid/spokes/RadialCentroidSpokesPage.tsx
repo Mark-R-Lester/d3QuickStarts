@@ -4,25 +4,11 @@ import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
-import {
-  defaultsContent,
-  configContent,
-  configAndData,
-  editorContent,
-} from './Content'
+import { defaultsContent, configAndData, editorContent } from './Content'
 import { RadialSpokesChart } from './RadailSpokesChart'
-import { RadialSpokesDefaultsChart } from './RadailSpokesDefaultsChart'
 
 export default function RadialCentroidSpokesPage() {
   const menuElements: JSX.Element[] = [
-    <RadialSpokesDefaultsChart
-      canvasConfig={{
-        chartName: 'radialSpokesDefaultsChart',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 50,
-      }}
-    />,
     <RadialSpokesChart
       canvasConfig={{
         chartName: 'radialSpokesChart',
@@ -37,7 +23,6 @@ export default function RadialCentroidSpokesPage() {
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
     configAndData,
     editorContent,
   ]

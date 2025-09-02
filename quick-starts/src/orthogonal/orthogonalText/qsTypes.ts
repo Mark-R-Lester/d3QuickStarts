@@ -5,7 +5,7 @@ import { TextData } from '../../core/types/types'
 
 export interface QsTextData extends Partial<TextData> {
   value: number
-  relativeValue?: number
+  positionalValue?: number
   text?: string
 }
 

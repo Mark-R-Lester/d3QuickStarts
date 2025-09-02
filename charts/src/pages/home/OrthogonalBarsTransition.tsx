@@ -117,7 +117,7 @@ export const OrthogonalBarsTransition: FunctionComponent<OrienetedChartProps> =
             })
             textData.push({
               value: num,
-              relativeValue: num / 4,
+              positionalValue: num / 4,
             })
           }
           return { barData, textData }

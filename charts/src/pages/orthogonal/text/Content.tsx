@@ -46,20 +46,20 @@ const dataComplex: string = `const data: QsTextData[] = [
 ]`
 
 const dataBanded: string = `const data: QsTextData[] = [
-  { value: 25, relativeValue: 12.5 },
-  { value: 10, relativeValue: 5 },
-  { value: 35, relativeValue: 17.5 },
-  { value: 25, relativeValue: 12.5 },
+  { value: 25, positionalValue: 12.5 },
+  { value: 10, positionalValue: 5 },
+  { value: 35, positionalValue: 17.5 },
+  { value: 25, positionalValue: 12.5 },
   {
     value: 45,
-    relativeValue: 22.5,
+    positionalValue: 22.5,
     text: 'RED',
     textFill: 'red',
     textFontSize: 8,
   },
-  { value: 5, relativeValue: 2.5 },
-  { value: 25, relativeValue: 12.5 },
-  { value: 25, relativeValue: 12.5 },
+  { value: 5, positionalValue: 2.5 },
+  { value: 25, positionalValue: 12.5 },
+  { value: 25, positionalValue: 12.5 },
 ]`
 
 const configComplex: string = `const config: QsTextConfig = {
@@ -276,7 +276,7 @@ export const defaultsContent: JSX.Element = (
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
                     This chart illustrates the use of text banding to align with
-                    bars. It also demonstrates how relativeValue can position
+                    bars. It also demonstrates how positionalValue can position
                     text independently of its actual value, with the option to
                     override the displayed value.
                   </Typography>
@@ -304,20 +304,20 @@ export const defaultsContent: JSX.Element = (
                       scaleType: QsEnumScaleType.BANDED,
                     }}
                     data={[
-                      { value: 25, relativeValue: 12.5 },
-                      { value: 10, relativeValue: 5 },
-                      { value: 35, relativeValue: 17.5 },
-                      { value: 25, relativeValue: 12.5 },
+                      { value: 25, positionalValue: 12.5 },
+                      { value: 10, positionalValue: 5 },
+                      { value: 35, positionalValue: 17.5 },
+                      { value: 25, positionalValue: 12.5 },
                       {
                         value: 45,
-                        relativeValue: 22.5,
+                        positionalValue: 22.5,
                         text: 'RED',
                         textFill: 'red',
                         textFontSize: 8,
                       },
-                      { value: 5, relativeValue: 2.5 },
-                      { value: 25, relativeValue: 12.5 },
-                      { value: 25, relativeValue: 12.5 },
+                      { value: 5, positionalValue: 2.5 },
+                      { value: 25, positionalValue: 12.5 },
+                      { value: 25, positionalValue: 12.5 },
                     ]}
                   />
                 </ContentChartBox>,
@@ -332,7 +332,7 @@ export const defaultsContent: JSX.Element = (
 
 const data: string = `interface QsTextData {
   value: number
-  relativeValue?: number
+  positionalValue?: number
   text?: string
   textFont?: QsEnumTextFont | string
   textFontSize?: number
@@ -364,7 +364,7 @@ const config: string = `interface QsTextConfig {
 
 const dataExample: string = `const data: QsTextData = {
   value: 27,
-  relativeValue?: 10
+  positionalValue?: 10
   text: 'this is what you will see if added',
   textFont: QsEnumTextFont.SERIF,
   textFontSize: 10,

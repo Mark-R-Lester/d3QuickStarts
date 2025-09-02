@@ -95,13 +95,12 @@ export const getCalculatedData = (
 
   const getCoordinates = (data: QsTextData[]): CoordinateAugmented[] =>
     data.map((d, i) => {
-      const value: number = d.relativeValue ?? d.value
+      const value: number = d.positionalValue ?? d.value
       return {
         x: isVertical ? value : pointSpacing[i],
         y: isVertical ? pointSpacing[data.length - i - 1] : value,
         value: d.value,
         text: d.text,
-        displayValue: d.relativeValue,
         textFont: d.textFont,
         textFontSize: d.textFontSize,
         textFontStyle: d.textFontStyle,

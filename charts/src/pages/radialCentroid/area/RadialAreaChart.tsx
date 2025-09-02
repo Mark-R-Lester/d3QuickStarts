@@ -1,43 +1,30 @@
 import { FunctionComponent, useEffect } from 'react'
-import {
-  QsCanvasRadial,
-  qsCreateCanvasRadial,
-  QsRadialAreaData,
-} from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../../common/chartProps'
+import { QsCanvasRadial, qsCreateCanvasRadial } from 'd3qs/d3QuickStart'
+import { RadialAreaChartProps } from '../../../common/chartProps'
 
-export const RadialAreaChart: FunctionComponent<ChartPropsOthogonal> = ({
+export const RadialAreaChart: FunctionComponent<RadialAreaChartProps> = ({
   canvasConfig,
+  config = {},
+  data1 = {
+    highValues: [
+      15, 15, 15, 17, 16, 21, 14, 15, 16, 12, 15, 15, 15, 17, 16, 15, 15, 15,
+      17, 16, 21, 14, 15, 16, 12, 15,
+    ],
+  },
+  data2,
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const data1: QsRadialAreaData = {
-        highValues: [
-          15, 15, 15, 17, 16, 21, 14, 15, 16, 12, 15, 15, 15, 17, 16, 15, 15,
-          15, 17, 16, 21, 14, 15, 16, 12, 15,
-        ],
-        fillColor: 'lightBlue',
-      }
-
-      const data2: QsRadialAreaData = {
-        lowValues: [
-          15, 15, 15, 17, 16, 21, 14, 15, 16, 12, 15, 15, 15, 17, 16, 15, 15,
-          15, 17, 16, 21, 14, 15, 16, 12, 15,
-        ],
-        highValues: [
-          16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17,
-          18, 20, 17, 23, 23, 20, 17, 16, 16,
-        ],
-        fillColor: 'darkBlue',
-      }
-
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
+      canvas.configStore.radialCentroid.areaConfig(config)
+      canvas.generate.radialCentroid.spokes(26)
+      canvas.generate.radialCentroid.axis({ radius: 95 })
       canvas.generate.radialCentroid.area(data1)
-      canvas.generate.radialCentroid.area(data2)
+      if (data2) canvas.generate.radialCentroid.area(data2)
     }
     createChart()
-  }, [canvasConfig])
+  }, [canvasConfig, config, data1, data2])
 
   return (
     <>

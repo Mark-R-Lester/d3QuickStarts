@@ -1,42 +1,22 @@
 import { FunctionComponent, useEffect } from 'react'
-import {
-  QsCanvasRadial,
-  qsCreateCanvasRadial,
-  QsEnumTextFont,
-  QsEnumTextFontWeight,
-  QsEnumTextFontStyle,
-  QsEnumTextDecorationLine,
-  QsEnumAlignmentBaseline,
-  QsEnumTextAnchor,
-} from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../../common/chartProps'
+import { QsCanvasRadial, qsCreateCanvasRadial } from 'd3qs/d3QuickStart'
+import { RadialAxisChartProps } from '../../../common/chartProps'
 
-export const RadialAxisChart: FunctionComponent<ChartPropsOthogonal> = ({
+export const RadialAxisChart: FunctionComponent<RadialAxisChartProps> = ({
   canvasConfig,
+  config = {},
 }) => {
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.generate.radialCentroid.axis({
-        radius: 100,
-        x: 50,
-        y: 50,
-        axisAngle: 45,
-        gap: 20,
-        color: 'black',
-        textFont: QsEnumTextFont.VERDANA,
-        textFontWeight: QsEnumTextFontWeight.NORMAL,
-        textFontStyle: QsEnumTextFontStyle.NORMAL,
-        textFontSize: 8,
-        textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-        textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-        textAnchor: QsEnumTextAnchor.MIDDLE,
-        textStroke: 'red',
-        textFill: 'black',
+      canvas.generate.radialCentroid.spokes({
+        numberOfSpokes: 6,
+        innerRadius: 10,
       })
+      canvas.generate.radialCentroid.axis(config)
     }
     createChart()
-  }, [canvasConfig])
+  }, [canvasConfig, config])
 
   return (
     <>

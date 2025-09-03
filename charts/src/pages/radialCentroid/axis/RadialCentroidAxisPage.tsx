@@ -2,27 +2,13 @@ import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
-import {
-  defaultsContent,
-  configContent,
-  configAndData,
-  editorContent,
-} from './Content'
+import { defaultsContent, configAndData, editorContent } from './Content'
 import { RadialAxisChart } from './RadialAxisChart'
-import { RadialAxisDefaultsChart } from './RadialAxisDefaultsChart'
+import { SingleWord } from '../../../components/atoms/chart/SingleWord'
 
 export default function RadialCentroidAxisPage() {
   const menuElements: JSX.Element[] = [
-    <RadialAxisDefaultsChart
-      canvasConfig={{
-        chartName: 'radialAxisDefaultsChart',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 50,
-      }}
-    />,
     <RadialAxisChart
       canvasConfig={{
         chartName: 'radialAxisChart',
@@ -31,13 +17,12 @@ export default function RadialCentroidAxisPage() {
         highestViewableValue: 50,
       }}
     />,
-    <ConfigAndData />,
+    <SingleWord text="Config" chartName="config" />,
     <TryItYourSelf />,
   ]
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
     configAndData,
     editorContent,
   ]

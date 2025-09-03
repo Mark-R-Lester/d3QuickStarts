@@ -114,7 +114,6 @@ export interface RadialAreaChartProps extends ChartPropsRadial {
 }
 export interface RadialAxisChartProps extends ChartPropsRadial {
   config?: QsRadialAxisConfig
-  data?: number[]
 }
 export interface RadialLineChartProps extends ChartPropsRadial {
   config?: QsRadialLineConfig

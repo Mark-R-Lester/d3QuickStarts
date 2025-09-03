@@ -270,7 +270,7 @@ export const configAndData: JSX.Element = (
         <ContentColumn
           elements={[
             <Typography key="title" variant="h4">
-              Data
+              Config
             </Typography>,
             <ContentRow
               elements={[
@@ -293,9 +293,6 @@ export const configAndData: JSX.Element = (
 
         <ContentColumn
           elements={[
-            <Typography key="title" variant="h4">
-              Config
-            </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>

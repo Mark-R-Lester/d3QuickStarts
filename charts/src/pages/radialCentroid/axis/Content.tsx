@@ -4,31 +4,35 @@ import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
 import { RadialAxisChart } from './RadialAxisChart'
-import { RadialAxisDefaultsChart } from './RadialAxisDefaultsChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
+import {
+  QsEnumTextFont,
+  QsEnumTextFontWeight,
+  QsEnumTextFontStyle,
+  QsEnumTextDecorationLine,
+  QsEnumAlignmentBaseline,
+  QsEnumTextAnchor,
+} from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
-  highestViewableValue: 25,
-  borderColor: 'grey',
+  highestViewableValue: 200,
 }`
 
-const defaultsChart: string = `
-const data: number[] = [5, 10, 15, 50]
+const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+canvas.generate.radialCentroid.spokes({
+  numberOfSpokes: 6,
+  innerRadius: 10,
+})
+canvas.generate.radialCentroid.axis()`
 
-const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.axis(data)`
-
-const configChart: string = `
-const data: number[] = [5, 10, 15, 50]
-
-const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.axis(data, {
+const config2: string = `const config = {
   radius: 100,
   x: 50,
   y: 50,
@@ -44,10 +48,141 @@ canvas.generate.radialCentroid.axis(data, {
   textAnchor: QsEnumTextAnchor.MIDDLE,
   textStroke: 'red',
   textFill: 'black',
-})`
+}`
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+canvas.generate.radialCentroid.spokes({
+  numberOfSpokes: 6,
+  innerRadius: 10,
+})
+canvas.generate.radialCentroid.axis(config)`
+
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              Radial spokes in visualizations like radial charts or polar plots
+              are not data-driven but serve as reference lines to enhance
+              clarity. Radiating from the chart’s center, they mark consistent
+              angular intervals (e.g., every 45° or π/4 radians), helping
+              viewers interpret the angular distribution of data points. Spokes
+              provide a visual grid, making it easier to track positions (e.g.,
+              0°, 90°, 180°) and compare shapes, such as a radial area’s
+              outline. Typically drawn to a fixed or maximum radius, they use
+              subtle styling (e.g., light gray, dashed lines) to avoid
+              overshadowing data, ensuring focus remains on the primary
+              visualization while improving readability.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    When supplied with only essential data, the spokes leverage
+                    the library's default configuration parameters, such as
+                    stroke color, width, and radius. By providing minimal data,
+                    it defaults to preset styles, ensuring spokes radiate from
+                    the center to a fixed or maximum radius. This simplifies
+                    implementation, generating a set of spokes that supports the
+                    primary data visualization without requiring extensive
+                    customization.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={chart1} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <RadialAxisChart
+                    canvasConfig={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 180,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Using config and data to modify appearance
+            </Typography>,
+            <Typography variant="body1">
+              Adjusting configuration parameters for radial spokes significantly
+              alters their visual appearance, enabling customized and effective
+              data visualizations. Parameters like stroke color, width and
+              length can be modified to suit the chart’s aesthetic or functional
+              needs. For instance, increasing stroke width or changing to a bold
+              color enhances prominence, while dashed patterns create subtlety.
+              Spoke length can be set to a fixed value or tied to the maximum
+              data radius for context. Ensuring spokes complement the primary
+              visualization, balancing clarity and style without overwhelming
+              data.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Adding a radial axis for context this chart showcases how
+                    configuration parameters, like stroke color and width can
+                    transform radial spokes, this can be used to enhance the
+                    clarity tailoring visualizations effectively.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={config2} />
+                  <ContentCodeBox code={chart2} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <RadialAxisChart
+                    canvasConfig={{
+                      chartName: 'chart2',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 180,
+                    }}
+                    config={{
+                      radius: 100,
+                      x: 50,
+                      y: 50,
+                      axisAngle: 30,
+                      gap: 9,
+                      color: 'black',
+                      textFont: QsEnumTextFont.VERDANA,
+                      textFontWeight: QsEnumTextFontWeight.NORMAL,
+                      textFontStyle: QsEnumTextFontStyle.NORMAL,
+                      textFontSize: 5,
+                      textDecorationLine: QsEnumTextDecorationLine.NORMAL,
+                      textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+                      textAnchor: QsEnumTextAnchor.MIDDLE,
+                      textFill: 'blue',
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
+
+const axisConfig: string = `interface QsRadialAxisConfig {
+  
+}`
+
+const axisConfigExample: string = `const config: QsRadialAreaConfig = {
+
+}`
 
 const config: string = `interface QsRadialAxisConfig {
   radius?: number
@@ -89,93 +224,51 @@ const configExample: string = `const config: QsRadialAreaConfig = {
   textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }`
 
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text generated with defaults</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <RadialAxisDefaultsChart
-              canvasConfig={{
-                chartName: 'chartH',
-                width: 600,
-                highestViewableValue: 100,
-                borderColor: 'grey',
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text customised</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <RadialAxisChart
-              canvasConfig={{
-                chartName: 'chartV',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 25,
-                borderColor: 'grey',
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsTextConfig interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={config} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={axisConfig} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={axisConfigExample} />
+                </ContentTextBox>,
               ]}
             />,
-            <ContentColumn
+          ]}
+        />
+
+        <ContentColumn
+          elements={[
+            <ContentRow
               elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
@@ -195,6 +288,7 @@ const canvasConfig = {
   highestViewableValue: 25,
   borderColor: 'grey',
 }
-${configChart}`}
+${config2}
+${chart2}`}
   ></ChartEditor>
 )

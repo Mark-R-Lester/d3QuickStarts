@@ -52,20 +52,19 @@ const spokesConfig: string = `const config = {
       innerRadius: 25,
       outerRadius: 75,
     },
-    {
-      lineNumber: 5,
-      strokeColor: 'yellow',
-      innerRadius: 30,
-      outerRadius: 70,
-    },
   ],
 }`
 
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.axis({ axisAngle: 90 })
+canvas.generate.radialCentroid.area({
+  highValues: [25, 50, 75, 100, 125, 150],
+})
 canvas.generate.radialCentroid.spokes()`
 
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+canvas.generate.radialCentroid.area({
+  highValues: [25, 50, 75, 100, 125, 150],
+})
 canvas.generate.radialCentroid.axis({ axisAngle: 90 })
 canvas.generate.radialCentroid.spokes(config)`
 

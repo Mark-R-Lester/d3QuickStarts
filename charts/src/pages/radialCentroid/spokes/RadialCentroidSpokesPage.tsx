@@ -14,7 +14,7 @@ export default function RadialCentroidSpokesPage() {
         chartName: 'radialSpokesChart',
         width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 50,
+        highestViewableValue: 180,
       }}
     />,
     <SingleWord text="Config" chartName="config" />,

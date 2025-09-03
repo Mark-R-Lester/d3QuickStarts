@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../canvas/types'
 
 import { CalculatedData, QsSpokeConfig, RadialSpokesConfig } from './types'
+import { alignIndexClockwise } from './calculateIndexForCorrectOrientation'
 
 export const getCalculatedData = (
   canvas: Canvas,
@@ -33,14 +34,20 @@ export const getCalculatedData = (
 
   for (let i = 0; i < numberOfSpokes; i++) {
     const spoke = getLineConfig(spokeConfig, i)
-
     const outerRadiusSpoke = spoke?.outerRadius
     const innerRadiusSpoke = spoke?.innerRadius
     const strokeColor = spoke?.strokeColor
     const strokeOpacity = spoke?.strokeOpacity
     const strokeWidth = spoke?.strokeWidth
 
-    const radians = ((Math.PI * 2) / numberOfSpokes) * i
+    const alignOddnumbers = (numberOfSpokes % 2) / 2
+    const rotateOneEighty = 2 * Math.PI
+
+    const radians =
+      (((Math.PI * 2) / numberOfSpokes) *
+        (alignIndexClockwise(i, numberOfSpokes) + alignOddnumbers)) %
+      rotateOneEighty
+
     const outerHypotenuse =
       ((displayAreaHeight / 2) * (outerRadiusSpoke ?? outerRadius)) / 100
     const innerHypotenuse =

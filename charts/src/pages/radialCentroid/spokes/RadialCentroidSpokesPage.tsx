@@ -2,10 +2,10 @@ import { Box, Typography } from '@mui/material'
 
 import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import { defaultsContent, configAndData, editorContent } from './Content'
 import { RadialSpokesChart } from './RadailSpokesChart'
+import { SingleWord } from '../../../components/atoms/chart/SingleWord'
 
 export default function RadialCentroidSpokesPage() {
   const menuElements: JSX.Element[] = [
@@ -17,7 +17,7 @@ export default function RadialCentroidSpokesPage() {
         highestViewableValue: 50,
       }}
     />,
-    <ConfigAndData />,
+    <SingleWord text="Config" chartName="config" />,
     <TryItYourSelf />,
   ]
 

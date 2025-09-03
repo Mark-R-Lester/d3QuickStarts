@@ -24,9 +24,9 @@ export interface RadialSpokesConfig extends ConfigStrokeDefaults {
   y: number
 }
 
-export interface QsSpokeConfig extends StrokeData {
+export interface QsSpokeConfig extends Partial<StrokeData> {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
   lineNumber: number
-  outerRadius: number
-  innerRadius: number
+  outerRadius?: number
+  innerRadius?: number
 }

@@ -334,4 +334,5 @@ export const radialCentroidSpokesConfig: QsRadialSpokesConfig = {
   strokeColor: GlobalDefaultColors.AXIS_COLOR,
   strokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
   strokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
+  numberOfSpokes: 0,
 }

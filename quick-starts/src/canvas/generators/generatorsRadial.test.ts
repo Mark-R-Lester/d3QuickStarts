@@ -323,23 +323,22 @@ describe('getGenerators', () => {
     )
 
     test.each`
-      data  | customConfig    | expectedElement
-      ${8}  | ${{ count: 8 }} | ${{ id: 'spokes1' }}
-      ${12} | ${undefined}    | ${{ id: 'spokes2' }}
+      customConfig    | expectedElement
+      ${{ count: 8 }} | ${{ id: 'spokes1' }}
+      ${undefined}    | ${{ id: 'spokes2' }}
     `(
       `When data is $data and customConfig is $customConfig
         it should call generators.radialCentroid.spokes and add to elements
         expectedElement = $expectedElement`,
-      ({ data, customConfig, expectedElement }) => {
+      ({ customConfig, expectedElement }) => {
         ;(radialSpokes.spokes as jest.Mock).mockReturnValue(expectedElement)
-        const result = generators.radialCentroid.spokes(data, customConfig)
+        const result = generators.radialCentroid.spokes(customConfig)
 
         expect(radialSpokes.spokes).toHaveBeenCalledWith(
           expect.anything(),
-          data,
           customConfig
         )
-        expect(testElements).toContainEqual({ element: expectedElement, data })
+        expect(testElements).toContainEqual({ element: expectedElement })
         expect(result).toEqual(expectedElement)
       }
     )

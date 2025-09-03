@@ -9,7 +9,8 @@ export const RadialSpokesChart: FunctionComponent<RadialSpokesChartProps> = ({
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-
+      if (config.spokeConfig)
+        canvas.generate.radialCentroid.axis({ axisAngle: 90 })
       canvas.generate.radialCentroid.spokes(config)
     }
     createChart()

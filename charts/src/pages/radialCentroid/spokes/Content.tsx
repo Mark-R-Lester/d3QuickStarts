@@ -18,15 +18,56 @@ const canvasConfig: string = `const canvasConfig = {
   borderColor: 'grey',
 }`
 
-const chart1: string = `
-const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-const numberOfSpokes = 6
-canvas.generate.radialCentroid.spokes(numberOfSpokes)`
+const spokesConfig: string = `const config = {
+  numberOfSpokes: 6,
+  defaultStrokeWidth: 1,
+  spokeConfig: [
+    {
+      lineNumber: 0,
+      strokeColor: 'pink',
+      innerRadius: 5,
+      outerRadius: 95,
+    },
+    {
+      lineNumber: 1,
+      strokeColor: 'blue',
+      innerRadius: 10,
+      outerRadius: 90,
+    },
+    {
+      lineNumber: 2,
+      strokeColor: 'green',
+      innerRadius: 15,
+      outerRadius: 85,
+    },
+    {
+      lineNumber: 3,
+      strokeColor: 'orange',
+      innerRadius: 20,
+      outerRadius: 80,
+    },
+    {
+      lineNumber: 4,
+      strokeColor: 'red',
+      innerRadius: 25,
+      outerRadius: 75,
+    },
+    {
+      lineNumber: 5,
+      strokeColor: 'yellow',
+      innerRadius: 30,
+      outerRadius: 70,
+    },
+  ],
+}`
 
-const chart2: string = `
-const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-const numberOfSpokes = 6
-canvas.generate.radialCentroid.spokes(numberOfSpokes)`
+const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+canvas.generate.radialCentroid.axis({ axisAngle: 90 })
+canvas.generate.radialCentroid.spokes()`
+
+const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+canvas.generate.radialCentroid.axis({ axisAngle: 90 })
+canvas.generate.radialCentroid.spokes(config)`
 
 export const defaultsContent: JSX.Element = (
   <ContentColumn
@@ -103,13 +144,13 @@ export const defaultsContent: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    This chart showcases how configuration parameters, like
-                    stroke color, width, dash patterns, and angular intervals,
-                    transform radial spokes, enhancing clarity and tailoring
-                    visualizations effectively.
+                    Adding a radial axis for context this chart showcases how
+                    configuration parameters, like stroke color and width can
+                    transform radial spokes, this can be used to enhance the
+                    clarity tailoring visualizations effectively.
                   </Typography>
-
                   <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={spokesConfig} />
                   <ContentCodeBox code={chart2} />
                 </ContentTextBox>,
                 <ContentChartBox>
@@ -119,6 +160,42 @@ export const defaultsContent: JSX.Element = (
                       width: 600,
                       lowestViewableValue: 0,
                       highestViewableValue: 180,
+                    }}
+                    config={{
+                      numberOfSpokes: 6,
+                      defaultStrokeWidth: 1,
+                      spokeConfig: [
+                        {
+                          lineNumber: 0,
+                          strokeColor: 'pink',
+                          innerRadius: 5,
+                          outerRadius: 95,
+                        },
+                        {
+                          lineNumber: 1,
+                          strokeColor: 'blue',
+                          innerRadius: 10,
+                          outerRadius: 90,
+                        },
+                        {
+                          lineNumber: 2,
+                          strokeColor: 'green',
+                          innerRadius: 15,
+                          outerRadius: 85,
+                        },
+                        {
+                          lineNumber: 3,
+                          strokeColor: 'orange',
+                          innerRadius: 20,
+                          outerRadius: 80,
+                        },
+                        {
+                          lineNumber: 4,
+                          strokeColor: 'red',
+                          innerRadius: 25,
+                          outerRadius: 75,
+                        },
+                      ],
                     }}
                   />
                 </ContentChartBox>,
@@ -131,10 +208,60 @@ export const defaultsContent: JSX.Element = (
   />
 )
 
-const data: string = `number`
-const config: string = ``
-const dataExample: string = `6`
-const configExample: string = ``
+const spokeConfig: string = `interface QsSpokeConfig {
+  lineNumber: number
+  outerRadius?: number
+  innerRadius?: number
+  strokeColor?: string
+  strokeWidth?: number
+  strokeOpacity?: number
+}`
+const config: string = `interface QsRadialSpokesConfig {
+  numberOfSpokes: number
+  useDataArea?: boolean
+  spokeConfig?: QsSpokeConfig[]
+  outerRadius?: number
+  innerRadius?: number
+  x?: number
+  y?: number
+  defaultStrokeColor?: string
+  defaultStrokeWidth?: number
+  defaultStrokeOpacity?: number
+}`
+const spokeConfigExample: string = `const spokeConfig: QsSpokeConfig = {
+  lineNumber: 5,
+  strokeColor: 'yellow',
+  innerRadius: 30,
+  outerRadius: 70,
+  strokeColor: 'yellow'
+  strokeWidth: 1
+  strokeOpacity: 1
+}`
+const configExample: string = `const config: QsRadialSpokesConfig = {
+  numberOfSpokes: 6,
+  spokeConfig: [
+    {
+      lineNumber: 0,
+      strokeColor: 'pink',
+      innerRadius: 5,
+      outerRadius: 95,
+    },
+    {
+      lineNumber: 1,
+      strokeColor: 'blue',
+      innerRadius: 10,
+      outerRadius: 90,
+    }
+  ]
+  useDataArea: true
+  outerRadius: 100
+  innerRadius: 0
+  x: 50
+  y: 50
+  defaultStrokeColor: 'blue'
+  defaultStrokeWidth: 1
+  defaultStrokeOpacity: 1
+}`
 
 export const configAndData: JSX.Element = (
   <ContentColumn
@@ -152,13 +279,13 @@ export const configAndData: JSX.Element = (
                   <Typography variant="body2" gutterBottom>
                     Interface
                   </Typography>
-                  <ContentCodeBox code={data} />
+                  <ContentCodeBox code={spokeConfig} />
                 </ContentTextBox>,
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
                     Example
                   </Typography>
-                  <ContentCodeBox code={dataExample} />
+                  <ContentCodeBox code={spokeConfigExample} />
                 </ContentTextBox>,
               ]}
             />,
@@ -200,9 +327,10 @@ const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
   lowestViewableValue: 0,
-  highestViewableValue: 25,
+  highestViewableValue: 180,
   borderColor: 'grey',
 }
-${chart1}`}
+${spokesConfig}
+${chart2}`}
   ></ChartEditor>
 )

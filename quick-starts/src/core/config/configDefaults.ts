@@ -355,18 +355,21 @@ export const radialCentroidAxisConfig: RadialAxisConfig = {
   axisAngle: 0,
   gap: 15,
   numberOfRings: 4,
-  strokeColor: GlobalDefaultColors.AXIS_COLOR,
-  strokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-  strokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
-  textFont: QsEnumTextFont.SERIF,
-  textFontSize: GlobalDefaultSettings.FONT_SIZE,
-  textFontStyle: QsEnumTextFontStyle.NORMAL,
-  textFontWeight: QsEnumTextFontWeight.NORMAL,
-  textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-  textFill: GlobalDefaultColors.TEXT_FILL_COLOR,
-  textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
-  textAnchor: QsEnumTextAnchor.MIDDLE,
-  textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+
+  defaultStrokeColor: GlobalDefaultColors.AXIS_COLOR,
+  defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
+  defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
+
+  defaultTextFont: QsEnumTextFont.SERIF,
+  defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
+  defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
+  defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
+  defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
+  defaultTextFill: GlobalDefaultColors.TEXT_FILL_COLOR,
+  defaultTextAngle: 0,
+  defaultTextStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
+  defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
+  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
 export const radialCentroidLineConfig: RadialLineConfig = {
@@ -405,8 +408,8 @@ export const radialCentroidTextsConfig: RadialTextConfig = {
 
 export const radialCentroidSpokesConfig: RadialSpokesConfig = {
   useDataArea: true,
-  outerRadius: 100,
-  innerRadius: 0,
+  defaultOuterRadius: 100,
+  defaultInnerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultStrokeColor: GlobalDefaultColors.AXIS_COLOR,

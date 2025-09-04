@@ -1,13 +1,10 @@
-import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
-  QsEnumTextAnchor,
-  QsEnumAlignmentBaseline,
-} from '../../core/enums/qsEnums'
 import { QsOrdinalScaleData } from '../../core/types/qsTypes'
-import { StrokeData } from '../../core/types/types'
+import {
+  ConfigStrokeDefaults,
+  ConfigTextDefaults,
+  StrokeData,
+  TextData,
+} from '../../core/types/types'
 
 interface RingData {
   innerRadius: number
@@ -18,28 +15,27 @@ interface RingData {
   text: number | string
 }
 
-export interface CalculatedData extends StrokeData {
+export interface CalculatedData extends StrokeData, TextData {
   [key: string]: string | RingData | number
   ringId: string
   textId: string
   ringData: RingData
   x: number
   y: number
-
-  textFont: QsEnumTextFont | string
-  textFontSize: number
-  textFontStyle: QsEnumTextFontStyle
-  textFontWeight: QsEnumTextFontWeight | number
-  textDecorationLine: QsEnumTextDecorationLine
-  textFill: string
-  textAnchor: QsEnumTextAnchor
-  textStroke: string
-  textAlignmentBaseline: QsEnumAlignmentBaseline
 }
 
-export interface RadialAxisConfig extends StrokeData {
-  [key: string]: number | undefined | string | boolean | QsOrdinalScaleData
+export interface RadialAxisConfig
+  extends ConfigStrokeDefaults,
+    ConfigTextDefaults {
+  [key: string]:
+    | number
+    | undefined
+    | string
+    | boolean
+    | QsOrdinalScaleData
+    | QsRingConfig[]
   useDataArea: boolean
+  ringConfig?: QsRingConfig[]
   radius: number
   x: number
   y: number
@@ -48,14 +44,11 @@ export interface RadialAxisConfig extends StrokeData {
   numberOfRings: number
 
   ordinalScale?: QsOrdinalScaleData
+}
 
-  textFont: QsEnumTextFont | string
-  textFontSize: number
-  textFontStyle: QsEnumTextFontStyle
-  textFontWeight: QsEnumTextFontWeight | number
-  textDecorationLine: QsEnumTextDecorationLine
-  textFill: string
-  textAnchor: QsEnumTextAnchor
-  textStroke: string
-  textAlignmentBaseline: QsEnumAlignmentBaseline
+export interface QsRingConfig extends Partial<StrokeData>, Partial<TextData> {
+  [key: string]: number | undefined | string | boolean | QsOrdinalScaleData
+  ringNumber: number
+  axisAngle?: number
+  gap?: number
 }

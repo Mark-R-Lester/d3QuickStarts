@@ -18,15 +18,15 @@ export interface RadialSpokesConfig extends ConfigStrokeDefaults {
   useDataArea: boolean
   spokeConfig?: QsSpokeConfig[]
   numberOfSpokes: number
-  outerRadius: number
-  innerRadius: number
+  defaultOuterRadius: number
+  defaultInnerRadius: number
   x: number
   y: number
 }
 
 export interface QsSpokeConfig extends Partial<StrokeData> {
   [key: string]: number | Iterable<unknown> | Iterable<string> | undefined
-  lineNumber: number
+  spokeNumber: number
   outerRadius?: number
   innerRadius?: number
 }

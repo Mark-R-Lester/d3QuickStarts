@@ -23,31 +23,31 @@ const spokesConfig: string = `const config = {
   defaultStrokeWidth: 1,
   spokeConfig: [
     {
-      lineNumber: 0,
+      spokeNumber: 0,
       strokeColor: 'pink',
       innerRadius: 5,
       outerRadius: 95,
     },
     {
-      lineNumber: 1,
+      spokeNumber: 1,
       strokeColor: 'blue',
       innerRadius: 10,
       outerRadius: 90,
     },
     {
-      lineNumber: 2,
+      spokeNumber: 2,
       strokeColor: 'green',
       innerRadius: 15,
       outerRadius: 85,
     },
     {
-      lineNumber: 3,
+      spokeNumber: 3,
       strokeColor: 'orange',
       innerRadius: 20,
       outerRadius: 80,
     },
     {
-      lineNumber: 4,
+      spokeNumber: 4,
       strokeColor: 'red',
       innerRadius: 25,
       outerRadius: 75,
@@ -165,31 +165,31 @@ export const defaultsContent: JSX.Element = (
                       defaultStrokeWidth: 1,
                       spokeConfig: [
                         {
-                          lineNumber: 0,
+                          spokeNumber: 0,
                           strokeColor: 'pink',
                           innerRadius: 5,
                           outerRadius: 95,
                         },
                         {
-                          lineNumber: 1,
+                          spokeNumber: 1,
                           strokeColor: 'blue',
                           innerRadius: 10,
                           outerRadius: 90,
                         },
                         {
-                          lineNumber: 2,
+                          spokeNumber: 2,
                           strokeColor: 'green',
                           innerRadius: 15,
                           outerRadius: 85,
                         },
                         {
-                          lineNumber: 3,
+                          spokeNumber: 3,
                           strokeColor: 'orange',
                           innerRadius: 20,
                           outerRadius: 80,
                         },
                         {
-                          lineNumber: 4,
+                          spokeNumber: 4,
                           strokeColor: 'red',
                           innerRadius: 25,
                           outerRadius: 75,

@@ -27,18 +27,22 @@ export const getCalculatedData = (
     y,
     numberOfRings,
     ordinalScale: oScale,
-    textFontSize,
-    strokeWidth,
-    strokeColor,
-    strokeOpacity,
-    textFont,
-    textFontStyle,
-    textFontWeight,
-    textDecorationLine,
-    textFill,
-    textStroke,
-    textAlignmentBaseline,
-    textAnchor,
+    ringConfig,
+
+    defaultStrokeColor,
+    defaultStrokeWidth,
+    defaultStrokeOpacity,
+
+    defaultTextFont,
+    defaultTextFontSize,
+    defaultTextFontStyle,
+    defaultTextFontWeight,
+    defaultTextDecorationLine,
+    defaultTextFill,
+    defaultTextAngle,
+    defaultTextAnchor,
+    defaultTextStroke,
+    defaultTextAlignmentBaseline,
   } = config
 
   const calculatedData: CalculatedData[] = []
@@ -61,6 +65,28 @@ export const getCalculatedData = (
   const bandWidth = genralPercentScale(radius / 2 / numberOfRings)
 
   for (let i = 0; i < numberOfRings + 1; i++) {
+    console.log('ringConfig', ringConfig)
+    const ring = ringConfig?.find((ring) => ring.ringNumber === i)
+    const {
+      axisAngle,
+      gap: ringGap,
+      strokeColor,
+      strokeOpacity,
+      strokeWidth,
+      textFont,
+      textFontSize,
+      textFontStyle,
+      textFontWeight,
+      textDecorationLine,
+      textFill,
+      textAngle,
+      textAnchor,
+      textStroke,
+      textAlignmentBaseline,
+    } = ring ?? {}
+
+    console.log('ring', ring)
+
     const calculateTextPosition = () => {
       const hypotenuse: number = bandWidth * i
       const relativeX: number = oppositeFromHypotenuse({
@@ -105,19 +131,22 @@ export const getCalculatedData = (
       },
       x: xPercentScale(x),
       y: yPercentScale(y),
-      textFontSize: genralPercentScale(textFontSize),
-      strokeWidth: genralPercentScale(strokeWidth),
 
-      strokeColor,
-      strokeOpacity,
-      textFont,
-      textFontStyle,
-      textFontWeight,
-      textDecorationLine,
-      textFill,
-      textAnchor,
-      textStroke,
-      textAlignmentBaseline,
+      strokeWidth: genralPercentScale(strokeWidth ?? defaultStrokeWidth),
+      strokeColor: strokeColor ?? defaultStrokeColor,
+      strokeOpacity: strokeOpacity ?? defaultStrokeOpacity,
+
+      textFontSize: genralPercentScale(textFontSize ?? defaultTextFontSize),
+      textFont: textFont ?? defaultTextFont,
+      textFontStyle: textFontStyle ?? defaultTextFontStyle,
+      textFontWeight: textFontWeight ?? defaultTextFontWeight,
+      textDecorationLine: textDecorationLine ?? defaultTextDecorationLine,
+      textFill: textFill ?? defaultTextFill,
+      textAngle: textAngle ?? defaultTextAngle,
+      textAnchor: textAnchor ?? defaultTextAnchor,
+      textStroke: textStroke ?? defaultTextStroke,
+      textAlignmentBaseline:
+        textAlignmentBaseline ?? defaultTextAlignmentBaseline,
     })
   }
 

@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../canvas/types'
 
-import { CalculatedData, QsSpokeConfig, RadialSpokesConfig } from './types'
+import { CalculatedData, RadialSpokesConfig } from './types'
 import { alignIndexClockwise } from './calculateIndexForCorrectOrientation'
 
 export const getCalculatedData = (
@@ -12,8 +12,8 @@ export const getCalculatedData = (
   const {
     x,
     y,
-    outerRadius,
-    innerRadius,
+    defaultOuterRadius,
+    defaultInnerRadius,
     numberOfSpokes,
     spokeConfig,
     defaultStrokeWidth,
@@ -25,20 +25,15 @@ export const getCalculatedData = (
   const xCenter = (displayAreaWidth / 100) * x
   const yCenter = (displayAreaHeight / 100) * y
 
-  const getLineConfig = (
-    spokeConfig: QsSpokeConfig[] | undefined,
-    lineNumber: number
-  ): QsSpokeConfig | undefined => {
-    return spokeConfig?.find((spoke) => spoke.lineNumber === lineNumber)
-  }
-
   for (let i = 0; i < numberOfSpokes; i++) {
-    const spoke = getLineConfig(spokeConfig, i)
-    const outerRadiusSpoke = spoke?.outerRadius
-    const innerRadiusSpoke = spoke?.innerRadius
-    const strokeColor = spoke?.strokeColor
-    const strokeOpacity = spoke?.strokeOpacity
-    const strokeWidth = spoke?.strokeWidth
+    const spoke = spokeConfig?.find((spoke) => spoke.spokeNumber === i)
+    const {
+      outerRadius,
+      innerRadius,
+      strokeColor,
+      strokeOpacity,
+      strokeWidth,
+    } = spoke ?? {}
 
     const alignOddnumbers = (numberOfSpokes % 2) / 2
     const rotateOneEighty = 2 * Math.PI
@@ -49,9 +44,9 @@ export const getCalculatedData = (
       rotateOneEighty
 
     const outerHypotenuse =
-      ((displayAreaHeight / 2) * (outerRadiusSpoke ?? outerRadius)) / 100
+      ((displayAreaHeight / 2) * (outerRadius ?? defaultOuterRadius)) / 100
     const innerHypotenuse =
-      ((displayAreaHeight / 2) * (innerRadiusSpoke ?? innerRadius)) / 100
+      ((displayAreaHeight / 2) * (innerRadius ?? defaultInnerRadius)) / 100
     const outerX = Math.sin(radians) * outerHypotenuse + xCenter
     const outerY = Math.cos(radians) * outerHypotenuse + yCenter
     const innerX = Math.sin(radians) * innerHypotenuse + xCenter

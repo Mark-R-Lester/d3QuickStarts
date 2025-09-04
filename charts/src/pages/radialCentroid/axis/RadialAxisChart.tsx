@@ -11,7 +11,7 @@ export const RadialAxisChart: FunctionComponent<RadialAxisChartProps> = ({
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
       canvas.generate.radialCentroid.spokes({
         numberOfSpokes: 6,
-        innerRadius: 10,
+        defaultInnerRadius: 10,
       })
       canvas.generate.radialCentroid.axis(config)
     }

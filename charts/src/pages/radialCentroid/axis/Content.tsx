@@ -156,14 +156,23 @@ export const defaultsContent: JSX.Element = (
                       axisAngle: 30,
                       gap: 9,
                       color: 'black',
-                      textFont: QsEnumTextFont.VERDANA,
-                      textFontWeight: QsEnumTextFontWeight.NORMAL,
-                      textFontStyle: QsEnumTextFontStyle.NORMAL,
-                      textFontSize: 5,
-                      textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-                      textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-                      textAnchor: QsEnumTextAnchor.MIDDLE,
-                      textFill: 'blue',
+                      defaultTextFont: QsEnumTextFont.VERDANA,
+                      defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
+                      defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
+                      defaultTextFontSize: 5,
+                      defaultTextDecorationLine:
+                        QsEnumTextDecorationLine.NORMAL,
+                      defaultTextAlignmentBaseline:
+                        QsEnumAlignmentBaseline.MIDDLE,
+                      defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
+                      defaultTextFill: 'blue',
+                      ringConfig: [
+                        {
+                          strokeColor: 'blue',
+                          strokeWidth: 3,
+                          ringNumber: 1,
+                        },
+                      ],
                     }}
                   />
                 </ContentChartBox>,

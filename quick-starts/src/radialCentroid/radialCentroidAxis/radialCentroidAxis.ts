@@ -69,7 +69,7 @@ const draw = (canvas: Canvas, config: RadialAxisConfig): QsRadialAxis => {
     .style('alignment-baseline', (d) => d.textAlignmentBaseline)
     .attr(
       'transform',
-      (d) => `translate(${d.ringData.textLocation})rotate(${0})`
+      (d) => `translate(${d.ringData.textLocation})rotate(${d.textAngle})`
     )
     .text((d) => d.ringData.text)
 

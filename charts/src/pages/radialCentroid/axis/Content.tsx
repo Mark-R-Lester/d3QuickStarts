@@ -153,8 +153,8 @@ export const defaultsContent: JSX.Element = (
                       radius: 100,
                       x: 50,
                       y: 50,
-                      axisAngle: 30,
-                      gap: 9,
+                      defaultAxisAngle: 30,
+                      defaultGap: 9,
                       color: 'black',
                       defaultTextFont: QsEnumTextFont.VERDANA,
                       defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
@@ -168,9 +168,25 @@ export const defaultsContent: JSX.Element = (
                       defaultTextFill: 'blue',
                       ringConfig: [
                         {
-                          strokeColor: 'blue',
-                          strokeWidth: 3,
+                          strokeColor: 'red',
                           ringNumber: 1,
+                          textFill: 'red',
+                        },
+                        {
+                          strokeColor: 'orange',
+                          ringNumber: 2,
+                          textFill: 'orange',
+                        },
+                        {
+                          strokeColor: 'orange',
+                          ringNumber: 3,
+                          textFill: 'orange',
+                        },
+                        {
+                          strokeColor: 'green',
+                          strokeWidth: 1,
+                          ringNumber: 4,
+                          textFill: 'green',
                         },
                       ],
                     }}

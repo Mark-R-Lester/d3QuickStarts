@@ -39,8 +39,8 @@ export interface RadialAxisConfig
   radius: number
   x: number
   y: number
-  axisAngle: number
-  gap: number
+  defaultAxisAngle: number
+  defaultGap: number
   numberOfRings: number
 
   ordinalScale?: QsOrdinalScaleData

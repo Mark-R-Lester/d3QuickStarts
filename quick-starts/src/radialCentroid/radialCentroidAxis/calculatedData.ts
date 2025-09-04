@@ -21,8 +21,8 @@ export const getCalculatedData = (
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
   const {
     radius,
-    axisAngle,
-    gap,
+    defaultAxisAngle,
+    defaultGap,
     x,
     y,
     numberOfRings,
@@ -61,15 +61,13 @@ export const getCalculatedData = (
       .range([lowestViewableValue, highestViewableValue])
   }
 
-  const radians = axisAngle * (Math.PI / 180)
   const bandWidth = genralPercentScale(radius / 2 / numberOfRings)
 
   for (let i = 0; i < numberOfRings + 1; i++) {
-    console.log('ringConfig', ringConfig)
     const ring = ringConfig?.find((ring) => ring.ringNumber === i)
     const {
       axisAngle,
-      gap: ringGap,
+      gap,
       strokeColor,
       strokeOpacity,
       strokeWidth,
@@ -85,7 +83,9 @@ export const getCalculatedData = (
       textAlignmentBaseline,
     } = ring ?? {}
 
-    console.log('ring', ring)
+    const radians = (axisAngle ?? defaultAxisAngle) * (Math.PI / 180)
+    const halfGap =
+      genralPercentScale((gap ?? defaultGap) / 2) / (bandWidth * i)
 
     const calculateTextPosition = () => {
       const hypotenuse: number = bandWidth * i
@@ -114,8 +114,6 @@ export const getCalculatedData = (
         return (Math.round(text * 10) / 10).toString()
       else return ''
     }
-
-    const halfGap = genralPercentScale(gap / 2) / (bandWidth * i)
 
     calculatedData.push({
       ringId: `ring${uuidv4()}`,

@@ -352,8 +352,8 @@ export const radialCentroidAxisConfig: RadialAxisConfig = {
   radius: 100,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
-  axisAngle: 0,
-  gap: 15,
+  defaultAxisAngle: 0,
+  defaultGap: 15,
   numberOfRings: 4,
 
   defaultStrokeColor: GlobalDefaultColors.AXIS_COLOR,

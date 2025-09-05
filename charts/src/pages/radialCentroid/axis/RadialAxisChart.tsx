@@ -22,9 +22,9 @@ export const RadialAxisChart: FunctionComponent<RadialAxisChartProps> = ({
           { value: 100 },
           { value: 125 },
           { value: 150 },
-          { value: 230 },
+          { value: 240 },
         ],
-        { defaultRadius: 2 }
+        { defaultRadius: 1.2 }
       )
     }
     createChart()

@@ -36,14 +36,12 @@ export interface RadialAxisConfig
     | QsRingConfig[]
   useDataArea: boolean
   ringConfig?: QsRingConfig[]
-  radius: number
   x: number
   y: number
   defaultAxisAngle: number
   defaultGap: number
   numberOfRings: number
-
-  ordinalScale?: QsOrdinalScaleData
+  decimalPlaces?: number
 }
 
 export interface QsRingConfig extends Partial<StrokeData>, Partial<TextData> {
@@ -51,4 +49,5 @@ export interface QsRingConfig extends Partial<StrokeData>, Partial<TextData> {
   ringNumber: number
   axisAngle?: number
   gap?: number
+  decimalPlaces?: number
 }

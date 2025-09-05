@@ -1,6 +1,6 @@
 import { alignIndexClockwise } from './calculateIndexForCorrectOrientation'
 
-describe('GenralPercentScale', () => {
+describe('alignIndexClockwise', () => {
   test.each`
     index | newIndex | numberOfSpokes
     ${0}  | ${3}     | ${6}
@@ -34,7 +34,7 @@ describe('GenralPercentScale', () => {
     ${7}  | ${6}     | ${9}
     ${8}  | ${5}     | ${9}
   `(
-    'the test index $index, newIndex $newIndex, numberOfSpokes $numberOfSpokes',
+    'when index is: $index, and numberOfSpokes is: $numberOfSpokes. newIndex should = $newIndex,',
     ({ index, newIndex, numberOfSpokes }) => {
       expect(alignIndexClockwise(index, numberOfSpokes)).toEqual(newIndex)
     }

@@ -348,8 +348,7 @@ export const radialCentroidAreaConfig: RadialAreaConfig = {
 }
 
 export const radialCentroidAxisConfig: RadialAxisConfig = {
-  useDataArea: true,
-  radius: 100,
+  useDataArea: false,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultAxisAngle: 0,
@@ -407,7 +406,7 @@ export const radialCentroidTextsConfig: RadialTextConfig = {
 }
 
 export const radialCentroidSpokesConfig: RadialSpokesConfig = {
-  useDataArea: true,
+  useDataArea: false,
   defaultOuterRadius: 100,
   defaultInnerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,

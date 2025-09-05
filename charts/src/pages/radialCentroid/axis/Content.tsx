@@ -17,6 +17,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
+  QsEnumDataScale,
 } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
@@ -28,8 +29,20 @@ const canvasConfig: string = `const canvasConfig = {
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.radialCentroid.spokes({
   numberOfSpokes: 6,
-  innerRadius: 10,
+  defaultInnerRadius: 10,
+  defaultOuterRadius: 105,
 })
+canvas.generate.radialCentroid.points(
+  [
+    { value: 50 },
+    { value: 75 },
+    { value: 100 },
+    { value: 125 },
+    { value: 150 },
+    { value: 240 },
+  ],
+  { defaultRadius: 2 }
+)
 canvas.generate.radialCentroid.axis()`
 
 const config2: string = `const config = {
@@ -53,8 +66,20 @@ const config2: string = `const config = {
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.radialCentroid.spokes({
   numberOfSpokes: 6,
-  innerRadius: 10,
+  defaultInnerRadius: 10,
+  defaultOuterRadius: 105,
 })
+canvas.generate.radialCentroid.points(
+  [
+    { value: 50 },
+    { value: 75 },
+    { value: 100 },
+    { value: 125 },
+    { value: 150 },
+    { value: 240 },
+  ],
+  { defaultRadius: 2 }
+)
 canvas.generate.radialCentroid.axis(config)`
 
 export const defaultsContent: JSX.Element = (
@@ -68,30 +93,30 @@ export const defaultsContent: JSX.Element = (
               Defaults
             </Typography>,
             <Typography variant="body1">
-              Radial spokes in visualizations like radial charts or polar plots
-              are not data-driven but serve as reference lines to enhance
-              clarity. Radiating from the chart’s center, they mark consistent
-              angular intervals (e.g., every 45° or π/4 radians), helping
-              viewers interpret the angular distribution of data points. Spokes
-              provide a visual grid, making it easier to track positions (e.g.,
-              0°, 90°, 180°) and compare shapes, such as a radial area’s
-              outline. Typically drawn to a fixed or maximum radius, they use
-              subtle styling (e.g., light gray, dashed lines) to avoid
-              overshadowing data, ensuring focus remains on the primary
-              visualization while improving readability.
+              Concentric rings in radial charts or polar plots serve as
+              reference lines, not data-driven elements, enhancing clarity.
+              Positioned at fixed radial intervals from the center, they mark
+              consistent distances (e.g., every 10 units), aiding in
+              interpreting data magnitude. Each ring often includes a tick value
+              at a gap, typically along a key angle (e.g., 0°), displaying
+              numerical values (e.g., 10, 20, 30). Subtly styled (e.g., light
+              gray, thin lines), rings avoid overshadowing data, ensuring focus
+              on the visualization. They form a radial grid, simplifying
+              magnitude comparisons and improving readability within a compact
+              layout.
             </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    When supplied with only essential data, the spokes leverage
-                    the library's default configuration parameters, such as
-                    stroke color, width, and radius. By providing minimal data,
-                    it defaults to preset styles, ensuring spokes radiate from
-                    the center to a fixed or maximum radius. This simplifies
-                    implementation, generating a set of spokes that supports the
-                    primary data visualization without requiring extensive
-                    customization.
+                    When provided with minimal data, the radial axis utilises
+                    the library's default configuration, such as stroke color,
+                    width. Tick values placed in a configurable gap , displays
+                    numerical markers (e.g., 10, 20). This streamlined approach
+                    simplifies implementation, producing a clear, unobtrusive
+                    axis that supports the primary data visualization without
+                    needing extensive customization, maintaining focus on the
+                    data.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
                   <ContentCodeBox code={chart1} />
@@ -102,7 +127,7 @@ export const defaultsContent: JSX.Element = (
                       chartName: 'chart1',
                       width: 600,
                       lowestViewableValue: 0,
-                      highestViewableValue: 180,
+                      highestViewableValue: 200,
                     }}
                   />
                 </ContentChartBox>,
@@ -117,16 +142,26 @@ export const defaultsContent: JSX.Element = (
               Using config and data to modify appearance
             </Typography>,
             <Typography variant="body1">
-              Adjusting configuration parameters for radial spokes significantly
-              alters their visual appearance, enabling customized and effective
-              data visualizations. Parameters like stroke color, width and
-              length can be modified to suit the chart’s aesthetic or functional
-              needs. For instance, increasing stroke width or changing to a bold
-              color enhances prominence, while dashed patterns create subtlety.
-              Spoke length can be set to a fixed value or tied to the maximum
-              data radius for context. Ensuring spokes complement the primary
-              visualization, balancing clarity and style without overwhelming
-              data.
+              Adjusting configuration parameters for the radial axis
+              significantly alters its visual appearance, enabling customized
+              and effective data visualizations. Parameters like stroke color,
+              width, and ring intervals can be modified to suit the chart’s
+              aesthetic or functional needs. For instance, increasing stroke
+              width or using a bold color enhances prominence, while opacity
+              creates subtlety. The number of rings can be set but this is more
+              of a guide line when calculating ticks. Tick values are generated
+              based on the lowestViewableValue, lowestViewableValue and
+              numberOfRings. numberOfRings being more of a guideline that a
+              defining value. This is due to the tick values produced being
+              automatically adjusted to be well rounded values.
+            </Typography>,
+            <Typography variant="body1">
+              Example: lowestViewableValue = 0, lowestViewableValue = 240 and
+              numberOfRings = 5 resulting ticks = [50, 10, 150, 200]
+            </Typography>,
+            <Typography variant="body1">
+              Example: lowestViewableValue = 0, lowestViewableValue = 250 and
+              numberOfRings = 5 resulting ticks = = [50, 10, 150, 200, 250]
             </Typography>,
             <ContentRow
               elements={[
@@ -147,19 +182,20 @@ export const defaultsContent: JSX.Element = (
                       chartName: 'chart2',
                       width: 600,
                       lowestViewableValue: 0,
-                      highestViewableValue: 180,
+                      highestViewableValue: 240,
+                      dataScale: { scale: QsEnumDataScale.LINEAR },
                     }}
                     config={{
-                      radius: 100,
                       x: 50,
                       y: 50,
                       defaultAxisAngle: 30,
                       defaultGap: 9,
                       color: 'black',
+                      numberOfRings: 4,
                       defaultTextFont: QsEnumTextFont.VERDANA,
                       defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
                       defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
-                      defaultTextFontSize: 5,
+                      defaultTextFontSize: 6,
                       defaultTextDecorationLine:
                         QsEnumTextDecorationLine.NORMAL,
                       defaultTextAlignmentBaseline:
@@ -310,7 +346,7 @@ const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
   lowestViewableValue: 0,
-  highestViewableValue: 25,
+  highestViewableValue: 200,
   borderColor: 'grey',
 }
 ${config2}

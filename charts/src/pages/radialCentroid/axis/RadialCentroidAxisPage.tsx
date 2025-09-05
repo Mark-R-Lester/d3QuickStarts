@@ -14,7 +14,7 @@ export default function RadialCentroidAxisPage() {
         chartName: 'radialAxisChart',
         width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 50,
+        highestViewableValue: 200,
       }}
     />,
     <SingleWord text="Config" chartName="config" />,

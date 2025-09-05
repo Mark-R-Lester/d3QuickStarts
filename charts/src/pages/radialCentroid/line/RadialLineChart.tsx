@@ -1,22 +1,24 @@
 import { FunctionComponent, useEffect } from 'react'
 import { QsCanvasRadial, qsCreateCanvasRadial } from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../../common/chartProps'
+import { RadialLineChartProps } from '../../../common/chartProps'
 
-export const RadialLineChart: FunctionComponent<ChartPropsOthogonal> = ({
+export const RadialLineChart: FunctionComponent<RadialLineChartProps> = ({
   canvasConfig,
+  config = {},
+  data = {
+    values: [
+      16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17, 18,
+      20, 17, 23, 23, 20, 17, 16, 16,
+    ],
+  },
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const values: number[] = [
-        16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17, 18,
-        20, 17, 23, 23, 20, 17, 16, 16,
-      ]
-
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.generate.radialCentroid.line({ values, strokeColor: 'green' })
+      canvas.generate.radialCentroid.line(data, config)
     }
     createChart()
-  }, [canvasConfig])
+  }, [canvasConfig, config, data])
 
   return (
     <>

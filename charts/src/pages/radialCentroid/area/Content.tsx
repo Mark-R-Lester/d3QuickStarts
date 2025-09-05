@@ -179,7 +179,7 @@ const config: string = `interface QsRadialAreaConfig {
   strokeLineCap?: QsEnumLineCap
 }`
 
-const dataExample: string = `const data: QsPlottedLineData = {
+const dataExample: string = `const data: QsRadialAreaData = {
   highValues: [15, 15, 15, 17, 16],
   lowValues: [16, 17, 18, 20, 17],
   fillColor: 'blue',

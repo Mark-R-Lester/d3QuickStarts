@@ -4,10 +4,10 @@ import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import { RadialLineDefaultsChart } from './RadialLineDefaultsChart'
 import { RadialLineChart } from './RadialLineChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 
@@ -18,171 +18,197 @@ const canvasConfig: string = `const canvasConfig = {
   borderColor: 'grey',
 }`
 
-const defaultsChart: string = `
-const data: number[] = [
-  16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 
-  20, 17, 16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16,
-]
+const data1: string = `const data: QsRadialLineData = {
+  values: [
+    16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17, 18,
+    20, 17, 23, 23, 20, 17, 16, 16,
+  ],
+}`
 
-const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.line({ data })`
+const data2: string = `const data: QsRadialLineData = {
+  values: [
+    16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17, 18,
+    20, 17, 23, 23, 20, 17, 16, 16,
+  ],
+}`
 
-const configChart: string = `
-const data: number[] = [
-  16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 
-  20, 17, 16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16,
-]
+const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+canvas.generate.radialCentroid.line(data)`
 
-const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.line(
-  { data, strokeColor: 'green' }
-)`
+const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+canvas.generate.radialCentroid.line(data, config)`
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+export const basics: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              The radial area element displays data as a filled, continuous
+              shape radiating from a central point, mapping values within a
+              polar coordinate system to create a smooth, enclosed visualization
+              of cyclic or angular trends.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    When supplying only the essential data, the radial centroid
+                    area element produces a visualization leveraging the
+                    library's default configuration parameters
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={data1} />
+                  <ContentCodeBox code={chart1} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <RadialLineChart
+                    canvasConfig={{
+                      chartName: 'chart1',
+                      width: 600,
+                      highestViewableValue: 25,
+                      borderColor: 'grey',
+                    }}
+                  />
+                  ,
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
 
-const data: string = `interface QsRadialAreaData {
-  data: number[]
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Using config and data to modify appearance
+            </Typography>,
+            <Typography variant="body1">
+              Adjusting the configuration parameters or input data can
+              substantially change the visual appearance of the area, enabling
+              diverse and tailored data visualizations.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This chart demonstrates the impact config and data can have
+                    on the line.
+                  </Typography>
+
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={data2} />
+                  <ContentCodeBox code={chart2} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <RadialLineChart
+                    canvasConfig={{
+                      chartName: 'chart2',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 25,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
+const data: string = `interface QsRadialLineData {
+  values: number[]
   strokeOpacity?: number
   strokeColor?: string
   strokeWidth?: number
 }`
 
-const config: string = `interface QsRadialAreaConfig {
-  x?: number
-  y?: number
+const config: string = `interface QsRadialLineConfig {
+  useDataArea: boolean
+  x: number
+  y: number
+  curve: QsEnumCurve
+  strokeLineJoin: QsEnumLineJoin
+  strokeLineCap: QsEnumLineCap
   defaultStrokeColor?: string
   defaultStrokeWidth?: number
   defaultStrokeOpacity?: number
-  curve?: QsEnumCurve
-  strokeLineJoin?: QsEnumLineJoin
-  strokeLineCap?: QsEnumLineCap
 }`
 
-const dataExample: string = `const data: QsPlottedLineData = {
-  data: [15, 15, 15, 17, 16],
+const dataExample: string = `const data: QsRadialLineData = {
+  values: [15, 15, 15, 17, 16],
   strokeColor: 'blue'
   strokeWidth: 1,
   strokeOpacity: 1,
 }`
 
-const configExample: string = `const config: QsRadialAreaConfig = {
-  x: 50,
-  y: 50,
-  defaultStrokeColor: 'blue',
-  defaultStrokeWidth: 1,
-  defaultStrokeOpacity: 1,
+const configExample: string = `const config: QsRadialLineConfig = {
+  useDataArea: boolean
+  x: 50
+  y: 50
   curve: QsEnumCurve.NATURAL,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
+  defaultStrokeColor: 'blue',
+  defaultStrokeWidth: 1,
+  defaultStrokeOpacity: 1,
+  
 }`
-
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text generated with defaults</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <RadialLineDefaultsChart
-              canvasConfig={{
-                chartName: 'chartH',
-                width: 600,
-                highestViewableValue: 25,
-                borderColor: 'grey',
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text customised</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <RadialLineChart
-              canvasConfig={{
-                chartName: 'chartV',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 25,
-                borderColor: 'grey',
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
 
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsTextData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={data} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={dataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={data} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsTextConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={config} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
@@ -202,6 +228,7 @@ const canvasConfig = {
   highestViewableValue: 25,
   borderColor: 'grey',
 }
-${configChart}`}
+${data1}
+${chart1}`}
   ></ChartEditor>
 )

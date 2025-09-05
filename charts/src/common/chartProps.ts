@@ -34,6 +34,7 @@ import {
   QsPlottedPointsConfig,
   QsPlottedPointsData,
   QsTextData,
+  QsRadialLineData,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation, EnumRadialTextOrientation } from './enums'
 import {
@@ -117,7 +118,7 @@ export interface RadialAxisChartProps extends ChartPropsRadial {
 }
 export interface RadialLineChartProps extends ChartPropsRadial {
   config?: QsRadialLineConfig
-  data?: number[]
+  data?: QsRadialLineData
 }
 
 export interface RadialPointsChartProps extends ChartPropsRadial {

@@ -3,25 +3,11 @@ import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { useState } from 'react'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
-import {
-  defaultsContent,
-  configContent,
-  configAndData,
-  editorContent,
-} from './Content'
-import { RadialLineDefaultsChart } from './RadialLineDefaultsChart'
+import { basics, configAndData, editorContent } from './Content'
 import { RadialLineChart } from './RadialLineChart'
 
 export default function RadialCentroidLinePage() {
   const menuElements: JSX.Element[] = [
-    <RadialLineDefaultsChart
-      canvasConfig={{
-        chartName: 'radialLineDefaultsChart',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 23,
-      }}
-    />,
     <RadialLineChart
       canvasConfig={{
         chartName: 'radialLineChart',
@@ -34,12 +20,7 @@ export default function RadialCentroidLinePage() {
     <TryItYourSelf />,
   ]
 
-  const contents: JSX.Element[] = [
-    defaultsContent,
-    configContent,
-    configAndData,
-    editorContent,
-  ]
+  const contents: JSX.Element[] = [basics, configAndData, editorContent]
   const [content, setContent] = useState<JSX.Element>(contents[0])
   const onClick = (index: number) => {
     setContent(contents[index])

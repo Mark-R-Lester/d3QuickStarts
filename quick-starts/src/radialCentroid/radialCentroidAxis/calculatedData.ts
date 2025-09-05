@@ -10,7 +10,8 @@ export const getCalculatedData = (
   canvas: Canvas,
   config: RadialAxisConfig
 ): CalculatedData[] => {
-  const { displayAreaHeight, displayAreaWidth } = canvas.config
+  const { displayAreaHeight, displayAreaWidth, lowestViewableValue } =
+    canvas.config
   const {
     xPercentScale,
     yPercentScale,
@@ -19,6 +20,7 @@ export const getCalculatedData = (
     radialTickScale,
   } = canvas.scales
   const {
+    showCentralTick,
     defaultAxisAngle,
     defaultGap,
     x,
@@ -44,6 +46,9 @@ export const getCalculatedData = (
   } = config
 
   let ticks = radialTickScale.nice().ticks(numberOfRings)
+
+  if (ticks[0] > lowestViewableValue) ticks.unshift(lowestViewableValue)
+  if (ticks[0] < lowestViewableValue) ticks[0] = lowestViewableValue
   if (decimalPlaces !== undefined) {
     ticks = ticks.map((tick) => Number(tick.toFixed(decimalPlaces)))
   }
@@ -51,8 +56,8 @@ export const getCalculatedData = (
   const calculatedData: CalculatedData[] = []
   const gapWidth = genralPercentScale(50 / ticks.length)
 
-  ticks.forEach((tick, i) => {
-    const ring = ringConfig?.find((ring) => ring.ringNumber === i)
+  const addToData = (tick: number, index: number) => {
+    const ring = ringConfig?.find((ring) => ring.ringNumber === index)
     const {
       axisAngle,
       gap,
@@ -72,7 +77,8 @@ export const getCalculatedData = (
     } = ring ?? {}
 
     const radians = (axisAngle ?? defaultAxisAngle) * (Math.PI / 180)
-    const halfGap = genralPercentScale((gap ?? defaultGap) / 2) / (gapWidth * i)
+    const halfGap =
+      genralPercentScale((gap ?? defaultGap) / 2) / (gapWidth * index)
 
     const calculateTextPosition = () => {
       const hypotenuse: number = radialDataScale(tick)
@@ -122,6 +128,10 @@ export const getCalculatedData = (
       textAlignmentBaseline:
         textAlignmentBaseline ?? defaultTextAlignmentBaseline,
     })
+  }
+
+  ticks.forEach((tick, index) => {
+    if (index > 0 || showCentralTick) addToData(tick, index)
   })
 
   return calculatedData

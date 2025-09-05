@@ -35,6 +35,7 @@ export interface RadialAxisConfig
     | QsOrdinalScaleData
     | QsRingConfig[]
   useDataArea: boolean
+  showCentralTick: boolean
   ringConfig?: QsRingConfig[]
   x: number
   y: number

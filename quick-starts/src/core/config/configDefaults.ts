@@ -349,15 +349,16 @@ export const radialCentroidAreaConfig: RadialAreaConfig = {
 
 export const radialCentroidAxisConfig: RadialAxisConfig = {
   useDataArea: false,
+  showCentralTick: true,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultAxisAngle: 0,
-  defaultGap: 15,
+  defaultGap: 0,
   numberOfRings: 4,
 
-  defaultStrokeColor: GlobalDefaultColors.AXIS_COLOR,
+  defaultStrokeColor: 'lightGrey',
   defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-  defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
+  defaultStrokeOpacity: 0.5,
 
   defaultTextFont: QsEnumTextFont.SERIF,
   defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
@@ -411,8 +412,8 @@ export const radialCentroidSpokesConfig: RadialSpokesConfig = {
   defaultInnerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
-  defaultStrokeColor: GlobalDefaultColors.AXIS_COLOR,
+  defaultStrokeColor: 'grey',
   defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-  defaultStrokeOpacity: GlobalDefaultSettings.LINE_STROKE_OPACITY,
+  defaultStrokeOpacity: 0.5,
   numberOfSpokes: 0,
 }

@@ -15,14 +15,6 @@ export const RadialAxisChart: FunctionComponent<RadialAxisChartProps> = ({
         defaultOuterRadius: 105,
       })
       canvas.generate.radialCentroid.axis(config)
-
-      canvas.generate.radialCentroid.area({
-        highValues: [50, 75, 100, 125, 150, 230],
-      })
-      canvas.generate.radialCentroid.line({
-        values: [50, 75, 100, 125, 150, 230],
-        fillColor: 'blues',
-      })
       canvas.generate.radialCentroid.points(
         [
           { value: 50 },
@@ -34,14 +26,6 @@ export const RadialAxisChart: FunctionComponent<RadialAxisChartProps> = ({
         ],
         { defaultRadius: 2 }
       )
-      canvas.generate.radialCentroid.text([
-        { value: 50 },
-        { value: 75 },
-        { value: 100 },
-        { value: 125 },
-        { value: 150 },
-        { value: 230 },
-      ])
     }
     createChart()
   }, [canvasConfig, config])

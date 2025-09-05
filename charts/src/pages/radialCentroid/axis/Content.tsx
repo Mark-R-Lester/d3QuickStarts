@@ -157,20 +157,28 @@ export const defaultsContent: JSX.Element = (
             </Typography>,
             <Typography variant="body1">
               Example: lowestViewableValue = 0, lowestViewableValue = 240 and
-              numberOfRings = 5 resulting ticks = [50, 10, 150, 200]
+              numberOfRings = 5 resulting ticks = [50, 100, 150, 200]
             </Typography>,
             <Typography variant="body1">
               Example: lowestViewableValue = 0, lowestViewableValue = 250 and
-              numberOfRings = 5 resulting ticks = = [50, 10, 150, 200, 250]
+              numberOfRings = 5 resulting ticks = [50, 100, 150, 200, 250]
             </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    Adding a radial axis for context this chart showcases how
-                    configuration parameters, like stroke color and width can
-                    transform radial spokes, this can be used to enhance the
-                    clarity tailoring visualizations effectively.
+                    This chart illustrates how configuration parameters can
+                    transform a radial axis, enhancing its visual impact and
+                    functionality in radial charts or polar plots. Adjusting
+                    stroke color, width, and ring intervals allows customization
+                    to align with the chart’s aesthetic or data needs. For
+                    example, a bold color or thicker stroke increases axis
+                    prominence, while subtle opacity ensures it complements the
+                    data. Tick values, placed in configurable gaps (e.g., at
+                    0°), display clear numerical markers (e.g., 10, 20). These
+                    adjustments create a balanced, readable radial axis,
+                    supporting effective data visualization without
+                    overshadowing the primary data.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
                   <ContentCodeBox code={config2} />
@@ -181,7 +189,7 @@ export const defaultsContent: JSX.Element = (
                     canvasConfig={{
                       chartName: 'chart2',
                       width: 600,
-                      lowestViewableValue: 0,
+                      lowestViewableValue: 10,
                       highestViewableValue: 240,
                       dataScale: { scale: QsEnumDataScale.LINEAR },
                     }}
@@ -192,6 +200,7 @@ export const defaultsContent: JSX.Element = (
                       defaultGap: 9,
                       color: 'black',
                       numberOfRings: 4,
+                      showCentralTick: false,
                       defaultTextFont: QsEnumTextFont.VERDANA,
                       defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
                       defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,

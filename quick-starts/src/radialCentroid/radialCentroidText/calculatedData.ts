@@ -41,9 +41,8 @@ export const getCalculatedData = (
   data: QsRadialTextData[],
   config: RadialTextConfig
 ): CalculatedData[] => {
-  const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
-    canvas.config
-  const { genralPercentScale, xPercentScale, yPercentScale } = canvas.scales
+  const { genralPercentScale, xPercentScale, yPercentScale, radialDataScale } =
+    canvas.scales
   const {
     x,
     y,
@@ -64,13 +63,10 @@ export const getCalculatedData = (
   const angleScale = scaleLinear()
     .domain([0, data.length])
     .range([0, 2 * Math.PI])
-  const radialScale = scaleLinear()
-    .domain([lowestViewableValue, highestViewableValue])
-    .range([0, displayAreaHeight / 2])
 
   data.forEach((d, i) => {
     const radians = angleScale(i)
-    const hypotenuse = radialScale(d.value)
+    const hypotenuse = radialDataScale(d.value)
     const coordinate: QsCoordinate = {
       x: Math.sin(radians) * hypotenuse,
       y: Math.cos(radians) * hypotenuse * -1,

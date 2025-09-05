@@ -19,9 +19,8 @@ export const getCalculatedData = (
   lineData: QsRadialLineData,
   config: RadialLineConfig
 ): CalculatedData => {
-  const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
-    canvas.config
-  const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
+  const { xPercentScale, yPercentScale, genralPercentScale, radialDataScale } =
+    canvas.scales
   const { x, y, defaultStrokeColor, defaultStrokeWidth, defaultStrokeOpacity } =
     config
   const { values, strokeOpacity, strokeColor, strokeWidth } = lineData
@@ -29,15 +28,12 @@ export const getCalculatedData = (
   const angleScale = scaleLinear()
     .domain([0, values.length])
     .range([0, 2 * Math.PI])
-  const radialScale = scaleLinear()
-    .domain([lowestViewableValue, highestViewableValue])
-    .range([0, displayAreaHeight / 2])
 
   const valuesCopy = values.slice()
   valuesCopy.push(values[0])
   return {
     id: 'radialLine',
-    lineData: valuesCopy.map((d, i) => [angleScale(i), radialScale(d)]),
+    lineData: valuesCopy.map((d, i) => [angleScale(i), radialDataScale(d)]),
     x: xPercentScale(x),
     y: yPercentScale(y),
     strokeOpacity: strokeOpacity ?? defaultStrokeOpacity,

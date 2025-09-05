@@ -27,10 +27,10 @@ export const getCalculatedData = (
     strokeColor,
     strokeWidth,
   } = areaData
-  const { lowestViewableValue, highestViewableValue, displayAreaHeight } =
-    canvas.config
+  const { lowestViewableValue } = canvas.config
 
-  const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
+  const { xPercentScale, yPercentScale, genralPercentScale, radialDataScale } =
+    canvas.scales
 
   let dataInnerCopy: number[]
 
@@ -40,9 +40,6 @@ export const getCalculatedData = (
   const angleScale = scaleLinear()
     .domain([0, highValues.length])
     .range([0, 2 * Math.PI])
-  const radialScale = scaleLinear()
-    .domain([lowestViewableValue, highestViewableValue])
-    .range([0, displayAreaHeight / 2])
 
   if (lowValues) {
     dataInnerCopy = lowValues.slice()
@@ -53,8 +50,8 @@ export const getCalculatedData = (
     areaData: dataOuterCopy.map((d, i) => {
       return {
         angle: angleScale(i),
-        outer: radialScale(d),
-        inner: radialScale(
+        outer: radialDataScale(d),
+        inner: radialDataScale(
           dataInnerCopy ? dataInnerCopy[i] : lowestViewableValue
         ),
       }

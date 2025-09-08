@@ -1,6 +1,6 @@
 import { Orientation } from '../../core/enums/enums'
 import { Canvas } from '../../canvas/types'
-import { LineConfig, CalculatedData } from './types'
+import { LineConfig, QsCalculatedDataOrthogonalLine } from './types'
 import { getCalculatedData as getVerticalCalculatedData } from './calculatedDataVertical'
 import { getCalculatedData as getHorizontalCalculatedData } from './calculatedDataHorizontal'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
@@ -47,7 +47,7 @@ export const draw = (
   orientation: Orientation,
   config: LineConfig
 ): QsLine => {
-  const calculatedData: CalculatedData =
+  const calculatedData: QsCalculatedDataOrthogonalLine =
     orientation === Orientation.HORIZONTAL
       ? getHorizontalCalculatedData(canvas, data, config)
       : getVerticalCalculatedData(canvas, data, config)
@@ -75,7 +75,7 @@ export const draw = (
   const transition = (transitionData: QsLineTransitionData = { data }) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
 
-    const calculatedData: CalculatedData =
+    const calculatedData: QsCalculatedDataOrthogonalLine =
       orientation === Orientation.HORIZONTAL
         ? getHorizontalCalculatedData(canvas, transitionData.data, config)
         : getVerticalCalculatedData(canvas, transitionData.data, config)
@@ -92,7 +92,8 @@ export const draw = (
       .attr('stroke-opacity', (d) => d.strokeOpacity)
   }
   return {
-    element: group.select(dotClassName),
+    className,
+    calculatedData,
     transition: (data: QsLineTransitionData) => transition(data),
   }
 }

@@ -1,8 +1,7 @@
-import { Selection } from 'd3'
-import { AreaConfig } from './types'
+import { AreaConfig, QsCalculatedDataOrthogonalArea } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
-import { CanvasConfig } from '../../canvas/types'
 import { StrokeData } from '../../core/types/types'
+export { QsCalculatedDataOrthogonalArea } from './types'
 
 export interface QsAreaData extends Partial<StrokeData> {
   lowValues?: number[]
@@ -19,8 +18,7 @@ export interface QsAreaTransitionData {
 }
 
 export interface QsArea {
-  element:
-    | Selection<SVGGElement, CanvasConfig, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  className: string
+  calculatedData: QsCalculatedDataOrthogonalArea
   transition: (data: QsAreaTransitionData) => void
 }

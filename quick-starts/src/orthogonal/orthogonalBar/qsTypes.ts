@@ -1,7 +1,7 @@
-import { Selection } from 'd3'
-import { BarConfig } from './types'
+import { BarConfig, QsCalculatedDataOthogonalBars } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
+export { QsCalculatedDataOthogonalBars } from './types'
 
 export interface QsBarData extends Partial<StrokeData> {
   lowValue?: number
@@ -28,8 +28,7 @@ export interface QsBarTransitionData {
 }
 
 export interface QsBars {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  className: string
+  calculatedData: QsCalculatedDataOthogonalBars[]
   transition: (data: QsBarTransitionData) => void
 }

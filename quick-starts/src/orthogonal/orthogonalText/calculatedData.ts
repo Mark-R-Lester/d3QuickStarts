@@ -1,6 +1,6 @@
 import { scaleLinear, scaleBand, range } from 'd3'
 import { Canvas } from '../../canvas/types'
-import { TextConfig } from './types'
+import { QsCalculatedDataOrthogonalText, TextConfig } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
@@ -16,24 +16,14 @@ import {
 } from '../../core/enums/qsEnums'
 import { TextData } from '../../core/types/types'
 
-export interface CalculatedData extends TextData {
-  id: string
-  coordinate: QsCoordinate
-  text?: string
-  newText?: string
-  value: number
-  diplayValue?: string
-  newValue: number
-}
-
 export const updateCalculatedData = (
   canvas: Canvas,
   data: QsTextData[],
   orientation: Orientation,
   config: TextConfig,
-  calculatedData: CalculatedData[]
-): CalculatedData[] => {
-  const newCalculatedData: CalculatedData[] = getCalculatedData(
+  calculatedData: QsCalculatedDataOrthogonalText[]
+): QsCalculatedDataOrthogonalText[] => {
+  const newCalculatedData: QsCalculatedDataOrthogonalText[] = getCalculatedData(
     canvas,
     data,
     orientation,
@@ -51,7 +41,7 @@ export const getCalculatedData = (
   data: QsTextData[],
   orientation: Orientation,
   config: TextConfig
-): CalculatedData[] => {
+): QsCalculatedDataOrthogonalText[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { xDataScale, yDataScale, genralPercentScale } = canvas.scales
 
@@ -149,26 +139,28 @@ export const getCalculatedData = (
     return isVertical ? space : dataScale(d.y)
   }
 
-  const calculatedData: CalculatedData[] = coordinates.map((d, i) => {
-    return {
-      id: `orthogonalText${uuidv4()}`,
-      coordinate: { x: x(d), y: y(d) },
-      text: d.text,
-      newText: d.text,
-      value: d.value,
-      newValue: d.value,
-      textFont: d.textFont ?? defaultTextFont,
-      textFontSize: genralPercentScale(d.textFontSize ?? defaultTextFontSize),
-      textFontStyle: d.textFontStyle ?? defaultTextFontStyle,
-      textFontWeight: d.textFontWeight ?? defaultTextFontWeight,
-      textDecorationLine: d.textDecorationLine ?? defaultTextDecorationLine,
-      textFill: d.textFill ?? defaultTextFill,
-      textAngle: d.textAngle ?? defaultTextAngle,
-      textAnchor: d.textAnchor ?? defaultTextAnchor,
-      textStroke: d.textStroke ?? defaultTextStroke,
-      textAlignmentBaseline:
-        d.textAlignmentBaseline ?? defaultTextAlignmentBaseline,
+  const calculatedData: QsCalculatedDataOrthogonalText[] = coordinates.map(
+    (d, i) => {
+      return {
+        id: `orthogonalText${uuidv4()}`,
+        coordinate: { x: x(d), y: y(d) },
+        text: d.text,
+        newText: d.text,
+        value: d.value,
+        newValue: d.value,
+        textFont: d.textFont ?? defaultTextFont,
+        textFontSize: genralPercentScale(d.textFontSize ?? defaultTextFontSize),
+        textFontStyle: d.textFontStyle ?? defaultTextFontStyle,
+        textFontWeight: d.textFontWeight ?? defaultTextFontWeight,
+        textDecorationLine: d.textDecorationLine ?? defaultTextDecorationLine,
+        textFill: d.textFill ?? defaultTextFill,
+        textAngle: d.textAngle ?? defaultTextAngle,
+        textAnchor: d.textAnchor ?? defaultTextAnchor,
+        textStroke: d.textStroke ?? defaultTextStroke,
+        textAlignmentBaseline:
+          d.textAlignmentBaseline ?? defaultTextAlignmentBaseline,
+      }
     }
-  })
+  )
   return calculatedData
 }

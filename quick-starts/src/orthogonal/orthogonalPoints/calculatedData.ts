@@ -5,7 +5,7 @@ import {
   ScaleOrdinal,
   ScaleSequential,
 } from 'd3'
-import { PointsConfig } from './types'
+import { QsCalculatedDataOthogonalPoints, PointsConfig } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { Orientation } from '../../core/enums/enums'
 import { QsCoordinate } from '../../core/types/qsTypes'
@@ -20,23 +20,12 @@ import { toStrings } from '../../core/math/conversion'
 import { Canvas } from '../../canvas/types'
 import { QsEnumColorScale, QsEnumScaleType } from '../../core/enums/qsEnums'
 
-export interface CalculatedData {
-  id: string
-  radius: number
-  pointData: QsCoordinate
-  fillColor: string
-  fillOpacity: number
-  strokeColor: string
-  strokeWidth: number
-  strokeOpacity: number
-}
-
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsPointData[],
   orientation: Orientation,
   config: PointsConfig
-): CalculatedData[] => {
+): QsCalculatedDataOthogonalPoints[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const { xDataScale, yDataScale, genralPercentScale } = canvas.scales
   const isVertical = orientation === Orientation.VERTICAL
@@ -131,39 +120,41 @@ export const getCalculatedData = (
   if (strokeColorScaleData)
     strokeColorScale = getColorScale(strokeColorScaleData)
 
-  const calculatedData: CalculatedData[] = coordinates.map((d, i) => {
-    const value = orientation === Orientation.HORIZONTAL ? d.y : d.x
-    const scaledFillColor: string | unknown | undefined = getScaledColor(
-      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
-        ? findOrdinalValue(i, fillColorScaleData)
-        : value,
-      fillColorScale
-    )
-    const scaledStrokeColor: string | unknown | undefined = getScaledColor(
-      fillColorScaleData?.type === QsEnumColorScale.ORDINAL
-        ? findOrdinalValue(i, fillColorScaleData)
-        : value,
-      strokeColorScale
-    )
+  const calculatedData: QsCalculatedDataOthogonalPoints[] = coordinates.map(
+    (d, i) => {
+      const value = orientation === Orientation.HORIZONTAL ? d.y : d.x
+      const scaledFillColor: string | unknown | undefined = getScaledColor(
+        fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+          ? findOrdinalValue(i, fillColorScaleData)
+          : value,
+        fillColorScale
+      )
+      const scaledStrokeColor: string | unknown | undefined = getScaledColor(
+        fillColorScaleData?.type === QsEnumColorScale.ORDINAL
+          ? findOrdinalValue(i, fillColorScaleData)
+          : value,
+        strokeColorScale
+      )
 
-    return {
-      id: `point${uuidv4()}`,
-      pointData: { x: x(d), y: y(d) },
-      fillColor: getPrecidendedColor(
-        d.fillColor,
-        defaultFillColor,
-        scaledFillColor
-      ),
-      strokeColor: getPrecidendedColor(
-        d.strokeColor,
-        defaultStrokeColor,
-        scaledStrokeColor
-      ),
-      radius: genralPercentScale(d.radius ?? defaultRadius),
-      fillOpacity: d.fillOpacity ?? defaultFillOpacity,
-      strokeWidth: genralPercentScale(d.strokeWidth ?? defaultStrokeWidth),
-      strokeOpacity: d.strokeOpacity ?? defaultStrokeOpacity,
+      return {
+        id: `point${uuidv4()}`,
+        pointData: { x: x(d), y: y(d) },
+        fillColor: getPrecidendedColor(
+          d.fillColor,
+          defaultFillColor,
+          scaledFillColor
+        ),
+        strokeColor: getPrecidendedColor(
+          d.strokeColor,
+          defaultStrokeColor,
+          scaledStrokeColor
+        ),
+        radius: genralPercentScale(d.radius ?? defaultRadius),
+        fillOpacity: d.fillOpacity ?? defaultFillOpacity,
+        strokeWidth: genralPercentScale(d.strokeWidth ?? defaultStrokeWidth),
+        strokeOpacity: d.strokeOpacity ?? defaultStrokeOpacity,
+      }
     }
-  })
+  )
   return calculatedData
 }

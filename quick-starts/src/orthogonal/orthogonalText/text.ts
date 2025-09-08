@@ -1,10 +1,6 @@
 import { Canvas } from '../../canvas/types'
-import {
-  CalculatedData,
-  getCalculatedData,
-  updateCalculatedData,
-} from './calculatedData'
-import { TextConfig } from './types'
+import { getCalculatedData, updateCalculatedData } from './calculatedData'
+import { QsCalculatedDataOrthogonalText, TextConfig } from './types'
 import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
@@ -52,7 +48,7 @@ const draw = (
   orientation: Orientation,
   config: TextConfig
 ): QsText => {
-  let calculatedData: CalculatedData[] = getCalculatedData(
+  let calculatedData: QsCalculatedDataOrthogonalText[] = getCalculatedData(
     canvas,
     data,
     orientation,
@@ -89,7 +85,7 @@ const draw = (
     .style('alignment-baseline', (d) => d.textAlignmentBaseline)
     .text((d) => d.text ?? d.value.toFixed(defaultDecimalPoints))
 
-  const transition = (transitionData: QsTextTransitionData = { data }) => {
+  const transition = (transitionData: QsTextTransitionData) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
 
     calculatedData = updateCalculatedData(
@@ -125,7 +121,8 @@ const draw = (
       })
   }
   return {
-    element: group.selectAll(dotClassName),
-    transition: (data: QsTextTransitionData) => transition(data),
+    className,
+    calculatedData,
+    transition,
   }
 }

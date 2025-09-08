@@ -1,7 +1,11 @@
 import { scaleBand, ScaleOrdinal, range, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/math/conversion'
-import { BarConfig, CalculatedDataBarData } from './types'
+import {
+  BarConfig,
+  QsCalculatedDataOthogonalBars,
+  CalculatedDataBarData,
+} from './types'
 import { Orientation } from '../../core/enums/enums'
 import {
   getPrecidendedColor,
@@ -14,11 +18,6 @@ import { Canvas } from '../../canvas/types'
 import { QsEnumColorScale } from '../../core/enums/qsEnums'
 import { RectangleParams } from '../../core/customShapes/customRectangle'
 import { rotateCorners } from './rotateCorners'
-
-export interface CalculatedData {
-  id: string
-  barData: CalculatedDataBarData
-}
 
 export const calculateDataWidth = (
   lowestViewableValue: number,
@@ -41,7 +40,7 @@ export const getCalculatedData = (
   data: QsBarData[],
   orientation: Orientation,
   config: BarConfig
-): CalculatedData[] => {
+): QsCalculatedDataOthogonalBars[] => {
   const {
     padding,
     defaultFillColor,
@@ -67,7 +66,7 @@ export const getCalculatedData = (
     highestViewableValue,
   } = canvas.config
   const { xDataScale, yDataScaleInverted, genralPercentScale } = canvas.scales
-  const calculatedData: CalculatedData[] = []
+  const calculatedData: QsCalculatedDataOthogonalBars[] = []
 
   const isVertical = orientation === Orientation.VERTICAL
 

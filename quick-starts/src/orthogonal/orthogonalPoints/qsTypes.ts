@@ -1,7 +1,7 @@
-import { Selection } from 'd3'
-import { PointsConfig } from './types'
+import { PointsConfig, QsCalculatedDataOthogonalPoints } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
+export { QsCalculatedDataOthogonalPoints } from './types'
 
 export interface QsPointData extends Partial<StrokeData> {
   value: number
@@ -18,8 +18,7 @@ export interface QsPointsTransitionData {
 }
 
 export interface QsPoints {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  className: string
+  calculatedData: QsCalculatedDataOthogonalPoints[]
   transition: (data: QsPointsTransitionData) => void
 }

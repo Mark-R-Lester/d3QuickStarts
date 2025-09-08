@@ -1,7 +1,7 @@
-import { Selection } from 'd3'
-import { BarStackedConfig } from './types'
+import { BarStackedConfig, QsalculatedDataOrthogonalBarStacks } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
+export { QsalculatedDataOrthogonalBarStacks } from './types'
 
 export type QsBarStackedConfig = Partial<BarStackedConfig>
 
@@ -17,8 +17,8 @@ export interface QsBarStackedTransitionData {
 }
 
 export interface QsBarStack {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  className: string
+  classNameStack: string
+  calculatedData: QsalculatedDataOrthogonalBarStacks[]
   transition: (data: QsBarStackedTransitionData) => void
 }

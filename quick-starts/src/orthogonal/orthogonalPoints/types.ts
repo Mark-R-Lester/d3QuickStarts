@@ -1,5 +1,5 @@
 import { QsEnumScaleType } from '../../core/enums/qsEnums'
-import { QsColorScaleData } from '../../core/types/qsTypes'
+import { QsColorScaleData, QsCoordinate } from '../../core/types/qsTypes'
 import { ConfigStrokeDefaults } from '../../core/types/types'
 
 export interface PointsConfig extends ConfigStrokeDefaults {
@@ -11,4 +11,15 @@ export interface PointsConfig extends ConfigStrokeDefaults {
   defaultFillOpacity: number
   fillColorScaleData?: QsColorScaleData
   strokeColorScaleData?: QsColorScaleData
+}
+
+export interface QsCalculatedDataOthogonalPoints {
+  id: string
+  radius: number
+  pointData: QsCoordinate
+  fillColor: string
+  fillOpacity: number
+  strokeColor: string
+  strokeWidth: number
+  strokeOpacity: number
 }

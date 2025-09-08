@@ -2,14 +2,18 @@ import { scaleBand, scaleOrdinal, range, stack, ScaleOrdinal, Series } from 'd3'
 import { Canvas } from '../../canvas/types'
 import { v4 as uuidv4 } from 'uuid'
 import { toStrings } from '../../core/math/conversion'
-import { BarData, BarGroupConfig, CalculatedData } from './types'
+import {
+  BarData,
+  BarGroupConfig,
+  QsCalculatedDataOrthogonalBarGroups,
+} from './types'
 import { QsBarGroupedData } from './qsTypes'
 
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsBarGroupedData[][],
   config: BarGroupConfig
-): CalculatedData[] => {
+): QsCalculatedDataOrthogonalBarGroups[] => {
   const { displayAreaWidth } = canvas.config
   const { yDataScale } = canvas.scales
   const {
@@ -19,7 +23,7 @@ export const getCalculatedData = (
     defaultStrokeWidth,
     defaultFillOpacity,
   } = config
-  const calculatedData: CalculatedData[] = []
+  const calculatedData: QsCalculatedDataOrthogonalBarGroups[] = []
 
   const colors = scaleOrdinal()
     .domain(toStrings(range([...config.colorRange].length)))

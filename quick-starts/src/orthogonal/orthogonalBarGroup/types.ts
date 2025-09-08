@@ -8,7 +8,7 @@ export interface BarGroupConfig extends ConfigStrokeDefaults {
   defaultFillOpacity: number
 }
 
-export interface CalculatedData {
+export interface QsCalculatedDataOrthogonalBarGroups {
   groupId: string
   barData: BarData[]
 }

@@ -25,3 +25,8 @@ export interface BarConfig extends ConfigStrokeDefaults {
   defaultTBottomRightCornerRadiusCx?: number
   defaultTBottomRightCornerRadiusCy?: number
 }
+
+export interface QsCalculatedDataOthogonalBars {
+  id: string
+  barData: CalculatedDataBarData
+}

@@ -1,4 +1,4 @@
-import { BarStackedConfig, CalculatedData } from './types'
+import { BarStackedConfig, QsalculatedDataOrthogonalBarStacks } from './types'
 import { getCalculatedData } from './calculatedData'
 import { Canvas } from '../../canvas/types'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
@@ -32,14 +32,11 @@ const draw = (
   data: QsBarStackedData[][],
   config: BarStackedConfig
 ): QsBarStack => {
-  const calculatedData: CalculatedData[] = getCalculatedData(
-    canvas,
-    data,
-    config
-  )
-  const { className, dotClassName } = generateClassName('orthogonalBarStacked')
+  const calculatedData: QsalculatedDataOrthogonalBarStacks[] =
+    getCalculatedData(canvas, data, config)
   const { className: classNameStack, dotClassName: dotClassNameStack } =
     generateClassName('orthogonalBarStack')
+  const { className, dotClassName } = generateClassName('orthogonalBar')
 
   const canvasGroup = config.useDataArea
     ? canvas.canvasDataGroup
@@ -74,11 +71,8 @@ const draw = (
     transitionData: QsBarStackedTransitionData = { data }
   ) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
-    const calculatedData: CalculatedData[] = getCalculatedData(
-      canvas,
-      transitionData.data,
-      config
-    )
+    const calculatedData: QsalculatedDataOrthogonalBarStacks[] =
+      getCalculatedData(canvas, transitionData.data, config)
 
     const bars = canvas.canvasGroup.selectAll(dotClassName).data(calculatedData)
     bars
@@ -94,7 +88,9 @@ const draw = (
   }
 
   return {
-    element: barStacks.selectAll(dotClassName),
+    className,
+    classNameStack,
+    calculatedData,
     transition,
   }
 }

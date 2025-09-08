@@ -12,7 +12,7 @@ export interface AreaData {
   y1: number
 }
 
-export interface CalculatedData {
+export interface QsCalculatedDataOrthogonalArea {
   id: string
   areaData: AreaData[]
   fillColor: string

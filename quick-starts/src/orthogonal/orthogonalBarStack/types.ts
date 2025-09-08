@@ -8,7 +8,7 @@ export interface BarStackedConfig extends ConfigStrokeDefaults {
   defaultFillOpacity: number
 }
 
-export interface CalculatedData {
+export interface QsalculatedDataOrthogonalBarStacks {
   groupId: string
   barData: BarData[]
 }

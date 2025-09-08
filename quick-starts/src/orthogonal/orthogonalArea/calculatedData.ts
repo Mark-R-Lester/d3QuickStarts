@@ -2,7 +2,7 @@ import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
 
 import { QsAreaData } from './qsTypes'
-import { AreaConfig, CalculatedData } from './types'
+import { AreaConfig, QsCalculatedDataOrthogonalArea } from './types'
 import { Canvas } from '../../canvas/types'
 
 export const getCalculatedData = (
@@ -33,7 +33,7 @@ export const getCalculatedData = (
     .domain([0, highValues.length - 1])
     .range([0, displayAreaWidth])
 
-  const calculatedData: CalculatedData = {
+  const calculatedData: QsCalculatedDataOrthogonalArea = {
     id: `area-${uuidv4()}`,
     areaData: highValues.map((d, i) => ({
       x: xDataScale(i),

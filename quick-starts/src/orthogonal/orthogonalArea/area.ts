@@ -9,7 +9,7 @@ import {
   QsAreaData,
   QsAreaTransitionData,
 } from './qsTypes'
-import { AreaConfig, AreaData, CalculatedData } from './types'
+import { AreaConfig, AreaData, QsCalculatedDataOrthogonalArea } from './types'
 import { orthogonalAreaConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 
@@ -33,7 +33,11 @@ export const orthogonalArea = {
 
 const draw = (canvas: Canvas, data: QsAreaData, config: AreaConfig): QsArea => {
   const { curve } = config
-  const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
+  const calculatedData: QsCalculatedDataOrthogonalArea = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
   const { className, dotClassName } = generateClassName('orthogonalArea')
 
   const area = d3area<AreaData>()
@@ -62,7 +66,7 @@ const draw = (canvas: Canvas, data: QsAreaData, config: AreaConfig): QsArea => {
 
   const transition = (transitionData: QsAreaTransitionData = { data }) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
-    const calculatedData: CalculatedData = getCalculatedData(
+    const calculatedData: QsCalculatedDataOrthogonalArea = getCalculatedData(
       canvas,
       transitionData.data,
       config
@@ -82,7 +86,8 @@ const draw = (canvas: Canvas, data: QsAreaData, config: AreaConfig): QsArea => {
       .attr('stroke-opacity', (d) => d.strokeOpacity)
   }
   return {
-    element: group.select(dotClassName),
+    className,
+    calculatedData,
     transition,
   }
 }

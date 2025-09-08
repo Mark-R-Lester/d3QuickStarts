@@ -1,6 +1,6 @@
 import { Canvas } from '../../canvas/types'
-import { CalculatedData, getCalculatedData } from './calculatedData'
-import { PointsConfig } from './types'
+import { getCalculatedData } from './calculatedData'
+import { QsCalculatedDataOthogonalPoints, PointsConfig } from './types'
 import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import {
@@ -46,7 +46,7 @@ const draw = (
   orientation: Orientation,
   config: PointsConfig
 ): QsPoints => {
-  const calculatedData: CalculatedData[] = getCalculatedData(
+  const calculatedData: QsCalculatedDataOthogonalPoints[] = getCalculatedData(
     canvas,
     data,
     orientation,
@@ -77,7 +77,7 @@ const draw = (
 
   const transition = (transitionData: QsPointsTransitionData = { data }) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
-    const calculatedData: CalculatedData[] = getCalculatedData(
+    const calculatedData: QsCalculatedDataOthogonalPoints[] = getCalculatedData(
       canvas,
       transitionData.data,
       orientation,
@@ -101,7 +101,8 @@ const draw = (
       .attr('stroke-width', (d) => d.strokeWidth)
   }
   return {
-    element: group.selectAll(dotClassName),
-    transition: (data: QsPointsTransitionData) => transition(data),
+    className,
+    calculatedData,
+    transition,
   }
 }

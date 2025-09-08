@@ -18,7 +18,7 @@ export interface LineConfig extends ConfigStrokeDefaults {
   strokeLineCap: QsEnumLineCap
 }
 
-export interface CalculatedData extends StrokeData {
+export interface QsCalculatedDataOrthogonalLine extends StrokeData {
   id: string
   lineData: [number, number][]
   lineFunction: Line<[number, number]>

@@ -1,6 +1,6 @@
 import { scaleLinear, scaleBand, range, line as d3line } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { LineConfig, CalculatedData } from './types'
+import { LineConfig, QsCalculatedDataOrthogonalLine } from './types'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { constantsCurves } from '../../core/constants/constants'
 import { Canvas } from '../../canvas/types'
@@ -11,7 +11,7 @@ export const getCalculatedData = (
   canvas: Canvas,
   data: QsLineData,
   config: LineConfig
-): CalculatedData => {
+): QsCalculatedDataOrthogonalLine => {
   const { displayAreaWidth } = canvas.config
   const { yDataScale, genralPercentScale } = canvas.scales
   const { strokeOpacity, strokeColor, strokeWidth } = data

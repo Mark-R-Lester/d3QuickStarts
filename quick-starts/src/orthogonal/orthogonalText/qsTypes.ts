@@ -1,7 +1,7 @@
-import { Selection } from 'd3'
-import { TextConfig } from './types'
+import { QsCalculatedDataOrthogonalText, TextConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { TextData } from '../../core/types/types'
+export { QsCalculatedDataOrthogonalText } from './types'
 
 export interface QsTextData extends Partial<TextData> {
   value: number
@@ -17,8 +17,7 @@ export interface QsTextTransitionData {
 }
 
 export interface QsText {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  className: string
+  calculatedData: QsCalculatedDataOrthogonalText[]
   transition: (data: QsTextTransitionData) => void
 }

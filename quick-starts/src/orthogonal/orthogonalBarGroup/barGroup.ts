@@ -1,4 +1,4 @@
-import { BarGroupConfig, CalculatedData } from './types'
+import { BarGroupConfig, QsCalculatedDataOrthogonalBarGroups } from './types'
 import { getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { Canvas } from '../../canvas/types'
@@ -32,14 +32,11 @@ const draw = (
   data: QsBarGroupedData[][],
   config: BarGroupConfig
 ): QsBarGroups => {
-  const calculatedData: CalculatedData[] = getCalculatedData(
-    canvas,
-    data,
-    config
-  )
-  const { className, dotClassName } = generateClassName('orthogonalBarGrouped')
+  const calculatedData: QsCalculatedDataOrthogonalBarGroups[] =
+    getCalculatedData(canvas, data, config)
   const { className: classNameGroup, dotClassName: dotClassNameGroup } =
     generateClassName('orthogonalBarGroup')
+  const { className, dotClassName } = generateClassName('orthogonalBar')
 
   const canvasGroup = config.useDataArea
     ? canvas.canvasDataGroup
@@ -71,11 +68,8 @@ const draw = (
 
   const transition = (transitionData: QsBarGroupTransitionData = { data }) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
-    const calculatedData: CalculatedData[] = getCalculatedData(
-      canvas,
-      transitionData.data,
-      config
-    )
+    const calculatedData: QsCalculatedDataOrthogonalBarGroups[] =
+      getCalculatedData(canvas, transitionData.data, config)
     const bars = canvas.canvasGroup
       .selectAll(dotClassNameGroup)
       .data(calculatedData)
@@ -92,7 +86,9 @@ const draw = (
   }
 
   return {
-    element: barGroups.selectAll(dotClassName),
+    className,
+    classNameGroup,
+    calculatedData,
     transition,
   }
 }

@@ -1,6 +1,6 @@
 import { Canvas } from '../../canvas/types'
-import { getCalculatedData, CalculatedData } from './calculatedData'
-import { BarConfig } from './types'
+import { getCalculatedData } from './calculatedData'
+import { BarConfig, QsCalculatedDataOthogonalBars } from './types'
 import { Orientation } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsBarConfig, QsBarData, QsBars, QsBarTransitionData } from './qsTypes'
@@ -42,7 +42,7 @@ const draw = (
   orientation: Orientation,
   config: BarConfig
 ): QsBars => {
-  const calculatedData: CalculatedData[] = getCalculatedData(
+  const calculatedData: QsCalculatedDataOthogonalBars[] = getCalculatedData(
     canvas,
     data,
     orientation,
@@ -71,7 +71,7 @@ const draw = (
   const transition = (transitionData: QsBarTransitionData = { data }) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
 
-    const calculatedData: CalculatedData[] = getCalculatedData(
+    const calculatedData: QsCalculatedDataOthogonalBars[] = getCalculatedData(
       canvas,
       transitionData.data,
       orientation,
@@ -106,7 +106,8 @@ const draw = (
         .attr('stroke-width', (d) => d.barData.strokeWidth)
   }
   return {
-    element: group.selectAll(dotClassName),
+    className,
+    calculatedData,
     transition: (data: QsBarTransitionData) => transition(data),
   }
 }

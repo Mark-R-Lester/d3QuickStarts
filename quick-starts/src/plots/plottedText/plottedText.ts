@@ -13,6 +13,7 @@ import { interpolate } from 'd3'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { generateClassName } from '../../core/generateClassName'
 import { QsEnumCoordinateView } from './qsEnums'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const plottedText = {
   text: (
@@ -55,8 +56,11 @@ const draw = (
     return `${xFixed}, ${yFixed}`
   }
 
-  const canvasGroup = useDataArea ? canvas.canvasDataGroup : canvas.canvasGroup
-  const group = canvasGroup.append('g')
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+  const group = canvasGroup.layer.append('g')
   group
     .selectAll(dotClassName)
     .data(calculatedData)

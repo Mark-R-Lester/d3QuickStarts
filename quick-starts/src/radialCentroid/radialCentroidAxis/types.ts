@@ -5,6 +5,7 @@ import {
   StrokeData,
   TextData,
 } from '../../core/types/types'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 interface RingData {
   innerRadius: number
@@ -25,7 +26,7 @@ export interface RadialAxisConfig
     | boolean
     | QsOrdinalScaleData
     | QsRingConfig[]
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   showCentralTick: boolean
   ringConfig?: QsRingConfig[]
   x: number

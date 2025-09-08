@@ -26,12 +26,12 @@ export const OrthogonalBarChart: FunctionComponent<ChartPropsOthogonal> = ({
         { highValue: 5 },
       ]
 
-      canvas.generate.orthogonal.horizontal.bars(data)
       canvas.generate.orthogonal.vertical.axis.left({
         tickSizeInner: -100,
         tickColor: '#FFFACD',
         numberOfTicks: 3,
       })
+      canvas.generate.orthogonal.horizontal.bars(data)
     }
     createChart()
   }, [canvasConfig])

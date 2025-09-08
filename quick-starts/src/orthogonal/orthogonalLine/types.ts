@@ -2,6 +2,7 @@ import { Line } from 'd3'
 import { Orientation } from '../../core/enums/enums'
 import {
   QsEnumCurve,
+  QsEnumLayerType,
   QsEnumLineCap,
   QsEnumLineJoin,
   QsEnumScaleType,
@@ -11,7 +12,7 @@ import { ConfigStrokeDefaults, StrokeData } from '../../core/types/types'
 
 export interface LineConfig extends ConfigStrokeDefaults {
   [key: string]: QsEnumCurve | number | string | undefined | boolean
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   scaleType: QsEnumScaleType
   curve: QsEnumCurve
   strokeLineJoin: QsEnumLineJoin

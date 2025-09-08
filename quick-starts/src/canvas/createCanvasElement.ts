@@ -2,23 +2,25 @@ import { select, Selection } from 'd3'
 import { generateClassName } from '../core/generateClassName'
 import { CanvasConfig } from './types'
 
-export interface CanvasElements {
-  canvasSVG: Selection<SVGSVGElement, CanvasConfig, HTMLElement, any>
-  canvasGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
-  canvasDataGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
+export interface LayerResult {
+  layer: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
+  sendToTop: () => void
+  sendToBottom: () => void
+  lift: () => void
+  lower: () => void
 }
 
-export const createCanvasElements = (config: CanvasConfig): CanvasElements => {
+export interface Canvas {
+  canvasSVG: Selection<SVGSVGElement, CanvasConfig, HTMLElement, any>
+  addUnboundLayer: () => LayerResult
+  addDataLayer: () => LayerResult
+}
+
+export const getCanvas = (config: CanvasConfig): Canvas => {
   const { className: classCanvasSVG, dotClassName: dotClassCanvasSVG } =
     generateClassName('canvasSVG')
   const { className: classCanvasRect, dotClassName: dotClassCanvasRect } =
     generateClassName('canvasRect')
-  const { className: classCanvasGroup, dotClassName: dotClassCanvasGroup } =
-    generateClassName('canvasGroup')
-  const { className: classDataSVG, dotClassName: dotClassDataSVG } =
-    generateClassName('dataSVG')
-  const { className: classDataGroup, dotClassName: dotClassDataGroup } =
-    generateClassName('dataGroup')
 
   const canvasSVG = select(`#${config.chartName}`)
     .append('svg')
@@ -41,35 +43,82 @@ export const createCanvasElements = (config: CanvasConfig): CanvasElements => {
     .style('fill', (d) => d.fillColor)
     .style('stroke-width', (d) => d.borderWidth)
 
-  const canvasGroup = canvasSVG
-    .append('g')
-    .attr('class', classCanvasGroup)
-    .datum(config)
-    .attr('transform', (d) => `translate(${d.marginLeft}, ${d.marginTop})`)
-    .attr('width', (d) => d.displayAreaWidth)
-    .attr('height', (d) => d.displayAreaHeight)
+  const layers = new Map<
+    string,
+    Selection<SVGGElement, CanvasConfig, HTMLElement, any>
+  >()
+  let layerCounter = 0
 
-  const dataSVG = canvasSVG
-    .append('svg')
-    .datum(config)
-    .attr('class', classDataSVG)
-    .attr('width', (d) => d.displayAreaWidth)
-    .attr('height', (d) => d.displayAreaHeight)
-    .attr('x', (d) => d.marginLeft)
-    .attr('y', (d) => d.marginTop)
+  const generateUniqueLayerId = (prefix: string): string => {
+    return `${prefix}-${layerCounter++}`
+  }
 
-  const canvasDataGroup = dataSVG
-    .append('g')
-    .datum(config)
-    .attr('class', classDataGroup)
-    .attr('id', 'canvasDataGroup')
-    .attr('transform', 'translate(0, 0)')
-    .attr('width', (d) => d.displayAreaWidth)
-    .attr('height', (d) => d.displayAreaHeight)
+  const addUnboundLayer = (): LayerResult => {
+    const layerId = generateUniqueLayerId('unboundLayer')
+    const { className: classCanvasGroup, dotClassName: dotClassCanvasGroup } =
+      generateClassName(`canvasGroup-${layerId}`)
+    const config = canvasSVG.datum()
+
+    const layer = canvasSVG
+      .append('g')
+      .attr('class', classCanvasGroup)
+      .attr('id', layerId)
+      .datum(config)
+      .attr('transform', (d) => `translate(${d.marginLeft}, ${d.marginTop})`)
+      .attr('width', (d) => d.displayAreaWidth)
+      .attr('height', (d) => d.displayAreaHeight)
+
+    layers.set(layerId, layer)
+
+    return {
+      layer,
+      sendToTop: () => layer.raise(),
+      sendToBottom: () => layer.lower(),
+      lift: () => layer.raise(),
+      lower: () => layer.lower(),
+    }
+  }
+
+  const addDataLayer = (): LayerResult => {
+    const layerId = generateUniqueLayerId('dataLayer')
+    const { className: classDataSVG, dotClassName: dotClassDataSVG } =
+      generateClassName(`dataSVG-${layerId}`)
+    const { className: classDataGroup, dotClassName: dotClassDataGroup } =
+      generateClassName(`dataGroup-${layerId}`)
+    const config = canvasSVG.datum()
+
+    const dataSVG = canvasSVG
+      .append('svg')
+      .datum(config)
+      .attr('class', classDataSVG)
+      .attr('width', (d) => d.displayAreaWidth)
+      .attr('height', (d) => d.displayAreaHeight)
+      .attr('x', (d) => d.marginLeft)
+      .attr('y', (d) => d.marginTop)
+
+    const layer = dataSVG
+      .append('g')
+      .datum(config)
+      .attr('class', classDataGroup)
+      .attr('id', layerId)
+      .attr('transform', 'translate(0, 0)')
+      .attr('width', (d) => d.displayAreaWidth)
+      .attr('height', (d) => d.displayAreaHeight)
+
+    layers.set(layerId, layer)
+
+    return {
+      layer,
+      sendToTop: () => layer.raise(),
+      sendToBottom: () => layer.lower(),
+      lift: () => layer.raise(),
+      lower: () => layer.lower(),
+    }
+  }
 
   return {
     canvasSVG,
-    canvasGroup,
-    canvasDataGroup,
+    addUnboundLayer,
+    addDataLayer,
   }
 }

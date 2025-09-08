@@ -130,7 +130,7 @@ const data: string = `interface QsRadialLineData {
 }`
 
 const config: string = `interface QsRadialLineConfig {
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   x: number
   y: number
   curve: QsEnumCurve
@@ -149,7 +149,7 @@ const dataExample: string = `const data: QsRadialLineData = {
 }`
 
 const configExample: string = `const config: QsRadialLineConfig = {
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   x: 50
   y: 50
   curve: QsEnumCurve.NATURAL,

@@ -53,8 +53,10 @@ const canvasConfig = (): CanvasConfig => ({
 })
 
 export const createMockCanvas = (config: QsCanvasConfig): Canvas => ({
-  canvasGroup: createMockSelection<SVGGElement>(),
-  canvasDataGroup: createMockSelection<SVGGElement>(),
+  addUnboundLayer: jest
+    .fn()
+    .mockReturnValue(createMockSelection<SVGGElement>()),
+  addDataLayer: jest.fn().mockReturnValue(createMockSelection<SVGGElement>()),
   config: baseConfig(config),
   configStore: createMockConfigStore().getters,
   scales: getScales(baseConfig(config)),
@@ -65,8 +67,6 @@ export const createMockQsCanvasOthogonal = (
   config: CanvasConfig = canvasConfig()
 ): QsCanvasOrthogonal => ({
   canvasSVG: createMockSelection<SVGSVGElement>(),
-  canvasGroup: createMockSelection<SVGGElement>(),
-  canvasDataGroup: createMockSelection<SVGGElement>(),
   config: config,
   generate: getOrthogonalGenerators(),
   configStore: createMockConfigStore().setters,
@@ -76,8 +76,6 @@ export const createMockQsCanvasPlotted = (
   config: CanvasConfig = canvasConfig()
 ): QsCanvasPlotted => ({
   canvasSVG: createMockSelection<SVGSVGElement>(),
-  canvasGroup: createMockSelection<SVGGElement>(),
-  canvasDataGroup: createMockSelection<SVGGElement>(),
   config: config,
   generate: getPlottedGenerators(),
   configStore: createMockConfigStore().setters,
@@ -87,8 +85,6 @@ export const createMockQsCanvasRadial = (
   config: CanvasConfig = canvasConfig()
 ): QsCanvasRadial => ({
   canvasSVG: createMockSelection<SVGSVGElement>(),
-  canvasGroup: createMockSelection<SVGGElement>(),
-  canvasDataGroup: createMockSelection<SVGGElement>(),
   config: config,
   generate: getRadialGenerators(),
   configStore: createMockConfigStore().setters,

@@ -1,5 +1,6 @@
 import {
   QsEnumCurve,
+  QsEnumLayerType,
   QsEnumLineCap,
   QsEnumLineJoin,
 } from '../../core/enums/qsEnums'
@@ -22,7 +23,7 @@ export interface QsCalculatedDataCentroidArea extends StrokeData {
 
 export interface RadialAreaConfig extends ConfigStrokeDefaults {
   [key: string]: QsEnumCurve | number | undefined | string | boolean
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   curve: QsEnumCurve
   x: number
   y: number

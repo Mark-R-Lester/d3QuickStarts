@@ -1,4 +1,5 @@
 import { RectangleParams } from '../../core/customShapes/customRectangle'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 import { QsColorScaleData } from '../../core/types/qsTypes'
 import { ConfigStrokeDefaults, StrokeData } from '../../core/types/types'
 
@@ -10,7 +11,7 @@ export interface CalculatedDataBarData extends StrokeData {
 
 export interface BarConfig extends ConfigStrokeDefaults {
   [key: string]: number | string | QsColorScaleData | undefined | boolean
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   padding: number
   defaultFillColor: string
   defaultFillOpacity: number

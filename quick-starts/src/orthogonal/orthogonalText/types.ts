@@ -1,10 +1,10 @@
-import { QsEnumScaleType } from '../../core/enums/qsEnums'
+import { QsEnumLayerType, QsEnumScaleType } from '../../core/enums/qsEnums'
 import { QsColorScaleData, QsCoordinate } from '../../core/types/qsTypes'
 import { ConfigTextDefaults, TextData } from '../../core/types/types'
 
 export interface TextConfig extends ConfigTextDefaults {
   [key: string]: number | QsColorScaleData | string | undefined | boolean
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   scaleType: QsEnumScaleType
   defaultDecimalPoints: number
 }

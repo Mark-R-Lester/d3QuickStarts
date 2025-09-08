@@ -1,3 +1,4 @@
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 import { ConfigStrokeDefaults, StrokeData } from '../../core/types/types'
 
 export interface RadialSpokesConfig extends ConfigStrokeDefaults {
@@ -7,7 +8,7 @@ export interface RadialSpokesConfig extends ConfigStrokeDefaults {
     | Iterable<string>
     | undefined
     | boolean
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   spokeConfig?: QsSpokeConfig[]
   numberOfSpokes: number
   defaultOuterRadius: number

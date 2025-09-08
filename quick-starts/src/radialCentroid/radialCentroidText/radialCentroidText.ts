@@ -12,6 +12,7 @@ import { radialCentroidTextsConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 import { interpolate } from 'd3'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const radialText = {
   text: (
@@ -40,10 +41,13 @@ const draw = (
   )
 
   const { className, dotClassName } = generateClassName('radialCentroidText')
-  const canvasGroup = config.useDataArea
-    ? canvas.canvasDataGroup
-    : canvas.canvasGroup
-  const group = canvasGroup.append('g')
+
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+  const group = canvasGroup.layer.append('g')
+
   group
     .selectAll(dotClassName)
     .data(calculatedData)

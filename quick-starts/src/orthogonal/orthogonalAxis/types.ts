@@ -2,6 +2,7 @@ import { Axis } from 'd3'
 import {
   QsEnumAlignmentBaseline,
   QsEnumAxisScaleType,
+  QsEnumLayerType,
   QsEnumTextAnchor,
   QsEnumTextDecorationLine,
   QsEnumTextFont,
@@ -12,6 +13,7 @@ import { QsAxisScaleData } from '../../d3QuickStart'
 
 export interface AxisConfigBase {
   [key: string]: number | boolean | string | undefined | QsAxisScaleData
+  layerType: QsEnumLayerType
   percentageMovement: number
 
   domainColor: string

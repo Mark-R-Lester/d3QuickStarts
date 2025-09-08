@@ -16,10 +16,12 @@ import {
   QsCanvasConfigOrthogonal,
   QsCanvasOrthogonal,
 } from '../../canvas/qsTypes'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
+import { createMockSelection } from '../../__mocks__/selection'
 
 describe('orthogonal Bars calculatedData', () => {
   const config: BarConfig = {
-    useDataArea: true,
+    layerType: QsEnumLayerType.UNBOUND,
     padding: 8,
     defaultFillColor: GlobalDefaultColors.BAR_FILL,
     defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
@@ -111,8 +113,12 @@ describe('orthogonal Bars calculatedData', () => {
           createMockQsCanvasOthogonal(canvasConfig)
 
         const canvas: Canvas = {
-          canvasGroup: qsCanvas.canvasGroup,
-          canvasDataGroup: qsCanvas.canvasDataGroup,
+          addUnboundLayer: jest
+            .fn()
+            .mockReturnValue(createMockSelection<SVGGElement>()),
+          addDataLayer: jest
+            .fn()
+            .mockReturnValue(createMockSelection<SVGGElement>()),
           config: qsCanvas.config,
           scales,
           configStore: new ConfigStoreManager().getters,
@@ -176,8 +182,12 @@ describe('orthogonal Bars calculatedData', () => {
           createMockQsCanvasOthogonal(canvasConfig)
 
         const canvas: Canvas = {
-          canvasGroup: qsCanvas.canvasGroup,
-          canvasDataGroup: qsCanvas.canvasDataGroup,
+          addUnboundLayer: jest
+            .fn()
+            .mockReturnValue(createMockSelection<SVGGElement>()),
+          addDataLayer: jest
+            .fn()
+            .mockReturnValue(createMockSelection<SVGGElement>()),
           config: qsCanvas.config,
           scales,
           configStore: new ConfigStoreManager().getters,
@@ -240,8 +250,12 @@ describe('orthogonal Bars calculatedData', () => {
           createMockQsCanvasOthogonal(canvasConfig)
 
         const canvas: Canvas = {
-          canvasGroup: qsCanvas.canvasGroup,
-          canvasDataGroup: qsCanvas.canvasDataGroup,
+          addUnboundLayer: jest
+            .fn()
+            .mockReturnValue(createMockSelection<SVGGElement>()),
+          addDataLayer: jest
+            .fn()
+            .mockReturnValue(createMockSelection<SVGGElement>()),
           config: qsCanvas.config,
           scales,
           configStore: new ConfigStoreManager().getters,
@@ -305,8 +319,12 @@ describe('orthogonal Bars calculatedData', () => {
           createMockQsCanvasOthogonal(canvasConfig)
 
         const canvas: Canvas = {
-          canvasGroup: qsCanvas.canvasGroup,
-          canvasDataGroup: qsCanvas.canvasDataGroup,
+          addUnboundLayer: jest
+            .fn()
+            .mockReturnValue(createMockSelection<SVGGElement>()),
+          addDataLayer: jest
+            .fn()
+            .mockReturnValue(createMockSelection<SVGGElement>()),
           config: qsCanvas.config,
           scales,
           configStore: new ConfigStoreManager().getters,

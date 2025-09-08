@@ -13,6 +13,7 @@ import {
 import { Canvas } from '../../canvas/types'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { generateClassName } from '../../core/generateClassName'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const plottedLine = {
   line: (
@@ -48,10 +49,12 @@ const draw = (
     .y((d) => d[1])
     .curve(constantsCurves[curve])
 
-  const canvasGroup = config.useDataArea
-    ? canvas.canvasDataGroup
-    : canvas.canvasGroup
-  const group = canvasGroup.append('g')
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+  const group = canvasGroup.layer.append('g')
+
   group
     .append('path')
     .datum(calculatedData)

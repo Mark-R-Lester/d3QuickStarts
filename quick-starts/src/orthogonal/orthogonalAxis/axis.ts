@@ -11,6 +11,7 @@ import {
 } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const orthogonalAxis = {
   xAxisTop: (canvas: Canvas, customConfig?: QsAxisConfig): QsAxis => {
@@ -70,7 +71,13 @@ const draw = (
   const { className: classNameText, dotClassName: dotClassNameText } =
     generateClassName('orthogonalAxisText')
 
-  const axisGroup = canvas.canvasGroup
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+  const group = canvasGroup.layer.append('g')
+
+  const axisGroup = group
     .append('g')
     .attr('id', classNameAxis)
     .attr('class', classNameAxis)

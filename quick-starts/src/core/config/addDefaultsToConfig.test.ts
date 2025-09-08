@@ -2,6 +2,7 @@ import { QsLineConfig } from '../../orthogonal/orthogonalLine/qsTypes'
 import { LineConfig } from '../../orthogonal/orthogonalLine/types'
 import {
   QsEnumCurve,
+  QsEnumLayerType,
   QsEnumLineCap,
   QsEnumLineJoin,
   QsEnumScaleType,
@@ -11,7 +12,7 @@ import { addDefaultsToConfig } from './addDefaultsToConfig'
 describe('addDefaultsToConfig', () => {
   // Define constants for test inputs
   const defaultConfig: LineConfig = {
-    useDataArea: true,
+    layerType: QsEnumLayerType.DATA,
     scaleType: QsEnumScaleType.LINEAR,
     curve: QsEnumCurve.LINEAR,
     defaultStrokeColor: 'black',
@@ -56,7 +57,7 @@ describe('addDefaultsToConfig', () => {
 
   // Define expected results as constants
   const expectedWithBothConfigs: LineConfig = {
-    useDataArea: true,
+    layerType: QsEnumLayerType.DATA,
     scaleType: QsEnumScaleType.BANDED,
     curve: QsEnumCurve.NATURAL,
     defaultStrokeColor: 'black',
@@ -67,7 +68,7 @@ describe('addDefaultsToConfig', () => {
   }
 
   const expectedWithOnlyStoreConfig: LineConfig = {
-    useDataArea: true,
+    layerType: QsEnumLayerType.DATA,
     scaleType: QsEnumScaleType.LINEAR,
     curve: QsEnumCurve.NATURAL,
     defaultStrokeColor: 'black',
@@ -78,7 +79,7 @@ describe('addDefaultsToConfig', () => {
   }
 
   const expectedWithOnlyCustomConfig: LineConfig = {
-    useDataArea: true,
+    layerType: QsEnumLayerType.DATA,
     scaleType: QsEnumScaleType.LINEAR,
     curve: QsEnumCurve.LINEAR,
     defaultStrokeColor: 'black',
@@ -98,7 +99,7 @@ describe('addDefaultsToConfig', () => {
   }
 
   const expectedWithCustomConfigOverride: LineConfig = {
-    useDataArea: true,
+    layerType: QsEnumLayerType.DATA,
     scaleType: QsEnumScaleType.BANDED,
     curve: QsEnumCurve.LINEAR,
     defaultStrokeColor: 'black',

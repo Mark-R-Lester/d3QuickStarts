@@ -24,6 +24,7 @@ import {
 } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const radialArcText = {
   spoke: (
@@ -119,10 +120,13 @@ const draw = <T>(
     config
   )
   const arc: any = d3arc()
-  const canvasGroup = config.useDataArea
-    ? canvas.canvasDataGroup
-    : canvas.canvasGroup
-  const group = canvasGroup.append('g')
+
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+
+  const group = canvasGroup.layer.append('g')
   const arcs = group.append('g')
   const text = group.append('g')
 

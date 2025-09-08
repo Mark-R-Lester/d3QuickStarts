@@ -3,6 +3,7 @@ import {
   QsEnumCurve,
   QsEnumLineJoin,
   QsEnumLineCap,
+  QsEnumLayerType,
 } from '../../core/enums/qsEnums'
 import { ConfigStrokeDefaults } from '../../core/types/types'
 
@@ -24,7 +25,7 @@ export interface QsCalculatedDataOrthogonalArea {
 
 export interface AreaConfig extends ConfigStrokeDefaults {
   [key: string]: CurveFactory | string | number | undefined | boolean
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   curve: QsEnumCurve
   defaultFillColor: string
   defaultFillOpacity: number

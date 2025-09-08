@@ -77,6 +77,14 @@ export enum QsEnumTextFont {
 }
 
 /*
+ * Layer enums
+ */
+export enum QsEnumLayerType {
+  DATA = 'data',
+  UNBOUND = 'unbound',
+}
+
+/*
  * Line enums
  */
 export enum QsEnumCurve {

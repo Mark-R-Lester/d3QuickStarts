@@ -6,7 +6,11 @@ import {
 } from './types'
 import { getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { QsEnumLineCap, QsEnumLineJoin } from '../../core/enums/qsEnums'
+import {
+  QsEnumLayerType,
+  QsEnumLineCap,
+  QsEnumLineJoin,
+} from '../../core/enums/qsEnums'
 import { constantsCurves } from '../../core/constants/constants'
 import { Canvas } from '../../canvas/types'
 import {
@@ -61,10 +65,13 @@ const draw = (
     generateClassName('radialCentroidArea')
   const { className: classNameLine, dotClassName: dotClassNameLine } =
     generateClassName('radialCentroidLine')
-  const canvasGroup = config.useDataArea
-    ? canvas.canvasDataGroup
-    : canvas.canvasGroup
-  const group = canvasGroup.append('g')
+
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+  const group = canvasGroup.layer.append('g')
+
   group
     .append('path')
     .datum(calculatedData)

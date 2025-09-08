@@ -12,6 +12,7 @@ import {
 import { orthogonalPointsConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const orthogonalPoint = {
   horizontal: (
@@ -54,10 +55,11 @@ const draw = (
   )
 
   const { className, dotClassName } = generateClassName('orthogonalPoints')
-  const canvasGroup = config.useDataArea
-    ? canvas.canvasDataGroup
-    : canvas.canvasGroup
-  const group = canvasGroup.append('g')
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+  const group = canvasGroup.layer.append('g')
 
   group
     .selectAll(dotClassName)

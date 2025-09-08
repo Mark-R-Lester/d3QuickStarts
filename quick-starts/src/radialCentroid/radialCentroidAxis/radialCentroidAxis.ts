@@ -6,6 +6,7 @@ import { Canvas } from '../../canvas/types'
 import { QsRadialAxisConfig, QsRadialAxis } from './qsTypes'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const radialAxis = {
   rings: (canvas: Canvas, customConfig?: QsRadialAxisConfig): QsRadialAxis => {
@@ -34,10 +35,13 @@ const draw = (canvas: Canvas, config: RadialAxisConfig): QsRadialAxis => {
     generateClassName('radialCentroidAxisTicks')
   const { className: classNameText, dotClassName: dotClassNameText } =
     generateClassName('radialCentroidAxisText')
-  const canvasGroup = config.useDataArea
-    ? canvas.canvasDataGroup
-    : canvas.canvasGroup
-  const group = canvasGroup.append('g')
+
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+  const group = canvasGroup.layer.append('g')
+
   group
     .selectAll(dotClassNameTicks)
     .data(calculatedData)

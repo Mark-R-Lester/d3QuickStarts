@@ -20,7 +20,7 @@ import {
   QsCanvasConfigRadial,
 } from './qsTypes'
 import { scaleMarginsAndDisplayArea } from './scaleMarginsAndDisplayArea'
-import { createCanvasElements } from './createCanvasElement'
+import { getCanvas } from './createCanvasElement'
 import {
   getGenerators as getRadialGenerators,
   QsGeneratorRadial,
@@ -50,14 +50,13 @@ const createCanvas = <
   if (element) element.innerHTML = ''
 
   const adjustedConfig = scaleMarginsAndDisplayArea(config)
-  const { canvasSVG, canvasGroup, canvasDataGroup } =
-    createCanvasElements(adjustedConfig)
+  const { addUnboundLayer, addDataLayer, canvasSVG } = getCanvas(adjustedConfig)
   const configManager = new ConfigStoreManager()
   const scales = getScales(adjustedConfig)
 
   const canvas: Canvas = {
-    canvasGroup,
-    canvasDataGroup,
+    addUnboundLayer,
+    addDataLayer,
     config: adjustedConfig,
     scales,
     configStore: configManager.getters,
@@ -67,8 +66,6 @@ const createCanvas = <
 
   return {
     canvasSVG,
-    canvasGroup,
-    canvasDataGroup,
     config: adjustedConfig,
     generate,
     configStore: configManager.setters,

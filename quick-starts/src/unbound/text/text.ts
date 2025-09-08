@@ -10,6 +10,7 @@ import { plottedTextConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { getCalculatedData } from './calculatedData'
 import { generateClassName } from '../../core/generateClassName'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const unboundText = (
   canvas: Canvas,
@@ -36,7 +37,13 @@ const draw = (
   )
 
   const { className, dotClassName } = generateClassName('radialCentroidArea')
-  const group = canvas.canvasGroup.append('g')
+
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+  const group = canvasGroup.layer.append('g')
+
   group
     .selectAll('text')
     .data(calculatedData)

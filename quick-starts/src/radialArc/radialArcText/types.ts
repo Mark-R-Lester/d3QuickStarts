@@ -5,6 +5,7 @@ import {
   QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumScaleType,
+  QsEnumLayerType,
 } from '../../core/enums/qsEnums'
 import { QsRadialTextData } from './qsTypes'
 
@@ -35,7 +36,7 @@ export interface RadialArcTextConfig extends RadialArcTextConfigBase {
     | Iterable<string>
     | undefined
     | boolean
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   radius: number
   textAnchor: QsEnumTextAnchor
 }

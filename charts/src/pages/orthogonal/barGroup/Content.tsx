@@ -151,7 +151,7 @@ const data: string = `interface QsBarGroupedData {
 }`
 
 const config: string = `interface BarGroupConfig extends ConfigStrokeDefaults {
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   padding: number
   colorRange: Iterable<String>
   defaultFillOpacity: number
@@ -170,7 +170,7 @@ const dataExample: string = `const data: QsBarGroupedData  = {
 }`
 
 const configExample: string = `const config: QsBarGroupConfig = {
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   colorRange: ['red', 'blue','green','orange'],
   padding: 20,
   defaultFillOpacity: 1

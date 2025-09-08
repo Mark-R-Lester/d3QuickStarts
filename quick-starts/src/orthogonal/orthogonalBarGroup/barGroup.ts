@@ -11,6 +11,7 @@ import {
 import { orthogonalBarGroupConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const orthogonalBarGroup = {
   group: (
@@ -38,10 +39,12 @@ const draw = (
     generateClassName('orthogonalBarGroup')
   const { className, dotClassName } = generateClassName('orthogonalBar')
 
-  const canvasGroup = config.useDataArea
-    ? canvas.canvasDataGroup
-    : canvas.canvasGroup
-  const group = canvasGroup.append('g')
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+  const group = canvasGroup.layer.append('g')
+
   const barGroups = group
     .selectAll(dotClassNameGroup)
     .data(calculatedData)
@@ -70,9 +73,7 @@ const draw = (
     const args = addTransitionDefaults(transitionData.transitionArgs)
     const calculatedData: QsCalculatedDataOrthogonalBarGroups[] =
       getCalculatedData(canvas, transitionData.data, config)
-    const bars = canvas.canvasGroup
-      .selectAll(dotClassNameGroup)
-      .data(calculatedData)
+    const bars = group.selectAll(dotClassNameGroup).data(calculatedData)
     bars
       .selectAll(dotClassName)
       .data((d) => d.barData)

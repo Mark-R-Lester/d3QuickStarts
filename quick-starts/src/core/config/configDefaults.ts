@@ -31,6 +31,7 @@ import {
   QsEnumAlignmentBaseline,
   QsEnumColorScale,
   QsEnumCurve,
+  QsEnumLayerType,
   QsEnumLineCap,
   QsEnumLineJoin,
   QsEnumScaleType,
@@ -122,7 +123,7 @@ export const legendConfig: LegendConfig = {
 }
 
 export const orthogonalAreaConfig: AreaConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
@@ -134,6 +135,7 @@ export const orthogonalAreaConfig: AreaConfig = {
 }
 
 const orthogonalAxisConfigBase: AxisConfigBase = {
+  layerType: QsEnumLayerType.UNBOUND,
   percentageMovement: 0,
 
   domainColor: GlobalDefaultColors.AXIS_COLOR,
@@ -184,7 +186,7 @@ export const orthogonalAxisConfigRight: AxisConfig = {
 }
 
 export const orthogonalBarConfig: BarConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   padding: 8,
   defaultFillColor: GlobalDefaultColors.BAR_FILL,
   defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
@@ -196,7 +198,7 @@ export const orthogonalBarConfig: BarConfig = {
 }
 
 export const orthogonalBarGroupConfig: BarGroupConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   colorRange: defaultFillColorArray,
   padding: 20,
   defaultFillOpacity: 1,
@@ -206,7 +208,7 @@ export const orthogonalBarGroupConfig: BarGroupConfig = {
 }
 
 export const orthogonalBarStackConfig: BarStackedConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   colorRange: defaultFillColorArray,
   padding: 20,
   defaultFillOpacity: 1,
@@ -216,7 +218,7 @@ export const orthogonalBarStackConfig: BarStackedConfig = {
 }
 
 export const orthogonalLineConfig: LineConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   scaleType: QsEnumScaleType.LINEAR,
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
@@ -227,7 +229,7 @@ export const orthogonalLineConfig: LineConfig = {
 }
 
 export const orthogonalPointsConfig: PointsConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   scaleType: QsEnumScaleType.LINEAR,
   defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
   defaultFillColor: GlobalDefaultColors.POINT_FILL,
@@ -240,14 +242,14 @@ export const orthogonalPointsConfig: PointsConfig = {
 }
 
 export const orthogonalTextConfig: TextConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   scaleType: QsEnumScaleType.LINEAR,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
   ...textDefaults,
 }
 
 export const plottedLineConfig: PlottedLineConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
@@ -257,7 +259,7 @@ export const plottedLineConfig: PlottedLineConfig = {
 }
 
 export const plottedPointsConfig: PlottedPointsConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
   defaultFillColor: GlobalDefaultColors.POINT_FILL,
   defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
@@ -267,14 +269,14 @@ export const plottedPointsConfig: PlottedPointsConfig = {
 }
 
 export const plottedTextConfig: PlottedTextConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   defaultDecimalPoints: 0,
   defaultCooridinateView: QsEnumCoordinateView.SHOW_X_AND_Y,
   ...textDefaults,
 }
 
 export const radialArcConfig: RadialArcConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   outerRadius: 100,
   innerRadius: 0,
   padding: 0,
@@ -306,35 +308,35 @@ const radialArcTextConfigBase: RadialArcTextConfigBase = {
 }
 
 export const radialArcTextConfigRotated: RadialArcTextConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.UNBOUND,
   ...radialArcTextConfigBase,
   radius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
 export const radialArcTextConfigHorizontal: RadialArcTextConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.UNBOUND,
   ...radialArcTextConfigBase,
   radius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
 export const radialArcTextConfigSpoke: RadialArcTextConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.UNBOUND,
   ...radialArcTextConfigBase,
   radius: 103,
   textAnchor: QsEnumTextAnchor.START,
 }
 
 export const radialArcTextConfigFollow: RadialArcTextConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.UNBOUND,
   ...radialArcTextConfigBase,
   radius: 103,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
 export const radialCentroidAreaConfig: RadialAreaConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   curve: QsEnumCurve.LINEAR,
   x: 50,
   y: 50,
@@ -348,7 +350,7 @@ export const radialCentroidAreaConfig: RadialAreaConfig = {
 }
 
 export const radialCentroidAxisConfig: RadialAxisConfig = {
-  useDataArea: false,
+  layerType: QsEnumLayerType.UNBOUND,
   showCentralTick: true,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
@@ -373,7 +375,7 @@ export const radialCentroidAxisConfig: RadialAxisConfig = {
 }
 
 export const radialCentroidLineConfig: RadialLineConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
   strokeLineCap: QsEnumLineCap.ROUND,
@@ -385,7 +387,7 @@ export const radialCentroidLineConfig: RadialLineConfig = {
 }
 
 export const radialCentroidPointsConfig: RadialPointsConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
@@ -399,7 +401,7 @@ export const radialCentroidPointsConfig: RadialPointsConfig = {
 }
 
 export const radialCentroidTextsConfig: RadialTextConfig = {
-  useDataArea: true,
+  layerType: QsEnumLayerType.DATA,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
@@ -407,7 +409,7 @@ export const radialCentroidTextsConfig: RadialTextConfig = {
 }
 
 export const radialCentroidSpokesConfig: RadialSpokesConfig = {
-  useDataArea: false,
+  layerType: QsEnumLayerType.UNBOUND,
   defaultOuterRadius: 100,
   defaultInnerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,

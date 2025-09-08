@@ -13,6 +13,7 @@ import { radialArcConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 import { parallelPaddedArc } from '../../core/customShapes/parallelPaddedArc'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const radialArc = {
   radial: (
@@ -41,10 +42,12 @@ const draw = (
   )
 
   const { className, dotClassName } = generateClassName('radialCentroidArea')
-  const canvasGroup = config.useDataArea
-    ? canvas.canvasDataGroup
-    : canvas.canvasGroup
-  const group = canvasGroup.append('g')
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+  const group = canvasGroup.layer.append('g')
+
   group
     .selectAll(dotClassName)
     .data(calculatedData)

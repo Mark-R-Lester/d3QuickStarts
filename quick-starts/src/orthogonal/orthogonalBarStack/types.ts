@@ -1,8 +1,9 @@
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 import { ConfigStrokeDefaults, StrokeData } from '../../core/types/types'
 
 export interface BarStackedConfig extends ConfigStrokeDefaults {
   [key: string]: number | Iterable<String> | undefined | boolean
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   padding: number
   colorRange: Iterable<String>
   defaultFillOpacity: number

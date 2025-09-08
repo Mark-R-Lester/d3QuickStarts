@@ -3,6 +3,7 @@ import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { plottedPointsConfig } from '../../core/config/configDefaults'
 import { generateClassName } from '../../core/generateClassName'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 import { getCalculatedData } from './calculatedData'
 import {
   QsPlottedPointsConfig,
@@ -39,10 +40,12 @@ const draw = (
   )
 
   const { className, dotClassName } = generateClassName('plottedPoints')
-  const canvasGroup = config.useDataArea
-    ? canvas.canvasDataGroup
-    : canvas.canvasGroup
-  const group = canvasGroup.append('g')
+
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+  const group = canvasGroup.layer.append('g')
 
   group
     .selectAll(dotClassName)

@@ -1,9 +1,10 @@
 import { QsColorScaleData } from '../../core/types/qsTypes'
 import { ConfigStrokeDefaults } from '../../core/types/types'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export interface RadialArcConfig extends ConfigStrokeDefaults {
   [key: string]: number | QsColorScaleData | string | undefined | boolean
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   outerRadius: number
   innerRadius: number
   padding: number

@@ -1,10 +1,10 @@
-import { QsEnumScaleType } from '../../core/enums/qsEnums'
+import { QsEnumLayerType, QsEnumScaleType } from '../../core/enums/qsEnums'
 import { QsColorScaleData, QsCoordinate } from '../../core/types/qsTypes'
 import { ConfigStrokeDefaults } from '../../core/types/types'
 
 export interface PointsConfig extends ConfigStrokeDefaults {
   [key: string]: number | QsColorScaleData | string | undefined | boolean
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   scaleType: QsEnumScaleType
   defaultRadius: number
   defaultFillColor: string

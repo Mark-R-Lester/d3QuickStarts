@@ -7,7 +7,6 @@ import {
   QsTextData,
   QsText,
   QsEnumScaleType,
-  QsEnumAxisScaleType,
   QsEnumTextAnchor,
 } from 'd3qs/d3QuickStart'
 import { OrienetedChartProps } from '../../common/chartProps'
@@ -76,13 +75,6 @@ export const OrthogonalBarsTransition: FunctionComponent<OrienetedChartProps> =
         let newBars: QsBars
         let newText: QsText
 
-        newBars = canvas.generate.orthogonal.horizontal.bars(data)
-
-        newText = canvas.generate.orthogonal.horizontal.text(textData, {
-          scaleType: QsEnumScaleType.BANDED,
-          defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
-          defaultTextFill: 'yellow',
-        })
         canvas.generate.orthogonal.vertical.axis.left({
           tickSizeInner: -100,
           tickWidth: 0.9,
@@ -91,6 +83,13 @@ export const OrthogonalBarsTransition: FunctionComponent<OrienetedChartProps> =
           tickColor: 'white',
           textFill: 'blue',
         })
+        newBars = canvas.generate.orthogonal.horizontal.bars(data)
+        newText = canvas.generate.orthogonal.horizontal.text(textData, {
+          scaleType: QsEnumScaleType.BANDED,
+          defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
+          defaultTextFill: 'yellow',
+        })
+
         setBars(newBars)
         setText(newText)
       }

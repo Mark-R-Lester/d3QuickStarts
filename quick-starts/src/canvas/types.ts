@@ -2,6 +2,7 @@ import { Selection } from 'd3'
 import { ConfigGetters } from '../core/config/configStore.class'
 import { CanvasScales } from '../core/scales/getScales'
 import { QsDataScale } from '../core/types/qsTypes'
+import { LayerResult } from './createCanvasElement'
 
 export interface CanvasConfig {
   [key: string]: string | number | undefined | QsDataScale
@@ -36,8 +37,8 @@ export interface ElementWithData {
 }
 
 export interface Canvas {
-  canvasGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
-  canvasDataGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
+  addUnboundLayer: () => LayerResult
+  addDataLayer: () => LayerResult
   config: CanvasConfig
   scales: CanvasScales
   configStore: ConfigGetters

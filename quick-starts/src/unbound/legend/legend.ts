@@ -10,6 +10,7 @@ import { legendConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { Canvas } from '../../canvas/types'
 import { generateClassName } from '../../core/generateClassName'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const legend = (
   canvas: Canvas,
@@ -35,7 +36,13 @@ const draw = (canvas: Canvas, data: QsLegendData[], config: LegendConfig) => {
   const { className, dotClassName } = generateClassName('unboundLegend')
   const { className: classNameText, dotClassName: dotClassNameText } =
     generateClassName('unboundLegendText')
-  const group = canvas.canvasGroup.append('g')
+
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+  const group = canvasGroup.layer.append('g')
+
   group
     .selectAll(dotClassName)
     .data(calculatedData)

@@ -13,6 +13,7 @@ import { QsCalculatedDataCentroidLine, RadialLineConfig } from './types'
 import { radialCentroidLineConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
+import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const radialLine = {
   line: (
@@ -44,10 +45,13 @@ const draw = (
   const radialLine = lineRadial().curve(constantsCurves[curve])
 
   const { className, dotClassName } = generateClassName('radialCentroidLine')
-  const canvasGroup = config.useDataArea
-    ? canvas.canvasDataGroup
-    : canvas.canvasGroup
-  const group = canvasGroup.append('g')
+
+  const canvasGroup =
+    config.layerType === QsEnumLayerType.DATA
+      ? canvas.addDataLayer()
+      : canvas.addUnboundLayer()
+  const group = canvasGroup.layer.append('g')
+
   group
     .append('path')
     .datum(calculatedData)

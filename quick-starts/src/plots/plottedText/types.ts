@@ -1,10 +1,10 @@
 import { ConfigTextDefaults, TextData } from '../../core/types/types'
-import { QsCoordinate } from '../../d3QuickStart'
+import { QsCoordinate, QsEnumLayerType } from '../../d3QuickStart'
 import { QsEnumCoordinateView } from './qsEnums'
 
 export interface PlottedTextConfig extends ConfigTextDefaults {
   [key: string]: number | string | undefined | boolean
-  useDataArea: boolean
+  layerType: QsEnumLayerType
   defaultDecimalPoints: number
   defaultCooridinateView: QsEnumCoordinateView
 }

@@ -1,11 +1,10 @@
 import { arc as d3arc, interpolate } from 'd3'
-import { RadialArcTextConfig } from './types'
 import {
+  QsCalculatedDataRadialText,
+  RadialArcTextConfig,
   TextArcData,
-  CalculatedData,
-  getCalculatedData,
-  updateCalculatedData,
-} from './calculatedData'
+} from './types'
+import { getCalculatedData, updateCalculatedData } from './calculatedData'
 import { RadialTextType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { getRotationFunction } from './textRotation'
@@ -14,7 +13,7 @@ import {
   QsRadialArcTextConfig,
   QsRadialArcText,
   QsRadialArcTextTransitionData,
-  QsValuedText,
+  QsRadialTextData,
   QsRadialArcTextFollow,
 } from './qsTypes'
 import {
@@ -29,7 +28,7 @@ import { generateClassName } from '../../core/generateClassName'
 export const radialArcText = {
   spoke: (
     canvas: Canvas,
-    data: QsValuedText[],
+    data: QsRadialTextData[],
     customConfig?: QsRadialArcTextConfig
   ): QsRadialArcText => {
     const config: RadialArcTextConfig =
@@ -39,11 +38,11 @@ export const radialArcText = {
         canvas.configStore.radialArc.textConfigSpoke()
       )
 
-    return draw(canvas, data, RadialTextType.SPOKE, config)
+    return draw<QsRadialArcText>(canvas, data, RadialTextType.SPOKE, config)
   },
   horizontal: (
     canvas: Canvas,
-    data: QsValuedText[],
+    data: QsRadialTextData[],
     customConfig?: QsRadialArcTextConfig
   ): QsRadialArcText => {
     const config: RadialArcTextConfig =
@@ -53,11 +52,16 @@ export const radialArcText = {
         canvas.configStore.radialArc.textConfigHorizontal()
       )
 
-    return draw(canvas, data, RadialTextType.HORIZONTAL, config)
+    return draw<QsRadialArcText>(
+      canvas,
+      data,
+      RadialTextType.HORIZONTAL,
+      config
+    )
   },
   rotated: (
     canvas: Canvas,
-    data: QsValuedText[],
+    data: QsRadialTextData[],
     customConfig?: QsRadialArcTextConfig
   ): QsRadialArcText => {
     const config: RadialArcTextConfig =
@@ -67,13 +71,13 @@ export const radialArcText = {
         canvas.configStore.radialArc.textConfigRotated()
       )
 
-    return draw(canvas, data, RadialTextType.ROTATED, config)
+    return draw<QsRadialArcText>(canvas, data, RadialTextType.ROTATED, config)
   },
   follow: (
     canvas: Canvas,
-    data: QsValuedText[],
+    data: QsRadialTextData[],
     customConfig?: QsRadialArcTextConfig
-  ): QsRadialArcText => {
+  ): QsRadialArcTextFollow => {
     const config: RadialArcTextConfig =
       addDefaultsToConfig<RadialArcTextConfig>(
         radialArcTextConfigFollow,
@@ -81,16 +85,21 @@ export const radialArcText = {
         canvas.configStore.radialArc.textConfigFollow()
       )
 
-    return draw(canvas, data, RadialTextType.FOLLOW, config)
+    return draw<QsRadialArcTextFollow>(
+      canvas,
+      data,
+      RadialTextType.FOLLOW,
+      config
+    )
   },
 }
 
-const draw = (
+const draw = <T>(
   canvas: Canvas,
-  data: QsValuedText[],
+  data: QsRadialTextData[],
   type: RadialTextType,
   config: RadialArcTextConfig
-): QsRadialArcText | QsRadialArcTextFollow => {
+): T => {
   const {
     defaultDecimalPoints,
     textFont,
@@ -102,9 +111,13 @@ const draw = (
     textAnchor,
   } = config
 
-  let rotate: (angles: TextArcData) => number = getRotationFunction(type)
+  const rotate: (angles: TextArcData) => number = getRotationFunction(type)
 
-  let calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
+  let calculatedData: QsCalculatedDataRadialText = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
   const arc: any = d3arc()
   const canvasGroup = config.useDataArea
     ? canvas.canvasDataGroup
@@ -252,13 +265,15 @@ const draw = (
     }
   }
   return type === RadialTextType.FOLLOW
-    ? {
-        elementText: text.selectAll(dotClassName),
-        elementArcs: arcs.selectAll(dotClassNameArc),
+    ? ({
+        className,
+        classNameArc,
+        calculatedData,
         transition,
-      }
-    : {
-        elementText: text.selectAll(dotClassName),
+      } as T)
+    : ({
+        className,
+        calculatedData,
         transition,
-      }
+      } as T)
 }

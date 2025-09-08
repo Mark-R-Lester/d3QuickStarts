@@ -3,7 +3,7 @@ import { QsCanvasRadial, qsCreateCanvasRadial } from 'd3qs/d3QuickStart'
 import { RadialTextChartProps } from '../../../common/chartProps'
 import {
   QsRadialText,
-  QsRadialTextData,
+  QsRadialCentroidTextData,
 } from 'd3qs/radialCentroid/radialCentroidText/qsTypes'
 
 export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
@@ -13,7 +13,7 @@ export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element, setElement] = useState<QsRadialText>()
-  const chartDataRef = useRef<QsRadialTextData[]>(data)
+  const chartDataRef = useRef<QsRadialCentroidTextData[]>(data)
 
   useEffect(() => {
     const createChart = () => {

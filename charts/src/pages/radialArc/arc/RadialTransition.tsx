@@ -3,7 +3,7 @@ import {
   QsCanvasRadial,
   qsCreateCanvasRadial,
   QsRadial,
-  QsValuedText,
+  QsRadialTextData,
 } from 'd3qs/d3QuickStart'
 import { RadialChartProps } from '../../../common/chartProps'
 
@@ -35,7 +35,7 @@ export const RadialTransition: FunctionComponent<RadialChartProps> = ({
 
   useEffect(
     function transitionData() {
-      const getVals = (): QsValuedText[] => {
+      const getVals = (): QsRadialTextData[] => {
         const vals = []
         for (let i = 0; i < 8; i++) {
           let num = (Math.random() * 100) / 2

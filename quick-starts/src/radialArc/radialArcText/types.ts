@@ -6,6 +6,7 @@ import {
   QsEnumTextAnchor,
   QsEnumScaleType,
 } from '../../core/enums/qsEnums'
+import { QsRadialTextData } from './qsTypes'
 
 export interface RadialArcTextConfigBase {
   [key: string]:
@@ -37,4 +38,30 @@ export interface RadialArcTextConfig extends RadialArcTextConfigBase {
   useDataArea: boolean
   radius: number
   textAnchor: QsEnumTextAnchor
+}
+
+export interface QsCalculatedDataRadialText {
+  arcClass: string
+  textClass: string
+  textArcData: TextArcData[]
+  x: number
+  y: number
+  textFontSize: number
+}
+
+export interface TextArcData {
+  textId: string
+  textClass: string
+  arcId: string
+  arcClass: string
+  newData: QsRadialTextData
+  data: QsRadialTextData
+  index: number
+  value: string | number
+  newStartAngle: number
+  startAngle: number
+  newEndAngle: number
+  endAngle: number
+  outerRadius: number
+  innerRadius: number
 }

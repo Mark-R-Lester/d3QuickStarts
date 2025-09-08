@@ -1,6 +1,6 @@
 import { ScaleOrdinal, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { RadialArcConfig } from './types'
+import { QsCalculatedDataRadialArc, RadialArcConfig } from './types'
 import {
   findOrdinalValue,
   getColorScale,
@@ -12,39 +12,13 @@ import { QsRadialData } from './qsTypes'
 import { Canvas } from '../../canvas/types'
 import { QsEnumColorScale } from '../../core/enums/qsEnums'
 
-export interface CalculatedData {
-  id: string
-  arcData: ArcData
-  x: number
-  y: number
-}
-
-export interface ArcData {
-  data: number
-  cornerRadius: number
-  outerRadius: number
-  innerRadius: number
-  newStartAngle: number
-  startAngle: number
-  newEndAngle: number
-  endAngle: number
-  fillColor: string
-  fillOpacity: number
-  strokeColor: string
-  strokeWidth: number
-  strokeOpacity: number
-  index?: number
-  value?: number
-  padding: number
-}
-
 export const updateCalculatedData = (
   canvas: Canvas,
   data: QsRadialData[],
   config: RadialArcConfig,
-  calculatedData: CalculatedData[]
-): CalculatedData[] => {
-  const newCalculatedData: CalculatedData[] = getCalculatedData(
+  calculatedData: QsCalculatedDataRadialArc[]
+): QsCalculatedDataRadialArc[] => {
+  const newCalculatedData: QsCalculatedDataRadialArc[] = getCalculatedData(
     canvas,
     data,
     config
@@ -63,7 +37,7 @@ export const getCalculatedData = (
   canvas: Canvas,
   data: QsRadialData[],
   config: RadialArcConfig
-): CalculatedData[] => {
+): QsCalculatedDataRadialArc[] => {
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
   const {
     outerRadius,
@@ -83,7 +57,7 @@ export const getCalculatedData = (
 
   let padding = genralPercentScale(config.padding)
 
-  const calculatedData: CalculatedData[] = []
+  const calculatedData: QsCalculatedDataRadialArc[] = []
 
   let totalValue = 0
   data.forEach((d) => {

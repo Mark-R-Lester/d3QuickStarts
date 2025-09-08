@@ -1,5 +1,5 @@
 import { RadialTextType } from '../../core/enums/enums'
-import { TextArcData } from './calculatedData'
+import { TextArcData } from './types'
 
 export const getRotationFunction = (
   type: RadialTextType

@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasRadial,
   qsCreateCanvasRadial,
-  QsValuedText,
+  QsRadialTextData,
   QsEnumTextAnchor,
   QsEnumTextDecorationLine,
   QsEnumTextFont,
@@ -17,7 +17,7 @@ export const RadialTextConfigChart: FunctionComponent<ChartPropsOthogonal> = ({
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const data: QsValuedText[] = [
+      const data: QsRadialTextData[] = [
         { value: 10, text: 'Ten' },
         { value: 20, text: 'Twenty' },
         { value: 30, text: 'Thirty' },

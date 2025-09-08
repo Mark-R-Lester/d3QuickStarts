@@ -1,42 +1,20 @@
 import { v4 as uuidv4 } from 'uuid'
-import { RadialArcTextConfig } from './types'
-import { QsValuedText } from './qsTypes'
+import {
+  QsCalculatedDataRadialText,
+  RadialArcTextConfig,
+  TextArcData,
+} from './types'
+import { QsRadialTextData } from './qsTypes'
 import { Canvas } from '../../canvas/types'
 import { QsEnumScaleType } from '../../core/enums/qsEnums'
 
-export interface CalculatedData {
-  arcClass: string
-  textClass: string
-  textArcData: TextArcData[]
-  x: number
-  y: number
-  textFontSize: number
-}
-
-export interface TextArcData {
-  textId: string
-  textClass: string
-  arcId: string
-  arcClass: string
-  newData: QsValuedText
-  data: QsValuedText
-  index: number
-  value: string | number
-  newStartAngle: number
-  startAngle: number
-  newEndAngle: number
-  endAngle: number
-  outerRadius: number
-  innerRadius: number
-}
-
 export const updateCalculatedData = (
   canvas: Canvas,
-  data: QsValuedText[],
+  data: QsRadialTextData[],
   config: RadialArcTextConfig,
-  calculatedData: CalculatedData
-): CalculatedData => {
-  const newCalculatedData: CalculatedData = getCalculatedData(
+  calculatedData: QsCalculatedDataRadialText
+): QsCalculatedDataRadialText => {
+  const newCalculatedData: QsCalculatedDataRadialText = getCalculatedData(
     canvas,
     data,
     config
@@ -57,13 +35,13 @@ export const updateCalculatedData = (
 
 export const getCalculatedData = (
   canvas: Canvas,
-  data: QsValuedText[],
+  data: QsRadialTextData[],
   config: RadialArcTextConfig
-): CalculatedData => {
+): QsCalculatedDataRadialText => {
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
   const { radius, x, y, textFontSize, scaleType } = config
 
-  const bandData = (data: QsValuedText[], min?: boolean): TextArcData[] => {
+  const bandData = (data: QsRadialTextData[], min?: boolean): TextArcData[] => {
     let totalValue = 0
     data.forEach((d) => {
       totalValue = totalValue + d.value
@@ -97,7 +75,7 @@ export const getCalculatedData = (
       return res
     })
   }
-  const pointData = (data: QsValuedText[], min?: boolean): TextArcData[] =>
+  const pointData = (data: QsRadialTextData[], min?: boolean): TextArcData[] =>
     bandData(data, min).map((d) => {
       const offSet = (d.endAngle - d.startAngle) / 2
       d.startAngle = d.startAngle - offSet

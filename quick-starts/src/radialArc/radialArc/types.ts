@@ -15,3 +15,29 @@ export interface RadialArcConfig extends ConfigStrokeDefaults {
   fillColorScaleData?: QsColorScaleData
   strokeColorScaleData?: QsColorScaleData
 }
+
+export interface QsCalculatedDataRadialArc {
+  id: string
+  arcData: ArcData
+  x: number
+  y: number
+}
+
+export interface ArcData {
+  data: number
+  cornerRadius: number
+  outerRadius: number
+  innerRadius: number
+  newStartAngle: number
+  startAngle: number
+  newEndAngle: number
+  endAngle: number
+  fillColor: string
+  fillOpacity: number
+  strokeColor: string
+  strokeWidth: number
+  strokeOpacity: number
+  index?: number
+  value?: number
+  padding: number
+}

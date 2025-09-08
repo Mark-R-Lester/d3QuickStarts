@@ -7,7 +7,7 @@ import { Canvas } from '../../canvas/types'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { RadialTextConfig } from './types'
 import {
-  QsRadialTextData,
+  QsRadialCentroidTextData,
   QsRadialTextConfig,
   QsRadialText,
   QsRadialTextTransitionData,
@@ -20,7 +20,7 @@ import { interpolate } from 'd3'
 export const radialText = {
   text: (
     canvas: Canvas,
-    data: QsRadialTextData[],
+    data: QsRadialCentroidTextData[],
     customConfig?: QsRadialTextConfig
   ): QsRadialText => {
     const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
@@ -34,7 +34,7 @@ export const radialText = {
 
 const draw = (
   canvas: Canvas,
-  data: QsRadialTextData[],
+  data: QsRadialCentroidTextData[],
   config: RadialTextConfig
 ): QsRadialText => {
   let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)

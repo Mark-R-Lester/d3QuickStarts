@@ -6,7 +6,7 @@ import { TextData } from '../../core/types/types'
 export type QsRadialTextConfig = Partial<RadialTextConfig>
 
 export interface QsRadialTextTransitionData {
-  data: QsRadialTextData[]
+  data: QsRadialCentroidTextData[]
   transitionArgs?: QsTransitionArgs
 }
 
@@ -17,7 +17,7 @@ export interface QsRadialText {
   transition: (data: QsRadialTextTransitionData) => void
 }
 
-export interface QsRadialTextData extends Partial<TextData> {
+export interface QsRadialCentroidTextData extends Partial<TextData> {
   value: number
   text?: string
 }

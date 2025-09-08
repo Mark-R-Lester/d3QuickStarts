@@ -1,10 +1,6 @@
 import { interpolate } from 'd3'
-import { RadialArcConfig } from './types'
-import {
-  CalculatedData,
-  getCalculatedData,
-  updateCalculatedData,
-} from './calculatedData'
+import { QsCalculatedDataRadialArc, RadialArcConfig } from './types'
+import { getCalculatedData, updateCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { Canvas } from '../../canvas/types'
 import {
@@ -38,7 +34,11 @@ const draw = (
   data: QsRadialData[],
   config: RadialArcConfig
 ): QsRadial => {
-  let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
+  let calculatedData: QsCalculatedDataRadialArc[] = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
 
   const { className, dotClassName } = generateClassName('radialCentroidArea')
   const canvasGroup = config.useDataArea
@@ -99,7 +99,8 @@ const draw = (
   }
 
   return {
-    element: group.selectAll(dotClassName),
+    className,
+    calculatedData,
     transition,
   }
 }

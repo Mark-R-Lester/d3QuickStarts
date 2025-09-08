@@ -4,8 +4,9 @@ import {
   qsCreateCanvasRadial,
   QsRadial,
   QsRadialArcText,
-  QsValuedText,
+  QsRadialTextData,
   QsRadialData,
+  QsRadialArcTextFollow,
 } from 'd3qs/d3QuickStart'
 import { RadialArcTextChartProps } from '../../../common/chartProps'
 import { EnumRadialTextOrientation } from '../../../common/enums'
@@ -19,7 +20,9 @@ export const RadialTextTransition: FunctionComponent<
   orientation,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
-  const [element1, setElement1] = useState<QsRadialArcText>()
+  const [element1, setElement1] = useState<
+    QsRadialArcText | QsRadialArcTextFollow
+  >()
   const [element2, setElement2] = useState<QsRadial>()
 
   useEffect(() => {
@@ -50,7 +53,7 @@ export const RadialTextTransition: FunctionComponent<
 
   useEffect(
     function transitionData() {
-      const getVals = (): QsValuedText[] => {
+      const getVals = (): QsRadialTextData[] => {
         const vals = []
         for (let i = 0; i < 3; i++) {
           let num = (Math.random() * 100) / 2

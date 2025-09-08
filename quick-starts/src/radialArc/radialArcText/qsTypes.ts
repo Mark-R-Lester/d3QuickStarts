@@ -1,34 +1,30 @@
-import { Selection } from 'd3'
-import { RadialArcTextConfig } from './types'
+import { QsCalculatedDataRadialText, RadialArcTextConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
+export { QsCalculatedDataRadialText } from './types'
 
 export type QsRadialArcTextConfig = Partial<RadialArcTextConfig>
 
 export interface QsRadialArcTextTransitionArgs extends QsTransitionArgs {}
 
 export interface QsRadialArcTextTransitionData {
-  data: QsValuedText[]
+  data: QsRadialTextData[]
   transitionArgs?: QsRadialArcTextTransitionArgs
 }
 
 export interface QsRadialArcText {
-  elementText:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  className: string
+  classNameArc: string
+  calculatedData: QsCalculatedDataRadialText
   transition: (data: QsRadialArcTextTransitionData) => void
 }
 
 export interface QsRadialArcTextFollow {
-  elementText:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  elementArcs:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  className: string
+  calculatedData: QsCalculatedDataRadialText
   transition: (data: QsRadialArcTextTransitionData) => void
 }
 
-export interface QsValuedText {
+export interface QsRadialTextData {
   value: number
   text?: string
 }

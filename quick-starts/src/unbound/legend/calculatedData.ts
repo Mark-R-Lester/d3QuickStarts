@@ -1,25 +1,12 @@
 import { LegendConfig } from './types'
-import { QsLegendData } from './qsTypes'
+import { QsCalculatedDataUnboundLegend, QsLegendData } from './qsTypes'
 import { Canvas } from '../../canvas/types'
-import { TextData } from '../../core/types/types'
-
-export interface CalculatedData extends TextData {
-  x: number
-  y: number
-  width: number
-  height: number
-  fillColor: string
-  value: string
-  textX: number
-  textY: number
-  textFontSize: number
-}
 
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsLegendData[],
   config: LegendConfig
-): CalculatedData[] => {
+): QsCalculatedDataUnboundLegend[] => {
   const {
     xCanvasPercentScale,
     yCanvasPercentScaleInverted,
@@ -47,7 +34,7 @@ export const getCalculatedData = (
 
   const invertIndex = (data: any[], index: number) => data.length - (index + 1)
 
-  const calculatedData: CalculatedData[] = data.map((d, i) => {
+  const calculatedData: QsCalculatedDataUnboundLegend[] = data.map((d, i) => {
     return {
       x: xCanvasPercentScale(x),
       y: yCanvasPercentScaleInverted(

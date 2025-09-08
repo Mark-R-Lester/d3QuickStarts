@@ -1,24 +1,16 @@
 import { Canvas } from '../../canvas/types'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { TextData } from '../../core/types/types'
-import { QsUnboundTextData } from './qsTypes'
+import { QsCalculatedDataUnboundText, QsUnboundTextData } from './qsTypes'
 import { UnboundTextConfig } from './types'
-
-export interface CalculatedData extends TextData {
-  text?: string
-  newText?: string
-  coordinate: QsCoordinate
-  newCoordinate: QsCoordinate
-  defaultDecimalPoints: number
-}
 
 export const updateCalculatedData = (
   canvas: Canvas,
   data: QsUnboundTextData[],
   config: UnboundTextConfig,
-  calculatedData: CalculatedData[]
-): CalculatedData[] => {
-  const newCalculatedData: CalculatedData[] = getCalculatedData(
+  calculatedData: QsCalculatedDataUnboundText[]
+): QsCalculatedDataUnboundText[] => {
+  const newCalculatedData: QsCalculatedDataUnboundText[] = getCalculatedData(
     canvas,
     data,
     config
@@ -34,7 +26,7 @@ export const getCalculatedData = (
   canvas: Canvas,
   data: QsUnboundTextData[],
   config: UnboundTextConfig
-): CalculatedData[] => {
+): QsCalculatedDataUnboundText[] => {
   const {
     xCanvasPercentScale,
     yCanvasPercentScaleInverted,
@@ -54,7 +46,7 @@ export const getCalculatedData = (
     defaultTextAlignmentBaseline,
   } = config
 
-  const calculatedData: CalculatedData[] = data.map((d) => ({
+  const calculatedData: QsCalculatedDataUnboundText[] = data.map((d) => ({
     text: d.text,
     newText: d.text,
     coordinate: {

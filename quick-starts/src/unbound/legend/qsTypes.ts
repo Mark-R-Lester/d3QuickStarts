@@ -10,6 +10,19 @@ export interface QsLegendData extends Partial<TextData> {
 }
 
 export interface QsLegend {
-  elementShape: Selection<BaseType, unknown, SVGGElement, unknown>
-  elementText: Selection<BaseType, unknown, SVGGElement, unknown>
+  className: string
+  classNameText: string
+  calculatedData: QsCalculatedDataUnboundLegend[]
+}
+
+export interface QsCalculatedDataUnboundLegend extends TextData {
+  x: number
+  y: number
+  width: number
+  height: number
+  fillColor: string
+  value: string
+  textX: number
+  textY: number
+  textFontSize: number
 }

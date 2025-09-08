@@ -1,6 +1,11 @@
-import { CalculatedData, getCalculatedData } from './calculatedData'
+import { getCalculatedData } from './calculatedData'
 import { LegendConfig } from './types'
-import { QsLegendData, QsLegendConfig, QsLegend } from './qsTypes'
+import {
+  QsLegendData,
+  QsLegendConfig,
+  QsLegend,
+  QsCalculatedDataUnboundLegend,
+} from './qsTypes'
 import { legendConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { Canvas } from '../../canvas/types'
@@ -21,7 +26,7 @@ export const legend = (
 }
 
 const draw = (canvas: Canvas, data: QsLegendData[], config: LegendConfig) => {
-  const calculatedData: CalculatedData[] = getCalculatedData(
+  const calculatedData: QsCalculatedDataUnboundLegend[] = getCalculatedData(
     canvas,
     data,
     config
@@ -64,7 +69,8 @@ const draw = (canvas: Canvas, data: QsLegendData[], config: LegendConfig) => {
     .text((d) => d.value)
 
   return {
-    elementShape: group.selectAll(dotClassName),
-    elementText: group.selectAll(dotClassNameText),
+    className,
+    classNameText,
+    calculatedData,
   }
 }

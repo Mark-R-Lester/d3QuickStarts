@@ -3,11 +3,12 @@ import {
   QsUnboundTextData,
   QsUnboundTextConfig,
   QsUnboundText,
+  QsCalculatedDataUnboundText,
 } from './qsTypes'
 import { UnboundTextConfig } from './types'
 import { plottedTextConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
-import { CalculatedData, getCalculatedData } from './calculatedData'
+import { getCalculatedData } from './calculatedData'
 import { generateClassName } from '../../core/generateClassName'
 
 export const unboundText = (
@@ -28,7 +29,11 @@ const draw = (
   data: QsUnboundTextData[],
   config: UnboundTextConfig
 ): QsUnboundText => {
-  let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
+  let calculatedData: QsCalculatedDataUnboundText[] = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
 
   const { className, dotClassName } = generateClassName('radialCentroidArea')
   const group = canvas.canvasGroup.append('g')
@@ -56,5 +61,5 @@ const draw = (
         `${d.coordinate.x.toFixed(d.defaultDecimalPoints)}, ${d.coordinate.y.toFixed(d.defaultDecimalPoints)}`
     )
 
-  return { element: group.selectAll(dotClassName) }
+  return { calculatedData, className }
 }

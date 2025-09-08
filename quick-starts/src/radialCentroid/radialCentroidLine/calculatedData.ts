@@ -1,24 +1,13 @@
 import { scaleLinear } from 'd3'
 import { Canvas } from '../../canvas/types'
 import { QsRadialLineData } from './qsTypes'
-import { RadialLineConfig } from './types'
-import { GlobalDefaultSettings } from '../../core/enums/enums'
-
-export interface CalculatedData {
-  id: string
-  lineData: Iterable<[number, number]>
-  x: number
-  y: number
-  strokeOpacity: number
-  strokeColor: string
-  strokeWidth: number
-}
+import { QsCalculatedDataCentroidLine, RadialLineConfig } from './types'
 
 export const getCalculatedData = (
   canvas: Canvas,
   lineData: QsRadialLineData,
   config: RadialLineConfig
-): CalculatedData => {
+): QsCalculatedDataCentroidLine => {
   const { xPercentScale, yPercentScale, genralPercentScale, radialDataScale } =
     canvas.scales
   const { x, y, defaultStrokeColor, defaultStrokeWidth, defaultStrokeOpacity } =

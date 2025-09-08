@@ -1,6 +1,6 @@
 import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { CalculatedData, RadialAreaConfig } from './types'
+import { QsCalculatedDataCentroidArea, RadialAreaConfig } from './types'
 import { Canvas } from '../../canvas/types'
 import { QsRadialAreaData } from './qsTypes'
 
@@ -8,7 +8,7 @@ export const getCalculatedData = (
   canvas: Canvas,
   areaData: QsRadialAreaData,
   config: RadialAreaConfig
-): CalculatedData => {
+): QsCalculatedDataCentroidArea => {
   const {
     x,
     y,
@@ -45,7 +45,7 @@ export const getCalculatedData = (
     dataInnerCopy = lowValues.slice()
     dataInnerCopy.push(lowValues[0])
   }
-  const calculatedData: CalculatedData = {
+  const calculatedData: QsCalculatedDataCentroidArea = {
     id: `radialArea${uuidv4()}`,
     areaData: dataOuterCopy.map((d, i) => {
       return {

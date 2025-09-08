@@ -1,4 +1,4 @@
-import { QsColorScaleData } from '../../core/types/qsTypes'
+import { QsColorScaleData, QsCoordinate } from '../../core/types/qsTypes'
 import { ConfigStrokeDefaults } from '../../core/types/types'
 
 export interface RadialPointsConfig extends ConfigStrokeDefaults {
@@ -11,4 +11,17 @@ export interface RadialPointsConfig extends ConfigStrokeDefaults {
   defaultFillOpacity: number
   fillColorScaleData?: QsColorScaleData
   strokeColorScaleData?: QsColorScaleData
+}
+
+export interface QsCalculatedDataCentroidPoints {
+  id: string
+  coordinate: QsCoordinate
+  x: number
+  y: number
+  radius: number
+  fillColor: string
+  fillOpacity: number
+  strokeColor: string
+  strokeWidth: number
+  strokeOpacity: number
 }

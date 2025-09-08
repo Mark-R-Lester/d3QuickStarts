@@ -11,7 +11,7 @@ export interface AreaData {
   outer: number
 }
 
-export interface CalculatedData extends StrokeData {
+export interface QsCalculatedDataCentroidArea extends StrokeData {
   id: string
   areaData: AreaData[]
   fillColor: string

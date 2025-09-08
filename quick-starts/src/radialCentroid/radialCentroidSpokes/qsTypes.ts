@@ -1,5 +1,4 @@
-import { Selection } from 'd3'
-import { RadialSpokesConfig } from './types'
+import { QsCalculatedDataCentroidSpokes, RadialSpokesConfig } from './types'
 export { QsSpokeConfig } from './types'
 
 export interface QsRadialSpokesConfig extends Partial<RadialSpokesConfig> {
@@ -7,7 +6,6 @@ export interface QsRadialSpokesConfig extends Partial<RadialSpokesConfig> {
 }
 
 export interface QsRadialSpokes {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  className: string
+  calculatedData: QsCalculatedDataCentroidSpokes[]
 }

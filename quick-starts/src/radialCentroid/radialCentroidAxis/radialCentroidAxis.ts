@@ -1,6 +1,6 @@
 import { arc as d3arc } from 'd3'
 import { getCalculatedData } from './calculatedData'
-import { RadialAxisConfig, CalculatedData } from './types'
+import { RadialAxisConfig, QsCalculatedDataCentroidAxis } from './types'
 import { radialCentroidAxisConfig } from '../../core/config/configDefaults'
 import { Canvas } from '../../canvas/types'
 import { QsRadialAxisConfig, QsRadialAxis } from './qsTypes'
@@ -19,7 +19,10 @@ export const radialAxis = {
 }
 
 const draw = (canvas: Canvas, config: RadialAxisConfig): QsRadialAxis => {
-  const calculatedData: CalculatedData[] = getCalculatedData(canvas, config)
+  const calculatedData: QsCalculatedDataCentroidAxis[] = getCalculatedData(
+    canvas,
+    config
+  )
 
   const arc = d3arc()
     .innerRadius((d) => d.innerRadius)
@@ -27,7 +30,8 @@ const draw = (canvas: Canvas, config: RadialAxisConfig): QsRadialAxis => {
     .startAngle((d) => d.startAngle)
     .endAngle((d) => d.endAngle)
 
-  const { className, dotClassName } = generateClassName('radialCentroidAxis')
+  const { className: classNameTicks, dotClassName: dotClassNameTicks } =
+    generateClassName('radialCentroidAxisTicks')
   const { className: classNameText, dotClassName: dotClassNameText } =
     generateClassName('radialCentroidAxisText')
   const canvasGroup = config.useDataArea
@@ -35,11 +39,11 @@ const draw = (canvas: Canvas, config: RadialAxisConfig): QsRadialAxis => {
     : canvas.canvasGroup
   const group = canvasGroup.append('g')
   group
-    .selectAll(dotClassName)
+    .selectAll(dotClassNameTicks)
     .data(calculatedData)
     .enter()
     .append('path')
-    .attr('class', className)
+    .attr('class', classNameTicks)
     .attr('id', (d) => d.ringId)
     .attr('d', (d) => arc(d.ringData))
     .attr('stroke', (d) => d.strokeColor)
@@ -69,7 +73,8 @@ const draw = (canvas: Canvas, config: RadialAxisConfig): QsRadialAxis => {
     .text((d) => d.ringData.text)
 
   return {
-    textElement: group.selectAll(dotClassNameText),
-    ringsElement: group.selectAll(dotClassName),
+    classNameTicks,
+    classNameText,
+    calculatedData,
   }
 }

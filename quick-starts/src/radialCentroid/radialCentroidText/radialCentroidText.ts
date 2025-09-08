@@ -1,11 +1,7 @@
-import {
-  getCalculatedData,
-  CalculatedData,
-  updateCalculatedData,
-} from './calculatedData'
+import { getCalculatedData, updateCalculatedData } from './calculatedData'
 import { Canvas } from '../../canvas/types'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { RadialTextConfig } from './types'
+import { QsCalculatedDataCentroidText, RadialTextConfig } from './types'
 import {
   QsRadialCentroidTextData,
   QsRadialTextConfig,
@@ -37,7 +33,11 @@ const draw = (
   data: QsRadialCentroidTextData[],
   config: RadialTextConfig
 ): QsRadialText => {
-  let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
+  let calculatedData: QsCalculatedDataCentroidText[] = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
 
   const { className, dotClassName } = generateClassName('radialCentroidText')
   const canvasGroup = config.useDataArea
@@ -102,7 +102,8 @@ const draw = (
   }
 
   return {
-    element: group.selectAll(dotClassName),
+    className,
+    calculatedData,
     transition,
   }
 }

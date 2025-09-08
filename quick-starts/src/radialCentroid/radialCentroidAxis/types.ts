@@ -15,15 +15,6 @@ interface RingData {
   text: number | string
 }
 
-export interface CalculatedData extends StrokeData, TextData {
-  [key: string]: string | RingData | number
-  ringId: string
-  textId: string
-  ringData: RingData
-  x: number
-  y: number
-}
-
 export interface RadialAxisConfig
   extends ConfigStrokeDefaults,
     ConfigTextDefaults {
@@ -51,4 +42,13 @@ export interface QsRingConfig extends Partial<StrokeData>, Partial<TextData> {
   axisAngle?: number
   gap?: number
   decimalPlaces?: number
+}
+
+export interface QsCalculatedDataCentroidAxis extends StrokeData, TextData {
+  [key: string]: string | RingData | number
+  ringId: string
+  textId: string
+  ringData: RingData
+  x: number
+  y: number
 }

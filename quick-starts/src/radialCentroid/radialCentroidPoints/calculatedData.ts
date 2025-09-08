@@ -1,6 +1,6 @@
 import { scaleLinear, ScaleOrdinal, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { RadialPointsConfig } from './types'
+import { QsCalculatedDataCentroidPoints, RadialPointsConfig } from './types'
 import {
   findOrdinalValue,
   getColorScale,
@@ -12,24 +12,11 @@ import { QsCoordinate } from '../../core/types/qsTypes'
 import { Canvas } from '../../canvas/types'
 import { QsEnumColorScale } from '../../core/enums/qsEnums'
 
-export interface CalculatedData {
-  id: string
-  coordinate: QsCoordinate
-  x: number
-  y: number
-  radius: number
-  fillColor: string
-  fillOpacity: number
-  strokeColor: string
-  strokeWidth: number
-  strokeOpacity: number
-}
-
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsRadialPointData[],
   config: RadialPointsConfig
-): CalculatedData[] => {
+): QsCalculatedDataCentroidPoints[] => {
   const { genralPercentScale, xPercentScale, yPercentScale, radialDataScale } =
     canvas.scales
   const {
@@ -45,7 +32,7 @@ export const getCalculatedData = (
     strokeColorScaleData,
   } = config
 
-  const calculatedData: CalculatedData[] = []
+  const calculatedData: QsCalculatedDataCentroidPoints[] = []
   const angleScale = scaleLinear()
     .domain([0, data.length])
     .range([0, 2 * Math.PI])

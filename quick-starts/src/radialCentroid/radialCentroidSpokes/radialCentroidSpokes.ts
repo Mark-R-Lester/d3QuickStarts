@@ -2,7 +2,7 @@ import { line } from 'd3'
 import { getCalculatedData } from './calculatedData'
 import { Canvas } from '../../canvas/types'
 import { QsRadialSpokesConfig, QsRadialSpokes } from './qsTypes'
-import { CalculatedData, RadialSpokesConfig } from './types'
+import { QsCalculatedDataCentroidSpokes, RadialSpokesConfig } from './types'
 import { radialCentroidSpokesConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
@@ -22,7 +22,10 @@ export const radialSpokes = {
 }
 
 const draw = (canvas: Canvas, config: RadialSpokesConfig): QsRadialSpokes => {
-  const calculatedData: CalculatedData[] = getCalculatedData(canvas, config)
+  const calculatedData: QsCalculatedDataCentroidSpokes[] = getCalculatedData(
+    canvas,
+    config
+  )
 
   const radialLine = line()
     .x((d) => d[0])
@@ -47,6 +50,7 @@ const draw = (canvas: Canvas, config: RadialSpokesConfig): QsRadialSpokes => {
     .attr('stroke-opacity', (d) => d.strokeOpacity)
 
   return {
-    element: group.selectAll(dotClassName),
+    className,
+    calculatedData,
   }
 }

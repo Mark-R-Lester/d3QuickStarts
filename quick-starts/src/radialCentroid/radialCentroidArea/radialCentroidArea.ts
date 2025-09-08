@@ -1,5 +1,9 @@
 import { areaRadial, lineRadial } from 'd3'
-import { AreaData, CalculatedData, RadialAreaConfig } from './types'
+import {
+  AreaData,
+  QsCalculatedDataCentroidArea,
+  RadialAreaConfig,
+} from './types'
 import { getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { QsEnumLineCap, QsEnumLineJoin } from '../../core/enums/qsEnums'
@@ -37,7 +41,11 @@ const draw = (
   config: RadialAreaConfig
 ): QsRadialArea => {
   const { curve } = config
-  const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
+  const calculatedData: QsCalculatedDataCentroidArea = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
 
   const radialArea = areaRadial<AreaData>()
     .angle((d) => d.angle)
@@ -117,8 +125,9 @@ const draw = (
       .attr('stroke-linecap', QsEnumLineCap.ROUND)
   }
   return {
-    elementArea: group.selectAll(dotClassNameArea),
-    elementLine: group.selectAll(dotClassNameLine),
+    classNameArea,
+    classNameLine,
+    calculatedData,
     transition,
   }
 }

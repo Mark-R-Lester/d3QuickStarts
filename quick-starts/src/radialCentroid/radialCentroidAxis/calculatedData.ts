@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../canvas/types'
-import { RadialAxisConfig, CalculatedData } from './types'
+import { RadialAxisConfig, QsCalculatedDataCentroidAxis } from './types'
 import {
   adjacentFromHypotenuse,
   oppositeFromHypotenuse,
@@ -9,7 +9,7 @@ import {
 export const getCalculatedData = (
   canvas: Canvas,
   config: RadialAxisConfig
-): CalculatedData[] => {
+): QsCalculatedDataCentroidAxis[] => {
   const { displayAreaHeight, displayAreaWidth, lowestViewableValue } =
     canvas.config
   const {
@@ -53,7 +53,7 @@ export const getCalculatedData = (
     ticks = ticks.map((tick) => Number(tick.toFixed(decimalPlaces)))
   }
 
-  const calculatedData: CalculatedData[] = []
+  const calculatedData: QsCalculatedDataCentroidAxis[] = []
   const gapWidth = genralPercentScale(50 / ticks.length)
 
   const addToData = (tick: number, index: number) => {

@@ -1,30 +1,17 @@
 import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { RadialTextConfig } from './types'
+import { QsCalculatedDataCentroidText, RadialTextConfig } from './types'
 import { QsRadialCentroidTextData } from './qsTypes'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { Canvas } from '../../canvas/types'
-import { TextData } from '../../core/types/types'
-
-export interface CalculatedData extends TextData {
-  id: string
-  coordinate: QsCoordinate
-  x: number
-  y: number
-  text?: string
-  newText?: string
-  value: number
-  newValue: number
-  defaultDecimalPoints: number
-}
 
 export const updateCalculatedData = (
   canvas: Canvas,
   args: QsRadialCentroidTextData[],
   config: RadialTextConfig,
-  calculatedData: CalculatedData[]
-): CalculatedData[] => {
-  const newCalculatedData: CalculatedData[] = getCalculatedData(
+  calculatedData: QsCalculatedDataCentroidText[]
+): QsCalculatedDataCentroidText[] => {
+  const newCalculatedData: QsCalculatedDataCentroidText[] = getCalculatedData(
     canvas,
     args,
     config
@@ -40,7 +27,7 @@ export const getCalculatedData = (
   canvas: Canvas,
   data: QsRadialCentroidTextData[],
   config: RadialTextConfig
-): CalculatedData[] => {
+): QsCalculatedDataCentroidText[] => {
   const { genralPercentScale, xPercentScale, yPercentScale, radialDataScale } =
     canvas.scales
   const {
@@ -59,7 +46,7 @@ export const getCalculatedData = (
     defaultDecimalPoints,
   } = config
 
-  const calculatedData: CalculatedData[] = []
+  const calculatedData: QsCalculatedDataCentroidText[] = []
   const angleScale = scaleLinear()
     .domain([0, data.length])
     .range([0, 2 * Math.PI])

@@ -14,3 +14,13 @@ export interface RadialLineConfig extends ConfigStrokeDefaults {
   strokeLineJoin: QsEnumLineJoin
   strokeLineCap: QsEnumLineCap
 }
+
+export interface QsCalculatedDataCentroidLine {
+  id: string
+  lineData: Iterable<[number, number]>
+  x: number
+  y: number
+  strokeOpacity: number
+  strokeColor: string
+  strokeWidth: number
+}

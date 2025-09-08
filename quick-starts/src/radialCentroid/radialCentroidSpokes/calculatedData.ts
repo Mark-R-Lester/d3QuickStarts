@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../canvas/types'
 
-import { CalculatedData, RadialSpokesConfig } from './types'
+import { QsCalculatedDataCentroidSpokes, RadialSpokesConfig } from './types'
 import { alignIndexClockwise } from './calculateIndexForCorrectOrientation'
 
 export const getCalculatedData = (
@@ -21,7 +21,7 @@ export const getCalculatedData = (
     defaultStrokeOpacity,
   } = config
   const { genralPercentScale } = canvas.scales
-  const calculatedData: CalculatedData[] = []
+  const calculatedData: QsCalculatedDataCentroidSpokes[] = []
   const xCenter = (displayAreaWidth / 100) * x
   const yCenter = (displayAreaHeight / 100) * y
 

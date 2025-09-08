@@ -1,7 +1,7 @@
-import { getCalculatedData, CalculatedData } from './calculatedData'
+import { getCalculatedData } from './calculatedData'
 import { Canvas } from '../../canvas/types'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { RadialPointsConfig } from './types'
+import { QsCalculatedDataCentroidPoints, RadialPointsConfig } from './types'
 import {
   QsRadialPointData,
   QsRadialPointsConfig,
@@ -32,7 +32,7 @@ const draw = (
   data: QsRadialPointData[],
   config: RadialPointsConfig
 ): QsRadialPoints => {
-  const calculatedData: CalculatedData[] = getCalculatedData(
+  const calculatedData: QsCalculatedDataCentroidPoints[] = getCalculatedData(
     canvas,
     data,
     config
@@ -64,7 +64,7 @@ const draw = (
     transitionData: QsRadialPointsTransitionData = { data }
   ) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
-    const calculatedData: CalculatedData[] = getCalculatedData(
+    const calculatedData: QsCalculatedDataCentroidPoints[] = getCalculatedData(
       canvas,
       transitionData.data,
       config
@@ -86,7 +86,8 @@ const draw = (
       .attr('stroke-width', (d) => d.strokeWidth)
   }
   return {
-    element: group.selectAll(dotClassName),
+    className,
+    calculatedData,
     transition,
   }
 }

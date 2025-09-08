@@ -1,5 +1,5 @@
-import { lineRadial, transition } from 'd3'
-import { CalculatedData, getCalculatedData } from './calculatedData'
+import { lineRadial } from 'd3'
+import { getCalculatedData } from './calculatedData'
 import { Canvas } from '../../canvas/types'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { constantsCurves } from '../../core/constants/constants'
@@ -9,7 +9,7 @@ import {
   QsRadialLineTransitionData,
   QsRadialLineData,
 } from './qsTypes'
-import { RadialLineConfig } from './types'
+import { QsCalculatedDataCentroidLine, RadialLineConfig } from './types'
 import { radialCentroidLineConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
@@ -35,7 +35,11 @@ const draw = (
   config: RadialLineConfig
 ): QsRadialLine => {
   const { curve, strokeLineJoin, strokeLineCap } = config
-  const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
+  const calculatedData: QsCalculatedDataCentroidLine = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
 
   const radialLine = lineRadial().curve(constantsCurves[curve])
 
@@ -62,7 +66,7 @@ const draw = (
     transitionData: QsRadialLineTransitionData = { data }
   ) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
-    const calculatedData: CalculatedData = getCalculatedData(
+    const calculatedData: QsCalculatedDataCentroidLine = getCalculatedData(
       canvas,
       transitionData.data,
       config
@@ -79,7 +83,8 @@ const draw = (
       .attr('stroke-opacity', (d) => d.strokeOpacity)
   }
   return {
-    element: group.selectAll(dotClassName),
+    className,
+    calculatedData,
     transition,
   }
 }

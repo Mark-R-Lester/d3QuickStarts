@@ -1,7 +1,7 @@
-import { Selection } from 'd3'
-import { RadialAreaConfig } from './types'
+import { QsCalculatedDataCentroidArea, RadialAreaConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
+export { QsCalculatedDataCentroidArea } from './types'
 
 export type QsRadialAreaConfig = Partial<RadialAreaConfig>
 
@@ -12,12 +12,9 @@ export interface QsRadialAreaTransitionData {
 }
 
 export interface QsRadialArea {
-  elementArea:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  elementLine:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  classNameArea: string
+  classNameLine: string
+  calculatedData: QsCalculatedDataCentroidArea
   transition: (data: QsRadialAreaTransitionData) => void
 }
 

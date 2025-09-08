@@ -1,13 +1,5 @@
 import { ConfigStrokeDefaults, StrokeData } from '../../core/types/types'
 
-export interface CalculatedData {
-  id: string
-  lineData: [number, number][]
-  strokeWidth: number
-  strokeOpacity: number
-  strokeColor: string
-}
-
 export interface RadialSpokesConfig extends ConfigStrokeDefaults {
   [key: string]:
     | number
@@ -29,4 +21,12 @@ export interface QsSpokeConfig extends Partial<StrokeData> {
   spokeNumber: number
   outerRadius?: number
   innerRadius?: number
+}
+
+export interface QsCalculatedDataCentroidSpokes {
+  id: string
+  lineData: [number, number][]
+  strokeWidth: number
+  strokeOpacity: number
+  strokeColor: string
 }

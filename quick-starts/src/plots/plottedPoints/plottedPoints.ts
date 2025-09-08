@@ -3,14 +3,14 @@ import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { plottedPointsConfig } from '../../core/config/configDefaults'
 import { generateClassName } from '../../core/generateClassName'
-import { CalculatedData, getCalculatedData } from './calculatedData'
+import { getCalculatedData } from './calculatedData'
 import {
   QsPlottedPointsConfig,
   QsPlottedPoints,
   QsPlottedPointsData,
   QsPlottedPointsTransitionData,
 } from './qsTypes'
-import { PlottedPointsConfig } from './types'
+import { QsCalculatedDataPlottedPoints, PlottedPointsConfig } from './types'
 
 export const plottedPoint = {
   points: (
@@ -32,7 +32,7 @@ const draw = (
   data: QsPlottedPointsData[],
   config: PlottedPointsConfig
 ): QsPlottedPoints => {
-  const calculatedData: CalculatedData[] = getCalculatedData(
+  const calculatedData: QsCalculatedDataPlottedPoints[] = getCalculatedData(
     canvas,
     data,
     config
@@ -63,7 +63,7 @@ const draw = (
     transitionData: QsPlottedPointsTransitionData = { data }
   ) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
-    const calculatedData: CalculatedData[] = getCalculatedData(
+    const calculatedData: QsCalculatedDataPlottedPoints[] = getCalculatedData(
       canvas,
       transitionData.data,
       config
@@ -85,5 +85,5 @@ const draw = (
       .attr('stroke-width', (d) => d.strokeWidth)
   }
 
-  return { element: group.selectAll(dotClassName), transition }
+  return { className, calculatedData, transition }
 }

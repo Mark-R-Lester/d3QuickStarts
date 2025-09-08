@@ -1,19 +1,12 @@
 import { Canvas } from '../../canvas/types'
 import { QsPlottedLineData } from './qsTypes'
-import { PlottedLineConfig } from './types'
-
-export interface CalculatedData {
-  coordinates: [number, number][]
-  strokeOpacity: number
-  strokeColor: string
-  strokeWidth: number
-}
+import { QsCalculatedDataPlottedLine, PlottedLineConfig } from './types'
 
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsPlottedLineData,
   config: PlottedLineConfig
-): CalculatedData => {
+): QsCalculatedDataPlottedLine => {
   const { xDataScalePlotted, yDataScalePlotted, genralPercentScale } =
     canvas.scales
   const { coordinates, strokeOpacity, strokeColor, strokeWidth } = data

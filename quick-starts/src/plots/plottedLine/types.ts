@@ -12,3 +12,10 @@ export interface PlottedLineConfig extends ConfigStrokeDefaults {
   strokeLineJoin: QsEnumLineJoin
   strokeLineCap: QsEnumLineCap
 }
+
+export interface QsCalculatedDataPlottedLine {
+  coordinates: [number, number][]
+  strokeOpacity: number
+  strokeColor: string
+  strokeWidth: number
+}

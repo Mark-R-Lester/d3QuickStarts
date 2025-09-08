@@ -1,8 +1,8 @@
 import { line as d3line } from 'd3'
-import { PlottedLineConfig } from './types'
+import { QsCalculatedDataPlottedLine, PlottedLineConfig } from './types'
 import { plottedLineConfig } from '../../core/config/configDefaults'
 import { constantsCurves } from '../../core/constants/constants'
-import { CalculatedData, getCalculatedData } from './calculatedData'
+import { getCalculatedData } from './calculatedData'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import {
   QsLinePlot,
@@ -36,7 +36,11 @@ const draw = (
 ): QsLinePlot => {
   const { curve, strokeLineJoin, strokeLineCap } = config
 
-  const calculatedData: CalculatedData = getCalculatedData(canvas, data, config)
+  const calculatedData: QsCalculatedDataPlottedLine = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
   const { className, dotClassName } = generateClassName('plottedLine')
 
   let line = d3line()
@@ -64,7 +68,7 @@ const draw = (
     transitionData: QsPlottedLineTransitionData = { data }
   ) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
-    const calculatedData: CalculatedData = getCalculatedData(
+    const calculatedData: QsCalculatedDataPlottedLine = getCalculatedData(
       canvas,
       transitionData.data,
       config
@@ -82,5 +86,9 @@ const draw = (
       .attr('stroke-opacity', (d) => d.strokeOpacity)
   }
 
-  return { element: group.select(dotClassName), transition }
+  return {
+    className,
+    calculatedData,
+    transition,
+  }
 }

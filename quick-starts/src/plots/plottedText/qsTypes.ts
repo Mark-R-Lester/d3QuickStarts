@@ -1,7 +1,7 @@
-import { Selection } from 'd3'
-import { PlottedTextConfig } from './types'
+import { PlottedTextConfig, QsCalculatedDataPlottedText } from './types'
 import { QsCoordinate, QsTransitionArgs } from '../../core/types/qsTypes'
 import { TextData } from '../../core/types/types'
+export { QsCalculatedDataPlottedText } from './types'
 
 export type QsPlottedTextConfig = Partial<PlottedTextConfig>
 
@@ -15,8 +15,7 @@ export interface QsPlottedTextTransitionData {
 }
 
 export interface QsPlottedText {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  className: string
+  calculatedData: QsCalculatedDataPlottedText[]
   transition: (data: QsPlottedTextTransitionData) => void
 }

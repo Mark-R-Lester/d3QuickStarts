@@ -1,23 +1,12 @@
 import { Canvas } from '../../canvas/types'
 import { QsPlottedPointsData } from './qsTypes'
-import { PlottedPointsConfig } from './types'
-
-export interface CalculatedData {
-  x: number
-  y: number
-  radius: number
-  fillColor: string
-  fillOpacity: number
-  strokeColor: string
-  strokeWidth: number
-  strokeOpacity: number
-}
+import { QsCalculatedDataPlottedPoints, PlottedPointsConfig } from './types'
 
 export const getCalculatedData = (
   canvas: Canvas,
   data: QsPlottedPointsData[],
   config: PlottedPointsConfig
-): CalculatedData[] => {
+): QsCalculatedDataPlottedPoints[] => {
   const { xDataScalePlotted, yDataScalePlotted, genralPercentScale } =
     canvas.scales
   const {
@@ -29,7 +18,7 @@ export const getCalculatedData = (
     defaultStrokeOpacity,
   } = config
 
-  const calculatedData: CalculatedData[] = data.map((d, i) => {
+  const calculatedData: QsCalculatedDataPlottedPoints[] = data.map((d, i) => {
     return {
       x: xDataScalePlotted(d.x),
       y: yDataScalePlotted(d.y),

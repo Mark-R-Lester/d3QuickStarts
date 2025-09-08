@@ -1,7 +1,8 @@
-import { Selection } from 'd3'
 import { PlottedPointsConfig } from './calculatedData'
 import { QsCoordinate, QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
+import { QsCalculatedDataPlottedPoints } from './types'
+export { QsCalculatedDataPlottedPoints } from './types'
 
 export type QsPlottedPointsConfig = Partial<PlottedPointsConfig>
 
@@ -19,8 +20,7 @@ export interface QsPlottedPointsTransitionData {
 }
 
 export interface QsPlottedPoints {
-  element:
-    | Selection<SVGGElement, unknown, HTMLElement, any>
-    | Selection<SVGGElement, unknown, SVGGElement, unknown>
+  className: string
+  calculatedData: QsCalculatedDataPlottedPoints[]
   transition: (data: QsPlottedPointsTransitionData) => void
 }

@@ -5,14 +5,10 @@ import {
   QsPlottedText,
   QsPlottedTextTransitionData,
 } from './qsTypes'
-import { PlottedTextConfig } from './types'
+import { QsCalculatedDataPlottedText, PlottedTextConfig } from './types'
 import { plottedTextConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
-import {
-  CalculatedData,
-  getCalculatedData,
-  updateCalculatedData,
-} from './calculatedData'
+import { getCalculatedData, updateCalculatedData } from './calculatedData'
 import { interpolate } from 'd3'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { generateClassName } from '../../core/generateClassName'
@@ -38,11 +34,15 @@ const draw = (
   data: QsPlottedTextData[],
   config: PlottedTextConfig
 ): QsPlottedText => {
-  let calculatedData: CalculatedData[] = getCalculatedData(canvas, data, config)
+  let calculatedData: QsCalculatedDataPlottedText[] = getCalculatedData(
+    canvas,
+    data,
+    config
+  )
   const { useDataArea, defaultCooridinateView } = config
   const { className, dotClassName } = generateClassName('plottedText')
 
-  const getCorrectText = (d: CalculatedData): string => {
+  const getCorrectText = (d: QsCalculatedDataPlottedText): string => {
     const { text, viewableCoordinate, defaultDecimalPoints } = d
     const { x, y } = viewableCoordinate
     const xFixed = x.toFixed(defaultDecimalPoints)
@@ -121,5 +121,5 @@ const draw = (
       })
   }
 
-  return { element: group.selectAll(dotClassName), transition }
+  return { className, calculatedData, transition }
 }

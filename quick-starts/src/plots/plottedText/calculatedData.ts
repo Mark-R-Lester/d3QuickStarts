@@ -1,25 +1,14 @@
 import { Canvas } from '../../canvas/types'
-import { QsCoordinate } from '../../core/types/qsTypes'
-import { TextData } from '../../core/types/types'
 import { QsPlottedTextData } from './qsTypes'
-import { PlottedTextConfig } from './types'
-
-export interface CalculatedData extends TextData {
-  text?: string
-  newText?: string
-  coordinate: QsCoordinate
-  viewableCoordinate: QsCoordinate
-  newViewableCoordinate: QsCoordinate
-  defaultDecimalPoints: number
-}
+import { QsCalculatedDataPlottedText, PlottedTextConfig } from './types'
 
 export const updateCalculatedData = (
   canvas: Canvas,
   data: QsPlottedTextData[],
   config: PlottedTextConfig,
-  calculatedData: CalculatedData[]
-): CalculatedData[] => {
-  const newCalculatedData: CalculatedData[] = getCalculatedData(
+  calculatedData: QsCalculatedDataPlottedText[]
+): QsCalculatedDataPlottedText[] => {
+  const newCalculatedData: QsCalculatedDataPlottedText[] = getCalculatedData(
     canvas,
     data,
     config
@@ -36,7 +25,7 @@ export const getCalculatedData = (
   canvas: Canvas,
   data: QsPlottedTextData[],
   config: PlottedTextConfig
-): CalculatedData[] => {
+): QsCalculatedDataPlottedText[] => {
   const { xDataScalePlotted, yDataScalePlotted, genralPercentScale } =
     canvas.scales
   const {
@@ -53,7 +42,7 @@ export const getCalculatedData = (
     defaultTextAlignmentBaseline,
   } = config
 
-  const calculatedData: CalculatedData[] = data.map((d) => ({
+  const calculatedData: QsCalculatedDataPlottedText[] = data.map((d) => ({
     text: d.text,
     newText: d.text,
     coordinate: { x: xDataScalePlotted(d.x), y: yDataScalePlotted(d.y) },

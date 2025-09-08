@@ -1,8 +1,8 @@
 import { ChartEdge } from '../../core/enums/enums'
 import { Canvas } from '../../canvas/types'
 import { QsAxis, QsAxisConfig } from './qsTypes'
-import { AxisConfig } from './types'
-import { CalculatedData, getCalculatedData } from './calculatedData'
+import { AxisConfig, QsCalculatedDataOrthogonalAxis } from './types'
+import { getCalculatedData } from './calculatedData'
 import {
   orthogonalAxisConfigTop,
   orthogonalAxisConfigBottom,
@@ -55,23 +55,25 @@ const draw = (
   chartEdge: ChartEdge,
   config: AxisConfig
 ): QsAxis => {
-  const calculatedData: CalculatedData = getCalculatedData(
+  const calculatedData: QsCalculatedDataOrthogonalAxis = getCalculatedData(
     canvas,
     chartEdge,
     config
   )
 
-  const { className, dotClassName } = generateClassName('orthogonalAxis')
+  const { className: classNameAxis, dotClassName: dotClassNameAxis } =
+    generateClassName('orthogonalAxis')
   const { className: classNameDomain, dotClassName: dotClassNameDomian } =
     generateClassName('orthogonalAxisDomain')
   const { className: classNameTick, dotClassName: dotClassNameTick } =
     generateClassName('orthogonalAxisTick')
   const { className: classNameText, dotClassName: dotClassNameText } =
     generateClassName('orthogonalAxisText')
+
   const axisGroup = canvas.canvasGroup
     .append('g')
-    .attr('id', className)
-    .attr('class', className)
+    .attr('id', classNameAxis)
+    .attr('class', classNameAxis)
     .attr('transform', calculatedData.translation)
     .call(calculatedData.axis)
 
@@ -109,8 +111,10 @@ const draw = (
     .attr('dx', (d) => d.textX)
 
   return {
-    elementDomain: axisGroup.select('.domain'),
-    elementTicks: axisGroup.selectAll('.tick'),
-    elementText: axisGroup.selectAll('text'),
+    classNameAxis,
+    classNameDomain,
+    classNameTick,
+    classNameText,
+    calculatedData,
   }
 }

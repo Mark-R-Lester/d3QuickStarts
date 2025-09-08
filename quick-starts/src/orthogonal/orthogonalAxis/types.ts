@@ -1,3 +1,4 @@
+import { Axis } from 'd3'
 import {
   QsEnumAlignmentBaseline,
   QsEnumAxisScaleType,
@@ -41,4 +42,27 @@ export interface AxisConfig extends AxisConfigBase {
   [key: string]: number | boolean | string | undefined | QsAxisScaleData
   textAnchor: QsEnumTextAnchor
   textAlignmentBaseline: QsEnumAlignmentBaseline
+}
+
+export interface QsCalculatedDataOrthogonalAxis {
+  translation: string
+  axis: Axis<string>
+  domainWidth: number
+  tickWidth: number
+  domainColor: string
+  domainOpacity: number
+  tickColor: string
+  tickOpacity: number
+  textFont: QsEnumTextFont | string
+  textFontSize: number
+  textFontStyle: QsEnumTextFontStyle
+  textFontWeight: QsEnumTextFontWeight | number
+  textDecorationLine: QsEnumTextDecorationLine
+  textAnchor: QsEnumTextAnchor
+  textAlignmentBaseline: QsEnumAlignmentBaseline
+  textFill: string
+  textAngle: number
+  textStroke: string
+  textX: number
+  textY: number
 }

@@ -10,46 +10,15 @@ import {
 } from 'd3'
 import { toStrings } from '../../core/math/conversion'
 import { ChartEdge } from '../../core/enums/enums'
-import { AxisConfig } from './types'
+import { AxisConfig, QsCalculatedDataOrthogonalAxis } from './types'
 import { Canvas } from '../../canvas/types'
-import {
-  QsEnumAlignmentBaseline,
-  QsEnumAxisScaleType,
-  QsEnumTextAnchor,
-  QsEnumTextDecorationLine,
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-} from '../../core/enums/qsEnums'
-
-export interface CalculatedData {
-  translation: string
-  axis: Axis<string>
-  domainWidth: number
-  tickWidth: number
-  domainColor: string
-  domainOpacity: number
-  tickColor: string
-  tickOpacity: number
-  textFont: QsEnumTextFont | string
-  textFontSize: number
-  textFontStyle: QsEnumTextFontStyle
-  textFontWeight: QsEnumTextFontWeight | number
-  textDecorationLine: QsEnumTextDecorationLine
-  textAnchor: QsEnumTextAnchor
-  textAlignmentBaseline: QsEnumAlignmentBaseline
-  textFill: string
-  textAngle: number
-  textStroke: string
-  textX: number
-  textY: number
-}
+import { QsEnumAxisScaleType } from '../../core/enums/qsEnums'
 
 export const getCalculatedData = (
   canvas: Canvas,
   chartEdge: ChartEdge,
   config: AxisConfig
-): CalculatedData => {
+): QsCalculatedDataOrthogonalAxis => {
   const {
     genralPercentScale,
     xPercentScale,
@@ -164,7 +133,7 @@ export const getCalculatedData = (
 
   if (numberOfTicks) axis.ticks(numberOfTicks)
 
-  const calculatedData: CalculatedData = {
+  const calculatedData: QsCalculatedDataOrthogonalAxis = {
     translation,
     axis,
     domainWidth: genralPercentScale(domainWidth) / 5,

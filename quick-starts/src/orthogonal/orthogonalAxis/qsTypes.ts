@@ -1,11 +1,12 @@
-import { BaseType, Selection } from 'd3'
-import { AxisConfig } from './types'
-import { CanvasConfig } from '../../canvas/types'
+import { AxisConfig, QsCalculatedDataOrthogonalAxis } from './types'
+export { QsCalculatedDataOrthogonalAxis } from './types'
 
 export type QsAxisConfig = Partial<AxisConfig>
 
 export interface QsAxis {
-  elementDomain: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
-  elementTicks: Selection<BaseType, unknown, SVGGElement, unknown>
-  elementText: Selection<BaseType, unknown, SVGGElement, unknown>
+  classNameAxis: string
+  classNameDomain: string
+  classNameTick: string
+  classNameText: string
+  calculatedData: QsCalculatedDataOrthogonalAxis
 }

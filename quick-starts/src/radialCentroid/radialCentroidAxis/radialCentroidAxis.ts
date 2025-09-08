@@ -3,13 +3,8 @@ import { getCalculatedData } from './calculatedData'
 import { RadialAxisConfig, CalculatedData } from './types'
 import { radialCentroidAxisConfig } from '../../core/config/configDefaults'
 import { Canvas } from '../../canvas/types'
-import {
-  QsRadialAxisConfig,
-  QsRadialAxis,
-  QsRadialCentroidAxisTransitionData,
-} from './qsTypes'
+import { QsRadialAxisConfig, QsRadialAxis } from './qsTypes'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
-import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { generateClassName } from '../../core/generateClassName'
 
 export const radialAxis = {
@@ -73,33 +68,8 @@ const draw = (canvas: Canvas, config: RadialAxisConfig): QsRadialAxis => {
     )
     .text((d) => d.ringData.text)
 
-  const transition = (transitionData: QsRadialCentroidAxisTransitionData) => {
-    const args = addTransitionDefaults(transitionData.transitionArgs)
-
-    const calculatedData: CalculatedData[] = getCalculatedData(canvas, config)
-    group
-      .selectAll(dotClassName)
-      .data(calculatedData)
-      .transition()
-      .delay(args.delayInMiliSeconds)
-      .duration(args.durationInMiliSeconds)
-      .attr('stroke-width', (d) => d.strokeWidth)
-      .attr('d', (d) => arc(d.ringData))
-    group
-      .selectAll(dotClassNameText)
-      .data(calculatedData)
-      .transition()
-      .delay(args.delayInMiliSeconds)
-      .duration(args.durationInMiliSeconds)
-      .attr('font-size', (d) => `${d.textFontSize}px`)
-      .attr('transform', (d) => {
-        return `translate(${d.ringData.textLocation})`
-      })
-  }
-
   return {
     textElement: group.selectAll(dotClassNameText),
     ringsElement: group.selectAll(dotClassName),
-    transition,
   }
 }

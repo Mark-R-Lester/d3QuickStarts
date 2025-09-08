@@ -46,18 +46,7 @@ const draw = (canvas: Canvas, config: RadialSpokesConfig): QsRadialSpokes => {
     .attr('stroke-width', (d) => d.strokeWidth)
     .attr('stroke-opacity', (d) => d.strokeOpacity)
 
-  const transition = (data: number) => {
-    const calculatedData: CalculatedData[] = getCalculatedData(canvas, config)
-    group
-      .selectAll(dotClassName)
-      .data(calculatedData.map((d) => d.lineData))
-      .transition()
-      .duration(3000)
-      .attr('d', radialLine)
-  }
-
   return {
     element: group.selectAll(dotClassName),
-    transition,
   }
 }

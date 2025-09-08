@@ -10,5 +10,4 @@ export interface QsRadialSpokes {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: number) => void
 }

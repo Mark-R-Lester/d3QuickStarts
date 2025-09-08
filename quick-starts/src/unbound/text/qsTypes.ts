@@ -9,14 +9,8 @@ export interface QsUnboundTextData extends QsCoordinate, Partial<TextData> {
   text: string
 }
 
-export interface QsUnboundTextTransitionData {
-  data: QsUnboundTextData[]
-  transitionArgs?: QsTransitionArgs
-}
-
 export interface QsUnboundText {
   element:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsUnboundTextTransitionData) => void
 }

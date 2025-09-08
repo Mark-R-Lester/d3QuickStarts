@@ -1,6 +1,5 @@
 import { CalculatedData, getCalculatedData } from './calculatedData'
 import { LegendConfig } from './types'
-import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { QsLegendData, QsLegendConfig, QsLegend } from './qsTypes'
 import { legendConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
@@ -67,6 +66,5 @@ const draw = (canvas: Canvas, data: QsLegendData[], config: LegendConfig) => {
   return {
     elementShape: group.selectAll(dotClassName),
     elementText: group.selectAll(dotClassNameText),
-    transition: (data: QsLegendData[], transisionArgs?: QsTransitionArgs) => {},
   }
 }

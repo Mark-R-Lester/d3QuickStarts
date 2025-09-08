@@ -5,10 +5,6 @@ export { QsRingConfig } from './types'
 
 export type QsRadialAxisConfig = Partial<RadialAxisConfig>
 
-export interface QsRadialCentroidAxisTransitionData {
-  transitionArgs?: QsTransitionArgs
-}
-
 export interface QsRadialAxis {
   textElement:
     | Selection<SVGGElement, unknown, HTMLElement, any>
@@ -16,5 +12,4 @@ export interface QsRadialAxis {
   ringsElement:
     | Selection<SVGGElement, unknown, HTMLElement, any>
     | Selection<SVGGElement, unknown, SVGGElement, unknown>
-  transition: (data: QsRadialCentroidAxisTransitionData) => void
 }

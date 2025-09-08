@@ -35,13 +35,6 @@ export interface QsCanvasConfigPlotted extends QsCanvasConfig {
   dataScale?: never
 }
 
-export interface QsCanvasTransitionConfig extends Partial<CanvasConfig> {}
-
-export interface QsCanvasTransitionData {
-  config: QsCanvasTransitionConfig
-  transitionArgs?: QsTransitionArgs
-}
-
 interface QsCanvas {
   canvasSVG: Selection<SVGSVGElement, CanvasConfig, HTMLElement, any>
   canvasGroup: Selection<SVGGElement, CanvasConfig, HTMLElement, any>

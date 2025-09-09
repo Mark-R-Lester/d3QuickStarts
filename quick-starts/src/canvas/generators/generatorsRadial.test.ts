@@ -2,12 +2,12 @@ import * as legend from '../../unbound/legend/legend'
 import * as text from '../../unbound/text/text'
 import * as radialArc from '../../radialArc/radialArc/radialArc'
 import * as radialArcText from '../../radialArc/radialArcText/radialArcText'
-import * as radialArea from '../../radialCentroid/radialCentroidArea/radialCentroidArea'
-import * as radialAxis from '../../radialCentroid/radialCentroidAxis/radialCentroidAxis'
-import * as radialLine from '../../radialCentroid/radialCentroidLine/radialCentroidLine'
-import * as radialPoint from '../../radialCentroid/radialCentroidPoints/radialCentroidPoints'
-import { radialSpokes } from '../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
-import { radialText } from '../../radialCentroid/radialCentroidText/radialCentroidText'
+import * as radialArea from '../../radialCentroid/radialCentroidArea/centroidArea'
+import * as radialAxis from '../../radialCentroid/radialCentroidAxis/centroidAxis'
+import * as radialLine from '../../radialCentroid/radialCentroidLine/centroidLine'
+import * as radialPoint from '../../radialCentroid/radialCentroidPoints/centroidPoints'
+import { radialSpokes } from '../../radialCentroid/radialCentroidSpokes/centroidSpokes'
+import { radialText } from '../../radialCentroid/radialCentroidText/centroidText'
 
 import { QsCanvasRadial } from '../qsTypes'
 import { QsGeneratorRadial } from './generatorsRadial'
@@ -29,12 +29,12 @@ jest.mock('../../unbound/legend/legend')
 jest.mock('../../unbound/text/text')
 jest.mock('../../radialArc/radialArc/radialArc')
 jest.mock('../../radialArc/radialArcText/radialArcText')
-jest.mock('../../radialCentroid/radialCentroidArea/radialCentroidArea')
-jest.mock('../../radialCentroid/radialCentroidAxis/radialCentroidAxis')
-jest.mock('../../radialCentroid/radialCentroidLine/radialCentroidLine')
-jest.mock('../../radialCentroid/radialCentroidPoints/radialCentroidPoints')
-jest.mock('../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes')
-jest.mock('../../radialCentroid/radialCentroidText/radialCentroidText')
+jest.mock('../../radialCentroid/radialCentroidArea/centroidArea')
+jest.mock('../../radialCentroid/radialCentroidAxis/centroidAxis')
+jest.mock('../../radialCentroid/radialCentroidLine/centroidLine')
+jest.mock('../../radialCentroid/radialCentroidPoints/centroidPoints')
+jest.mock('../../radialCentroid/radialCentroidSpokes/centroidSpokes')
+jest.mock('../../radialCentroid/radialCentroidText/centroidText')
 
 describe('getGenerators', () => {
   let canvas: QsCanvasRadial

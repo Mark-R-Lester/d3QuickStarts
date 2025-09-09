@@ -22,29 +22,29 @@ import {
   QsCentroidAreaConfig,
   QsCentroidAreaData,
 } from '../../radialCentroid/radialCentroidArea/qsTypes'
-import { radialArea } from '../../radialCentroid/radialCentroidArea/radialCentroidArea'
+import { radialArea } from '../../radialCentroid/radialCentroidArea/centroidArea'
 import {
   QsCentroidAxis,
   QsCentroidAxisConfig,
 } from '../../radialCentroid/radialCentroidAxis/qsTypes'
-import { radialAxis } from '../../radialCentroid/radialCentroidAxis/radialCentroidAxis'
+import { radialAxis } from '../../radialCentroid/radialCentroidAxis/centroidAxis'
 import {
   QsCentroidLine,
   QsCentroidLineConfig,
   QsCentroidLineData,
 } from '../../radialCentroid/radialCentroidLine/qsTypes'
-import { centroidLine } from '../../radialCentroid/radialCentroidLine/radialCentroidLine'
+import { centroidLine } from '../../radialCentroid/radialCentroidLine/centroidLine'
 import {
   QsCentroidPointData,
   QsCentroidPoints,
   QsCentroidPointsConfig,
 } from '../../radialCentroid/radialCentroidPoints/qsTypes'
-import { radialPoint } from '../../radialCentroid/radialCentroidPoints/radialCentroidPoints'
+import { radialPoint } from '../../radialCentroid/radialCentroidPoints/centroidPoints'
 import {
   QsCentroidSpokes,
   QsCentroidSpokesConfig,
 } from '../../radialCentroid/radialCentroidSpokes/qsTypes'
-import { radialSpokes } from '../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
+import { radialSpokes } from '../../radialCentroid/radialCentroidSpokes/centroidSpokes'
 
 import {
   QsUnboundText,
@@ -56,7 +56,7 @@ import {
   QsCentroidText,
   QsCentroidTextConfig,
 } from '../../radialCentroid/radialCentroidText/qsTypes'
-import { radialText } from '../../radialCentroid/radialCentroidText/radialCentroidText'
+import { radialText } from '../../radialCentroid/radialCentroidText/centroidText'
 import { Canvas } from '../types'
 
 interface UnboundElementFunctions {

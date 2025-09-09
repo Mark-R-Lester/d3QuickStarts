@@ -227,26 +227,26 @@ export const RadialArcPageLink: React.FC = () => (
 export const RadialArcTextPageLink: React.FC = () => (
   <NavButton to={Paths.RADIAL_ARC.TEXT}>Radial Arc Text</NavButton>
 )
-export const RadialCentroidAreaPageLink: React.FC = () => (
+export const CentroidAreaPageLink: React.FC = () => (
   <NavButton to={Paths.RADIAL_CENTROID.AREA}>Radial Centroid Area</NavButton>
 )
-export const RadialCentroidAxisPageLink: React.FC = () => (
+export const CentroidAxisPageLink: React.FC = () => (
   <NavButton to={Paths.RADIAL_CENTROID.AXIS}>Radial Centroid Axis</NavButton>
 )
-export const RadialCentroidLinePageLink: React.FC = () => (
+export const CentroidLinePageLink: React.FC = () => (
   <NavButton to={Paths.RADIAL_CENTROID.LINE}>Radial Centroid Line</NavButton>
 )
-export const RadialCentroidPointsPageLink: React.FC = () => (
+export const CentroidPointsPageLink: React.FC = () => (
   <NavButton to={Paths.RADIAL_CENTROID.POINTS}>
     Radial Centroid Points
   </NavButton>
 )
-export const RadialCentroidSpokesPageLink: React.FC = () => (
+export const CentroidSpokesPageLink: React.FC = () => (
   <NavButton to={Paths.RADIAL_CENTROID.SPOKES}>
     Radial Centroid Spokes
   </NavButton>
 )
-export const RadialCentroidTextPageLink: React.FC = () => (
+export const CentroidTextPageLink: React.FC = () => (
   <NavButton to={Paths.RADIAL_CENTROID.TEXT}>Radial Centroid Text</NavButton>
 )
 

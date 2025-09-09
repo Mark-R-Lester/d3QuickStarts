@@ -16,7 +16,7 @@ interface RingData {
   text: number | string
 }
 
-export interface RadialAxisConfig
+export interface CentroidAxisConfig
   extends ConfigStrokeDefaults,
     ConfigTextDefaults {
   [key: string]:
@@ -25,10 +25,10 @@ export interface RadialAxisConfig
     | string
     | boolean
     | QsOrdinalScaleData
-    | QsRingConfig[]
+    | QsCentroidTickConfig[]
   layerType: QsEnumLayerType
   showCentralTick: boolean
-  ringConfig?: QsRingConfig[]
+  ringConfig?: QsCentroidTickConfig[]
   x: number
   y: number
   defaultAxisAngle: number
@@ -37,7 +37,9 @@ export interface RadialAxisConfig
   decimalPlaces?: number
 }
 
-export interface QsRingConfig extends Partial<StrokeData>, Partial<TextData> {
+export interface QsCentroidTickConfig
+  extends Partial<StrokeData>,
+    Partial<TextData> {
   [key: string]: number | undefined | string | boolean | QsOrdinalScaleData
   ringNumber: number
   axisAngle?: number

@@ -3,7 +3,7 @@ import { ChartButtonGrid } from '../../components/molecules/ChartButtonGrid'
 
 import {
   QsColorScaleData,
-  QsRadialPointData,
+  QsCentroidPointData,
   QsEnumColorScale,
 } from 'd3qs/d3QuickStart'
 import { RadialAreaTransition } from './area/RadialAreaTransition'
@@ -11,7 +11,7 @@ import { RadialLineTransition } from './line/RadialLineTransition'
 import { RadialPointTransition } from './points/RadialPointsTransition'
 
 export default function RadialTransitionsPage() {
-  const radialPointsColouredData: QsRadialPointData[] = [
+  const radialPointsColouredData: QsCentroidPointData[] = [
     { value: 1, fillColor: 'red' },
     { value: 2, fillColor: 'blue' },
     { value: 1, fillColor: 'red' },

@@ -6,7 +6,7 @@ import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import { basics, configAndData, editorContent } from './Content'
 import { RadialLineChart } from './RadialLineChart'
 
-export default function RadialCentroidLinePage() {
+export default function CentroidLinePage() {
   const menuElements: JSX.Element[] = [
     <RadialLineChart
       canvasConfig={{

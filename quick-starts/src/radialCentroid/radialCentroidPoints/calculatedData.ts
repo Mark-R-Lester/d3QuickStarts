@@ -1,21 +1,21 @@
 import { scaleLinear, ScaleOrdinal, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { QsCalculatedDataCentroidPoints, RadialPointsConfig } from './types'
+import { QsCalculatedDataCentroidPoints, CentroidPointsConfig } from './types'
 import {
   findOrdinalValue,
   getColorScale,
   getPrecidendedColor,
   getScaledColor,
 } from '../../core/color/color'
-import { QsRadialPointData } from './qsTypes'
+import { QsCentroidPointData } from './qsTypes'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { Canvas } from '../../canvas/types'
 import { QsEnumColorScale } from '../../core/enums/qsEnums'
 
 export const getCalculatedData = (
   canvas: Canvas,
-  data: QsRadialPointData[],
-  config: RadialPointsConfig
+  data: QsCentroidPointData[],
+  config: CentroidPointsConfig
 ): QsCalculatedDataCentroidPoints[] => {
   const { genralPercentScale, xPercentScale, yPercentScale, radialDataScale } =
     canvas.scales

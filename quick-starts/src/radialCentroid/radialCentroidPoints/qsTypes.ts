@@ -1,24 +1,24 @@
-import { QsCalculatedDataCentroidPoints, RadialPointsConfig } from './types'
+import { QsCalculatedDataCentroidPoints, CentroidPointsConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
 import { LayerActions } from '../../canvas/createCanvasElement'
 export { QsCalculatedDataCentroidPoints } from './types'
 
-export type QsRadialPointsConfig = Partial<RadialPointsConfig>
+export type QsCentroidPointsConfig = Partial<CentroidPointsConfig>
 
-export interface QsRadialPointsTransitionData {
-  data: QsRadialPointData[]
+export interface QsCentroidPointsTransitionData {
+  data: QsCentroidPointData[]
   transitionArgs?: QsTransitionArgs
 }
 
-export interface QsRadialPoints {
+export interface QsCentroidPoints {
   className: string
   layerActions: LayerActions
   calculatedData: QsCalculatedDataCentroidPoints[]
-  transition: (data: QsRadialPointsTransitionData) => void
+  transition: (data: QsCentroidPointsTransitionData) => void
 }
 
-export interface QsRadialPointData extends Partial<StrokeData> {
+export interface QsCentroidPointData extends Partial<StrokeData> {
   value: number
   radius?: number
   fillColor?: string

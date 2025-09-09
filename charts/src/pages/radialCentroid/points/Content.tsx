@@ -19,7 +19,7 @@ const canvasConfig: string = `const canvasConfig = {
 }`
 
 const defaultsChart: string = `
-const data: QsRadialPointData[] = [
+const data: QsCentroidPointData[] = [
   { value: 1 },
   { value: 2 },
   { value: 1 },
@@ -37,10 +37,10 @@ const data: QsRadialPointData[] = [
 ]
 
 const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.points(data)`
+canvas.generate.centroid.points(data)`
 
 const configChart: string = `
-const data: QsRadialPointData[] = [
+const data: QsCentroidPointData[] = [
   { value: 1, fillColor: 'red' },
   { value: 2 },
   { value: 1 },
@@ -58,12 +58,12 @@ const data: QsRadialPointData[] = [
 ]
 
 const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.points(data)`
+canvas.generate.centroid.points(data)`
 
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`
 
-const data: string = `interface QsRadialPointData {
+const data: string = `interface QsCentroidPointData {
   value: number
   radius?: number
   fillColor?: string
@@ -73,7 +73,7 @@ const data: string = `interface QsRadialPointData {
   strokeOpacity?: number
 }`
 
-const config: string = `interface QsRadialPointsConfig = {
+const config: string = `interface QsCentroidPointsConfig = {
   useDataArea?: boolean
   x?: number
   y?: number
@@ -87,7 +87,7 @@ const config: string = `interface QsRadialPointsConfig = {
   strokeColorScaleData?: QsColorScaleData
 }`
 
-const dataExample: string = `const data: QsRadialPointData = {
+const dataExample: string = `const data: QsCentroidPointData = {
   value: 6,
   radius: 3,
   fillColor: 'blue',
@@ -97,7 +97,7 @@ const dataExample: string = `const data: QsRadialPointData = {
   strokeOpacity: 1,
 }`
 
-const configExample: string = `const config: QsRadialPointsConfig = {
+const configExample: string = `const config: QsCentroidPointsConfig = {
   useDataArea: true
   x: 50,
   y: 50,

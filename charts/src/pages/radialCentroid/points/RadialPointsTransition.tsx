@@ -2,8 +2,8 @@ import { FunctionComponent, useEffect, useRef, useState } from 'react'
 import {
   QsCanvasRadial,
   qsCreateCanvasRadial,
-  QsRadialPoints,
-  QsRadialPointData,
+  QsCentroidPoints,
+  QsCentroidPointData,
 } from 'd3qs/d3QuickStart'
 import { RadialPointsChartProps } from '../../../common/chartProps'
 
@@ -36,16 +36,14 @@ export const RadialPointTransition: FunctionComponent<
   config,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
-  const [element, setElement] = useState<QsRadialPoints>()
-  const chartDataRef = useRef<QsRadialPointData[]>(data)
+  const [element, setElement] = useState<QsCentroidPoints>()
+  const chartDataRef = useRef<QsCentroidPointData[]>(data)
 
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
-      setElement(
-        canvas.generate.radialCentroid.points(chartDataRef.current, config)
-      )
+      setElement(canvas.generate.centroid.points(chartDataRef.current, config))
     }
     createChart()
   }, [canvasConfig, config])

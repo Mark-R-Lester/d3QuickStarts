@@ -1,7 +1,7 @@
 import { QsEnumLayerType } from '../../core/enums/qsEnums'
 import { ConfigStrokeDefaults, StrokeData } from '../../core/types/types'
 
-export interface RadialSpokesConfig extends ConfigStrokeDefaults {
+export interface CentroidSpokesConfig extends ConfigStrokeDefaults {
   [key: string]:
     | number
     | Iterable<unknown>

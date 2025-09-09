@@ -44,7 +44,7 @@ export const getGenerators = jest.fn().mockReturnValue({
       }),
     },
   },
-  radialCentroid: {
+  centroid: {
     area: jest.fn().mockReturnValue(getMockSelectionAndTransition()),
     axis: jest.fn().mockReturnValue({
       textElement: createMockSelection<SVGGElement>(),

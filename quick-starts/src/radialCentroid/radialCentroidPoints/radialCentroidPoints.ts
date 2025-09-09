@@ -1,14 +1,14 @@
 import { getCalculatedData } from './calculatedData'
 import { Canvas } from '../../canvas/types'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { QsCalculatedDataCentroidPoints, RadialPointsConfig } from './types'
+import { QsCalculatedDataCentroidPoints, CentroidPointsConfig } from './types'
 import {
-  QsRadialPointData,
-  QsRadialPointsConfig,
-  QsRadialPoints,
-  QsRadialPointsTransitionData,
+  QsCentroidPointData,
+  QsCentroidPointsConfig,
+  QsCentroidPoints,
+  QsCentroidPointsTransitionData,
 } from './qsTypes'
-import { radialCentroidPointsConfig } from '../../core/config/configDefaults'
+import { centroidPointsConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 import { QsEnumLayerType } from '../../core/enums/qsEnums'
@@ -16,30 +16,31 @@ import { QsEnumLayerType } from '../../core/enums/qsEnums'
 export const radialPoint = {
   points: (
     canvas: Canvas,
-    data: QsRadialPointData[],
-    customConfig?: QsRadialPointsConfig
-  ): QsRadialPoints => {
-    const config: RadialPointsConfig = addDefaultsToConfig<RadialPointsConfig>(
-      radialCentroidPointsConfig,
-      customConfig,
-      canvas.configStore.radialCentroid.pointsConfig()
-    )
+    data: QsCentroidPointData[],
+    customConfig?: QsCentroidPointsConfig
+  ): QsCentroidPoints => {
+    const config: CentroidPointsConfig =
+      addDefaultsToConfig<CentroidPointsConfig>(
+        centroidPointsConfig,
+        customConfig,
+        canvas.configStore.centroid.pointsConfig()
+      )
     return draw(canvas, data, config)
   },
 }
 
 const draw = (
   canvas: Canvas,
-  data: QsRadialPointData[],
-  config: RadialPointsConfig
-): QsRadialPoints => {
+  data: QsCentroidPointData[],
+  config: CentroidPointsConfig
+): QsCentroidPoints => {
   const calculatedData: QsCalculatedDataCentroidPoints[] = getCalculatedData(
     canvas,
     data,
     config
   )
 
-  const { className, dotClassName } = generateClassName('radialCentroidPoints')
+  const { className, dotClassName } = generateClassName('centroidPoints')
 
   const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
@@ -65,7 +66,7 @@ const draw = (
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
 
   const transition = (
-    transitionData: QsRadialPointsTransitionData = { data }
+    transitionData: QsCentroidPointsTransitionData = { data }
   ) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
     const calculatedData: QsCalculatedDataCentroidPoints[] = getCalculatedData(

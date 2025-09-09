@@ -2,7 +2,7 @@ import { QsEnumLayerType } from '../../core/enums/qsEnums'
 import { QsColorScaleData, QsCoordinate } from '../../core/types/qsTypes'
 import { ConfigStrokeDefaults } from '../../core/types/types'
 
-export interface RadialPointsConfig extends ConfigStrokeDefaults {
+export interface CentroidPointsConfig extends ConfigStrokeDefaults {
   [key: string]: number | QsColorScaleData | string | undefined | boolean
   layerType: QsEnumLayerType
   x: number

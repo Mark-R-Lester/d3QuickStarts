@@ -56,17 +56,17 @@ const spokesConfig: string = `const config = {
 }`
 
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.area({
+canvas.generate.centroid.area({
   highValues: [25, 50, 75, 100, 125, 150],
 })
-canvas.generate.radialCentroid.spokes()`
+canvas.generate.centroid.spokes()`
 
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.area({
+canvas.generate.centroid.area({
   highValues: [25, 50, 75, 100, 125, 150],
 })
-canvas.generate.radialCentroid.axis({ axisAngle: 90 })
-canvas.generate.radialCentroid.spokes(config)`
+canvas.generate.centroid.axis({ axisAngle: 90 })
+canvas.generate.centroid.spokes(config)`
 
 export const defaultsContent: JSX.Element = (
   <ContentColumn

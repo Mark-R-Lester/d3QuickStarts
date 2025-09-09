@@ -24,14 +24,14 @@ const configArea: string = `const canvasConfig = {
   defaultStrokeColor: 'lightBlue',
 }`
 
-const data1: string = `const data1: QsRadialAreaData = {
+const data1: string = `const data1: QsCentroidAreaData = {
   highValues: [
     16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17,
     18, 20, 17, 23, 23, 20, 17, 16, 16,
   ],
 }`
 
-const data2: string = `const data2: QsRadialAreaData = {
+const data2: string = `const data2: QsCentroidAreaData = {
   lowValues: [
     15, 15, 15, 17, 16, 21, 14, 15, 16, 12, 15, 15, 15, 17, 16, 15, 15,
     15, 17, 16, 21, 14, 15, 16, 12, 15,
@@ -45,11 +45,11 @@ const data2: string = `const data2: QsRadialAreaData = {
 
 const chart1: string = `
 const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.area(data1)`
+canvas.generate.centroid.area(data1)`
 
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.area(data1)
-canvas.generate.radialCentroid.area(data2)`
+canvas.generate.centroid.area(data1)
+canvas.generate.centroid.area(data2)`
 
 export const basics: JSX.Element = (
   <ContentColumn
@@ -156,7 +156,7 @@ export const basics: JSX.Element = (
   />
 )
 
-const data: string = `interface QsRadialAreaData {
+const data: string = `interface QsCentroidAreaData {
   highValues: number[]
   lowValues?: number[]
   fillColor?: string
@@ -166,7 +166,7 @@ const data: string = `interface QsRadialAreaData {
   strokeOpacity?: number
 }`
 
-const config: string = `interface QsRadialAreaConfig {
+const config: string = `interface QsCentroidAreaConfig {
   curve?: QsEnumCurve
   x?: number
   y?: number
@@ -179,7 +179,7 @@ const config: string = `interface QsRadialAreaConfig {
   strokeLineCap?: QsEnumLineCap
 }`
 
-const dataExample: string = `const data: QsRadialAreaData = {
+const dataExample: string = `const data: QsCentroidAreaData = {
   highValues: [15, 15, 15, 17, 16],
   lowValues: [16, 17, 18, 20, 17],
   fillColor: 'blue',
@@ -189,7 +189,7 @@ const dataExample: string = `const data: QsRadialAreaData = {
   strokeOpacity: 1,
 }`
 
-const configExample: string = `const config: QsRadialAreaConfig = {
+const configExample: string = `const config: QsCentroidAreaConfig = {
   curve: QsEnumCurve.NATURAL,
   x: 50,
   y: 50,

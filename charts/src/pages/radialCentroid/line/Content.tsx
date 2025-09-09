@@ -19,46 +19,46 @@ const canvasConfig: string = `const canvasConfig = {
   borderColor: 'grey',
 }`
 
-const data1: string = `const data: QsRadialLineData = {
+const data1: string = `const data:QsCentroidLineData = {
   values: [
     16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17, 18,
     20, 17, 23, 23, 20, 17, 16, 16,
   ],
 }`
 
-const data2: string = `const data: QsRadialLineData = {
+const data2: string = `const data:QsCentroidLineData = {
   values: [
     16, 17, 18, 20, 17, 23, 23, 20, 17, 16, 16, 17, 18, 20, 17, 16, 17, 18,
     20, 17, 23, 23, 20, 17, 16, 16,
   ],
 }`
 
-const config2: string = `const config: QsRadialLineConfig = {
+const config2: string = `const config:QsCentroidLineConfig = {
   curve: QsEnumCurve.NATURAL,
   defaultStrokeWidth: 1,
   defaultStrokeColor: 'green',
 }`
 
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.line(data)
-canvas.generate.radialCentroid.spokes({
+canvas.generate.centroid.line(data)
+canvas.generate.centroid.spokes({
   numberOfSpokes: 26,
   defaultInnerRadius: 50,
   defaultOuterRadius: 105,
 })
-canvas.generate.radialCentroid.axis({
+canvas.generate.centroid.axis({
   numberOfRings: 5,
   showCentralTick: false,
 })`
 
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.line(data, config)
-canvas.generate.radialCentroid.spokes({
+canvas.generate.centroid.line(data, config)
+canvas.generate.centroid.spokes({
   numberOfSpokes: 26,
   defaultInnerRadius: 50,
   defaultOuterRadius: 105,
 })
-canvas.generate.radialCentroid.axis({
+canvas.generate.centroid.axis({
   numberOfRings: 5,
   showCentralTick: false,
 })`
@@ -169,14 +169,14 @@ export const basics: JSX.Element = (
     ]}
   />
 )
-const data: string = `interface QsRadialLineData {
+const data: string = `interfaceQsCentroidLineData {
   values: number[]
   strokeOpacity?: number
   strokeColor?: string
   strokeWidth?: number
 }`
 
-const config: string = `interface QsRadialLineConfig {
+const config: string = `interfaceQsCentroidLineConfig {
   layerType: QsEnumLayerType
   x: number
   y: number
@@ -188,14 +188,14 @@ const config: string = `interface QsRadialLineConfig {
   defaultStrokeOpacity?: number
 }`
 
-const dataExample: string = `const data: QsRadialLineData = {
+const dataExample: string = `const data:QsCentroidLineData = {
   values: [15, 15, 15, 17, 16],
   strokeColor: 'blue'
   strokeWidth: 1,
   strokeOpacity: 1,
 }`
 
-const configExample: string = `const config: QsRadialLineConfig = {
+const configExample: string = `const config:QsCentroidLineConfig = {
   layerType: QsEnumLayerType
   x: 50
   y: 50

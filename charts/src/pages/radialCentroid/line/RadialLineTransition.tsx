@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvasRadial,
   qsCreateCanvasRadial,
-  QsRadialLine,
+  QsCentroidLine,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
@@ -10,15 +10,15 @@ export const RadialLineTransition: FunctionComponent<ChartPropsOthogonal> = ({
   canvasConfig,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
-  const [element, setElement] = useState<QsRadialLine>()
+  const [element, setElement] = useState<QsCentroidLine>()
 
   useEffect(() => {
     const createChart = () => {
       const values = [25, 10, 35, 25, 35, 5, 25, 25]
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
-      let newElement: QsRadialLine
-      newElement = canvas.generate.radialCentroid.line({ values })
+      let newElement: QsCentroidLine
+      newElement = canvas.generate.centroid.line({ values })
 
       setElement(newElement)
     }

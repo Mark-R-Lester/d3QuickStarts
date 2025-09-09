@@ -7,7 +7,7 @@ import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import { basics, configAndData, editorContent } from './Content'
 import { RadialAreaChart } from './RadialAreaChart'
 
-export default function RadialCentroidAreaPage() {
+export default function CentroidAreaPage() {
   const menuElements: JSX.Element[] = [
     <RadialAreaChart
       canvasConfig={{

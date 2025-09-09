@@ -19,11 +19,11 @@ import {
   radialArcTextConfigHorizontal,
   radialArcTextConfigRotated,
   radialArcTextConfigSpoke,
-  radialCentroidAreaConfig,
-  radialCentroidAxisConfig,
-  radialCentroidLineConfig,
-  radialCentroidPointsConfig,
-  radialCentroidSpokesConfig,
+  centroidAreaConfig,
+  centroidAxisConfig,
+  centroidLineConfig,
+  centroidPointsConfig,
+  centroidSpokesConfig,
 } from './__mocks__/configDefaults'
 import { ConfigStoreManager } from './configStore.class'
 
@@ -59,11 +59,11 @@ describe('ConfigStoreManager', () => {
       expect(store.radialArcTextConfigHorizontal).toBeUndefined()
       expect(store.radialArcTextConfigSpoke).toBeUndefined()
       expect(store.radialArcTextConfigFollow).toBeUndefined()
-      expect(store.radialCentroidAreaConfig).toBeUndefined()
-      expect(store.radialCentroidAxisConfig).toBeUndefined()
-      expect(store.radialCentroidLineConfig).toBeUndefined()
-      expect(store.radialCentroidPointsConfig).toBeUndefined()
-      expect(store.radialCentroidSpokesConfig).toBeUndefined()
+      expect(store.centroidAreaConfig).toBeUndefined()
+      expect(store.centroidAxisConfig).toBeUndefined()
+      expect(store.centroidLineConfig).toBeUndefined()
+      expect(store.centroidPointsConfig).toBeUndefined()
+      expect(store.centroidSpokesConfig).toBeUndefined()
     })
   })
 
@@ -95,15 +95,11 @@ describe('ConfigStoreManager', () => {
       ).toBeUndefined()
       expect(configManager.getters.radialArc.textConfigSpoke()).toBeUndefined()
       expect(configManager.getters.radialArc.textConfigFollow()).toBeUndefined()
-      expect(configManager.getters.radialCentroid.areaConfig()).toBeUndefined()
-      expect(configManager.getters.radialCentroid.axisConfig()).toBeUndefined()
-      expect(configManager.getters.radialCentroid.lineConfig()).toBeUndefined()
-      expect(
-        configManager.getters.radialCentroid.pointsConfig()
-      ).toBeUndefined()
-      expect(
-        configManager.getters.radialCentroid.spokesConfig()
-      ).toBeUndefined()
+      expect(configManager.getters.centroid.areaConfig()).toBeUndefined()
+      expect(configManager.getters.centroid.axisConfig()).toBeUndefined()
+      expect(configManager.getters.centroid.lineConfig()).toBeUndefined()
+      expect(configManager.getters.centroid.pointsConfig()).toBeUndefined()
+      expect(configManager.getters.centroid.spokesConfig()).toBeUndefined()
     })
   })
 
@@ -256,43 +252,39 @@ describe('ConfigStoreManager', () => {
     })
   })
 
-  describe('RadialCentroid Configurations', () => {
+  describe('Centroid Configurations', () => {
     it('sets and gets radial centroid area config', () => {
-      configManager.setters.radialCentroid.areaConfig(radialCentroidAreaConfig)
-      expect(configManager.getters.radialCentroid.areaConfig()).toEqual(
-        radialCentroidAreaConfig
+      configManager.setters.centroid.areaConfig(centroidAreaConfig)
+      expect(configManager.getters.centroid.areaConfig()).toEqual(
+        centroidAreaConfig
       )
     })
 
     it('sets and gets radial centroid axis config', () => {
-      configManager.setters.radialCentroid.axisConfig(radialCentroidAxisConfig)
-      expect(configManager.getters.radialCentroid.axisConfig()).toEqual(
-        radialCentroidAxisConfig
+      configManager.setters.centroid.axisConfig(centroidAxisConfig)
+      expect(configManager.getters.centroid.axisConfig()).toEqual(
+        centroidAxisConfig
       )
     })
 
     it('sets and gets radial centroid line config', () => {
-      configManager.setters.radialCentroid.lineConfig(radialCentroidLineConfig)
-      expect(configManager.getters.radialCentroid.lineConfig()).toEqual(
-        radialCentroidLineConfig
+      configManager.setters.centroid.lineConfig(centroidLineConfig)
+      expect(configManager.getters.centroid.lineConfig()).toEqual(
+        centroidLineConfig
       )
     })
 
     it('sets and gets radial centroid points config', () => {
-      configManager.setters.radialCentroid.pointsConfig(
-        radialCentroidPointsConfig
-      )
-      expect(configManager.getters.radialCentroid.pointsConfig()).toEqual(
-        radialCentroidPointsConfig
+      configManager.setters.centroid.pointsConfig(centroidPointsConfig)
+      expect(configManager.getters.centroid.pointsConfig()).toEqual(
+        centroidPointsConfig
       )
     })
 
     it('sets and gets radial centroid spokes config', () => {
-      configManager.setters.radialCentroid.spokesConfig(
-        radialCentroidSpokesConfig
-      )
-      expect(configManager.getters.radialCentroid.spokesConfig()).toEqual(
-        radialCentroidSpokesConfig
+      configManager.setters.centroid.spokesConfig(centroidSpokesConfig)
+      expect(configManager.getters.centroid.spokesConfig()).toEqual(
+        centroidSpokesConfig
       )
     })
   })

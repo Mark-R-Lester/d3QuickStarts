@@ -2,7 +2,7 @@ import { QsEnumLayerType } from '../../core/enums/qsEnums'
 import { QsColorScaleData, QsCoordinate } from '../../core/types/qsTypes'
 import { ConfigTextDefaults, TextData } from '../../core/types/types'
 
-export interface RadialTextConfig extends ConfigTextDefaults {
+export interface CentroidTextConfig extends ConfigTextDefaults {
   [key: string]: number | QsColorScaleData | string | undefined | boolean
   layerType: QsEnumLayerType
   x: number

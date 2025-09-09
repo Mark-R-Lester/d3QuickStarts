@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../canvas/types'
 
-import { QsCalculatedDataCentroidSpokes, RadialSpokesConfig } from './types'
+import { QsCalculatedDataCentroidSpokes, CentroidSpokesConfig } from './types'
 import { alignIndexClockwise } from './calculateIndexForCorrectOrientation'
 
 export const getCalculatedData = (
   canvas: Canvas,
-  config: RadialSpokesConfig
+  config: CentroidSpokesConfig
 ) => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
   const {

@@ -1,12 +1,12 @@
 import { scaleLinear } from 'd3'
 import { Canvas } from '../../canvas/types'
-import { QsRadialLineData } from './qsTypes'
-import { QsCalculatedDataCentroidLine, RadialLineConfig } from './types'
+import { QsCentroidLineData } from './qsTypes'
+import { QsCalculatedDataCentroidLine, CentroidLineConfig } from './types'
 
 export const getCalculatedData = (
   canvas: Canvas,
-  lineData: QsRadialLineData,
-  config: RadialLineConfig
+  lineData: QsCentroidLineData,
+  config: CentroidLineConfig
 ): QsCalculatedDataCentroidLine => {
   const { xPercentScale, yPercentScale, genralPercentScale, radialDataScale } =
     canvas.scales

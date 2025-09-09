@@ -1,14 +1,14 @@
 import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { QsCalculatedDataCentroidText, RadialTextConfig } from './types'
-import { QsRadialCentroidTextData } from './qsTypes'
+import { QsCalculatedDataCentroidText, CentroidTextConfig } from './types'
+import { QsCentroidTextData } from './qsTypes'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { Canvas } from '../../canvas/types'
 
 export const updateCalculatedData = (
   canvas: Canvas,
-  args: QsRadialCentroidTextData[],
-  config: RadialTextConfig,
+  args: QsCentroidTextData[],
+  config: CentroidTextConfig,
   calculatedData: QsCalculatedDataCentroidText[]
 ): QsCalculatedDataCentroidText[] => {
   const newCalculatedData: QsCalculatedDataCentroidText[] = getCalculatedData(
@@ -25,8 +25,8 @@ export const updateCalculatedData = (
 
 export const getCalculatedData = (
   canvas: Canvas,
-  data: QsRadialCentroidTextData[],
-  config: RadialTextConfig
+  data: QsCentroidTextData[],
+  config: CentroidTextConfig
 ): QsCalculatedDataCentroidText[] => {
   const { genralPercentScale, xPercentScale, yPercentScale, radialDataScale } =
     canvas.scales

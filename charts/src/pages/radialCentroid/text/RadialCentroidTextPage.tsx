@@ -12,7 +12,7 @@ import {
 import { RadialTextChart } from './RadialTextChart'
 import { RadialTextDefaultsChart } from './RadialTextDefaultsChart'
 
-export default function RadialCentroidPointsPage() {
+export default function CentroidPointsPage() {
   const menuElements: JSX.Element[] = [
     <RadialTextDefaultsChart
       canvasConfig={{

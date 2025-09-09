@@ -1,10 +1,10 @@
-import { QsCalculatedDataCentroidAxis, RadialAxisConfig } from './types'
+import { QsCalculatedDataCentroidAxis, CentroidAxisConfig } from './types'
 import { LayerActions } from '../../canvas/createCanvasElement'
-export { QsRingConfig } from './types'
+export { QsCentroidTickConfig as QsRingConfig } from './types'
 
-export type QsRadialAxisConfig = Partial<RadialAxisConfig>
+export type QsCentroidAxisConfig = Partial<CentroidAxisConfig>
 
-export interface QsRadialAxis {
+export interface QsCentroidAxis {
   classNameTicks: string
   classNameText: string
   layerActions: LayerActions

@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 import { Canvas } from '../../canvas/types'
-import { RadialAxisConfig, QsCalculatedDataCentroidAxis } from './types'
+import { CentroidAxisConfig, QsCalculatedDataCentroidAxis } from './types'
 import {
   adjacentFromHypotenuse,
   oppositeFromHypotenuse,
@@ -8,7 +8,7 @@ import {
 
 export const getCalculatedData = (
   canvas: Canvas,
-  config: RadialAxisConfig
+  config: CentroidAxisConfig
 ): QsCalculatedDataCentroidAxis[] => {
   const { displayAreaHeight, displayAreaWidth, lowestViewableValue } =
     canvas.config

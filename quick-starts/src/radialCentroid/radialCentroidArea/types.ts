@@ -21,7 +21,7 @@ export interface QsCalculatedDataCentroidArea extends StrokeData {
   y: number
 }
 
-export interface RadialAreaConfig extends ConfigStrokeDefaults {
+export interface CentroidAreaConfig extends ConfigStrokeDefaults {
   [key: string]: QsEnumCurve | number | undefined | string | boolean
   layerType: QsEnumLayerType
   curve: QsEnumCurve

@@ -58,7 +58,7 @@ const orthogonalGradientTilted: string = `const gradientUrl: string = qsCreateOr
   y2: '0%',
 })`
 
-const orthogonalConfig: string = `const config: QsRadialAreaConfig = {
+const orthogonalConfig: string = `const config: QsCentroidAreaConfig = {
   defaultFillColor: gradientUrl,
 }`
 
@@ -356,11 +356,11 @@ const radialGradient3: string = `const gradientUrl: string = qsCreateRadialGradi
   fy: '75%',
 })`
 
-const radialCongig: string = `const config: QsRadialAreaConfig = {
+const radialCongig: string = `const config: QsCentroidAreaConfig = {
   defaultFillColor: gradientUrl,
 }`
 
-const radialData: string = `const data: QsRadialAreaData = {
+const radialData: string = `const data: QsCentroidAreaData = {
   highValues: [
     150, 100, 120, 130, 140, 160, 160, 160, 150, 112, 156, 140,
   ],
@@ -418,8 +418,8 @@ const radialAreaCode: string = `const canvas: QsCanvasRadial = qsCreateCanvasRad
   width,
   highestViewableValue: 160,
 })
-canvas.generate.radialCentroid.area(data, config)
-canvas.generate.radialCentroid.axis([
+canvas.generate.centroid.area(data, config)
+canvas.generate.centroid.axis([
   150, 100, 120, 130, 140, 160, 160, 160, 150, 112, 156, 140,
 ])`
 

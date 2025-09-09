@@ -1,9 +1,9 @@
 import { line } from 'd3'
 import { getCalculatedData } from './calculatedData'
 import { Canvas } from '../../canvas/types'
-import { QsRadialSpokesConfig, QsRadialSpokes } from './qsTypes'
-import { QsCalculatedDataCentroidSpokes, RadialSpokesConfig } from './types'
-import { radialCentroidSpokesConfig } from '../../core/config/configDefaults'
+import { QsCentroidSpokesConfig, QsCentroidSpokes } from './qsTypes'
+import { QsCalculatedDataCentroidSpokes, CentroidSpokesConfig } from './types'
+import { centroidSpokesConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 import { QsEnumLayerType } from '../../core/enums/qsEnums'
@@ -11,18 +11,22 @@ import { QsEnumLayerType } from '../../core/enums/qsEnums'
 export const radialSpokes = {
   spokes: (
     canvas: Canvas,
-    customConfig?: QsRadialSpokesConfig
-  ): QsRadialSpokes => {
-    const config: RadialSpokesConfig = addDefaultsToConfig<RadialSpokesConfig>(
-      radialCentroidSpokesConfig,
-      customConfig,
-      canvas.configStore.radialCentroid.spokesConfig()
-    )
+    customConfig?: QsCentroidSpokesConfig
+  ): QsCentroidSpokes => {
+    const config: CentroidSpokesConfig =
+      addDefaultsToConfig<CentroidSpokesConfig>(
+        centroidSpokesConfig,
+        customConfig,
+        canvas.configStore.centroid.spokesConfig()
+      )
     return draw(canvas, config)
   },
 }
 
-const draw = (canvas: Canvas, config: RadialSpokesConfig): QsRadialSpokes => {
+const draw = (
+  canvas: Canvas,
+  config: CentroidSpokesConfig
+): QsCentroidSpokes => {
   const calculatedData: QsCalculatedDataCentroidSpokes[] = getCalculatedData(
     canvas,
     config
@@ -32,7 +36,7 @@ const draw = (canvas: Canvas, config: RadialSpokesConfig): QsRadialSpokes => {
     .x((d) => d[0])
     .y((d) => d[1])
 
-  const { className, dotClassName } = generateClassName('radialCentroidSpoke')
+  const { className, dotClassName } = generateClassName('centroidSpoke')
   const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
       ? canvas.addDataLayer()

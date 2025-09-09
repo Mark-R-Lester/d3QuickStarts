@@ -1,25 +1,28 @@
 import { arc as d3arc } from 'd3'
 import { getCalculatedData } from './calculatedData'
-import { RadialAxisConfig, QsCalculatedDataCentroidAxis } from './types'
-import { radialCentroidAxisConfig } from '../../core/config/configDefaults'
+import { CentroidAxisConfig, QsCalculatedDataCentroidAxis } from './types'
+import { centroidAxisConfig } from '../../core/config/configDefaults'
 import { Canvas } from '../../canvas/types'
-import { QsRadialAxisConfig, QsRadialAxis } from './qsTypes'
+import { QsCentroidAxisConfig, QsCentroidAxis } from './qsTypes'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const radialAxis = {
-  rings: (canvas: Canvas, customConfig?: QsRadialAxisConfig): QsRadialAxis => {
-    const config: RadialAxisConfig = addDefaultsToConfig<RadialAxisConfig>(
-      radialCentroidAxisConfig,
+  rings: (
+    canvas: Canvas,
+    customConfig?: QsCentroidAxisConfig
+  ): QsCentroidAxis => {
+    const config: CentroidAxisConfig = addDefaultsToConfig<CentroidAxisConfig>(
+      centroidAxisConfig,
       customConfig,
-      canvas.configStore.radialCentroid.axisConfig()
+      canvas.configStore.centroid.axisConfig()
     )
     return draw(canvas, config)
   },
 }
 
-const draw = (canvas: Canvas, config: RadialAxisConfig): QsRadialAxis => {
+const draw = (canvas: Canvas, config: CentroidAxisConfig): QsCentroidAxis => {
   const calculatedData: QsCalculatedDataCentroidAxis[] = getCalculatedData(
     canvas,
     config
@@ -32,9 +35,9 @@ const draw = (canvas: Canvas, config: RadialAxisConfig): QsRadialAxis => {
     .endAngle((d) => d.endAngle)
 
   const { className: classNameTicks, dotClassName: dotClassNameTicks } =
-    generateClassName('radialCentroidAxisTicks')
+    generateClassName('centroidAxisTicks')
   const { className: classNameText, dotClassName: dotClassNameText } =
-    generateClassName('radialCentroidAxisText')
+    generateClassName('centroidAxisText')
 
   const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA

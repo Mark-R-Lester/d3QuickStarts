@@ -8,17 +8,17 @@ import {
   QsBarStackedConfig,
   QsLineConfig,
   QsPointsConfig,
-  QsRadialAreaConfig,
-  QsRadialAreaData,
+  QsCentroidAreaConfig,
+  QsCentroidAreaData,
   QsRadialData,
-  QsRadialAxisConfig,
+  QsCentroidAxisConfig,
   QsRadialArcConfig,
-  QsRadialLineConfig,
-  QsRadialPointsConfig,
-  QsRadialSpokesConfig,
+  QsCentroidLineConfig,
+  QsCentroidPointsConfig,
+  QsCentroidSpokesConfig,
   QsRadialArcTextConfig,
   QsRadialTextData,
-  QsRadialPointData,
+  QsCentroidPointData,
   QsPointData,
   QsPlottedTextData,
   QsPlottedTextConfig,
@@ -34,12 +34,12 @@ import {
   QsPlottedPointsConfig,
   QsPlottedPointsData,
   QsTextData,
-  QsRadialLineData,
+  QsCentroidLineData,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation, EnumRadialTextOrientation } from './enums'
 import {
-  QsRadialTextConfig,
-  QsRadialCentroidTextData,
+  QsCentroidTextConfig,
+  QsCentroidTextData,
 } from 'd3qs/radialCentroid/radialCentroidText/qsTypes'
 
 /**
@@ -109,30 +109,30 @@ export interface RadialChartProps extends ChartPropsRadial {
   data?: QsRadialData[]
 }
 export interface RadialAreaChartProps extends ChartPropsRadial {
-  config?: QsRadialAreaConfig
-  data1?: QsRadialAreaData
-  data2?: QsRadialAreaData
+  config?: QsCentroidAreaConfig
+  data1?: QsCentroidAreaData
+  data2?: QsCentroidAreaData
 }
 export interface RadialAxisChartProps extends ChartPropsRadial {
-  config?: QsRadialAxisConfig
+  config?: QsCentroidAxisConfig
 }
 export interface RadialLineChartProps extends ChartPropsRadial {
-  config?: QsRadialLineConfig
-  data?: QsRadialLineData
+  config?: QsCentroidLineConfig
+  data?: QsCentroidLineData
 }
 
 export interface RadialPointsChartProps extends ChartPropsRadial {
-  config?: QsRadialPointsConfig
-  data?: QsRadialPointData[]
+  config?: QsCentroidPointsConfig
+  data?: QsCentroidPointData[]
 }
 
 export interface RadialTextChartProps extends ChartPropsRadial {
-  config?: QsRadialTextConfig
-  data?: QsRadialCentroidTextData[]
+  config?: QsCentroidTextConfig
+  data?: QsCentroidTextData[]
 }
 
 export interface RadialSpokesChartProps extends ChartPropsRadial {
-  config?: QsRadialSpokesConfig
+  config?: QsCentroidSpokesConfig
   data?: number
 }
 

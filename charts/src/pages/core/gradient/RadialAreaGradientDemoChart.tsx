@@ -5,8 +5,8 @@ import {
   qsCreateCanvasRadial,
   qsCreateCustomStopRadialGradient,
   qsCreateRadialGradient,
-  QsRadialAreaConfig,
-  QsRadialAreaData,
+  QsCentroidAreaConfig,
+  QsCentroidAreaData,
 } from 'd3qs/d3QuickStart'
 
 export interface BarColorDemoChartProps {
@@ -73,16 +73,16 @@ export const RadialAreaGradientDemoChart: FunctionComponent<BarColorDemoChartPro
             })
           }
 
-          const data: QsRadialAreaData = {
+          const data: QsCentroidAreaData = {
             highValues: [
               150, 100, 120, 130, 140, 160, 160, 160, 150, 112, 156, 140,
             ],
           }
-          const config: QsRadialAreaConfig = {
+          const config: QsCentroidAreaConfig = {
             defaultFillColor: gradientUrl,
           }
-          canvas.generate.radialCentroid.area(data, config)
-          canvas.generate.radialCentroid.axis()
+          canvas.generate.centroid.area(data, config)
+          canvas.generate.centroid.axis()
         }
         createChart()
       }, [

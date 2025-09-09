@@ -41,7 +41,7 @@ const draw = (
     config
   )
 
-  const { className, dotClassName } = generateClassName('radialCentroidArea')
+  const { className, dotClassName } = generateClassName('centroidArea')
   const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
       ? canvas.addDataLayer()

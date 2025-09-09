@@ -22,11 +22,11 @@ import {
   RadialArcTextConfigBase,
 } from '../../radialArc/radialArcText/types'
 
-import { RadialAreaConfig } from '../../radialCentroid/radialCentroidArea/types'
-import { RadialAxisConfig } from '../../radialCentroid/radialCentroidAxis/types'
-import { RadialLineConfig } from '../../radialCentroid/radialCentroidLine/types'
-import { RadialPointsConfig } from '../../radialCentroid/radialCentroidPoints/types'
-import { RadialSpokesConfig } from '../../radialCentroid/radialCentroidSpokes/types'
+import { CentroidAreaConfig } from '../../radialCentroid/radialCentroidArea/types'
+import { CentroidAxisConfig } from '../../radialCentroid/radialCentroidAxis/types'
+import { CentroidLineConfig } from '../../radialCentroid/radialCentroidLine/types'
+import { CentroidPointsConfig } from '../../radialCentroid/radialCentroidPoints/types'
+import { CentroidSpokesConfig } from '../../radialCentroid/radialCentroidSpokes/types'
 import {
   QsEnumAlignmentBaseline,
   QsEnumColorScale,
@@ -43,7 +43,7 @@ import {
 } from '../enums/qsEnums'
 import { ConfigTextDefaults } from '../types/types'
 import { QsColorScaleData } from '../types/qsTypes'
-import { RadialTextConfig } from '../../radialCentroid/radialCentroidText/types'
+import { CentroidTextConfig } from '../../radialCentroid/radialCentroidText/types'
 import { QsEnumCoordinateView } from '../../plots/plottedText/qsEnums'
 import { CanvasConfig } from '../../canvas/types'
 
@@ -335,7 +335,7 @@ export const radialArcTextConfigFollow: RadialArcTextConfig = {
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
-export const radialCentroidAreaConfig: RadialAreaConfig = {
+export const centroidAreaConfig: CentroidAreaConfig = {
   layerType: QsEnumLayerType.DATA,
   curve: QsEnumCurve.LINEAR,
   x: 50,
@@ -349,7 +349,7 @@ export const radialCentroidAreaConfig: RadialAreaConfig = {
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
 }
 
-export const radialCentroidAxisConfig: RadialAxisConfig = {
+export const centroidAxisConfig: CentroidAxisConfig = {
   layerType: QsEnumLayerType.UNBOUND,
   showCentralTick: true,
   x: GlobalDefaultSettings.RADIAL_X,
@@ -374,7 +374,7 @@ export const radialCentroidAxisConfig: RadialAxisConfig = {
   defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
-export const radialCentroidLineConfig: RadialLineConfig = {
+export const centroidLineConfig: CentroidLineConfig = {
   layerType: QsEnumLayerType.DATA,
   curve: QsEnumCurve.LINEAR,
   strokeLineJoin: QsEnumLineJoin.ROUND,
@@ -386,7 +386,7 @@ export const radialCentroidLineConfig: RadialLineConfig = {
   y: GlobalDefaultSettings.RADIAL_Y,
 }
 
-export const radialCentroidPointsConfig: RadialPointsConfig = {
+export const centroidPointsConfig: CentroidPointsConfig = {
   layerType: QsEnumLayerType.DATA,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
@@ -400,7 +400,7 @@ export const radialCentroidPointsConfig: RadialPointsConfig = {
   strokeColorScaleData: undefined,
 }
 
-export const radialCentroidTextsConfig: RadialTextConfig = {
+export const centroidTextsConfig: CentroidTextConfig = {
   layerType: QsEnumLayerType.DATA,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
@@ -408,7 +408,7 @@ export const radialCentroidTextsConfig: RadialTextConfig = {
   ...textDefaults,
 }
 
-export const radialCentroidSpokesConfig: RadialSpokesConfig = {
+export const centroidSpokesConfig: CentroidSpokesConfig = {
   layerType: QsEnumLayerType.UNBOUND,
   defaultOuterRadius: 100,
   defaultInnerRadius: 0,

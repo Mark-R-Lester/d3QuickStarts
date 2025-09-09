@@ -6,7 +6,7 @@ import {
 } from '../../core/enums/qsEnums'
 import { ConfigStrokeDefaults } from '../../core/types/types'
 
-export interface RadialLineConfig extends ConfigStrokeDefaults {
+export interface CentroidLineConfig extends ConfigStrokeDefaults {
   [key: string]: number | QsEnumCurve | string | undefined | boolean
   layerType: QsEnumLayerType
   x: number

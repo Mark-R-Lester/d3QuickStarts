@@ -12,7 +12,7 @@ import {
 import { RadialPointsChart } from './RadialPointsChart'
 import { RadialPointsDefaultsChart } from './RadialPointsDefaultsChart'
 
-export default function RadialCentroidPointsPage() {
+export default function CentroidPointsPage() {
   const menuElements: JSX.Element[] = [
     <RadialPointsDefaultsChart
       canvasConfig={{

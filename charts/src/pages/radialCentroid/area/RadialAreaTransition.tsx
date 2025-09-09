@@ -2,8 +2,8 @@ import { FunctionComponent, useEffect, useState } from 'react'
 import {
   QsCanvasRadial,
   qsCreateCanvasRadial,
-  QsRadialArea,
-  QsRadialAreaData,
+  QsCentroidArea,
+  QsCentroidAreaData,
   QsEnumCurve,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
@@ -12,8 +12,8 @@ export const RadialAreaTransition: FunctionComponent<ChartPropsOthogonal> = ({
   canvasConfig,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
-  const [topArea, setTopArea] = useState<QsRadialArea>()
-  const [bottomArea, setBottomArea] = useState<QsRadialArea>()
+  const [topArea, setTopArea] = useState<QsCentroidArea>()
+  const [bottomArea, setBottomArea] = useState<QsCentroidArea>()
 
   useEffect(() => {
     const createChart = () => {
@@ -24,21 +24,21 @@ export const RadialAreaTransition: FunctionComponent<ChartPropsOthogonal> = ({
         25, 15, 40, 36, 80, 100, 96, 30, 100, 98, 100, 60,
       ]
 
-      const dataUpper: QsRadialAreaData = {
+      const dataUpper: QsCentroidAreaData = {
         lowValues,
         highValues,
       }
-      const dataLower: QsRadialAreaData = {
+      const dataLower: QsCentroidAreaData = {
         highValues: lowValues,
       }
 
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
-      let newTopArea = canvas.generate.radialCentroid.area(dataUpper, {
+      let newTopArea = canvas.generate.centroid.area(dataUpper, {
         curve: QsEnumCurve.BASIS,
         defaultFillColor: 'blue',
       })
-      let newBottomArea = canvas.generate.radialCentroid.area(dataLower, {
+      let newBottomArea = canvas.generate.centroid.area(dataLower, {
         curve: QsEnumCurve.BASIS,
       })
 
@@ -51,8 +51,8 @@ export const RadialAreaTransition: FunctionComponent<ChartPropsOthogonal> = ({
   useEffect(
     function transitionData() {
       interface TransitionData {
-        lowerAreaData: QsRadialAreaData
-        upperAreaData: QsRadialAreaData
+        lowerAreaData: QsCentroidAreaData
+        upperAreaData: QsCentroidAreaData
       }
 
       const getVals = (): TransitionData => {
@@ -66,11 +66,11 @@ export const RadialAreaTransition: FunctionComponent<ChartPropsOthogonal> = ({
           lowValues.push(val1 < val2 ? val1 : val2)
           highValues.push(val1 > val2 ? val1 : val2)
         }
-        const upperAreaData: QsRadialAreaData = {
+        const upperAreaData: QsCentroidAreaData = {
           lowValues,
           highValues,
         }
-        const lowerAreaData: QsRadialAreaData = { highValues: lowValues }
+        const lowerAreaData: QsCentroidAreaData = { highValues: lowValues }
 
         return { lowerAreaData, upperAreaData }
       }

@@ -9,13 +9,13 @@ export const RadialAxisChart: FunctionComponent<RadialAxisChartProps> = ({
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.generate.radialCentroid.spokes({
+      canvas.generate.centroid.spokes({
         numberOfSpokes: 6,
         defaultInnerRadius: 10,
         defaultOuterRadius: 105,
       })
-      canvas.generate.radialCentroid.axis(config)
-      canvas.generate.radialCentroid.points(
+      canvas.generate.centroid.axis(config)
+      canvas.generate.centroid.points(
         [
           { value: 50 },
           { value: 75 },

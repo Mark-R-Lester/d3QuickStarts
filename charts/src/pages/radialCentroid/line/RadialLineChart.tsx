@@ -15,13 +15,13 @@ export const RadialLineChart: FunctionComponent<RadialLineChartProps> = ({
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.generate.radialCentroid.line(data, config)
-      canvas.generate.radialCentroid.spokes({
+      canvas.generate.centroid.line(data, config)
+      canvas.generate.centroid.spokes({
         numberOfSpokes: 26,
         defaultInnerRadius: 50,
         defaultOuterRadius: 105,
       })
-      canvas.generate.radialCentroid.axis({
+      canvas.generate.centroid.axis({
         numberOfRings: 5,
         showCentralTick: false,
       })

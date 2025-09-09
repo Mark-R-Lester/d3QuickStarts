@@ -1,14 +1,14 @@
 import { getCalculatedData, updateCalculatedData } from './calculatedData'
 import { Canvas } from '../../canvas/types'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
-import { QsCalculatedDataCentroidText, RadialTextConfig } from './types'
+import { QsCalculatedDataCentroidText, CentroidTextConfig } from './types'
 import {
-  QsRadialCentroidTextData,
-  QsRadialTextConfig,
-  QsRadialText,
-  QsRadialTextTransitionData,
+  QsCentroidTextData,
+  QsCentroidTextConfig,
+  QsCentroidText,
+  QsCentroidTextTransitionData,
 } from './qsTypes'
-import { radialCentroidTextsConfig } from '../../core/config/configDefaults'
+import { centroidTextsConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 import { interpolate } from 'd3'
@@ -17,13 +17,13 @@ import { QsEnumLayerType } from '../../core/enums/qsEnums'
 export const radialText = {
   text: (
     canvas: Canvas,
-    data: QsRadialCentroidTextData[],
-    customConfig?: QsRadialTextConfig
-  ): QsRadialText => {
-    const config: RadialTextConfig = addDefaultsToConfig<RadialTextConfig>(
-      radialCentroidTextsConfig,
+    data: QsCentroidTextData[],
+    customConfig?: QsCentroidTextConfig
+  ): QsCentroidText => {
+    const config: CentroidTextConfig = addDefaultsToConfig<CentroidTextConfig>(
+      centroidTextsConfig,
       customConfig,
-      canvas.configStore.radialCentroid.textConfig()
+      canvas.configStore.centroid.textConfig()
     )
     return draw(canvas, data, config)
   },
@@ -31,16 +31,16 @@ export const radialText = {
 
 const draw = (
   canvas: Canvas,
-  data: QsRadialCentroidTextData[],
-  config: RadialTextConfig
-): QsRadialText => {
+  data: QsCentroidTextData[],
+  config: CentroidTextConfig
+): QsCentroidText => {
   let calculatedData: QsCalculatedDataCentroidText[] = getCalculatedData(
     canvas,
     data,
     config
   )
 
-  const { className, dotClassName } = generateClassName('radialCentroidText')
+  const { className, dotClassName } = generateClassName('centroidText')
 
   const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
@@ -70,7 +70,7 @@ const draw = (
     .text((d) => d.text ?? d.value.toFixed(d.defaultDecimalPoints))
 
   const transition = (
-    transitionData: QsRadialTextTransitionData = { data }
+    transitionData: QsCentroidTextTransitionData = { data }
   ) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
     calculatedData = updateCalculatedData(

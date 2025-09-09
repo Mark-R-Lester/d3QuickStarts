@@ -2,7 +2,7 @@ import { areaRadial, lineRadial } from 'd3'
 import {
   AreaData,
   QsCalculatedDataCentroidArea,
-  RadialAreaConfig,
+  CentroidAreaConfig,
 } from './types'
 import { getCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
@@ -14,25 +14,25 @@ import {
 import { constantsCurves } from '../../core/constants/constants'
 import { Canvas } from '../../canvas/types'
 import {
-  QsRadialArea,
-  QsRadialAreaConfig,
-  QsRadialAreaData,
-  QsRadialAreaTransitionData,
+  QsCentroidArea,
+  QsCentroidAreaConfig,
+  QsCentroidAreaData,
+  QsCentroidAreaTransitionData,
 } from './qsTypes'
-import { radialCentroidAreaConfig } from '../../core/config/configDefaults'
+import { centroidAreaConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 
 export const radialArea = {
   area: (
     canvas: Canvas,
-    data: QsRadialAreaData,
-    customConfig?: QsRadialAreaConfig
-  ): QsRadialArea => {
-    const config: RadialAreaConfig = addDefaultsToConfig<RadialAreaConfig>(
-      radialCentroidAreaConfig,
+    data: QsCentroidAreaData,
+    customConfig?: QsCentroidAreaConfig
+  ): QsCentroidArea => {
+    const config: CentroidAreaConfig = addDefaultsToConfig<CentroidAreaConfig>(
+      centroidAreaConfig,
       customConfig,
-      canvas.configStore.radialCentroid.areaConfig()
+      canvas.configStore.centroid.areaConfig()
     )
 
     return draw(canvas, data, config)
@@ -41,9 +41,9 @@ export const radialArea = {
 
 const draw = (
   canvas: Canvas,
-  data: QsRadialAreaData,
-  config: RadialAreaConfig
-): QsRadialArea => {
+  data: QsCentroidAreaData,
+  config: CentroidAreaConfig
+): QsCentroidArea => {
   const { curve } = config
   const calculatedData: QsCalculatedDataCentroidArea = getCalculatedData(
     canvas,
@@ -62,9 +62,9 @@ const draw = (
     .radius((d) => d.outer)
 
   const { className: classNameArea, dotClassName: dotClassNameArea } =
-    generateClassName('radialCentroidArea')
+    generateClassName('centroidArea')
   const { className: classNameLine, dotClassName: dotClassNameLine } =
-    generateClassName('radialCentroidLine')
+    generateClassName('centroidLine')
 
   const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
@@ -97,7 +97,7 @@ const draw = (
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
 
   const transition = (
-    transitionData: QsRadialAreaTransitionData = { data }
+    transitionData: QsCentroidAreaTransitionData = { data }
   ) => {
     const calculatedData = getCalculatedData(
       canvas,

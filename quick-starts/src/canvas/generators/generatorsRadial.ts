@@ -18,31 +18,31 @@ import {
 } from '../../radialArc/radialArcText/qsTypes'
 import { radialArcText } from '../../radialArc/radialArcText/radialArcText'
 import {
-  QsRadialArea,
-  QsRadialAreaConfig,
-  QsRadialAreaData,
+  QsCentroidArea,
+  QsCentroidAreaConfig,
+  QsCentroidAreaData,
 } from '../../radialCentroid/radialCentroidArea/qsTypes'
 import { radialArea } from '../../radialCentroid/radialCentroidArea/radialCentroidArea'
 import {
-  QsRadialAxis,
-  QsRadialAxisConfig,
+  QsCentroidAxis,
+  QsCentroidAxisConfig,
 } from '../../radialCentroid/radialCentroidAxis/qsTypes'
 import { radialAxis } from '../../radialCentroid/radialCentroidAxis/radialCentroidAxis'
 import {
-  QsRadialLine,
-  QsRadialLineConfig,
-  QsRadialLineData,
+  QsCentroidLine,
+  QsCentroidLineConfig,
+  QsCentroidLineData,
 } from '../../radialCentroid/radialCentroidLine/qsTypes'
-import { radialLine } from '../../radialCentroid/radialCentroidLine/radialCentroidLine'
+import { centroidLine } from '../../radialCentroid/radialCentroidLine/radialCentroidLine'
 import {
-  QsRadialPointData,
-  QsRadialPoints,
-  QsRadialPointsConfig,
+  QsCentroidPointData,
+  QsCentroidPoints,
+  QsCentroidPointsConfig,
 } from '../../radialCentroid/radialCentroidPoints/qsTypes'
 import { radialPoint } from '../../radialCentroid/radialCentroidPoints/radialCentroidPoints'
 import {
-  QsRadialSpokes,
-  QsRadialSpokesConfig,
+  QsCentroidSpokes,
+  QsCentroidSpokesConfig,
 } from '../../radialCentroid/radialCentroidSpokes/qsTypes'
 import { radialSpokes } from '../../radialCentroid/radialCentroidSpokes/radialCentroidSpokes'
 
@@ -53,8 +53,8 @@ import {
 } from '../../unbound/text/qsTypes'
 import { unboundText } from '../../unbound/text/text'
 import {
-  QsRadialText,
-  QsRadialTextConfig,
+  QsCentroidText,
+  QsCentroidTextConfig,
 } from '../../radialCentroid/radialCentroidText/qsTypes'
 import { radialText } from '../../radialCentroid/radialCentroidText/radialCentroidText'
 import { Canvas } from '../types'
@@ -88,30 +88,30 @@ interface RadialArcElementFunctions {
   text: RadialArcTextElementFunctions
 }
 
-interface RadialCentroidElementFunctions {
+interface CentroidElementFunctions {
   area: (
-    data: QsRadialAreaData,
-    customConfig?: QsRadialAreaConfig
-  ) => QsRadialArea
-  axis: (customConfig?: QsRadialAxisConfig) => QsRadialAxis
+    data: QsCentroidAreaData,
+    customConfig?: QsCentroidAreaConfig
+  ) => QsCentroidArea
+  axis: (customConfig?: QsCentroidAxisConfig) => QsCentroidAxis
   line: (
-    data: QsRadialLineData,
-    customConfig?: QsRadialLineConfig
-  ) => QsRadialLine
+    data: QsCentroidLineData,
+    customConfig?: QsCentroidLineConfig
+  ) => QsCentroidLine
   points: (
-    data: QsRadialPointData[],
-    customConfig?: QsRadialPointsConfig
-  ) => QsRadialPoints
-  spokes: (customConfig?: QsRadialSpokesConfig) => QsRadialSpokes
+    data: QsCentroidPointData[],
+    customConfig?: QsCentroidPointsConfig
+  ) => QsCentroidPoints
+  spokes: (customConfig?: QsCentroidSpokesConfig) => QsCentroidSpokes
   text: (
     data: QsRadialTextData[],
-    customConfig?: QsRadialTextConfig
-  ) => QsRadialText
+    customConfig?: QsCentroidTextConfig
+  ) => QsCentroidText
 }
 
 export interface QsGeneratorRadial {
   radialArc: RadialArcElementFunctions
-  radialCentroid: RadialCentroidElementFunctions
+  centroid: CentroidElementFunctions
   unbound: UnboundElementFunctions
 }
 
@@ -181,45 +181,45 @@ export const getGenerators = (canvas: Canvas): QsGeneratorRadial => {
         },
       },
     },
-    radialCentroid: {
+    centroid: {
       area: (
-        data: QsRadialAreaData,
-        customConfig?: QsRadialAreaConfig
-      ): QsRadialArea => {
+        data: QsCentroidAreaData,
+        customConfig?: QsCentroidAreaConfig
+      ): QsCentroidArea => {
         const element = radialArea.area(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
-      axis: (customConfig?: QsRadialAxisConfig): QsRadialAxis => {
+      axis: (customConfig?: QsCentroidAxisConfig): QsCentroidAxis => {
         const element = radialAxis.rings(canvas, customConfig)
         elements.push({ element, data: undefined })
         return element
       },
       line: (
-        data: QsRadialLineData,
-        customConfig?: QsRadialLineConfig
-      ): QsRadialLine => {
-        const element = radialLine.line(canvas, data, customConfig)
+        data: QsCentroidLineData,
+        customConfig?: QsCentroidLineConfig
+      ): QsCentroidLine => {
+        const element = centroidLine.line(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
       points: (
-        data: QsRadialPointData[],
-        customConfig?: QsRadialPointsConfig
-      ): QsRadialPoints => {
+        data: QsCentroidPointData[],
+        customConfig?: QsCentroidPointsConfig
+      ): QsCentroidPoints => {
         const element = radialPoint.points(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
-      spokes: (customConfig?: QsRadialSpokesConfig): QsRadialSpokes => {
+      spokes: (customConfig?: QsCentroidSpokesConfig): QsCentroidSpokes => {
         const element = radialSpokes.spokes(canvas, customConfig)
         elements.push({ element, data: undefined })
         return element
       },
       text: (
         data: QsRadialTextData[],
-        customConfig?: QsRadialTextConfig
-      ): QsRadialText => {
+        customConfig?: QsCentroidTextConfig
+      ): QsCentroidText => {
         const element = radialText.text(canvas, data, customConfig)
         elements.push({ element, data })
         return element

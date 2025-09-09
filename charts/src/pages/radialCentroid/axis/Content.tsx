@@ -33,12 +33,12 @@ const canvasConfig2: string = `const canvasConfig = {
 }`
 
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.spokes({
+canvas.generate.centroid.spokes({
   numberOfSpokes: 6,
   defaultInnerRadius: 10,
   defaultOuterRadius: 105,
 })
-canvas.generate.radialCentroid.points(
+canvas.generate.centroid.points(
   [
     { value: 50 },
     { value: 75 },
@@ -49,7 +49,7 @@ canvas.generate.radialCentroid.points(
   ],
   { defaultRadius: 1.2 }
 )
-canvas.generate.radialCentroid.axis()`
+canvas.generate.centroid.axis()`
 
 const config2: string = `const config = {
   x: 50,
@@ -95,12 +95,12 @@ const config2: string = `const config = {
 }`
 
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.spokes({
+canvas.generate.centroid.spokes({
   numberOfSpokes: 6,
   defaultInnerRadius: 10,
   defaultOuterRadius: 105,
 })
-canvas.generate.radialCentroid.points(
+canvas.generate.centroid.points(
   [
     { value: 50 },
     { value: 75 },
@@ -111,7 +111,7 @@ canvas.generate.radialCentroid.points(
   ],
   { defaultRadius: 1.2 }
 )
-canvas.generate.radialCentroid.axis(config)`
+canvas.generate.centroid.axis(config)`
 
 export const defaultsContent: JSX.Element = (
   <ContentColumn
@@ -298,7 +298,7 @@ const axisConfig: string = `interface QsRingConfig  {
   textAlignmentBaseline?: QsEnumAlignmentBaseline
 }`
 
-const axisConfigExample: string = `const config: QsRadialAreaConfig = {
+const axisConfigExample: string = `const config: QsCentroidAreaConfig = {
   ringNumber: 1
   axisAngle: 45
   gap: 9
@@ -346,7 +346,7 @@ const config: string = `interface QsRadialAxisConfig {
   defaultTextAlignmentBaseline?: QsEnumAlignmentBaseline
 }`
 
-const configExample: string = `const config: QsRadialAreaConfig = {
+const configExample: string = `const config: QsCentroidAreaConfig = {
   useDataArea: true
   showCentralTick?: true
   ringConfig: ringConfig: [

@@ -1,13 +1,13 @@
 import { scaleLinear } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { QsCalculatedDataCentroidArea, RadialAreaConfig } from './types'
+import { QsCalculatedDataCentroidArea, CentroidAreaConfig } from './types'
 import { Canvas } from '../../canvas/types'
-import { QsRadialAreaData } from './qsTypes'
+import { QsCentroidAreaData } from './qsTypes'
 
 export const getCalculatedData = (
   canvas: Canvas,
-  areaData: QsRadialAreaData,
-  config: RadialAreaConfig
+  areaData: QsCentroidAreaData,
+  config: CentroidAreaConfig
 ): QsCalculatedDataCentroidArea => {
   const {
     x,

@@ -1,12 +1,12 @@
 import { LayerActions } from '../../canvas/createCanvasElement'
-import { QsCalculatedDataCentroidSpokes, RadialSpokesConfig } from './types'
+import { QsCalculatedDataCentroidSpokes, CentroidSpokesConfig } from './types'
 export { QsSpokeConfig } from './types'
 
-export interface QsRadialSpokesConfig extends Partial<RadialSpokesConfig> {
+export interface QsCentroidSpokesConfig extends Partial<CentroidSpokesConfig> {
   numberOfSpokes: number
 }
 
-export interface QsRadialSpokes {
+export interface QsCentroidSpokes {
   className: string
   layerActions: LayerActions
   calculatedData: QsCalculatedDataCentroidSpokes[]

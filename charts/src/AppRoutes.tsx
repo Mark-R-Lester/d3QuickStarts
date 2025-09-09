@@ -5,8 +5,8 @@ import PlottedTransitionsPage from './pages/plotted/PlottedTransitionsPage'
 import OrthogonalTransitionsPage from './pages/orthogonal/OrthogonalTransitionsPage'
 import RadialTransitionsPage from './pages/radialArc/RadialArcTransitionsPage'
 import OrthogonalBarsPage from './pages/orthogonal/bars/OrthogonalBarsPage'
-import RadialCentroidLinePage from './pages/radialCentroid/line/RadialCentroidLinePage'
-import RadialCentroidPointsPage from './pages/radialCentroid/points/RadialCentroidPointsPage'
+import CentroidLinePage from './pages/radialCentroid/line/RadialCentroidLinePage'
+import CentroidPointsPage from './pages/radialCentroid/points/RadialCentroidPointsPage'
 import CanvasPage from './pages/core/canvas/CanvasPage'
 import OrthogonalAreaPage from './pages/orthogonal/area/OrthogonalAreaPage'
 import OrthogonalAxisPage from './pages/orthogonal/axes/OrthogonalAxisPage'
@@ -20,12 +20,12 @@ import PlottedPointsPage from './pages/plotted/points/PlottedPointsPage'
 import PlottedTextPage from './pages/plotted/text/PlottedTextPage'
 import RadialArcPage from './pages/radialArc/arc/RadialArcPage'
 import RadialArcTextPage from './pages/radialArc/arcText/RadialArcTextPage'
-import RadialCentroidAreaPage from './pages/radialCentroid/area/RadialCentroidAreaPage'
-import RadialCentroidAxisPage from './pages/radialCentroid/axis/RadialCentroidAxisPage'
-import RadialCentroidSpokesPage from './pages/radialCentroid/spokes/RadialCentroidSpokesPage'
+import CentroidAreaPage from './pages/radialCentroid/area/RadialCentroidAreaPage'
+import CentroidAxisPage from './pages/radialCentroid/axis/RadialCentroidAxisPage'
+import CentroidSpokesPage from './pages/radialCentroid/spokes/RadialCentroidSpokesPage'
 import UnboundLegendPage from './pages/unbound/legend/UnboundLegendPage'
 import UnboundTextPage from './pages/unbound/text/UnboundTextPage'
-import RadialCentroidTextPage from './pages/radialCentroid/text/RadialCentroidTextPage'
+import CentroidTextPage from './pages/radialCentroid/text/RadialCentroidTextPage'
 import EnumPage from './pages/core/enums/EnumPage'
 import ConfigPage from './pages/core/config/ConfigPage'
 import GradientPage from './pages/core/gradient/GradientPage'
@@ -108,30 +108,18 @@ export const AppRoutes: FunctionComponent = () => {
 
       <Route path={Paths.RADIAL_ARC.ARC} element={<RadialArcPage />} />
       <Route path={Paths.RADIAL_ARC.TEXT} element={<RadialArcTextPage />} />
-      <Route
-        path={Paths.RADIAL_CENTROID.AREA}
-        element={<RadialCentroidAreaPage />}
-      />
-      <Route
-        path={Paths.RADIAL_CENTROID.AXIS}
-        element={<RadialCentroidAxisPage />}
-      />
-      <Route
-        path={Paths.RADIAL_CENTROID.LINE}
-        element={<RadialCentroidLinePage />}
-      />
+      <Route path={Paths.RADIAL_CENTROID.AREA} element={<CentroidAreaPage />} />
+      <Route path={Paths.RADIAL_CENTROID.AXIS} element={<CentroidAxisPage />} />
+      <Route path={Paths.RADIAL_CENTROID.LINE} element={<CentroidLinePage />} />
       <Route
         path={Paths.RADIAL_CENTROID.POINTS}
-        element={<RadialCentroidPointsPage />}
+        element={<CentroidPointsPage />}
       />
       <Route
         path={Paths.RADIAL_CENTROID.SPOKES}
-        element={<RadialCentroidSpokesPage />}
+        element={<CentroidSpokesPage />}
       />
-      <Route
-        path={Paths.RADIAL_CENTROID.TEXT}
-        element={<RadialCentroidTextPage />}
-      />
+      <Route path={Paths.RADIAL_CENTROID.TEXT} element={<CentroidTextPage />} />
 
       <Route path={Paths.UNBOUND.LEGEND} element={<UnboundLegendPage />} />
       <Route path={Paths.UNBOUND.TEXT} element={<UnboundTextPage />} />

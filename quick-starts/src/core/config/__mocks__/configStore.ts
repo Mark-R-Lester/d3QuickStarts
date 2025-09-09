@@ -12,13 +12,13 @@ import { QsPlottedPointsConfig } from '../../../plots/plottedPoints/qsTypes'
 import { QsPlottedTextConfig } from '../../../plots/plottedText/qsTypes'
 import { QsRadialArcConfig } from '../../../radialArc/radialArc/qsTypes'
 import { QsRadialArcTextConfig } from '../../../radialArc/radialArcText/qsTypes'
-import { QsRadialAreaConfig } from '../../../radialCentroid/radialCentroidArea/qsTypes'
-import { QsRadialAxisConfig } from '../../../radialCentroid/radialCentroidAxis/qsTypes'
-import { QsRadialLineConfig } from '../../../radialCentroid/radialCentroidLine/qsTypes'
-import { QsRadialPointsConfig } from '../../../radialCentroid/radialCentroidPoints/qsTypes'
-import { QsRadialSpokesConfig } from '../../../radialCentroid/radialCentroidSpokes/qsTypes'
+import { QsCentroidAreaConfig } from '../../../radialCentroid/radialCentroidArea/qsTypes'
+import { QsCentroidAxisConfig } from '../../../radialCentroid/radialCentroidAxis/qsTypes'
+import { QsCentroidLineConfig } from '../../../radialCentroid/radialCentroidLine/qsTypes'
+import { QsCentroidPointsConfig } from '../../../radialCentroid/radialCentroidPoints/qsTypes'
+import { QsCentroidSpokesConfig } from '../../../radialCentroid/radialCentroidSpokes/qsTypes'
 
-import { QsRadialTextConfig } from '../../../radialCentroid/radialCentroidText/qsTypes'
+import { QsCentroidTextConfig } from '../../../radialCentroid/radialCentroidText/qsTypes'
 import { ConfigStore } from '../configStore.class'
 
 export const createMockConfigStore = () => {
@@ -43,12 +43,12 @@ export const createMockConfigStore = () => {
     radialArcTextConfigHorizontal: undefined,
     radialArcTextConfigSpoke: undefined,
     radialArcTextConfigFollow: undefined,
-    radialCentroidAreaConfig: undefined,
-    radialCentroidAxisConfig: undefined,
-    radialCentroidLineConfig: undefined,
-    radialCentroidPointsConfig: undefined,
-    radialCentroidSpokesConfig: undefined,
-    radialCentroidTextConfig: undefined,
+    centroidAreaConfig: undefined,
+    centroidAxisConfig: undefined,
+    centroidLineConfig: undefined,
+    centroidPointsConfig: undefined,
+    centroidSpokesConfig: undefined,
+    centroidTextConfig: undefined,
   }
 
   return {
@@ -113,25 +113,25 @@ export const createMockConfigStore = () => {
           .fn()
           .mockImplementation(() => store.radialArcTextConfigFollow),
       },
-      radialCentroid: {
+      centroid: {
         areaConfig: jest
           .fn()
-          .mockImplementation(() => store.radialCentroidAreaConfig),
+          .mockImplementation(() => store.centroidAreaConfig),
         axisConfig: jest
           .fn()
-          .mockImplementation(() => store.radialCentroidAxisConfig),
+          .mockImplementation(() => store.centroidAxisConfig),
         lineConfig: jest
           .fn()
-          .mockImplementation(() => store.radialCentroidLineConfig),
+          .mockImplementation(() => store.centroidLineConfig),
         pointsConfig: jest
           .fn()
-          .mockImplementation(() => store.radialCentroidPointsConfig),
+          .mockImplementation(() => store.centroidPointsConfig),
         spokesConfig: jest
           .fn()
-          .mockImplementation(() => store.radialCentroidSpokesConfig),
+          .mockImplementation(() => store.centroidSpokesConfig),
         textConfig: jest
           .fn()
-          .mockImplementation(() => store.radialCentroidTextConfig),
+          .mockImplementation(() => store.centroidTextConfig),
       },
     },
     setters: {
@@ -223,36 +223,36 @@ export const createMockConfigStore = () => {
             store.radialArcTextConfigFollow = value
           }),
       },
-      radialCentroid: {
+      centroid: {
         areaConfig: jest
           .fn()
-          .mockImplementation((value: QsRadialAreaConfig) => {
-            store.radialCentroidAreaConfig = value
+          .mockImplementation((value: QsCentroidAreaConfig) => {
+            store.centroidAreaConfig = value
           }),
         axisConfig: jest
           .fn()
-          .mockImplementation((value: QsRadialAxisConfig) => {
-            store.radialCentroidAxisConfig = value
+          .mockImplementation((value: QsCentroidAxisConfig) => {
+            store.centroidAxisConfig = value
           }),
         lineConfig: jest
           .fn()
-          .mockImplementation((value: QsRadialLineConfig) => {
-            store.radialCentroidLineConfig = value
+          .mockImplementation((value: QsCentroidLineConfig) => {
+            store.centroidLineConfig = value
           }),
         pointsConfig: jest
           .fn()
-          .mockImplementation((value: QsRadialPointsConfig) => {
-            store.radialCentroidPointsConfig = value
+          .mockImplementation((value: QsCentroidPointsConfig) => {
+            store.centroidPointsConfig = value
           }),
         spokesConfig: jest
           .fn()
-          .mockImplementation((value: QsRadialSpokesConfig) => {
-            store.radialCentroidSpokesConfig = value
+          .mockImplementation((value: QsCentroidSpokesConfig) => {
+            store.centroidSpokesConfig = value
           }),
         textConfig: jest
           .fn()
-          .mockImplementation((value: QsRadialTextConfig) => {
-            store.radialCentroidTextConfig = value
+          .mockImplementation((value: QsCentroidTextConfig) => {
+            store.centroidTextConfig = value
           }),
       },
     },

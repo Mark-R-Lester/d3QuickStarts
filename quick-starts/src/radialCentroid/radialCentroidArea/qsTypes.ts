@@ -1,24 +1,27 @@
-import { QsCalculatedDataCentroidArea, RadialAreaConfig } from './types'
+import {
+  QsCalculatedDataCentroidArea,
+  CentroidAreaConfig as CentroidAreaConfig,
+} from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
 export { QsCalculatedDataCentroidArea } from './types'
 
-export type QsRadialAreaConfig = Partial<RadialAreaConfig>
+export type QsCentroidAreaConfig = Partial<CentroidAreaConfig>
 
-export interface QsRadialAreaTransitionData {
-  data: QsRadialAreaData
-  config?: QsRadialAreaConfig
+export interface QsCentroidAreaTransitionData {
+  data: QsCentroidAreaData
+  config?: QsCentroidAreaConfig
   transitionArgs?: QsTransitionArgs
 }
 
-export interface QsRadialArea {
+export interface QsCentroidArea {
   classNameArea: string
   classNameLine: string
   calculatedData: QsCalculatedDataCentroidArea
-  transition: (data: QsRadialAreaTransitionData) => void
+  transition: (data: QsCentroidAreaTransitionData) => void
 }
 
-export interface QsRadialAreaData extends Partial<StrokeData> {
+export interface QsCentroidAreaData extends Partial<StrokeData> {
   [key: string]: number[] | string | number | undefined
   highValues: number[]
   lowValues?: number[]

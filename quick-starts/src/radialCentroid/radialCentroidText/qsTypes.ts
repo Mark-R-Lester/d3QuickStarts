@@ -1,24 +1,24 @@
-import { QsCalculatedDataCentroidText, RadialTextConfig } from './types'
+import { QsCalculatedDataCentroidText, CentroidTextConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { TextData } from '../../core/types/types'
 import { LayerActions } from '../../canvas/createCanvasElement'
 export { QsCalculatedDataCentroidText } from './types'
 
-export type QsRadialTextConfig = Partial<RadialTextConfig>
+export type QsCentroidTextConfig = Partial<CentroidTextConfig>
 
-export interface QsRadialTextTransitionData {
-  data: QsRadialCentroidTextData[]
+export interface QsCentroidTextTransitionData {
+  data: QsCentroidTextData[]
   transitionArgs?: QsTransitionArgs
 }
 
-export interface QsRadialText {
+export interface QsCentroidText {
   className: string
   layerActions: LayerActions
   calculatedData: QsCalculatedDataCentroidText[]
-  transition: (data: QsRadialTextTransitionData) => void
+  transition: (data: QsCentroidTextTransitionData) => void
 }
 
-export interface QsRadialCentroidTextData extends Partial<TextData> {
+export interface QsCentroidTextData extends Partial<TextData> {
   value: number
   text?: string
 }

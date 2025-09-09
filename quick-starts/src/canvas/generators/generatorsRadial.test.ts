@@ -230,20 +230,20 @@ describe('getGenerators', () => {
     })
   })
 
-  describe('radialCentroid', () => {
+  describe('centroid', () => {
     test.each`
       data                  | customConfig         | expectedElement
       ${{ values: [1, 2] }} | ${{ fill: 'green' }} | ${{ id: 'area1' }}
       ${{ values: [3, 4] }} | ${undefined}         | ${{ id: 'area2' }}
     `(
       `When data is $data and customConfig is $customConfig
-        it should call generators.radialCentroid.area and add to elements
+        it should call generators.centroid.area and add to elements
         expectedElement = $expectedElement`,
       ({ data, customConfig, expectedElement }) => {
         ;(radialArea.radialArea.area as jest.Mock).mockReturnValue(
           expectedElement
         )
-        const result = generators.radialCentroid.area(data, customConfig)
+        const result = generators.centroid.area(data, customConfig)
         expect(radialArea.radialArea.area).toHaveBeenCalledWith(
           expect.anything(),
           data,
@@ -260,13 +260,13 @@ describe('getGenerators', () => {
       ${undefined}    | ${{ id: 'axis2' }}
     `(
       `When data is $data and customConfig is $customConfig
-        it should call generators.radialCentroid.axis and add to elements
+        it should call generators.centroid.axis and add to elements
         expectedElement = $expectedElement`,
       ({ customConfig, expectedElement }) => {
         ;(radialAxis.radialAxis.rings as jest.Mock).mockReturnValue(
           expectedElement
         )
-        const result = generators.radialCentroid.axis(customConfig)
+        const result = generators.centroid.axis(customConfig)
         expect(radialAxis.radialAxis.rings).toHaveBeenCalledWith(
           expect.anything(),
           customConfig
@@ -282,14 +282,14 @@ describe('getGenerators', () => {
       ${{ points: [3, 4] }} | ${undefined}         | ${{ id: 'line2' }}
     `(
       `When data is $data and customConfig is $customConfig
-        it should call generators.radialCentroid.line and add to elements
+        it should call generators.centroid.line and add to elements
         expectedElement = $expectedElement`,
       ({ data, customConfig, expectedElement }) => {
-        ;(radialLine.radialLine.line as jest.Mock).mockReturnValue(
+        ;(radialLine.centroidLine.line as jest.Mock).mockReturnValue(
           expectedElement
         )
-        const result = generators.radialCentroid.line(data, customConfig)
-        expect(radialLine.radialLine.line).toHaveBeenCalledWith(
+        const result = generators.centroid.line(data, customConfig)
+        expect(radialLine.centroidLine.line).toHaveBeenCalledWith(
           expect.anything(),
           data,
           customConfig
@@ -305,13 +305,13 @@ describe('getGenerators', () => {
       ${[{ x: 3, y: 4 }]} | ${undefined}   | ${{ id: 'points2' }}
     `(
       `When data is $data and customConfig is $customConfig
-        it should call generators.radialCentroid.points and add to elements
+        it should call generators.centroid.points and add to elements
         expectedElement = $expectedElement`,
       ({ data, customConfig, expectedElement }) => {
         ;(radialPoint.radialPoint.points as jest.Mock).mockReturnValue(
           expectedElement
         )
-        const result = generators.radialCentroid.points(data, customConfig)
+        const result = generators.centroid.points(data, customConfig)
         expect(radialPoint.radialPoint.points).toHaveBeenCalledWith(
           expect.anything(),
           data,
@@ -328,11 +328,11 @@ describe('getGenerators', () => {
       ${undefined}    | ${{ id: 'spokes2' }}
     `(
       `When data is $data and customConfig is $customConfig
-        it should call generators.radialCentroid.spokes and add to elements
+        it should call generators.centroid.spokes and add to elements
         expectedElement = $expectedElement`,
       ({ customConfig, expectedElement }) => {
         ;(radialSpokes.spokes as jest.Mock).mockReturnValue(expectedElement)
-        const result = generators.radialCentroid.spokes(customConfig)
+        const result = generators.centroid.spokes(customConfig)
 
         expect(radialSpokes.spokes).toHaveBeenCalledWith(
           expect.anything(),
@@ -349,11 +349,11 @@ describe('getGenerators', () => {
       ${{ value: 5 }} | ${undefined}             | ${{ id: 'text2' }}
     `(
       `When data is $data and customConfig is $customConfig
-        it should call generators.radialCentroid.spokes and add to elements
+        it should call generators.centroid.spokes and add to elements
         expectedElement = $expectedElement`,
       ({ data, customConfig, expectedElement }) => {
         ;(radialText.text as jest.Mock).mockReturnValue(expectedElement)
-        const result = generators.radialCentroid.text(data, customConfig)
+        const result = generators.centroid.text(data, customConfig)
         expect(radialText.text).toHaveBeenCalledWith(
           expect.anything(),
           data,

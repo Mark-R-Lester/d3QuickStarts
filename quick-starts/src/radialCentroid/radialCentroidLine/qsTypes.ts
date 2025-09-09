@@ -1,24 +1,24 @@
-import { QsCalculatedDataCentroidLine, RadialLineConfig } from './types'
+import { QsCalculatedDataCentroidLine, CentroidLineConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
 import { LayerActions } from '../../canvas/createCanvasElement'
 export { QsCalculatedDataCentroidLine } from './types'
 
-export type QsRadialLineConfig = Partial<RadialLineConfig>
+export type QsCentroidLineConfig = Partial<CentroidLineConfig>
 
-export interface QsRadialLineTransitionData {
-  data: QsRadialLineData
+export interface QsCentroidLineTransitionData {
+  data: QsCentroidLineData
   transitionArgs?: QsTransitionArgs
 }
 
-export interface QsRadialLine {
+export interface QsCentroidLine {
   className: string
   layerActions: LayerActions
   calculatedData: QsCalculatedDataCentroidLine
-  transition: (data: QsRadialLineTransitionData) => void
+  transition: (data: QsCentroidLineTransitionData) => void
 }
 
-export interface QsRadialLineData extends Partial<StrokeData> {
+export interface QsCentroidLineData extends Partial<StrokeData> {
   [key: string]: number[] | string | number | undefined
   values: number[]
 }

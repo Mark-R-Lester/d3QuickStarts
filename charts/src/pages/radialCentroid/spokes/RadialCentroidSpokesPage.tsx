@@ -7,7 +7,7 @@ import { defaultsContent, configAndData, editorContent } from './Content'
 import { RadialSpokesChart } from './RadailSpokesChart'
 import { SingleWord } from '../../../components/atoms/chart/SingleWord'
 
-export default function RadialCentroidSpokesPage() {
+export default function CentroidSpokesPage() {
   const menuElements: JSX.Element[] = [
     <RadialSpokesChart
       canvasConfig={{

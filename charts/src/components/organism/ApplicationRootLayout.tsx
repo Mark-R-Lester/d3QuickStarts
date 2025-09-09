@@ -61,7 +61,7 @@ const menuElementsRadialArc: DropdownMenuProps = {
   ],
 }
 
-const menuElementsRadialCentroid: DropdownMenuProps = {
+const menuElementsCentroid: DropdownMenuProps = {
   title: 'Centroid',
   routes: [
     { title: 'Area', route: '/radialcentroid/area' },
@@ -247,7 +247,7 @@ export const ApplicationLayout: FunctionComponent = () => {
             <DropdownMenu {...menuElementsOrthogonal} />
             <DropdownMenu {...menuElementsPlotted} />
             <DropdownMenu {...menuElementsRadialArc} />
-            <DropdownMenu {...menuElementsRadialCentroid} />
+            <DropdownMenu {...menuElementsCentroid} />
             <DropdownMenu {...menuElementsUnbound} />
           </Collapse>
         </List>

@@ -16,10 +16,10 @@ import { TextConfig } from '../../orthogonal/orthogonalText/types'
 import { PlottedLineConfig } from '../../plots/plottedLine/types'
 import { PlottedPointsConfig } from '../../plots/plottedPoints/calculatedData'
 import { PlottedTextConfig } from '../../plots/plottedText/types'
-import { RadialArcConfig } from '../../radialArc/radialArc/types'
+import { ArcConfig } from '../../radialArc/radialArc/types'
 import {
-  RadialArcTextConfig,
-  RadialArcTextConfigBase,
+  ArcTextConfig,
+  ArcTextConfigBase,
 } from '../../radialArc/radialArcText/types'
 
 import { CentroidAreaConfig } from '../../radialCentroid/radialCentroidArea/types'
@@ -275,7 +275,7 @@ export const plottedTextConfig: PlottedTextConfig = {
   ...textDefaults,
 }
 
-export const radialArcConfig: RadialArcConfig = {
+export const radialArcConfig: ArcConfig = {
   layerType: QsEnumLayerType.DATA,
   outerRadius: 100,
   innerRadius: 0,
@@ -292,7 +292,7 @@ export const radialArcConfig: RadialArcConfig = {
   strokeColorScaleData: undefined,
 }
 
-const radialArcTextConfigBase: RadialArcTextConfigBase = {
+const radialArcTextConfigBase: ArcTextConfigBase = {
   scaleType: QsEnumScaleType.LINEAR,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
@@ -307,28 +307,28 @@ const radialArcTextConfigBase: RadialArcTextConfigBase = {
   textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
 }
 
-export const radialArcTextConfigRotated: RadialArcTextConfig = {
+export const radialArcTextConfigRotated: ArcTextConfig = {
   layerType: QsEnumLayerType.UNBOUND,
   ...radialArcTextConfigBase,
   radius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
-export const radialArcTextConfigHorizontal: RadialArcTextConfig = {
+export const radialArcTextConfigHorizontal: ArcTextConfig = {
   layerType: QsEnumLayerType.UNBOUND,
   ...radialArcTextConfigBase,
   radius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
-export const radialArcTextConfigSpoke: RadialArcTextConfig = {
+export const radialArcTextConfigSpoke: ArcTextConfig = {
   layerType: QsEnumLayerType.UNBOUND,
   ...radialArcTextConfigBase,
   radius: 103,
   textAnchor: QsEnumTextAnchor.START,
 }
 
-export const radialArcTextConfigFollow: RadialArcTextConfig = {
+export const radialArcTextConfigFollow: ArcTextConfig = {
   layerType: QsEnumLayerType.UNBOUND,
   ...radialArcTextConfigBase,
   radius: 103,

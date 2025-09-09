@@ -10,8 +10,8 @@ import { QsTextConfig } from '../../../orthogonal/orthogonalText/qsTypes'
 import { QsPlottedLineConfig } from '../../../plots/plottedLine/qsTypes'
 import { QsPlottedPointsConfig } from '../../../plots/plottedPoints/qsTypes'
 import { QsPlottedTextConfig } from '../../../plots/plottedText/qsTypes'
-import { QsRadialArcConfig } from '../../../radialArc/radialArc/qsTypes'
-import { QsRadialArcTextConfig } from '../../../radialArc/radialArcText/qsTypes'
+import { QsArcConfig } from '../../../radialArc/radialArc/qsTypes'
+import { QsArcTextConfig } from '../../../radialArc/radialArcText/qsTypes'
 import { QsCentroidAreaConfig } from '../../../radialCentroid/radialCentroidArea/qsTypes'
 import { QsCentroidAxisConfig } from '../../../radialCentroid/radialCentroidAxis/qsTypes'
 import { QsCentroidLineConfig } from '../../../radialCentroid/radialCentroidLine/qsTypes'
@@ -199,27 +199,27 @@ export const createMockConfigStore = () => {
           }),
       },
       radialArc: {
-        arcConfig: jest.fn().mockImplementation((value: QsRadialArcConfig) => {
+        arcConfig: jest.fn().mockImplementation((value: QsArcConfig) => {
           store.radialArcConfig = value
         }),
         textConfigRotated: jest
           .fn()
-          .mockImplementation((value: QsRadialArcTextConfig) => {
+          .mockImplementation((value: QsArcTextConfig) => {
             store.radialArcTextConfigRotated = value
           }),
         textConfigHorizontal: jest
           .fn()
-          .mockImplementation((value: QsRadialArcTextConfig) => {
+          .mockImplementation((value: QsArcTextConfig) => {
             store.radialArcTextConfigHorizontal = value
           }),
         textConfigSpoke: jest
           .fn()
-          .mockImplementation((value: QsRadialArcTextConfig) => {
+          .mockImplementation((value: QsArcTextConfig) => {
             store.radialArcTextConfigSpoke = value
           }),
         textConfigFollow: jest
           .fn()
-          .mockImplementation((value: QsRadialArcTextConfig) => {
+          .mockImplementation((value: QsArcTextConfig) => {
             store.radialArcTextConfigFollow = value
           }),
       },

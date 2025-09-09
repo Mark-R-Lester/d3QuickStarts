@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasRadial,
   qsCreateCanvasRadial,
-  QsRadialTextData,
+  QsArcTextData,
   QsEnumTextAnchor,
   QsEnumTextFont,
   QsEnumTextFontWeight,
@@ -14,7 +14,7 @@ export const RadialTextRotatedElement: FunctionComponent<
 > = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {
-      const data: QsRadialTextData[] = [
+      const data: QsArcTextData[] = [
         { value: 10, text: 'Ten' },
         { value: 20, text: 'Twenty' },
         { value: 30, text: 'Thirty' },

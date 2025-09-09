@@ -7,9 +7,9 @@ import {
   QsEnumScaleType,
   QsEnumLayerType,
 } from '../../core/enums/qsEnums'
-import { QsRadialTextData } from './qsTypes'
+import { QsArcTextData } from './qsTypes'
 
-export interface RadialArcTextConfigBase {
+export interface ArcTextConfigBase {
   [key: string]:
     | number
     | Iterable<unknown>
@@ -29,7 +29,7 @@ export interface RadialArcTextConfigBase {
   textStroke: string
 }
 
-export interface RadialArcTextConfig extends RadialArcTextConfigBase {
+export interface ArcTextConfig extends ArcTextConfigBase {
   [key: string]:
     | number
     | Iterable<unknown>
@@ -41,7 +41,7 @@ export interface RadialArcTextConfig extends RadialArcTextConfigBase {
   textAnchor: QsEnumTextAnchor
 }
 
-export interface QsCalculatedDataRadialText {
+export interface QsCalculatedDataArcText {
   arcClass: string
   textClass: string
   textArcData: TextArcData[]
@@ -55,8 +55,8 @@ export interface TextArcData {
   textClass: string
   arcId: string
   arcClass: string
-  newData: QsRadialTextData
-  data: QsRadialTextData
+  newData: QsArcTextData
+  data: QsArcTextData
   index: number
   value: string | number
   newStartAngle: number

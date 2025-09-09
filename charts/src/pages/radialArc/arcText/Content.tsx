@@ -19,7 +19,7 @@ const canvasConfig: string = `const canvasConfig = {
 }`
 
 const defaultsChart: string = `
- const data: QsRadialTextData[] = [
+ const data: QsArcTextData[] = [
   { value: 10, text: 'Ten' },
   { value: 20, text: 'Twenty' },
   { value: 30, text: 'Thirty' },
@@ -31,7 +31,7 @@ const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.radialArc.text.follow(data)`
 
 const configChart: string = `
-  const data: QsRadialTextData[] = [
+  const data: QsArcTextData[] = [
     { value: 10, text: 'Ten' },
     { value: 20, text: 'Twenty' },
     { value: 30, text: 'Thirty' },

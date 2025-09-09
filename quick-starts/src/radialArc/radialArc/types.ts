@@ -2,7 +2,7 @@ import { QsColorScaleData } from '../../core/types/qsTypes'
 import { ConfigStrokeDefaults } from '../../core/types/types'
 import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
-export interface RadialArcConfig extends ConfigStrokeDefaults {
+export interface ArcConfig extends ConfigStrokeDefaults {
   [key: string]: number | QsColorScaleData | string | undefined | boolean
   layerType: QsEnumLayerType
   outerRadius: number
@@ -17,7 +17,7 @@ export interface RadialArcConfig extends ConfigStrokeDefaults {
   strokeColorScaleData?: QsColorScaleData
 }
 
-export interface QsCalculatedDataRadialArc {
+export interface QsCalculatedDataArc {
   id: string
   arcData: ArcData
   x: number

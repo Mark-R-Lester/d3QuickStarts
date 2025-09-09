@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasRadial,
   qsCreateCanvasRadial,
-  QsRadialTextData,
+  QsArcTextData,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
@@ -11,7 +11,7 @@ export const RadialTextDefaultsChart: FunctionComponent<
 > = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {
-      const data: QsRadialTextData[] = [
+      const data: QsArcTextData[] = [
         { value: 10, text: 'Ten' },
         { value: 20, text: 'Twenty' },
         { value: 30, text: 'Thirty' },

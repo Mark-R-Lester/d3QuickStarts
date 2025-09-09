@@ -10,8 +10,8 @@ import { QsTextConfig } from '../../orthogonal/orthogonalText/qsTypes'
 import { QsPlottedLineConfig } from '../../plots/plottedLine/qsTypes'
 import { QsPlottedPointsConfig } from '../../plots/plottedPoints/qsTypes'
 import { QsPlottedTextConfig } from '../../plots/plottedText/qsTypes'
-import { QsRadialArcConfig } from '../../radialArc/radialArc/qsTypes'
-import { QsRadialArcTextConfig } from '../../radialArc/radialArcText/qsTypes'
+import { QsArcConfig } from '../../radialArc/radialArc/qsTypes'
+import { QsArcTextConfig } from '../../radialArc/radialArcText/qsTypes'
 import { QsCentroidAreaConfig } from '../../radialCentroid/radialCentroidArea/qsTypes'
 import { QsCentroidAxisConfig } from '../../radialCentroid/radialCentroidAxis/qsTypes'
 import { QsCentroidLineConfig } from '../../radialCentroid/radialCentroidLine/qsTypes'
@@ -35,11 +35,11 @@ export interface ConfigStore {
   plottedLineConfig?: QsPlottedLineConfig
   plottedPointsConfig?: QsPlottedPointsConfig
   plottedTextConfig?: QsPlottedTextConfig
-  radialArcConfig?: QsRadialArcConfig
-  radialArcTextConfigRotated?: QsRadialArcTextConfig
-  radialArcTextConfigHorizontal?: QsRadialArcTextConfig
-  radialArcTextConfigSpoke?: QsRadialArcTextConfig
-  radialArcTextConfigFollow?: QsRadialArcTextConfig
+  radialArcConfig?: QsArcConfig
+  radialArcTextConfigRotated?: QsArcTextConfig
+  radialArcTextConfigHorizontal?: QsArcTextConfig
+  radialArcTextConfigSpoke?: QsArcTextConfig
+  radialArcTextConfigFollow?: QsArcTextConfig
   centroidAreaConfig?: QsCentroidAreaConfig
   centroidAxisConfig?: QsCentroidAxisConfig
   centroidLineConfig?: QsCentroidLineConfig
@@ -71,11 +71,11 @@ export interface ConfigGetters {
     textConfig: () => QsPlottedTextConfig | undefined
   }
   radialArc: {
-    arcConfig: () => QsRadialArcConfig | undefined
-    textConfigRotated: () => QsRadialArcTextConfig | undefined
-    textConfigHorizontal: () => QsRadialArcTextConfig | undefined
-    textConfigSpoke: () => QsRadialArcTextConfig | undefined
-    textConfigFollow: () => QsRadialArcTextConfig | undefined
+    arcConfig: () => QsArcConfig | undefined
+    textConfigRotated: () => QsArcTextConfig | undefined
+    textConfigHorizontal: () => QsArcTextConfig | undefined
+    textConfigSpoke: () => QsArcTextConfig | undefined
+    textConfigFollow: () => QsArcTextConfig | undefined
   }
   centroid: {
     areaConfig: () => QsCentroidAreaConfig | undefined
@@ -110,11 +110,11 @@ export interface ConfigSetters {
     textConfig: (value: QsPlottedTextConfig) => void
   }
   radialArc: {
-    arcConfig: (value: QsRadialArcConfig) => void
-    textConfigRotated: (value: QsRadialArcTextConfig) => void
-    textConfigHorizontal: (value: QsRadialArcTextConfig) => void
-    textConfigSpoke: (value: QsRadialArcTextConfig) => void
-    textConfigFollow: (value: QsRadialArcTextConfig) => void
+    arcConfig: (value: QsArcConfig) => void
+    textConfigRotated: (value: QsArcTextConfig) => void
+    textConfigHorizontal: (value: QsArcTextConfig) => void
+    textConfigSpoke: (value: QsArcTextConfig) => void
+    textConfigFollow: (value: QsArcTextConfig) => void
   }
   centroid: {
     areaConfig: (value: QsCentroidAreaConfig) => void
@@ -255,19 +255,19 @@ export class ConfigStoreManager {
         },
       },
       radialArc: {
-        arcConfig: (value: QsRadialArcConfig) => {
+        arcConfig: (value: QsArcConfig) => {
           this.store.radialArcConfig = value
         },
-        textConfigRotated: (value: QsRadialArcTextConfig) => {
+        textConfigRotated: (value: QsArcTextConfig) => {
           this.store.radialArcTextConfigRotated = value
         },
-        textConfigHorizontal: (value: QsRadialArcTextConfig) => {
+        textConfigHorizontal: (value: QsArcTextConfig) => {
           this.store.radialArcTextConfigHorizontal = value
         },
-        textConfigSpoke: (value: QsRadialArcTextConfig) => {
+        textConfigSpoke: (value: QsArcTextConfig) => {
           this.store.radialArcTextConfigSpoke = value
         },
-        textConfigFollow: (value: QsRadialArcTextConfig) => {
+        textConfigFollow: (value: QsArcTextConfig) => {
           this.store.radialArcTextConfigFollow = value
         },
       },

@@ -2,8 +2,8 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasRadial,
   qsCreateCanvasRadial,
-  QsRadialData,
-  QsRadialArcConfig,
+  QsArcData,
+  QsArcConfig,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
@@ -12,7 +12,7 @@ export const RadialConfigChart: FunctionComponent<ChartPropsOthogonal> = ({
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const data: QsRadialData[] = [
+      const data: QsArcData[] = [
         {
           value: 1,
           fillColor: 'salmon',
@@ -30,7 +30,7 @@ export const RadialConfigChart: FunctionComponent<ChartPropsOthogonal> = ({
         { value: 1, fillColor: 'salmon' },
       ]
 
-      const config: QsRadialArcConfig = {
+      const config: QsArcConfig = {
         outerRadius: 90,
         innerRadius: 50,
         padding: 0.9,

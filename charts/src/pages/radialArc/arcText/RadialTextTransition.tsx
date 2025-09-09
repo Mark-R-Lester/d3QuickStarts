@@ -4,9 +4,9 @@ import {
   qsCreateCanvasRadial,
   QsRadial,
   QsRadialArcText,
-  QsRadialTextData,
-  QsRadialData,
-  QsRadialArcTextFollow,
+  QsArcTextData,
+  QsArcData,
+  QsArcTextFollow,
 } from 'd3qs/d3QuickStart'
 import { RadialArcTextChartProps } from '../../../common/chartProps'
 import { EnumRadialTextOrientation } from '../../../common/enums'
@@ -20,9 +20,7 @@ export const RadialTextTransition: FunctionComponent<
   orientation,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
-  const [element1, setElement1] = useState<
-    QsRadialArcText | QsRadialArcTextFollow
-  >()
+  const [element1, setElement1] = useState<QsRadialArcText | QsArcTextFollow>()
   const [element2, setElement2] = useState<QsRadial>()
 
   useEffect(() => {
@@ -38,7 +36,7 @@ export const RadialTextTransition: FunctionComponent<
       if (orientation === EnumRadialTextOrientation.ROTATED)
         setElement1(canvas.generate.radialArc.text.rotated(data, config))
 
-      const radialArgs: QsRadialData[] = [
+      const radialArgs: QsArcData[] = [
         { value: 0, fillColor: 'red' },
         { value: 0, fillColor: 'orange' },
         { value: 0, fillColor: 'green' },
@@ -53,7 +51,7 @@ export const RadialTextTransition: FunctionComponent<
 
   useEffect(
     function transitionData() {
-      const getVals = (): QsRadialTextData[] => {
+      const getVals = (): QsArcTextData[] => {
         const vals = []
         for (let i = 0; i < 3; i++) {
           let num = (Math.random() * 100) / 2
@@ -68,7 +66,7 @@ export const RadialTextTransition: FunctionComponent<
           data: transitionData,
         })
 
-      const radialArgs: QsRadialData[] = [
+      const radialArgs: QsArcData[] = [
         { value: 0, fillColor: 'red' },
         { value: 0, fillColor: 'orange' },
         { value: 0, fillColor: 'green' },

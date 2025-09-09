@@ -1,13 +1,13 @@
 import { interpolate } from 'd3'
-import { QsCalculatedDataRadialArc, RadialArcConfig } from './types'
+import { QsCalculatedDataArc, ArcConfig } from './types'
 import { getCalculatedData, updateCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { Canvas } from '../../canvas/types'
 import {
-  QsRadialArcConfig,
+  QsArcConfig,
   QsRadial,
-  QsRadialTransitionData,
-  QsRadialData,
+  QsArcTransitionData,
+  QsArcData,
 } from './qsTypes'
 import { radialArcConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
@@ -15,13 +15,13 @@ import { generateClassName } from '../../core/generateClassName'
 import { parallelPaddedArc } from '../../core/customShapes/parallelPaddedArc'
 import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
-export const radialArc = {
+export const arc = {
   radial: (
     canvas: Canvas,
-    data: QsRadialData[],
-    customConfig?: QsRadialArcConfig
+    data: QsArcData[],
+    customConfig?: QsArcConfig
   ): QsRadial => {
-    const config: RadialArcConfig = addDefaultsToConfig<RadialArcConfig>(
+    const config: ArcConfig = addDefaultsToConfig<ArcConfig>(
       radialArcConfig,
       customConfig,
       canvas.configStore.radialArc.arcConfig()
@@ -32,10 +32,10 @@ export const radialArc = {
 
 const draw = (
   canvas: Canvas,
-  data: QsRadialData[],
-  config: RadialArcConfig
+  data: QsArcData[],
+  config: ArcConfig
 ): QsRadial => {
-  let calculatedData: QsCalculatedDataRadialArc[] = getCalculatedData(
+  let calculatedData: QsCalculatedDataArc[] = getCalculatedData(
     canvas,
     data,
     config
@@ -64,7 +64,7 @@ const draw = (
     .attr('stroke-opacity', (d) => d.arcData.strokeOpacity)
     .attr('stroke-width', (d) => d.arcData.strokeWidth)
 
-  const transition = (transitionData: QsRadialTransitionData = { data }) => {
+  const transition = (transitionData: QsArcTransitionData = { data }) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
     calculatedData = updateCalculatedData(
       canvas,

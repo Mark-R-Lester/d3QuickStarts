@@ -1,24 +1,24 @@
-import { QsCalculatedDataRadialArc, RadialArcConfig } from './types'
+import { QsCalculatedDataArc, ArcConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
 import { LayerActions } from '../../canvas/createCanvasElement'
-export { QsCalculatedDataRadialArc } from './types'
+export { QsCalculatedDataArc as QsCalculatedDataRadialArc } from './types'
 
-export type QsRadialArcConfig = Partial<RadialArcConfig>
+export type QsArcConfig = Partial<ArcConfig>
 
-export interface QsRadialTransitionData {
-  data: QsRadialData[]
+export interface QsArcTransitionData {
+  data: QsArcData[]
   transitionArgs?: QsTransitionArgs
 }
 
 export interface QsRadial {
   className: string
   layerActions: LayerActions
-  calculatedData: QsCalculatedDataRadialArc[]
-  transition: (data: QsRadialTransitionData) => void
+  calculatedData: QsCalculatedDataArc[]
+  transition: (data: QsArcTransitionData) => void
 }
 
-export interface QsRadialData extends Partial<StrokeData> {
+export interface QsArcData extends Partial<StrokeData> {
   value: number
   fillColor?: string
   fillOpacity?: number

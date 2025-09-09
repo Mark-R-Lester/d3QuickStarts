@@ -19,7 +19,7 @@ const canvasConfig: string = `const canvasConfig = {
 }`
 
 const defaultsChart: string = `
-const data: QsRadialTextData[] = [
+const data: QsArcTextData[] = [
   { value: 1 },
   { value: 2 },
   { value: 1 },
@@ -40,7 +40,7 @@ const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.centroid.text(data)`
 
 const configChart: string = `
-const data: QsRadialTextData[] = [
+const data: QsArcTextData[] = [
   { value: 1,},
   { value: 2 },
   { value: 1 },
@@ -63,7 +63,7 @@ canvas.generate.centroid.text(data)`
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`
 
-const data: string = `interface QsRadialTextData {
+const data: string = `interface QsArcTextData {
   value: number
   text?: string
   textFont?: QsEnumTextFont | string
@@ -95,7 +95,7 @@ const config: string = `interface QsRadialTextConfig = {
   defaultTextAlignmentBaseline?: QsEnumAlignmentBaseline
 }`
 
-const dataExample: string = `const data: QsRadialTextData = {
+const dataExample: string = `const data: QsArcTextData = {
   value: 27,
   text: 'this is what you will see if added',
   textFont: QsEnumTextFont.SERIF,

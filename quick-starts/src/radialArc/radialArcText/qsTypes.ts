@@ -1,14 +1,14 @@
-import { QsCalculatedDataRadialText, RadialArcTextConfig } from './types'
+import { QsCalculatedDataArcText, ArcTextConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { LayerActions } from '../../canvas/createCanvasElement'
-export { QsCalculatedDataRadialText } from './types'
+export { QsCalculatedDataArcText as QsCalculatedDataRadialText } from './types'
 
-export type QsRadialArcTextConfig = Partial<RadialArcTextConfig>
+export type QsArcTextConfig = Partial<ArcTextConfig>
 
 export interface QsRadialArcTextTransitionArgs extends QsTransitionArgs {}
 
-export interface QsRadialArcTextTransitionData {
-  data: QsRadialTextData[]
+export interface QsArcTextTransitionData {
+  data: QsArcTextData[]
   transitionArgs?: QsRadialArcTextTransitionArgs
 }
 
@@ -16,18 +16,18 @@ export interface QsRadialArcText {
   className: string
   classNameArc: string
   layerActions: LayerActions
-  calculatedData: QsCalculatedDataRadialText
-  transition: (data: QsRadialArcTextTransitionData) => void
+  calculatedData: QsCalculatedDataArcText
+  transition: (data: QsArcTextTransitionData) => void
 }
 
-export interface QsRadialArcTextFollow {
+export interface QsArcTextFollow {
   className: string
   layerActions: LayerActions
-  calculatedData: QsCalculatedDataRadialText
-  transition: (data: QsRadialArcTextTransitionData) => void
+  calculatedData: QsCalculatedDataArcText
+  transition: (data: QsArcTextTransitionData) => void
 }
 
-export interface QsRadialTextData {
+export interface QsArcTextData {
   value: number
   text?: string
 }

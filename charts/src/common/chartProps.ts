@@ -10,14 +10,14 @@ import {
   QsPointsConfig,
   QsCentroidAreaConfig,
   QsCentroidAreaData,
-  QsRadialData,
+  QsArcData,
   QsCentroidAxisConfig,
-  QsRadialArcConfig,
+  QsArcConfig,
   QsCentroidLineConfig,
   QsCentroidPointsConfig,
   QsCentroidSpokesConfig,
-  QsRadialArcTextConfig,
-  QsRadialTextData,
+  QsArcTextConfig,
+  QsArcTextData,
   QsCentroidPointData,
   QsPointData,
   QsPlottedTextData,
@@ -99,10 +99,6 @@ export interface ChartPropsRadial {
   canvasConfig: QsCanvasConfigRadial
 }
 
-export interface RadialChartProps extends ChartPropsRadial {
-  config?: QsRadialArcConfig
-  data?: QsRadialData[]
-}
 export interface CentroidAreaChartProps extends ChartPropsRadial {
   config?: QsCentroidAreaConfig
   data1?: QsCentroidAreaData
@@ -135,9 +131,14 @@ export interface CentroidSpokesChartProps extends ChartPropsRadial {
  * Arc interfaces
  */
 export interface RadialArcTextChartProps extends ChartPropsRadial {
-  config?: QsRadialArcTextConfig
-  data?: QsRadialTextData[]
+  config?: QsArcTextConfig
+  data?: QsArcTextData[]
   orientation: EnumRadialTextOrientation
+}
+
+export interface RadialChartProps extends ChartPropsRadial {
+  config?: QsArcConfig
+  data?: QsArcData[]
 }
 
 /**

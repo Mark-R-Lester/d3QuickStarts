@@ -1,20 +1,16 @@
 import { arc as d3arc, interpolate } from 'd3'
-import {
-  QsCalculatedDataRadialText,
-  RadialArcTextConfig,
-  TextArcData,
-} from './types'
+import { QsCalculatedDataArcText, ArcTextConfig, TextArcData } from './types'
 import { getCalculatedData, updateCalculatedData } from './calculatedData'
 import { RadialTextType } from '../../core/enums/enums'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { getRotationFunction } from './textRotation'
 import { Canvas } from '../../canvas/types'
 import {
-  QsRadialArcTextConfig,
+  QsArcTextConfig,
   QsRadialArcText,
-  QsRadialArcTextTransitionData,
-  QsRadialTextData,
-  QsRadialArcTextFollow,
+  QsArcTextTransitionData,
+  QsArcTextData,
+  QsArcTextFollow,
 } from './qsTypes'
 import {
   radialArcTextConfigFollow,
@@ -26,32 +22,30 @@ import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
-export const radialArcText = {
+export const ArcText = {
   spoke: (
     canvas: Canvas,
-    data: QsRadialTextData[],
-    customConfig?: QsRadialArcTextConfig
+    data: QsArcTextData[],
+    customConfig?: QsArcTextConfig
   ): QsRadialArcText => {
-    const config: RadialArcTextConfig =
-      addDefaultsToConfig<RadialArcTextConfig>(
-        radialArcTextConfigSpoke,
-        customConfig,
-        canvas.configStore.radialArc.textConfigSpoke()
-      )
+    const config: ArcTextConfig = addDefaultsToConfig<ArcTextConfig>(
+      radialArcTextConfigSpoke,
+      customConfig,
+      canvas.configStore.radialArc.textConfigSpoke()
+    )
 
     return draw<QsRadialArcText>(canvas, data, RadialTextType.SPOKE, config)
   },
   horizontal: (
     canvas: Canvas,
-    data: QsRadialTextData[],
-    customConfig?: QsRadialArcTextConfig
+    data: QsArcTextData[],
+    customConfig?: QsArcTextConfig
   ): QsRadialArcText => {
-    const config: RadialArcTextConfig =
-      addDefaultsToConfig<RadialArcTextConfig>(
-        radialArcTextConfigHorizontal,
-        customConfig,
-        canvas.configStore.radialArc.textConfigHorizontal()
-      )
+    const config: ArcTextConfig = addDefaultsToConfig<ArcTextConfig>(
+      radialArcTextConfigHorizontal,
+      customConfig,
+      canvas.configStore.radialArc.textConfigHorizontal()
+    )
 
     return draw<QsRadialArcText>(
       canvas,
@@ -62,44 +56,37 @@ export const radialArcText = {
   },
   rotated: (
     canvas: Canvas,
-    data: QsRadialTextData[],
-    customConfig?: QsRadialArcTextConfig
+    data: QsArcTextData[],
+    customConfig?: QsArcTextConfig
   ): QsRadialArcText => {
-    const config: RadialArcTextConfig =
-      addDefaultsToConfig<RadialArcTextConfig>(
-        radialArcTextConfigRotated,
-        customConfig,
-        canvas.configStore.radialArc.textConfigRotated()
-      )
+    const config: ArcTextConfig = addDefaultsToConfig<ArcTextConfig>(
+      radialArcTextConfigRotated,
+      customConfig,
+      canvas.configStore.radialArc.textConfigRotated()
+    )
 
     return draw<QsRadialArcText>(canvas, data, RadialTextType.ROTATED, config)
   },
   follow: (
     canvas: Canvas,
-    data: QsRadialTextData[],
-    customConfig?: QsRadialArcTextConfig
-  ): QsRadialArcTextFollow => {
-    const config: RadialArcTextConfig =
-      addDefaultsToConfig<RadialArcTextConfig>(
-        radialArcTextConfigFollow,
-        customConfig,
-        canvas.configStore.radialArc.textConfigFollow()
-      )
-
-    return draw<QsRadialArcTextFollow>(
-      canvas,
-      data,
-      RadialTextType.FOLLOW,
-      config
+    data: QsArcTextData[],
+    customConfig?: QsArcTextConfig
+  ): QsArcTextFollow => {
+    const config: ArcTextConfig = addDefaultsToConfig<ArcTextConfig>(
+      radialArcTextConfigFollow,
+      customConfig,
+      canvas.configStore.radialArc.textConfigFollow()
     )
+
+    return draw<QsArcTextFollow>(canvas, data, RadialTextType.FOLLOW, config)
   },
 }
 
 const draw = <T>(
   canvas: Canvas,
-  data: QsRadialTextData[],
+  data: QsArcTextData[],
   type: RadialTextType,
-  config: RadialArcTextConfig
+  config: ArcTextConfig
 ): T => {
   const {
     defaultDecimalPoints,
@@ -114,7 +101,7 @@ const draw = <T>(
 
   const rotate: (angles: TextArcData) => number = getRotationFunction(type)
 
-  let calculatedData: QsCalculatedDataRadialText = getCalculatedData(
+  let calculatedData: QsCalculatedDataArcText = getCalculatedData(
     canvas,
     data,
     config
@@ -193,9 +180,7 @@ const draw = <T>(
       )
   }
 
-  const transition = (
-    transitionData: QsRadialArcTextTransitionData = { data }
-  ) => {
+  const transition = (transitionData: QsArcTextTransitionData = { data }) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
     calculatedData = updateCalculatedData(
       canvas,

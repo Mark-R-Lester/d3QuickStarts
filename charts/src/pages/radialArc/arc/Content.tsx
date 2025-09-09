@@ -17,7 +17,7 @@ const canvasConfig: string = `const canvasConfig = {
 }`
 
 const defaultsChart: string = `
-const data: QsRadialData[] = [
+const data: QsArcData[] = [
   { value: 15 },
   { value: 45 },
   { value: 60 },
@@ -28,7 +28,7 @@ const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.radialArc.radial(data)`
 
 const configChart: string = `
-const data: QsRadialData[] = [
+const data: QsArcData[] = [
   {
     value: 1,
     fillColor: 'salmon',
@@ -58,7 +58,7 @@ canvas.generate.radialArc.radial(data, config)`
 const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
 const configChartAll: string = `${canvasConfig}${configChart}`
 
-const data: string = `interface QsRadialData {
+const data: string = `interface QsArcData {
   value: number
   fillColor?: string
   fillOpacity?: number
@@ -83,7 +83,7 @@ const config: string = `interface QsRadialConfig {
   strokeColorScaleData?: QsColorScaleData
 }`
 
-const dataExample: string = `const data: QsRadialData = {
+const dataExample: string = `const data: QsArcData = {
   value: 20,
   fillColor: 'blue',
   fillOpacity: 1,

@@ -130,13 +130,13 @@ export interface CentroidSpokesChartProps extends ChartPropsRadial {
 /**
  * Arc interfaces
  */
-export interface RadialArcTextChartProps extends ChartPropsRadial {
+export interface ArcTextChartProps extends ChartPropsRadial {
   config?: QsArcTextConfig
   data?: QsArcTextData[]
   orientation: EnumRadialTextOrientation
 }
 
-export interface RadialChartProps extends ChartPropsRadial {
+export interface ArcChartProps extends ChartPropsRadial {
   config?: QsArcConfig
   data?: QsArcData[]
 }

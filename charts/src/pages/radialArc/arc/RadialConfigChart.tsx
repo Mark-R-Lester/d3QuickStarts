@@ -2,37 +2,20 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasRadial,
   qsCreateCanvasRadial,
-  QsArcData,
   QsArcConfig,
 } from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../../common/chartProps'
+import { ArcChartProps } from '../../../common/chartProps'
 
-export const RadialConfigChart: FunctionComponent<ChartPropsOthogonal> = ({
+export const RadialConfigChart: FunctionComponent<ArcChartProps> = ({
   canvasConfig,
+  config = {},
+  data = [{ value: 10 }, { value: 20 }, { value: 15 }],
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const data: QsArcData[] = [
-        {
-          value: 1,
-          fillColor: 'salmon',
-          fillOpacity: 0.5,
-          strokeWidth: 1,
-          strokeColor: 'grey',
-        },
-        { value: 1, fillColor: 'salmon' },
-        { value: 1, fillColor: 'hotpink' },
-        { value: 1, fillColor: 'hotpink' },
-        { value: 1, fillColor: 'maroon' },
-        { value: 1, fillColor: 'darksalmon' },
-        { value: 1, fillColor: 'brown' },
-        { value: 1, fillColor: 'purple' },
-        { value: 1, fillColor: 'salmon' },
-      ]
-
       const config: QsArcConfig = {
-        outerRadius: 90,
-        innerRadius: 50,
+        outerRadius: 100,
+        innerRadius: 0,
         padding: 0.9,
       }
 
@@ -41,7 +24,7 @@ export const RadialConfigChart: FunctionComponent<ChartPropsOthogonal> = ({
       canvas.generate.radialArc.radial(data)
     }
     createChart()
-  }, [canvasConfig])
+  }, [canvasConfig, data])
 
   return (
     <>

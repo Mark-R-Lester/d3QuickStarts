@@ -5,9 +5,9 @@ import {
   QsRadial,
   QsArcTextData,
 } from 'd3qs/d3QuickStart'
-import { RadialChartProps } from '../../../common/chartProps'
+import { ArcChartProps } from '../../../common/chartProps'
 
-export const RadialTransition: FunctionComponent<RadialChartProps> = ({
+export const RadialTransition: FunctionComponent<ArcChartProps> = ({
   canvasConfig,
   config,
   data = [

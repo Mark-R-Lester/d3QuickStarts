@@ -52,14 +52,17 @@ export const adjustForParallelPadding = (
 
   const nintyDegrees = degreesToRadians(90)
   const outerPad = calculateCentralAngle(outerRadius, padding / 2) / 2
-  const innerPad = calculateCentralAngle(outInnerRadius, padding / 2) / 2
+  const innerPad =
+    outInnerRadius === 0
+      ? 0
+      : calculateCentralAngle(outInnerRadius, padding / 2) / 2
 
   const outerStartAngle = startAngle - nintyDegrees + outerPad
   const outerEndAngle = endAngle - nintyDegrees - outerPad
   const innerStartAngle = startAngle - nintyDegrees + innerPad
   const innerEndAngle = endAngle - nintyDegrees - innerPad
 
-  return {
+  const customArcArgs: CustomArcArgs = {
     innerRadius: outInnerRadius,
     outerRadius,
     outerStartAngle,
@@ -67,6 +70,10 @@ export const adjustForParallelPadding = (
     innerStartAngle,
     innerEndAngle,
   }
+
+  console.log(customArcArgs)
+
+  return customArcArgs
 }
 
 export const parallelPaddedArc = (args: ParalelPaddedArcArgs): string => {

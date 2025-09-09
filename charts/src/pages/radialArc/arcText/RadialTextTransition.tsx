@@ -8,12 +8,10 @@ import {
   QsArcData,
   QsArcTextFollow,
 } from 'd3qs/d3QuickStart'
-import { RadialArcTextChartProps } from '../../../common/chartProps'
+import { ArcTextChartProps } from '../../../common/chartProps'
 import { EnumRadialTextOrientation } from '../../../common/enums'
 
-export const RadialTextTransition: FunctionComponent<
-  RadialArcTextChartProps
-> = ({
+export const RadialTextTransition: FunctionComponent<ArcTextChartProps> = ({
   canvasConfig,
   config,
   data = [{ value: 25 }, { value: 10 }, { value: 15 }],

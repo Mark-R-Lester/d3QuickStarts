@@ -43,7 +43,6 @@ export const getCalculatedData = (
     outerRadius,
     innerRadius,
     cornerRadius,
-    isPieDiagram,
     x,
     y,
     defaultFillColor,
@@ -119,7 +118,8 @@ export const getCalculatedData = (
         value: d.value,
         cornerRadius: yPercentScale(cornerRadius / 2),
         outerRadius: yPercentScale(outerRadius / 2),
-        innerRadius: yPercentScale(isPieDiagram ? 0 : innerRadius / 2),
+        innerRadius:
+          innerRadius === 0 ? innerRadius : yPercentScale(innerRadius / 2),
         startAngle,
         newStartAngle: startAngle,
         endAngle,
@@ -132,5 +132,6 @@ export const getCalculatedData = (
     })
     startAngle = endAngle
   })
+  console.log(calculatedData)
   return calculatedData
 }

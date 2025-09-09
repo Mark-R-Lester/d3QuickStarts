@@ -38,7 +38,5 @@ export const customArc = (args: CustomArcArgs): string => {
   path.lineTo(outerStart.x, outerStart.y)
   path.closePath()
 
-  console.log(path)
-
   return path.toString()
 }

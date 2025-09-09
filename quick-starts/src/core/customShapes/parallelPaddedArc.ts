@@ -71,8 +71,6 @@ export const adjustForParallelPadding = (
     innerEndAngle,
   }
 
-  console.log(customArcArgs)
-
   return customArcArgs
 }
 

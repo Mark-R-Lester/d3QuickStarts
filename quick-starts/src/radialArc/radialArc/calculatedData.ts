@@ -132,6 +132,5 @@ export const getCalculatedData = (
     })
     startAngle = endAngle
   })
-  console.log(calculatedData)
   return calculatedData
 }

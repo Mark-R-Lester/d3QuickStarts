@@ -7,7 +7,6 @@ import {
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import { RadialDefaultsChart } from './RadialDefaultsChart'
 import { RadialConfigChart } from './RadialConfigChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 
@@ -136,7 +135,7 @@ export const defaultsContent: JSX.Element = (
                 <ContentCodeBox code={defaultsChartAll} />,
               ]}
             />,
-            <RadialDefaultsChart
+            <RadialConfigChart
               canvasConfig={{
                 chartName: 'chartH',
                 width: 600,

@@ -1,27 +1,14 @@
 import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import {
-  defaultsContent,
-  configContent,
-  configAndData,
-  editorContent,
-} from './Content'
+import { defaultsContent, configAndData, editorContent } from './Content'
 import { RadialConfigChart } from './RadialConfigChart'
-import { RadialDefaultsChart } from './RadialDefaultsChart'
+
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 
 export default function RadialArcPage() {
   const menuElements: JSX.Element[] = [
-    <RadialDefaultsChart
-      canvasConfig={{
-        chartName: 'radialDoughnut',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 60,
-      }}
-    />,
     <RadialConfigChart
       canvasConfig={{
         chartName: 'radialPie',
@@ -36,7 +23,6 @@ export default function RadialArcPage() {
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
     configAndData,
     editorContent,
   ]

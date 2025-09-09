@@ -1,12 +1,14 @@
 import { FunctionComponent, useEffect, useRef, useState } from 'react'
 import { QsCanvasRadial, qsCreateCanvasRadial } from 'd3qs/d3QuickStart'
-import { RadialTextChartProps } from '../../../common/chartProps'
+import { CentroidTextChartProps } from '../../../common/chartProps'
 import {
   QsCentroidText,
   QsCentroidTextData,
 } from 'd3qs/radialCentroid/radialCentroidText/qsTypes'
 
-export const RadialTextTransition: FunctionComponent<RadialTextChartProps> = ({
+export const RadialTextTransition: FunctionComponent<
+  CentroidTextChartProps
+> = ({
   canvasConfig,
   data = [{ value: 25 }, { value: 10 }, { value: 15 }],
   config,

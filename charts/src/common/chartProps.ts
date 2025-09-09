@@ -93,47 +93,51 @@ export interface PointChartProps extends OrienetedChartProps {
 }
 
 /**
- * Radial interfaces
+ * Centroid interfaces
  */
 export interface ChartPropsRadial {
   canvasConfig: QsCanvasConfigRadial
 }
 
-export interface RadialArcTextChartProps extends ChartPropsRadial {
-  config?: QsRadialArcTextConfig
-  data?: QsRadialTextData[]
-  orientation: EnumRadialTextOrientation
-}
 export interface RadialChartProps extends ChartPropsRadial {
   config?: QsRadialArcConfig
   data?: QsRadialData[]
 }
-export interface RadialAreaChartProps extends ChartPropsRadial {
+export interface CentroidAreaChartProps extends ChartPropsRadial {
   config?: QsCentroidAreaConfig
   data1?: QsCentroidAreaData
   data2?: QsCentroidAreaData
 }
-export interface RadialAxisChartProps extends ChartPropsRadial {
+export interface CentroidAxisChartProps extends ChartPropsRadial {
   config?: QsCentroidAxisConfig
 }
-export interface RadialLineChartProps extends ChartPropsRadial {
+export interface CentroidLineChartProps extends ChartPropsRadial {
   config?: QsCentroidLineConfig
   data?: QsCentroidLineData
 }
 
-export interface RadialPointsChartProps extends ChartPropsRadial {
+export interface CentroidPointsChartProps extends ChartPropsRadial {
   config?: QsCentroidPointsConfig
   data?: QsCentroidPointData[]
 }
 
-export interface RadialTextChartProps extends ChartPropsRadial {
+export interface CentroidTextChartProps extends ChartPropsRadial {
   config?: QsCentroidTextConfig
   data?: QsCentroidTextData[]
 }
 
-export interface RadialSpokesChartProps extends ChartPropsRadial {
+export interface CentroidSpokesChartProps extends ChartPropsRadial {
   config?: QsCentroidSpokesConfig
   data?: number
+}
+
+/**
+ * Arc interfaces
+ */
+export interface RadialArcTextChartProps extends ChartPropsRadial {
+  config?: QsRadialArcTextConfig
+  data?: QsRadialTextData[]
+  orientation: EnumRadialTextOrientation
 }
 
 /**

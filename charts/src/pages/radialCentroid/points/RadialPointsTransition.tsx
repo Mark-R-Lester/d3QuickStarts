@@ -5,10 +5,10 @@ import {
   QsCentroidPoints,
   QsCentroidPointData,
 } from 'd3qs/d3QuickStart'
-import { RadialPointsChartProps } from '../../../common/chartProps'
+import { CentroidPointsChartProps } from '../../../common/chartProps'
 
 export const RadialPointTransition: FunctionComponent<
-  RadialPointsChartProps
+  CentroidPointsChartProps
 > = ({
   canvasConfig,
   data = [

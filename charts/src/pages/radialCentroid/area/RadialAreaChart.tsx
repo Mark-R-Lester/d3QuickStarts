@@ -1,8 +1,8 @@
 import { FunctionComponent, useEffect } from 'react'
 import { QsCanvasRadial, qsCreateCanvasRadial } from 'd3qs/d3QuickStart'
-import { RadialAreaChartProps } from '../../../common/chartProps'
+import { CentroidAreaChartProps } from '../../../common/chartProps'
 
-export const RadialAreaChart: FunctionComponent<RadialAreaChartProps> = ({
+export const RadialAreaChart: FunctionComponent<CentroidAreaChartProps> = ({
   canvasConfig,
   config = {},
   data1 = {

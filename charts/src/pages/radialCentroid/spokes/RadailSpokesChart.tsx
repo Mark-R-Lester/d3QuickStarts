@@ -1,8 +1,8 @@
 import { FunctionComponent, useEffect } from 'react'
 import { QsCanvasRadial, qsCreateCanvasRadial } from 'd3qs/d3QuickStart'
-import { RadialSpokesChartProps } from '../../../common/chartProps'
+import { CentroidSpokesChartProps } from '../../../common/chartProps'
 
-export const RadialSpokesChart: FunctionComponent<RadialSpokesChartProps> = ({
+export const RadialSpokesChart: FunctionComponent<CentroidSpokesChartProps> = ({
   canvasConfig,
   config = { numberOfSpokes: 6 },
 }) => {

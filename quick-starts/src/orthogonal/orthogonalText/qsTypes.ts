@@ -1,6 +1,7 @@
 import { QsCalculatedDataOrthogonalText, TextConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { TextData } from '../../core/types/types'
+import { LayerActions } from '../../canvas/createCanvasElement'
 export { QsCalculatedDataOrthogonalText } from './types'
 
 export interface QsTextData extends Partial<TextData> {
@@ -18,6 +19,7 @@ export interface QsTextTransitionData {
 
 export interface QsText {
   className: string
+  layerActions: LayerActions
   calculatedData: QsCalculatedDataOrthogonalText[]
   transition: (data: QsTextTransitionData) => void
 }

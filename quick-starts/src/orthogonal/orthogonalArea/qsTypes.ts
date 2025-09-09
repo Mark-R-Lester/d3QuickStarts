@@ -1,6 +1,7 @@
 import { AreaConfig, QsCalculatedDataOrthogonalArea } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
+import { LayerActions } from '../../canvas/createCanvasElement'
 export { QsCalculatedDataOrthogonalArea } from './types'
 
 export interface QsAreaData extends Partial<StrokeData> {
@@ -20,5 +21,6 @@ export interface QsAreaTransitionData {
 export interface QsArea {
   className: string
   calculatedData: QsCalculatedDataOrthogonalArea
+  layerActions: LayerActions
   transition: (data: QsAreaTransitionData) => void
 }

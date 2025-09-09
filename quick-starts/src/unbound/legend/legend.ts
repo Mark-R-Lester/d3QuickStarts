@@ -37,11 +37,11 @@ const draw = (canvas: Canvas, data: QsLegendData[], config: LegendConfig) => {
   const { className: classNameText, dotClassName: dotClassNameText } =
     generateClassName('unboundLegendText')
 
-  const canvasGroup =
+  const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
       ? canvas.addDataLayer()
       : canvas.addUnboundLayer()
-  const group = canvasGroup.layer.append('g')
+  const group = layer.append('g')
 
   group
     .selectAll(dotClassName)
@@ -78,6 +78,7 @@ const draw = (canvas: Canvas, data: QsLegendData[], config: LegendConfig) => {
   return {
     className,
     classNameText,
+    layerActions,
     calculatedData,
   }
 }

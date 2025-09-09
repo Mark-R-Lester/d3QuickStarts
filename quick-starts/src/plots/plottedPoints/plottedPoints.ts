@@ -41,11 +41,11 @@ const draw = (
 
   const { className, dotClassName } = generateClassName('plottedPoints')
 
-  const canvasGroup =
+  const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
       ? canvas.addDataLayer()
       : canvas.addUnboundLayer()
-  const group = canvasGroup.layer.append('g')
+  const group = layer.append('g')
 
   group
     .selectAll(dotClassName)
@@ -88,5 +88,5 @@ const draw = (
       .attr('stroke-width', (d) => d.strokeWidth)
   }
 
-  return { className, calculatedData, transition }
+  return { className, layerActions, calculatedData, transition }
 }

@@ -38,11 +38,11 @@ const draw = (
 
   const { className, dotClassName } = generateClassName('radialCentroidArea')
 
-  const canvasGroup =
+  const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
       ? canvas.addDataLayer()
       : canvas.addUnboundLayer()
-  const group = canvasGroup.layer.append('g')
+  const group = layer.append('g')
 
   group
     .selectAll('text')
@@ -68,5 +68,5 @@ const draw = (
         `${d.coordinate.x.toFixed(d.defaultDecimalPoints)}, ${d.coordinate.y.toFixed(d.defaultDecimalPoints)}`
     )
 
-  return { calculatedData, className }
+  return { className, layerActions, calculatedData }
 }

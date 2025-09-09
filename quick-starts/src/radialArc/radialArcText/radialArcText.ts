@@ -121,14 +121,12 @@ const draw = <T>(
   )
   const arc: any = d3arc()
 
-  const canvasGroup =
+  const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
       ? canvas.addDataLayer()
       : canvas.addUnboundLayer()
-
-  const group = canvasGroup.layer.append('g')
-  const arcs = group.append('g')
-  const text = group.append('g')
+  const arcs = layer.append('g')
+  const text = layer.append('g')
 
   const { className, dotClassName } = generateClassName('radialArcText')
   const { className: classNameArc, dotClassName: dotClassNameArc } =
@@ -272,11 +270,13 @@ const draw = <T>(
     ? ({
         className,
         classNameArc,
+        layerActions,
         calculatedData,
         transition,
       } as T)
     : ({
         className,
+        layerActions,
         calculatedData,
         transition,
       } as T)

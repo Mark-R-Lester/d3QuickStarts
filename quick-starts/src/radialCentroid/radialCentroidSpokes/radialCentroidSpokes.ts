@@ -33,11 +33,11 @@ const draw = (canvas: Canvas, config: RadialSpokesConfig): QsRadialSpokes => {
     .y((d) => d[1])
 
   const { className, dotClassName } = generateClassName('radialCentroidSpoke')
-  const canvasGroup =
+  const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
       ? canvas.addDataLayer()
       : canvas.addUnboundLayer()
-  const group = canvasGroup.layer.append('g')
+  const group = layer.append('g')
 
   group
     .selectAll(dotClassName)
@@ -54,6 +54,7 @@ const draw = (canvas: Canvas, config: RadialSpokesConfig): QsRadialSpokes => {
 
   return {
     className,
+    layerActions,
     calculatedData,
   }
 }

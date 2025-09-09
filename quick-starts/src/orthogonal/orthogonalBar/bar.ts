@@ -51,11 +51,11 @@ const draw = (
   )
   const { className, dotClassName } = generateClassName('orthogonalBars')
 
-  const canvasGroup =
+  const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
       ? canvas.addDataLayer()
       : canvas.addUnboundLayer()
-  const group = canvasGroup.layer.append('g')
+  const group = layer.append('g')
   group
     .selectAll(dotClassName)
     .data(calculatedData)
@@ -109,6 +109,7 @@ const draw = (
   }
   return {
     className,
+    layerActions,
     calculatedData,
     transition: (data: QsBarTransitionData) => transition(data),
   }

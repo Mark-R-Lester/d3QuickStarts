@@ -1,6 +1,7 @@
 import { UnboundTextConfig } from './types'
 import { QsCoordinate } from '../../core/types/qsTypes'
 import { TextData } from '../../core/types/types'
+import { LayerActions } from '../../canvas/createCanvasElement'
 
 export type QsUnboundTextConfig = Partial<UnboundTextConfig>
 
@@ -9,8 +10,9 @@ export interface QsUnboundTextData extends QsCoordinate, Partial<TextData> {
 }
 
 export interface QsUnboundText {
-  calculatedData: QsCalculatedDataUnboundText[]
   className: string
+  layerActions: LayerActions
+  calculatedData: QsCalculatedDataUnboundText[]
 }
 
 export interface QsCalculatedDataUnboundText extends TextData {

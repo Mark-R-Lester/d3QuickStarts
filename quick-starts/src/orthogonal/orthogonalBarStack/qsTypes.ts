@@ -1,6 +1,7 @@
 import { BarStackedConfig, QsalculatedDataOrthogonalBarStacks } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
+import { LayerActions } from '../../canvas/createCanvasElement'
 export { QsalculatedDataOrthogonalBarStacks } from './types'
 
 export type QsBarStackedConfig = Partial<BarStackedConfig>
@@ -19,6 +20,7 @@ export interface QsBarStackedTransitionData {
 export interface QsBarStack {
   className: string
   classNameStack: string
+  layerActions: LayerActions
   calculatedData: QsalculatedDataOrthogonalBarStacks[]
   transition: (data: QsBarStackedTransitionData) => void
 }

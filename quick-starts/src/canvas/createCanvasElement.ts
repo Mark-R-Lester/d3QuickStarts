@@ -2,12 +2,18 @@ import { select, Selection } from 'd3'
 import { generateClassName } from '../core/generateClassName'
 import { CanvasConfig } from './types'
 
-export interface LayerResult {
-  layer: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
+export interface LayerActions {
   sendToTop: () => void
   sendToBottom: () => void
   lift: () => void
   lower: () => void
+  hide: () => void
+  show: () => void
+}
+
+export interface LayerResult {
+  layer: Selection<SVGGElement, CanvasConfig, HTMLElement, any>
+  layerActions: LayerActions
 }
 
 export interface Canvas {
@@ -72,10 +78,33 @@ export const getCanvas = (config: CanvasConfig): Canvas => {
 
     return {
       layer,
-      sendToTop: () => layer.raise(),
-      sendToBottom: () => layer.lower(),
-      lift: () => layer.raise(),
-      lower: () => layer.lower(),
+      layerActions: {
+        sendToTop: () => layer.raise(),
+        sendToBottom: () => layer.lower(),
+        lift: () => {
+          const node = layer.node()
+          if (node?.parentNode) {
+            const siblings = Array.from(node.parentNode.children)
+            const index = siblings.indexOf(node)
+            if (index < siblings.length - 1)
+              node.parentNode.insertBefore(
+                node,
+                siblings[index + 1].nextSibling
+              )
+          }
+        },
+        lower: () => {
+          const node = layer.node()
+          if (node?.parentNode) {
+            const siblings = Array.from(node.parentNode.children)
+            const index = siblings.indexOf(node)
+            if (index > 0)
+              node.parentNode.insertBefore(node, siblings[index - 1])
+          }
+        },
+        hide: () => layer.style('visibility', 'hidden'),
+        show: () => layer.style('visibility', 'visible'),
+      },
     }
   }
 
@@ -109,10 +138,33 @@ export const getCanvas = (config: CanvasConfig): Canvas => {
 
     return {
       layer,
-      sendToTop: () => layer.raise(),
-      sendToBottom: () => layer.lower(),
-      lift: () => layer.raise(),
-      lower: () => layer.lower(),
+      layerActions: {
+        sendToTop: () => dataSVG.raise(),
+        sendToBottom: () => dataSVG.lower(),
+        lift: () => {
+          const node = layer.node()
+          if (node?.parentNode) {
+            const siblings = Array.from(node.parentNode.children)
+            const index = siblings.indexOf(node)
+            if (index < siblings.length - 1)
+              node.parentNode.insertBefore(
+                node,
+                siblings[index + 1].nextSibling
+              )
+          }
+        },
+        lower: () => {
+          const node = layer.node()
+          if (node?.parentNode) {
+            const siblings = Array.from(node.parentNode.children)
+            const index = siblings.indexOf(node)
+            if (index > 0)
+              node.parentNode.insertBefore(node, siblings[index - 1])
+          }
+        },
+        hide: () => layer.style('visibility', 'hidden'),
+        show: () => layer.style('visibility', 'visible'),
+      },
     }
   }
 

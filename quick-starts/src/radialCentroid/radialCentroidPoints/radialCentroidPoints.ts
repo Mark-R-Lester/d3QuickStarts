@@ -41,11 +41,11 @@ const draw = (
 
   const { className, dotClassName } = generateClassName('radialCentroidPoints')
 
-  const canvasGroup =
+  const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
       ? canvas.addDataLayer()
       : canvas.addUnboundLayer()
-  const group = canvasGroup.layer.append('g')
+  const group = layer.append('g')
 
   group
     .selectAll(dotClassName)
@@ -91,6 +91,7 @@ const draw = (
   }
   return {
     className,
+    layerActions,
     calculatedData,
     transition,
   }

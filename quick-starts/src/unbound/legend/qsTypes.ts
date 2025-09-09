@@ -1,6 +1,6 @@
-import { BaseType, Selection } from 'd3'
 import { LegendConfig } from './types'
 import { TextData } from '../../core/types/types'
+import { LayerActions } from '../../canvas/createCanvasElement'
 
 export type QsLegendConfig = Partial<LegendConfig>
 
@@ -12,6 +12,7 @@ export interface QsLegendData extends Partial<TextData> {
 export interface QsLegend {
   className: string
   classNameText: string
+  layerActions: LayerActions
   calculatedData: QsCalculatedDataUnboundLegend[]
 }
 

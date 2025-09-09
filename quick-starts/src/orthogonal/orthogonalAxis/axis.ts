@@ -71,11 +71,11 @@ const draw = (
   const { className: classNameText, dotClassName: dotClassNameText } =
     generateClassName('orthogonalAxisText')
 
-  const canvasGroup =
+  const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
       ? canvas.addDataLayer()
       : canvas.addUnboundLayer()
-  const group = canvasGroup.layer.append('g')
+  const group = layer.append('g')
 
   const axisGroup = group
     .append('g')
@@ -122,6 +122,7 @@ const draw = (
     classNameDomain,
     classNameTick,
     classNameText,
+    layerActions,
     calculatedData,
   }
 }

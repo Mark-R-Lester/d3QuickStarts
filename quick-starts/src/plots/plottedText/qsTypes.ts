@@ -1,6 +1,7 @@
 import { PlottedTextConfig, QsCalculatedDataPlottedText } from './types'
 import { QsCoordinate, QsTransitionArgs } from '../../core/types/qsTypes'
 import { TextData } from '../../core/types/types'
+import { LayerActions } from '../../canvas/createCanvasElement'
 export { QsCalculatedDataPlottedText } from './types'
 
 export type QsPlottedTextConfig = Partial<PlottedTextConfig>
@@ -16,6 +17,7 @@ export interface QsPlottedTextTransitionData {
 
 export interface QsPlottedText {
   className: string
+  layerActions: LayerActions
   calculatedData: QsCalculatedDataPlottedText[]
   transition: (data: QsPlottedTextTransitionData) => void
 }

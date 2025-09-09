@@ -50,11 +50,11 @@ const draw = (canvas: Canvas, data: QsAreaData, config: AreaConfig): QsArea => {
     .y0((d) => d.y0)
     .curve(constantsCurves[curve])
 
-  const canvasGroup =
+  const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
       ? canvas.addDataLayer()
       : canvas.addUnboundLayer()
-  const group = canvasGroup.layer.append('g')
+  const group = layer.append('g')
 
   group
     .append('path')
@@ -94,6 +94,7 @@ const draw = (canvas: Canvas, data: QsAreaData, config: AreaConfig): QsArea => {
   return {
     className,
     calculatedData,
+    layerActions,
     transition,
   }
 }

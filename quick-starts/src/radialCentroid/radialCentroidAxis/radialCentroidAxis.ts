@@ -36,11 +36,11 @@ const draw = (canvas: Canvas, config: RadialAxisConfig): QsRadialAxis => {
   const { className: classNameText, dotClassName: dotClassNameText } =
     generateClassName('radialCentroidAxisText')
 
-  const canvasGroup =
+  const { layer, layerActions } =
     config.layerType === QsEnumLayerType.DATA
       ? canvas.addDataLayer()
       : canvas.addUnboundLayer()
-  const group = canvasGroup.layer.append('g')
+  const group = layer.append('g')
 
   group
     .selectAll(dotClassNameTicks)
@@ -79,6 +79,7 @@ const draw = (canvas: Canvas, config: RadialAxisConfig): QsRadialAxis => {
   return {
     classNameTicks,
     classNameText,
+    layerActions,
     calculatedData,
   }
 }

@@ -1,6 +1,7 @@
 import { PlottedLineConfig, QsCalculatedDataPlottedLine } from './types'
 import { QsCoordinate, QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
+import { LayerActions } from '../../canvas/createCanvasElement'
 export { QsCalculatedDataPlottedLine } from './types'
 
 export interface QsPlottedLineConfig extends Partial<PlottedLineConfig> {}
@@ -17,6 +18,7 @@ export interface QsPlottedLineTransitionData {
 
 export interface QsLinePlot {
   className: string
+  layerActions: LayerActions
   calculatedData: QsCalculatedDataPlottedLine
   transition: (data: QsPlottedLineTransitionData) => void
 }

@@ -1,3 +1,4 @@
+import { LayerActions } from '../../canvas/createCanvasElement'
 import { AxisConfig, QsCalculatedDataOrthogonalAxis } from './types'
 export { QsCalculatedDataOrthogonalAxis } from './types'
 
@@ -8,5 +9,6 @@ export interface QsAxis {
   classNameDomain: string
   classNameTick: string
   classNameText: string
+  layerActions: LayerActions
   calculatedData: QsCalculatedDataOrthogonalAxis
 }

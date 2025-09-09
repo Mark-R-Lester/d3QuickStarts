@@ -1,6 +1,7 @@
 import { BarConfig, QsCalculatedDataOthogonalBars } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
+import { LayerActions } from '../../canvas/createCanvasElement'
 export { QsCalculatedDataOthogonalBars } from './types'
 
 export interface QsBarData extends Partial<StrokeData> {
@@ -29,6 +30,7 @@ export interface QsBarTransitionData {
 
 export interface QsBars {
   className: string
+  layerActions: LayerActions
   calculatedData: QsCalculatedDataOthogonalBars[]
   transition: (data: QsBarTransitionData) => void
 }

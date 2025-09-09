@@ -26,6 +26,7 @@ export * from './radialCentroid/radialCentroidSpokes/qsTypes'
 export * from './radialCentroid/radialCentroidLine/qsTypes'
 export * from './radialCentroid/radialCentroidArea/qsTypes'
 export * from './radialCentroid/radialCentroidPoints/qsTypes'
+export * from './radialCentroid/radialCentroidAxis/qsEnums'
 
 export * from './plots/plottedLine/qsTypes'
 export * from './plots/plottedPoints/qsTypes'

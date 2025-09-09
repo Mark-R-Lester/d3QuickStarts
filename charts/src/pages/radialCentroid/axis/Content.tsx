@@ -18,6 +18,7 @@ import {
   QsEnumAlignmentBaseline,
   QsEnumTextAnchor,
   QsEnumDataScale,
+  QsEnumTickPosition,
 } from 'd3qs/d3QuickStart'
 
 const canvasConfig1: string = `const canvasConfig = {
@@ -230,7 +231,7 @@ export const defaultsContent: JSX.Element = (
                       defaultAxisAngle: 30,
                       defaultGap: 9,
                       color: 'black',
-                      numberOfRings: 4,
+                      numberOfTicks: 5,
                       showCentralTick: false,
                       defaultTextFont: QsEnumTextFont.VERDANA,
                       defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
@@ -242,26 +243,21 @@ export const defaultsContent: JSX.Element = (
                         QsEnumAlignmentBaseline.MIDDLE,
                       defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
                       defaultTextFill: 'blue',
-                      ringConfig: [
+                      tickConfig: [
                         {
                           strokeColor: 'red',
-                          ringNumber: 1,
+                          tickPosition: QsEnumTickPosition.CORE,
                           textFill: 'red',
                         },
                         {
                           strokeColor: 'orange',
-                          ringNumber: 2,
-                          textFill: 'orange',
-                        },
-                        {
-                          strokeColor: 'orange',
-                          ringNumber: 3,
+                          tickPosition: QsEnumTickPosition.INTERMEDIATE,
                           textFill: 'orange',
                         },
                         {
                           strokeColor: 'green',
                           strokeWidth: 1,
-                          ringNumber: 4,
+                          tickPosition: QsEnumTickPosition.PERIMETER,
                           textFill: 'green',
                         },
                       ],

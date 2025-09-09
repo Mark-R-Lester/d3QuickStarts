@@ -6,6 +6,7 @@ import {
   TextData,
 } from '../../core/types/types'
 import { QsEnumLayerType } from '../../core/enums/qsEnums'
+import { QsEnumTickPosition } from './qsEnums'
 
 interface RingData {
   innerRadius: number
@@ -28,12 +29,12 @@ export interface CentroidAxisConfig
     | QsCentroidTickConfig[]
   layerType: QsEnumLayerType
   showCentralTick: boolean
-  ringConfig?: QsCentroidTickConfig[]
+  tickConfig?: QsCentroidTickConfig[]
   x: number
   y: number
   defaultAxisAngle: number
   defaultGap: number
-  numberOfRings: number
+  numberOfTicks: number
   decimalPlaces?: number
 }
 
@@ -41,7 +42,7 @@ export interface QsCentroidTickConfig
   extends Partial<StrokeData>,
     Partial<TextData> {
   [key: string]: number | undefined | string | boolean | QsOrdinalScaleData
-  ringNumber: number
+  tickPosition: QsEnumTickPosition
   axisAngle?: number
   gap?: number
   decimalPlaces?: number
@@ -49,7 +50,7 @@ export interface QsCentroidTickConfig
 
 export interface QsCalculatedDataCentroidAxis extends StrokeData, TextData {
   [key: string]: string | RingData | number
-  ringId: string
+  tickId: string
   textId: string
   ringData: RingData
   x: number

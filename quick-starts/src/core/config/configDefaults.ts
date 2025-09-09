@@ -356,7 +356,7 @@ export const centroidAxisConfig: CentroidAxisConfig = {
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultAxisAngle: 0,
   defaultGap: 0,
-  numberOfRings: 4,
+  numberOfTicks: 4,
 
   defaultStrokeColor: 'lightGrey',
   defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,

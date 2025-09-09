@@ -5,6 +5,7 @@ import {
   adjacentFromHypotenuse,
   oppositeFromHypotenuse,
 } from '../../core/math/trigonometricFunctions'
+import { QsEnumTickPosition } from './qsEnums'
 
 export const getCalculatedData = (
   canvas: Canvas,
@@ -25,8 +26,8 @@ export const getCalculatedData = (
     defaultGap,
     x,
     y,
-    numberOfRings,
-    ringConfig,
+    numberOfTicks,
+    tickConfig,
     decimalPlaces,
 
     defaultStrokeColor,
@@ -45,7 +46,7 @@ export const getCalculatedData = (
     defaultTextAlignmentBaseline,
   } = config
 
-  let ticks = radialTickScale.nice().ticks(numberOfRings)
+  let ticks = radialTickScale.nice().ticks(numberOfTicks)
 
   if (ticks[0] > lowestViewableValue) ticks.unshift(lowestViewableValue)
   if (ticks[0] < lowestViewableValue) ticks[0] = lowestViewableValue
@@ -57,7 +58,28 @@ export const getCalculatedData = (
   const gapWidth = genralPercentScale(50 / ticks.length)
 
   const addToData = (tick: number, index: number) => {
-    const ring = ringConfig?.find((ring) => ring.ringNumber === index)
+    let currentTickConfig
+
+    if (tickConfig && ticks.length >= 2) {
+      const isLastTick = index === ticks.length - 1
+      const isFirstTickWithEnoughTicks = index === 1 && ticks.length >= 3
+      const isMiddleTick = index > 1 && index < ticks.length - 1
+
+      const targetPosition: QsEnumTickPosition | undefined = isLastTick
+        ? QsEnumTickPosition.PERIMETER
+        : isFirstTickWithEnoughTicks
+          ? QsEnumTickPosition.CORE
+          : isMiddleTick
+            ? QsEnumTickPosition.INTERMEDIATE
+            : undefined
+
+      if (targetPosition) {
+        currentTickConfig = tickConfig.find(
+          (conf) => conf.tickPosition === targetPosition
+        )
+      }
+    }
+
     const {
       axisAngle,
       gap,
@@ -74,7 +96,7 @@ export const getCalculatedData = (
       textAnchor,
       textStroke,
       textAlignmentBaseline,
-    } = ring ?? {}
+    } = currentTickConfig ?? {}
 
     const radians = (axisAngle ?? defaultAxisAngle) * (Math.PI / 180)
     const halfGap =
@@ -98,7 +120,7 @@ export const getCalculatedData = (
     }
 
     calculatedData.push({
-      ringId: `ring${uuidv4()}`,
+      tickId: `ring${uuidv4()}`,
       textId: `ringText${uuidv4()}`,
 
       ringData: {

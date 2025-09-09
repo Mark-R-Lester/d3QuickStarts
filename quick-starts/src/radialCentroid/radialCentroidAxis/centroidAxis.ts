@@ -51,7 +51,7 @@ const draw = (canvas: Canvas, config: CentroidAxisConfig): QsCentroidAxis => {
     .enter()
     .append('path')
     .attr('class', classNameTicks)
-    .attr('id', (d) => d.ringId)
+    .attr('id', (d) => d.tickId)
     .attr('d', (d) => arc(d.ringData))
     .attr('stroke', (d) => d.strokeColor)
     .attr('stroke-width', (d) => d.strokeWidth)

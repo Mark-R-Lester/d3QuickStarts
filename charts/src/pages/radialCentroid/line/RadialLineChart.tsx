@@ -16,6 +16,15 @@ export const RadialLineChart: FunctionComponent<RadialLineChartProps> = ({
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
       canvas.generate.radialCentroid.line(data, config)
+      canvas.generate.radialCentroid.spokes({
+        numberOfSpokes: 26,
+        defaultInnerRadius: 50,
+        defaultOuterRadius: 105,
+      })
+      canvas.generate.radialCentroid.axis({
+        numberOfRings: 5,
+        showCentralTick: false,
+      })
     }
     createChart()
   }, [canvasConfig, config, data])

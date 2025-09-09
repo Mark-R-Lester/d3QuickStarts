@@ -10,6 +10,7 @@ import {
 } from '../../../components/atoms/content/ContentStyled'
 import { RadialLineChart } from './RadialLineChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
+import { QsEnumCurve } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
@@ -32,11 +33,35 @@ const data2: string = `const data: QsRadialLineData = {
   ],
 }`
 
+const config2: string = `const config: QsRadialLineConfig = {
+  curve: QsEnumCurve.NATURAL,
+  defaultStrokeWidth: 1,
+  defaultStrokeColor: 'green',
+}`
+
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.line(data)`
+canvas.generate.radialCentroid.line(data)
+canvas.generate.radialCentroid.spokes({
+  numberOfSpokes: 26,
+  defaultInnerRadius: 50,
+  defaultOuterRadius: 105,
+})
+canvas.generate.radialCentroid.axis({
+  numberOfRings: 5,
+  showCentralTick: false,
+})`
 
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialCentroid.line(data, config)`
+canvas.generate.radialCentroid.line(data, config)
+canvas.generate.radialCentroid.spokes({
+  numberOfSpokes: 26,
+  defaultInnerRadius: 50,
+  defaultOuterRadius: 105,
+})
+canvas.generate.radialCentroid.axis({
+  numberOfRings: 5,
+  showCentralTick: false,
+})`
 
 export const basics: JSX.Element = (
   <ContentColumn
@@ -49,18 +74,31 @@ export const basics: JSX.Element = (
               Defaults
             </Typography>,
             <Typography variant="body1">
-              The radial area element displays data as a filled, continuous
-              shape radiating from a central point, mapping values within a
-              polar coordinate system to create a smooth, enclosed visualization
-              of cyclic or angular trends.
+              The centroid line element is a visualisation technique that
+              presents data as a continuous line radiating around a central
+              point within a polar coordinate system. It maps values to angular
+              positions derived from basic data, forming an enclosed shape that
+              accentuates cyclic or angular trends. Ideal for depicting periodic
+              data, such as time-based patterns or directional distributions,
+              the centroid line highlights symmetry and continuity. By filling
+              the area within the line, it offers a clear, visually intuitive
+              representation of data variations, making it effective for
+              analysing trends in fields like meteorology, astronomy, or
+              cyclical processes.
             </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    When supplying only the essential data, the radial centroid
-                    area element produces a visualization leveraging the
-                    library's default configuration parameters
+                    When supplied with only essential data, the centroid line
+                    element generates a visualisation by utilising the library's
+                    default configuration parameters. These parameters
+                    automatically define aspects such as line smoothness, color,
+                    and fill opacity, ensuring a consistent and effective
+                    display. This approach simplifies the process of creating
+                    polar-based visualisations, allowing users to focus on
+                    inputting core data values without needing to specify
+                    detailed styling or formatting options.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
                   <ContentCodeBox code={data1} />
@@ -88,20 +126,24 @@ export const basics: JSX.Element = (
               Using config and data to modify appearance
             </Typography>,
             <Typography variant="body1">
-              Adjusting the configuration parameters or input data can
-              substantially change the visual appearance of the area, enabling
-              diverse and tailored data visualizations.
+              Modifying the configuration parameters or input data of the
+              centroid line element allows for significant customisation of the
+              visualisation’s appearance. Users can adjust settings like stroke
+              width and color to create distinct visual effects that suit
+              specific analytical needs. Adding other elements such as an axis
+              or spokes can build complex, detailed representations.
             </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    This chart demonstrates the impact config and data can have
-                    on the line.
+                    This illustrates the use configuration to change the
+                    appearance of the centroid line.
                   </Typography>
 
                   <ContentCodeBox code={canvasConfig} />
                   <ContentCodeBox code={data2} />
+                  <ContentCodeBox code={config2} />
                   <ContentCodeBox code={chart2} />
                 </ContentTextBox>,
                 <ContentChartBox>
@@ -111,6 +153,11 @@ export const basics: JSX.Element = (
                       width: 600,
                       lowestViewableValue: 0,
                       highestViewableValue: 25,
+                    }}
+                    config={{
+                      curve: QsEnumCurve.NATURAL,
+                      defaultStrokeWidth: 1,
+                      defaultStrokeColor: 'green',
                     }}
                   />
                 </ContentChartBox>,
@@ -228,7 +275,8 @@ const canvasConfig = {
   highestViewableValue: 25,
   borderColor: 'grey',
 }
-${data1}
-${chart1}`}
+${data2}
+${config2}
+${chart2}`}
   ></ChartEditor>
 )

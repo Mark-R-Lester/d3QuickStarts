@@ -32,7 +32,7 @@ export const RadialTextTransition: FunctionComponent<
       if (orientation === EnumRadialTextOrientation.FOLLOW)
         setElement1(canvas.generate.radialArc.text.follow(data, config))
       if (orientation === EnumRadialTextOrientation.SPOKE)
-        setElement1(canvas.generate.radialArc.text.spoke(data, config))
+        setElement1(canvas.generate.radialArc.text.spokes(data, config))
       if (orientation === EnumRadialTextOrientation.HORIZONTAL)
         setElement1(canvas.generate.radialArc.text.horizontal(data, config))
       if (orientation === EnumRadialTextOrientation.ROTATED)

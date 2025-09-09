@@ -24,7 +24,7 @@ export const RadialTextSpokeElement: FunctionComponent<ChartPropsOthogonal> = ({
 
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
-      canvas.generate.radialArc.text.spoke(data, {
+      canvas.generate.radialArc.text.spokes(data, {
         radius: 100,
         x: 50,
         y: 50,

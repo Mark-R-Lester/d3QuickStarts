@@ -55,7 +55,6 @@ import { unboundText } from '../../unbound/text/text'
 import {
   QsRadialText,
   QsRadialTextConfig,
-  QsRadialCentroidTextData,
 } from '../../radialCentroid/radialCentroidText/qsTypes'
 import { radialText } from '../../radialCentroid/radialCentroidText/radialCentroidText'
 import { Canvas } from '../types'
@@ -78,7 +77,7 @@ interface RadialArcTextElementFunctions {
     data: QsRadialTextData[],
     customConfig?: QsRadialArcTextConfig
   ) => QsRadialArcText
-  spoke: (
+  spokes: (
     data: QsRadialTextData[],
     customConfig?: QsRadialArcTextConfig
   ) => QsRadialArcText
@@ -103,7 +102,7 @@ interface RadialCentroidElementFunctions {
     data: QsRadialPointData[],
     customConfig?: QsRadialPointsConfig
   ) => QsRadialPoints
-  spokes: (customConfig: QsRadialSpokesConfig) => QsRadialSpokes
+  spokes: (customConfig?: QsRadialSpokesConfig) => QsRadialSpokes
   text: (
     data: QsRadialTextData[],
     customConfig?: QsRadialTextConfig
@@ -172,7 +171,7 @@ export const getGenerators = (canvas: Canvas): QsGeneratorRadial => {
           elements.push({ element, data })
           return element
         },
-        spoke: (
+        spokes: (
           data: QsRadialTextData[],
           customConfig?: QsRadialArcTextConfig
         ): QsRadialArcText => {
@@ -212,7 +211,7 @@ export const getGenerators = (canvas: Canvas): QsGeneratorRadial => {
         elements.push({ element, data })
         return element
       },
-      spokes: (customConfig: QsRadialSpokesConfig): QsRadialSpokes => {
+      spokes: (customConfig?: QsRadialSpokesConfig): QsRadialSpokes => {
         const element = radialSpokes.spokes(canvas, customConfig)
         elements.push({ element, data: undefined })
         return element

@@ -11,7 +11,7 @@ import { QsEnumLayerType } from '../../core/enums/qsEnums'
 export const radialSpokes = {
   spokes: (
     canvas: Canvas,
-    customConfig: QsRadialSpokesConfig
+    customConfig?: QsRadialSpokesConfig
   ): QsRadialSpokes => {
     const config: RadialSpokesConfig = addDefaultsToConfig<RadialSpokesConfig>(
       radialCentroidSpokesConfig,

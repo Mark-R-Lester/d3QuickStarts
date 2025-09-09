@@ -214,7 +214,7 @@ describe('getGenerators', () => {
           ;(radialArcText.radialArcText.spoke as jest.Mock).mockReturnValue(
             expectedElement
           )
-          const result = generators.radialArc.text.spoke(data, customConfig)
+          const result = generators.radialArc.text.spokes(data, customConfig)
           expect(radialArcText.radialArcText.spoke).toHaveBeenCalledWith(
             expect.anything(),
             data,

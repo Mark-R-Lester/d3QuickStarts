@@ -417,5 +417,5 @@ export const radialCentroidSpokesConfig: RadialSpokesConfig = {
   defaultStrokeColor: 'grey',
   defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
   defaultStrokeOpacity: 0.5,
-  numberOfSpokes: 0,
+  numberOfSpokes: 5,
 }

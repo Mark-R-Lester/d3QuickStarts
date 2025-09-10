@@ -1,16 +1,20 @@
 import { FunctionComponent, useEffect } from 'react'
 import { QsCanvasRadial, qsCreateCanvasRadial } from 'd3qs/d3QuickStart'
-import { ArcChartProps } from '../../../common/chartProps'
+import { PetalChartProps } from '../../../common/chartProps'
 
-export const ArcPetalChart: FunctionComponent<ArcChartProps> = ({
+export const ArcPetalChart: FunctionComponent<PetalChartProps> = ({
   canvasConfig,
   config = {},
-  data = [{ valueArc: 10 }, { valueArc: 20 }, { valueArc: 15 }],
+  data = [
+    { valueArc: 10, valueRad: 20 },
+    { valueArc: 20, valueRad: 45 },
+    { valueArc: 15, valueRad: 30 },
+  ],
 }) => {
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.generate.radialArc.arc(data, config)
+      canvas.generate.radialArc.petal(data, config)
     }
     createChart()
   }, [canvasConfig, config, data])

@@ -37,6 +37,8 @@ import {
   QsCentroidLineData,
   QsArcPetalData,
   QsArcPetalConfig,
+  QsArcSegmentConfig,
+  QsArcSegmentData,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation, EnumRadialTextOrientation } from './enums'
 import {
@@ -149,8 +151,8 @@ export interface PetalChartProps extends ChartPropsRadial {
 }
 
 export interface SegmentChartProps extends ChartPropsRadial {
-  config?: QsArcPetalConfig
-  data?: QsArcPetalData[]
+  config?: QsArcSegmentConfig
+  data?: QsArcSegmentData[]
 }
 
 /**

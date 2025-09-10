@@ -14,7 +14,7 @@ export default function ArcPetalPage() {
         chartName: 'radialPie',
         width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 250,
+        highestViewableValue: 45,
       }}
     />,
     <ConfigAndData />,

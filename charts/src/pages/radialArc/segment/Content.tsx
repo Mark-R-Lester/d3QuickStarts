@@ -70,7 +70,7 @@ export const defaultsContent: JSX.Element = (
                       chartName: 'chart1',
                       width: 600,
                       lowestViewableValue: 0,
-                      highestViewableValue: 40,
+                      highestViewableValue: 45,
                     }}
                   />
                 </ContentChartBox>,
@@ -106,11 +106,9 @@ export const defaultsContent: JSX.Element = (
                       chartName: 'chart3',
                       width: 600,
                       lowestViewableValue: 0,
-                      highestViewableValue: 40,
+                      highestViewableValue: 45,
                     }}
                     config={{
-                      outerRadius: 100,
-                      innerRadius: 30,
                       padding: 0.9,
                     }}
                   />

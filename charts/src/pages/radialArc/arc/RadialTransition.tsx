@@ -3,7 +3,7 @@ import {
   QsCanvasRadial,
   qsCreateCanvasRadial,
   QsRadial,
-  QsArcTextData,
+  QsArcData,
 } from 'd3qs/d3QuickStart'
 import { ArcChartProps } from '../../../common/chartProps'
 
@@ -11,14 +11,14 @@ export const RadialTransition: FunctionComponent<ArcChartProps> = ({
   canvasConfig,
   config,
   data = [
-    { value: 25 },
-    { value: 10 },
-    { value: 15 },
-    { value: 30 },
-    { value: 25 },
-    { value: 10 },
-    { value: 15 },
-    { value: 30 },
+    { valueArc: 25 },
+    { valueArc: 10 },
+    { valueArc: 15 },
+    { valueArc: 30 },
+    { valueArc: 25 },
+    { valueArc: 10 },
+    { valueArc: 15 },
+    { valueArc: 30 },
   ],
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
@@ -28,18 +28,18 @@ export const RadialTransition: FunctionComponent<ArcChartProps> = ({
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
       const { generate } = canvas
-      setElement(generate.radialArc.radial(data, config))
+      setElement(generate.radialArc.arc(data, config))
     }
     createChart()
   }, [canvasConfig, config, data])
 
   useEffect(
     function transitionData() {
-      const getVals = (): QsArcTextData[] => {
+      const getVals = (): QsArcData[] => {
         const vals = []
         for (let i = 0; i < 8; i++) {
           let num = (Math.random() * 100) / 2
-          vals.push({ value: num })
+          vals.push({ valueArc: num })
         }
         return vals
       }

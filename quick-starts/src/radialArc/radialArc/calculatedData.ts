@@ -1,6 +1,6 @@
 import { ScaleOrdinal, ScaleSequential } from 'd3'
 import { v4 as uuidv4 } from 'uuid'
-import { QsCalculatedDataArc, ArcConfig } from './types'
+import { QsCalculatedDataArc, ArcConfig, ArcData } from './types'
 import {
   findOrdinalValue,
   getColorScale,
@@ -8,13 +8,12 @@ import {
   getScaledColor,
 } from '../../core/color/color'
 
-import { QsArcData } from './qsTypes'
 import { Canvas } from '../../canvas/types'
 import { QsEnumColorScale } from '../../core/enums/qsEnums'
 
 export const updateCalculatedData = (
   canvas: Canvas,
-  data: QsArcData[],
+  data: ArcData[],
   config: ArcConfig,
   calculatedData: QsCalculatedDataArc[]
 ): QsCalculatedDataArc[] => {
@@ -35,10 +34,11 @@ export const updateCalculatedData = (
 
 export const getCalculatedData = (
   canvas: Canvas,
-  data: QsArcData[],
+  data: ArcData[],
   config: ArcConfig
 ): QsCalculatedDataArc[] => {
-  const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
+  const { xPercentScale, yPercentScale, genralPercentScale, radialDataScale } =
+    canvas.scales
   const {
     outerRadius,
     innerRadius,
@@ -60,7 +60,7 @@ export const getCalculatedData = (
 
   let totalValue = 0
   data.forEach((d) => {
-    totalValue = totalValue + d.value
+    totalValue = totalValue + d.valueArc
   })
 
   let fillColorScale:
@@ -82,18 +82,18 @@ export const getCalculatedData = (
   let startAngle = 0
 
   data.forEach((d, i) => {
-    const endAngle = startAngle + radiansDividedByTotalValue * d.value
+    const endAngle = startAngle + radiansDividedByTotalValue * d.valueArc
 
     const scaledFillColor: string | unknown | undefined = getScaledColor(
       fillColorScaleData?.type === QsEnumColorScale.ORDINAL
         ? findOrdinalValue(i, fillColorScaleData)
-        : d.value,
+        : d.valueArc,
       fillColorScale
     )
     const scaledStrokeColor: string | unknown | undefined = getScaledColor(
       fillColorScaleData?.type === QsEnumColorScale.ORDINAL
         ? findOrdinalValue(i, fillColorScaleData)
-        : d.value,
+        : d.valueArc,
       strokeColorScale
     )
 
@@ -103,7 +103,7 @@ export const getCalculatedData = (
       y: yPercentScale(y),
 
       arcData: {
-        data: d.value,
+        data: d.valueArc,
         fillColor: getPrecidendedColor(
           d.fillColor,
           defaultFillColor,
@@ -115,9 +115,11 @@ export const getCalculatedData = (
           scaledStrokeColor
         ),
         index: i,
-        value: d.value,
+        value: d.valueArc,
         cornerRadius: yPercentScale(cornerRadius / 2),
-        outerRadius: yPercentScale(outerRadius / 2),
+        outerRadius: d.valueRad
+          ? radialDataScale(d.valueRad)
+          : yPercentScale(outerRadius / 2),
         innerRadius:
           innerRadius === 0 ? innerRadius : yPercentScale(innerRadius / 2),
         startAngle,

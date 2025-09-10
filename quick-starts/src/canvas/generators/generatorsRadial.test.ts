@@ -106,9 +106,9 @@ describe('getGenerators', () => {
         it should call generators.radialArc.radial and add to elements
         expectedElement = $expectedElement`,
       ({ data, customConfig, expectedElement }) => {
-        ;(radialArc.arc.radial as jest.Mock).mockReturnValue(expectedElement)
-        const result = generators.radialArc.radial(data, customConfig)
-        expect(radialArc.arc.radial).toHaveBeenCalledWith(
+        ;(radialArc.arc as jest.Mock).mockReturnValue(expectedElement)
+        const result = generators.radialArc.arc(data, customConfig)
+        expect(radialArc.arc).toHaveBeenCalledWith(
           expect.anything(),
           data,
           customConfig

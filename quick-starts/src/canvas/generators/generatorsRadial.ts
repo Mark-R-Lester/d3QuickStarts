@@ -84,7 +84,7 @@ interface RadialArcTextElementFunctions {
 }
 
 interface RadialArcElementFunctions {
-  radial: (data: QsArcData[], customConfig?: QsArcConfig) => QsRadial
+  arc: (data: QsArcData[], customConfig?: QsArcConfig) => QsRadial
   text: RadialArcTextElementFunctions
 }
 
@@ -138,8 +138,8 @@ export const getGenerators = (canvas: Canvas): QsGeneratorRadial => {
       },
     },
     radialArc: {
-      radial: (data: QsArcData[], customConfig?: QsArcConfig): QsRadial => {
-        const element = arc.radial(canvas, data, customConfig)
+      arc: (data: QsArcData[], customConfig?: QsArcConfig): QsRadial => {
+        const element = arc(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },

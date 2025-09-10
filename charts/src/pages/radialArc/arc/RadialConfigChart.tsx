@@ -5,12 +5,12 @@ import { ArcChartProps } from '../../../common/chartProps'
 export const RadialConfigChart: FunctionComponent<ArcChartProps> = ({
   canvasConfig,
   config = {},
-  data = [{ value: 10 }, { value: 20 }, { value: 15 }],
+  data = [{ valueArc: 10 }, { valueArc: 20 }, { valueArc: 15 }],
 }) => {
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.generate.radialArc.radial(data, config)
+      canvas.generate.radialArc.arc(data, config)
     }
     createChart()
   }, [canvasConfig, config, data])

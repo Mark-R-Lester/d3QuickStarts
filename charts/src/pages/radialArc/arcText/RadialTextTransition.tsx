@@ -35,14 +35,14 @@ export const RadialTextTransition: FunctionComponent<ArcTextChartProps> = ({
         setElement1(canvas.generate.radialArc.text.rotated(data, config))
 
       const radialArgs: QsArcData[] = [
-        { value: 0, fillColor: 'red' },
-        { value: 0, fillColor: 'orange' },
-        { value: 0, fillColor: 'green' },
+        { valueArc: 0, fillColor: 'red' },
+        { valueArc: 0, fillColor: 'orange' },
+        { valueArc: 0, fillColor: 'green' },
       ]
       data.forEach((d, i) => {
-        radialArgs[i].value = d.value
+        radialArgs[i].valueArc = d.value
       })
-      setElement2(canvas.generate.radialArc.radial(radialArgs))
+      setElement2(canvas.generate.radialArc.arc(radialArgs))
     }
     createChart()
   }, [canvasConfig, config, data, orientation])
@@ -65,12 +65,12 @@ export const RadialTextTransition: FunctionComponent<ArcTextChartProps> = ({
         })
 
       const radialArgs: QsArcData[] = [
-        { value: 0, fillColor: 'red' },
-        { value: 0, fillColor: 'orange' },
-        { value: 0, fillColor: 'green' },
+        { valueArc: 0, fillColor: 'red' },
+        { valueArc: 0, fillColor: 'orange' },
+        { valueArc: 0, fillColor: 'green' },
       ]
       transitionData.forEach((d, i) => {
-        radialArgs[i].value = d.value
+        radialArgs[i].valueArc = d.value
       })
 
       if (element2) element2.transition({ data: radialArgs })

@@ -11,15 +11,45 @@ export interface QsArcTransitionData {
   transitionArgs?: QsTransitionArgs
 }
 
+export interface QsArcSegmentTransitionData {
+  data: QsArcSegmentData[]
+  transitionArgs?: QsTransitionArgs
+}
+
+export interface QsArcPetalTransitionData {
+  data: QsArcPetalData[]
+  transitionArgs?: QsTransitionArgs
+}
+
 export interface QsRadial {
   className: string
   layerActions: LayerActions
   calculatedData: QsCalculatedDataArc[]
-  transition: (data: QsArcTransitionData) => void
+  transition: (
+    data:
+      | QsArcTransitionData
+      | QsArcSegmentTransitionData
+      | QsArcPetalTransitionData
+  ) => void
 }
 
 export interface QsArcData extends Partial<StrokeData> {
-  value: number
+  valueArc: number
+  valueRad?: never
+  fillColor?: string
+  fillOpacity?: number
+}
+
+export interface QsArcSegmentData extends Partial<StrokeData> {
+  valueArc?: never
+  valueRad: number
+  fillColor?: string
+  fillOpacity?: number
+}
+
+export interface QsArcPetalData extends Partial<StrokeData> {
+  valueArc: number
+  valueRad: number
   fillColor?: string
   fillOpacity?: number
 }

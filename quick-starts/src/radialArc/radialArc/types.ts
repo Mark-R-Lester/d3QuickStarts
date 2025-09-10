@@ -1,5 +1,5 @@
 import { QsColorScaleData } from '../../core/types/qsTypes'
-import { ConfigStrokeDefaults } from '../../core/types/types'
+import { ConfigStrokeDefaults, StrokeData } from '../../core/types/types'
 import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export interface ArcConfig extends ConfigStrokeDefaults {
@@ -19,12 +19,12 @@ export interface ArcConfig extends ConfigStrokeDefaults {
 
 export interface QsCalculatedDataArc {
   id: string
-  arcData: ArcData
+  arcData: CalculatedArcData
   x: number
   y: number
 }
 
-export interface ArcData {
+export interface CalculatedArcData extends StrokeData {
   data: number
   cornerRadius: number
   outerRadius: number
@@ -35,10 +35,14 @@ export interface ArcData {
   endAngle: number
   fillColor: string
   fillOpacity: number
-  strokeColor: string
-  strokeWidth: number
-  strokeOpacity: number
   index?: number
   value?: number
   padding: number
+}
+
+export interface ArcData extends Partial<StrokeData> {
+  valueArc: number
+  valueRad: number | undefined
+  fillColor?: string
+  fillOpacity?: number
 }

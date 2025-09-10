@@ -1,9 +1,5 @@
 import { FunctionComponent, useEffect } from 'react'
-import {
-  QsCanvasRadial,
-  qsCreateCanvasRadial,
-  QsArcConfig,
-} from 'd3qs/d3QuickStart'
+import { QsCanvasRadial, qsCreateCanvasRadial } from 'd3qs/d3QuickStart'
 import { ArcChartProps } from '../../../common/chartProps'
 
 export const RadialConfigChart: FunctionComponent<ArcChartProps> = ({
@@ -13,18 +9,11 @@ export const RadialConfigChart: FunctionComponent<ArcChartProps> = ({
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const config: QsArcConfig = {
-        outerRadius: 100,
-        innerRadius: 0,
-        padding: 0.9,
-      }
-
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.configStore.radialArc.arcConfig(config)
-      canvas.generate.radialArc.radial(data)
+      canvas.generate.radialArc.radial(data, config)
     }
     createChart()
-  }, [canvasConfig, data])
+  }, [canvasConfig, config, data])
 
   return (
     <>

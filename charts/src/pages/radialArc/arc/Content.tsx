@@ -4,6 +4,7 @@ import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
@@ -16,47 +17,113 @@ const canvasConfig: string = `const canvasConfig = {
   highestViewableValue: 156,
 }`
 
-const defaultsChart: string = `
-const data: QsArcData[] = [
-  { value: 15 },
-  { value: 45 },
-  { value: 60 },
-  { value: 15 },
-]
+const data1: string = `
+const data: QsArcData[] = [{ value: 10 }, { value: 20 }, { value: 15 }]`
 
-const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialArc.radial(data)`
-
-const configChart: string = `
-const data: QsArcData[] = [
-  {
-    value: 1,
-    fillColor: 'salmon',
-    fillOpacity: 0.5,
-    strokeWidth: 1,
-    strokeColor: 'grey',
-  },
-  { value: 1, fillColor: 'salmon' },
-  { value: 1, fillColor: 'hotpink' },
-  { value: 1, fillColor: 'hotpink' },
-  { value: 1, fillColor: 'maroon' },
-  { value: 1, fillColor: 'darksalmon' },
-  { value: 1, fillColor: 'brown' },
-  { value: 1, fillColor: 'purple' },
-  { value: 1, fillColor: 'salmon' },
-]
-
-const config: QsRadialConfig = {
-  outerRadius: 90,
-  innerRadius: 50,
-  padding: 0.03,
-}
-
-const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.radialArc.radial(data, config)`
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+const config2: string = `
+const config: QsArcConfig = {
+  outerRadius: 100,
+  innerRadius: 30,
+  padding: 0.9,
+}`
+
+const data2: string = `
+const data: QsArcData[] = [{ value: 10 }, { value: 20 }, { value: 15 }]`
+
+const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+canvas.generate.radialArc.radial(data, config)`
+
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              The Bar element renders data values as rectangular segments,
+              precisely scaled and positioned within the canvas's coordinate
+              system to ensure accurate and effective data visualization.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    When supplying only the essential data, the bars element
+                    produces a visualization leveraging the library's default
+                    configuration parameters
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={config2} />
+                  <ContentCodeBox code={data2} />
+                  <ContentCodeBox code={chart2} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <RadialConfigChart
+                    canvasConfig={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 40,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Using config and data to modify appearance
+            </Typography>,
+            <Typography variant="body1">
+              Adjusting the configuration parameters or input data can
+              substantially change the visual appearance of the OrthogonalArea
+              element, enabling diverse and tailored data visualizations.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This chart demonstrates the impact config and data can have
+                    on the bars element, illustrating the effects of color.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={data1} />
+                  <ContentCodeBox code={chart1} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <RadialConfigChart
+                    canvasConfig={{
+                      chartName: 'chart3',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 40,
+                    }}
+                    config={{
+                      outerRadius: 100,
+                      innerRadius: 30,
+                      padding: 0.9,
+                    }}
+                  />
+                  ,
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
 
 const data: string = `interface QsArcData {
   value: number
@@ -116,110 +183,54 @@ const configExample: string = `const config: QsRadialConfig = {
   },
 }`
 
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text generated with defaults</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <RadialConfigChart
-              canvasConfig={{
-                chartName: 'chartH',
-                width: 600,
-                highestViewableValue: 156,
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text customised</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <RadialConfigChart
-              canvasConfig={{
-                chartName: 'chartV',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 156,
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsTextData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={data} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={dataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={data} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsTextConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={config} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
@@ -239,6 +250,8 @@ const canvasConfig = {
   highestViewableValue: 156,
   borderColor: 'grey',
 }
-${configChart}`}
+${config2}
+${data2}
+${chart2}`}
   ></ChartEditor>
 )

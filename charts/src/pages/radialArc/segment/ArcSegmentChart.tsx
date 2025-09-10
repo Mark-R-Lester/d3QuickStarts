@@ -17,7 +17,7 @@ export const RadialConfigChart: FunctionComponent<SegmentChartProps> = ({
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.generate.centroid.segment(data, config)
+      canvas.generate.radialArc.segment(data, config)
     }
     createChart()
   }, [canvasConfig, config, data])

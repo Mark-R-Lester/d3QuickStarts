@@ -29,6 +29,8 @@ import CentroidTextPage from './pages/radialCentroid/text/RadialCentroidTextPage
 import EnumPage from './pages/core/enums/EnumPage'
 import ConfigPage from './pages/core/config/ConfigPage'
 import GradientPage from './pages/core/gradient/GradientPage'
+import ArcSegmentPage from './pages/radialArc/segment/ArcSegmentPage'
+import ArcPetalPage from './pages/radialArc/petal/ArcPetalPage'
 
 export const Paths = {
   HOME: '/',
@@ -59,6 +61,8 @@ export const Paths = {
   },
   RADIAL_ARC: {
     ARC: '/radialarc/arc',
+    PETAL: '/radialarc/petal',
+    SEGMENT: '/radialarc/segment',
     TEXT: '/radialarc/text',
   },
   RADIAL_CENTROID: {
@@ -107,6 +111,8 @@ export const AppRoutes: FunctionComponent = () => {
       <Route path={Paths.PLOTTED.TEXT} element={<PlottedTextPage />} />
 
       <Route path={Paths.RADIAL_ARC.ARC} element={<RadialArcPage />} />
+      <Route path={Paths.RADIAL_ARC.PETAL} element={<ArcPetalPage />} />
+      <Route path={Paths.RADIAL_ARC.SEGMENT} element={<ArcSegmentPage />} />
       <Route path={Paths.RADIAL_ARC.TEXT} element={<RadialArcTextPage />} />
       <Route path={Paths.RADIAL_CENTROID.AREA} element={<CentroidAreaPage />} />
       <Route path={Paths.RADIAL_CENTROID.AXIS} element={<CentroidAxisPage />} />

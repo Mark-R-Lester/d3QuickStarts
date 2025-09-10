@@ -12,8 +12,8 @@ import {
   QsArcPetalData,
   QsArcSegmentTransitionData,
   QsArcPetalTransitionData,
-  QsSegmentConfig,
-  QsPetalConfig,
+  QsArcSegmentConfig,
+  QsArcPetalConfig,
 } from './qsTypes'
 import { radialArcConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
@@ -43,7 +43,7 @@ export const arc = (
 export const segment = (
   canvas: Canvas,
   data: QsArcSegmentData[],
-  customConfig?: QsSegmentConfig
+  customConfig?: QsArcSegmentConfig
 ): QsRadial => {
   const config: ArcConfig = addDefaultsToConfig<ArcConfig>(
     radialArcConfig,
@@ -62,7 +62,7 @@ export const segment = (
 export const petal = (
   canvas: Canvas,
   data: QsArcPetalData[],
-  customConfig?: QsPetalConfig
+  customConfig?: QsArcPetalConfig
 ): QsRadial => {
   const config: ArcConfig = addDefaultsToConfig<ArcConfig>(
     radialArcConfig,

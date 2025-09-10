@@ -10,8 +10,8 @@ import {
   QsArcData,
   QsArcSegmentData,
   QsArcPetalData,
-  QsSegmentConfig,
-  QsPetalConfig,
+  QsArcSegmentConfig,
+  QsArcPetalConfig,
 } from '../../radialArc/radialArc/qsTypes'
 import { arc, petal, segment } from '../../radialArc/radialArc/radialArc'
 import {
@@ -89,7 +89,7 @@ interface RadialArcTextElementFunctions {
 
 interface RadialArcElementFunctions {
   arc: (data: QsArcData[], customConfig?: QsArcConfig) => QsRadial
-  petal: (data: QsArcPetalData[], config?: QsPetalConfig) => QsRadial
+  petal: (data: QsArcPetalData[], config?: QsArcPetalConfig) => QsRadial
   text: RadialArcTextElementFunctions
 }
 
@@ -107,7 +107,7 @@ interface CentroidElementFunctions {
     data: QsCentroidPointData[],
     customConfig?: QsCentroidPointsConfig
   ) => QsCentroidPoints
-  segment: (data: QsArcSegmentData[], config?: QsSegmentConfig) => QsRadial
+  segment: (data: QsArcSegmentData[], config?: QsArcSegmentConfig) => QsRadial
   spokes: (customConfig?: QsCentroidSpokesConfig) => QsCentroidSpokes
   text: (
     data: QsArcTextData[],
@@ -151,7 +151,7 @@ export const getGenerators = (canvas: Canvas): QsGeneratorRadial => {
       },
       petal: (
         data: QsArcPetalData[],
-        customConfig?: QsPetalConfig
+        customConfig?: QsArcPetalConfig
       ): QsRadial => {
         const element = petal(canvas, data, customConfig)
         elements.push({ element, data })
@@ -224,7 +224,7 @@ export const getGenerators = (canvas: Canvas): QsGeneratorRadial => {
       },
       segment: (
         data: QsArcSegmentData[],
-        customConfig?: QsSegmentConfig
+        customConfig?: QsArcSegmentConfig
       ): QsRadial => {
         const element = segment(canvas, data, customConfig)
         elements.push({ element, data })

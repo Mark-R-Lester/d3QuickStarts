@@ -35,6 +35,8 @@ import {
   QsPlottedPointsData,
   QsTextData,
   QsCentroidLineData,
+  QsArcPetalData,
+  QsArcPetalConfig,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation, EnumRadialTextOrientation } from './enums'
 import {
@@ -139,6 +141,16 @@ export interface ArcTextChartProps extends ChartPropsRadial {
 export interface ArcChartProps extends ChartPropsRadial {
   config?: QsArcConfig
   data?: QsArcData[]
+}
+
+export interface PetalChartProps extends ChartPropsRadial {
+  config?: QsArcPetalConfig
+  data?: QsArcPetalData[]
+}
+
+export interface SegmentChartProps extends ChartPropsRadial {
+  config?: QsArcPetalConfig
+  data?: QsArcPetalData[]
 }
 
 /**

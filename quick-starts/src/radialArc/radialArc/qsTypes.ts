@@ -5,10 +5,10 @@ import { LayerActions } from '../../canvas/createCanvasElement'
 export { QsCalculatedDataArc as QsCalculatedDataRadialArc } from './types'
 
 export interface QsArcConfig extends Partial<ArcConfig> {}
-export interface QsSegmentConfig extends Partial<ArcConfig> {
+export interface QsArcSegmentConfig extends Partial<ArcConfig> {
   outerRadius?: never
 }
-export interface QsPetalConfig extends Partial<ArcConfig> {
+export interface QsArcPetalConfig extends Partial<ArcConfig> {
   outerRadius?: never
 }
 

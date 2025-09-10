@@ -8,8 +8,12 @@ import {
   QsRadial,
   QsArcConfig,
   QsArcData,
+  QsArcSegmentData,
+  QsArcPetalData,
+  QsSegmentConfig,
+  QsPetalConfig,
 } from '../../radialArc/radialArc/qsTypes'
-import { arc } from '../../radialArc/radialArc/radialArc'
+import { arc, petal, segment } from '../../radialArc/radialArc/radialArc'
 import {
   QsRadialArcText,
   QsArcTextConfig,
@@ -85,6 +89,7 @@ interface RadialArcTextElementFunctions {
 
 interface RadialArcElementFunctions {
   arc: (data: QsArcData[], customConfig?: QsArcConfig) => QsRadial
+  petal: (data: QsArcPetalData[], config?: QsPetalConfig) => QsRadial
   text: RadialArcTextElementFunctions
 }
 
@@ -102,6 +107,7 @@ interface CentroidElementFunctions {
     data: QsCentroidPointData[],
     customConfig?: QsCentroidPointsConfig
   ) => QsCentroidPoints
+  segment: (data: QsArcSegmentData[], config?: QsSegmentConfig) => QsRadial
   spokes: (customConfig?: QsCentroidSpokesConfig) => QsCentroidSpokes
   text: (
     data: QsArcTextData[],
@@ -140,6 +146,14 @@ export const getGenerators = (canvas: Canvas): QsGeneratorRadial => {
     radialArc: {
       arc: (data: QsArcData[], customConfig?: QsArcConfig): QsRadial => {
         const element = arc(canvas, data, customConfig)
+        elements.push({ element, data })
+        return element
+      },
+      petal: (
+        data: QsArcPetalData[],
+        customConfig?: QsPetalConfig
+      ): QsRadial => {
+        const element = petal(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },
@@ -205,6 +219,14 @@ export const getGenerators = (canvas: Canvas): QsGeneratorRadial => {
         customConfig?: QsCentroidPointsConfig
       ): QsCentroidPoints => {
         const element = radialPoint.points(canvas, data, customConfig)
+        elements.push({ element, data })
+        return element
+      },
+      segment: (
+        data: QsArcSegmentData[],
+        customConfig?: QsSegmentConfig
+      ): QsRadial => {
+        const element = segment(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },

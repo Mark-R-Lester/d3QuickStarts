@@ -118,6 +118,27 @@ describe('getGenerators', () => {
       }
     )
 
+    test.each`
+      data               | customConfig       | expectedElement
+      ${[{ value: 10 }]} | ${{ radius: 100 }} | ${{ id: 'radial1' }}
+      ${[{ value: 20 }]} | ${undefined}       | ${{ id: 'radial2' }}
+    `(
+      `When data is $data and customConfig is $customConfig
+        it should call generators.radialArc.petal and add to elements
+        expectedElement = $expectedElement`,
+      ({ data, customConfig, expectedElement }) => {
+        ;(radialArc.petal as jest.Mock).mockReturnValue(expectedElement)
+        const result = generators.radialArc.petal(data, customConfig)
+        expect(radialArc.petal).toHaveBeenCalledWith(
+          expect.anything(),
+          data,
+          customConfig
+        )
+        expect(testElements).toContainEqual({ element: expectedElement, data })
+        expect(result).toEqual(expectedElement)
+      }
+    )
+
     describe('text', () => {
       test.each`
         data               | customConfig        | expectedElement
@@ -311,6 +332,27 @@ describe('getGenerators', () => {
         )
         const result = generators.centroid.points(data, customConfig)
         expect(radialPoint.radialPoint.points).toHaveBeenCalledWith(
+          expect.anything(),
+          data,
+          customConfig
+        )
+        expect(testElements).toContainEqual({ element: expectedElement, data })
+        expect(result).toEqual(expectedElement)
+      }
+    )
+
+    test.each`
+      data               | customConfig       | expectedElement
+      ${[{ value: 10 }]} | ${{ radius: 100 }} | ${{ id: 'radial1' }}
+      ${[{ value: 20 }]} | ${undefined}       | ${{ id: 'radial2' }}
+    `(
+      `When data is $data and customConfig is $customConfig
+        it should call generators.radialArc.petal and add to elements
+        expectedElement = $expectedElement`,
+      ({ data, customConfig, expectedElement }) => {
+        ;(radialArc.segment as jest.Mock).mockReturnValue(expectedElement)
+        const result = generators.centroid.segment(data, customConfig)
+        expect(radialArc.segment).toHaveBeenCalledWith(
           expect.anything(),
           data,
           customConfig

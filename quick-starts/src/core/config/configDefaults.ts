@@ -16,7 +16,12 @@ import { TextConfig } from '../../orthogonal/orthogonalText/types'
 import { PlottedLineConfig } from '../../plots/plottedLine/types'
 import { PlottedPointsConfig } from '../../plots/plottedPoints/calculatedData'
 import { PlottedTextConfig } from '../../plots/plottedText/types'
-import { ArcConfig } from '../../radialArc/radialArc/types'
+import {
+  ArcConfig,
+  ArcConfigBase,
+  ArcPetalConfig,
+  ArcSegmentConfig,
+} from '../../radialArc/radialArc/types'
 import {
   ArcTextConfig,
   ArcTextConfigBase,
@@ -275,9 +280,8 @@ export const plottedTextConfig: PlottedTextConfig = {
   ...textDefaults,
 }
 
-export const radialArcConfig: ArcConfig = {
+export const arcConfigBase: ArcConfigBase = {
   layerType: QsEnumLayerType.DATA,
-  outerRadius: 100,
   innerRadius: 0,
   padding: 0,
   cornerRadius: 0,
@@ -290,6 +294,19 @@ export const radialArcConfig: ArcConfig = {
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
   fillColorScaleData: defaultFillColorScale,
   strokeColorScaleData: undefined,
+}
+
+export const arcConfig: ArcConfig = {
+  ...arcConfigBase,
+  outerRadius: 100,
+}
+
+export const arcPetalConfig: ArcPetalConfig = {
+  ...arcConfigBase,
+}
+
+export const arcSegmentConfig: ArcSegmentConfig = {
+  ...arcConfigBase,
 }
 
 const radialArcTextConfigBase: ArcTextConfigBase = {

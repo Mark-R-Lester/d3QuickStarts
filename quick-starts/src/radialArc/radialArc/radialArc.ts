@@ -1,5 +1,11 @@
 import { interpolate } from 'd3'
-import { QsCalculatedDataArc, ArcConfig, ArcData } from './types'
+import {
+  QsCalculatedDataArc,
+  ArcConfig,
+  ArcData,
+  ArcPetalConfig,
+  ArcSegmentConfig,
+} from './types'
 import { getCalculatedData, updateCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { Canvas } from '../../canvas/types'
@@ -15,7 +21,11 @@ import {
   QsArcSegmentConfig,
   QsArcPetalConfig,
 } from './qsTypes'
-import { radialArcConfig } from '../../core/config/configDefaults'
+import {
+  arcConfig,
+  arcPetalConfig,
+  arcSegmentConfig,
+} from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
 import { parallelPaddedArc } from '../../core/customShapes/parallelPaddedArc'
@@ -27,7 +37,7 @@ export const arc = (
   customConfig?: QsArcConfig
 ): QsRadial => {
   const config: ArcConfig = addDefaultsToConfig<ArcConfig>(
-    radialArcConfig,
+    arcConfig,
     customConfig,
     canvas.configStore.radialArc.arcConfig()
   )
@@ -45,8 +55,8 @@ export const segment = (
   data: QsArcSegmentData[],
   customConfig?: QsArcSegmentConfig
 ): QsRadial => {
-  const config: ArcConfig = addDefaultsToConfig<ArcConfig>(
-    radialArcConfig,
+  const config: ArcSegmentConfig = addDefaultsToConfig<ArcSegmentConfig>(
+    arcSegmentConfig,
     customConfig,
     canvas.configStore.radialArc.arcConfig()
   )
@@ -64,15 +74,19 @@ export const petal = (
   data: QsArcPetalData[],
   customConfig?: QsArcPetalConfig
 ): QsRadial => {
-  const config: ArcConfig = addDefaultsToConfig<ArcConfig>(
-    radialArcConfig,
+  const config: ArcPetalConfig = addDefaultsToConfig<ArcPetalConfig>(
+    arcPetalConfig,
     customConfig,
     canvas.configStore.radialArc.arcConfig()
   )
   return draw(canvas, data, config)
 }
 
-const draw = (canvas: Canvas, data: ArcData[], config: ArcConfig): QsRadial => {
+const draw = (
+  canvas: Canvas,
+  data: ArcData[],
+  config: ArcConfig | ArcPetalConfig | ArcSegmentConfig
+): QsRadial => {
   let calculatedData: QsCalculatedDataArc[] = getCalculatedData(
     canvas,
     data,

@@ -1,14 +1,19 @@
-import { QsCalculatedDataArc, ArcConfig } from './types'
+import {
+  QsCalculatedDataArc,
+  ArcConfig,
+  ArcSegmentConfig,
+  ArcPetalConfig,
+} from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
 import { LayerActions } from '../../canvas/createCanvasElement'
 export { QsCalculatedDataArc as QsCalculatedDataRadialArc } from './types'
 
 export interface QsArcConfig extends Partial<ArcConfig> {}
-export interface QsArcSegmentConfig extends Partial<ArcConfig> {
+export interface QsArcSegmentConfig extends Partial<ArcSegmentConfig> {
   outerRadius?: never
 }
-export interface QsArcPetalConfig extends Partial<ArcConfig> {
+export interface QsArcPetalConfig extends Partial<ArcPetalConfig> {
   outerRadius?: never
 }
 

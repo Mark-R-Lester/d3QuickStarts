@@ -109,7 +109,7 @@ export const defaultsContent: JSX.Element = (
                       highestViewableValue: 45,
                     }}
                     config={{
-                      padding: 0.9,
+                      padding: 0.3,
                     }}
                   />
                   ,

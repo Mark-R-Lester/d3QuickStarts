@@ -6,8 +6,14 @@ export const ArcPetalChart: FunctionComponent<PetalChartProps> = ({
   canvasConfig,
   config = {},
   data = [
+    { valueArc: 20, valueRad: 45 },
+    { valueArc: 60, valueRad: 20 },
+    { valueArc: 20, valueRad: 40 },
+    { valueArc: 15, valueRad: 30 },
     { valueArc: 10, valueRad: 20 },
     { valueArc: 20, valueRad: 45 },
+    { valueArc: 15, valueRad: 30 },
+    { valueArc: 10, valueRad: 45 },
     { valueArc: 15, valueRad: 30 },
   ],
 }) => {

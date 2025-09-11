@@ -75,11 +75,6 @@ const defaultFillColorArray: string[] = [
   'cyan',
 ]
 
-const defaultFillColorScale: QsColorScaleData = {
-  type: QsEnumColorScale.ORDINAL,
-  range: defaultFillColorArray,
-}
-
 const textDefaults: ConfigTextDefaults = {
   defaultTextFont: QsEnumTextFont.SERIF,
   defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
@@ -283,17 +278,15 @@ export const plottedTextConfig: PlottedTextConfig = {
 export const arcConfigBase: ArcConfigBase = {
   layerType: QsEnumLayerType.DATA,
   innerRadius: 0,
-  padding: 0,
+  padding: 0.1,
   cornerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
-  defaultFillColor: GlobalDefaultColors.POINT_FILL,
+  defaultFillColor: GlobalDefaultColors.FILL_COLOR,
   defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
   defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
   defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
-  fillColorScaleData: defaultFillColorScale,
-  strokeColorScaleData: undefined,
 }
 
 export const arcConfig: ArcConfig = {
@@ -375,9 +368,9 @@ export const centroidAxisConfig: CentroidAxisConfig = {
   defaultGap: 0,
   numberOfTicks: 4,
 
-  defaultStrokeColor: 'lightGrey',
+  defaultStrokeColor: GlobalDefaultColors.RADIAL_AXIS_COLOR,
   defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-  defaultStrokeOpacity: 0.5,
+  defaultStrokeOpacity: 1,
 
   defaultTextFont: QsEnumTextFont.SERIF,
   defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
@@ -427,7 +420,7 @@ export const centroidTextsConfig: CentroidTextConfig = {
 
 export const centroidSpokesConfig: CentroidSpokesConfig = {
   layerType: QsEnumLayerType.UNBOUND,
-  defaultOuterRadius: 100,
+  defaultOuterRadius: 105,
   defaultInnerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,

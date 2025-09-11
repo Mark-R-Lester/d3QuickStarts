@@ -10,6 +10,7 @@ import {
 } from '../../../components/atoms/content/ContentStyled'
 import { RadialConfigChart } from './ArcSegmentChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
+import { QsEnumColorDarkGreens, QsEnumColorLightBlues } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
@@ -109,7 +110,11 @@ export const defaultsContent: JSX.Element = (
                       highestViewableValue: 45,
                     }}
                     config={{
-                      padding: 0.3,
+                      padding: 0,
+                      defaultFillColor: QsEnumColorLightBlues.AQUAMARINE,
+                      defaultFillOpacity: 0.2,
+                      defaultStrokeWidth: 0.2,
+                      defaultStrokeColor: QsEnumColorLightBlues.ROBINSEGG,
                     }}
                   />
                   ,

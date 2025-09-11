@@ -142,7 +142,9 @@ export interface ArcTextChartProps extends ChartPropsRadial {
 
 export interface ArcChartProps extends ChartPropsRadial {
   config?: QsArcConfig
+  config2?: QsArcConfig
   data?: QsArcData[]
+  data2?: QsArcData[]
 }
 
 export interface PetalChartProps extends ChartPropsRadial {

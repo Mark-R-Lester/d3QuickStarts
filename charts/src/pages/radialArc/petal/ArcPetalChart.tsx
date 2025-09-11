@@ -21,6 +21,10 @@ export const ArcPetalChart: FunctionComponent<PetalChartProps> = ({
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
       canvas.generate.radialArc.petal(data, config)
+      canvas.generate.centroid.axis({
+        defaultAxisAngle: 90,
+        showCentralTick: false,
+      })
     }
     createChart()
   }, [canvasConfig, config, data])

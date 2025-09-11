@@ -2,14 +2,14 @@ import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { defaultsContent, configAndData, editorContent } from './Content'
-import { RadialConfigChart } from './RadialConfigChart'
+import { ArcChart } from './RadialConfigChart'
 
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 
 export default function RadialArcPage() {
   const menuElements: JSX.Element[] = [
-    <RadialConfigChart
+    <ArcChart
       canvasConfig={{
         chartName: 'radialPie',
         width: 130,

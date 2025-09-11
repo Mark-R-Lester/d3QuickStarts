@@ -8,8 +8,9 @@ import {
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import { RadialConfigChart } from './RadialConfigChart'
+import { ArcChart } from './RadialConfigChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
+import { QsEnumColorScale } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
@@ -60,12 +61,11 @@ export const defaultsContent: JSX.Element = (
                     configuration parameters
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
-                  <ContentCodeBox code={config2} />
-                  <ContentCodeBox code={data2} />
-                  <ContentCodeBox code={chart2} />
+                  <ContentCodeBox code={data1} />
+                  <ContentCodeBox code={chart1} />
                 </ContentTextBox>,
                 <ContentChartBox>
-                  <RadialConfigChart
+                  <ArcChart
                     canvasConfig={{
                       chartName: 'chart1',
                       width: 600,
@@ -97,13 +97,14 @@ export const defaultsContent: JSX.Element = (
                     on the bars element, illustrating the effects of color.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
-                  <ContentCodeBox code={data1} />
-                  <ContentCodeBox code={chart1} />
+                  <ContentCodeBox code={config2} />
+                  <ContentCodeBox code={data2} />
+                  <ContentCodeBox code={chart2} />
                 </ContentTextBox>,
                 <ContentChartBox>
-                  <RadialConfigChart
+                  <ArcChart
                     canvasConfig={{
-                      chartName: 'chart3',
+                      chartName: 'chart2',
                       width: 600,
                       lowestViewableValue: 0,
                       highestViewableValue: 40,
@@ -112,7 +113,78 @@ export const defaultsContent: JSX.Element = (
                       outerRadius: 100,
                       innerRadius: 30,
                       padding: 0.9,
+                      fillColorScaleData: {
+                        type: QsEnumColorScale.ORDINAL,
+                        range: ['yellow', 'red', 'blue'],
+                      },
                     }}
+                  />
+                  ,
+                </ContentChartBox>,
+              ]}
+            />,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This chart demonstrates the impact config and data can have
+                    on the bars element, illustrating the effects of color.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={config2} />
+                  <ContentCodeBox code={data2} />
+                  <ContentCodeBox code={chart2} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <ArcChart
+                    canvasConfig={{
+                      chartName: 'chart3',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 40,
+                    }}
+                    data={[
+                      { valueArc: 13 },
+                      { valueArc: 17 },
+                      { valueArc: 15 },
+                      { valueArc: 15 },
+                      { valueArc: 20 },
+                      { valueArc: 17 },
+                      { valueArc: 17 },
+                      { valueArc: 16 },
+                      { valueArc: 15 },
+                      { valueArc: 15 },
+                    ]}
+                    config={{
+                      outerRadius: 100,
+                      innerRadius: 80,
+                      padding: 0,
+                      fillColorScaleData: {
+                        type: QsEnumColorScale.ORDINAL,
+                        range: [
+                          '#1B9AAA',
+                          '#3D5A80',
+                          '#4682B4',
+                          '#87CEEB',
+                          '#191970',
+                          '#A8C686',
+                          '#81C784',
+                          '#2E8B57',
+                          '#98FB98',
+                          '#006400',
+                        ],
+                      },
+                    }}
+                    config2={{
+                      outerRadius: 78,
+                      innerRadius: 0,
+                      padding: 0,
+                      fillColorScaleData: {
+                        type: QsEnumColorScale.ORDINAL,
+                        range: ['blue', 'green'],
+                      },
+                    }}
+                    data2={[{ valueArc: 50 }, { valueArc: 50 }]}
                   />
                   ,
                 </ContentChartBox>,

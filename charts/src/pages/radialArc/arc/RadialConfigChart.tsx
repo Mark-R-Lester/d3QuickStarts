@@ -1,19 +1,61 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvasRadial, qsCreateCanvasRadial } from 'd3qs/d3QuickStart'
+import {
+  QsCanvasRadial,
+  qsCreateCanvasRadial,
+  QsEnumScaleType,
+} from 'd3qs/d3QuickStart'
 import { ArcChartProps } from '../../../common/chartProps'
 
-export const RadialConfigChart: FunctionComponent<ArcChartProps> = ({
+export const ArcChart: FunctionComponent<ArcChartProps> = ({
   canvasConfig,
   config = {},
+  config2 = {},
   data = [{ valueArc: 10 }, { valueArc: 20 }, { valueArc: 15 }],
+  data2,
 }) => {
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
       canvas.generate.radialArc.arc(data, config)
+
+      if (data2) {
+        canvas.generate.radialArc.arc(data2, config2)
+        canvas.generate.radialArc.text.horizontal(
+          [
+            { value: 50, text: 'blues' },
+            { value: 50, text: 'greens' },
+          ],
+          {
+            radius: 30,
+            scaleType: QsEnumScaleType.BANDED,
+            textFontSize: 10,
+            textFill: 'white',
+          }
+        )
+        canvas.generate.radialArc.text.follow(
+          [
+            { value: 13, text: 'Deep Teal' },
+            { value: 17, text: 'Slate Blue' },
+            { value: 15, text: 'Steel Blue' },
+            { value: 15, text: 'Sky Blue' },
+            { value: 20, text: 'Midnight Blue' },
+            { value: 17, text: 'Sage Green' },
+            { value: 17, text: 'Mint Green' },
+            { value: 16, text: 'Sea Green' },
+            { value: 15, text: 'Pale Green' },
+            { value: 15, text: 'Dark Green' },
+          ],
+          {
+            scaleType: QsEnumScaleType.BANDED,
+            textFontSize: 4,
+            radius: 88,
+            textFill: 'white',
+          }
+        )
+      }
     }
     createChart()
-  }, [canvasConfig, config, data])
+  }, [canvasConfig, config, config2, data, data2])
 
   return (
     <>

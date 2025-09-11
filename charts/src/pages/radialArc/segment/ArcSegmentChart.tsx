@@ -24,6 +24,10 @@ export const RadialConfigChart: FunctionComponent<SegmentChartProps> = ({
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
       canvas.generate.radialArc.segment(data, config)
+      canvas.generate.centroid.axis({
+        defaultAxisAngle: 15,
+        showCentralTick: false,
+      })
     }
     createChart()
   }, [canvasConfig, config, data])

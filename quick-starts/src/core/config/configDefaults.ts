@@ -277,7 +277,6 @@ export const plottedTextConfig: PlottedTextConfig = {
 
 export const arcConfigBase: ArcConfigBase = {
   layerType: QsEnumLayerType.DATA,
-  innerRadius: 0,
   padding: 0.1,
   cornerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,
@@ -292,6 +291,7 @@ export const arcConfigBase: ArcConfigBase = {
 export const arcConfig: ArcConfig = {
   ...arcConfigBase,
   outerRadius: 100,
+  innerRadius: 0,
 }
 
 export const arcEnvelopeConfig: ArcEnvelopeConfig = {

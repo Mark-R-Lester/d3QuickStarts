@@ -4,7 +4,6 @@ import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export interface ArcConfigBase extends ConfigStrokeDefaults {
   layerType: QsEnumLayerType
-  innerRadius: number
   padding: number
   cornerRadius: number
   x: number
@@ -17,6 +16,7 @@ export interface ArcConfigBase extends ConfigStrokeDefaults {
 
 export interface ArcConfig extends ArcConfigBase {
   outerRadius: number
+  innerRadius: number
 }
 
 export interface ArcEnvelopeConfig extends ArcConfigBase {}

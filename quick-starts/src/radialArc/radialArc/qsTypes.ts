@@ -12,9 +12,11 @@ export { QsCalculatedDataArc as QsCalculatedDataRadialArc } from './types'
 export interface QsArcConfig extends Partial<ArcConfig> {}
 export interface QsArcSegmentConfig extends Partial<ArcSegmentConfig> {
   outerRadius?: never
+  innerRadius?: never
 }
 export interface QsArcEnvelopeConfig extends Partial<ArcEnvelopeConfig> {
   outerRadius?: never
+  innerRadius?: never
 }
 
 export interface QsArcTransitionData {

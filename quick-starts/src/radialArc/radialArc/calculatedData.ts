@@ -46,7 +46,6 @@ export const getCalculatedData = (
   const { xPercentScale, yPercentScale, genralPercentScale, radialDataScale } =
     canvas.scales
   const {
-    innerRadius,
     cornerRadius,
     x,
     y,
@@ -59,8 +58,14 @@ export const getCalculatedData = (
     strokeColorScaleData,
   } = config
 
+  /*
+   * Inner and outer radius do not exist on:
+   * Segments or Envelopes their abscence must handled
+   */
   const outerRadius: number | undefined =
     'outerRadius' in config ? config.outerRadius : undefined
+  const innerRadius: number | undefined =
+    'innerRadius' in config ? config.innerRadius : 0
   let padding = genralPercentScale(config.padding)
 
   const calculatedData: QsCalculatedDataArc[] = []

@@ -216,14 +216,15 @@ const data: string = `interface QsArcEnvelopeData {
 }`
 
 const config: string = `interface QsArcEnvelopeConfig {
-  layerType: QsEnumLayerType
-  innerRadius: number
-  padding: number
-  cornerRadius: number
-  x: number
-  y: number
-  defaultFillColor: string
-  defaultFillOpacity: number
+  layerType?: QsEnumLayerType
+  innerRadius?: never
+  innerRadius?: Never
+  padding?: number
+  cornerRadius?: number
+  x?: number
+  y?: number
+  defaultFillColor?: string
+  defaultFillOpacity?: number
   defaultStrokeColor?: string
   defaultStrokeWidth?: number
   defaultStrokeOpacity?: number
@@ -243,7 +244,6 @@ const dataExample: string = `const data: QsArcEnvelopeData = {
 
 const configExample: string = `const config: QsArcEnvelopeConfig = {
   layerType: QsEnumLayerType.DATA
-  innerRadius: 0,
   padding: 3,
   cornerRadius: 3,
   x: 50,

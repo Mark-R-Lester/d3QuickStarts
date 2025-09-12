@@ -10,7 +10,7 @@ import {
 } from '../../../components/atoms/content/ContentStyled'
 import { RadialConfigChart } from './ArcSegmentChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
-import { QsEnumColorDarkGreens, QsEnumColorLightBlues } from 'd3qs/d3QuickStart'
+import { QsEnumColorLightBlues } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
@@ -19,23 +19,60 @@ const canvasConfig: string = `const canvasConfig = {
 }`
 
 const data1: string = `
-const data: QsArcData[] = [{ valueArc: 10 }, { valueArc: 20 }, { valueArc: 15 }]`
+const data: QsArcSegmentData[] =[
+    { valueRad: 40 },
+    { valueRad: 20 },
+    { valueRad: 12 },
+    { valueRad: 35 },
+    { valueRad: 18 },
+    { valueRad: 45 },
+    { valueRad: 30 },
+    { valueRad: 20 },
+    { valueRad: 45 },
+    { valueRad: 15 },
+    { valueRad: 38 },
+    { valueRad: 45 },
+  ]`
 
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialArc.arc(data, config)`
+canvas.generate.radialArc.segment(data)`
 
 const config2: string = `
-const config: QsArcConfig = {
-  outerRadius: 100,
-  innerRadius: 30,
-  padding: 0.9,
+const config: QsArcSegmentConfig = {
+  padding: 0,
+  defaultFillColor: QsEnumColorLightBlues.AQUAMARINE,
+  defaultFillOpacity: 0.2,
+  defaultStrokeWidth: 0.2,
+  defaultStrokeColor: QsEnumColorLightBlues.ROBINSEGG,
 }`
 
-const data2: string = `
-const data: QsArcData[] = [{ valueArc: 10 }, { valueArc: 20 }, { valueArc: 15 }]`
-
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialArc.arc(data, config)`
+canvas.generate.radialArc.segment(data, config)
+canvas.generate.centroid.axis({
+  defaultAxisAngle: 15,
+  showCentralTick: false,
+})
+canvas.generate.radialArc.text.follow(
+  [
+    { value: 1, text: 'Apple' },
+    { value: 1, text: 'Pear' },
+    { value: 1, text: 'Plum' },
+    { value: 1, text: 'Kiwi' },
+    { value: 1, text: 'Mango' },
+    { value: 1, text: 'Lime' },
+    { value: 1, text: 'Fig' },
+    { value: 1, text: 'Grape' },
+    { value: 1, text: 'Lemon' },
+    { value: 1, text: 'Peach' },
+    { value: 1, text: 'Cherry' },
+    { value: 1, text: 'Apricot' },
+  ],
+  {
+    scaleType: QsEnumScaleType.BANDED,
+    radius: 105,
+    textFontSize: 7,
+  }
+)`
 
 export const defaultsContent: JSX.Element = (
   <ContentColumn
@@ -48,22 +85,35 @@ export const defaultsContent: JSX.Element = (
               Defaults
             </Typography>,
             <Typography variant="body1">
-              The Bar element renders data values as rectangular segments,
-              precisely scaled and positioned within the canvas's coordinate
-              system to ensure accurate and effective data visualization.
+              Segments enable rose diagrams, also known as a Nightingale
+              Segments in rose diagrams, also known as Nightingale diagrams,
+              visually represent data using radial distance from the center.
+              Each segment’s length reflects a data value, while its angular
+              position denotes a category. Unlike pie charts, rose diagrams
+              emphasize magnitude through radial extent, enabling intuitive
+              comparisons. This format excels at displaying cyclic or
+              directional data, such as wind patterns or temporal trends,
+              providing a compact, aesthetically engaging visualization of
+              datasets.
             </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    When supplying only the essential data, the bars element
-                    produces a visualization leveraging the library's default
-                    configuration parameters
+                    When supplying only essential data, the segments (or petals)
+                    of a rose diagram utilize the library's default
+                    configuration parameters. With each segment assigned an
+                    equal angle. The angular position of each segment represents
+                    a category, while its radial length or area reflects data
+                    magnitude. These default settings, though functional,
+                    produce a basic visualization, allowing for a clear yet
+                    simple representation of cyclic or directional data, which
+                    can be further customized to meet specific aesthetic or
+                    analytical requirements.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
-                  <ContentCodeBox code={config2} />
-                  <ContentCodeBox code={data2} />
-                  <ContentCodeBox code={chart2} />
+                  <ContentCodeBox code={data1} />
+                  <ContentCodeBox code={chart1} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <RadialConfigChart
@@ -86,20 +136,35 @@ export const defaultsContent: JSX.Element = (
               Using config and data to modify appearance
             </Typography>,
             <Typography variant="body1">
-              Adjusting the configuration parameters or input data can
-              substantially change the visual appearance of the OrthogonalArea
-              element, enabling diverse and tailored data visualizations.
+              Customizing segments in rose diagrams enhances their visual and
+              analytical impact. Configuration settings allow adjustments to
+              segment attributes like color, opacity, and stroke style to
+              highlight specific categories or improve readability. For
+              instance, varying hues can differentiate data points, while
+              thicker strokes emphasize key segments. Additionally, tweaking
+              segment width or adding gradient fills can reflect data intensity,
+              and incorporating labels provides precise values. These
+              customizations transform the default, uniform segments into,
+              tailored visualizations.
             </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    This chart demonstrates the impact config and data can have
-                    on the bars element, illustrating the effects of color.
+                    This mock up rose diagram visualizes the consumption of 12
+                    fruits, with each segment’s radial length representing the
+                    amount consumed. Fill opacity is tailored to contrast with
+                    bold stroke lines, enhancing visual distinction. Radial text
+                    labels each segment, clearly displaying fruit names at their
+                    angular positions for easy category identification. The
+                    chart provides a simple, intuitive view of fruit consumption
+                    patterns, effectively balancing aesthetics and clarity for
+                    rapid data interpretation.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={config2} />
                   <ContentCodeBox code={data1} />
-                  <ContentCodeBox code={chart1} />
+                  <ContentCodeBox code={chart2} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <RadialConfigChart
@@ -128,8 +193,9 @@ export const defaultsContent: JSX.Element = (
   />
 )
 
-const data: string = `interface QsArcData {
-  value: number
+const data: string = `interface QsArcSegmentData {
+  valueArc?: never
+  valueRad: number
   fillColor?: string
   fillOpacity?: number
   strokeColor?: string
@@ -137,9 +203,10 @@ const data: string = `interface QsArcData {
   strokeOpacity?: number
 }`
 
-const config: string = `interface QsRadialConfig {
-  outerRadius?: number
-  innerRadius?: number
+const config: string = `interface QsArcSegmentConfig {
+  layerType?: QsEnumLayerType.DATA
+  outerRadius?: never
+  innerRadius?: never
   padding?: number
   cornerRadius?: number
   x?: number
@@ -153,8 +220,8 @@ const config: string = `interface QsRadialConfig {
   strokeColorScaleData?: QsColorScaleData
 }`
 
-const dataExample: string = `const data: QsArcData = {
-  value: 20,
+const dataExample: string = `const data: QsArcSegmentData = {
+  valueRad: 20,
   fillColor: 'blue',
   fillOpacity: 1,
   strokeColor: 'blue',
@@ -162,9 +229,8 @@ const dataExample: string = `const data: QsArcData = {
   strokeOpacity: 1,
 }`
 
-const configExample: string = `const config: QsRadialConfig = {
-  outerRadius: 90,
-  innerRadius: 0,
+const configExample: string = `const config: QsArcSegmentConfig = {
+  layerType: QsEnumLayerType.DATA
   padding: 3,
   cornerRadius: 3,
   x: 50,
@@ -249,12 +315,11 @@ export const editorContent: JSX.Element = (
 const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
-  lowestViewableValue: 0,
-  highestViewableValue: 156,
+  highestViewableValue: 45,
   borderColor: 'grey',
 }
 ${config2}
-${data2}
+${data1}
 ${chart2}`}
   ></ChartEditor>
 )

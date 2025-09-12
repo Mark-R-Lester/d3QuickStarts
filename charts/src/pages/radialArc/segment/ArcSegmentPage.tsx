@@ -34,7 +34,7 @@ export default function RadialSegmentPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Radial
+        Segments
       </Typography>
       <ChartButtonGrid
         onClick={onClick}

@@ -25,7 +25,7 @@ export const RadialTextHorizontalElement: FunctionComponent<
 
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
-      canvas.generate.radialArc.text.horizontal(data, {
+      canvas.generate.arc.text.horizontal(data, {
         radius: 100,
         x: 50,
         y: 50,

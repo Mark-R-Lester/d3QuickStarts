@@ -24,7 +24,7 @@ export const RadialTextRotatedElement: FunctionComponent<
 
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
-      canvas.generate.radialArc.text.rotated(data, {
+      canvas.generate.arc.text.rotated(data, {
         radius: 115,
         x: 50,
         y: 50,

@@ -35,7 +35,7 @@ const data: QsArcSegmentData[] =[
   ]`
 
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialArc.segment(data)`
+canvas.generate.arc.segment(data)`
 
 const config2: string = `
 const config: QsArcSegmentConfig = {
@@ -47,12 +47,12 @@ const config: QsArcSegmentConfig = {
 }`
 
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialArc.segment(data, config)
+canvas.generate.arc.segment(data, config)
 canvas.generate.centroid.axis({
   defaultAxisAngle: 15,
   showCentralTick: false,
 })
-canvas.generate.radialArc.text.follow(
+canvas.generate.arc.text.follow(
   [
     { value: 1, text: 'Apple' },
     { value: 1, text: 'Pear' },

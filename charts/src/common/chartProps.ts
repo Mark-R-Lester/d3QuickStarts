@@ -10,9 +10,9 @@ import {
   QsPointsConfig,
   QsCentroidAreaConfig,
   QsCentroidAreaData,
-  QsArcData,
+  QsArcSliceData,
   QsCentroidAxisConfig,
-  QsArcConfig,
+  QsArcSliceConfig,
   QsCentroidLineConfig,
   QsCentroidPointsConfig,
   QsCentroidSpokesConfig,
@@ -141,10 +141,10 @@ export interface ArcTextChartProps extends ChartPropsRadial {
 }
 
 export interface ArcChartProps extends ChartPropsRadial {
-  config?: QsArcConfig
-  config2?: QsArcConfig
-  data?: QsArcData[]
-  data2?: QsArcData[]
+  config?: QsArcSliceConfig
+  config2?: QsArcSliceConfig
+  data?: QsArcSliceData[]
+  data2?: QsArcSliceData[]
 }
 
 export interface EnvelopeChartProps extends ChartPropsRadial {

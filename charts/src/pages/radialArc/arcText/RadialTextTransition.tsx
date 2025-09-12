@@ -5,7 +5,7 @@ import {
   QsRadial,
   QsRadialArcText,
   QsArcTextData,
-  QsArcData,
+  QsArcSliceData,
   QsArcTextFollow,
 } from 'd3qs/d3QuickStart'
 import { ArcTextChartProps } from '../../../common/chartProps'
@@ -26,15 +26,15 @@ export const RadialTextTransition: FunctionComponent<ArcTextChartProps> = ({
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
       if (orientation === EnumRadialTextOrientation.FOLLOW)
-        setElement1(canvas.generate.radialArc.text.follow(data, config))
+        setElement1(canvas.generate.arc.text.follow(data, config))
       if (orientation === EnumRadialTextOrientation.SPOKE)
-        setElement1(canvas.generate.radialArc.text.spokes(data, config))
+        setElement1(canvas.generate.arc.text.spokes(data, config))
       if (orientation === EnumRadialTextOrientation.HORIZONTAL)
-        setElement1(canvas.generate.radialArc.text.horizontal(data, config))
+        setElement1(canvas.generate.arc.text.horizontal(data, config))
       if (orientation === EnumRadialTextOrientation.ROTATED)
-        setElement1(canvas.generate.radialArc.text.rotated(data, config))
+        setElement1(canvas.generate.arc.text.rotated(data, config))
 
-      const radialArgs: QsArcData[] = [
+      const radialArgs: QsArcSliceData[] = [
         { valueArc: 0, fillColor: 'red' },
         { valueArc: 0, fillColor: 'orange' },
         { valueArc: 0, fillColor: 'green' },
@@ -42,7 +42,7 @@ export const RadialTextTransition: FunctionComponent<ArcTextChartProps> = ({
       data.forEach((d, i) => {
         radialArgs[i].valueArc = d.value
       })
-      setElement2(canvas.generate.radialArc.arc(radialArgs))
+      setElement2(canvas.generate.arc.slice(radialArgs))
     }
     createChart()
   }, [canvasConfig, config, data, orientation])
@@ -64,7 +64,7 @@ export const RadialTextTransition: FunctionComponent<ArcTextChartProps> = ({
           data: transitionData,
         })
 
-      const radialArgs: QsArcData[] = [
+      const radialArgs: QsArcSliceData[] = [
         { valueArc: 0, fillColor: 'red' },
         { valueArc: 0, fillColor: 'orange' },
         { valueArc: 0, fillColor: 'green' },

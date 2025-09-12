@@ -103,11 +103,11 @@ describe('getGenerators', () => {
       ${[{ value: 20 }]} | ${undefined}       | ${{ id: 'radial2' }}
     `(
       `When data is $data and customConfig is $customConfig
-        it should call generators.radialArc.radial and add to elements
+        it should call generators.arc.radial and add to elements
         expectedElement = $expectedElement`,
       ({ data, customConfig, expectedElement }) => {
         ;(radialArc.arc as jest.Mock).mockReturnValue(expectedElement)
-        const result = generators.radialArc.arc(data, customConfig)
+        const result = generators.arc.slice(data, customConfig)
         expect(radialArc.arc).toHaveBeenCalledWith(
           expect.anything(),
           data,
@@ -124,11 +124,11 @@ describe('getGenerators', () => {
       ${[{ value: 20 }]} | ${undefined}       | ${{ id: 'radial2' }}
     `(
       `When data is $data and customConfig is $customConfig
-        it should call generators.radialArc.envelope and add to elements
+        it should call generators.arc.envelope and add to elements
         expectedElement = $expectedElement`,
       ({ data, customConfig, expectedElement }) => {
         ;(radialArc.envelope as jest.Mock).mockReturnValue(expectedElement)
-        const result = generators.radialArc.envelope(data, customConfig)
+        const result = generators.arc.envelope(data, customConfig)
         expect(radialArc.envelope).toHaveBeenCalledWith(
           expect.anything(),
           data,
@@ -145,11 +145,11 @@ describe('getGenerators', () => {
       ${[{ value: 20 }]} | ${undefined}       | ${{ id: 'radial2' }}
     `(
       `When data is $data and customConfig is $customConfig
-        it should call generators.radialArc.envelope and add to elements
+        it should call generators.arc.envelope and add to elements
         expectedElement = $expectedElement`,
       ({ data, customConfig, expectedElement }) => {
         ;(radialArc.segment as jest.Mock).mockReturnValue(expectedElement)
-        const result = generators.radialArc.segment(data, customConfig)
+        const result = generators.arc.segment(data, customConfig)
         expect(radialArc.segment).toHaveBeenCalledWith(
           expect.anything(),
           data,
@@ -167,13 +167,13 @@ describe('getGenerators', () => {
         ${[{ text: 'B' }]} | ${undefined}        | ${{ id: 'textFollow2' }}
       `(
         `When data is $data and customConfig is $customConfig
-          it should call generators.radialArc.text.follow and add to elements
+          it should call generators.arc.text.follow and add to elements
           expectedElement = $expectedElement`,
         ({ data, customConfig, expectedElement }) => {
           ;(radialArcText.ArcText.follow as jest.Mock).mockReturnValue(
             expectedElement
           )
-          const result = generators.radialArc.text.follow(data, customConfig)
+          const result = generators.arc.text.follow(data, customConfig)
           expect(radialArcText.ArcText.follow).toHaveBeenCalledWith(
             expect.anything(),
             data,
@@ -193,16 +193,13 @@ describe('getGenerators', () => {
         ${[{ text: 'B' }]} | ${undefined}        | ${{ id: 'textHorizontal2' }}
       `(
         `When data is $data and customConfig is $customConfig
-          it should call generators.radialArc.text.horizontal and add to elements
+          it should call generators.arc.text.horizontal and add to elements
           expectedElement = $expectedElement`,
         ({ data, customConfig, expectedElement }) => {
           ;(radialArcText.ArcText.horizontal as jest.Mock).mockReturnValue(
             expectedElement
           )
-          const result = generators.radialArc.text.horizontal(
-            data,
-            customConfig
-          )
+          const result = generators.arc.text.horizontal(data, customConfig)
           expect(radialArcText.ArcText.horizontal).toHaveBeenCalledWith(
             expect.anything(),
             data,
@@ -222,13 +219,13 @@ describe('getGenerators', () => {
         ${[{ text: 'B' }]} | ${undefined}        | ${{ id: 'textRotated2' }}
       `(
         `When data is $data and customConfig is $customConfig
-          it should call generators.radialArc.text.rotated and add to elements
+          it should call generators.arc.text.rotated and add to elements
           expectedElement = $expectedElement`,
         ({ data, customConfig, expectedElement }) => {
           ;(radialArcText.ArcText.rotated as jest.Mock).mockReturnValue(
             expectedElement
           )
-          const result = generators.radialArc.text.rotated(data, customConfig)
+          const result = generators.arc.text.rotated(data, customConfig)
           expect(radialArcText.ArcText.rotated).toHaveBeenCalledWith(
             expect.anything(),
             data,
@@ -248,13 +245,13 @@ describe('getGenerators', () => {
         ${[{ text: 'B' }]} | ${undefined}        | ${{ id: 'textSpoke2' }}
       `(
         `When data is $data and customConfig is $customConfig
-          it should call generators.radialArc.text.spoke and add to elements
+          it should call generators.arc.text.spoke and add to elements
           expectedElement = $expectedElement`,
         ({ data, customConfig, expectedElement }) => {
           ;(radialArcText.ArcText.spoke as jest.Mock).mockReturnValue(
             expectedElement
           )
-          const result = generators.radialArc.text.spokes(data, customConfig)
+          const result = generators.arc.text.spokes(data, customConfig)
           expect(radialArcText.ArcText.spoke).toHaveBeenCalledWith(
             expect.anything(),
             data,

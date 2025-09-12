@@ -14,7 +14,7 @@ export interface ArcConfigBase extends ConfigStrokeDefaults {
   strokeColorScaleData?: QsColorScaleData
 }
 
-export interface ArcConfig extends ArcConfigBase {
+export interface ArcSliceConfig extends ArcConfigBase {
   outerRadius: number
   innerRadius: number
 }

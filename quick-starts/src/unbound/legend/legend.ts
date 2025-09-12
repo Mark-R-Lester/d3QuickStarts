@@ -20,7 +20,7 @@ export const legend = (
   const config: LegendConfig = addDefaultsToConfig<LegendConfig>(
     legendConfig,
     customConfig,
-    canvas.configStore.legend.legendConfig()
+    canvas.configStore.unbound.legendConfig()
   )
 
   return draw(canvas, data, config)

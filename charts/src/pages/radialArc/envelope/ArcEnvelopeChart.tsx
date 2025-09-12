@@ -24,7 +24,7 @@ export const ArcEnvelopeChart: FunctionComponent<EnvelopeChartProps> = ({
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.generate.radialArc.envelope(data, config)
+      canvas.generate.arc.envelope(data, config)
       if (Object.values(config).length > 0) {
         canvas.generate.unbound.text([
           {
@@ -39,7 +39,7 @@ export const ArcEnvelopeChart: FunctionComponent<EnvelopeChartProps> = ({
           defaultTextFontSize: 5,
           showCentralTick: false,
         })
-        canvas.generate.radialArc.text.follow(
+        canvas.generate.arc.text.follow(
           [
             { value: 20, text: 'Jones: 20' },
             { value: 30, text: 'Smith: 30' },

@@ -10,7 +10,11 @@ import { QsTextConfig } from '../../../orthogonal/orthogonalText/qsTypes'
 import { QsPlottedLineConfig } from '../../../plots/plottedLine/qsTypes'
 import { QsPlottedPointsConfig } from '../../../plots/plottedPoints/qsTypes'
 import { QsPlottedTextConfig } from '../../../plots/plottedText/qsTypes'
-import { QsArcConfig } from '../../../radialArc/radialArc/qsTypes'
+import {
+  QsArcEnvelopeConfig,
+  QsArcSegmentConfig,
+  QsArcSliceConfig,
+} from '../../../radialArc/radialArc/qsTypes'
 import { QsArcTextConfig } from '../../../radialArc/radialArcText/qsTypes'
 import { QsCentroidAreaConfig } from '../../../radialCentroid/radialCentroidArea/qsTypes'
 import { QsCentroidAxisConfig } from '../../../radialCentroid/radialCentroidAxis/qsTypes'
@@ -20,10 +24,12 @@ import { QsCentroidSpokesConfig } from '../../../radialCentroid/radialCentroidSp
 
 import { QsCentroidTextConfig } from '../../../radialCentroid/radialCentroidText/qsTypes'
 import { ConfigStore } from '../configStore.class'
+import { QsUnboundTextConfig } from '../../../d3QuickStart'
 
 export const createMockConfigStore = () => {
   const store: ConfigStore = {
     legendConfig: undefined,
+    unboundTextConfig: undefined,
     orthogonalAreaConfig: undefined,
     orthogonalAxisConfigTop: undefined,
     orthogonalAxisConfigBottom: undefined,
@@ -38,11 +44,13 @@ export const createMockConfigStore = () => {
     plottedLineConfig: undefined,
     plottedPointsConfig: undefined,
     plottedTextConfig: undefined,
-    radialArcConfig: undefined,
-    radialArcTextConfigRotated: undefined,
-    radialArcTextConfigHorizontal: undefined,
-    radialArcTextConfigSpoke: undefined,
-    radialArcTextConfigFollow: undefined,
+    arcSliceConfig: undefined,
+    arcSegmentConfig: undefined,
+    arcEnvelopeConfig: undefined,
+    arcTextConfigRotated: undefined,
+    arcTextConfigHorizontal: undefined,
+    arcTextConfigSpoke: undefined,
+    arcTextConfigFollow: undefined,
     centroidAreaConfig: undefined,
     centroidAxisConfig: undefined,
     centroidLineConfig: undefined,
@@ -53,8 +61,9 @@ export const createMockConfigStore = () => {
 
   return {
     getters: {
-      legend: {
+      unbound: {
         legendConfig: jest.fn().mockImplementation(() => store.legendConfig),
+        textConfig: jest.fn().mockImplementation(() => store.unboundTextConfig),
       },
       orthogonal: {
         areaConfig: jest
@@ -98,20 +107,28 @@ export const createMockConfigStore = () => {
           .mockImplementation(() => store.plottedPointsConfig),
         textConfig: jest.fn().mockImplementation(() => store.plottedTextConfig),
       },
-      radialArc: {
-        arcConfig: jest.fn().mockImplementation(() => store.radialArcConfig),
+      arc: {
+        arcSliceConfig: jest
+          .fn()
+          .mockImplementation(() => store.arcSliceConfig),
+        arcSegmentConfig: jest
+          .fn()
+          .mockImplementation(() => store.arcSegmentConfig),
+        arcEnvelopeConfig: jest
+          .fn()
+          .mockImplementation(() => store.arcEnvelopeConfig),
         textConfigRotated: jest
           .fn()
-          .mockImplementation(() => store.radialArcTextConfigRotated),
+          .mockImplementation(() => store.arcTextConfigRotated),
         textConfigHorizontal: jest
           .fn()
-          .mockImplementation(() => store.radialArcTextConfigHorizontal),
+          .mockImplementation(() => store.arcTextConfigHorizontal),
         textConfigSpoke: jest
           .fn()
-          .mockImplementation(() => store.radialArcTextConfigSpoke),
+          .mockImplementation(() => store.arcTextConfigSpoke),
         textConfigFollow: jest
           .fn()
-          .mockImplementation(() => store.radialArcTextConfigFollow),
+          .mockImplementation(() => store.arcTextConfigFollow),
       },
       centroid: {
         areaConfig: jest
@@ -135,10 +152,15 @@ export const createMockConfigStore = () => {
       },
     },
     setters: {
-      legend: {
+      unbound: {
         legendConfig: jest.fn().mockImplementation((value: QsLegendConfig) => {
           store.legendConfig = value
         }),
+        textConfig: jest
+          .fn()
+          .mockImplementation((value: QsUnboundTextConfig) => {
+            store.unboundTextConfig = value
+          }),
       },
       orthogonal: {
         areaConfig: jest.fn().mockImplementation((value: QsAreaConfig) => {
@@ -198,29 +220,41 @@ export const createMockConfigStore = () => {
             store.plottedTextConfig = value
           }),
       },
-      radialArc: {
-        arcConfig: jest.fn().mockImplementation((value: QsArcConfig) => {
-          store.radialArcConfig = value
-        }),
+      arc: {
+        arcSliceConfig: jest
+          .fn()
+          .mockImplementation((value: QsArcSliceConfig) => {
+            store.arcSliceConfig = value
+          }),
+        arcSegmentConfig: jest
+          .fn()
+          .mockImplementation((value: QsArcSegmentConfig) => {
+            store.arcSegmentConfig = value
+          }),
+        arcEnvelopeConfig: jest
+          .fn()
+          .mockImplementation((value: QsArcEnvelopeConfig) => {
+            store.arcEnvelopeConfig = value
+          }),
         textConfigRotated: jest
           .fn()
           .mockImplementation((value: QsArcTextConfig) => {
-            store.radialArcTextConfigRotated = value
+            store.arcTextConfigRotated = value
           }),
         textConfigHorizontal: jest
           .fn()
           .mockImplementation((value: QsArcTextConfig) => {
-            store.radialArcTextConfigHorizontal = value
+            store.arcTextConfigHorizontal = value
           }),
         textConfigSpoke: jest
           .fn()
           .mockImplementation((value: QsArcTextConfig) => {
-            store.radialArcTextConfigSpoke = value
+            store.arcTextConfigSpoke = value
           }),
         textConfigFollow: jest
           .fn()
           .mockImplementation((value: QsArcTextConfig) => {
-            store.radialArcTextConfigFollow = value
+            store.arcTextConfigFollow = value
           }),
       },
       centroid: {

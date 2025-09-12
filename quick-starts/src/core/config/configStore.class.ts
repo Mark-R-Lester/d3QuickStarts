@@ -10,7 +10,11 @@ import { QsTextConfig } from '../../orthogonal/orthogonalText/qsTypes'
 import { QsPlottedLineConfig } from '../../plots/plottedLine/qsTypes'
 import { QsPlottedPointsConfig } from '../../plots/plottedPoints/qsTypes'
 import { QsPlottedTextConfig } from '../../plots/plottedText/qsTypes'
-import { QsArcConfig } from '../../radialArc/radialArc/qsTypes'
+import {
+  QsArcEnvelopeConfig,
+  QsArcSegmentConfig,
+  QsArcSliceConfig,
+} from '../../radialArc/radialArc/qsTypes'
 import { QsArcTextConfig } from '../../radialArc/radialArcText/qsTypes'
 import { QsCentroidAreaConfig } from '../../radialCentroid/radialCentroidArea/qsTypes'
 import { QsCentroidAxisConfig } from '../../radialCentroid/radialCentroidAxis/qsTypes'
@@ -18,9 +22,11 @@ import { QsCentroidLineConfig } from '../../radialCentroid/radialCentroidLine/qs
 import { QsCentroidPointsConfig } from '../../radialCentroid/radialCentroidPoints/qsTypes'
 import { QsCentroidSpokesConfig } from '../../radialCentroid/radialCentroidSpokes/qsTypes'
 import { QsCentroidTextConfig } from '../../radialCentroid/radialCentroidText/qsTypes'
+import { QsUnboundText, QsUnboundTextConfig } from '../../d3QuickStart'
 
 export interface ConfigStore {
   legendConfig?: QsLegendConfig
+  unboundTextConfig?: QsUnboundTextConfig
   orthogonalAreaConfig?: QsAreaConfig
   orthogonalAxisConfigTop?: QsAxisConfig
   orthogonalAxisConfigBottom?: QsAxisConfig
@@ -35,11 +41,13 @@ export interface ConfigStore {
   plottedLineConfig?: QsPlottedLineConfig
   plottedPointsConfig?: QsPlottedPointsConfig
   plottedTextConfig?: QsPlottedTextConfig
-  radialArcConfig?: QsArcConfig
-  radialArcTextConfigRotated?: QsArcTextConfig
-  radialArcTextConfigHorizontal?: QsArcTextConfig
-  radialArcTextConfigSpoke?: QsArcTextConfig
-  radialArcTextConfigFollow?: QsArcTextConfig
+  arcSliceConfig?: QsArcSliceConfig
+  arcSegmentConfig?: QsArcSegmentConfig
+  arcEnvelopeConfig?: QsArcEnvelopeConfig
+  arcTextConfigRotated?: QsArcTextConfig
+  arcTextConfigHorizontal?: QsArcTextConfig
+  arcTextConfigSpoke?: QsArcTextConfig
+  arcTextConfigFollow?: QsArcTextConfig
   centroidAreaConfig?: QsCentroidAreaConfig
   centroidAxisConfig?: QsCentroidAxisConfig
   centroidLineConfig?: QsCentroidLineConfig
@@ -49,8 +57,9 @@ export interface ConfigStore {
 }
 
 export interface ConfigGetters {
-  legend: {
+  unbound: {
     legendConfig: () => QsLegendConfig | undefined
+    textConfig: () => QsUnboundTextConfig | undefined
   }
   orthogonal: {
     areaConfig: () => QsAreaConfig | undefined
@@ -70,8 +79,10 @@ export interface ConfigGetters {
     pointsConfig: () => QsPlottedPointsConfig | undefined
     textConfig: () => QsPlottedTextConfig | undefined
   }
-  radialArc: {
-    arcConfig: () => QsArcConfig | undefined
+  arc: {
+    arcSliceConfig: () => QsArcSliceConfig | undefined
+    arcSegmentConfig: () => QsArcSliceConfig | undefined
+    arcEnvelopeConfig: () => QsArcSliceConfig | undefined
     textConfigRotated: () => QsArcTextConfig | undefined
     textConfigHorizontal: () => QsArcTextConfig | undefined
     textConfigSpoke: () => QsArcTextConfig | undefined
@@ -88,8 +99,9 @@ export interface ConfigGetters {
 }
 
 export interface ConfigSetters {
-  legend: {
+  unbound: {
     legendConfig: (value: QsLegendConfig) => void
+    textConfig: (value: QsUnboundTextConfig) => void
   }
   orthogonal: {
     areaConfig: (value: QsAreaConfig) => void
@@ -109,8 +121,10 @@ export interface ConfigSetters {
     pointsConfig: (value: QsPlottedPointsConfig) => void
     textConfig: (value: QsPlottedTextConfig) => void
   }
-  radialArc: {
-    arcConfig: (value: QsArcConfig) => void
+  arc: {
+    arcSliceConfig: (value: QsArcSliceConfig) => void
+    arcSegmentConfig: (value: QsArcSegmentConfig) => void
+    arcEnvelopeConfig: (value: QsArcEnvelopeConfig) => void
     textConfigRotated: (value: QsArcTextConfig) => void
     textConfigHorizontal: (value: QsArcTextConfig) => void
     textConfigSpoke: (value: QsArcTextConfig) => void
@@ -132,6 +146,7 @@ export class ConfigStoreManager {
   constructor() {
     this.store = {
       legendConfig: undefined,
+      unboundTextConfig: undefined,
       orthogonalAreaConfig: undefined,
       orthogonalAxisConfigTop: undefined,
       orthogonalAxisConfigBottom: undefined,
@@ -146,11 +161,13 @@ export class ConfigStoreManager {
       plottedLineConfig: undefined,
       plottedPointsConfig: undefined,
       plottedTextConfig: undefined,
-      radialArcConfig: undefined,
-      radialArcTextConfigRotated: undefined,
-      radialArcTextConfigHorizontal: undefined,
-      radialArcTextConfigSpoke: undefined,
-      radialArcTextConfigFollow: undefined,
+      arcSliceConfig: undefined,
+      arcSegmentConfig: undefined,
+      arcEnvelopeConfig: undefined,
+      arcTextConfigRotated: undefined,
+      arcTextConfigHorizontal: undefined,
+      arcTextConfigSpoke: undefined,
+      arcTextConfigFollow: undefined,
       centroidAreaConfig: undefined,
       centroidAxisConfig: undefined,
       centroidLineConfig: undefined,
@@ -162,8 +179,9 @@ export class ConfigStoreManager {
 
   public get getters(): ConfigGetters {
     return {
-      legend: {
+      unbound: {
         legendConfig: () => this.store.legendConfig,
+        textConfig: () => this.store.unboundTextConfig,
       },
       orthogonal: {
         areaConfig: () => this.store.orthogonalAreaConfig,
@@ -183,12 +201,14 @@ export class ConfigStoreManager {
         pointsConfig: () => this.store.plottedPointsConfig,
         textConfig: () => this.store.plottedTextConfig,
       },
-      radialArc: {
-        arcConfig: () => this.store.radialArcConfig,
-        textConfigRotated: () => this.store.radialArcTextConfigRotated,
-        textConfigHorizontal: () => this.store.radialArcTextConfigHorizontal,
-        textConfigSpoke: () => this.store.radialArcTextConfigSpoke,
-        textConfigFollow: () => this.store.radialArcTextConfigFollow,
+      arc: {
+        arcSliceConfig: () => this.store.arcSliceConfig,
+        arcSegmentConfig: () => this.store.arcSegmentConfig,
+        arcEnvelopeConfig: () => this.store.arcEnvelopeConfig,
+        textConfigRotated: () => this.store.arcTextConfigRotated,
+        textConfigHorizontal: () => this.store.arcTextConfigHorizontal,
+        textConfigSpoke: () => this.store.arcTextConfigSpoke,
+        textConfigFollow: () => this.store.arcTextConfigFollow,
       },
       centroid: {
         areaConfig: () => this.store.centroidAreaConfig,
@@ -203,9 +223,12 @@ export class ConfigStoreManager {
 
   public get setters(): ConfigSetters {
     return {
-      legend: {
+      unbound: {
         legendConfig: (value: QsLegendConfig) => {
           this.store.legendConfig = value
+        },
+        textConfig: (value: QsUnboundTextConfig) => {
+          this.store.unboundTextConfig = value
         },
       },
       orthogonal: {
@@ -254,21 +277,27 @@ export class ConfigStoreManager {
           this.store.plottedTextConfig = value
         },
       },
-      radialArc: {
-        arcConfig: (value: QsArcConfig) => {
-          this.store.radialArcConfig = value
+      arc: {
+        arcSliceConfig: (value: QsArcSliceConfig) => {
+          this.store.arcSliceConfig = value
+        },
+        arcSegmentConfig: (value: QsArcSegmentConfig) => {
+          this.store.arcSegmentConfig = value
+        },
+        arcEnvelopeConfig: (value: QsArcEnvelopeConfig) => {
+          this.store.arcEnvelopeConfig = value
         },
         textConfigRotated: (value: QsArcTextConfig) => {
-          this.store.radialArcTextConfigRotated = value
+          this.store.arcTextConfigRotated = value
         },
         textConfigHorizontal: (value: QsArcTextConfig) => {
-          this.store.radialArcTextConfigHorizontal = value
+          this.store.arcTextConfigHorizontal = value
         },
         textConfigSpoke: (value: QsArcTextConfig) => {
-          this.store.radialArcTextConfigSpoke = value
+          this.store.arcTextConfigSpoke = value
         },
         textConfigFollow: (value: QsArcTextConfig) => {
-          this.store.radialArcTextConfigFollow = value
+          this.store.arcTextConfigFollow = value
         },
       },
       centroid: {

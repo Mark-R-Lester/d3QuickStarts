@@ -17,7 +17,7 @@ import { PlottedLineConfig } from '../../plots/plottedLine/types'
 import { PlottedPointsConfig } from '../../plots/plottedPoints/calculatedData'
 import { PlottedTextConfig } from '../../plots/plottedText/types'
 import {
-  ArcConfig,
+  ArcSliceConfig,
   ArcConfigBase,
   ArcEnvelopeConfig,
   ArcSegmentConfig,
@@ -34,7 +34,6 @@ import { CentroidPointsConfig } from '../../radialCentroid/radialCentroidPoints/
 import { CentroidSpokesConfig } from '../../radialCentroid/radialCentroidSpokes/types'
 import {
   QsEnumAlignmentBaseline,
-  QsEnumColorScale,
   QsEnumCurve,
   QsEnumLayerType,
   QsEnumLineCap,
@@ -47,7 +46,6 @@ import {
   QsEnumTextFontWeight,
 } from '../enums/qsEnums'
 import { ConfigTextDefaults } from '../types/types'
-import { QsColorScaleData } from '../types/qsTypes'
 import { CentroidTextConfig } from '../../radialCentroid/radialCentroidText/types'
 import { QsEnumCoordinateView } from '../../plots/plottedText/qsEnums'
 import { CanvasConfig } from '../../canvas/types'
@@ -288,7 +286,7 @@ export const arcConfigBase: ArcConfigBase = {
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
 }
 
-export const arcConfig: ArcConfig = {
+export const arcConfig: ArcSliceConfig = {
   ...arcConfigBase,
   outerRadius: 100,
   innerRadius: 0,

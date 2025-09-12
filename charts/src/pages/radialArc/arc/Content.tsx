@@ -22,7 +22,7 @@ const data1: string = `
 const data: QsArcData[] = [{ valueArc: 10 }, { valueArc: 20 }, { valueArc: 15 }]`
 
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialArc.arc(data, config)`
+canvas.generate.arc.slice(data, config)`
 
 const config2: string = `
 const config: QsArcConfig = {
@@ -35,7 +35,7 @@ const data2: string = `
 const data: QsArcData[] = [{ valueArc: 10 }, { valueArc: 20 }, { valueArc: 15 }]`
 
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialArc.arc(data, config)`
+canvas.generate.arc.slice(data, config)`
 
 export const defaultsContent: JSX.Element = (
   <ContentColumn

@@ -27,13 +27,13 @@ export const RadialConfigChart: FunctionComponent<SegmentChartProps> = ({
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.generate.radialArc.segment(data, config)
+      canvas.generate.arc.segment(data, config)
       if (Object.entries(config).length > 0) {
         canvas.generate.centroid.axis({
           defaultAxisAngle: 15,
           showCentralTick: false,
         })
-        canvas.generate.radialArc.text.follow(
+        canvas.generate.arc.text.follow(
           [
             { value: 1, text: 'Apple' },
             { value: 1, text: 'Pear' },

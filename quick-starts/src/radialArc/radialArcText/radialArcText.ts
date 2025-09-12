@@ -31,7 +31,7 @@ export const ArcText = {
     const config: ArcTextConfig = addDefaultsToConfig<ArcTextConfig>(
       radialArcTextConfigSpoke,
       customConfig,
-      canvas.configStore.radialArc.textConfigSpoke()
+      canvas.configStore.arc.textConfigSpoke()
     )
 
     return draw<QsRadialArcText>(canvas, data, RadialTextType.SPOKE, config)
@@ -44,7 +44,7 @@ export const ArcText = {
     const config: ArcTextConfig = addDefaultsToConfig<ArcTextConfig>(
       radialArcTextConfigHorizontal,
       customConfig,
-      canvas.configStore.radialArc.textConfigHorizontal()
+      canvas.configStore.arc.textConfigHorizontal()
     )
 
     return draw<QsRadialArcText>(
@@ -62,7 +62,7 @@ export const ArcText = {
     const config: ArcTextConfig = addDefaultsToConfig<ArcTextConfig>(
       radialArcTextConfigRotated,
       customConfig,
-      canvas.configStore.radialArc.textConfigRotated()
+      canvas.configStore.arc.textConfigRotated()
     )
 
     return draw<QsRadialArcText>(canvas, data, RadialTextType.ROTATED, config)
@@ -75,7 +75,7 @@ export const ArcText = {
     const config: ArcTextConfig = addDefaultsToConfig<ArcTextConfig>(
       radialArcTextConfigFollow,
       customConfig,
-      canvas.configStore.radialArc.textConfigFollow()
+      canvas.configStore.arc.textConfigFollow()
     )
 
     return draw<QsArcTextFollow>(canvas, data, RadialTextType.FOLLOW, config)

@@ -1,7 +1,7 @@
 import { interpolate } from 'd3'
 import {
   QsCalculatedDataArc,
-  ArcConfig,
+  ArcSliceConfig,
   ArcData,
   ArcEnvelopeConfig,
   ArcSegmentConfig,
@@ -10,10 +10,10 @@ import { getCalculatedData, updateCalculatedData } from './calculatedData'
 import { addTransitionDefaults } from '../../core/addTransitionDefaults'
 import { Canvas } from '../../canvas/types'
 import {
-  QsArcConfig,
+  QsArcSliceConfig,
   QsRadial,
   QsArcTransitionData,
-  QsArcData,
+  QsArcSliceData,
   QsArcSegmentData,
   QsArcEnvelopeData,
   QsArcSegmentTransitionData,
@@ -33,15 +33,15 @@ import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const arc = (
   canvas: Canvas,
-  data: QsArcData[],
-  customConfig?: QsArcConfig
+  data: QsArcSliceData[],
+  customConfig?: QsArcSliceConfig
 ): QsRadial => {
-  const config: ArcConfig = addDefaultsToConfig<ArcConfig>(
+  const config: ArcSliceConfig = addDefaultsToConfig<ArcSliceConfig>(
     arcConfig,
     customConfig,
-    canvas.configStore.radialArc.arcConfig()
+    canvas.configStore.arc.arcSliceConfig()
   )
-  const convert = (qsArcDataArray: QsArcData[]): ArcData[] =>
+  const convert = (qsArcDataArray: QsArcSliceData[]): ArcData[] =>
     qsArcDataArray.map((qsArcData) => ({
       ...qsArcData,
       valueArc: qsArcData.valueArc,
@@ -58,7 +58,7 @@ export const segment = (
   const config: ArcSegmentConfig = addDefaultsToConfig<ArcSegmentConfig>(
     arcSegmentConfig,
     customConfig,
-    canvas.configStore.radialArc.arcConfig()
+    canvas.configStore.arc.arcSegmentConfig()
   )
   const convert = (array: QsArcSegmentData[]): ArcData[] =>
     array.map((data) => ({
@@ -77,7 +77,7 @@ export const envelope = (
   const config: ArcEnvelopeConfig = addDefaultsToConfig<ArcEnvelopeConfig>(
     arcEnvelopeConfig,
     customConfig,
-    canvas.configStore.radialArc.arcConfig()
+    canvas.configStore.arc.arcEnvelopeConfig()
   )
   return draw(canvas, data, config)
 }
@@ -85,7 +85,7 @@ export const envelope = (
 const draw = (
   canvas: Canvas,
   data: ArcData[],
-  config: ArcConfig | ArcEnvelopeConfig | ArcSegmentConfig
+  config: ArcSliceConfig | ArcEnvelopeConfig | ArcSegmentConfig
 ): QsRadial => {
   let calculatedData: QsCalculatedDataArc[] = getCalculatedData(
     canvas,
@@ -125,7 +125,7 @@ const draw = (
     const args = addTransitionDefaults(transitionData.transitionArgs)
 
     const processData = (
-      data: QsArcData[] | QsArcSegmentData[] | QsArcEnvelopeData[]
+      data: QsArcSliceData[] | QsArcSegmentData[] | QsArcEnvelopeData[]
     ): ArcData[] => {
       return data.map((item, index) => {
         return {

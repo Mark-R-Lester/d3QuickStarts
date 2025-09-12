@@ -1,6 +1,6 @@
 import {
   QsCalculatedDataArc,
-  ArcConfig,
+  ArcSliceConfig,
   ArcSegmentConfig,
   ArcEnvelopeConfig,
 } from './types'
@@ -9,7 +9,7 @@ import { StrokeData } from '../../core/types/types'
 import { LayerActions } from '../../canvas/createCanvasElement'
 export { QsCalculatedDataArc as QsCalculatedDataRadialArc } from './types'
 
-export interface QsArcConfig extends Partial<ArcConfig> {}
+export interface QsArcSliceConfig extends Partial<ArcSliceConfig> {}
 export interface QsArcSegmentConfig extends Partial<ArcSegmentConfig> {
   outerRadius?: never
   innerRadius?: never
@@ -20,7 +20,7 @@ export interface QsArcEnvelopeConfig extends Partial<ArcEnvelopeConfig> {
 }
 
 export interface QsArcTransitionData {
-  data: QsArcData[]
+  data: QsArcSliceData[]
   transitionArgs?: QsTransitionArgs
 }
 
@@ -46,7 +46,7 @@ export interface QsRadial {
   ) => void
 }
 
-export interface QsArcData extends Partial<StrokeData> {
+export interface QsArcSliceData extends Partial<StrokeData> {
   valueArc: number
   valueRad?: never
   fillColor?: string

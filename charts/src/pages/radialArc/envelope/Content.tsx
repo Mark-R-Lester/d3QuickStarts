@@ -31,7 +31,7 @@ const data1: string = `const data: QsArcEnvelopeData[] = [
 ]`
 
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialArc.envelope(data)`
+canvas.generate.arc.envelope(data)`
 
 const canvasConfig2: string = `const canvasConfig2 = {
   chartName: 'ChartEditable',
@@ -57,7 +57,7 @@ const data2: string = `const data: QsArcEnvelopeData[] = [
 ]`
 
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.radialArc.envelope(data, config)
+canvas.generate.arc.envelope(data, config)
 canvas.generate.unbound.text([
   {
     x: 50,
@@ -71,7 +71,7 @@ canvas.generate.centroid.axis({
   defaultTextFontSize: 5,
   showCentralTick: false,
 })
-canvas.generate.radialArc.text.follow(
+canvas.generate.arc.text.follow(
   [
     { value: 20, text: 'Jones: 20' },
     { value: 30, text: 'Smith: 30' },

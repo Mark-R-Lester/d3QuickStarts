@@ -20,7 +20,7 @@ export const RadialTextDefaultsChart: FunctionComponent<
       ]
 
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.generate.radialArc.text.follow(data)
+      canvas.generate.arc.text.follow(data)
     }
     createChart()
   }, [canvasConfig])

@@ -2,7 +2,6 @@ import { GlobalDefaultColors, GlobalDefaultSettings } from '../../enums/enums'
 
 import {
   QsEnumAlignmentBaseline,
-  QsEnumAxisScaleType,
   QsEnumCurve,
   QsEnumLineCap,
   QsEnumLineJoin,
@@ -19,7 +18,11 @@ import { QsCentroidAxisConfig } from '../../../radialCentroid/radialCentroidAxis
 import { QsCentroidLineConfig } from '../../../radialCentroid/radialCentroidLine/qsTypes'
 import { QsCentroidPointsConfig } from '../../../radialCentroid/radialCentroidPoints/qsTypes'
 import { QsCentroidSpokesConfig } from '../../../radialCentroid/radialCentroidSpokes/qsTypes'
-import { QsArcConfig } from '../../../radialArc/radialArc/qsTypes'
+import {
+  QsArcEnvelopeConfig,
+  QsArcSegmentConfig,
+  QsArcSliceConfig,
+} from '../../../radialArc/radialArc/qsTypes'
 import { QsPlottedTextConfig } from '../../../plots/plottedText/qsTypes'
 import { QsPlottedPointsConfig } from '../../../plots/plottedPoints/qsTypes'
 import { QsPlottedLineConfig } from '../../../plots/plottedLine/qsTypes'
@@ -33,6 +36,7 @@ import { QsAxisConfig } from '../../../orthogonal/orthogonalAxis/qsTypes'
 import { QsAreaConfig } from '../../../orthogonal/orthogonalArea/qsTypes'
 import { QsLegendConfig } from '../../../unbound/legend/qsTypes'
 import { QsCanvasConfig } from '../../../canvas/qsTypes'
+import { QsUnboundTextConfig } from '../../../unbound/text/qsTypes'
 
 export const canvasConfig: QsCanvasConfig = {
   chartName: '',
@@ -55,6 +59,19 @@ export const legendConfig: QsLegendConfig = {
   space: 10,
   x: 0,
   y: 0,
+  defaultTextFont: QsEnumTextFont.SERIF,
+  defaultTextFontSize: 5,
+  defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
+  defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
+  defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
+  defaultTextFill: 'black',
+  defaultTextAngle: 0,
+  defaultTextStroke: '',
+  defaultTextAnchor: QsEnumTextAnchor.START,
+  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
+}
+
+export const unboundTextConfig: QsUnboundTextConfig = {
   defaultTextFont: QsEnumTextFont.SERIF,
   defaultTextFontSize: 5,
   defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
@@ -215,9 +232,37 @@ export const plottedTextConfig: QsPlottedTextConfig = {
   textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }
 
-export const radialArcConfig: QsArcConfig = {
+export const arcSliceConfig: QsArcSliceConfig = {
   outerRadius: 100,
   innerRadius: 0,
+  padding: 0,
+  cornerRadius: 0,
+  x: GlobalDefaultSettings.RADIAL_X,
+  y: GlobalDefaultSettings.RADIAL_Y,
+  defaultFillColor: GlobalDefaultColors.POINT_FILL,
+  defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
+  defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
+  defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
+  defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
+  fillColorScaleData: undefined,
+  strokeColorScaleData: undefined,
+}
+
+export const arcSegmentConfig: QsArcSegmentConfig = {
+  padding: 0,
+  cornerRadius: 0,
+  x: GlobalDefaultSettings.RADIAL_X,
+  y: GlobalDefaultSettings.RADIAL_Y,
+  defaultFillColor: GlobalDefaultColors.POINT_FILL,
+  defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
+  defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
+  defaultStrokeWidth: GlobalDefaultSettings.STROKE_WIDTH,
+  defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
+  fillColorScaleData: undefined,
+  strokeColorScaleData: undefined,
+}
+
+export const arcEnvelopeConfig: QsArcEnvelopeConfig = {
   padding: 0,
   cornerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,

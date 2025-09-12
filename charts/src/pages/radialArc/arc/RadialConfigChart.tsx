@@ -16,11 +16,11 @@ export const ArcChart: FunctionComponent<ArcChartProps> = ({
   useEffect(() => {
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.generate.radialArc.arc(data, config)
+      canvas.generate.arc.slice(data, config)
 
       if (data2) {
-        canvas.generate.radialArc.arc(data2, config2)
-        canvas.generate.radialArc.text.horizontal(
+        canvas.generate.arc.slice(data2, config2)
+        canvas.generate.arc.text.horizontal(
           [
             { value: 50, text: 'blues' },
             { value: 50, text: 'greens' },
@@ -32,7 +32,7 @@ export const ArcChart: FunctionComponent<ArcChartProps> = ({
             textFill: 'white',
           }
         )
-        canvas.generate.radialArc.text.follow(
+        canvas.generate.arc.text.follow(
           [
             { value: 13, text: 'Deep Teal' },
             { value: 17, text: 'Slate Blue' },

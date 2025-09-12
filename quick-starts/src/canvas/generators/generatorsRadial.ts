@@ -6,8 +6,8 @@ import {
 } from '../../unbound/legend/qsTypes'
 import {
   QsRadial,
-  QsArcConfig,
-  QsArcData,
+  QsArcSliceConfig,
+  QsArcSliceData,
   QsArcSegmentData,
   QsArcEnvelopeData,
   QsArcSegmentConfig,
@@ -88,7 +88,7 @@ interface RadialArcTextElementFunctions {
 }
 
 interface RadialArcElementFunctions {
-  arc: (data: QsArcData[], customConfig?: QsArcConfig) => QsRadial
+  slice: (data: QsArcSliceData[], customConfig?: QsArcSliceConfig) => QsRadial
   envelope: (
     data: QsArcEnvelopeData[],
     config?: QsArcEnvelopeConfig
@@ -119,7 +119,7 @@ interface CentroidElementFunctions {
 }
 
 export interface QsGeneratorRadial {
-  radialArc: RadialArcElementFunctions
+  arc: RadialArcElementFunctions
   centroid: CentroidElementFunctions
   unbound: UnboundElementFunctions
 }
@@ -146,8 +146,11 @@ export const getGenerators = (canvas: Canvas): QsGeneratorRadial => {
         return element
       },
     },
-    radialArc: {
-      arc: (data: QsArcData[], customConfig?: QsArcConfig): QsRadial => {
+    arc: {
+      slice: (
+        data: QsArcSliceData[],
+        customConfig?: QsArcSliceConfig
+      ): QsRadial => {
         const element = arc(canvas, data, customConfig)
         elements.push({ element, data })
         return element

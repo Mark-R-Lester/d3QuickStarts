@@ -4,7 +4,7 @@ import {
   QsCalculatedDataArc,
   ArcConfig,
   ArcData,
-  ArcPetalConfig,
+  ArcEnvelopeConfig,
   ArcSegmentConfig,
 } from './types'
 import {
@@ -20,7 +20,7 @@ import { QsEnumColorScale } from '../../core/enums/qsEnums'
 export const updateCalculatedData = (
   canvas: Canvas,
   data: ArcData[],
-  config: ArcConfig | ArcPetalConfig | ArcSegmentConfig,
+  config: ArcConfig | ArcEnvelopeConfig | ArcSegmentConfig,
   calculatedData: QsCalculatedDataArc[]
 ): QsCalculatedDataArc[] => {
   const newCalculatedData: QsCalculatedDataArc[] = getCalculatedData(
@@ -41,7 +41,7 @@ export const updateCalculatedData = (
 export const getCalculatedData = (
   canvas: Canvas,
   data: ArcData[],
-  config: ArcConfig | ArcPetalConfig | ArcSegmentConfig
+  config: ArcConfig | ArcEnvelopeConfig | ArcSegmentConfig
 ): QsCalculatedDataArc[] => {
   const { xPercentScale, yPercentScale, genralPercentScale, radialDataScale } =
     canvas.scales

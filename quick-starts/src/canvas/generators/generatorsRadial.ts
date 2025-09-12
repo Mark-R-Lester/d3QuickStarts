@@ -9,11 +9,11 @@ import {
   QsArcConfig,
   QsArcData,
   QsArcSegmentData,
-  QsArcPetalData,
+  QsArcEnvelopeData,
   QsArcSegmentConfig,
-  QsArcPetalConfig,
+  QsArcEnvelopeConfig,
 } from '../../radialArc/radialArc/qsTypes'
-import { arc, petal, segment } from '../../radialArc/radialArc/radialArc'
+import { arc, envelope, segment } from '../../radialArc/radialArc/radialArc'
 import {
   QsRadialArcText,
   QsArcTextConfig,
@@ -89,7 +89,10 @@ interface RadialArcTextElementFunctions {
 
 interface RadialArcElementFunctions {
   arc: (data: QsArcData[], customConfig?: QsArcConfig) => QsRadial
-  petal: (data: QsArcPetalData[], config?: QsArcPetalConfig) => QsRadial
+  envelope: (
+    data: QsArcEnvelopeData[],
+    config?: QsArcEnvelopeConfig
+  ) => QsRadial
   segment: (data: QsArcSegmentData[], config?: QsArcSegmentConfig) => QsRadial
   text: RadialArcTextElementFunctions
 }
@@ -149,11 +152,11 @@ export const getGenerators = (canvas: Canvas): QsGeneratorRadial => {
         elements.push({ element, data })
         return element
       },
-      petal: (
-        data: QsArcPetalData[],
-        customConfig?: QsArcPetalConfig
+      envelope: (
+        data: QsArcEnvelopeData[],
+        customConfig?: QsArcEnvelopeConfig
       ): QsRadial => {
-        const element = petal(canvas, data, customConfig)
+        const element = envelope(canvas, data, customConfig)
         elements.push({ element, data })
         return element
       },

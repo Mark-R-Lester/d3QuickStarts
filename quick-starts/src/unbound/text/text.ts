@@ -6,7 +6,7 @@ import {
   QsCalculatedDataUnboundText,
 } from './qsTypes'
 import { UnboundTextConfig } from './types'
-import { plottedTextConfig } from '../../core/config/configDefaults'
+import { unboundTextConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { getCalculatedData } from './calculatedData'
 import { generateClassName } from '../../core/generateClassName'
@@ -18,7 +18,7 @@ export const unboundText = (
   customConfig?: QsUnboundTextConfig
 ): QsUnboundText => {
   const config: UnboundTextConfig = addDefaultsToConfig<UnboundTextConfig>(
-    plottedTextConfig,
+    unboundTextConfig,
     customConfig,
     canvas.configStore.plotted.pointsConfig()
   )

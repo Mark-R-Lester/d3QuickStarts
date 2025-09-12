@@ -19,7 +19,7 @@ export interface ArcConfig extends ArcConfigBase {
   outerRadius: number
 }
 
-export interface ArcPetalConfig extends ArcConfigBase {}
+export interface ArcEnvelopeConfig extends ArcConfigBase {}
 export interface ArcSegmentConfig extends ArcConfigBase {}
 
 export interface QsCalculatedDataArc {

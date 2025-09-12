@@ -3,7 +3,7 @@ import {
   QsCalculatedDataArc,
   ArcConfig,
   ArcData,
-  ArcPetalConfig,
+  ArcEnvelopeConfig,
   ArcSegmentConfig,
 } from './types'
 import { getCalculatedData, updateCalculatedData } from './calculatedData'
@@ -15,15 +15,15 @@ import {
   QsArcTransitionData,
   QsArcData,
   QsArcSegmentData,
-  QsArcPetalData,
+  QsArcEnvelopeData,
   QsArcSegmentTransitionData,
-  QsArcPetalTransitionData,
+  QsArcEnvelopeTransitionData,
   QsArcSegmentConfig,
-  QsArcPetalConfig,
+  QsArcEnvelopeConfig,
 } from './qsTypes'
 import {
   arcConfig,
-  arcPetalConfig,
+  arcEnvelopeConfig,
   arcSegmentConfig,
 } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
@@ -69,13 +69,13 @@ export const segment = (
   return draw(canvas, convert(data), config)
 }
 
-export const petal = (
+export const envelope = (
   canvas: Canvas,
-  data: QsArcPetalData[],
-  customConfig?: QsArcPetalConfig
+  data: QsArcEnvelopeData[],
+  customConfig?: QsArcEnvelopeConfig
 ): QsRadial => {
-  const config: ArcPetalConfig = addDefaultsToConfig<ArcPetalConfig>(
-    arcPetalConfig,
+  const config: ArcEnvelopeConfig = addDefaultsToConfig<ArcEnvelopeConfig>(
+    arcEnvelopeConfig,
     customConfig,
     canvas.configStore.radialArc.arcConfig()
   )
@@ -85,7 +85,7 @@ export const petal = (
 const draw = (
   canvas: Canvas,
   data: ArcData[],
-  config: ArcConfig | ArcPetalConfig | ArcSegmentConfig
+  config: ArcConfig | ArcEnvelopeConfig | ArcSegmentConfig
 ): QsRadial => {
   let calculatedData: QsCalculatedDataArc[] = getCalculatedData(
     canvas,
@@ -120,12 +120,12 @@ const draw = (
     transitionData:
       | QsArcTransitionData
       | QsArcSegmentTransitionData
-      | QsArcPetalTransitionData
+      | QsArcEnvelopeTransitionData
   ) => {
     const args = addTransitionDefaults(transitionData.transitionArgs)
 
     const processData = (
-      data: QsArcData[] | QsArcSegmentData[] | QsArcPetalData[]
+      data: QsArcData[] | QsArcSegmentData[] | QsArcEnvelopeData[]
     ): ArcData[] => {
       return data.map((item, index) => {
         return {

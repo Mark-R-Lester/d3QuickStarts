@@ -35,8 +35,8 @@ import {
   QsPlottedPointsData,
   QsTextData,
   QsCentroidLineData,
-  QsArcPetalData,
-  QsArcPetalConfig,
+  QsArcEnvelopeData,
+  QsArcEnvelopeConfig,
   QsArcSegmentConfig,
   QsArcSegmentData,
 } from 'd3qs/d3QuickStart'
@@ -147,9 +147,9 @@ export interface ArcChartProps extends ChartPropsRadial {
   data2?: QsArcData[]
 }
 
-export interface PetalChartProps extends ChartPropsRadial {
-  config?: QsArcPetalConfig
-  data?: QsArcPetalData[]
+export interface EnvelopeChartProps extends ChartPropsRadial {
+  config?: QsArcEnvelopeConfig
+  data?: QsArcEnvelopeData[]
 }
 
 export interface SegmentChartProps extends ChartPropsRadial {

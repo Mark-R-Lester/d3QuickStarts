@@ -2,7 +2,7 @@ import {
   QsCalculatedDataArc,
   ArcConfig,
   ArcSegmentConfig,
-  ArcPetalConfig,
+  ArcEnvelopeConfig,
 } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
@@ -13,7 +13,7 @@ export interface QsArcConfig extends Partial<ArcConfig> {}
 export interface QsArcSegmentConfig extends Partial<ArcSegmentConfig> {
   outerRadius?: never
 }
-export interface QsArcPetalConfig extends Partial<ArcPetalConfig> {
+export interface QsArcEnvelopeConfig extends Partial<ArcEnvelopeConfig> {
   outerRadius?: never
 }
 
@@ -27,8 +27,8 @@ export interface QsArcSegmentTransitionData {
   transitionArgs?: QsTransitionArgs
 }
 
-export interface QsArcPetalTransitionData {
-  data: QsArcPetalData[]
+export interface QsArcEnvelopeTransitionData {
+  data: QsArcEnvelopeData[]
   transitionArgs?: QsTransitionArgs
 }
 
@@ -40,7 +40,7 @@ export interface QsRadial {
     data:
       | QsArcTransitionData
       | QsArcSegmentTransitionData
-      | QsArcPetalTransitionData
+      | QsArcEnvelopeTransitionData
   ) => void
 }
 
@@ -58,7 +58,7 @@ export interface QsArcSegmentData extends Partial<StrokeData> {
   fillOpacity?: number
 }
 
-export interface QsArcPetalData extends Partial<StrokeData> {
+export interface QsArcEnvelopeData extends Partial<StrokeData> {
   valueArc: number
   valueRad: number
   fillColor?: string

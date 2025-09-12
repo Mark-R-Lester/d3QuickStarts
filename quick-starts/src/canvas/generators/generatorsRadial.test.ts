@@ -124,12 +124,12 @@ describe('getGenerators', () => {
       ${[{ value: 20 }]} | ${undefined}       | ${{ id: 'radial2' }}
     `(
       `When data is $data and customConfig is $customConfig
-        it should call generators.radialArc.petal and add to elements
+        it should call generators.radialArc.envelope and add to elements
         expectedElement = $expectedElement`,
       ({ data, customConfig, expectedElement }) => {
-        ;(radialArc.petal as jest.Mock).mockReturnValue(expectedElement)
-        const result = generators.radialArc.petal(data, customConfig)
-        expect(radialArc.petal).toHaveBeenCalledWith(
+        ;(radialArc.envelope as jest.Mock).mockReturnValue(expectedElement)
+        const result = generators.radialArc.envelope(data, customConfig)
+        expect(radialArc.envelope).toHaveBeenCalledWith(
           expect.anything(),
           data,
           customConfig
@@ -145,7 +145,7 @@ describe('getGenerators', () => {
       ${[{ value: 20 }]} | ${undefined}       | ${{ id: 'radial2' }}
     `(
       `When data is $data and customConfig is $customConfig
-        it should call generators.radialArc.petal and add to elements
+        it should call generators.radialArc.envelope and add to elements
         expectedElement = $expectedElement`,
       ({ data, customConfig, expectedElement }) => {
         ;(radialArc.segment as jest.Mock).mockReturnValue(expectedElement)

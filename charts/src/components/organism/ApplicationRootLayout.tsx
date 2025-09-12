@@ -57,7 +57,7 @@ const menuElementsRadialArc: DropdownMenuProps = {
   title: 'Arc',
   routes: [
     { title: 'Arc', route: '/radialarc/arc' },
-    { title: 'Petal', route: '/radialarc/petal' },
+    { title: 'Envelope', route: '/radialarc/envelope' },
     { title: 'Segment', route: '/radialarc/segment' },
     { title: 'Text', route: '/radialarc/text' },
   ],

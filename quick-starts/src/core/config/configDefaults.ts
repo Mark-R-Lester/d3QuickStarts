@@ -19,7 +19,7 @@ import { PlottedTextConfig } from '../../plots/plottedText/types'
 import {
   ArcConfig,
   ArcConfigBase,
-  ArcPetalConfig,
+  ArcEnvelopeConfig,
   ArcSegmentConfig,
 } from '../../radialArc/radialArc/types'
 import {
@@ -294,7 +294,7 @@ export const arcConfig: ArcConfig = {
   outerRadius: 100,
 }
 
-export const arcPetalConfig: ArcPetalConfig = {
+export const arcEnvelopeConfig: ArcEnvelopeConfig = {
   ...arcConfigBase,
 }
 
@@ -428,4 +428,11 @@ export const centroidSpokesConfig: CentroidSpokesConfig = {
   defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
   defaultStrokeOpacity: 0.5,
   numberOfSpokes: 5,
+}
+
+export const unboundTextConfig: PlottedTextConfig = {
+  layerType: QsEnumLayerType.UNBOUND,
+  defaultDecimalPoints: 0,
+  defaultCooridinateView: QsEnumCoordinateView.SHOW_X_AND_Y,
+  ...textDefaults,
 }

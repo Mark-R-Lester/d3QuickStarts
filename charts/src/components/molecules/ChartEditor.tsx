@@ -21,6 +21,7 @@ import {
   QsEnumScaleType,
   qsCreateCanvasPlotted,
   qsCreateCanvasRadial,
+  QsEnumColorLightBlues,
 } from 'd3qs/d3QuickStart'
 import { styled } from '@mui/material/styles'
 
@@ -73,6 +74,7 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
         'QsEnumLineCap',
         'QsEnumAxisScaleType',
         'QsEnumScaleType',
+        'QsEnumColorLightBlues',
         `return (function() { ${jsCode} })()`
       )
       func(
@@ -90,7 +92,8 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
         QsEnumLineJoin,
         QsEnumLineCap,
         QsEnumAxisScaleType,
-        QsEnumScaleType
+        QsEnumScaleType,
+        QsEnumColorLightBlues
       )
     } catch (execError) {
       console.log(execError)

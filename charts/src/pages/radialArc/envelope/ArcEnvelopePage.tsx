@@ -2,14 +2,14 @@ import { Box, Typography } from '@mui/material'
 import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { defaultsContent, configAndData, editorContent } from './Content'
-import { ArcPetalChart } from './ArcPetalChart'
 
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
+import { ArcEnvelopeChart } from './ArcEnvelopeChart'
 
-export default function ArcPetalPage() {
+export default function ArcEnvelopePage() {
   const menuElements: JSX.Element[] = [
-    <ArcPetalChart
+    <ArcEnvelopeChart
       canvasConfig={{
         chartName: 'radialPie',
         width: 130,
@@ -34,7 +34,7 @@ export default function ArcPetalPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Petals
+        Envelopes
       </Typography>
       <ChartButtonGrid
         onClick={onClick}

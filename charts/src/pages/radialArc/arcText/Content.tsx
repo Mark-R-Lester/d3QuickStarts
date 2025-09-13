@@ -4,12 +4,12 @@ import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import { RadialTextDefaultsChart } from './RadialTextDefaultsChart'
-import { RadialTextConfigChart } from './RadialTextConfigChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
+import { ArcTextChart } from './ArcTextChart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
@@ -18,45 +18,135 @@ const canvasConfig: string = `const canvasConfig = {
   borderColor: 'grey',
 }`
 
-const defaultsChart: string = `
- const data: QsArcTextData[] = [
+const data1: string = `const data: QsArcTextData[] = [
   { value: 10, text: 'Ten' },
   { value: 20, text: 'Twenty' },
   { value: 30, text: 'Thirty' },
   { value: 40, text: 'Forty' },
   { value: 50, text: 'Fifty' },
-]
+]`
 
-const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.arc.text.follow(data)`
 
-const configChart: string = `
-  const data: QsArcTextData[] = [
-    { value: 10, text: 'Ten' },
-    { value: 20, text: 'Twenty' },
-    { value: 30, text: 'Thirty' },
-    { value: 40, text: 'Forty' },
-    { value: 50, text: 'Fifty' },
-  ]
+const config2: string = `const config: QsArcTextConfig = {  }`
 
-  const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-  canvas.generate.arc.text.follow(data, {
-    radius: 100,
-    x: 50,
-    y: 50,
-    textFont: QsEnumTextFont.ARIAL,
-    textFontSize: 6,
-    textFontStyle: QsEnumTextFontStyle.ITALIC,
-    textFontWeight: QsEnumTextFontWeight.NORMAL,
-    textDecorationLine: QsEnumTextDecorationLine.OVERLINE_UNDERLINE,
-    textFill: 'orange',
-    textStroke: 'purple',
-    textAnchor: QsEnumTextAnchor.MIDDLE,
-  })`
+const data2: string = `const data: QsArcTextData[] = [
+  { value: 10, text: 'Ten' },
+  { value: 20, text: 'Twenty' },
+  { value: 30, text: 'Thirty' },
+  { value: 40, text: 'Forty' },
+  { value: 50, text: 'Fifty' },
+]`
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+canvas.generate.arc.text.follow(data, config)`
 
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              Envelopes in data visualization extend two-dimensional
+              representation by outlining hybrid charts that merge pie chart
+              sectors with rose chart radial emphasis, where angular positions
+              denote categories and envelope boundaries encapsulate data
+              magnitudes. This approach proves useful for meaningful
+              comparisons, as it highlights proportional differences through
+              enclosed areas rather than mere slices, revealing insights at a
+              glance. For instance, in football stats, an envelope could
+              represent passes attempted along one axis and completions along
+              another; a player with low attempts and low completions might show
+              a narrow, contracted envelope, while one with balanced efficiency
+              covers a larger, fuller area, enabling quick visual assessment of
+              performance across teams or matches without complex calculations.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Using default library settings, envelopes are generated with
+                    a solid color and have a small gap between them, as can be
+                    seen here. Of course in isolation it's not very useful.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={data1} />
+                  <ContentCodeBox code={chart1} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <ArcTextChart
+                    canvasConfig={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 45,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Using config and data to modify appearance
+            </Typography>,
+            <Typography variant="body1">
+              Configuration settings govern envelope appearance, enabling
+              precise customization of visual attributes such as color and
+              stroke. By tailoring config and data parameters, envelopes can be
+              styled to meet specific aesthetic requirements. Incorporating
+              additional elements, such as axes and text annotations, enhances
+              the visualization, providing meaningful context and clarity.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    The chart uses envelopes to visualize football stats, with
+                    each envelope’s shape representing a player’s passes
+                    attempted versus passes completed. Larger, fuller envelopes
+                    indicate higher completion rates relative to attempts, while
+                    shallower ones suggest inefficiency. Customizable colors and
+                    stroke styles highlight individual players, enhancing visual
+                    distinction. Axes provide scale, and text annotations label
+                    key metrics, making performance trends immediately clear.
+                    This intuitive design allows coaches and analysts to quickly
+                    compare player effectiveness across matches, offering a
+                    powerful tool for strategic insights in a compact, visually
+                    engaging format.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={config2} />
+                  <ContentCodeBox code={data2} />
+                  <ContentCodeBox code={chart2} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <ArcTextChart
+                    canvasConfig={{
+                      chartName: 'chart2',
+                      width: 600,
+                      highestViewableValue: 100,
+                    }}
+                  />
+                  ,
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
 const data: string = `interface QsPlottedLineData {
   coordinates: QsCoordinate[]
   strokeOpacity?: number
@@ -96,112 +186,54 @@ const configExample: string = `const config: QsLinePlotConfig = {
   strokeLineCap: QsEnumLineCap.ROUND,
 }`
 
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text generated with defaults</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <RadialTextDefaultsChart
-              canvasConfig={{
-                chartName: 'chartH',
-                width: 600,
-                highestViewableValue: 156,
-                borderColor: 'grey',
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text customised</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <RadialTextConfigChart
-              canvasConfig={{
-                chartName: 'chartV',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 156,
-                borderColor: 'grey',
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsTextData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={data} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={dataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={data} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsTextConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={config} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
@@ -221,6 +253,6 @@ const canvasConfig = {
   highestViewableValue: 156,
   borderColor: 'grey',
 }
-${configChart}`}
+${chart2}`}
   ></ChartEditor>
 )

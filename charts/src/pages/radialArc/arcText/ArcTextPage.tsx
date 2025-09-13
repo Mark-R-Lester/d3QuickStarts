@@ -4,28 +4,14 @@ import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
-import {
-  defaultsContent,
-  configContent,
-  configAndData,
-  editorContent,
-} from './Content'
-import { RadialTextDefaultsChart } from './RadialTextDefaultsChart'
-import { RadialTextConfigChart } from './RadialTextConfigChart'
+import { defaultsContent, configAndData, editorContent } from './Content'
+import { ArcTextChart } from './ArcTextChart'
 
 export default function RadialArcTextPage() {
   const menuElements: JSX.Element[] = [
-    <RadialTextDefaultsChart
+    <ArcTextChart
       canvasConfig={{
         chartName: 'radialFollowText',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      }}
-    />,
-    <RadialTextConfigChart
-      canvasConfig={{
-        chartName: 'radialSpokeText',
         width: 130,
         lowestViewableValue: 0,
         highestViewableValue: 250,
@@ -37,7 +23,6 @@ export default function RadialArcTextPage() {
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
     configAndData,
     editorContent,
   ]

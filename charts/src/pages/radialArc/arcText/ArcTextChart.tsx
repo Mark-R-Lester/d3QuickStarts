@@ -3,16 +3,10 @@ import {
   QsCanvasRadial,
   qsCreateCanvasRadial,
   QsArcTextData,
-  QsEnumTextAnchor,
-  QsEnumTextDecorationLine,
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumScaleType,
 } from 'd3qs/d3QuickStart'
 import { ChartPropsOthogonal } from '../../../common/chartProps'
 
-export const RadialTextConfigChart: FunctionComponent<ChartPropsOthogonal> = ({
+export const ArcTextChart: FunctionComponent<ChartPropsOthogonal> = ({
   canvasConfig,
 }) => {
   useEffect(() => {
@@ -26,20 +20,7 @@ export const RadialTextConfigChart: FunctionComponent<ChartPropsOthogonal> = ({
       ]
 
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.generate.arc.text.follow(data, {
-        radius: 100,
-        x: 50,
-        y: 50,
-        textFont: QsEnumTextFont.ARIAL,
-        textFontSize: 6,
-        textFontStyle: QsEnumTextFontStyle.ITALIC,
-        textFontWeight: QsEnumTextFontWeight.NORMAL,
-        textDecorationLine: QsEnumTextDecorationLine.OVERLINE_UNDERLINE,
-        textFill: 'orange',
-        textStroke: 'purple',
-        textAnchor: QsEnumTextAnchor.MIDDLE,
-        scaleType: QsEnumScaleType.BANDED,
-      })
+      canvas.generate.arc.text.follow(data)
     }
     createChart()
   }, [canvasConfig])

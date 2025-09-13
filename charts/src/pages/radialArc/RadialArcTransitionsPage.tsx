@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material'
 import { QsColorScaleData, QsEnumColorScale } from 'd3qs/d3QuickStart'
 import { EnumRadialTextOrientation } from '../../common/enums'
-import { RadialTransition } from './arc/RadialTransition'
+import { RadialTransition } from './slice/RadialTransition'
 import { useState } from 'react'
 import { RadialTextTransition } from './arcText/RadialTextTransition'
 import { ChartButtonGrid } from '../../components/molecules/ChartButtonGrid'

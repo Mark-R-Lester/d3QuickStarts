@@ -1,18 +1,24 @@
 import { RadialTextType } from '../../core/enums/enums'
+import {
+  QsEnumAlignmentBaseline,
+  QsEnumTextAnchor,
+  QsEnumTextDecorationLine,
+  QsEnumTextFontStyle,
+} from '../../core/enums/qsEnums'
 import { getRotationFunction } from './textRotation'
 import { TextArcData } from './types'
 
 describe('color functions', () => {
   const bandData: TextArcData = {
     textId: '',
-    textClass: '',
     arcId: '',
-    arcClass: '',
     newData: {
       value: 0,
+      decimalPoints: 0,
     },
     data: {
       value: 0,
+      decimalPoints: 0,
     },
     index: 0,
     value: 0,
@@ -22,6 +28,16 @@ describe('color functions', () => {
     endAngle: 0,
     outerRadius: 0,
     innerRadius: 0,
+    decimalPoints: 0,
+    textFont: '',
+    textFontSize: 0,
+    textFontStyle: QsEnumTextFontStyle.OBLIQUE,
+    textFontWeight: 0,
+    textDecorationLine: QsEnumTextDecorationLine.NORMAL,
+    textFill: '',
+    textAnchor: QsEnumTextAnchor.START,
+    textStroke: '',
+    textAlignmentBaseline: QsEnumAlignmentBaseline.AUTO,
   }
   describe('getPrecidendedColor', () => {
     test.each`

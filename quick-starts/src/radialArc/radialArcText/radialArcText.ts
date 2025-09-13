@@ -88,17 +88,6 @@ const draw = <T>(
   type: RadialTextType,
   config: ArcTextConfig
 ): T => {
-  const {
-    defaultDecimalPoints,
-    textFont,
-    textFontStyle,
-    textFontWeight,
-    textDecorationLine,
-    textFill,
-    textStroke,
-    textAnchor,
-  } = config
-
   const rotate: (angles: TextArcData) => number = getRotationFunction(type)
 
   let calculatedData: QsCalculatedDataArcText = getCalculatedData(
@@ -129,21 +118,22 @@ const draw = <T>(
       .append('text')
       .attr('class', className)
       .attr('id', (d) => d.textId)
-      .attr('font-family', textFont)
-      .attr('font-style', textFontStyle)
-      .attr('font-weight', textFontWeight)
-      .attr('font-size', `${calculatedData.textFontSize}px`)
-      .attr('text-decoration', textDecorationLine)
-      .attr('fill', textFill)
-      .attr('stroke', textStroke)
-      .style('text-anchor', textAnchor)
+      .attr('font-family', (d) => d.textFont)
+      .attr('font-style', (d) => d.textFontStyle)
+      .attr('font-weight', (d) => d.textFontWeight)
+      .attr('font-size', (d) => `${d.textFontSize}px`)
+      .attr('text-decoration', (d) => d.textDecorationLine)
+      .attr('fill', (d) => d.textFill)
+      .attr('stroke', (d) => d.textStroke)
+      .style('text-anchor', (d) => d.textAnchor)
+      .style('alignment-baseline', (d) => d.textAlignmentBaseline)
       .attr(
         'transform',
         (d) => `translate(${arc.centroid(d)}) rotate(${rotate(d)})`
       )
       .attr('dy', '0.35em')
       .text((d) =>
-        d.data.text ? d.data.text : d.data.value.toFixed(defaultDecimalPoints)
+        d.data.text ? d.data.text : d.data.value.toFixed(d.decimalPoints)
       )
   } else {
     arcs
@@ -164,19 +154,20 @@ const draw = <T>(
       .append('text')
       .attr('class', className)
       .attr('id', (d) => d.textId)
-      .attr('font-family', textFont)
-      .attr('font-style', textFontStyle)
-      .attr('font-weight', textFontWeight)
-      .attr('font-size', `${calculatedData.textFontSize}px`)
-      .attr('text-decoration', textDecorationLine)
-      .attr('fill', textFill)
-      .attr('stroke', textStroke)
-      .style('text-anchor', textAnchor)
+      .attr('font-family', (d) => d.textFont)
+      .attr('font-style', (d) => d.textFontStyle)
+      .attr('font-weight', (d) => d.textFontWeight)
+      .attr('font-size', (d) => `${d.textFontSize}px`)
+      .attr('text-decoration', (d) => d.textDecorationLine)
+      .attr('fill', (d) => d.textFill)
+      .attr('stroke', (d) => d.textStroke)
+      .style('text-anchor', (d) => d.textAnchor)
+      .style('alignment-baseline', (d) => d.textAlignmentBaseline)
       .append('textPath')
       .attr('startOffset', '25%')
       .attr('xlink:href', (d) => `#${d.arcId}`)
       .text((d) =>
-        d.data.text ? d.data.text : d.data.value.toFixed(defaultDecimalPoints)
+        d.data.text ? d.data.text : d.data.value.toFixed(d.decimalPoints)
       )
   }
 
@@ -211,7 +202,7 @@ const draw = <T>(
           const tweenText = interpolate(d.data.value, d.newData.value)
           return (t: number) => {
             d.data.value = tweenText(t)
-            return d.data.value.toFixed(defaultDecimalPoints)
+            return d.data.value.toFixed(d.decimalPoints)
           }
         })
     } else {
@@ -245,7 +236,7 @@ const draw = <T>(
             const tweenText = interpolate(d.data.value, d.newData.value)
             return (t: number) => {
               d.data.value = tweenText(t)
-              return d.data.value.toFixed(defaultDecimalPoints)
+              return d.data.value.toFixed(d.decimalPoints)
             }
           })
       })

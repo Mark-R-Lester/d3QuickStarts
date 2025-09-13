@@ -35,7 +35,22 @@ export const getCalculatedData = (
   config: ArcTextConfig
 ): QsCalculatedDataArcText => {
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
-  const { radius, x, y, textFontSize, scaleType } = config
+  const {
+    radius,
+    x,
+    y,
+    scaleType,
+    defaultTextFont,
+    defaultTextFontSize,
+    defaultTextFontStyle,
+    defaultTextFontWeight,
+    defaultTextDecorationLine,
+    defaultTextFill,
+    defaultTextAnchor,
+    defaultTextStroke,
+    defaultDecimalPoints,
+    defaultTextAlignmentBaseline,
+  } = config
 
   const bandData = (data: QsArcTextData[], min?: boolean): TextArcData[] => {
     let totalValue = 0
@@ -53,9 +68,7 @@ export const getCalculatedData = (
       const endAngle = startAngle + radiansDividedByTotalValue * d.value
       const res = {
         textId: `text${uuidv4()}`,
-        textClass: `text`,
         arcId: `arc${uuidv4()}`,
-        arcClass: `arc`,
         newData: data,
         data,
         index,
@@ -66,26 +79,36 @@ export const getCalculatedData = (
         endAngle,
         outerRadius: min ? 0 : yPercentScale(radius / 2),
         innerRadius: min ? 0 : yPercentScale(radius / 2),
+        textFont: d.textFont ?? defaultTextFont,
+        textFontSize: genralPercentScale(d.textFontSize ?? defaultTextFontSize),
+        textFontStyle: d.textFontStyle ?? defaultTextFontStyle,
+        textFontWeight: d.textFontWeight ?? defaultTextFontWeight,
+        textDecorationLine: d.textDecorationLine ?? defaultTextDecorationLine,
+        textFill: d.textFill ?? defaultTextFill,
+        textAnchor: d.textAnchor ?? defaultTextAnchor,
+        textStroke: d.textStroke ?? defaultTextStroke,
+        decimalPoints: d.decimalPoints ?? defaultDecimalPoints,
+        textAlignmentBaseline:
+          d.textAlignmentBaseline ?? defaultTextAlignmentBaseline,
       }
       startAngle = endAngle
       return res
     })
   }
-  const pointData = (data: QsArcTextData[], min?: boolean): TextArcData[] =>
-    bandData(data, min).map((d) => {
-      const offSet = (d.endAngle - d.startAngle) / 2
-      d.startAngle = d.startAngle - offSet
-      d.endAngle = d.endAngle - offSet
-      return d
+
+  const pointData = (data: QsArcTextData[]): TextArcData[] => {
+    const anglePerElement = (2 * Math.PI) / data.length
+    return bandData(data).map((d, index) => {
+      const startAngle = anglePerElement * index - anglePerElement / 2
+      const endAngle = startAngle + anglePerElement
+      return { ...d, startAngle, endAngle }
     })
+  }
 
   return {
-    arcClass: 'arc',
-    textClass: 'text',
     textArcData:
       scaleType === QsEnumScaleType.BANDED ? bandData(data) : pointData(data),
     x: xPercentScale(x),
     y: yPercentScale(y),
-    textFontSize: genralPercentScale(textFontSize),
   }
 }

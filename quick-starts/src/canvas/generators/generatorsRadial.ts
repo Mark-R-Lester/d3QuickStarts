@@ -59,6 +59,7 @@ import { unboundText } from '../../unbound/text/text'
 import {
   QsCentroidText,
   QsCentroidTextConfig,
+  QsCentroidTextData,
 } from '../../radialCentroid/radialCentroidText/qsTypes'
 import { radialText } from '../../radialCentroid/radialCentroidText/centroidText'
 import { Canvas } from '../types'
@@ -113,7 +114,7 @@ interface CentroidElementFunctions {
   ) => QsCentroidPoints
   spokes: (customConfig?: QsCentroidSpokesConfig) => QsCentroidSpokes
   text: (
-    data: QsArcTextData[],
+    data: QsCentroidTextData[],
     customConfig?: QsCentroidTextConfig
   ) => QsCentroidText
 }
@@ -242,7 +243,7 @@ export const getGenerators = (canvas: Canvas): QsGeneratorRadial => {
         return element
       },
       text: (
-        data: QsArcTextData[],
+        data: QsCentroidTextData[],
         customConfig?: QsCentroidTextConfig
       ): QsCentroidText => {
         const element = radialText.text(canvas, data, customConfig)

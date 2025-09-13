@@ -168,7 +168,6 @@ export const defaultsContent: JSX.Element = (
                     }}
                     config={{ scaleType: QsEnumScaleType.BANDED }}
                   />
-                  ,
                 </ContentChartBox>,
               ]}
             />,
@@ -191,16 +190,8 @@ export const defaultsContent: JSX.Element = (
                       width: 600,
                       highestViewableValue: 20,
                     }}
-                    data={[
-                      { value: 1, text: '10' },
-                      { value: 1, text: '15' },
-                      { value: 1, text: '10' },
-                      { value: 1, text: '15' },
-                      { value: 1, text: '20' },
-                    ]}
-                    config={{ scaleType: QsEnumScaleType.LINEAR }}
+                    config={{ scaleType: QsEnumScaleType.LINEAR, radius: 110 }}
                   />
-                  ,
                 </ContentChartBox>,
               ]}
             />,

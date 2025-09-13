@@ -1,6 +1,7 @@
 import { QsCalculatedDataArcText, ArcTextConfig } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { LayerActions } from '../../canvas/createCanvasElement'
+import { TextData } from '../../core/types/types'
 export { QsCalculatedDataArcText as QsCalculatedDataRadialText } from './types'
 
 export type QsArcTextConfig = Partial<ArcTextConfig>
@@ -27,7 +28,10 @@ export interface QsArcTextFollow {
   transition: (data: QsArcTextTransitionData) => void
 }
 
-export interface QsArcTextData {
+export interface QsArcTextData extends Partial<TextData> {
   value: number
   text?: string
+  decimalPoints?: number
+  textAngle?: never
+  textAlignmentBaseline?: never
 }

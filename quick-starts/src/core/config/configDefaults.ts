@@ -312,6 +312,15 @@ const radialArcTextConfigBase: ArcTextConfigBase = {
   textFill: GlobalDefaultColors.TEXT_FILL_COLOR,
   textAngle: GlobalDefaultSettings.TEXT_ANGLE,
   textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
+  defaultTextFont: QsEnumTextFont.SERIF,
+  defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
+  defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
+  defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
+  defaultTextDecorationLine: QsEnumTextDecorationLine.NORMAL,
+  defaultTextFill: GlobalDefaultColors.TEXT_FILL_COLOR,
+  defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
+  defaultTextStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
+  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.AUTO,
 }
 
 export const radialArcTextConfigRotated: ArcTextConfig = {

@@ -1,32 +1,25 @@
 import {
-  QsEnumTextFont,
-  QsEnumTextFontStyle,
-  QsEnumTextFontWeight,
-  QsEnumTextDecorationLine,
   QsEnumTextAnchor,
   QsEnumScaleType,
   QsEnumLayerType,
 } from '../../core/enums/qsEnums'
+import { ConfigTextDefaults, TextData } from '../../core/types/types'
 import { QsArcTextData } from './qsTypes'
 
-export interface ArcTextConfigBase {
+export interface ArcTextConfigBase
+  extends Omit<ConfigTextDefaults, 'defaultTextAngle'> {
   [key: string]:
     | number
     | Iterable<unknown>
     | Iterable<string>
     | undefined
     | boolean
+    | undefined
   x: number
   y: number
   scaleType: QsEnumScaleType
   defaultDecimalPoints: number
-  textFont: QsEnumTextFont | string
-  textFontSize: number
-  textFontStyle: QsEnumTextFontStyle
-  textFontWeight: QsEnumTextFontWeight | number
-  textDecorationLine: QsEnumTextDecorationLine
-  textFill: string
-  textStroke: string
+  defaultTextAngle?: never
 }
 
 export interface ArcTextConfig extends ArcTextConfigBase {
@@ -42,19 +35,14 @@ export interface ArcTextConfig extends ArcTextConfigBase {
 }
 
 export interface QsCalculatedDataArcText {
-  arcClass: string
-  textClass: string
   textArcData: TextArcData[]
   x: number
   y: number
-  textFontSize: number
 }
 
-export interface TextArcData {
+export interface TextArcData extends Omit<TextData, 'textAngle'> {
   textId: string
-  textClass: string
   arcId: string
-  arcClass: string
   newData: QsArcTextData
   data: QsArcTextData
   index: number
@@ -65,4 +53,5 @@ export interface TextArcData {
   endAngle: number
   outerRadius: number
   innerRadius: number
+  decimalPoints: number
 }

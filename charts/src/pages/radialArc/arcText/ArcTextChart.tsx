@@ -2,28 +2,43 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasRadial,
   qsCreateCanvasRadial,
-  QsArcTextData,
+  QsEnumScaleType,
 } from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../../common/chartProps'
+import { ArcTextChartProps } from '../../../common/chartProps'
 
-export const ArcTextChart: FunctionComponent<ChartPropsOthogonal> = ({
+export const ArcTextChart: FunctionComponent<ArcTextChartProps> = ({
   canvasConfig,
+  config = {},
+  data = [
+    { value: 10 },
+    { value: 15 },
+    { value: 10 },
+    { value: 15 },
+    { value: 20 },
+  ],
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const data: QsArcTextData[] = [
-        { value: 10, text: 'Ten' },
-        { value: 20, text: 'Twenty' },
-        { value: 30, text: 'Thirty' },
-        { value: 40, text: 'Forty' },
-        { value: 50, text: 'Fifty' },
-      ]
-
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-      canvas.generate.arc.text.follow(data)
+      canvas.generate.arc.text.follow(data, config)
+      if (config.scaleType === QsEnumScaleType.BANDED)
+        canvas.generate.arc.slice(
+          [
+            { valueArc: 10 },
+            { valueArc: 15 },
+            { valueArc: 10 },
+            { valueArc: 15 },
+            { valueArc: 20 },
+          ],
+          config
+        )
+      else if (config.scaleType === QsEnumScaleType.LINEAR) {
+        canvas.generate.centroid.area({ highValues: [10, 15, 10, 15, 20] })
+        canvas.generate.centroid.spokes({ numberOfSpokes: 5 })
+      }
     }
     createChart()
-  }, [canvasConfig])
+  }, [canvasConfig, config, data])
 
   return (
     <>

@@ -10,24 +10,63 @@ import {
 } from '../../../components/atoms/content/ContentStyled'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 import { ArcTextChart } from './ArcTextChart'
+import { ArcTextAllChart } from './ArcTextAllChart'
+import { QsEnumScaleType } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
-  highestViewableValue: 156,
+  highestViewableValue: 20,
   borderColor: 'grey',
 }`
 
-const data1: string = `const data: QsArcTextData[] = [
-  { value: 10, text: 'Ten' },
-  { value: 20, text: 'Twenty' },
-  { value: 30, text: 'Thirty' },
-  { value: 40, text: 'Forty' },
-  { value: 50, text: 'Fifty' },
+const config1: string = `const config1: QsArcTextConfig = {
+  radius: 100,
+}
+const config2: QsArcTextConfig = {
+  radius: 110,
+}
+const config3: QsArcTextConfig = {
+  radius: 60,
+}
+const config4: QsArcTextConfig = {
+  radius: 90,
+}`
+
+const data1: string = `const data1: QsArcTextData[] = [
+  { value: 1, text: 'following the arc' },
+  { value: 1, text: 'following the arc' },
+  { value: 1, text: 'following the arc' },
+  { value: 1, text: 'following the arc' },
+  { value: 1, text: 'following the arc' },
+]
+const data2: QsArcTextData[] = [
+  { value: 1, text: 'spokes' },
+  { value: 1, text: 'spokes' },
+  { value: 1, text: 'spokes' },
+  { value: 1, text: 'spokes' },
+  { value: 1, text: 'spokes' },
+]
+const data3: QsArcTextData[] = [
+  { value: 1, text: 'horizontal' },
+  { value: 1, text: 'horizontal' },
+  { value: 1, text: 'horizontal' },
+  { value: 1, text: 'horizontal' },
+  { value: 1, text: 'horizontal' },
+]
+const data4: QsArcTextData[] = [
+  { value: 1, text: 'rotated' },
+  { value: 1, text: 'rotated' },
+  { value: 1, text: 'rotated' },
+  { value: 1, text: 'rotated' },
+  { value: 1, text: 'rotated' },
 ]`
 
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.arc.text.follow(data)`
+canvas.generate.arc.text.follow(data1, config1)
+canvas.generate.arc.text.spokes(data2, config2)
+canvas.generate.arc.text.horizontal(data3, config3)
+canvas.generate.arc.text.rotated(data4, config4)`
 
 const config2: string = `const config: QsArcTextConfig = {  }`
 
@@ -76,11 +115,12 @@ export const defaultsContent: JSX.Element = (
                     seen here. Of course in isolation it's not very useful.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={config1} />
                   <ContentCodeBox code={data1} />
                   <ContentCodeBox code={chart1} />
                 </ContentTextBox>,
                 <ContentChartBox>
-                  <ArcTextChart
+                  <ArcTextAllChart
                     canvasConfig={{
                       chartName: 'chart1',
                       width: 600,
@@ -113,16 +153,6 @@ export const defaultsContent: JSX.Element = (
                   <Typography variant="body2" gutterBottom>
                     The chart uses envelopes to visualize football stats, with
                     each envelope’s shape representing a player’s passes
-                    attempted versus passes completed. Larger, fuller envelopes
-                    indicate higher completion rates relative to attempts, while
-                    shallower ones suggest inefficiency. Customizable colors and
-                    stroke styles highlight individual players, enhancing visual
-                    distinction. Axes provide scale, and text annotations label
-                    key metrics, making performance trends immediately clear.
-                    This intuitive design allows coaches and analysts to quickly
-                    compare player effectiveness across matches, offering a
-                    powerful tool for strategic insights in a compact, visually
-                    engaging format.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
                   <ContentCodeBox code={config2} />
@@ -136,6 +166,39 @@ export const defaultsContent: JSX.Element = (
                       width: 600,
                       highestViewableValue: 100,
                     }}
+                    config={{ scaleType: QsEnumScaleType.BANDED }}
+                  />
+                  ,
+                </ContentChartBox>,
+              ]}
+            />,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    The chart uses envelopes to visualize football stats, with
+                    each envelope’s shape representing a player’s passes
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={config2} />
+                  <ContentCodeBox code={data2} />
+                  <ContentCodeBox code={chart2} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <ArcTextChart
+                    canvasConfig={{
+                      chartName: 'chart3',
+                      width: 600,
+                      highestViewableValue: 20,
+                    }}
+                    data={[
+                      { value: 1, text: '10' },
+                      { value: 1, text: '15' },
+                      { value: 1, text: '10' },
+                      { value: 1, text: '15' },
+                      { value: 1, text: '20' },
+                    ]}
+                    config={{ scaleType: QsEnumScaleType.LINEAR }}
                   />
                   ,
                 </ContentChartBox>,
@@ -253,6 +316,7 @@ const canvasConfig = {
   highestViewableValue: 156,
   borderColor: 'grey',
 }
-${chart2}`}
+${data1}
+${chart1}`}
   ></ChartEditor>
 )

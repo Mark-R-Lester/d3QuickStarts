@@ -40,7 +40,7 @@ import {
   QsArcSegmentConfig,
   QsArcSegmentData,
 } from 'd3qs/d3QuickStart'
-import { EnumOrientation, EnumRadialTextOrientation } from './enums'
+import { EnumOrientation } from './enums'
 import {
   QsCentroidTextConfig,
   QsCentroidTextData,
@@ -137,7 +137,6 @@ export interface CentroidSpokesChartProps extends ChartPropsRadial {
 export interface ArcTextChartProps extends ChartPropsRadial {
   config?: QsArcTextConfig
   data?: QsArcTextData[]
-  orientation: EnumRadialTextOrientation
 }
 
 export interface ArcChartProps extends ChartPropsRadial {

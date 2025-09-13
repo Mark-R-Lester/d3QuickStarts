@@ -1,6 +1,5 @@
 import { Box, Typography } from '@mui/material'
 import { QsColorScaleData, QsEnumColorScale } from 'd3qs/d3QuickStart'
-import { EnumRadialTextOrientation } from '../../common/enums'
 import { RadialTransition } from './slice/RadialTransition'
 import { useState } from 'react'
 import { RadialTextTransition } from './arcText/RadialTextTransition'
@@ -26,35 +25,8 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      orientation={EnumRadialTextOrientation.FOLLOW}
     />,
-    <RadialTextTransition
-      canvasConfig={{
-        chartName: 'radialTextSkokeTransition',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 40,
-      }}
-      orientation={EnumRadialTextOrientation.SPOKE}
-    />,
-    <RadialTextTransition
-      canvasConfig={{
-        chartName: 'radialTextHorizontalTransition',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 40,
-      }}
-      orientation={EnumRadialTextOrientation.HORIZONTAL}
-    />,
-    <RadialTextTransition
-      canvasConfig={{
-        chartName: 'radialTextRotatedTransition',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 40,
-      }}
-      orientation={EnumRadialTextOrientation.ROTATED}
-    />,
+
     <RadialTransition
       canvasConfig={{
         chartName: 'radialRadialColorTransition',
@@ -90,35 +62,8 @@ export default function RadialTransitionsPage() {
         lowestViewableValue: 0,
         highestViewableValue: 40,
       }}
-      orientation={EnumRadialTextOrientation.FOLLOW}
     />,
-    <RadialTextTransition
-      canvasConfig={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 40,
-      }}
-      orientation={EnumRadialTextOrientation.SPOKE}
-    />,
-    <RadialTextTransition
-      canvasConfig={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 40,
-      }}
-      orientation={EnumRadialTextOrientation.HORIZONTAL}
-    />,
-    <RadialTextTransition
-      canvasConfig={{
-        chartName: 'chart',
-        width: 800,
-        lowestViewableValue: 0,
-        highestViewableValue: 40,
-      }}
-      orientation={EnumRadialTextOrientation.ROTATED}
-    />,
+
     <RadialTransition
       canvasConfig={{
         chartName: 'chart',

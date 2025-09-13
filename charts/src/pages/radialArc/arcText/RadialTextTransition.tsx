@@ -9,13 +9,11 @@ import {
   QsArcTextFollow,
 } from 'd3qs/d3QuickStart'
 import { ArcTextChartProps } from '../../../common/chartProps'
-import { EnumRadialTextOrientation } from '../../../common/enums'
 
 export const RadialTextTransition: FunctionComponent<ArcTextChartProps> = ({
   canvasConfig,
   config,
   data = [{ value: 25 }, { value: 10 }, { value: 15 }],
-  orientation,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element1, setElement1] = useState<QsRadialArcText | QsArcTextFollow>()
@@ -25,14 +23,7 @@ export const RadialTextTransition: FunctionComponent<ArcTextChartProps> = ({
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
-      if (orientation === EnumRadialTextOrientation.FOLLOW)
-        setElement1(canvas.generate.arc.text.follow(data, config))
-      if (orientation === EnumRadialTextOrientation.SPOKE)
-        setElement1(canvas.generate.arc.text.spokes(data, config))
-      if (orientation === EnumRadialTextOrientation.HORIZONTAL)
-        setElement1(canvas.generate.arc.text.horizontal(data, config))
-      if (orientation === EnumRadialTextOrientation.ROTATED)
-        setElement1(canvas.generate.arc.text.rotated(data, config))
+      setElement1(canvas.generate.arc.text.follow(data, config))
 
       const radialArgs: QsArcSliceData[] = [
         { valueArc: 0, fillColor: 'red' },
@@ -45,7 +36,7 @@ export const RadialTextTransition: FunctionComponent<ArcTextChartProps> = ({
       setElement2(canvas.generate.arc.slice(radialArgs))
     }
     createChart()
-  }, [canvasConfig, config, data, orientation])
+  }, [canvasConfig, config, data])
 
   useEffect(
     function transitionData() {

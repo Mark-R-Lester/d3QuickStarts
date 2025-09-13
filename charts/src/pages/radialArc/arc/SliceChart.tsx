@@ -6,7 +6,7 @@ import {
 } from 'd3qs/d3QuickStart'
 import { ArcChartProps } from '../../../common/chartProps'
 
-export const ArcChart: FunctionComponent<ArcChartProps> = ({
+export const SliceChart: FunctionComponent<ArcChartProps> = ({
   canvasConfig,
   config = {},
   config2 = {},

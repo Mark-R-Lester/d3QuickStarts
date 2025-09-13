@@ -46,7 +46,6 @@ export const getCalculatedData = (
   const { xPercentScale, yPercentScale, genralPercentScale, radialDataScale } =
     canvas.scales
   const {
-    cornerRadius,
     x,
     y,
     defaultFillColor,
@@ -128,7 +127,6 @@ export const getCalculatedData = (
         ),
         index: i,
         value: d.valueArc,
-        cornerRadius: yPercentScale(cornerRadius / 2),
         outerRadius: d.valueRad
           ? radialDataScale(d.valueRad)
           : yPercentScale(outerRadius ? outerRadius / 2 : 50),

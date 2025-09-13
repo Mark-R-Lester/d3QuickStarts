@@ -276,7 +276,6 @@ export const plottedTextConfig: PlottedTextConfig = {
 export const arcConfigBase: ArcConfigBase = {
   layerType: QsEnumLayerType.DATA,
   padding: 0.1,
-  cornerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultFillColor: GlobalDefaultColors.FILL_COLOR,

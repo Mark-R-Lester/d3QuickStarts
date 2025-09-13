@@ -220,7 +220,6 @@ const config: string = `interface QsArcEnvelopeConfig {
   innerRadius?: never
   innerRadius?: Never
   padding?: number
-  cornerRadius?: number
   x?: number
   y?: number
   defaultFillColor?: string
@@ -245,7 +244,6 @@ const dataExample: string = `const data: QsArcEnvelopeData = {
 const configExample: string = `const config: QsArcEnvelopeConfig = {
   layerType: QsEnumLayerType.DATA
   padding: 3,
-  cornerRadius: 3,
   x: 50,
   y: 50,
   defaultFillColor: 'blue',

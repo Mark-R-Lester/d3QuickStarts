@@ -208,7 +208,6 @@ const config: string = `interface QsArcSegmentConfig {
   outerRadius?: never
   innerRadius?: never
   padding?: number
-  cornerRadius?: number
   x?: number
   y?: number
   defaultFillColor?: string
@@ -232,7 +231,6 @@ const dataExample: string = `const data: QsArcSegmentData = {
 const configExample: string = `const config: QsArcSegmentConfig = {
   layerType: QsEnumLayerType.DATA
   padding: 3,
-  cornerRadius: 3,
   x: 50,
   y: 50,
   defaultFillColor: 'blue',

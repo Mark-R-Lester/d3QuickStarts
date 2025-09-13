@@ -5,7 +5,6 @@ import { QsEnumLayerType } from '../../core/enums/qsEnums'
 export interface ArcConfigBase extends ConfigStrokeDefaults {
   layerType: QsEnumLayerType
   padding: number
-  cornerRadius: number
   x: number
   y: number
   defaultFillColor: string
@@ -31,7 +30,6 @@ export interface QsCalculatedDataArc {
 
 export interface CalculatedArcData extends StrokeData {
   data: number
-  cornerRadius: number
   outerRadius: number
   innerRadius: number
   newStartAngle: number

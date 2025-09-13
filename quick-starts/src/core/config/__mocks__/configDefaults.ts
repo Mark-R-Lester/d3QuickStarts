@@ -236,7 +236,6 @@ export const arcSliceConfig: QsArcSliceConfig = {
   outerRadius: 100,
   innerRadius: 0,
   padding: 0,
-  cornerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultFillColor: GlobalDefaultColors.POINT_FILL,
@@ -250,7 +249,6 @@ export const arcSliceConfig: QsArcSliceConfig = {
 
 export const arcSegmentConfig: QsArcSegmentConfig = {
   padding: 0,
-  cornerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultFillColor: GlobalDefaultColors.POINT_FILL,
@@ -264,7 +262,6 @@ export const arcSegmentConfig: QsArcSegmentConfig = {
 
 export const arcEnvelopeConfig: QsArcEnvelopeConfig = {
   padding: 0,
-  cornerRadius: 0,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultFillColor: GlobalDefaultColors.POINT_FILL,

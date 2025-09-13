@@ -8,7 +8,7 @@ import {
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import { ArcChart } from './RadialConfigChart'
+import { SliceChart } from './SliceChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 import { QsEnumColorScale } from 'd3qs/d3QuickStart'
 
@@ -65,7 +65,7 @@ export const defaultsContent: JSX.Element = (
                   <ContentCodeBox code={chart1} />
                 </ContentTextBox>,
                 <ContentChartBox>
-                  <ArcChart
+                  <SliceChart
                     canvasConfig={{
                       chartName: 'chart1',
                       width: 600,
@@ -102,7 +102,7 @@ export const defaultsContent: JSX.Element = (
                   <ContentCodeBox code={chart2} />
                 </ContentTextBox>,
                 <ContentChartBox>
-                  <ArcChart
+                  <SliceChart
                     canvasConfig={{
                       chartName: 'chart2',
                       width: 600,
@@ -136,7 +136,7 @@ export const defaultsContent: JSX.Element = (
                   <ContentCodeBox code={chart2} />
                 </ContentTextBox>,
                 <ContentChartBox>
-                  <ArcChart
+                  <SliceChart
                     canvasConfig={{
                       chartName: 'chart3',
                       width: 600,
@@ -210,7 +210,6 @@ const config: string = `interface QsRadialConfig {
   outerRadius?: number
   innerRadius?: number
   padding?: number
-  cornerRadius?: number
   x?: number
   y?: number
   defaultFillColor?: string
@@ -232,10 +231,10 @@ const dataExample: string = `const data: QsArcData = {
 }`
 
 const configExample: string = `const config: QsRadialConfig = {
+  layerType: QsEnumLayerType
   outerRadius: 90,
   innerRadius: 0,
   padding: 3,
-  cornerRadius: 3,
   x: 50,
   y: 50,
   defaultFillColor: 'blue',

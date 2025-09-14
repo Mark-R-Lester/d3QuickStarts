@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { QsCalculatedDataArcText, ArcTextConfig, TextArcData } from './types'
 import { QsArcTextData } from './qsTypes'
 import { Canvas } from '../../canvas/types'
-import { QsEnumScaleType } from '../../core/enums/qsEnums'
+import { QsEnumArcTextRadialPosition } from './qsEnums'
 
 export const updateCalculatedData = (
   canvas: Canvas,
@@ -39,7 +39,7 @@ export const getCalculatedData = (
     radius,
     x,
     y,
-    scaleType,
+    radialPosition,
     defaultTextFont,
     defaultTextFontSize,
     defaultTextFontStyle,
@@ -52,7 +52,10 @@ export const getCalculatedData = (
     defaultTextAlignmentBaseline,
   } = config
 
-  const bandData = (data: QsArcTextData[], min?: boolean): TextArcData[] => {
+  const offsetBandData = (
+    data: QsArcTextData[],
+    min?: boolean
+  ): TextArcData[] => {
     let totalValue = 0
     data.forEach((d) => {
       totalValue = totalValue + d.value
@@ -96,18 +99,29 @@ export const getCalculatedData = (
     })
   }
 
-  const pointData = (data: QsArcTextData[]): TextArcData[] => {
+  const centroidPointData = (data: QsArcTextData[]): TextArcData[] => {
     const anglePerElement = (2 * Math.PI) / data.length
-    return bandData(data).map((d, index) => {
+    return offsetBandData(data).map((d, index) => {
       const startAngle = anglePerElement * index - anglePerElement / 2
       const endAngle = startAngle + anglePerElement
       return { ...d, startAngle, endAngle }
     })
   }
 
+  const bandData = (data: QsArcTextData[]): TextArcData[] =>
+    offsetBandData(data).map((d) => ({
+      ...d,
+      startAngle: d.startAngle - (d.endAngle - d.startAngle) / 2,
+      endAngle: d.endAngle - (d.endAngle - d.startAngle) / 2,
+    }))
+
   return {
     textArcData:
-      scaleType === QsEnumScaleType.BANDED ? bandData(data) : pointData(data),
+      radialPosition === QsEnumArcTextRadialPosition.BANDED
+        ? bandData(data)
+        : radialPosition === QsEnumArcTextRadialPosition.POINT
+          ? centroidPointData(data)
+          : offsetBandData(data),
     x: xPercentScale(x),
     y: yPercentScale(y),
   }

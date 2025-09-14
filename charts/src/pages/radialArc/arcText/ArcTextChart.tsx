@@ -2,7 +2,7 @@ import { FunctionComponent, useEffect } from 'react'
 import {
   QsCanvasRadial,
   qsCreateCanvasRadial,
-  QsEnumScaleType,
+  QsEnumArcTextRadialPosition,
 } from 'd3qs/d3QuickStart'
 import { ArcTextChartProps } from '../../../common/chartProps'
 
@@ -21,7 +21,7 @@ export const ArcTextChart: FunctionComponent<ArcTextChartProps> = ({
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
       canvas.generate.arc.text.follow(data, config)
-      if (config.scaleType === QsEnumScaleType.BANDED)
+      if (config.radialPosition === QsEnumArcTextRadialPosition.OFFSET_BANDED)
         canvas.generate.arc.slice(
           [
             { valueArc: 10 },
@@ -32,7 +32,7 @@ export const ArcTextChart: FunctionComponent<ArcTextChartProps> = ({
           ],
           config
         )
-      else if (config.scaleType === QsEnumScaleType.LINEAR) {
+      else if (config.radialPosition === QsEnumArcTextRadialPosition.POINT) {
         canvas.generate.centroid.area({ highValues: [10, 15, 10, 15, 20] })
         canvas.generate.centroid.spokes({ numberOfSpokes: 5 })
       }

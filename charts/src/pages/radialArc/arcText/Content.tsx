@@ -11,7 +11,7 @@ import {
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 import { ArcTextChart } from './ArcTextChart'
 import { ArcTextAllChart } from './ArcTextAllChart'
-import { QsEnumScaleType } from 'd3qs/d3QuickStart'
+import { QsEnumArcTextRadialPosition } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
@@ -166,7 +166,9 @@ export const defaultsContent: JSX.Element = (
                       width: 600,
                       highestViewableValue: 100,
                     }}
-                    config={{ scaleType: QsEnumScaleType.BANDED }}
+                    config={{
+                      radialPosition: QsEnumArcTextRadialPosition.OFFSET_BANDED,
+                    }}
                   />
                 </ContentChartBox>,
               ]}
@@ -190,7 +192,10 @@ export const defaultsContent: JSX.Element = (
                       width: 600,
                       highestViewableValue: 20,
                     }}
-                    config={{ scaleType: QsEnumScaleType.LINEAR, radius: 110 }}
+                    config={{
+                      radialPosition: QsEnumArcTextRadialPosition.POINT,
+                      radius: 110,
+                    }}
                   />
                 </ContentChartBox>,
               ]}

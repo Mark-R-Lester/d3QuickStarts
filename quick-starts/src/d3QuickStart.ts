@@ -20,6 +20,7 @@ export * from './orthogonal/orthogonalText/qsTypes'
 
 export * from './radialArc/radialArc/qsTypes'
 export * from './radialArc/radialArcText/qsTypes'
+export * from './radialArc/radialArcText/qsEnums'
 
 export * from './radialCentroid/radialCentroidAxis/qsTypes'
 export * from './radialCentroid/radialCentroidSpokes/qsTypes'

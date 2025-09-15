@@ -1,5 +1,4 @@
 export enum QsEnumArcTextAngularPosition {
   BANDED = 'banded',
-  OFFSET_BANDED = 'offsetBanded',
-  POINT = 'point',
+  CENTROID_LOCK = 'centoid_lock',
 }

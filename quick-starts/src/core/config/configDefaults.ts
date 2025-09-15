@@ -313,7 +313,7 @@ const radialArcTextConfigBase: ArcTextConfigBase = {
   defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
   defaultTextStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
   defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.AUTO,
-  angularPosition: QsEnumArcTextAngularPosition.OFFSET_BANDED,
+  angularPosition: QsEnumArcTextAngularPosition.BANDED,
 }
 
 export const radialArcTextConfigRotated: ArcTextConfig = {

@@ -74,7 +74,7 @@ canvas.generate.arc.text.horizontal(data3, config3)
 canvas.generate.arc.text.rotated(data4, config4)`
 
 const config2: string = `const config1: QsArcTextConfig = {
-  angularPosition: QsEnumArcTextAngularPosition.OFFSET_BANDED,
+  angularPosition: QsEnumArcTextAngularPosition.BANDED,
   defaultRadius: 60,
   defaultDecimalPoints: 0,
   defaultTextFont: QsEnumTextFont.BRUSH_SCRIPT_MT,
@@ -115,7 +115,7 @@ canvas.generate.arc.text.horizontal(data1, config1)
 canvas.generate.arc.text.follow(data2, config2)`
 
 const config4: string = `const config1: QsArcTextConfig = { 
-  angularPosition: QsEnumArcTextAngularPosition.POINT,
+  angularPosition: QsEnumArcTextAngularPosition.CENTROID_LOCK,
   defaultDecimalPoints: 2,
   defaultRadius: 110, 
 }`
@@ -222,8 +222,7 @@ export const defaultsContent: JSX.Element = (
                       highestViewableValue: 100,
                     }}
                     config1={{
-                      angularPosition:
-                        QsEnumArcTextAngularPosition.OFFSET_BANDED,
+                      angularPosition: QsEnumArcTextAngularPosition.BANDED,
                       defaultRadius: 60,
                       defaultDecimalPoints: 0,
                       defaultTextFont: QsEnumTextFont.BRUSH_SCRIPT_MT,
@@ -269,7 +268,8 @@ export const defaultsContent: JSX.Element = (
                       highestViewableValue: 20,
                     }}
                     config1={{
-                      angularPosition: QsEnumArcTextAngularPosition.POINT,
+                      angularPosition:
+                        QsEnumArcTextAngularPosition.CENTROID_LOCK,
                       defaultDecimalPoints: 2,
                       radius: 110,
                     }}
@@ -350,7 +350,7 @@ const configExample: string = `const config: ArcTextConfig = {
   defaultRadius: 105
   x: 50
   y: 50
-  angularPosition: QsEnumArcTextAngularPosition.OFFSET_BANDED,
+  angularPosition: QsEnumArcTextAngularPosition.BANDED,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
   defaultTextFont: QsEnumTextFont.SERIF,
   defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,

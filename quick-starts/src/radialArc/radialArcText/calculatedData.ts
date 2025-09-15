@@ -52,10 +52,7 @@ export const getCalculatedData = (
     defaultTextAlignmentBaseline,
   } = config
 
-  const offsetBandData = (
-    data: QsArcTextData[],
-    min?: boolean
-  ): TextArcData[] => {
+  const bandData = (data: QsArcTextData[], min?: boolean): TextArcData[] => {
     let totalValue = 0
     data.forEach((d) => {
       totalValue = totalValue + d.value
@@ -99,17 +96,17 @@ export const getCalculatedData = (
     })
   }
 
-  const centroidPointData = (data: QsArcTextData[]): TextArcData[] => {
+  const centroidLockData = (data: QsArcTextData[]): TextArcData[] => {
     const anglePerElement = (2 * Math.PI) / data.length
-    return offsetBandData(data).map((d, index) => {
+    return bandData(data).map((d, index) => {
       const startAngle = anglePerElement * index - anglePerElement / 2
       const endAngle = startAngle + anglePerElement
       return { ...d, startAngle, endAngle }
     })
   }
 
-  const bandData = (data: QsArcTextData[]): TextArcData[] =>
-    offsetBandData(data).map((d) => ({
+  const bandAcTopData = (data: QsArcTextData[]): TextArcData[] =>
+    bandData(data).map((d) => ({
       ...d,
       startAngle: d.startAngle - (d.endAngle - d.startAngle) / 2,
       endAngle: d.endAngle - (d.endAngle - d.startAngle) / 2,
@@ -119,9 +116,7 @@ export const getCalculatedData = (
     textArcData:
       angularPosition === QsEnumArcTextAngularPosition.BANDED
         ? bandData(data)
-        : angularPosition === QsEnumArcTextAngularPosition.POINT
-          ? centroidPointData(data)
-          : offsetBandData(data),
+        : centroidLockData(data),
     x: xPercentScale(x),
     y: yPercentScale(y),
   }

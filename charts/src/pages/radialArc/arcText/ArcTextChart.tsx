@@ -23,11 +23,7 @@ export const ArcTextChart: FunctionComponent<ArcTextChartProps> = ({
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
-      if (
-        config1.angularPosition ===
-          QsEnumArcTextAngularPosition.OFFSET_BANDED ||
-        config1.angularPosition === QsEnumArcTextAngularPosition.BANDED
-      )
+      if (config1.angularPosition === QsEnumArcTextAngularPosition.BANDED)
         canvas.generate.arc.slice([
           { valueArc: 10 },
           { valueArc: 15 },
@@ -35,7 +31,9 @@ export const ArcTextChart: FunctionComponent<ArcTextChartProps> = ({
           { valueArc: 15 },
           { valueArc: 20 },
         ])
-      else if (config1.angularPosition === QsEnumArcTextAngularPosition.POINT) {
+      else if (
+        config1.angularPosition === QsEnumArcTextAngularPosition.CENTROID_LOCK
+      ) {
         canvas.generate.centroid.area({ highValues: [10, 15, 10, 15, 20] })
         canvas.generate.centroid.spokes({ numberOfSpokes: 5 })
       }

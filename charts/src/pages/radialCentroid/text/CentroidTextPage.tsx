@@ -3,25 +3,11 @@ import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { useState } from 'react'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
-import {
-  defaultsContent,
-  configContent,
-  configAndData,
-  editorContent,
-} from './Content'
-import { RadialTextChart } from './RadialTextChart'
-import { RadialTextDefaultsChart } from './RadialTextDefaultsChart'
+import { defaultsContent, configAndData, editorContent } from './Content'
+import { RadialTextChart } from './TextChart'
 
 export default function CentroidPointsPage() {
   const menuElements: JSX.Element[] = [
-    <RadialTextDefaultsChart
-      canvasConfig={{
-        chartName: 'radialPointDefaultsCharts',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 2,
-      }}
-    />,
     <RadialTextChart
       canvasConfig={{
         chartName: 'radialPointsChart',
@@ -36,7 +22,6 @@ export default function CentroidPointsPage() {
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
     configAndData,
     editorContent,
   ]
@@ -48,7 +33,7 @@ export default function CentroidPointsPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Radial
+        Centroid Text
       </Typography>
       <ChartButtonGrid
         onClick={onClick}

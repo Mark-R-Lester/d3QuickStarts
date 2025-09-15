@@ -25,7 +25,7 @@ import CentroidAxisPage from './pages/radialCentroid/axis/RadialCentroidAxisPage
 import CentroidSpokesPage from './pages/radialCentroid/spokes/RadialCentroidSpokesPage'
 import UnboundLegendPage from './pages/unbound/legend/UnboundLegendPage'
 import UnboundTextPage from './pages/unbound/text/UnboundTextPage'
-import CentroidTextPage from './pages/radialCentroid/text/RadialCentroidTextPage'
+import CentroidTextPage from './pages/radialCentroid/text/CentroidTextPage'
 import EnumPage from './pages/core/enums/EnumPage'
 import ConfigPage from './pages/core/config/ConfigPage'
 import GradientPage from './pages/core/gradient/GradientPage'

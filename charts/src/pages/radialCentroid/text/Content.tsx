@@ -4,39 +4,40 @@ import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import { RadialTextChart } from './RadialTextChart'
-import { RadialTextDefaultsChart } from './RadialTextDefaultsChart'
+import { RadialTextChart } from './TextChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
-  highestViewableValue: 25,
+  highestViewableValue: 2,
   borderColor: 'grey',
 }`
 
-const defaultsChart: string = `
-const data: QsArcTextData[] = [
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-]
+const config1: string = `const config: QsArcTextData = {}`
 
-const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+const data1: string = `const data: QsArcTextData[] = [
+  { value: 1 },
+  { value: 2 },
+  { value: 1 },
+  { value: 2 },
+  { value: 1 },
+  { value: 2 },
+  { value: 1 },
+  { value: 2 },
+  { value: 1 },
+  { value: 2 },
+  { value: 1 },
+  { value: 2 },
+  { value: 1 },
+  { value: 2 },
+]`
+
+const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.centroid.text(data)`
 
 const configChart: string = `
@@ -60,8 +61,123 @@ const data: QsArcTextData[] = [
 const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.centroid.text(data)`
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              Radial text enhances data visualization in radial charts, such as
+              pie charts, by positioning text at calculated angular intervals
+              that align with the data, improving readability and visual
+              coherence. Both representative values, or plain text for
+              categories make used ensuring clarity. Precise angular placement
+              ensures intuitive, space-efficient labeling, avoids overlap in
+              dense charts, and enhances clarity, engagement, and the overall
+              effectiveness of data communication.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    The four radial text orientations— spoke, follow, horizontal
+                    and rotated offer distinct visual arrangements, each
+                    providing unique aesthetic and functional impacts.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={config1} />
+                  <ContentCodeBox code={data1} />
+                  <ContentCodeBox code={chart1} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <RadialTextChart
+                    canvasConfig={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 2,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Using config and data to modify appearance
+            </Typography>,
+            <Typography variant="body1">
+              Configuration settings control arc text appearance, allowing
+              precise customization of visual attributes like font, color, and
+              orientation. By adjusting config and data parameters, arc text can
+              be styled to meet specific aesthetic needs.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This demo showcases various configuration parameters for arc
+                    text, enabling customization of attributes like radius,
+                    position, font, size, style, weight, decoration, fill,
+                    stroke, anchor, and alignment. These settings allow precise
+                    styling to meet specific aesthetic and functional
+                    requirements.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={config1} />
+                  <ContentCodeBox code={data1} />
+                  <ContentCodeBox code={chart1} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <RadialTextChart
+                    canvasConfig={{
+                      chartName: 'chart2',
+                      width: 600,
+                      highestViewableValue: 2,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This demo highlights the use data parameters for individual
+                    arc text data points, also allowing customization of
+                    attributes like font, size, style, weight, decoration, fill,
+                    stroke, anchor, and alignment.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={config1} />
+                  <ContentCodeBox code={data1} />
+                  <ContentCodeBox code={chart1} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <RadialTextChart
+                    canvasConfig={{
+                      chartName: 'chart4',
+                      width: 600,
+                      highestViewableValue: 2,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
 
 const data: string = `interface QsArcTextData {
   value: number
@@ -127,112 +243,54 @@ const configExample: string = `const config: QsRadialTextConfig =  {
   defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.CENTER,
 }`
 
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text generated with defaults</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <RadialTextDefaultsChart
-              canvasConfig={{
-                chartName: 'chartH',
-                width: 600,
-                highestViewableValue: 2,
-                borderColor: 'grey',
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text customised</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <RadialTextChart
-              canvasConfig={{
-                chartName: 'chartV',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 2,
-                borderColor: 'grey',
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsTextData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={data} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={dataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={data} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsTextConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={config} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}

@@ -12,8 +12,8 @@ import { ArcTextChartProps } from '../../../common/chartProps'
 
 export const RadialTextTransition: FunctionComponent<ArcTextChartProps> = ({
   canvasConfig,
-  config,
-  data = [{ value: 25 }, { value: 10 }, { value: 15 }],
+  config1,
+  data1 = [{ value: 25 }, { value: 10 }, { value: 15 }],
 }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [element1, setElement1] = useState<QsRadialArcText | QsArcTextFollow>()
@@ -23,20 +23,20 @@ export const RadialTextTransition: FunctionComponent<ArcTextChartProps> = ({
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
-      setElement1(canvas.generate.arc.text.follow(data, config))
+      setElement1(canvas.generate.arc.text.follow(data1, config1))
 
       const radialArgs: QsArcSliceData[] = [
         { valueArc: 0, fillColor: 'red' },
         { valueArc: 0, fillColor: 'orange' },
         { valueArc: 0, fillColor: 'green' },
       ]
-      data.forEach((d, i) => {
+      data1.forEach((d, i) => {
         radialArgs[i].valueArc = d.value
       })
       setElement2(canvas.generate.arc.slice(radialArgs))
     }
     createChart()
-  }, [canvasConfig, config, data])
+  }, [canvasConfig, config1, data1])
 
   useEffect(
     function transitionData() {

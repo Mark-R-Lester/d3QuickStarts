@@ -289,25 +289,25 @@ const radialArcTextConfigBase: QsArcTextConfig = {
 
 export const radialArcTextConfigRotated: QsArcTextConfig = {
   ...radialArcTextConfigBase,
-  radius: 107,
+  defaultRadius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
 export const radialArcTextConfigHorizontal: QsArcTextConfig = {
   ...radialArcTextConfigBase,
-  radius: 107,
+  defaultRadius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
 export const radialArcTextConfigSpoke: QsArcTextConfig = {
   ...radialArcTextConfigBase,
-  radius: 103,
+  defaultRadius: 103,
   textAnchor: QsEnumTextAnchor.START,
 }
 
 export const radialArcTextConfigFollow: QsArcTextConfig = {
   ...radialArcTextConfigBase,
-  radius: 103,
+  defaultRadius: 103,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 

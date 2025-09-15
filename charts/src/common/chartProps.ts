@@ -135,8 +135,10 @@ export interface CentroidSpokesChartProps extends ChartPropsRadial {
  * Arc interfaces
  */
 export interface ArcTextChartProps extends ChartPropsRadial {
-  config?: QsArcTextConfig
-  data?: QsArcTextData[]
+  config1?: QsArcTextConfig
+  data1?: QsArcTextData[]
+  config2?: QsArcTextConfig
+  data2?: QsArcTextData[]
 }
 
 export interface ArcChartProps extends ChartPropsRadial {

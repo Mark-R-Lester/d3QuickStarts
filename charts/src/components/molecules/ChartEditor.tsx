@@ -22,6 +22,17 @@ import {
   qsCreateCanvasPlotted,
   qsCreateCanvasRadial,
   QsEnumColorLightBlues,
+  QsEnumArcTextAngularPosition,
+  QsEnumColorDarkBlues,
+  QsEnumColorLightGreens,
+  QsEnumColorDarkGreens,
+  QsEnumColorLightBrowns,
+  QsEnumColorPurples,
+  QsEnumColorDarkBrowns,
+  QsEnumColorGreys,
+  QsEnumColorReds,
+  QsEnumColorOranges,
+  QsEnumColorYellows,
 } from 'd3qs/d3QuickStart'
 import { styled } from '@mui/material/styles'
 
@@ -75,6 +86,17 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
         'QsEnumAxisScaleType',
         'QsEnumScaleType',
         'QsEnumColorLightBlues',
+        'QsEnumColorDarkBlues',
+        'QsEnumColorLightGreens',
+        'QsEnumColorDarkGreens',
+        'QsEnumColorLightBrowns',
+        'QsEnumColorPurples',
+        'QsEnumColorDarkBrowns',
+        'QsEnumColorGreys',
+        'QsEnumColorReds',
+        'QsEnumColorOranges',
+        'QsEnumColorYellows',
+        'QsEnumArcTextAngularPosition',
         `return (function() { ${jsCode} })()`
       )
       func(
@@ -93,7 +115,18 @@ export const ChartEditor: FunctionComponent<ChartEditorProps> = ({
         QsEnumLineCap,
         QsEnumAxisScaleType,
         QsEnumScaleType,
-        QsEnumColorLightBlues
+        QsEnumColorLightBlues,
+        QsEnumColorDarkBlues,
+        QsEnumColorLightGreens,
+        QsEnumColorDarkGreens,
+        QsEnumColorLightBrowns,
+        QsEnumColorPurples,
+        QsEnumColorDarkBrowns,
+        QsEnumColorGreys,
+        QsEnumColorReds,
+        QsEnumColorOranges,
+        QsEnumColorYellows,
+        QsEnumArcTextAngularPosition
       )
     } catch (execError) {
       console.log(execError)

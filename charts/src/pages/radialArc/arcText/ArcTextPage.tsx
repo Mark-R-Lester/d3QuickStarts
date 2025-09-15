@@ -34,7 +34,7 @@ export default function RadialArcTextPage() {
   return (
     <>
       <Typography variant="h4" component="h1" sx={{ mb: 2 }}>
-        Radial Text
+        Arc Text
       </Typography>
       <ChartButtonGrid
         onClick={onClick}

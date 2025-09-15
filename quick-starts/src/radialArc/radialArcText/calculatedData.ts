@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { QsCalculatedDataArcText, ArcTextConfig, TextArcData } from './types'
 import { QsArcTextData } from './qsTypes'
 import { Canvas } from '../../canvas/types'
-import { QsEnumArcTextRadialPosition } from './qsEnums'
+import { QsEnumArcTextAngularPosition } from './qsEnums'
 
 export const updateCalculatedData = (
   canvas: Canvas,
@@ -36,10 +36,10 @@ export const getCalculatedData = (
 ): QsCalculatedDataArcText => {
   const { xPercentScale, yPercentScale, genralPercentScale } = canvas.scales
   const {
-    radius,
+    defaultRadius,
     x,
     y,
-    radialPosition,
+    angularPosition,
     defaultTextFont,
     defaultTextFontSize,
     defaultTextFontStyle,
@@ -80,8 +80,8 @@ export const getCalculatedData = (
         startAngle,
         newEndAngle: endAngle,
         endAngle,
-        outerRadius: min ? 0 : yPercentScale(radius / 2),
-        innerRadius: min ? 0 : yPercentScale(radius / 2),
+        outerRadius: min ? 0 : yPercentScale(defaultRadius / 2),
+        innerRadius: min ? 0 : yPercentScale(defaultRadius / 2),
         textFont: d.textFont ?? defaultTextFont,
         textFontSize: genralPercentScale(d.textFontSize ?? defaultTextFontSize),
         textFontStyle: d.textFontStyle ?? defaultTextFontStyle,
@@ -117,9 +117,9 @@ export const getCalculatedData = (
 
   return {
     textArcData:
-      radialPosition === QsEnumArcTextRadialPosition.BANDED
+      angularPosition === QsEnumArcTextAngularPosition.BANDED
         ? bandData(data)
-        : radialPosition === QsEnumArcTextRadialPosition.POINT
+        : angularPosition === QsEnumArcTextAngularPosition.POINT
           ? centroidPointData(data)
           : offsetBandData(data),
     x: xPercentScale(x),

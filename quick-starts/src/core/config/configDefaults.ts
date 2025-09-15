@@ -49,7 +49,7 @@ import { ConfigTextDefaults } from '../types/types'
 import { CentroidTextConfig } from '../../radialCentroid/radialCentroidText/types'
 import { QsEnumCoordinateView } from '../../plots/plottedText/qsEnums'
 import { CanvasConfig } from '../../canvas/types'
-import { QsEnumArcTextRadialPosition } from '../../radialArc/radialArcText/qsEnums'
+import { QsEnumArcTextAngularPosition } from '../../radialArc/radialArcText/qsEnums'
 
 const defaultFillColorArray: string[] = [
   'red',
@@ -304,14 +304,6 @@ const radialArcTextConfigBase: ArcTextConfigBase = {
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
-  textFont: QsEnumTextFont.SERIF,
-  textFontSize: GlobalDefaultSettings.FONT_SIZE,
-  textFontStyle: QsEnumTextFontStyle.NORMAL,
-  textFontWeight: QsEnumTextFontWeight.NORMAL,
-  textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-  textFill: GlobalDefaultColors.TEXT_FILL_COLOR,
-  textAngle: GlobalDefaultSettings.TEXT_ANGLE,
-  textStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
   defaultTextFont: QsEnumTextFont.SERIF,
   defaultTextFontSize: GlobalDefaultSettings.FONT_SIZE,
   defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
@@ -321,34 +313,34 @@ const radialArcTextConfigBase: ArcTextConfigBase = {
   defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
   defaultTextStroke: GlobalDefaultColors.TEXT_STROKE_COLOR,
   defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.AUTO,
-  radialPosition: QsEnumArcTextRadialPosition.BANDED,
+  angularPosition: QsEnumArcTextAngularPosition.OFFSET_BANDED,
 }
 
 export const radialArcTextConfigRotated: ArcTextConfig = {
   layerType: QsEnumLayerType.UNBOUND,
   ...radialArcTextConfigBase,
-  radius: 107,
+  defaultRadius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
 export const radialArcTextConfigHorizontal: ArcTextConfig = {
   layerType: QsEnumLayerType.UNBOUND,
   ...radialArcTextConfigBase,
-  radius: 107,
+  defaultRadius: 107,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 
 export const radialArcTextConfigSpoke: ArcTextConfig = {
   layerType: QsEnumLayerType.UNBOUND,
   ...radialArcTextConfigBase,
-  radius: 103,
+  defaultRadius: 103,
   textAnchor: QsEnumTextAnchor.START,
 }
 
 export const radialArcTextConfigFollow: ArcTextConfig = {
   layerType: QsEnumLayerType.UNBOUND,
   ...radialArcTextConfigBase,
-  radius: 103,
+  defaultRadius: 103,
   textAnchor: QsEnumTextAnchor.MIDDLE,
 }
 

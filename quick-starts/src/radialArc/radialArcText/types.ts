@@ -1,6 +1,5 @@
-import { QsEnumTextAnchor, QsEnumLayerType } from '../../core/enums/qsEnums'
 import { ConfigTextDefaults, TextData } from '../../core/types/types'
-import { QsEnumArcTextRadialPosition } from './qsEnums'
+import { QsEnumArcTextAngularPosition } from './qsEnums'
 import { QsArcTextData } from './qsTypes'
 
 export interface ArcTextConfigBase
@@ -14,9 +13,8 @@ export interface ArcTextConfigBase
     | undefined
   x: number
   y: number
-  radialPosition: QsEnumArcTextRadialPosition
+  angularPosition: QsEnumArcTextAngularPosition
   defaultDecimalPoints: number
-  defaultTextAngle?: never
 }
 
 export interface ArcTextConfig extends ArcTextConfigBase {
@@ -26,9 +24,7 @@ export interface ArcTextConfig extends ArcTextConfigBase {
     | Iterable<string>
     | undefined
     | boolean
-  layerType: QsEnumLayerType
-  radius: number
-  textAnchor: QsEnumTextAnchor
+  defaultRadius: number
 }
 
 export interface QsCalculatedDataArcText {

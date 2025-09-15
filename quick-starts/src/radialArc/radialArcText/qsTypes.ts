@@ -33,5 +33,4 @@ export interface QsArcTextData extends Partial<TextData> {
   text?: string
   decimalPoints?: number
   textAngle?: never
-  textAlignmentBaseline?: never
 }

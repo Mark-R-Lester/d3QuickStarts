@@ -20,7 +20,7 @@ export const ArcTextAllChart: FunctionComponent<ChartPropsOthogonal> = ({
         { value: 1, text: 'following the arc' },
       ]
       const config1: QsArcTextConfig = {
-        radius: 98,
+        defaultRadius: 98,
       }
 
       const data2: QsArcTextData[] = [
@@ -31,7 +31,7 @@ export const ArcTextAllChart: FunctionComponent<ChartPropsOthogonal> = ({
         { value: 1, text: 'spokes' },
       ]
       const config2: QsArcTextConfig = {
-        radius: 120,
+        defaultRadius: 120,
       }
 
       const data3: QsArcTextData[] = [
@@ -42,7 +42,7 @@ export const ArcTextAllChart: FunctionComponent<ChartPropsOthogonal> = ({
         { value: 1, text: 'horizontal' },
       ]
       const config3: QsArcTextConfig = {
-        radius: 60,
+        defaultRadius: 60,
       }
 
       const data4: QsArcTextData[] = [
@@ -53,7 +53,7 @@ export const ArcTextAllChart: FunctionComponent<ChartPropsOthogonal> = ({
         { value: 1, text: 'rotated' },
       ]
       const config4: QsArcTextConfig = {
-        radius: 88,
+        defaultRadius: 88,
       }
 
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)

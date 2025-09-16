@@ -13,7 +13,7 @@ export default function CentroidPointsPage() {
         chartName: 'radialPointsChart',
         width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 2,
+        highestViewableValue: 10,
       }}
     />,
     <ConfigAndData />,

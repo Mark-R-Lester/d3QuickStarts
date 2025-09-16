@@ -10,56 +10,96 @@ import {
 } from '../../../components/atoms/content/ContentStyled'
 import { RadialTextChart } from './TextChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
+import { QsEnumTextFontWeight, QsEnumTextAnchor } from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
-  highestViewableValue: 2,
+  highestViewableValue: 10,
   borderColor: 'grey',
 }`
 
-const config1: string = `const config: QsArcTextData = {}`
-
 const data1: string = `const data: QsArcTextData[] = [
-  { value: 1 },
+  { value: 7 },
+  { value: 3 },
+  { value: 9 },
   { value: 2 },
+  { value: 6 },
+  { value: 8 },
   { value: 1 },
+  { value: 4 },
+  { value: 10 },
+  { value: 5 },
+  { value: 3 },
+  { value: 7 },
   { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
+  { value: 9 },
 ]`
 
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.centroid.text(data)`
 
-const configChart: string = `
-const data: QsArcTextData[] = [
-  { value: 1,},
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-]
+const config2: string = `const config: QsArcTextData = {
+  defaultTextFontSize: 6,
+  defaultTextFontWeight: QsEnumTextFontWeight.LIGTHER,
+  defaultTextFill: 'darkgreen',
+  defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
+}`
 
-const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.centroid.text(data)`
+const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+ canvas.generate.centroid.area(
+  {
+    highValues: [7, 3, 9, 2, 6, 8, 1, 4, 10, 5, 3, 7, 2, 9],
+  },
+  {
+    defaultFillOpacity: 0.2,
+    defaultStrokeColor: 'green',
+    defaultStrokeWidth: 0.2,
+    curve: QsEnumCurve.NATURAL,
+  }
+)
+canvas.generate.centroid.spokes({
+  numberOfSpokes: 14,
+  defaultInnerRadius: 5,
+  defaultOuterRadius: 102,
+  defaultStrokeOpacity: 0.3,
+})
+canvas.generate.centroid.axis({
+  numberOfTicks: 3,
+  defaultStrokeOpacity: 0.3,
+  defaultAxisAngle: 15,
+  showText: false,
+})
+canvas.generate.centroid.text(data, config)`
+
+const config3: string = `const config: QsArcTextData = {
+  defaultDecimalPoints: 1,
+  fixedPositionActive: true,
+  fixedPosition: 115,
+  defaultTextFontSize: 6,
+  defaultTextFill: 'green',
+}`
+
+const data3: string = `const data: QsArcTextData[] = [
+  { value: 7 },
+  { value: 3 },
+  { value: 9 },
+  { value: 2 },
+  { value: 6 },
+  { value: 8 },
+  { value: 1 },
+  { value: 4 },
+  {
+    value: 10,
+    textFontSize: 8,
+    textFill: 'red',
+  },
+  { value: 5 },
+  { value: 3 },
+  { value: 7 },
+  { value: 2 },
+  { value: 9 },
+]`
 
 export const defaultsContent: JSX.Element = (
   <ContentColumn
@@ -72,25 +112,25 @@ export const defaultsContent: JSX.Element = (
               Defaults
             </Typography>,
             <Typography variant="body1">
-              Radial text enhances data visualization in radial charts, such as
-              pie charts, by positioning text at calculated angular intervals
-              that align with the data, improving readability and visual
-              coherence. Both representative values, or plain text for
-              categories make used ensuring clarity. Precise angular placement
-              ensures intuitive, space-efficient labeling, avoids overlap in
-              dense charts, and enhances clarity, engagement, and the overall
-              effectiveness of data communication.
+              Centroid Text is an integral component of the Centroid suite,
+              engineered for seamless integration with other Centroid elements
+              to enhance data visualization. It automatically computes
+              positioning relative to chart data points, ensuring precise
+              annotations.
             </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    The four radial text orientations— spoke, follow, horizontal
-                    and rotated offer distinct visual arrangements, each
-                    providing unique aesthetic and functional impacts.
+                    By default, Centroid Text is positioned precisely at the
+                    data point it represents, ensuring accurate alignment with
+                    the underlying dataset. However, this placement may not
+                    always be ideal due to potential issues like overlapping
+                    text, cluttered visuals, or reduced readability in dense
+                    datasets. To address this, Centroid Text can be offset or
+                    moved to a fixed position.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
-                  <ContentCodeBox code={config1} />
                   <ContentCodeBox code={data1} />
                   <ContentCodeBox code={chart1} />
                 </ContentTextBox>,
@@ -100,7 +140,7 @@ export const defaultsContent: JSX.Element = (
                       chartName: 'chart1',
                       width: 600,
                       lowestViewableValue: 0,
-                      highestViewableValue: 2,
+                      highestViewableValue: 10,
                     }}
                   />
                 </ContentChartBox>,
@@ -132,16 +172,22 @@ export const defaultsContent: JSX.Element = (
                     requirements.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
-                  <ContentCodeBox code={config1} />
+                  <ContentCodeBox code={config2} />
                   <ContentCodeBox code={data1} />
-                  <ContentCodeBox code={chart1} />
+                  <ContentCodeBox code={chart2} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <RadialTextChart
                     canvasConfig={{
                       chartName: 'chart2',
                       width: 600,
-                      highestViewableValue: 2,
+                      highestViewableValue: 10,
+                    }}
+                    config={{
+                      defaultTextFontSize: 6,
+                      defaultTextFontWeight: QsEnumTextFontWeight.LIGTHER,
+                      defaultTextFill: 'darkgreen',
+                      defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
                     }}
                   />
                 </ContentChartBox>,
@@ -157,17 +203,44 @@ export const defaultsContent: JSX.Element = (
                     stroke, anchor, and alignment.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
-                  <ContentCodeBox code={config1} />
-                  <ContentCodeBox code={data1} />
-                  <ContentCodeBox code={chart1} />
+                  <ContentCodeBox code={config3} />
+                  <ContentCodeBox code={data3} />
+                  <ContentCodeBox code={chart2} />
                 </ContentTextBox>,
                 <ContentChartBox>
                   <RadialTextChart
                     canvasConfig={{
                       chartName: 'chart4',
                       width: 600,
-                      highestViewableValue: 2,
+                      highestViewableValue: 10,
                     }}
+                    config={{
+                      defaultDecimalPoints: 1,
+                      fixedPositionActive: true,
+                      fixedPosition: 115,
+                      defaultTextFontSize: 6,
+                      defaultTextFill: 'green',
+                    }}
+                    data={[
+                      { value: 7 },
+                      { value: 3 },
+                      { value: 9 },
+                      { value: 2 },
+                      { value: 6 },
+                      { value: 8 },
+                      { value: 1 },
+                      { value: 4 },
+                      {
+                        value: 10,
+                        textFontSize: 8,
+                        textFill: 'red',
+                      },
+                      { value: 5 },
+                      { value: 3 },
+                      { value: 7 },
+                      { value: 2 },
+                      { value: 9 },
+                    ]}
                   />
                 </ContentChartBox>,
               ]}
@@ -186,7 +259,7 @@ const data: string = `interface QsArcTextData {
   textFontSize?: number
   textFontStyle?: QsEnumTextFontStyle
   textFontWeight?: QsEnumTextFontWeight | number
-  textDecorationLine: QsEnumTextDecorationLine
+  textDecorationLine?: QsEnumTextDecorationLine
   textFill?: string
   textAngle?: number
   textAnchor?: QsEnumTextAnchor
@@ -195,9 +268,11 @@ const data: string = `interface QsArcTextData {
 }`
 
 const config: string = `interface QsRadialTextConfig = {
-  useDataArea?: boolean
+ layerType?: QsEnumLayerType
   x?: number
   y?: number
+  fixedPositionActive?: boolean
+  fixedPosition?: number
   defaultDecimalPoints?: number
   defaultTextFont?: QsEnumTextFont | string
   defaultTextFontSize?: number
@@ -227,10 +302,12 @@ const dataExample: string = `const data: QsArcTextData = {
 }`
 
 const configExample: string = `const config: QsRadialTextConfig =  {
-  useDataArea: true
+  layerType: QsEnumLayerType.UNBOUND
   x: 50
   y: 50
-  defaultDecimalPoints: 2
+  fixedPositionActive: false
+  fixedPosition: 100
+  defaultDecimalPoints: 0
   defaultDecimalPoints: 3,
   defaultTextFontSize: 10,
   defaultTextFontStyle: QsEnumTextFontStyle.ITALIC,
@@ -307,9 +384,11 @@ const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
   lowestViewableValue: 0,
-  highestViewableValue: 2,
+  highestViewableValue: 10,
   borderColor: 'grey',
 }
-${configChart}`}
+${config3}
+${data3}
+${chart2}`}
   ></ChartEditor>
 )

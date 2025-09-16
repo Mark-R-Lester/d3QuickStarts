@@ -62,7 +62,7 @@ export const getCalculatedData = (
     const radians = angleScale(i)
     const hypotenuse = fixedPositionActive
       ? radialPercentScale(fixedPosition)
-      : radialDataScale(d.value)
+      : radialDataScale(d.positionalValue ?? d.value)
 
     const coordinate: QsCoordinate = {
       x: Math.sin(radians) * hypotenuse,

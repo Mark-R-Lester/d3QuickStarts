@@ -14,7 +14,6 @@ import {
   QsEnumAlignmentBaseline,
   QsEnumScaleType,
 } from '../../core/enums/qsEnums'
-import { TextData } from '../../core/types/types'
 
 export const updateCalculatedData = (
   canvas: Canvas,

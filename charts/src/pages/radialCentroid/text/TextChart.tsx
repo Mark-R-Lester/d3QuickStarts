@@ -32,9 +32,15 @@ export const RadialTextChart: FunctionComponent<CentroidTextChartProps> = ({
       canvas.generate.centroid.text(data, config)
 
       if (Object.entries(config).length === 0) {
-        canvas.generate.centroid.area({
-          highValues: [7, 3, 9, 2, 6, 8, 1, 4, 10, 5, 3, 7, 2, 9],
-        })
+        canvas.generate.centroid.area(
+          {
+            highValues: [7, 3, 9, 2, 6, 8, 1, 4, 10, 5, 3, 7, 2, 9],
+          },
+          {
+            defaultFillOpacity: 0.2,
+            curve: QsEnumCurve.NATURAL,
+          }
+        )
       }
 
       if (Object.entries(config).length > 0) {

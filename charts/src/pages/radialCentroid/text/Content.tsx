@@ -37,6 +37,15 @@ const data1: string = `const data: QsArcTextData[] = [
 ]`
 
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+ canvas.generate.centroid.area(
+  {
+    highValues: [7, 3, 9, 2, 6, 8, 1, 4, 10, 5, 3, 7, 2, 9],
+  },
+  {
+    defaultFillOpacity: 0.2,
+    curve: QsEnumCurve.NATURAL,
+  }
+)
 canvas.generate.centroid.text(data)`
 
 const config2: string = `const config: QsArcTextData = {
@@ -45,6 +54,23 @@ const config2: string = `const config: QsArcTextData = {
   defaultTextFill: 'darkgreen',
   defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
 }`
+
+const data2: string = `const data: QsArcTextData[] = [
+  { value: 7, positionalValue: 8 },
+  { value: 3, positionalValue: 4 },
+  { value: 9, positionalValue: 10 },
+  { value: 2, positionalValue: 3 },
+  { value: 6, positionalValue: 7 },
+  { value: 8, positionalValue: 9 },
+  { value: 1, positionalValue: 2 },
+  { value: 4, positionalValue: 5 },
+  { value: 10, positionalValue: 11 },
+  { value: 5, positionalValue: 6 },
+  { value: 3, positionalValue: 4 },
+  { value: 7, positionalValue: 8 },
+  { value: 2, positionalValue: 3 },
+  { value: 9, positionalValue: 10 },
+]`
 
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
  canvas.generate.centroid.area(
@@ -87,7 +113,12 @@ const data3: string = `const data: QsArcTextData[] = [
   { value: 2 },
   { value: 6 },
   { value: 8 },
-  { value: 1 },
+  {
+    value: 1,
+    text: 'Min',
+    textFontSize: 8,
+    textFill: 'green',
+  },
   { value: 4 },
   {
     value: 10,
@@ -164,16 +195,15 @@ export const defaultsContent: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    This demo showcases various configuration parameters for arc
-                    text, enabling customization of attributes like radius,
-                    position, font, size, style, weight, decoration, fill,
-                    stroke, anchor, and alignment. These settings allow precise
-                    styling to meet specific aesthetic and functional
-                    requirements.
+                    This demo highlights customizable configuration parameters
+                    for Centroid Text, adjustmenting various attributes.
+                    Positional values are included to shift text away from data
+                    points, depending on your visualisation this can minimize
+                    overlap and enhance clarity.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
                   <ContentCodeBox code={config2} />
-                  <ContentCodeBox code={data1} />
+                  <ContentCodeBox code={data2} />
                   <ContentCodeBox code={chart2} />
                 </ContentTextBox>,
                 <ContentChartBox>
@@ -189,6 +219,22 @@ export const defaultsContent: JSX.Element = (
                       defaultTextFill: 'darkgreen',
                       defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
                     }}
+                    data={[
+                      { value: 7, positionalValue: 8 },
+                      { value: 3, positionalValue: 4 },
+                      { value: 9, positionalValue: 10 },
+                      { value: 2, positionalValue: 3 },
+                      { value: 6, positionalValue: 7 },
+                      { value: 8, positionalValue: 9 },
+                      { value: 1, positionalValue: 2 },
+                      { value: 4, positionalValue: 5 },
+                      { value: 10, positionalValue: 11 },
+                      { value: 5, positionalValue: 6 },
+                      { value: 3, positionalValue: 4 },
+                      { value: 7, positionalValue: 8 },
+                      { value: 2, positionalValue: 3 },
+                      { value: 9, positionalValue: 10 },
+                    ]}
                   />
                 </ContentChartBox>,
               ]}
@@ -197,10 +243,10 @@ export const defaultsContent: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    This demo highlights the use data parameters for individual
-                    arc text data points, also allowing customization of
-                    attributes like font, size, style, weight, decoration, fill,
-                    stroke, anchor, and alignment.
+                    Here, the text is set to a fixed position, though Arc Text
+                    may be better suited for this purpose. Data can be used to
+                    customize individual text items, prioritizing those of
+                    greater importance.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
                   <ContentCodeBox code={config3} />
@@ -228,7 +274,12 @@ export const defaultsContent: JSX.Element = (
                       { value: 2 },
                       { value: 6 },
                       { value: 8 },
-                      { value: 1 },
+                      {
+                        value: 1,
+                        text: 'Min',
+                        textFontSize: 8,
+                        textFill: 'green',
+                      },
                       { value: 4 },
                       {
                         value: 10,

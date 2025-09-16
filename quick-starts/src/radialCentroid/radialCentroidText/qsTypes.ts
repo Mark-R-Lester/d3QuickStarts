@@ -20,5 +20,6 @@ export interface QsCentroidText {
 
 export interface QsCentroidTextData extends Partial<TextData> {
   value: number
+  positionalValue?: number
   text?: string
 }

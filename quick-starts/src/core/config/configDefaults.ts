@@ -402,11 +402,11 @@ export const centroidPointsConfig: CentroidPointsConfig = {
   layerType: QsEnumLayerType.DATA,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
-  defaultRadius: GlobalDefaultSettings.POINT_RADIUS,
-  defaultFillColor: GlobalDefaultColors.POINT_FILL,
+  defaultRadius: 0.5,
+  defaultFillColor: 'black',
   defaultFillOpacity: GlobalDefaultSettings.FILL_OPACITY,
   defaultStrokeColor: GlobalDefaultColors.POINT_STROKE,
-  defaultStrokeWidth: GlobalDefaultSettings.POINT_STROKE_WIDTH,
+  defaultStrokeWidth: 0,
   defaultStrokeOpacity: GlobalDefaultSettings.STROKE_OPACITY,
   fillColorScaleData: undefined,
   strokeColorScaleData: undefined,
@@ -430,7 +430,7 @@ export const centroidSpokesConfig: CentroidSpokesConfig = {
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultStrokeColor: 'grey',
   defaultStrokeWidth: GlobalDefaultSettings.LINE_STROKE_WIDTH,
-  defaultStrokeOpacity: 0.5,
+  defaultStrokeOpacity: 1,
   numberOfSpokes: 5,
 }
 

@@ -48,9 +48,8 @@ canvas.generate.centroid.area(
 canvas.generate.centroid.points(data)`
 
 const config2: string = `const config: QsCentroidPointsConfig = {
-  defaultRadius: 0.5,
-  defaultFillColor: 'black',
-  defaultStrokeColor: 'black',
+  defaultRadius: 1,
+  defaultFillColor: 'green',
 }`
 
 const data2: string = `const data: QsCentroidPointData[] = [
@@ -125,7 +124,7 @@ const data3: string = `const data: QsCentroidPointData[] = [
   { value: 2 },
   { value: 6 },
   { value: 8 },
-  { value: 1, fillColor: 'green', radius: 2 },
+  { value: 1, radius: 2 },
   { value: 4 },
   { value: 10, fillColor: 'red', radius: 2 },
   { value: 5 },
@@ -146,23 +145,16 @@ export const defaultsContent: JSX.Element = (
               Defaults
             </Typography>,
             <Typography variant="body1">
-              Centroid Text is an integral component of the Centroid suite,
-              engineered for seamless integration with other Centroid elements
-              to enhance data visualization. It automatically computes
-              positioning relative to chart data points, ensuring precise
-              annotations.
+              Centroid points are simple circular points primarily for
+              pinpointing data on centroid charts. They are one of simplest
+              elments.
             </Typography>,
             <ContentRow
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    By default, Centroid Text is positioned precisely at the
-                    data point it represents, ensuring accurate alignment with
-                    the underlying dataset. However, this placement may not
-                    always be ideal due to potential issues like overlapping
-                    text, cluttered visuals, or reduced readability in dense
-                    datasets. To address this, Centroid Text can be offset or
-                    moved to a fixed position.
+                    Centroid points always align precisely with the data they
+                    represent. This is their appearance with default settings.
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
                   <ContentCodeBox code={data1} />
@@ -198,11 +190,8 @@ export const defaultsContent: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    This demo highlights customizable configuration parameters
-                    for Centroid Text, adjustmenting various attributes.
-                    Positional values are included to shift text away from data
-                    points, depending on your visualisation this can minimize
-                    overlap and enhance clarity.
+                    Simple customisations can be made via configuration such as
+                    stroke color, with and opacity,
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
                   <ContentCodeBox code={config2} />
@@ -217,9 +206,8 @@ export const defaultsContent: JSX.Element = (
                       highestViewableValue: 10,
                     }}
                     config={{
-                      defaultRadius: 0.5,
-                      defaultFillColor: 'black',
-                      defaultStrokeColor: 'black',
+                      defaultRadius: 1,
+                      defaultFillColor: 'green',
                     }}
                   />
                 </ContentChartBox>,
@@ -229,10 +217,8 @@ export const defaultsContent: JSX.Element = (
               elements={[
                 <ContentTextBox>
                   <Typography variant="body2" gutterBottom>
-                    Here, the text is set to a fixed position, though Arc Text
-                    may be better suited for this purpose. Data can be used to
-                    customize individual text items, prioritizing those of
-                    greater importance.
+                    Additionally appreance can be part of the data, changing
+                    individual points to convey their importance.
                   </Typography>
                   <ContentCodeBox code={data3} />
                 </ContentTextBox>,
@@ -244,9 +230,8 @@ export const defaultsContent: JSX.Element = (
                       highestViewableValue: 10,
                     }}
                     config={{
-                      defaultRadius: 0.5,
-                      defaultFillColor: 'black',
-                      defaultStrokeColor: 'black',
+                      defaultRadius: 1,
+                      defaultFillColor: 'green',
                     }}
                     data={[
                       { value: 7 },
@@ -255,7 +240,7 @@ export const defaultsContent: JSX.Element = (
                       { value: 2 },
                       { value: 6 },
                       { value: 8 },
-                      { value: 1, fillColor: 'green', radius: 2 },
+                      { value: 1, radius: 2 },
                       { value: 4 },
                       { value: 10, fillColor: 'red', radius: 2 },
                       { value: 5 },

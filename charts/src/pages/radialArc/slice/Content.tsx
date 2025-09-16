@@ -18,8 +18,11 @@ const canvasConfig: string = `const canvasConfig = {
   highestViewableValue: 40,
 }`
 
-const data1: string = `
-const data: QsArcSliceData[] = [{ valueArc: 10 }, { valueArc: 20 }, { valueArc: 15 }]`
+const data1: string = `const data: QsArcSliceData[] = [
+  { valueArc: 10 }, 
+  { valueArc: 20 }, 
+  { valueArc: 15 }
+]`
 
 const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.arc.slice(data, config)`
@@ -34,9 +37,6 @@ const config: QsArcSliceConfig ={
     range: ['orange', 'red', 'blue'],
   },
 }`
-
-const data2: string = `
-const data: QsArcSliceData[] = [{ valueArc: 10 }, { valueArc: 20 }, { valueArc: 15 }]`
 
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 canvas.generate.arc.slice(data, config)`
@@ -98,10 +98,10 @@ canvas.generate.arc.text.horizontal(
     { value: 50, text: 'greens' },
   ],
   {
-    radius: 30,
+    defaultRadius: 30,
     scaleType: QsEnumScaleType.BANDED,
-    textFontSize: 10,
-    textFill: 'white',
+    defaultTextFontSize: 10,
+    defaultTextFill: 'white',
   }
 )
 canvas.generate.arc.text.follow(
@@ -119,9 +119,9 @@ canvas.generate.arc.text.follow(
   ],
   {
     scaleType: QsEnumScaleType.BANDED,
-    textFontSize: 4,
-    radius: 88,
-    textFill: 'white',
+    defaultTextFontSize: 4,
+    defaultRadius: 88,
+    defaultTextFill: 'white',
   }
 )`
 
@@ -201,7 +201,7 @@ export const defaultsContent: JSX.Element = (
                   </Typography>
                   <ContentCodeBox code={canvasConfig} />
                   <ContentCodeBox code={config2} />
-                  <ContentCodeBox code={data2} />
+                  <ContentCodeBox code={data1} />
                   <ContentCodeBox code={chart2} />
                 </ContentTextBox>,
                 <ContentChartBox>

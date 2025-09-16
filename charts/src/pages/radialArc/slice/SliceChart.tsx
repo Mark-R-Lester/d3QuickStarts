@@ -26,10 +26,10 @@ export const SliceChart: FunctionComponent<ArcChartProps> = ({
             { value: 50, text: 'greens' },
           ],
           {
-            radius: 30,
+            defaultRadius: 30,
             scaleType: QsEnumScaleType.BANDED,
-            textFontSize: 10,
-            textFill: 'white',
+            defaultTextFontSize: 10,
+            defaultTextFill: 'white',
           }
         )
         canvas.generate.arc.text.follow(
@@ -47,9 +47,9 @@ export const SliceChart: FunctionComponent<ArcChartProps> = ({
           ],
           {
             scaleType: QsEnumScaleType.BANDED,
-            textFontSize: 4,
-            radius: 88,
-            textFill: 'white',
+            defaultTextFontSize: 4,
+            defaultRadius: 88,
+            defaultTextFill: 'white',
           }
         )
       }

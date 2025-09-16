@@ -28,11 +28,18 @@ export const getCalculatedData = (
   data: QsCentroidTextData[],
   config: CentroidTextConfig
 ): QsCalculatedDataCentroidText[] => {
-  const { genralPercentScale, xPercentScale, yPercentScale, radialDataScale } =
-    canvas.scales
+  const {
+    genralPercentScale,
+    xPercentScale,
+    yPercentScale,
+    radialDataScale,
+    radialPercentScale,
+  } = canvas.scales
   const {
     x,
     y,
+    fixedPosition,
+    fixedPositionActive,
     defaultTextFont,
     defaultTextFontSize,
     defaultTextFontStyle,
@@ -53,7 +60,10 @@ export const getCalculatedData = (
 
   data.forEach((d, i) => {
     const radians = angleScale(i)
-    const hypotenuse = radialDataScale(d.value)
+    const hypotenuse = fixedPositionActive
+      ? radialPercentScale(fixedPosition)
+      : radialDataScale(d.value)
+
     const coordinate: QsCoordinate = {
       x: Math.sin(radians) * hypotenuse,
       y: Math.cos(radians) * hypotenuse * -1,

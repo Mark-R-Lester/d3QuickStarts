@@ -29,6 +29,7 @@ export const getScalesMock = (config: CanvasConfig): CanvasScales => {
     yDataScalePlotted: mockScale,
     yDataScaleInverted: mockScale,
     radialDataScale: mockScale,
+    radialPercentScale: mockScale,
     radialTickScale: mockScale,
   }
 }

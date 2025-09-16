@@ -414,6 +414,8 @@ export const centroidTextsConfig: CentroidTextConfig = {
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
+  fixedPositionActive: false,
+  fixedPosition: 100,
   ...textDefaults,
 }
 

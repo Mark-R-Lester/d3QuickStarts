@@ -8,6 +8,8 @@ export interface CentroidTextConfig extends ConfigTextDefaults {
   x: number
   y: number
   defaultDecimalPoints: number
+  fixedPositionActive: boolean
+  fixedPosition: number
 }
 
 export interface QsCalculatedDataCentroidText extends TextData {

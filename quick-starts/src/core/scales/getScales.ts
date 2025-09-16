@@ -32,6 +32,7 @@ export interface CanvasScales {
   yDataScaleInverted: ScaleContinuousNumeric<number, number>
 
   radialDataScale: ScaleContinuousNumeric<number, number>
+  radialPercentScale: ScaleContinuousNumeric<number, number>
   radialTickScale: ScaleContinuousNumeric<number, number>
 }
 
@@ -146,6 +147,7 @@ export const getScales = (config: CanvasConfig): CanvasScales => {
     yDataScaleInverted: createScale(dataDomain, yRangeInverted, dataScale),
 
     radialDataScale: createScale(dataDomain, radialRange, dataScale),
+    radialPercentScale: scaleLinear().domain(percentDomain).range(radialRange),
     radialTickScale: createScale(dataDomain, dataDomain, dataScale),
   }
 }

@@ -87,7 +87,8 @@ export const OrthogonalBarsTransition: FunctionComponent<OrienetedChartProps> =
         newText = canvas.generate.orthogonal.horizontal.text(textData, {
           scaleType: QsEnumScaleType.BANDED,
           defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
-          defaultTextFill: 'yellow',
+          fixedPositionActive: true,
+          fixedPosition: -4,
         })
 
         setBars(newBars)

@@ -7,6 +7,8 @@ export interface TextConfig extends ConfigTextDefaults {
   layerType: QsEnumLayerType
   scaleType: QsEnumScaleType
   defaultDecimalPoints: number
+  fixedPositionActive: boolean
+  fixedPosition: number
 }
 
 export interface QsCalculatedDataOrthogonalText extends TextData {
@@ -15,6 +17,6 @@ export interface QsCalculatedDataOrthogonalText extends TextData {
   text?: string
   newText?: string
   value: number
-  diplayValue?: string
+  displayValue?: string
   newValue: number
 }

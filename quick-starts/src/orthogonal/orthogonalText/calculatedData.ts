@@ -42,11 +42,19 @@ export const getCalculatedData = (
   config: TextConfig
 ): QsCalculatedDataOrthogonalText[] => {
   const { displayAreaHeight, displayAreaWidth } = canvas.config
-  const { xDataScale, yDataScale, genralPercentScale } = canvas.scales
+  const {
+    xDataScale,
+    yDataScale,
+    genralPercentScale,
+    xPercentScaleInverted,
+    yPercentScaleInverted,
+  } = canvas.scales
 
   const isVertical = orientation === Orientation.VERTICAL
   const {
     scaleType,
+    fixedPosition,
+    fixedPositionActive,
     defaultTextFont,
     defaultTextFontSize,
     defaultTextFontStyle,
@@ -105,6 +113,9 @@ export const getCalculatedData = (
 
   const coordinates: CoordinateAugmented[] = getCoordinates(data)
   const dataScale = isVertical ? xDataScale : yDataScale
+  const percentScale = isVertical
+    ? xPercentScaleInverted
+    : yPercentScaleInverted
 
   let spacingScale: any
   if (isBanded) {
@@ -129,13 +140,21 @@ export const getCalculatedData = (
     const space = isBanded
       ? spacingScale(d.x.toString()) + spacingScale.bandwidth() / 2
       : spacingScale(d.x)
-    return isVertical ? dataScale(d.x) : space
+    return isVertical
+      ? fixedPositionActive
+        ? percentScale(fixedPosition)
+        : dataScale(d.x)
+      : space
   }
   const y = (d: QsCoordinate) => {
     const space = isBanded
       ? spacingScale(d.y.toString()) + spacingScale.bandwidth() / 2
       : spacingScale(d.y)
-    return isVertical ? space : dataScale(d.y)
+    return isVertical
+      ? space
+      : fixedPositionActive
+        ? percentScale(fixedPosition)
+        : dataScale(d.y)
   }
 
   const calculatedData: QsCalculatedDataOrthogonalText[] = coordinates.map(

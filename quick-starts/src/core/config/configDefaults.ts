@@ -241,9 +241,11 @@ export const orthogonalPointsConfig: PointsConfig = {
 }
 
 export const orthogonalTextConfig: TextConfig = {
-  layerType: QsEnumLayerType.DATA,
+  layerType: QsEnumLayerType.UNBOUND,
   scaleType: QsEnumScaleType.LINEAR,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,
+  fixedPositionActive: false,
+  fixedPosition: 100,
   ...textDefaults,
 }
 

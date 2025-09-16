@@ -29,6 +29,7 @@ export interface CentroidAxisConfig
     | QsCentroidTickConfig[]
   layerType: QsEnumLayerType
   showCentralTick: boolean
+  showText: boolean
   tickConfig?: QsCentroidTickConfig[]
   x: number
   y: number

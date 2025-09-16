@@ -57,27 +57,29 @@ const draw = (canvas: Canvas, config: CentroidAxisConfig): QsCentroidAxis => {
     .attr('stroke-width', (d) => d.strokeWidth)
     .attr('stroke-opacity', (d) => d.strokeOpacity)
     .attr('transform', (d) => `translate(${d.x}, ${d.y})`)
-  group
-    .selectAll('text')
-    .data(calculatedData)
-    .enter()
-    .append('text')
-    .attr('class', classNameText)
-    .attr('id', (d) => d.textId)
-    .attr('font-family', (d) => d.textFont)
-    .attr('font-style', (d) => d.textFontStyle)
-    .attr('font-weight', (d) => d.textFontWeight)
-    .attr('font-size', (d) => `${d.textFontSize}px`)
-    .attr('text-decoration', (d) => d.textDecorationLine)
-    .attr('fill', (d) => d.textFill)
-    .attr('stroke', (d) => d.textStroke)
-    .style('text-anchor', (d) => d.textAnchor)
-    .style('alignment-baseline', (d) => d.textAlignmentBaseline)
-    .attr(
-      'transform',
-      (d) => `translate(${d.ringData.textLocation})rotate(${d.textAngle})`
-    )
-    .text((d) => d.ringData.text)
+  if (config.showText) {
+    group
+      .selectAll('text')
+      .data(calculatedData)
+      .enter()
+      .append('text')
+      .attr('class', classNameText)
+      .attr('id', (d) => d.textId)
+      .attr('font-family', (d) => d.textFont)
+      .attr('font-style', (d) => d.textFontStyle)
+      .attr('font-weight', (d) => d.textFontWeight)
+      .attr('font-size', (d) => `${d.textFontSize}px`)
+      .attr('text-decoration', (d) => d.textDecorationLine)
+      .attr('fill', (d) => d.textFill)
+      .attr('stroke', (d) => d.textStroke)
+      .style('text-anchor', (d) => d.textAnchor)
+      .style('alignment-baseline', (d) => d.textAlignmentBaseline)
+      .attr(
+        'transform',
+        (d) => `translate(${d.ringData.textLocation})rotate(${d.textAngle})`
+      )
+      .text((d) => d.ringData.text)
+  }
 
   return {
     classNameTicks,

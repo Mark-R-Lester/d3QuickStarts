@@ -361,6 +361,7 @@ export const centroidAreaConfig: CentroidAreaConfig = {
 export const centroidAxisConfig: CentroidAxisConfig = {
   layerType: QsEnumLayerType.UNBOUND,
   showCentralTick: true,
+  showText: true,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultAxisAngle: 0,

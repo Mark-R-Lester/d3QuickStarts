@@ -19,7 +19,7 @@ const canvasConfig: string = `const canvasConfig = {
   borderColor: 'grey',
 }`
 
-const data1: string = `const data: QsArcTextData[] = [
+const data1: string = `const data: QsCentroidTextData[] = [
   { value: 7 },
   { value: 3 },
   { value: 9 },
@@ -48,14 +48,14 @@ const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canv
 )
 canvas.generate.centroid.text(data)`
 
-const config2: string = `const config: QsArcTextData = {
+const config2: string = `const config: QsCentroidTextConfig = {
   defaultTextFontSize: 6,
   defaultTextFontWeight: QsEnumTextFontWeight.LIGTHER,
   defaultTextFill: 'darkgreen',
   defaultTextAnchor: QsEnumTextAnchor.MIDDLE,
 }`
 
-const data2: string = `const data: QsArcTextData[] = [
+const data2: string = `const data: QsCentroidTextData[] = [
   { value: 7, positionalValue: 8 },
   { value: 3, positionalValue: 4 },
   { value: 9, positionalValue: 10 },
@@ -73,7 +73,7 @@ const data2: string = `const data: QsArcTextData[] = [
 ]`
 
 const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
- canvas.generate.centroid.area(
+canvas.generate.centroid.area(
   {
     highValues: [7, 3, 9, 2, 6, 8, 1, 4, 10, 5, 3, 7, 2, 9],
   },
@@ -98,7 +98,7 @@ canvas.generate.centroid.axis({
 })
 canvas.generate.centroid.text(data, config)`
 
-const config3: string = `const config: QsArcTextData = {
+const config3: string = `const config: QsCentroidTextConfig = {
   defaultDecimalPoints: 1,
   fixedPositionActive: true,
   fixedPosition: 115,
@@ -106,7 +106,7 @@ const config3: string = `const config: QsArcTextData = {
   defaultTextFill: 'green',
 }`
 
-const data3: string = `const data: QsArcTextData[] = [
+const data3: string = `const data: QsCentroidTextData[] = [
   { value: 7 },
   { value: 3 },
   { value: 9 },
@@ -303,7 +303,7 @@ export const defaultsContent: JSX.Element = (
   />
 )
 
-const data: string = `interface QsArcTextData {
+const data: string = `interface QsCentroidTextData {
   value: number
   text?: string
   textFont?: QsEnumTextFont | string
@@ -318,7 +318,7 @@ const data: string = `interface QsArcTextData {
   textAlignmentBaseline?: QsEnumAlignmentBaseline
 }`
 
-const config: string = `interface QsRadialTextConfig = {
+const config: string = `interface QsCentroidTextConfig = {
  layerType?: QsEnumLayerType
   x?: number
   y?: number
@@ -337,7 +337,7 @@ const config: string = `interface QsRadialTextConfig = {
   defaultTextAlignmentBaseline?: QsEnumAlignmentBaseline
 }`
 
-const dataExample: string = `const data: QsArcTextData = {
+const dataExample: string = `const data: QsCentroidTextData = {
   value: 27,
   text: 'this is what you will see if added',
   textFont: QsEnumTextFont.SERIF,
@@ -352,7 +352,7 @@ const dataExample: string = `const data: QsArcTextData = {
   textAlignmentBaseline: QsEnumAlignmentBaseline.CENTER,
 }`
 
-const configExample: string = `const config: QsRadialTextConfig =  {
+const configExample: string = `const config: QsCentroidTextConfig =  {
   layerType: QsEnumLayerType.UNBOUND
   x: 50
   y: 50

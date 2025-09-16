@@ -4,64 +4,276 @@ import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
 import { RadialPointsChart } from './RadialPointsChart'
-import { RadialPointsDefaultsChart } from './RadialPointsDefaultsChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
-  highestViewableValue: 25,
+  highestViewableValue: 10,
   borderColor: 'grey',
 }`
 
-const defaultsChart: string = `
-const data: QsCentroidPointData[] = [
-  { value: 1 },
+const data1: string = `const data: QsCentroidPointData[] = [
+  { value: 7 },
+  { value: 3 },
+  { value: 9 },
   { value: 2 },
+  { value: 6 },
+  { value: 8 },
   { value: 1 },
+  { value: 4 },
+  { value: 10 },
+  { value: 5 },
+  { value: 3 },
+  { value: 7 },
   { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-]
+  { value: 9 },
+]`
 
-const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+const chart1: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+canvas.generate.centroid.area(
+  {
+    highValues: [7, 3, 9, 2, 6, 8, 1, 4, 10, 5, 3, 7, 2, 9],
+  },
+  {
+    defaultFillOpacity: 0.2,
+    curve: QsEnumCurve.NATURAL,
+  }
+)
 canvas.generate.centroid.points(data)`
 
-const configChart: string = `
-const data: QsCentroidPointData[] = [
-  { value: 1, fillColor: 'red' },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-  { value: 1 },
-  { value: 2 },
-]
+const config2: string = `const config: QsCentroidPointsConfig = {
+  defaultRadius: 0.5,
+  defaultFillColor: 'black',
+  defaultStrokeColor: 'black',
+}`
 
-const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
-canvas.generate.centroid.points(data)`
+const data2: string = `const data: QsCentroidPointData[] = [
+  { value: 7 },
+  { value: 3 },
+  { value: 9 },
+  { value: 2 },
+  { value: 6 },
+  { value: 8 },
+  { value: 1 },
+  { value: 4 },
+  { value: 10 },
+  { value: 5 },
+  { value: 3 },
+  { value: 7 },
+  { value: 2 },
+  { value: 9 },
+]`
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+const chart2: string = `const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
+ canvas.generate.centroid.area(
+  {
+    highValues: [7, 3, 9, 2, 6, 8, 1, 4, 10, 5, 3, 7, 2, 9],
+  },
+  {
+    defaultFillOpacity: 0.2,
+    defaultStrokeColor: 'green',
+    defaultStrokeWidth: 0.2,
+    curve: QsEnumCurve.NATURAL,
+  }
+)
+canvas.generate.centroid.spokes({
+  numberOfSpokes: 14,
+  defaultInnerRadius: 5,
+  defaultOuterRadius: 102,
+  defaultStrokeOpacity: 0.3,
+})
+canvas.generate.centroid.axis({
+  numberOfTicks: 3,
+  defaultStrokeOpacity: 0.3,
+  defaultAxisAngle: 15,
+  showText: false,
+})
+canvas.generate.arc.text.horizontal(
+  [
+    { value: 7 },
+    { value: 3 },
+    { value: 9 },
+    { value: 2 },
+    { value: 6 },
+    { value: 8 },
+    { value: 1 },
+    { value: 4 },
+    { value: 10 },
+    { value: 5 },
+    { value: 3 },
+    { value: 7 },
+    { value: 2 },
+    { value: 9 },
+  ],
+  {
+    angularPosition: QsEnumArcTextAngularPosition.CENTROID_LOCK,
+    defaultRadius: 110,
+  }
+)
+canvas.generate.centroid.points(data, config)`
+
+const data3: string = `const data: QsCentroidPointData[] = [
+  { value: 7 },
+  { value: 3 },
+  { value: 9 },
+  { value: 2 },
+  { value: 6 },
+  { value: 8 },
+  { value: 1, fillColor: 'green', radius: 2 },
+  { value: 4 },
+  { value: 10, fillColor: 'red', radius: 2 },
+  { value: 5 },
+  { value: 3 },
+  { value: 7 },
+  { value: 2 },
+  { value: 9 },
+]`
+
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              Centroid Text is an integral component of the Centroid suite,
+              engineered for seamless integration with other Centroid elements
+              to enhance data visualization. It automatically computes
+              positioning relative to chart data points, ensuring precise
+              annotations.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    By default, Centroid Text is positioned precisely at the
+                    data point it represents, ensuring accurate alignment with
+                    the underlying dataset. However, this placement may not
+                    always be ideal due to potential issues like overlapping
+                    text, cluttered visuals, or reduced readability in dense
+                    datasets. To address this, Centroid Text can be offset or
+                    moved to a fixed position.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={data1} />
+                  <ContentCodeBox code={chart1} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <RadialPointsChart
+                    canvasConfig={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 10,
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Using config and data to modify appearance
+            </Typography>,
+            <Typography variant="body1">
+              Configuration settings control arc text appearance, allowing
+              precise customization of visual attributes like font, color, and
+              orientation. By adjusting config and data parameters, arc text can
+              be styled to meet specific aesthetic needs.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This demo highlights customizable configuration parameters
+                    for Centroid Text, adjustmenting various attributes.
+                    Positional values are included to shift text away from data
+                    points, depending on your visualisation this can minimize
+                    overlap and enhance clarity.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={config2} />
+                  <ContentCodeBox code={data2} />
+                  <ContentCodeBox code={chart2} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <RadialPointsChart
+                    canvasConfig={{
+                      chartName: 'chart2',
+                      width: 600,
+                      highestViewableValue: 10,
+                    }}
+                    config={{
+                      defaultRadius: 0.5,
+                      defaultFillColor: 'black',
+                      defaultStrokeColor: 'black',
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Here, the text is set to a fixed position, though Arc Text
+                    may be better suited for this purpose. Data can be used to
+                    customize individual text items, prioritizing those of
+                    greater importance.
+                  </Typography>
+                  <ContentCodeBox code={data3} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <RadialPointsChart
+                    canvasConfig={{
+                      chartName: 'chart4',
+                      width: 600,
+                      highestViewableValue: 10,
+                    }}
+                    config={{
+                      defaultRadius: 0.5,
+                      defaultFillColor: 'black',
+                      defaultStrokeColor: 'black',
+                    }}
+                    data={[
+                      { value: 7 },
+                      { value: 3 },
+                      { value: 9 },
+                      { value: 2 },
+                      { value: 6 },
+                      { value: 8 },
+                      { value: 1, fillColor: 'green', radius: 2 },
+                      { value: 4 },
+                      { value: 10, fillColor: 'red', radius: 2 },
+                      { value: 5 },
+                      { value: 3 },
+                      { value: 7 },
+                      { value: 2 },
+                      { value: 9 },
+                    ]}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
 
 const data: string = `interface QsCentroidPointData {
   value: number
@@ -74,7 +286,7 @@ const data: string = `interface QsCentroidPointData {
 }`
 
 const config: string = `interface QsCentroidPointsConfig = {
-  useDataArea?: boolean
+  layerType: QsEnumLayerType
   x?: number
   y?: number
   defaultRadius?: number
@@ -98,7 +310,7 @@ const dataExample: string = `const data: QsCentroidPointData = {
 }`
 
 const configExample: string = `const config: QsCentroidPointsConfig = {
-  useDataArea: true
+  layerType: QsEnumLayerType.DATA
   x: 50,
   y: 50,
   defaultRadius: 3,
@@ -119,112 +331,54 @@ const configExample: string = `const config: QsCentroidPointsConfig = {
   },
 }`
 
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text generated with defaults</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <RadialPointsDefaultsChart
-              canvasConfig={{
-                chartName: 'chartH',
-                width: 600,
-                highestViewableValue: 2,
-                borderColor: 'grey',
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text customised</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <RadialPointsChart
-              canvasConfig={{
-                chartName: 'chartV',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 2,
-                borderColor: 'grey',
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsTextData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={data} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={dataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={data} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsTextConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={config} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
@@ -241,9 +395,11 @@ const canvasConfig = {
   chartName: 'ChartEditable',
   width: 600,
   lowestViewableValue: 0,
-  highestViewableValue: 2,
+  highestViewableValue: 10,
   borderColor: 'grey',
 }
-${configChart}`}
+${config2}
+${data3}
+${chart2}`}
   ></ChartEditor>
 )

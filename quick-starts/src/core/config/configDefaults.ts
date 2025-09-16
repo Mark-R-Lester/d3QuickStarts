@@ -410,7 +410,7 @@ export const centroidPointsConfig: CentroidPointsConfig = {
 }
 
 export const centroidTextsConfig: CentroidTextConfig = {
-  layerType: QsEnumLayerType.DATA,
+  layerType: QsEnumLayerType.UNBOUND,
   x: GlobalDefaultSettings.RADIAL_X,
   y: GlobalDefaultSettings.RADIAL_Y,
   defaultDecimalPoints: GlobalDefaultSettings.DECIMAL_POINTS,

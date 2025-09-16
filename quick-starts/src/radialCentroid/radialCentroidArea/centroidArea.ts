@@ -60,6 +60,7 @@ const draw = (
   const radialLine = lineRadial<AreaData>()
     .angle((d) => d.angle)
     .radius((d) => d.outer)
+    .curve(constantsCurves[curve])
 
   const { className: classNameArea, dotClassName: dotClassNameArea } =
     generateClassName('centroidArea')
@@ -134,6 +135,7 @@ const draw = (
   return {
     classNameArea,
     classNameLine,
+    layerActions,
     calculatedData,
     transition,
   }

@@ -4,6 +4,7 @@ import {
 } from './types'
 import { QsTransitionArgs } from '../../core/types/qsTypes'
 import { StrokeData } from '../../core/types/types'
+import { LayerActions } from '../../canvas/createCanvasElement'
 export { QsCalculatedDataCentroidArea } from './types'
 
 export type QsCentroidAreaConfig = Partial<CentroidAreaConfig>
@@ -17,6 +18,7 @@ export interface QsCentroidAreaTransitionData {
 export interface QsCentroidArea {
   classNameArea: string
   classNameLine: string
+  layerActions: LayerActions
   calculatedData: QsCalculatedDataCentroidArea
   transition: (data: QsCentroidAreaTransitionData) => void
 }

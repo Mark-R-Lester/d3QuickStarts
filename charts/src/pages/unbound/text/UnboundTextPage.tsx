@@ -4,30 +4,17 @@ import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
 import { UnboundTextChart } from './UnboundTextChart'
-import { UnboundTextDefaultsChart } from './UnboundTextDefaultsChart'
-import {
-  defaultsContent,
-  configContent,
-  configAndData,
-  editorContent,
-} from './Content'
+import { defaultsContent, configAndData, editorContent } from './Content'
 
 export default function UnboundTextPage() {
   const menuElements: JSX.Element[] = [
-    <UnboundTextDefaultsChart
-      canvasConfig={{
-        chartName: 'unboundTextDefaultsChart',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 100,
-      }}
-    />,
     <UnboundTextChart
       canvasConfig={{
-        chartName: 'unboundTextChart',
+        chartName: 'unboundText',
         width: 130,
         lowestViewableValue: 0,
-        highestViewableValue: 100,
+        highestViewableValue: 10,
+        marginLeft: 30,
       }}
     />,
     <ConfigAndData />,
@@ -36,7 +23,6 @@ export default function UnboundTextPage() {
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
     configAndData,
     editorContent,
   ]

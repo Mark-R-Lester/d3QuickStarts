@@ -10,9 +10,9 @@ import {
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../../common/chartProps'
+import { ChartPropsOrthogonal } from '../../../common/chartProps'
 
-export const UnboundLegendChart: FunctionComponent<ChartPropsOthogonal> = ({
+export const UnboundLegendChart: FunctionComponent<ChartPropsOrthogonal> = ({
   canvasConfig,
 }) => {
   useEffect(() => {

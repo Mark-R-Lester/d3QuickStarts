@@ -16,9 +16,8 @@ export interface QsUnboundText {
 }
 
 export interface QsCalculatedDataUnboundText extends TextData {
-  text?: string
+  text: string
   newText?: string
   coordinate: QsCoordinate
   newCoordinate: QsCoordinate
-  defaultDecimalPoints: number
 }

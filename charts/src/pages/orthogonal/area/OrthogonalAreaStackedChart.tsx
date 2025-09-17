@@ -4,10 +4,10 @@ import {
   qsCreateCanvasOrthogonal,
   QsEnumCurve,
 } from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../../common/chartProps'
+import { ChartPropsOrthogonal } from '../../../common/chartProps'
 
 export const OrthogonalAreaStackedChart: FunctionComponent<
-  ChartPropsOthogonal
+  ChartPropsOrthogonal
 > = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {

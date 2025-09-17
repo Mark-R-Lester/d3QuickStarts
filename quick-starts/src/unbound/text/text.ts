@@ -10,7 +10,6 @@ import { unboundTextConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { getCalculatedData } from './calculatedData'
 import { generateClassName } from '../../core/generateClassName'
-import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const unboundText = (
   canvas: Canvas,
@@ -38,10 +37,7 @@ const draw = (
 
   const { className, dotClassName } = generateClassName('centroidArea')
 
-  const { layer, layerActions } =
-    config.layerType === QsEnumLayerType.DATA
-      ? canvas.addDataLayer()
-      : canvas.addUnboundLayer()
+  const { layer, layerActions } = canvas.addUnboundLayer()
   const group = layer.append('g')
 
   group
@@ -62,11 +58,7 @@ const draw = (
     })
     .style('text-anchor', (d) => d.textAnchor)
     .style('alignment-baseline', (d) => d.textAlignmentBaseline)
-    .text(
-      (d) =>
-        d.text ??
-        `${d.coordinate.x.toFixed(d.defaultDecimalPoints)}, ${d.coordinate.y.toFixed(d.defaultDecimalPoints)}`
-    )
+    .text((d) => d.text)
 
   return { className, layerActions, calculatedData }
 }

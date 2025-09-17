@@ -1,6 +1,5 @@
 import { Canvas } from '../../canvas/types'
-import { QsCoordinate } from '../../core/types/qsTypes'
-import { TextData } from '../../core/types/types'
+
 import { QsCalculatedDataUnboundText, QsUnboundTextData } from './qsTypes'
 import { UnboundTextConfig } from './types'
 
@@ -33,7 +32,6 @@ export const getCalculatedData = (
     genralPercentScale,
   } = canvas.scales
   const {
-    defaultDecimalPoints,
     defaultTextFont,
     defaultTextFontSize,
     defaultTextFontStyle,
@@ -57,7 +55,6 @@ export const getCalculatedData = (
       x: xCanvasPercentScale(d.x),
       y: yCanvasPercentScaleInverted(d.y),
     },
-    defaultDecimalPoints,
     textFont: d.textFont ?? defaultTextFont,
     textFontSize: genralPercentScale(d.textFontSize ?? defaultTextFontSize),
     textFontStyle: d.textFontStyle ?? defaultTextFontStyle,

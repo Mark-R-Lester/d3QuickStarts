@@ -4,10 +4,10 @@ import {
   qsCreateCanvasOrthogonal,
   QsLegendData,
 } from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../../common/chartProps'
+import { ChartPropsOrthogonal } from '../../../common/chartProps'
 
 export const UnboundLegendDefaultsChart: FunctionComponent<
-  ChartPropsOthogonal
+  ChartPropsOrthogonal
 > = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {

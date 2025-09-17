@@ -1,8 +1,8 @@
 import { FunctionComponent, useEffect } from 'react'
-import { ChartPropsOthogonal } from '../../../common/chartProps'
+import { ChartPropsOrthogonal } from '../../../common/chartProps'
 import { qsCreateCanvasOrthogonal } from 'd3qs/d3QuickStart'
 
-export const SimpleCanvas: FunctionComponent<ChartPropsOthogonal> = ({
+export const SimpleCanvas: FunctionComponent<ChartPropsOrthogonal> = ({
   canvasConfig,
 }) => {
   useEffect(() => {

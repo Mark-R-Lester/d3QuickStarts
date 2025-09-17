@@ -5,9 +5,9 @@ import {
   qsCreateCanvasOrthogonal,
 } from 'd3qs/d3QuickStart'
 
-import { ChartPropsOthogonal } from '../../common/chartProps'
+import { ChartPropsOrthogonal } from '../../common/chartProps'
 
-export const OrthogonalBarChart: FunctionComponent<ChartPropsOthogonal> = ({
+export const OrthogonalBarChart: FunctionComponent<ChartPropsOrthogonal> = ({
   canvasConfig,
 }) => {
   useEffect(() => {

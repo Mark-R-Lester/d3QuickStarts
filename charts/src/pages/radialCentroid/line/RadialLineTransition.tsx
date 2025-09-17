@@ -4,9 +4,9 @@ import {
   qsCreateCanvasRadial,
   QsCentroidLine,
 } from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../../common/chartProps'
+import { ChartPropsOrthogonal } from '../../../common/chartProps'
 
-export const RadialLineTransition: FunctionComponent<ChartPropsOthogonal> = ({
+export const RadialLineTransition: FunctionComponent<ChartPropsOrthogonal> = ({
   canvasConfig,
 }) => {
   const [changed, setChanged] = useState<boolean>(false)

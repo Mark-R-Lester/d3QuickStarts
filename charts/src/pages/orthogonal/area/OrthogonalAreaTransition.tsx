@@ -5,10 +5,10 @@ import {
   QsArea,
   QsAreaData,
 } from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../../common/chartProps'
+import { ChartPropsOrthogonal } from '../../../common/chartProps'
 
 export const OrthogonalAreaTransition: FunctionComponent<
-  ChartPropsOthogonal
+  ChartPropsOrthogonal
 > = ({ canvasConfig }) => {
   const [changed, setChanged] = useState<boolean>(false)
   const [topArea, setTopArea] = useState<QsArea>()

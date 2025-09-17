@@ -46,7 +46,7 @@ export enum GlobalDefaultSettings {
   POINT_RADIUS = 1,
   LINE_STROKE_WIDTH = 0.4,
   LINE_STROKE_OPACITY = 1,
-  FONT_SIZE = 4,
+  FONT_SIZE = 5,
   RADIAL_X = 50,
   RADIAL_Y = 50,
   DECIMAL_POINTS = 0,

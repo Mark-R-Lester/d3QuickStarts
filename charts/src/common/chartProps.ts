@@ -39,6 +39,10 @@ import {
   QsArcEnvelopeConfig,
   QsArcSegmentConfig,
   QsArcSegmentData,
+  QsLegendData,
+  QsLegendConfig,
+  QsUnboundTextData,
+  QsUnboundTextConfig,
 } from 'd3qs/d3QuickStart'
 import { EnumOrientation } from './enums'
 import {
@@ -49,11 +53,11 @@ import {
 /**
  * Orthogonal interfaces
  */
-export interface ChartPropsOthogonal {
+export interface ChartPropsOrthogonal {
   canvasConfig: QsCanvasConfigOrthogonal
 }
 
-export interface OrienetedChartProps extends ChartPropsOthogonal {
+export interface OrienetedChartProps extends ChartPropsOrthogonal {
   orientation: EnumOrientation
 }
 
@@ -62,12 +66,12 @@ export interface TextChartProps extends OrienetedChartProps {
   data?: QsTextData[]
 }
 
-export interface AreaChartProps extends ChartPropsOthogonal {
+export interface AreaChartProps extends ChartPropsOrthogonal {
   config?: QsAreaConfig
   data?: QsAreaData
 }
 
-export interface AxisChartProps extends ChartPropsOthogonal {
+export interface AxisChartProps extends ChartPropsOrthogonal {
   configH?: QsAxisConfig
   configV?: QsAxisConfig
 }
@@ -77,12 +81,12 @@ export interface BarChartProps extends OrienetedChartProps {
   data?: QsBarData[]
 }
 
-export interface BarGroupChartProps extends ChartPropsOthogonal {
+export interface BarGroupChartProps extends ChartPropsOrthogonal {
   config?: QsBarGroupConfig
   data?: QsBarGroupedData[][]
 }
 
-export interface BarStackChartProps extends ChartPropsOthogonal {
+export interface BarStackChartProps extends ChartPropsOrthogonal {
   config?: QsBarStackedConfig
   data?: QsBarStackedData[][]
 }
@@ -178,4 +182,19 @@ export interface PlottedLineChartProps extends ChartPropsPlotted {
 export interface PlottedPointsChartProps extends ChartPropsPlotted {
   config?: QsPlottedPointsConfig
   data?: QsPlottedPointsData[]
+}
+
+/**
+ * Unbound interfaces
+ */
+export interface UnboundTextChartProps extends ChartPropsOrthogonal {
+  config1?: QsUnboundTextConfig
+  data1?: QsUnboundTextData[]
+  config2?: QsUnboundTextConfig
+  data2?: QsUnboundTextData[]
+}
+
+export interface UnboundLegendChartProps extends ChartPropsOrthogonal {
+  config?: QsLegendConfig
+  data?: QsLegendData[]
 }

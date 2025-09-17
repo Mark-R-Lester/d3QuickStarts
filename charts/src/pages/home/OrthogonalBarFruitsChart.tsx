@@ -8,10 +8,10 @@ import {
   QsOrdinalScaleData,
 } from 'd3qs/d3QuickStart'
 
-import { ChartPropsOthogonal } from '../../common/chartProps'
+import { ChartPropsOrthogonal } from '../../common/chartProps'
 
 export const OrthogonalBarFruitsChart: FunctionComponent<
-  ChartPropsOthogonal
+  ChartPropsOrthogonal
 > = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {
@@ -54,8 +54,8 @@ export const OrthogonalBarFruitsChart: FunctionComponent<
             'ORANGE',
             'MANGO',
             'KIWI',
-            'PINEAPPLE',
-            'STRAWBERRY',
+            'FIG',
+            'DATE',
             'GRAPE',
           ],
         },

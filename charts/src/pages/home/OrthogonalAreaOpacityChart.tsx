@@ -5,10 +5,10 @@ import {
   QsEnumAxisScaleType,
   QsEnumColorOranges,
 } from 'd3qs/d3QuickStart'
-import { ChartPropsOthogonal } from '../../common/chartProps'
+import { ChartPropsOrthogonal } from '../../common/chartProps'
 
 export const OrthogonalAreaOpacityChart: FunctionComponent<
-  ChartPropsOthogonal
+  ChartPropsOrthogonal
 > = ({ canvasConfig }) => {
   useEffect(() => {
     const createChart = () => {

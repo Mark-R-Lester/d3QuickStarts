@@ -6,9 +6,9 @@ import {
   QsEnumAxisScaleType,
 } from 'd3qs/d3QuickStart'
 
-import { ChartPropsOthogonal } from '../../common/chartProps'
+import { ChartPropsOrthogonal } from '../../common/chartProps'
 
-export const OrthogonalCandleChart: FunctionComponent<ChartPropsOthogonal> = ({
+export const OrthogonalCandleChart: FunctionComponent<ChartPropsOrthogonal> = ({
   canvasConfig,
 }) => {
   useEffect(() => {

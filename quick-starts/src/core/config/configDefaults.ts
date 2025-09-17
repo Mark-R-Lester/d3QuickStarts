@@ -439,4 +439,6 @@ export const unboundTextConfig: PlottedTextConfig = {
   defaultDecimalPoints: 0,
   defaultCooridinateView: QsEnumCoordinateView.SHOW_X_AND_Y,
   ...textDefaults,
+  defaultTextAnchor: QsEnumTextAnchor.START,
+  defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
 }

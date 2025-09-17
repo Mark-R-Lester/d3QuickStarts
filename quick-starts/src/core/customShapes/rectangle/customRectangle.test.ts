@@ -1,8 +1,8 @@
-import { customRectangle, RectangleParams } from './customRectangle'
+import { customRectangle, RectangleConfig } from './customRectangle'
 
 describe('customRectangle', () => {
   // Base parameters for testing
-  const baseParams: RectangleParams = {
+  const baseParams: RectangleConfig = {
     height: 100,
     width: 200,
     x: 50,
@@ -25,7 +25,7 @@ describe('customRectangle', () => {
   })
 
   test('should handle all default corner radii (0)', () => {
-    const params: RectangleParams = {
+    const params: RectangleConfig = {
       height: 100,
       width: 200,
       x: 50,
@@ -39,7 +39,7 @@ describe('customRectangle', () => {
   })
 
   test('should handle equal corner radii for circular corners', () => {
-    const params: RectangleParams = {
+    const params: RectangleConfig = {
       height: 100,
       width: 200,
       x: 50,
@@ -60,7 +60,7 @@ describe('customRectangle', () => {
   })
 
   test('should handle lopsided top-right corner radii', () => {
-    const params: RectangleParams = {
+    const params: RectangleConfig = {
       height: 100,
       width: 200,
       x: 50,
@@ -76,7 +76,7 @@ describe('customRectangle', () => {
   })
 
   test('should handle minimal rectangle dimensions and default radii', () => {
-    const params: RectangleParams = {
+    const params: RectangleConfig = {
       height: 0,
       width: 0,
       x: 50,
@@ -90,7 +90,7 @@ describe('customRectangle', () => {
   })
 
   test('should handle different x and y positions', () => {
-    const params: RectangleParams = {
+    const params: RectangleConfig = {
       height: 100,
       width: 200,
       x: 10,

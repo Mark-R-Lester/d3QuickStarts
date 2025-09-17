@@ -7,7 +7,7 @@ import { QsBarConfig, QsBarData, QsBars, QsBarTransitionData } from './qsTypes'
 import { orthogonalBarConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
-import { customRectangle } from '../../core/customShapes/customRectangle'
+import { customRectangle } from '../../core/customShapes/rectangle/customRectangle'
 import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const orthogonalBar = {

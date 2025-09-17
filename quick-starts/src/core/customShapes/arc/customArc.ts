@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import { QsCoordinate } from '../types/qsTypes'
+import { QsCoordinate } from '../../types/qsTypes'
 
 export interface CustomArcArgs {
   outerRadius: number

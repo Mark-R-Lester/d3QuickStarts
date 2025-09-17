@@ -16,7 +16,7 @@ import {
 import { QsBarData } from './qsTypes'
 import { Canvas } from '../../canvas/types'
 import { QsEnumColorScale } from '../../core/enums/qsEnums'
-import { RectangleParams } from '../../core/customShapes/customRectangle'
+import { RectangleConfig } from '../../core/customShapes/rectangle/customRectangle'
 import { rotateCorners } from './rotateCorners'
 
 export const calculateDataWidth = (
@@ -174,7 +174,7 @@ export const getCalculatedData = (
       strokeColorScale
     )
 
-    let rectangleParams: RectangleParams = {
+    let rectangleParams: RectangleConfig = {
       height: height(d),
       width: width(d),
       x: x(d, i),

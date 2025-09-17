@@ -1,5 +1,4 @@
 import { customArc, CustomArcArgs } from './customArc'
-import * as d3 from 'd3'
 
 describe('customArc testing', () => {
   test('creates a full ring arc with equal inner and outer angles', () => {

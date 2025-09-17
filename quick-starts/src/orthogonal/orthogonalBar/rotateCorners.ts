@@ -1,6 +1,6 @@
-import { RectangleParams } from '../../core/customShapes/customRectangle'
+import { RectangleConfig } from '../../core/customShapes/rectangle/customRectangle'
 
-export const rotateCorners = (params: RectangleParams): RectangleParams => ({
+export const rotateCorners = (params: RectangleConfig): RectangleConfig => ({
   height: params.height,
   width: params.width,
   x: params.x,

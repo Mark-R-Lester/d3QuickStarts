@@ -1,8 +1,8 @@
-import { degreesToRadians } from '../math/conversion'
+import { degreesToRadians } from '../../math/conversion'
 import {
   hypotenuseFromAdjacent,
   hypotenuseFromOpposite,
-} from '../math/trigonometricFunctions'
+} from '../../math/trigonometricFunctions'
 import { CustomArcArgs, customArc } from './customArc'
 
 export interface ParalelPaddedArcArgs {

@@ -1,4 +1,4 @@
-export interface RectangleParams {
+export interface RectangleConfig {
   height: number
   width: number
   x: number
@@ -13,7 +13,7 @@ export interface RectangleParams {
   bottomRightCornerRadiusCy?: number
 }
 
-export const customRectangle = (params: RectangleParams): string => {
+export const customRectangle = (params: RectangleConfig): string => {
   const {
     height,
     width,

@@ -28,7 +28,7 @@ import {
 } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
 import { generateClassName } from '../../core/generateClassName'
-import { parallelPaddedArc } from '../../core/customShapes/parallelPaddedArc'
+import { parallelPaddedArc } from '../../core/customShapes/arc/parallelPaddedArc'
 import { QsEnumLayerType } from '../../core/enums/qsEnums'
 
 export const arc = (

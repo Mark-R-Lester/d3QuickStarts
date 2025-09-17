@@ -4,12 +4,20 @@ import { ChartEditor } from '../../../components/molecules/ChartEditor'
 import { ContentRow } from '../../../components/atoms/content/ContentRow'
 import {
   ContentBox,
+  ContentChartBox,
   ContentTextBox,
   ContentTitle,
 } from '../../../components/atoms/content/ContentStyled'
-import { UnboundLegendDefaultsChart } from './UnboundLegendDefaultsChart'
 import { UnboundLegendChart } from './UnboundLegendChart'
 import { ContentCodeBox } from '../../../components/atoms/content/ContentCodeBox'
+import {
+  QsEnumAlignmentBaseline,
+  QsEnumTextAnchor,
+  QsEnumTextDecorationLine,
+  QsEnumTextFont,
+  QsEnumTextFontStyle,
+  QsEnumTextFontWeight,
+} from 'd3qs/d3QuickStart'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
@@ -17,47 +25,150 @@ const canvasConfig: string = `const canvasConfig = {
   highestViewableValue: 35,
 }`
 
-const defaultsChart: string = `
-const data: QsLegendData[] = [
+const data1: string = `const data: QsLegendData[] = [
   { value: 'Red', fillColor: 'red' },
   { value: 'Blue', fillColor: 'blue' },
   { value: 'Green', fillColor: 'green' },
   { value: 'Purple', fillColor: 'purple' },
-]
+]`
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+const chart1: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
 canvas.generate.unbound.legend(data)`
 
-const configChart: string = `
-const data: QsLegendData[] = [
+const config2: string = `const data: QsLegendConfig[] = {}`
+
+const data2: string = `const data: QsLegendData[] = [
   { value: 'Red', fillColor: 'red' },
   { value: 'Blue', fillColor: 'blue' },
   { value: 'Green', fillColor: 'green' },
   { value: 'Purple', fillColor: 'purple' },
-]
+]`
 
-const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+const chart2: string = `const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+canvas.generate.unbound.legend(data)`
 
-canvas.generate.unbound.legend(data, {
-  x: 0,
-  y: 0,
-  height: 1,
-  width: 7,
-  space: 10,
-  textFont: QsEnumTextFont.SERIF,
-  textFontWeight: QsEnumTextFontWeight.NORMAL,
-  textFontStyle: QsEnumTextFontStyle.ITALIC,
-  textFontSize: 5,
-  textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-  textAngle: 0,
-  textAlignmentBaseline: QsEnumAlignmentBaseline.MIDDLE,
-  textAnchor: QsEnumTextAnchor.START,
-  textStroke: 'black',
-  textFill: 'black',
-})`
+export const defaultsContent: JSX.Element = (
+  <ContentColumn
+    elements={[
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
+      <ContentBox>
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Defaults
+            </Typography>,
+            <Typography variant="body1">
+              In QS, unbound text elements offer flexible annotation
+              capabilities, allowing developers to place custom text anywhere on
+              a chart without tying it to data points or axes. Built-in via the
+              UnboundText element, it supports absolute positioning (x, y
+              coordinates), rotation, styling (font, color, size). Ideal for
+              labels, notes, headings etc.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This example demonstrates the default settings for unbound
+                    text in the QS charting library. A boundary is applied to
+                    the chart, making the margins around the data visible.
+                    Notably, the left margin is expanded to accommodate the
+                    text, ensuring proper placement and readability.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={data1} />
+                  <ContentCodeBox code={chart1} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <UnboundLegendChart
+                    canvasConfig={{
+                      chartName: 'chart1',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 10,
+                      marginLeft: 30,
+                      borderColor: 'black',
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
 
-const defaultsChartAll: string = `${canvasConfig}${defaultsChart}`
-const configChartAll: string = `${canvasConfig}${configChart}`
+        <ContentColumn
+          elements={[
+            <Typography key="title" variant="h4">
+              Using config and data to modify appearance
+            </Typography>,
+            <Typography variant="body1">
+              Styling unbound text enhances a chart's visual appeal by ensuring
+              readability and aesthetic harmony. Customizable fonts, colors,
+              sizes, and rotations allow text to complement the chart's design,
+              highlight key insights, and maintain a polished, professional
+              look, improving user engagement and clarity.
+            </Typography>,
+            <ContentRow
+              elements={[
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    This example showcases default settings for unbound text in
+                    the QS charting library. A boundary is applied, revealing
+                    chart margins, with the top margin expanded to fit the
+                    aesthetically styled text, ensuring proper placement and
+                    readability. Additional text demonstrates flexible
+                    placement, styled for visual impact.
+                  </Typography>
+                  <ContentCodeBox code={canvasConfig} />
+                  <ContentCodeBox code={config2} />
+                  <ContentCodeBox code={data2} />
+                  <ContentCodeBox code={chart2} />
+                </ContentTextBox>,
+                <ContentChartBox>
+                  <UnboundLegendChart
+                    canvasConfig={{
+                      chartName: 'chart2',
+                      width: 600,
+                      lowestViewableValue: 0,
+                      highestViewableValue: 10,
+                      marginTop: 20,
+                      borderColor: 'black',
+                    }}
+                    data={[
+                      { value: 'Red', fillColor: 'red' },
+                      { value: 'Blue', fillColor: 'blue' },
+                      { value: 'Green', fillColor: 'green' },
+                      { value: 'Purple', fillColor: 'purple' },
+                    ]}
+                    config={{
+                      x: 10,
+                      y: 50,
+                      height: 2,
+                      width: 10,
+                      verticalSpacing: 10,
+                      relativeTextX: 0,
+                      relativeTextY: 5,
+                      textFont: QsEnumTextFont.SERIF,
+                      textFontWeight: QsEnumTextFontWeight.NORMAL,
+                      textFontStyle: QsEnumTextFontStyle.ITALIC,
+                      textFontSize: 5,
+                      textDecorationLine: QsEnumTextDecorationLine.NORMAL,
+                      textAngle: 0,
+                      textAlignmentBaseline: QsEnumAlignmentBaseline.CENTRAL,
+                      textAnchor: QsEnumTextAnchor.START,
+                      textStroke: 'black',
+                      textFill: 'black',
+                    }}
+                  />
+                </ContentChartBox>,
+              ]}
+            />,
+          ]}
+        />
+      </ContentBox>,
+    ]}
+  />
+)
 
 const data: string = `interface QsTextData {
   value: number
@@ -119,112 +230,54 @@ const configExample: string = `const config: QsTextConfig = {
   defaultTextAlignmentBaseline: QsEnumAlignmentBaseline.CENTER,
 }`
 
-export const defaultsContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text generated with defaults</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={defaultsChartAll} />,
-              ]}
-            />,
-            <UnboundLegendDefaultsChart
-              canvasConfig={{
-                chartName: 'chartH',
-                width: 600,
-                lowestViewableValue: 0,
-                highestViewableValue: 35,
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
-export const configContent: JSX.Element = (
-  <ContentColumn
-    elements={[
-      <ContentTitle variant="h4">Text customised</ContentTitle>,
-      <ContentBox>
-        <Typography variant="body1">content</Typography>
-      </ContentBox>,
-
-      <ContentBox>
-        <ContentColumn
-          elements={[
-            <ContentRow
-              elements={[
-                <ContentTextBox>
-                  <Typography variant="body1">content</Typography>
-                  <Typography variant="body1">content</Typography>
-                </ContentTextBox>,
-                <ContentCodeBox code={configChartAll} />,
-              ]}
-            />,
-            <UnboundLegendChart
-              canvasConfig={{
-                chartName: 'chartV',
-                width: 1000,
-                lowestViewableValue: 0,
-                highestViewableValue: 35,
-                borderColor: 'black',
-              }}
-            />,
-          ]}
-        />
-      </ContentBox>,
-    ]}
-  />
-)
-
 export const configAndData: JSX.Element = (
   <ContentColumn
     elements={[
-      <ContentTitle variant="h4">QsTextData interface</ContentTitle>,
+      <ContentTitle key="title" variant="h3"></ContentTitle>,
       <ContentBox>
-        <ContentRow
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Data
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">Interface:</Typography>,
-                <ContentCodeBox code={data} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={dataExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={data} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={dataExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
         />
-      </ContentBox>,
-      <ContentTitle variant="h4">QsTextConfig interface</ContentTitle>,
-      <ContentBox>
-        <ContentRow
+
+        <ContentColumn
           elements={[
-            <ContentColumn
+            <Typography key="title" variant="h4">
+              Config
+            </Typography>,
+            <ContentRow
               elements={[
-                <Typography variant="body1">interface:</Typography>,
-                <ContentCodeBox code={config} />,
-              ]}
-            />,
-            <ContentColumn
-              elements={[
-                <Typography variant="body1">Example:</Typography>,
-                <ContentCodeBox code={configExample} />,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Interface
+                  </Typography>
+                  <ContentCodeBox code={config} />
+                </ContentTextBox>,
+                <ContentTextBox>
+                  <Typography variant="body2" gutterBottom>
+                    Example
+                  </Typography>
+                  <ContentCodeBox code={configExample} />
+                </ContentTextBox>,
               ]}
             />,
           ]}
@@ -244,6 +297,7 @@ const canvasConfig = {
   highestViewableValue: 35,
   borderColor: 'grey',
 }
-${configChart}`}
+${data1}
+${chart1}`}
   ></ChartEditor>
 )

@@ -1,28 +1,13 @@
 import { Box, Typography } from '@mui/material'
-
 import { useState } from 'react'
 import { ChartButtonGrid } from '../../../components/molecules/ChartButtonGrid'
-import { UnboundLegendDefaultsChart } from './UnboundLegendDefaultsChart'
 import { UnboundLegendChart } from './UnboundLegendChart'
 import { ConfigAndData } from '../../../components/atoms/chart/ConfigAndData'
 import { TryItYourSelf } from '../../../components/atoms/chart/TryItYourSelf'
-import {
-  configAndData,
-  editorContent,
-  defaultsContent,
-  configContent,
-} from './Content'
+import { configAndData, editorContent, defaultsContent } from './Content'
 
 export default function UnboundLegendPage() {
   const menuElements: JSX.Element[] = [
-    <UnboundLegendDefaultsChart
-      canvasConfig={{
-        chartName: 'legendElement',
-        width: 130,
-        lowestViewableValue: 0,
-        highestViewableValue: 250,
-      }}
-    />,
     <UnboundLegendChart
       canvasConfig={{
         chartName: 'charts',
@@ -37,7 +22,7 @@ export default function UnboundLegendPage() {
 
   const contents: JSX.Element[] = [
     defaultsContent,
-    configContent,
+
     configAndData,
     editorContent,
   ]

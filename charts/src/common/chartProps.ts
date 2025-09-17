@@ -194,7 +194,23 @@ export interface UnboundTextChartProps extends ChartPropsOrthogonal {
   data2?: QsUnboundTextData[]
 }
 
-export interface UnboundLegendChartProps extends ChartPropsOrthogonal {
+export interface UnboundLegendChartProps extends ChartPropsRadial {
   config?: QsLegendConfig
   data?: QsLegendData[]
+}
+
+export interface TriangleParams {
+  angle1?: number
+  angle2?: number
+  baseLength: number
+  rotationAngle: number
+  y2: number
+  x3: number
+  y3: number
+  corner1RadiusCx?: number
+  corner1RadiusCy?: number
+  corner2RadiusCx?: number
+  corner2RadiusCy?: number
+  corner3RadiusCx?: number
+  corner3RadiusCy?: number
 }

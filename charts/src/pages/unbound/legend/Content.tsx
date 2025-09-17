@@ -86,7 +86,7 @@ export const defaultsContent: JSX.Element = (
                       width: 600,
                       lowestViewableValue: 0,
                       highestViewableValue: 10,
-                      marginLeft: 30,
+                      marginLeft: 35,
                       borderColor: 'black',
                     }}
                   />
@@ -131,7 +131,7 @@ export const defaultsContent: JSX.Element = (
                       width: 600,
                       lowestViewableValue: 0,
                       highestViewableValue: 10,
-                      marginTop: 20,
+                      marginLeft: 35,
                       borderColor: 'black',
                     }}
                     data={[

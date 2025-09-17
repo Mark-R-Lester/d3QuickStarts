@@ -1,5 +1,9 @@
 import { FunctionComponent, useEffect } from 'react'
-import { QsCanvasOrthogonal, qsCreateCanvasOrthogonal } from 'd3qs/d3QuickStart'
+import {
+  QsCanvasRadial,
+  qsCreateCanvasRadial,
+  QsEnumColorScale,
+} from 'd3qs/d3QuickStart'
 import { UnboundLegendChartProps } from '../../../common/chartProps'
 
 export const UnboundLegendChart: FunctionComponent<UnboundLegendChartProps> = ({
@@ -14,8 +18,22 @@ export const UnboundLegendChart: FunctionComponent<UnboundLegendChartProps> = ({
 }) => {
   useEffect(() => {
     const createChart = () => {
-      const canvas: QsCanvasOrthogonal = qsCreateCanvasOrthogonal(canvasConfig)
+      const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
+      canvas.generate.arc.slice(
+        [
+          { valueArc: 10 },
+          { valueArc: 10 },
+          { valueArc: 10 },
+          { valueArc: 10 },
+        ],
+        {
+          fillColorScaleData: {
+            type: QsEnumColorScale.ORDINAL,
+            range: ['green', 'red', 'blue', 'purple'],
+          },
+        }
+      )
       canvas.generate.unbound.legend(data, config)
     }
     createChart()

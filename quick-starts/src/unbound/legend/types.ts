@@ -1,7 +1,10 @@
-import { ConfigTextDefaults } from '../../core/types/types'
+import { QsShape } from '../../core/customShapes/qsTypes'
+import {
+  ConfigStrokeDefaults,
+  ConfigTextDefaults,
+} from '../../core/types/types'
 
-export interface LegendConfig extends ConfigTextDefaults {
-  [key: string]: number | string | undefined
+export interface LegendConfig extends ConfigTextDefaults, ConfigStrokeDefaults {
   height: number
   width: number
   verticalSpacing: number
@@ -9,4 +12,7 @@ export interface LegendConfig extends ConfigTextDefaults {
   relativeTextY: number
   x: number
   y: number
+  defaultFillColor: string
+  defaultFillOpacity: number
+  shape: QsShape
 }

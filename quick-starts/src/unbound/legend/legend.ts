@@ -8,9 +8,20 @@ import {
 } from './qsTypes'
 import { legendConfig } from '../../core/config/configDefaults'
 import { addDefaultsToConfig } from '../../core/config/addDefaultsToConfig'
-import { Canvas } from '../../canvas/types'
+import { Canvas, CanvasConfig } from '../../canvas/types'
 import { generateClassName } from '../../core/generateClassName'
-import { QsEnumLayerType } from '../../core/enums/qsEnums'
+import { select, Selection } from 'd3'
+import { QsEnumShape } from '../../core/customShapes/qsEnums'
+import {
+  customRectangle,
+  RectangleConfig,
+} from '../../core/customShapes/rectangle/customRectangle'
+import {
+  customPolygon,
+  PolygonConfig,
+} from '../../core/customShapes/polygon/customPolygon'
+import { customStar, StarConfig } from '../../core/customShapes/star/customStar'
+import { Shape } from '../../core/customShapes/types'
 
 export const legend = (
   canvas: Canvas,
@@ -33,27 +44,75 @@ const draw = (canvas: Canvas, data: QsLegendData[], config: LegendConfig) => {
     config
   )
 
-  const { className, dotClassName } = generateClassName('unboundLegend')
+  const { className: classNameShape, dotClassName: dotClassNameShape } =
+    generateClassName('unboundLegendShape')
   const { className: classNameText, dotClassName: dotClassNameText } =
     generateClassName('unboundLegendText')
 
-  const { layer, layerActions } =
-    config.layerType === QsEnumLayerType.DATA
-      ? canvas.addDataLayer()
-      : canvas.addUnboundLayer()
-  const group = layer.append('g')
+  const { layer, layerActions } = canvas.addUnboundLayer()
+  const group: Selection<SVGGElement, CanvasConfig, HTMLElement, any> =
+    layer.append('g')
 
+  const drawShape = (shape: Shape): string => {
+    console.log(shape)
+    let res: string = ''
+    if (shape.type === QsEnumShape.RECTANGLE) {
+      res = customRectangle(shape.config as RectangleConfig)
+      console.log('customRectangle', res)
+    }
+    if (shape.type === QsEnumShape.POLYGON) {
+      res = customPolygon(shape.config as PolygonConfig)
+      console.log('customPolygon', res)
+    }
+    if (shape.type === QsEnumShape.STAR) {
+      res = customStar(shape.config as StarConfig)
+      console.log('customStar', res)
+    }
+    return res
+
+    throw new Error('Angles must be positive and sum to 180 degrees')
+  }
   group
-    .selectAll(dotClassName)
+    .selectAll(dotClassNameShape)
     .data(calculatedData)
     .enter()
-    .append('rect')
-    .attr('class', className)
-    .attr('x', (d) => d.x)
-    .attr('y', (d) => d.y)
-    .attr('width', (d) => d.width)
-    .attr('height', (d) => d.height)
+    .append('g')
+    .attr('class', classNameShape)
+    .each(function (d) {
+      const g = select(this)
+      if (d.shape.type === QsEnumShape.CIRCLE) {
+        g.append('circle')
+          .attr('cx', d.shape.config.x)
+          .attr('cy', d.shape.config.y)
+          .attr('r', d.shape.config.radius)
+          .attr('fill', d.fillColor)
+          .attr('fill-opacity', d.fillOpacity)
+          .attr('stroke', d.strokeColor)
+          .attr('stroke-opacity', d.strokeOpacity)
+          .attr('stroke-width', d.strokeWidth)
+      } else {
+        g.append('path')
+          .attr('d', drawShape(d.shape))
+          .attr('fill', d.fillColor || 'none')
+          .attr('fill-opacity', d.fillOpacity)
+          .attr('stroke', d.strokeColor || 'none')
+          .attr('stroke-opacity', d.strokeOpacity ?? 1)
+          .attr('stroke-width', d.strokeWidth ?? 1)
+      }
+    })
+
+  group
+    .selectAll(dotClassNameShape)
+    .data(calculatedData)
+    .enter()
+    .append('path')
+    .attr('class', classNameShape)
+    .attr('d', (d) => customRectangle(d.shape.config as RectangleConfig))
     .attr('fill', (d) => d.fillColor)
+    .attr('fill-opacity', (d) => d.fillOpacity)
+    .attr('stroke', (d) => d.strokeColor)
+    .attr('stroke-opacity', (d) => d.strokeOpacity)
+    .attr('stroke-width', (d) => d.strokeWidth)
 
   group
     .selectAll(dotClassNameText)
@@ -76,7 +135,7 @@ const draw = (canvas: Canvas, data: QsLegendData[], config: LegendConfig) => {
     .text((d) => d.value)
 
   return {
-    className,
+    classNameShape,
     classNameText,
     layerActions,
     calculatedData,

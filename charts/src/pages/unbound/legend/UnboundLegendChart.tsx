@@ -20,20 +20,20 @@ export const UnboundLegendChart: FunctionComponent<UnboundLegendChartProps> = ({
     const createChart = () => {
       const canvas: QsCanvasRadial = qsCreateCanvasRadial(canvasConfig)
 
-      canvas.generate.arc.slice(
-        [
-          { valueArc: 10 },
-          { valueArc: 10 },
-          { valueArc: 10 },
-          { valueArc: 10 },
-        ],
-        {
-          fillColorScaleData: {
-            type: QsEnumColorScale.ORDINAL,
-            range: ['green', 'red', 'blue', 'purple'],
-          },
-        }
-      )
+      // canvas.generate.arc.slice(
+      //   [
+      //     { valueArc: 10 },
+      //     { valueArc: 10 },
+      //     { valueArc: 10 },
+      //     { valueArc: 10 },
+      //   ],
+      //   {
+      //     fillColorScaleData: {
+      //       type: QsEnumColorScale.ORDINAL,
+      //       range: ['green', 'red', 'blue', 'purple'],
+      //     },
+      //   }
+      // )
       canvas.generate.unbound.legend(data, config)
     }
     createChart()

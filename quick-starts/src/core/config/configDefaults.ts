@@ -50,6 +50,7 @@ import { CentroidTextConfig } from '../../radialCentroid/radialCentroidText/type
 import { QsEnumCoordinateView } from '../../plots/plottedText/qsEnums'
 import { CanvasConfig } from '../../canvas/types'
 import { QsEnumArcTextAngularPosition } from '../../radialArc/radialArcText/qsEnums'
+import { QsEnumShape } from '../customShapes/qsEnums'
 
 const defaultFillColorArray: string[] = [
   'red',
@@ -119,6 +120,15 @@ export const legendConfig: LegendConfig = {
   x: 0,
   y: 3,
   ...textDefaults,
+  defaultFillColor: 'blue',
+  defaultFillOpacity: 1,
+  shape: {
+    type: QsEnumShape.RECTANGLE,
+    config: { height: 2, width: 6 },
+  },
+  defaultStrokeColor: '',
+  defaultStrokeWidth: 0,
+  defaultStrokeOpacity: 0,
 }
 
 export const orthogonalAreaConfig: AreaConfig = {

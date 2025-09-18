@@ -56,7 +56,6 @@ export const canvasConfig: QsCanvasConfig = {
 export const legendConfig: QsLegendConfig = {
   height: 2,
   width: 6,
-  space: 10,
   x: 0,
   y: 0,
   defaultTextFont: QsEnumTextFont.SERIF,

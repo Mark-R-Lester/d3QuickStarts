@@ -18,6 +18,7 @@ import {
   QsEnumTextFontStyle,
   QsEnumTextFontWeight,
 } from 'd3qs/d3QuickStart'
+import { QsEnumShape } from 'd3qs/core/customShapes/qsEnums'
 
 const canvasConfig: string = `const canvasConfig = {
   chartName: 'ChartEditable',
@@ -148,16 +149,24 @@ export const defaultsContent: JSX.Element = (
                       verticalSpacing: 10,
                       relativeTextX: 0,
                       relativeTextY: 5,
-                      textFont: QsEnumTextFont.SERIF,
-                      textFontWeight: QsEnumTextFontWeight.NORMAL,
-                      textFontStyle: QsEnumTextFontStyle.ITALIC,
-                      textFontSize: 5,
-                      textDecorationLine: QsEnumTextDecorationLine.NORMAL,
-                      textAngle: 0,
-                      textAlignmentBaseline: QsEnumAlignmentBaseline.CENTRAL,
-                      textAnchor: QsEnumTextAnchor.START,
-                      textStroke: 'black',
-                      textFill: 'black',
+                      defaultTextFont: QsEnumTextFont.SERIF,
+                      defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
+                      defaultTextFontStyle: QsEnumTextFontStyle.ITALIC,
+                      defaultTextFontSize: 5,
+                      defaultTextDecorationLine:
+                        QsEnumTextDecorationLine.NORMAL,
+                      defaultTextAngle: 0,
+                      defaultTextAlignmentBaseline:
+                        QsEnumAlignmentBaseline.CENTRAL,
+                      defaultTextAnchor: QsEnumTextAnchor.START,
+                      defaultTextStroke: 'black',
+                      defaultTextFill: 'black',
+                      shape: {
+                        type: QsEnumShape.CIRCLE,
+                        config: {
+                          radius: 3,
+                        },
+                      },
                     }}
                   />
                 </ContentChartBox>,

@@ -19,7 +19,6 @@ export const customRectangle = (params: RectangleConfig): string => {
     width,
     x,
     y,
-
     topRightCornerRadiusCx = 0,
     topRightCornerRadiusCy = 0,
     topLeftCornerRadiusCx = 0,
@@ -51,7 +50,7 @@ export const customRectangle = (params: RectangleConfig): string => {
   const addTopLeftCorner = (): string =>
     `L${x},${topLeftY} A${topLeftCornerRadiusCx},${topLeftCornerRadiusCy} 0 0 1 ${topLeftX},${y}`
 
-  return [
+  const result = [
     `M${topLeftX},${y}`,
     addTopRightCorner(),
     addBottomRightCorner(),
@@ -59,4 +58,8 @@ export const customRectangle = (params: RectangleConfig): string => {
     addTopLeftCorner(),
     'Z',
   ].join(' ')
+
+  console.log('result', result)
+
+  return result
 }

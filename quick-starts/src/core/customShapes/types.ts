@@ -10,7 +10,7 @@ export interface CircleConfig {
 }
 
 export type Shape =
-  | { shape: QsEnumShape.STAR; config: StarConfig }
-  | { shape: QsEnumShape.POLYGON; config: PolygonConfig }
-  | { shape: QsEnumShape.CIRCLE; config: CircleConfig }
-  | { shape: QsEnumShape.RECTANGLE; config: RectangleConfig }
+  | { type: QsEnumShape.STAR; config: StarConfig }
+  | { type: QsEnumShape.POLYGON; config: PolygonConfig }
+  | { type: QsEnumShape.CIRCLE; config: CircleConfig }
+  | { type: QsEnumShape.RECTANGLE; config: RectangleConfig }

@@ -44,7 +44,7 @@ export interface QsRectangleConfig {
 }
 
 export type QsShape =
-  | { shape: QsEnumShape.STAR; config: QsStarConfig }
-  | { shape: QsEnumShape.POLYGON; config: QsPolygonConfig }
-  | { shape: QsEnumShape.CIRCLE; config: QsCircleConfig }
-  | { shape: QsEnumShape.RECTANGLE; config: QsRectangleConfig }
+  | { type: QsEnumShape.STAR; config: QsStarConfig }
+  | { type: QsEnumShape.POLYGON; config: QsPolygonConfig }
+  | { type: QsEnumShape.CIRCLE; config: QsCircleConfig }
+  | { type: QsEnumShape.RECTANGLE; config: QsRectangleConfig }

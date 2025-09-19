@@ -1,16 +1,11 @@
 import { LegendConfig } from './types'
 import { QsCalculatedDataUnboundLegend, QsLegendData } from './qsTypes'
 import { Canvas } from '../../canvas/types'
-import { Shape } from '../../core/customShapes/types'
+import { CircleConfig, Shape } from '../../core/customShapes/types'
 import { QsEnumShape } from '../../core/customShapes/qsEnums'
-import {
-  QsStarConfig,
-  QsPolygonConfig,
-  QsCircleConfig,
-  QsRectangleConfig,
-  QsShape,
-} from '../../core/customShapes/qsTypes'
 import { StarConfig } from '../../core/customShapes/star/customStar'
+import { RectangleConfig } from '../../core/customShapes/rectangle/customRectangle'
+import { PolygonConfig } from '../../core/customShapes/polygon/customPolygon'
 
 export const getCalculatedData = (
   canvas: Canvas,
@@ -49,11 +44,9 @@ export const getCalculatedData = (
   } = config
 
   const invertIndex = (data: any[], index: number) => data.length - (index + 1)
-  console.log(x)
-  console.log(xCanvasPercentScale(x))
 
   const updateShapeConfig = (type: QsEnumShape, config: unknown): unknown => {
-    const updateStarConfig = (config: QsStarConfig): StarConfig =>
+    const updateStarConfig = (config: StarConfig): StarConfig =>
       ({
         ...config,
         outerRadius: genralPercentScale(config.outerRadius),
@@ -62,24 +55,25 @@ export const getCalculatedData = (
           : config.innerRadius,
       }) as StarConfig
 
-    const updatePolygonConfig = (config: QsPolygonConfig): QsPolygonConfig => ({
+    const updatePolygonConfig = (config: PolygonConfig): PolygonConfig => ({
       ...config,
       radius: genralPercentScale(config.radius),
     })
-    const updateCircleConfig = (config: QsCircleConfig): QsCircleConfig => ({
+    const updateCircleConfig = (config: CircleConfig): CircleConfig => ({
       ...config,
       radius: genralPercentScale(config.radius),
     })
     const updateRectangleConfig = (
-      config: QsRectangleConfig
-    ): QsRectangleConfig => ({
+      config: RectangleConfig
+    ): RectangleConfig => ({
       ...config,
       width: genralPercentScale(config.width),
       height: genralPercentScale(config.height),
+      y: config.y - genralPercentScale(config.height) / 2,
     })
 
     const updateMap: {
-      [K in QsEnumShape]: (config: any) => any
+      [Key in QsEnumShape]: (config: any) => any
     } = {
       [QsEnumShape.STAR]: updateStarConfig,
       [QsEnumShape.POLYGON]: updatePolygonConfig,
@@ -139,6 +133,5 @@ export const getCalculatedData = (
       } as Shape,
     }
   })
-  console.log(calculatedData)
   return calculatedData
 }

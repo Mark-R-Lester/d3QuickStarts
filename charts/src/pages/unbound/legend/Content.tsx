@@ -90,6 +90,55 @@ export const defaultsContent: JSX.Element = (
                       marginLeft: 35,
                       borderColor: 'black',
                     }}
+                    config={{
+                      x: 2,
+                      y: 10,
+                      height: 3,
+                      width: 3,
+                      verticalSpacing: 5,
+                      relativeTextX: 6,
+                      relativeTextY: 1,
+                      defaultTextFont: QsEnumTextFont.SERIF,
+                      defaultTextFontWeight: QsEnumTextFontWeight.NORMAL,
+                      defaultTextFontStyle: QsEnumTextFontStyle.NORMAL,
+                      defaultTextFontSize: 5,
+                      defaultTextDecorationLine:
+                        QsEnumTextDecorationLine.NORMAL,
+                      defaultTextAngle: 0,
+                      defaultTextAlignmentBaseline:
+                        QsEnumAlignmentBaseline.CENTRAL,
+                      defaultTextAnchor: QsEnumTextAnchor.START,
+                      defaultTextFill: 'black',
+                      shape: {
+                        type: QsEnumShape.RECTANGLE,
+                        config: {
+                          height: 5,
+                          width: 5,
+                        },
+                      },
+                      // shape: {
+                      //   type: QsEnumShape.CIRCLE,
+                      //   config: {
+                      //     radius: 3,
+                      //   },
+                      // },
+                      // shape: {
+                      //   type: QsEnumShape.POLYGON,
+                      //   config: {
+                      //     sides: 6,
+                      //     radius: 3,
+                      //   },
+                      // },
+                      // shape: {
+                      //   type: QsEnumShape.STAR,
+                      //   config: {
+                      //     points: 6,
+                      //     outerRadius: 3,
+                      //     innerRadius: 1.5,
+                      //     heightAnchor: QsHeightAnchor.MIDDLE,
+                      //   },
+                      // },
+                    }}
                   />
                 </ContentChartBox>,
               ]}

@@ -49,29 +49,20 @@ const draw = (canvas: Canvas, data: QsLegendData[], config: LegendConfig) => {
   const { className: classNameText, dotClassName: dotClassNameText } =
     generateClassName('unboundLegendText')
 
+  const drawShape = (shape: Shape): string => {
+    if (shape.type === QsEnumShape.RECTANGLE)
+      return customRectangle(shape.config as RectangleConfig)
+    if (shape.type === QsEnumShape.POLYGON)
+      return customPolygon(shape.config as PolygonConfig)
+    if (shape.type === QsEnumShape.STAR)
+      return customStar(shape.config as StarConfig)
+    throw new Error('Angles must be positive and sum to 180 degrees')
+  }
+
   const { layer, layerActions } = canvas.addUnboundLayer()
   const group: Selection<SVGGElement, CanvasConfig, HTMLElement, any> =
     layer.append('g')
 
-  const drawShape = (shape: Shape): string => {
-    console.log(shape)
-    let res: string = ''
-    if (shape.type === QsEnumShape.RECTANGLE) {
-      res = customRectangle(shape.config as RectangleConfig)
-      console.log('customRectangle', res)
-    }
-    if (shape.type === QsEnumShape.POLYGON) {
-      res = customPolygon(shape.config as PolygonConfig)
-      console.log('customPolygon', res)
-    }
-    if (shape.type === QsEnumShape.STAR) {
-      res = customStar(shape.config as StarConfig)
-      console.log('customStar', res)
-    }
-    return res
-
-    throw new Error('Angles must be positive and sum to 180 degrees')
-  }
   group
     .selectAll(dotClassNameShape)
     .data(calculatedData)
@@ -100,19 +91,6 @@ const draw = (canvas: Canvas, data: QsLegendData[], config: LegendConfig) => {
           .attr('stroke-width', d.strokeWidth ?? 1)
       }
     })
-
-  group
-    .selectAll(dotClassNameShape)
-    .data(calculatedData)
-    .enter()
-    .append('path')
-    .attr('class', classNameShape)
-    .attr('d', (d) => customRectangle(d.shape.config as RectangleConfig))
-    .attr('fill', (d) => d.fillColor)
-    .attr('fill-opacity', (d) => d.fillOpacity)
-    .attr('stroke', (d) => d.strokeColor)
-    .attr('stroke-opacity', (d) => d.strokeOpacity)
-    .attr('stroke-width', (d) => d.strokeWidth)
 
   group
     .selectAll(dotClassNameText)
